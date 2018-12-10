@@ -28,7 +28,7 @@ using System.Data.Common;
 using System.IO;
 using LanguageControl;
 
- 
+
 namespace DBConnectionControl40
 {
     [ToolboxItem(true)]
@@ -59,14 +59,14 @@ namespace DBConnectionControl40
 
         public eStartPositionOfTestConnectionForm StartPositionOfTestConnectionForm
         {
-            get {return m_eStartPositionOfTestConnectionForm;}
+            get { return m_eStartPositionOfTestConnectionForm; }
             set { m_eStartPositionOfTestConnectionForm = value; }
         }
 
         #region PUBLIC CONSTRUCTORS
 
         public object DB_Param = null; // this object can be of type RemoteDB_data or  LocalDB_data
-        
+
         public DBConnectionControl_Settings.Settings_LocalDB.eType Settings_LocalDB_eType
         {
             get
@@ -161,7 +161,7 @@ namespace DBConnectionControl40
             container.Add(this);
 
             InitializeComponent();
-            m_con_SQLite = new ConnectionSQLITE(); 
+            m_con_SQLite = new ConnectionSQLITE();
             m_con_MYSQL = new ConnectionMYSQL();
             try
             {
@@ -170,19 +170,19 @@ namespace DBConnectionControl40
             catch (Exception ex)
             {
                 MessageBox.Show("eXCEPTION = " + ex.Message);
-                MessageBox.Show("eXCEPTION = " + ex.Message +"\r\nINNER:"+ ex.InnerException.Message);
+                MessageBox.Show("eXCEPTION = " + ex.Message + "\r\nINNER:" + ex.InnerException.Message);
                 string inner_ex = ex.Message;
                 Exception eix = ex.InnerException;
 
-                while(eix!=null)
+                while (eix != null)
                 {
-                    if (eix.Message!=null)
+                    if (eix.Message != null)
                     {
-                        inner_ex += "\r\n inner->" + eix.Message+ "\r\n";
+                        inner_ex += "\r\n inner->" + eix.Message + "\r\n";
                     }
                     eix = eix.InnerException;
                 }
-                LogFile.Error.Show("Exception = " + ex.Message + "\r\nInner Exception = " + inner_ex); 
+                LogFile.Error.Show("Exception = " + ex.Message + "\r\nInner Exception = " + inner_ex);
             }
 
         }
@@ -195,13 +195,12 @@ namespace DBConnectionControl40
 
         private const string const_MSSQL_ALTER_ANY_DATABASE = "ALTER ANY DATABASE";
 
-        private ConnectionDialog ConnectionDialog = null;
+
 
         private string m_LogTableName;
         private int m_CommandTimeout = 20000;
 
 
-        private conData_MYSQL m_conData_MYSQL = null;
 
         private eDBType m_DBType = eDBType.SQLITE;
 
@@ -216,8 +215,8 @@ namespace DBConnectionControl40
 
         #region PUBLIC ENUMS
 
-        public enum  eDBType:int  { MSSQL, MYSQL, SQLITE };
-        public enum ConnectResult_ENUM { OK, OK_SAVE, CANCELED,CONNECTION_DIALOGE_SHOWED,SHOW_CONNECTION_DIALOG_AGAIN };
+        public enum eDBType : int { MSSQL, MYSQL, SQLITE };
+        public enum ConnectResult_ENUM { OK, OK_SAVE, CANCELED, CONNECTION_DIALOGE_SHOWED, SHOW_CONNECTION_DIALOG_AGAIN };
 
         #endregion PUBLIC ENUMS
 
@@ -225,12 +224,27 @@ namespace DBConnectionControl40
 
         public bool SessionConnected
         {
-            get { return m_bSessionConnected; }
+            get
+            {
+                switch (m_DBType)
+                {
+                    case eDBType.MSSQL:
+                        return m_con_MSSQL.SessionConnected;
+                    case eDBType.MYSQL:
+                        return m_con_MYSQL.SessionConnected;
+                    case eDBType.SQLITE:
+                        return m_con_SQLite.SessionConnected;
+                    default:
+                        return false;
+                }
+            }
         }
+
 
         public bool BatchOpen
         {
-            get {
+            get
+            {
                 switch (m_DBType)
                 {
                     case eDBType.MSSQL:
@@ -243,8 +257,9 @@ namespace DBConnectionControl40
                         return false;
                 }
             }
-                
-            set {
+
+            set
+            {
 
                 switch (m_DBType)
                 {
@@ -261,50 +276,7 @@ namespace DBConnectionControl40
             }
         }
 
-        public enum eSQLITEFileExist { OK,NOT_EXISTS,CONNECTION_FILE_NOT_DEFINED};
 
-        internal eSQLITEFileExist SQLITEFileExist(ref string sqlitefile)
-        {
-            if (m_conData_SQLITE != null)
-            {
-                sqlitefile = m_conData_SQLITE.DataBaseFile;
-                if (File.Exists(sqlitefile))
-                {
-                    return eSQLITEFileExist.OK;
-                }
-                else
-                {
-                    return eSQLITEFileExist.NOT_EXISTS;
-                }
-            }
-            else
-            {
-                return eSQLITEFileExist.CONNECTION_FILE_NOT_DEFINED;
-            }
-        }
-
-        public bool SQLite_AllwaysCreateNew
-        {
-            get
-            {
-                if (m_conData_SQLITE != null)
-                {
-                    return m_conData_SQLITE.SQLite_AllwaysCreateNew;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-
-            set
-            {
-                if (m_conData_SQLITE != null)
-                {
-                    m_conData_SQLITE.SQLite_AllwaysCreateNew = value;
-                }
-            }
-        }
         public string RecentItemsFolder
         {
             get { return m_RecentItemsFolder; }
@@ -334,20 +306,17 @@ namespace DBConnectionControl40
                     // set other type;
                     m_DBType = value;
 
-                    m_conData_MSSQL = null;
-                    m_conData_MYSQL = null;
-                    m_conData_MYSQL = null;
 
                     switch (m_DBType)
                     {
                         case eDBType.MSSQL:
-                            m_conData_MSSQL = new conData_MSSQL();
+                            m_con_MSSQL.m_conData_MSSQL = new conData_MSSQL();
                             break;
                         case eDBType.MYSQL:
-                            m_conData_MYSQL = new conData_MYSQL();
+                            m_con_MYSQL.m_conData_MYSQL = new conData_MYSQL();
                             break;
                         case eDBType.SQLITE:
-                            m_conData_SQLITE = new conData_SQLITE();
+                            m_con_SQLite.m_conData_SQLITE = new conData_SQLITE();
                             break;
                     }
                 }
@@ -356,21 +325,21 @@ namespace DBConnectionControl40
                     switch (m_DBType)
                     {
                         case eDBType.MSSQL:
-                            if (m_conData_MSSQL == null)
+                            if (m_con_MSSQL.m_conData_MSSQL == null)
                             {
-                                m_conData_MSSQL = new conData_MSSQL();
+                                m_con_MSSQL.m_conData_MSSQL = new conData_MSSQL();
                             }
                             break;
                         case eDBType.MYSQL:
-                            if (m_conData_MYSQL == null)
+                            if (m_con_MYSQL.m_conData_MYSQL == null)
                             {
-                                m_conData_MYSQL = new conData_MYSQL();
+                                m_con_MYSQL.m_conData_MYSQL = new conData_MYSQL();
                             }
                             break;
                         case eDBType.SQLITE:
-                            if (m_conData_SQLITE == null)
+                            if (m_con_SQLite.m_conData_SQLITE == null)
                             {
-                                m_conData_SQLITE = new conData_SQLITE();
+                                m_con_SQLite.m_conData_SQLITE = new conData_SQLITE();
                             }
                             break;
                     }
@@ -404,43 +373,43 @@ namespace DBConnectionControl40
         }
 
 
-        public bool WindowsAuthentication 
-                    {
-                        get
-                        {
-                            switch (m_DBType)
-                            {
-                                case eDBType.MSSQL:
-                                    return m_conData_MSSQL.m_bWindowsAuthentication;
+        public bool WindowsAuthentication
+        {
+            get
+            {
+                switch (m_DBType)
+                {
+                    case eDBType.MSSQL:
+                        return m_con_MSSQL.m_conData_MSSQL.m_bWindowsAuthentication;
 
-                                case eDBType.MYSQL:
-                                    return false;
+                    case eDBType.MYSQL:
+                        return false;
 
-                                case eDBType.SQLITE:
-                                    return false;
+                    case eDBType.SQLITE:
+                        return false;
 
-                            }
-                            return false;
-                        }
-                        set
-                        {
-                            switch (m_DBType)
-                            {
-                                case eDBType.MSSQL:
-                                    m_conData_MSSQL.m_bWindowsAuthentication = value;
-                                    break;
-                                case eDBType.MYSQL:
-                                    MessageBox.Show("Error setting property WindowsAuthentication in module DBConnection. MYSQL server does not support Windows Authentication");
-                                    break;
+                }
+                return false;
+            }
+            set
+            {
+                switch (m_DBType)
+                {
+                    case eDBType.MSSQL:
+                        m_con_MSSQL.m_conData_MSSQL.m_bWindowsAuthentication = value;
+                        break;
+                    case eDBType.MYSQL:
+                        MessageBox.Show("Error setting property WindowsAuthentication in module DBConnection. MYSQL server does not support Windows Authentication");
+                        break;
 
-                                case eDBType.SQLITE:
-                                    MessageBox.Show("Error setting property WindowsAuthentication in module DBConnection. SQLite database does not support Windows Authentication");
-                                    break;
+                    case eDBType.SQLITE:
+                        MessageBox.Show("Error setting property WindowsAuthentication in module DBConnection. SQLite database does not support Windows Authentication");
+                        break;
 
-                            }
-                            return;
-                        }
-                    }
+                }
+                return;
+            }
+        }
 
         public string WindowsAuthentication_UserName
         {
@@ -449,7 +418,7 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MSSQL:
-                        return m_conData_MSSQL.m_WindowsAuthentication_UserName;
+                        return m_con_MSSQL.m_conData_MSSQL.m_WindowsAuthentication_UserName;
 
                     case eDBType.MYSQL:
                         return "";
@@ -469,13 +438,13 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MSSQL:
-                        return m_conData_MSSQL.GetServerConnectionString();
+                        return m_con_MSSQL.m_conData_MSSQL.GetServerConnectionString();
 
                     case eDBType.MYSQL:
-                        return m_conData_MYSQL.GetServerConnectionString();
+                        return m_con_MYSQL.m_conData_MYSQL.GetServerConnectionString();
 
                     case eDBType.SQLITE:
-                        return m_conData_SQLITE.GetConnectionString();
+                        return m_con_SQLite.m_conData_SQLITE.GetConnectionString();
 
                 }
                 return "";
@@ -495,14 +464,14 @@ namespace DBConnectionControl40
                         return null;
 
                     case eDBType.SQLITE:
-                        int i = m_conData_SQLITE.DataBaseFile.LastIndexOf('\\');
+                        int i = m_con_SQLite.m_conData_SQLITE.DataBaseFile.LastIndexOf('\\');
                         if (i > 0)
                         {
-                            return m_conData_SQLITE.DataBaseFile.Substring(i+1);
+                            return m_con_SQLite.m_conData_SQLITE.DataBaseFile.Substring(i + 1);
                         }
                         else
                         {
-                            return m_conData_SQLITE.DataBaseFile;
+                            return m_con_SQLite.m_conData_SQLITE.DataBaseFile;
                         }
 
                 }
@@ -521,13 +490,13 @@ namespace DBConnectionControl40
                         break;
 
                     case eDBType.SQLITE:
-                        m_conData_SQLITE.DataBaseFile = value;
+                        m_con_SQLite.m_conData_SQLITE.DataBaseFile = value;
                         break;
 
                 }
             }
         }
-        
+
         public string SQLiteDataBaseFile
         {
             get
@@ -541,7 +510,7 @@ namespace DBConnectionControl40
                         return null;
 
                     case eDBType.SQLITE:
-                        return m_conData_SQLITE.DataBaseFile;
+                        return m_con_SQLite.SQLiteDataBaseFile;
 
                 }
                 return null;
@@ -559,7 +528,7 @@ namespace DBConnectionControl40
                         break;
 
                     case eDBType.SQLITE:
-                        m_conData_SQLITE.DataBaseFile = value;
+                        m_con_SQLite.SQLiteDataBaseFile = value;
                         break;
 
                 }
@@ -581,7 +550,7 @@ namespace DBConnectionControl40
                         return DateTime.MinValue;
 
                     case eDBType.SQLITE:
-                        return m_conData_SQLITE.DataBaseFileCreationTime;
+                        return m_con_SQLite.SQLiteDataBaseFileCreationTime;
                 }
                 return DateTime.MinValue;
             }
@@ -594,14 +563,14 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MSSQL:
-                        return m_conData_MSSQL.m_strDataBaseFilePath;
+                        return m_con_MSSQL.DataBaseFilePath;
 
                     case eDBType.MYSQL:
                         LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_RUN_RELEASE, "Error: Property:DataBaseFilePath is not supported for eDBType.MYSQL!");
-                        return null; 
+                        return null;
 
                     case eDBType.SQLITE:
-                        return m_conData_SQLITE.DataBaseFilePath;
+                        return m_con_SQLite.DataBaseFilePath;
 
                 }
                 return null;
@@ -611,7 +580,7 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MSSQL:
-                        m_conData_MSSQL.m_strDataBaseFilePath = value;
+                        m_con_MSSQL.DataBaseFilePath = value;
                         break;
 
                     case eDBType.MYSQL:
@@ -619,7 +588,7 @@ namespace DBConnectionControl40
                         break;
 
                     case eDBType.SQLITE:
-                        m_conData_SQLITE.DataBaseFile = value;
+                        m_con_SQLite.DataBaseFilePath = value;
                         break;
 
                 }
@@ -627,14 +596,14 @@ namespace DBConnectionControl40
             }
         }
 
-        public string DataBaseLogFilePath 
+        public string DataBaseLogFilePath
         {
             get
             {
                 switch (m_DBType)
                 {
                     case eDBType.MSSQL:
-                        return m_conData_MSSQL.m_strDataBaseLogFilePath;
+                        return m_con_MSSQL.DataBaseLogFilePath;
 
                     case eDBType.MYSQL:
                         return null;
@@ -650,15 +619,15 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MSSQL:
-                        m_conData_MSSQL.m_strDataBaseLogFilePath = value;
+                        m_con_MSSQL.DataBaseLogFilePath = value;
                         break;
 
                     case eDBType.MYSQL:
-                        MessageBox.Show("Error setting property DataBaseLogFilePath in module DBConnection. MYSQL server does not support DataBaseLogFilePath definition");
+                        LogFile.Error.Show("Error setting property DataBaseLogFilePath in module DBConnection. MYSQL server does not support DataBaseLogFilePath definition");
                         break;
 
                     case eDBType.SQLITE:
-                        MessageBox.Show("Error setting property DataBaseLogFilePath in module DBConnection. SQLite does not support DataBaseLogFilePath definition");
+                        LogFile.Error.Show("Error setting property DataBaseLogFilePath in module DBConnection. SQLite does not support DataBaseLogFilePath definition");
                         break;
 
                 }
@@ -671,7 +640,45 @@ namespace DBConnectionControl40
 
         #region PUBLIC MEMBER FUNCTIONS
 
-        public bool SQLiteTableInfo(ref DataTable tables,ref DataTable columns, ref string csError)
+        public bool SessionConnect(ref string err)
+        {
+            switch (m_DBType)
+            {
+                case eDBType.MSSQL:
+                   return m_con_MSSQL.SessionConnect(ref err);
+
+                case eDBType.MYSQL:
+                    return m_con_MYSQL.SessionConnect(ref err);
+
+                case eDBType.SQLITE:
+                    return m_con_SQLite.SessionConnect(ref err);
+                default:
+                    LogFile.Error.Show("ERROR:DBConnectionControl40:DBConnection:SessionConnect:m_DBType not implemented for m_DBType = " + m_DBType.ToString());
+                    return false;
+
+            }
+        }
+
+        public bool SessionDisconnect()
+        {
+            switch (m_DBType)
+            {
+                case eDBType.MSSQL:
+                    return m_con_MSSQL.SessionDisconnect();
+
+                case eDBType.MYSQL:
+                    return m_con_MYSQL.SessionDisconnect();
+
+                case eDBType.SQLITE:
+                    return m_con_SQLite.SessionDisconnect();
+                default:
+                    LogFile.Error.Show("ERROR:DBConnectionControl40:DBConnection:SessionDisconnect:m_DBType not implemented for m_DBType = " + m_DBType.ToString());
+                    return false;
+            }
+        }
+
+
+        public bool SQLiteTableInfo(ref DataTable tables, ref DataTable columns, ref string csError)
         {
             try
             {
@@ -712,7 +719,7 @@ namespace DBConnectionControl40
             {
                 if (m_DBType == eDBType.SQLITE)
                 {
-                    if (File.Exists(m_conData_SQLITE.DataBaseFile))
+                    if (File.Exists(m_con_SQLite.SQLiteDataBaseFile))
                     {
                         TestConnectionForm tConForm = new TestConnectionForm(pParentForm, this, true, false, sTitle);
                         if (tConForm.ShowDialog() == DialogResult.OK)
@@ -752,7 +759,7 @@ namespace DBConnectionControl40
             }
         }
 
-        public bool Startup_03_Show_TestConnectionForm(Form pParentForm,NavigationButtons.Navigation xnav)
+        public bool Startup_03_Show_TestConnectionForm(Form pParentForm, NavigationButtons.Navigation xnav)
         {
             //xnav.ShowForm(new TestConnectionForm(pParentForm, this, true, true, lng.s_TestConnection.s),typeof(TestConnectionForm).ToString());
             TestConnectionForm tconform = new TestConnectionForm(pParentForm, this, true, true, lng.s_TestConnection.s);
@@ -766,7 +773,7 @@ namespace DBConnectionControl40
             {
                 if (m_DBType == eDBType.SQLITE)
                 {
-                    if (File.Exists(m_conData_SQLITE.DataBaseFile))
+                    if (File.Exists(m_con_SQLite.SQLiteDataBaseFile))
                     {
                         TestConnectionForm tConForm = new TestConnectionForm(pParentForm, this, true, true, sTitle);
                         if (pParentForm != null)
@@ -777,7 +784,7 @@ namespace DBConnectionControl40
                         {
                             tConForm.Dispose();
                             string Err = null;
-                            if (SessionConnect(ref Err))
+                            if (m_con_SQLite.SessionConnect(ref Err))
                             {
                                 return true;
                             }
@@ -831,7 +838,7 @@ namespace DBConnectionControl40
             string s_BackupFileName = null;
             s_BackupFileName = LocalDB_FileName + "_" + time_now.Year.ToString() + "-" + time_now.Month.ToString() + "-" + time_now.Day.ToString() + "_" + time_now.Hour.ToString() + "h" + time_now.Minute.ToString() + "m" + time_now.Second.ToString() + "s";
             string sVerN = "";
-            string sVerFile = s_BackupFileName +sVerN;
+            string sVerFile = s_BackupFileName + sVerN;
             int i = 1;
             while (File.Exists(sVerFile))
             {
@@ -864,7 +871,7 @@ namespace DBConnectionControl40
         {
             if (DataSource.Length > 0)
             {
-               return true;
+                return true;
             }
             return false;
         }
@@ -913,7 +920,7 @@ namespace DBConnectionControl40
                 }
                 else if (DB_Param.GetType() == typeof(LocalDB_data))
                 {
-                    LocalDB_data xLocalDB_data =(LocalDB_data)DB_Param;
+                    LocalDB_data xLocalDB_data = (LocalDB_data)DB_Param;
                     sConnectionToDBase = xLocalDB_data.ConnectionName;
                 }
                 else
@@ -944,7 +951,7 @@ namespace DBConnectionControl40
                                     remote_DB_Param.crypted_Password = PasswordCrypted;
                                     remote_DB_Param.strDataBaseFilePath = DataBaseFilePath;
                                     remote_DB_Param.strDataBaseFilePath = DataBaseLogFilePath;
-                                    
+
                                 }
                                 break;
 
@@ -971,11 +978,11 @@ namespace DBConnectionControl40
                                 LocalDB_data local_DB_Param = (LocalDB_data)DB_Param;
                                 local_DB_Param.bChanged = true;
                                 local_DB_Param.bNewDatabase = bxNewDatabase;
-                                local_DB_Param.DataBaseFileName = m_conData_SQLITE.DataBaseFileName;
-                                local_DB_Param.DataBaseFilePath = m_conData_SQLITE.DataBaseFilePath;
+                                local_DB_Param.DataBaseFileName = m_con_SQLite.DataBaseFileName;
+                                local_DB_Param.DataBaseFilePath = m_con_SQLite.DataBaseFilePath;
                                 break;
                         }
-                       // DB_Param = DB_Param;
+                        // DB_Param = DB_Param;
                         return true;
 
                     case DBConnection.ConnectResult_ENUM.CANCELED:
@@ -1000,7 +1007,7 @@ namespace DBConnectionControl40
             {
                 DBConnection.ConnectResult_ENUM dRes;
                 nav.eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
-                dRes = do_ConnectionDialog(this.ConnectionName, ref bxNewDatabase, nav, ref bCanceled,myConnectionName);
+                dRes = do_ConnectionDialog(this.ConnectionName, ref bxNewDatabase, nav, ref bCanceled, myConnectionName);
                 switch (dRes)
                 {
                     case DBConnection.ConnectResult_ENUM.CONNECTION_DIALOGE_SHOWED:
@@ -1044,8 +1051,8 @@ namespace DBConnectionControl40
                                 LocalDB_data local_DB_Param = (LocalDB_data)xDB_Param;
                                 local_DB_Param.bChanged = true;
                                 local_DB_Param.bNewDatabase = bxNewDatabase;
-                                local_DB_Param.DataBaseFileName = m_conData_SQLITE.DataBaseFileName;
-                                local_DB_Param.DataBaseFilePath = m_conData_SQLITE.DataBaseFilePath;
+                                local_DB_Param.DataBaseFileName = m_con_SQLite.DataBaseFileName;
+                                local_DB_Param.DataBaseFilePath = m_con_SQLite.DataBaseFilePath;
                                 break;
                         }
 
@@ -1060,16 +1067,16 @@ namespace DBConnectionControl40
 
         }
 
-        public bool MakeDataBaseConnection(Form pParentForm, Object xDB_Param,NavigationButtons.Navigation nav, ref bool bCanceled)
+        public bool MakeDataBaseConnection(Form pParentForm, Object xDB_Param, NavigationButtons.Navigation nav, ref bool bCanceled)
         {
             SetConnectionData(xDB_Param);
             if (DBType == eDBType.SQLITE)
             {
-                if (SQLite_AllwaysCreateNew)
+                if (m_con_SQLite.SQLite_AllwaysCreateNew)
                 {
-                    if (File.Exists(m_conData_SQLITE.DataBaseFile))
+                    if (File.Exists(m_con_SQLite.DataBaseFile))
                     {
-                        if (!RenameFile_ToDateTimeVersion(m_conData_SQLITE.DataBaseFile))
+                        if (!RenameFile_ToDateTimeVersion(m_con_SQLite.DataBaseFile))
                         {
                             return false;
                         }
@@ -1101,11 +1108,11 @@ namespace DBConnectionControl40
             //SetConnectionData(xDB_Param);
             if (DBType == eDBType.SQLITE)
             {
-                if (SQLite_AllwaysCreateNew)
+                if (m_con_SQLite.SQLite_AllwaysCreateNew)
                 {
-                    if (File.Exists(m_conData_SQLITE.DataBaseFile))
+                    if (File.Exists(m_con_SQLite.DataBaseFile))
                     {
-                        if (!RenameFile_ToDateTimeVersion(m_conData_SQLITE.DataBaseFile))
+                        if (!RenameFile_ToDateTimeVersion(m_con_SQLite.DataBaseFile))
                         {
                             return false;
                         }
@@ -1132,18 +1139,12 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                        m_con_MYSQL.ConnectionString = m_conData_MYSQL.GetServerConnectionString();
-                        m_con_MYSQL.Open();
-                        return true;
+                        return m_con_MYSQL.CheckConnectionToServerOnly();
                     case eDBType.MSSQL:
-                        m_con_MSSQL.ConnectionString = m_conData_MSSQL.GetServerConnectionString();
-                        m_con_MSSQL.Open();
-                        return true;
+                        return m_con_MSSQL.CheckConnectionToServerOnly();
 
                     case eDBType.SQLITE:
-                        m_con_SQLite.ConnectionString = m_conData_SQLITE.DataBaseFile;
-                        m_con_SQLite.Open();
-                        return true;
+                        return m_con_SQLite.CheckConnectionToServerOnly();
 
                     default:
                         MessageBox.Show("Uknonwn eSQLType in function public bool CheckConnectionToServerOnly()");
@@ -1155,7 +1156,7 @@ namespace DBConnectionControl40
                 //sError = SetConnectionError() + "\n" + ex.Message;
                 //if (dbg.bON) dbg.Print(sError);
                 //Log.Write(1, sError);
-                LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_RUN_RELEASE,"Error:CheckConnectionToServerOnly: Exception = "+ex.Message);
+                LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_RUN_RELEASE, "Error:CheckConnectionToServerOnly: Exception = " + ex.Message);
                 return false;
             }
         }
@@ -1168,14 +1169,11 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                        m_con_MYSQL.Open();
-                        return true;
+                        return m_con_MYSQL.Connect_ToServerOnly(ref sError);
                     case eDBType.MSSQL:
-                        m_con_MSSQL.Open();
-                        return true;
+                        return m_con_MSSQL.Connect_ToServerOnly(ref sError);
                     case eDBType.SQLITE:
-                        m_con_SQLite.Open();
-                        return true;
+                        return m_con_SQLite.Connect_ToServerOnly(ref sError);
                     default:
                         MessageBox.Show("Error unknown eSQLType in function public bool Connect_ToServerOnly(ref string sError)");
                         return false;
@@ -1190,29 +1188,38 @@ namespace DBConnectionControl40
             }
         }
 
-        
+
 
         public bool Connect_Batch(ref string sError)
         {
-            if (m_bBatchOpen)
+            switch (m_DBType)
             {
-                if (m_bOpened)
-                {
-                    return true;
-                }
+                case eDBType.MYSQL:
+                    return m_con_MYSQL.Connect_Batch(ref sError);
+                case eDBType.MSSQL:
+                    return m_con_MSSQL.Connect_Batch(ref sError);
+                case eDBType.SQLITE:
+                    return m_con_SQLite.Connect_Batch(ref sError);
+                default:
+                    MessageBox.Show("Error unknown eSQLType in function public bool Connect_ToServerOnly(ref string sError)");
+                    return false;
             }
-            return Connect(ref sError);
+
         }
 
         public bool Disconnect_Batch()
         {
-            if (m_bBatchOpen)
+            switch (m_DBType)
             {
-                return true;
-            }
-            else
-            {
-                return Disconnect();
+                case eDBType.MYSQL:
+                    return m_con_MYSQL.Disconnect_Batch();
+                case eDBType.MSSQL:
+                    return m_con_MSSQL.Disconnect_Batch();
+                case eDBType.SQLITE:
+                    return m_con_SQLite.Disconnect_Batch();
+                default:
+                    MessageBox.Show("Error unknown eSQLType in function public bool Connect_ToServerOnly(ref string sError)");
+                    return false;
             }
         }
 
@@ -1276,16 +1283,16 @@ namespace DBConnectionControl40
             switch (m_DBType)
             {
                 case eDBType.MYSQL:
-                    return "ERROR BeginTransaction failed for MySQL Server Authetnication:\"" + m_conData_MYSQL.m_DataSource + "\" DataBase:\"" + m_conData_MYSQL.m_DataBase + "\" UserName:\"" + m_conData_MYSQL.m_UserName + "\" and Password:*******\n";
+                    return "ERROR BeginTransaction failed for MySQL Server Authetnication:\"" + m_con_MYSQL.DataSource + "\" DataBase:\"" + m_con_MYSQL.DataBase + "\" UserName:\"" + m_con_MYSQL.UserName + "\" and Password:*******\n";
 
                 case eDBType.MSSQL:
-                    if (m_conData_MSSQL.m_bWindowsAuthentication)
+                    if (m_con_MSSQL.WindowsAuthentication)
                     {
-                        return "ERROR BeginTransaction failed for SQL WINDOWS Authetnication:\"" + m_conData_MSSQL.m_DataSource + "\" DataBase:\"" + m_conData_MSSQL.m_DataBase + "\" UserName:\"" + m_conData_MSSQL.m_WindowsAuthentication_UserName + "\"\n";
+                        return "ERROR BeginTransaction failed for SQL WINDOWS Authetnication:\"" + m_con_MSSQL.DataSource + "\" DataBase:\"" + m_con_MSSQL.DataBase + "\" UserName:\"" + m_con_MSSQL.WindowsAuthentication_UserName + "\"\n";
                     }
                     else
                     {
-                        return "ERROR BeginTransaction failed for SQL Server Authetnication:\"" + m_conData_MSSQL.m_DataSource + "\" DataBase:\"" + m_conData_MSSQL.m_DataBase + "\" UserName:\"" + m_conData_MSSQL.m_UserName + "\" and Password:*******\n";
+                        return "ERROR BeginTransaction failed for SQL Server Authetnication:\"" + m_con_MSSQL.DataSource + "\" DataBase:\"" + m_con_MSSQL.DataBase + "\" UserName:\"" + m_con_MSSQL.UserName + "\" and Password:*******\n";
                     }
 
                 case eDBType.SQLITE:
@@ -1307,10 +1314,10 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                            return m_con_MYSQL.Commit();
+                        return m_con_MYSQL.Commit();
 
                     case eDBType.MSSQL:
-                            return m_con_MSSQL.Commit();
+                        return m_con_MSSQL.Commit();
 
 
                     case eDBType.SQLITE:
@@ -1337,16 +1344,16 @@ namespace DBConnectionControl40
             switch (m_DBType)
             {
                 case eDBType.MYSQL:
-                    return "ERROR CommitTransaction failed for MySQL Server Authetnication:\"" + m_conData_MYSQL.m_DataSource + "\" DataBase:\"" + m_conData_MYSQL.m_DataBase + "\" UserName:\"" + m_conData_MYSQL.m_UserName + "\" and Password:*******\n";
+                    return "ERROR CommitTransaction failed for MySQL Server Authetnication:\"" + m_con_MYSQL.DataSource + "\" DataBase:\"" + m_con_MYSQL.DataBase + "\" UserName:\"" + m_con_MYSQL.UserName + "\" and Password:*******\n";
 
                 case eDBType.MSSQL:
-                    if (m_conData_MSSQL.m_bWindowsAuthentication)
+                    if (m_con_MSSQL.WindowsAuthentication)
                     {
-                        return "ERROR CommitTransaction failed for SQL WINDOWS Authetnication:\"" + m_conData_MSSQL.m_DataSource + "\" DataBase:\"" + m_conData_MSSQL.m_DataBase + "\" UserName:\"" + m_conData_MSSQL.m_WindowsAuthentication_UserName + "\"\n";
+                        return "ERROR CommitTransaction failed for SQL WINDOWS Authetnication:\"" + m_con_MSSQL.DataSource + "\" DataBase:\"" + m_con_MSSQL.DataBase + "\" UserName:\"" + m_con_MSSQL.WindowsAuthentication_UserName + "\"\n";
                     }
                     else
                     {
-                        return "ERROR CommitTransaction failed for SQL Server Authetnication:\"" + m_conData_MSSQL.m_DataSource + "\" DataBase:\"" + m_conData_MSSQL.m_DataBase + "\" UserName:\"" + m_conData_MSSQL.m_UserName + "\" and Password:*******\n";
+                        return "ERROR CommitTransaction failed for SQL Server Authetnication:\"" + m_con_MSSQL.DataSource + "\" DataBase:\"" + m_con_MSSQL.DataBase + "\" UserName:\"" + m_con_MSSQL.UserName + "\" and Password:*******\n";
                     }
 
                 case eDBType.SQLITE:
@@ -1369,7 +1376,7 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                            return m_con_MYSQL.RollbackTransaction(ref sError);
+                        return m_con_MYSQL.RollbackTransaction(ref sError);
 
                     case eDBType.MSSQL:
                         return m_con_MSSQL.RollbackTransaction(ref sError);
@@ -1415,7 +1422,7 @@ namespace DBConnectionControl40
 
         public bool Connect(ref string sError)
         {
-            ProgramDiagnostic.Diagnostic.Meassure("Connect START",null);
+            ProgramDiagnostic.Diagnostic.Meassure("Connect START", null);
             try
             {
                 SetConnectionString();
@@ -1437,7 +1444,7 @@ namespace DBConnectionControl40
             }
             catch (Exception ex)
             {
-                sError = SetConnectionError() +"\n" + ex.Message;
+                sError = SetConnectionError() + "\n" + ex.Message;
                 if (dbg.bON) dbg.Print(sError);
                 Log.Write(1, sError);
                 ProgramDiagnostic.Diagnostic.Meassure("Connect END with ERROR", null);
@@ -1469,7 +1476,7 @@ namespace DBConnectionControl40
 
         public bool Disconnect()
         {
-            ProgramDiagnostic.Diagnostic.Meassure("Disconnect START",null);
+            ProgramDiagnostic.Diagnostic.Meassure("Disconnect START", null);
             try
             {
                 switch (m_DBType)
@@ -1514,23 +1521,10 @@ namespace DBConnectionControl40
                 //    break;
 
                 case eDBType.MSSQL:
-                    if ((m_conData_MSSQL.m_DataSource.Length > 0) && (m_conData_MSSQL.m_DataBase.Length > 0))
-                    {
-                        ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, this, sTitle, nav);
-                    }
-                    else
-                    {
-                        ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditAll, this, sTitle, nav);
-                    }
-                    nav.ShowForm(ConnectionDialog, ConnectionDialog.GetType().ToString());
-                    return true;
+                    return m_con_MSSQL.Startup_03_Show_ConnectionDialog(this, nav);
 
                 case eDBType.SQLITE:
-
-                    SQLiteConnectionDialog = new SQLiteConnectionDialog(m_conData_SQLITE, this.RecentItemsFolder, this.BackupFolder, nav, this.ConnectionName);
-                    nav.ShowForm(SQLiteConnectionDialog, SQLiteConnectionDialog.GetType().ToString());
-                    return true;
-
+                    return m_con_SQLite.Startup_03_Show_ConnectionDialog(nav, this.RecentItemsFolder, this.BackupFolder, this.ConnectionName);
 
                 default:
                     MessageBox.Show("Error unknown eSQLType in function:  public ConnectResult_ENUM do_ConnectionDialog(string sTitle).");
@@ -1540,65 +1534,57 @@ namespace DBConnectionControl40
 
         public ConnectResult_ENUM do_ConnectionDialog(string sTitle, ref bool bNewDatabase, NavigationButtons.Navigation nav, ref bool bCanceled, string myConnectionName)
         {
-                bNewDatabase = false;
-                switch (m_DBType)
-                {
-                    case eDBType.MYSQL:
-                        if ((m_conData_MYSQL.m_DataSource.Length > 0) && (m_conData_MYSQL.m_DataBase.Length > 0))
-                        {
-                            ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, this, sTitle, nav);
-                        }
-                        else
-                        {
-                            ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditAll, this, sTitle, nav);
-                        }
-                        break;
+            bNewDatabase = false;
+            switch (m_DBType)
+            {
+                case eDBType.MYSQL:
+                    m_con_MYSQL.do_ConnectionDialog(this, sTitle, ref bNewDatabase, nav, ref bCanceled, myConnectionName);
+                    break;
 
-                    case eDBType.MSSQL:
-                        if ((m_conData_MSSQL.m_DataSource.Length > 0) && (m_conData_MSSQL.m_DataBase.Length > 0))
-                        {
-                            ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, this, sTitle, nav);
-                        }
-                        else
-                        {
-                            ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditAll, this, sTitle, nav);
-                        }
-                        break;
+                case eDBType.MSSQL:
+                    m_con_MSSQL.do_ConnectionDialog(this, sTitle, ref bNewDatabase, nav, ref bCanceled, myConnectionName);
+                    break;
 
-                    case eDBType.SQLITE:
-
-                        SQLiteConnectionDialog = new SQLiteConnectionDialog(m_conData_SQLITE,this.RecentItemsFolder, this.BackupFolder, nav, myConnectionName);
-                        break;
+                case eDBType.SQLITE:
+                    m_con_SQLite.do_ConnectionDialog(sTitle, ref bNewDatabase, nav, ref bCanceled, myConnectionName, this.RecentItemsFolder, this.BackupFolder);
+                    break;
 
 
-                    default:
-                        MessageBox.Show("Error unknown eSQLType in function:  public ConnectResult_ENUM do_ConnectionDialog(string sTitle).");
-                        break;
-                }
+                default:
+                    MessageBox.Show("Error unknown eSQLType in function:  public ConnectResult_ENUM do_ConnectionDialog(string sTitle).");
+                    break;
+            }
 
             while (true)
             {
 
-                if (m_DBType == eDBType.SQLITE)
+
+                switch (m_DBType)
                 {
-                    if (nav.bDoModal)
-                    {
-                        SQLiteConnectionDialog.ShowDialog(nav.parentForm);
-                        this.BackupFolder = SQLiteConnectionDialog.BackupFolder;
-                    }
-                    else
-                    {
-                        nav.ShowForm(SQLiteConnectionDialog, SQLiteConnectionDialog.GetType().ToString());
-                    }
-                }
-                else 
-                {
-                    nav.ShowForm(ConnectionDialog, ConnectionDialog.GetType().ToString());
+                    case eDBType.MYSQL:
+                        nav.ShowForm(m_con_MYSQL.ConnectionDialog, m_con_MYSQL.ConnectionDialog.GetType().ToString());
+                        break;
+
+                    case eDBType.MSSQL:
+                        nav.ShowForm(m_con_MSSQL.ConnectionDialog, m_con_MSSQL.ConnectionDialog.GetType().ToString());
+                        break;
+
+                    case eDBType.SQLITE:
+                        if (nav.bDoModal)
+                        {
+                            m_con_SQLite.SQLiteConnectionDialog.ShowDialog(nav.parentForm);
+                            this.BackupFolder = m_con_SQLite.SQLiteConnectionDialog.BackupFolder;
+                        }
+                        else
+                        {
+                            nav.ShowForm(m_con_SQLite.SQLiteConnectionDialog, m_con_SQLite.SQLiteConnectionDialog.GetType().ToString());
+                        }
+                        break;
                 }
 
                 if (nav.bDoModal)
                 {
-                    ConnectResult_ENUM eRes = EvaluateConnectionDialogResult(sTitle,nav,ref bNewDatabase, ref bCanceled);
+                    ConnectResult_ENUM eRes = EvaluateConnectionDialogResult(sTitle, nav, ref bNewDatabase, ref bCanceled);
                     switch (eRes)
                     {
                         case ConnectResult_ENUM.CANCELED:
@@ -1616,7 +1602,7 @@ namespace DBConnectionControl40
             }
         }
 
-        public bool Startup_03_CreateNewDataBaseConnection(Form pParentForm,ref bool bNewDatabase,ref bool bCancel)
+        public bool Startup_03_CreateNewDataBaseConnection(Form pParentForm, ref bool bNewDatabase, ref bool bCancel)
         {
             bNewDatabase = false;
             bCancel = false;
@@ -1672,13 +1658,13 @@ namespace DBConnectionControl40
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:DBConnectionControl40:DBConnection:Startup_03_CreateNewDataBaseConnection: m_DBType = "+ m_DBType.ToString() +" is not implemented!");
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:DBConnection:Startup_03_CreateNewDataBaseConnection: m_DBType = " + m_DBType.ToString() + " is not implemented!");
                         return false;
                     }
                 }
                 catch (Exception ex)
                 {
-                   LogFile.Error.Show("ERROR SQLITE:Excpetion = " + ex.Message);
+                    LogFile.Error.Show("ERROR SQLITE:Excpetion = " + ex.Message);
                     return false;
                 }
             }
@@ -1688,7 +1674,7 @@ namespace DBConnectionControl40
                 return true;
             }
         }
-        public ConnectResult_ENUM EvaluateConnectionDialogResult(string sTitle,NavigationButtons.Navigation xnav,ref bool bNewDatabase, ref bool bCanceled)
+        public ConnectResult_ENUM EvaluateConnectionDialogResult(string sTitle, NavigationButtons.Navigation xnav, ref bool bNewDatabase, ref bool bCanceled)
         {
             if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
             {
@@ -1698,13 +1684,19 @@ namespace DBConnectionControl40
             if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.CANCEL))
             {
                 bCanceled = true;
-                if (m_DBType == eDBType.SQLITE)
+                switch (m_DBType)
                 {
-                    SQLiteConnectionDialog.Dispose();
-                }
-                else
-                {
-                    ConnectionDialog.Dispose();
+                    case eDBType.MYSQL:
+                        m_con_MYSQL.ConnectionDialog.Dispose();
+                        break;
+
+                    case eDBType.MSSQL:
+                        m_con_MSSQL.ConnectionDialog.Dispose();
+                        break;
+
+                    case eDBType.SQLITE:
+                        m_con_SQLite.SQLiteConnectionDialog.Dispose();
+                        break;
                 }
                 return ConnectResult_ENUM.CANCELED;
             }
@@ -1724,7 +1716,7 @@ namespace DBConnectionControl40
                                 m_con_SQLite.Dispose();
                             }
                             m_con_SQLite = new ConnectionSQLITE(ConnectionString);
-                          
+
                             if (Connect_ToServerOnly(ref sErr))
                             {
                                 if (m_DBType == eDBType.SQLITE)
@@ -1753,7 +1745,16 @@ namespace DBConnectionControl40
                     }
                     else
                     {
-                        bNewDatabase = ConnectionDialog.m_bNewDataBase;
+                        switch (m_DBType)
+                        {
+                            case eDBType.MYSQL:
+                                bNewDatabase = m_con_MYSQL.ConnectionDialog.m_bNewDataBase;
+                                break;
+                            case eDBType.MSSQL:
+                                bNewDatabase = m_con_MSSQL.ConnectionDialog.m_bNewDataBase;
+                                break;
+                        }
+
                     }
 
                     if (this.CheckDataBaseConnection(xnav.parentForm, sTitle))
@@ -1764,47 +1765,71 @@ namespace DBConnectionControl40
                         }
                         else if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
                         {
-                            ConnectionDialog.my_ConnectionDialog_enum = ConnectionDialog.ConnectionDialog_enum.SaveConnectionData;
-                            ConnectionDialog.ShowDialog(xnav.parentForm);
-                            xnav.eExitResult = ConnectionDialog.eExitEvent;
-                            if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
+                            switch (m_DBType)
                             {
-                                return ConnectResult_ENUM.OK_SAVE;
+                                case eDBType.MYSQL:
+                                    m_con_MYSQL.ConnectionDialog.my_ConnectionDialog_enum = ConnectionDialog.ConnectionDialog_enum.SaveConnectionData;
+                                    m_con_MYSQL.ConnectionDialog.ShowDialog(xnav.parentForm);
+                                    xnav.eExitResult = m_con_MYSQL.ConnectionDialog.eExitEvent;
+                                    if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
+                                    {
+                                        return ConnectResult_ENUM.OK_SAVE;
+                                    }
+                                    return ConnectResult_ENUM.OK;
+
+                                case eDBType.MSSQL:
+                                    m_con_MSSQL.ConnectionDialog.my_ConnectionDialog_enum = ConnectionDialog.ConnectionDialog_enum.SaveConnectionData;
+                                    m_con_MSSQL.ConnectionDialog.ShowDialog(xnav.parentForm);
+                                    xnav.eExitResult = m_con_MYSQL.ConnectionDialog.eExitEvent;
+                                    if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
+                                    {
+                                        return ConnectResult_ENUM.OK_SAVE;
+                                    }
+                                    return ConnectResult_ENUM.OK;
                             }
-                            return ConnectResult_ENUM.OK;
                         }
-                    }
-                    else
-                    {
-                        if (m_DBType != eDBType.SQLITE)
+                        else
                         {
-                            ConnectionDialog.my_ConnectionDialog_enum = ConnectionDialog.ConnectionDialog_enum.TryAgain_EditAll;
+                            switch (m_DBType)
+                            {
+                                case eDBType.MYSQL:
+                                    m_con_MYSQL.ConnectionDialog.my_ConnectionDialog_enum = ConnectionDialog.ConnectionDialog_enum.TryAgain_EditAll;
+                                    break;
+
+                                case eDBType.MSSQL:
+                                    m_con_MSSQL.ConnectionDialog.my_ConnectionDialog_enum = ConnectionDialog.ConnectionDialog_enum.TryAgain_EditAll;
+                                    break;
+                            }
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    if (m_DBType != eDBType.SQLITE)
+                    switch (m_DBType)
                     {
-                        ConnectionDialog.my_ConnectionDialog_enum = ConnectionDialog.ConnectionDialog_enum.TryAgain_EditAll;
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR SQLITE:Excpetion = " + ex.Message);
+                        case eDBType.MYSQL:
+                            m_con_MYSQL.ConnectionDialog.my_ConnectionDialog_enum = ConnectionDialog.ConnectionDialog_enum.TryAgain_EditAll;
+                            break;
+                        case eDBType.MSSQL:
+                            m_con_MSSQL.ConnectionDialog.my_ConnectionDialog_enum = ConnectionDialog.ConnectionDialog_enum.TryAgain_EditAll;
+                            break;
+                        case eDBType.SQLITE:
+                            LogFile.Error.Show("ERROR SQLITE:Excpetion = " + ex.Message);
+                            break;
                     }
                 }
             }
             return ConnectResult_ENUM.SHOW_CONNECTION_DIALOG_AGAIN;
         }
-    
-        public bool WizzardForDataBaseConnection(Form m_ParentForm,                    
-                    string sTitle,ref bool bNewDatabase)
+
+        public bool WizzardForDataBaseConnection(Form m_ParentForm,
+                    string sTitle, ref bool bNewDatabase)
         {
 
             return false;
         }
 
-        
+
         public bool ReadDataTable(ref DataTable dt, string sqlGetColumnsNamesAndTypes, ref string csError)
         {
 
@@ -1815,7 +1840,7 @@ namespace DBConnectionControl40
             {
                 string new_sql = "";
                 bool bChanged = false;
-                PreviewSQLCommand(sqlGetColumnsNamesAndTypes,null,ref new_sql,ref bChanged, "ReadDataTable");
+                PreviewSQLCommand(sqlGetColumnsNamesAndTypes, null, ref new_sql, ref bChanged, "ReadDataTable");
                 if (bChanged)
                 {
                     sqlGetColumnsNamesAndTypes = new_sql;
@@ -1843,7 +1868,7 @@ namespace DBConnectionControl40
                                 MessageBox.Show(csError, "ERROR", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
                             }
                         }
-                        ProgramDiagnostic.Diagnostic.Meassure("ReadDataTable END",null);
+                        ProgramDiagnostic.Diagnostic.Meassure("ReadDataTable END", null);
                         return true;
 
                     case eDBType.MSSQL:
@@ -1912,16 +1937,16 @@ namespace DBConnectionControl40
             switch (m_DBType)
             {
                 case eDBType.MYSQL:
-                return "ERROR Connection failed for MySQL Server Authetnication:\"" + m_conData_MYSQL.m_DataSource + "\" DataBase:\"" + m_conData_MYSQL.m_DataBase + "\" UserName:\"" + m_conData_MYSQL.m_UserName + "\" and Password:*******\n";
+                    return "ERROR Connection failed for MySQL Server Authetnication:\"" + m_con_MYSQL.DataSource + "\" DataBase:\"" + m_con_MYSQL.DataBase + "\" UserName:\"" + m_con_MYSQL.UserName + "\" and Password:*******\n";
 
                 case eDBType.MSSQL:
-                    if (m_conData_MSSQL.m_bWindowsAuthentication)
+                    if (m_con_MSSQL.WindowsAuthentication)
                     {
-                        return "ERROR Connection failed for SQL WINDOWS Authetnication:\"" + m_conData_MSSQL.m_DataSource + "\" DataBase:\"" + m_conData_MSSQL.m_DataBase + "\" UserName:\"" + m_conData_MSSQL.m_WindowsAuthentication_UserName + "\"\n";
+                        return "ERROR Connection failed for SQL WINDOWS Authetnication:\"" + m_con_MSSQL.DataSource + "\" DataBase:\"" + m_con_MSSQL.DataBase + "\" UserName:\"" + m_con_MSSQL.WindowsAuthentication_UserName + "\"\n";
                     }
                     else
                     {
-                        return "ERROR Connection failed for SQL Server Authetnication:\"" + m_conData_MSSQL.m_DataSource + "\" DataBase:\"" + m_conData_MSSQL.m_DataBase + "\" UserName:\"" + m_conData_MSSQL.m_UserName + "\" and Password:*******\n";
+                        return "ERROR Connection failed for SQL Server Authetnication:\"" + m_con_MSSQL.DataSource + "\" DataBase:\"" + m_con_MSSQL.DataBase + "\" UserName:\"" + m_con_MSSQL.UserName + "\" and Password:*******\n";
                     }
 
                 case eDBType.SQLITE:
@@ -1934,7 +1959,7 @@ namespace DBConnectionControl40
             }
         }
 
-      
+
 
         public bool ReadDataSet(ref DataSet ds, string sqlGetColumnsNamesAndTypes, ref string csError)
         {
@@ -2036,7 +2061,7 @@ namespace DBConnectionControl40
             }
         }
 
-        private bool IsNumber(string s)
+        internal static bool IsNumber(string s)
         {
             s = s.Trim();
             for (int i = 0; i < s.Length; i++)
@@ -2050,7 +2075,7 @@ namespace DBConnectionControl40
             return true;
         }
 
-        public bool ExecuteQuerySQL(StringBuilder sql,List<SQL_Parameter> lSQL_Parameter, ref ID id_new, ref string csError,string SQlite_table_name)
+        public bool ExecuteQuerySQL(StringBuilder sql, List<SQL_Parameter> lSQL_Parameter, ref ID id_new, ref string csError, string SQlite_table_name)
         {
             //SqlConnection Conn = new SqlConnection("Data Source=razvoj1;Initial Catalog=NOS_BIH;Persist Security Info=True;User ID=sa;Password=sa;");
 
@@ -2131,7 +2156,7 @@ namespace DBConnectionControl40
                                 return false;
                             }
                         }
-                        //break;
+                    //break;
 
                     case eDBType.MSSQL:
                         {
@@ -2184,7 +2209,7 @@ namespace DBConnectionControl40
                                 return false;
                             }
                         }
-                        //break;
+                    //break;
 
                     case eDBType.SQLITE:
                         {
@@ -2221,7 +2246,7 @@ namespace DBConnectionControl40
                                 {
                                     //SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() AS ID" , m_con_SQLite);
                                     // On different Sqlite.dll runs different !
-//                                    SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() from " + SQlite_table_name, m_con_SQLite);
+                                    //                                    SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() from " + SQlite_table_name, m_con_SQLite);
                                     SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid()", m_con_SQLite.Con);
                                     // Bepaal de nieuwe ID en sla deze op in het juiste veld
                                     if (Connect_Batch(ref sError))
@@ -2250,15 +2275,15 @@ namespace DBConnectionControl40
                                     }
                                     else if (ReturnObject.GetType() == typeof(long))
                                     {
-                                        id_new = new ID(ReturnObject); 
+                                        id_new = new ID(ReturnObject);
                                     }
                                     else if (ReturnObject.GetType() == typeof(Int32))
                                     {
-                                        id_new = new ID(ReturnObject); 
+                                        id_new = new ID(ReturnObject);
                                     }
                                     else if (ReturnObject.GetType() == typeof(Int64))
                                     {
-                                        id_new = new ID(ReturnObject); 
+                                        id_new = new ID(ReturnObject);
                                     }
                                 }
                                 ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
@@ -2271,7 +2296,7 @@ namespace DBConnectionControl40
                                 return false;
                             }
                         }
-                        //break;
+                    //break;
 
                     default:
                         LogFile.Error.Show("Error eSQLType in function:public bool ExecuteQuerySQL(...)");
@@ -2316,140 +2341,140 @@ namespace DBConnectionControl40
                     switch (m_DBType)
                     {
                         case eDBType.MYSQL:
-                        {
-                            sqlTran.Append("START TRANSACTION; \n");
-                            sqlTran.Append(sql);
-                            sqlTran.Append("\nCOMMIT; \n");
-                            MySqlCommand command;
-                            command = new MySqlCommand(sqlTran.ToString(), m_con_MYSQL.Con);
-                            if (lSQL_Parameter != null)
                             {
-                                foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+                                sqlTran.Append("START TRANSACTION; \n");
+                                sqlTran.Append(sql);
+                                sqlTran.Append("\nCOMMIT; \n");
+                                MySqlCommand command;
+                                command = new MySqlCommand(sqlTran.ToString(), m_con_MYSQL.Con);
+                                if (lSQL_Parameter != null)
                                 {
-                                    if (sqlPar.size > 0)
+                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
                                     {
-                                        command.Parameters.Add(sqlPar.Name, sqlPar.MySQLdbType, sqlPar.size).Value = sqlPar.Value;
-                                    }
-                                    else
-                                    {
-                                        command.Parameters.Add(new MySqlParameter(sqlPar.Name, sqlPar.Value)).Value = sqlPar.Value;
-                                    }
-                                }
-                            }
-
-                            command.CommandTimeout = 200000;
-                            command.ExecuteNonQuery();
-                            Disconnect_Batch();
-                        }
-                        ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END", null);
-                        return true;
-
-                        case eDBType.MSSQL:
-                        {
-                            sqlTran.Append("BEGIN TRAN TRANSACTION_EVLicence; \n");
-                            sqlTran.Append(sql);
-                            sqlTran.Append("\nCOMMIT TRAN TRANSACTION_EVLicence; \n");
-                            SqlCommand command;
-                            SqlParameter OutPar = null;
-                            command = new SqlCommand(sqlTran.ToString(), m_con_MSSQL.Con);
-                            if (lSQL_Parameter != null)
-                            {
-                                foreach (SQL_Parameter sqlPar in lSQL_Parameter)
-                                {
-                                    if (sqlPar.size > 0)
-                                    {
-                                        SqlParameter SqlP = new SqlParameter(sqlPar.Name, sqlPar.dbType, sqlPar.size);
-                                        sqlPar.MS_SqlSqlParameter = SqlP;
-                                        if (sqlPar.IsOutputParameter)
+                                        if (sqlPar.size > 0)
                                         {
-                                            SqlP.Direction = ParameterDirection.Output;
-                                            if (OutPar == null)
-                                            {
-                                                // only first is return value!
-                                                OutPar = SqlP;
-                                            }
+                                            command.Parameters.Add(sqlPar.Name, sqlPar.MySQLdbType, sqlPar.size).Value = sqlPar.Value;
                                         }
                                         else
                                         {
-                                            SqlP.Direction = ParameterDirection.Input;
+                                            command.Parameters.Add(new MySqlParameter(sqlPar.Name, sqlPar.Value)).Value = sqlPar.Value;
                                         }
-                                        command.Parameters.Add(SqlP).Value = sqlPar.Value;
-                                    }
-                                    else
-                                    {
-                                        SqlParameter SqlP = new SqlParameter(sqlPar.Name, sqlPar.Value);
-                                        sqlPar.MS_SqlSqlParameter = SqlP;
-                                        if (sqlPar.IsOutputParameter)
-                                        {
-                                            SqlP.Direction = ParameterDirection.Output;
-                                            sqlPar.Value = SqlP.Value;
-                                            if (OutPar == null)
-                                            {
-                                                // only first is return value!
-                                                OutPar = SqlP;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            SqlP.Direction = ParameterDirection.Input;
-                                        }
-                                        command.Parameters.Add(SqlP).Value = sqlPar.Value;
                                     }
                                 }
-                            }
 
-                            command.CommandTimeout = 3600;
-                            command.ExecuteNonQuery();
-                            if (Result != null)
-                            {
-                                if (OutPar != null)
-                                {
-                                    Result = OutPar.Value;
-                                }
-                                else
-                                {
-                                    Result = OutPar;
-                                }
+                                command.CommandTimeout = 200000;
+                                command.ExecuteNonQuery();
+                                Disconnect_Batch();
                             }
-                            Disconnect_Batch();
                             ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END", null);
                             return true;
-                        }
-                      //  return true;
 
-                        case eDBType.SQLITE:
-                        {
-                            sqlTran.Append("BEGIN TRANSACTION; \n");
-                            sqlTran.Append(sql);
-                            sqlTran.Append(";\nCOMMIT TRANSACTION; \n");
-                            SQLiteCommand command;
-                            command = new SQLiteCommand(sqlTran.ToString(), m_con_SQLite.Con);
-                            if (lSQL_Parameter != null)
+                        case eDBType.MSSQL:
                             {
-                                foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+                                sqlTran.Append("BEGIN TRAN TRANSACTION_EVLicence; \n");
+                                sqlTran.Append(sql);
+                                sqlTran.Append("\nCOMMIT TRAN TRANSACTION_EVLicence; \n");
+                                SqlCommand command;
+                                SqlParameter OutPar = null;
+                                command = new SqlCommand(sqlTran.ToString(), m_con_MSSQL.Con);
+                                if (lSQL_Parameter != null)
                                 {
-
-                                    if (sqlPar.size > 0)
+                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
                                     {
-                                        sqlPar.mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
-                                        sqlPar.mySQLiteParameter.Value = sqlPar.Value;
+                                        if (sqlPar.size > 0)
+                                        {
+                                            SqlParameter SqlP = new SqlParameter(sqlPar.Name, sqlPar.dbType, sqlPar.size);
+                                            sqlPar.MS_SqlSqlParameter = SqlP;
+                                            if (sqlPar.IsOutputParameter)
+                                            {
+                                                SqlP.Direction = ParameterDirection.Output;
+                                                if (OutPar == null)
+                                                {
+                                                    // only first is return value!
+                                                    OutPar = SqlP;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                SqlP.Direction = ParameterDirection.Input;
+                                            }
+                                            command.Parameters.Add(SqlP).Value = sqlPar.Value;
+                                        }
+                                        else
+                                        {
+                                            SqlParameter SqlP = new SqlParameter(sqlPar.Name, sqlPar.Value);
+                                            sqlPar.MS_SqlSqlParameter = SqlP;
+                                            if (sqlPar.IsOutputParameter)
+                                            {
+                                                SqlP.Direction = ParameterDirection.Output;
+                                                sqlPar.Value = SqlP.Value;
+                                                if (OutPar == null)
+                                                {
+                                                    // only first is return value!
+                                                    OutPar = SqlP;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                SqlP.Direction = ParameterDirection.Input;
+                                            }
+                                            command.Parameters.Add(SqlP).Value = sqlPar.Value;
+                                        }
+                                    }
+                                }
 
+                                command.CommandTimeout = 3600;
+                                command.ExecuteNonQuery();
+                                if (Result != null)
+                                {
+                                    if (OutPar != null)
+                                    {
+                                        Result = OutPar.Value;
                                     }
                                     else
                                     {
-                                        sqlPar.mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
-                                        sqlPar.mySQLiteParameter.Value = sqlPar.Value;
+                                        Result = OutPar;
                                     }
-                                    command.Parameters.Add(sqlPar.mySQLiteParameter);
-
                                 }
+                                Disconnect_Batch();
+                                ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END", null);
+                                return true;
                             }
-                            command.CommandTimeout = 20000;
-                            command.ExecuteNonQuery();
-                            Disconnect_Batch();
-                        }
-                        ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END", null);
-                        return true;
+                        //  return true;
+
+                        case eDBType.SQLITE:
+                            {
+                                sqlTran.Append("BEGIN TRANSACTION; \n");
+                                sqlTran.Append(sql);
+                                sqlTran.Append(";\nCOMMIT TRANSACTION; \n");
+                                SQLiteCommand command;
+                                command = new SQLiteCommand(sqlTran.ToString(), m_con_SQLite.Con);
+                                if (lSQL_Parameter != null)
+                                {
+                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+                                    {
+
+                                        if (sqlPar.size > 0)
+                                        {
+                                            sqlPar.mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
+                                            sqlPar.mySQLiteParameter.Value = sqlPar.Value;
+
+                                        }
+                                        else
+                                        {
+                                            sqlPar.mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
+                                            sqlPar.mySQLiteParameter.Value = sqlPar.Value;
+                                        }
+                                        command.Parameters.Add(sqlPar.mySQLiteParameter);
+
+                                    }
+                                }
+                                command.CommandTimeout = 20000;
+                                command.ExecuteNonQuery();
+                                Disconnect_Batch();
+                            }
+                            ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END", null);
+                            return true;
 
                         default:
                             MessageBox.Show("Error eSQLType in function: ExecuteNonQuerySQL(...)");
@@ -2459,7 +2484,7 @@ namespace DBConnectionControl40
                 }
                 else
                 {
-     //               MessageBox.Show(csError, "ERROR", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                    //               MessageBox.Show(csError, "ERROR", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
                     return false;
                 }
             }
@@ -2489,149 +2514,149 @@ namespace DBConnectionControl40
             }
         }
 
-        private void WriteLogTable(Exception ex)
+        internal static void WriteLogTable(Exception ex)
         {
-            if (LogTableName != null)
-            {
-                if (LogTableName.Length > 0)
-                {
-                    switch (m_DBType)
-                    {
-                        case eDBType.MYSQL:
-                            InsertTo_MYSQL_Log(ex);
-                            break;
+            //if (LogTableName != null)
+            //{
+            //    if (LogTableName.Length > 0)
+            //    {
+            //        switch (m_DBType)
+            //        {
+            //            case eDBType.MYSQL:
+            //                InsertTo_MYSQL_Log(ex);
+            //                break;
 
-                        case eDBType.MSSQL:
-                            InsertTo_MSSQL_Log(ex);
-                            break;
-                        case eDBType.SQLITE:
-                            InsertTo_SQLite_Log(ex);
-                            break;
+            //            case eDBType.MSSQL:
+            //                InsertTo_MSSQL_Log(ex);
+            //                break;
+            //            case eDBType.SQLITE:
+            //                InsertTo_SQLite_Log(ex);
+            //                break;
 
-                        default:
-                            MessageBox.Show("Error eSQLType in function ExecuteNonQuerySQL(...)");
-                            break;
-                    }
-                }
-            }
+            //            default:
+            //                MessageBox.Show("Error eSQLType in function ExecuteNonQuerySQL(...)");
+            //                break;
+            //        }
+            //    }
+            //}
         }
 
-        private bool InsertTo_MYSQL_Log(Exception ex)
-        {
-            try
-            {
-                string sqlLog = @"
-                            SET DATEFORMAT dmy
-                            INSERT INTO  " + LogTableName + @"
-                              (
-                                 LogTime, 
-                                 message
-                              )
-                             VALUES 
-                            ("
-               + "getdate(),\n"
-               + "'" + ex.ToString().Replace("'", "\"") + @"'
-                            );";
+        //private static bool InsertTo_MYSQL_Log(string LogTableName,Exception ex)
+        //{
+        //    try
+        //    {
+        //        string sqlLog = @"
+        //                    SET DATEFORMAT dmy
+        //                    INSERT INTO  " + LogTableName + @"
+        //                      (
+        //                         LogTime, 
+        //                         message
+        //                      )
+        //                     VALUES 
+        //                    ("
+        //       + "getdate(),\n"
+        //       + "'" + ex.ToString().Replace("'", "\"") + @"'
+        //                    );";
 
-                string sErr = "";
-                if (Connect(ref sErr))
-                {
-                    MySqlCommand command;
-                    command = new MySqlCommand(sqlLog, m_con_MYSQL.Con);
-                    command.ExecuteNonQuery();
-                    Disconnect();
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch (Exception ee)
-            {
-                Disconnect();
-                Console.WriteLine(ee.Message);
-                return false;
-            }
-        }
+        //        string sErr = "";
+        //        if (m_con_MYSQL.Connect(ref sErr))
+        //        {
+        //            MySqlCommand command;
+        //            command = new MySqlCommand(sqlLog, m_con_MYSQL.Con);
+        //            command.ExecuteNonQuery();
+        //            Disconnect();
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    catch (Exception ee)
+        //    {
+        //        Disconnect();
+        //        Console.WriteLine(ee.Message);
+        //        return false;
+        //    }
+        //}
 
-        private bool InsertTo_MSSQL_Log(Exception ex)
-        {
-            try
-            {
-               string sqlLog = @"
-                        SET DATEFORMAT dmy
-                        INSERT INTO  " + LogTableName  + @"
-                          (
-                             LogTime, 
-                             message
-                          )
-                         VALUES 
-                        ("
-              + "getdate(),\n"
-              + "'" + ex.ToString().Replace("'", "\"") + @"'
-                        );";
+        //private bool InsertTo_MSSQL_Log(Exception ex)
+        //{
+        //    try
+        //    {
+        //       string sqlLog = @"
+        //                SET DATEFORMAT dmy
+        //                INSERT INTO  " + LogTableName  + @"
+        //                  (
+        //                     LogTime, 
+        //                     message
+        //                  )
+        //                 VALUES 
+        //                ("
+        //      + "getdate(),\n"
+        //      + "'" + ex.ToString().Replace("'", "\"") + @"'
+        //                );";
 
-                string sErr = "";
-                if (Connect(ref sErr))
-                {
-                    SqlCommand command;
-                    command = new SqlCommand(sqlLog, m_con_MSSQL.Con);
-                    command.ExecuteNonQuery();
-                    Disconnect();
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch (Exception ee)
-            {
-                Disconnect();
-                Console.WriteLine(ee.Message);
-                return false;
-            }
-        }
+        //        string sErr = "";
+        //        if (Connect(ref sErr))
+        //        {
+        //            SqlCommand command;
+        //            command = new SqlCommand(sqlLog, m_con_MSSQL.Con);
+        //            command.ExecuteNonQuery();
+        //            Disconnect();
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    catch (Exception ee)
+        //    {
+        //        Disconnect();
+        //        Console.WriteLine(ee.Message);
+        //        return false;
+        //    }
+        //}
 
-        private bool InsertTo_SQLite_Log(Exception ex)
-        {
-            try
-            {
-                string sqlLog = @"
-                        SET DATEFORMAT dmy
-                        INSERT INTO  " + LogTableName + @"
-                          (
-                             LogTime, 
-                             message
-                          )
-                         VALUES 
-                        ("
-               + "getdate(),\n"
-               + "'" + ex.ToString().Replace("'", "\"") + @"'
-                        );";
+        //private bool InsertTo_SQLite_Log(Exception ex)
+        //{
+        //    try
+        //    {
+        //        string sqlLog = @"
+        //                SET DATEFORMAT dmy
+        //                INSERT INTO  " + LogTableName + @"
+        //                  (
+        //                     LogTime, 
+        //                     message
+        //                  )
+        //                 VALUES 
+        //                ("
+        //       + "getdate(),\n"
+        //       + "'" + ex.ToString().Replace("'", "\"") + @"'
+        //                );";
 
-                string sErr = "";
-                if (Connect(ref sErr))
-                {
-                    SQLiteCommand command;
-                    command = new SQLiteCommand(sqlLog, m_con_SQLite.Con);
-                    command.ExecuteNonQuery();
-                    Disconnect();
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch (Exception ee)
-            {
-                Disconnect();
-                Console.WriteLine(ee.Message);
-                return false;
-            }
-        }
+        //        string sErr = "";
+        //        if (Connect(ref sErr))
+        //        {
+        //            SQLiteCommand command;
+        //            command = new SQLiteCommand(sqlLog, m_con_SQLite.Con);
+        //            command.ExecuteNonQuery();
+        //            Disconnect();
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    catch (Exception ee)
+        //    {
+        //        Disconnect();
+        //        Console.WriteLine(ee.Message);
+        //        return false;
+        //    }
+        //}
 
         public bool CreateMySQLDatabase(string sql, ref string ErrorMsg)
         {
@@ -2639,7 +2664,7 @@ namespace DBConnectionControl40
             {
                 string new_sql = "";
                 bool bChanged = false;
-                PreviewSQLCommand(sql, null, ref new_sql, ref bChanged,  null);
+                PreviewSQLCommand(sql, null, ref new_sql, ref bChanged, null);
                 if (bChanged)
                 {
                     sql = new_sql;
@@ -2674,7 +2699,7 @@ namespace DBConnectionControl40
                         default:
                             MessageBox.Show("Error eSQLType in function ExecuteNonQuerySQL(...)");
                             return false;
-                        
+
                     }
                 }
                 else
@@ -2692,7 +2717,7 @@ namespace DBConnectionControl40
 
                 WriteLogTable(ex);
                 return false;
-                    //throw new Exception(ee.ToString(), ee);
+                //throw new Exception(ee.ToString(), ee);
             }
         }
 
@@ -2718,127 +2743,127 @@ namespace DBConnectionControl40
                     switch (m_DBType)
                     {
                         case eDBType.MYSQL:
-                         {
-                            MySqlCommand command;
-                            command = new MySqlCommand(sql, m_con_MYSQL.Con);
-                            if (lSQL_Parameter != null)
                             {
-                                foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+                                MySqlCommand command;
+                                command = new MySqlCommand(sql, m_con_MYSQL.Con);
+                                if (lSQL_Parameter != null)
                                 {
-                                    if (sqlPar.size > 0)
+                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
                                     {
-                                        command.Parameters.Add(sqlPar.Name, sqlPar.MySQLdbType, sqlPar.size).Value = sqlPar.Value;
-                                    }
-                                    else
-                                    {
-                                        command.Parameters.Add(new MySqlParameter(sqlPar.Name, sqlPar.Value)).Value = sqlPar.Value;
+                                        if (sqlPar.size > 0)
+                                        {
+                                            command.Parameters.Add(sqlPar.Name, sqlPar.MySQLdbType, sqlPar.size).Value = sqlPar.Value;
+                                        }
+                                        else
+                                        {
+                                            command.Parameters.Add(new MySqlParameter(sqlPar.Name, sqlPar.Value)).Value = sqlPar.Value;
+                                        }
                                     }
                                 }
-                            }
 
-                            command.CommandTimeout = 200000;
-                            command.ExecuteNonQuery();
-                            Disconnect_Batch();
-                         }
-                        ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL_NoMultiTrans END",null);
-                        return true;
+                                command.CommandTimeout = 200000;
+                                command.ExecuteNonQuery();
+                                Disconnect_Batch();
+                            }
+                            ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL_NoMultiTrans END", null);
+                            return true;
 
                         case eDBType.MSSQL:
-                        {
-
-                            SqlCommand command;
-                            SqlParameter OutPar = null;
-                            command = new SqlCommand(sql, m_con_MSSQL.Con);
-                            if (lSQL_Parameter != null)
                             {
-                                foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+
+                                SqlCommand command;
+                                SqlParameter OutPar = null;
+                                command = new SqlCommand(sql, m_con_MSSQL.Con);
+                                if (lSQL_Parameter != null)
                                 {
-                                    if (sqlPar.size > 0)
+                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
                                     {
-                                        SqlParameter SqlP = new SqlParameter(sqlPar.Name, sqlPar.dbType, sqlPar.size);
-                                        sqlPar.MS_SqlSqlParameter = SqlP;
-                                        if (sqlPar.IsOutputParameter)
+                                        if (sqlPar.size > 0)
                                         {
-                                            SqlP.Direction = ParameterDirection.Output;
-                                            if (OutPar == null)
+                                            SqlParameter SqlP = new SqlParameter(sqlPar.Name, sqlPar.dbType, sqlPar.size);
+                                            sqlPar.MS_SqlSqlParameter = SqlP;
+                                            if (sqlPar.IsOutputParameter)
                                             {
-                                                // only first is return value!
-                                                OutPar = SqlP;
+                                                SqlP.Direction = ParameterDirection.Output;
+                                                if (OutPar == null)
+                                                {
+                                                    // only first is return value!
+                                                    OutPar = SqlP;
+                                                }
                                             }
+                                            else
+                                            {
+                                                SqlP.Direction = ParameterDirection.Input;
+                                            }
+                                            command.Parameters.Add(SqlP).Value = sqlPar.Value;
                                         }
                                         else
                                         {
-                                            SqlP.Direction = ParameterDirection.Input;
-                                        }
-                                        command.Parameters.Add(SqlP).Value = sqlPar.Value;
-                                    }
-                                    else
-                                    {
-                                        SqlParameter SqlP = new SqlParameter(sqlPar.Name, sqlPar.Value);
-                                        sqlPar.MS_SqlSqlParameter = SqlP;
-                                        if (sqlPar.IsOutputParameter)
-                                        {
-                                            SqlP.Direction = ParameterDirection.Output;
-                                            sqlPar.Value = SqlP.Value;
-                                            if (OutPar == null)
+                                            SqlParameter SqlP = new SqlParameter(sqlPar.Name, sqlPar.Value);
+                                            sqlPar.MS_SqlSqlParameter = SqlP;
+                                            if (sqlPar.IsOutputParameter)
                                             {
-                                                // only first is return value!
-                                                OutPar = SqlP;
+                                                SqlP.Direction = ParameterDirection.Output;
+                                                sqlPar.Value = SqlP.Value;
+                                                if (OutPar == null)
+                                                {
+                                                    // only first is return value!
+                                                    OutPar = SqlP;
+                                                }
                                             }
+                                            else
+                                            {
+                                                SqlP.Direction = ParameterDirection.Input;
+                                            }
+                                            command.Parameters.Add(SqlP).Value = sqlPar.Value;
                                         }
-                                        else
-                                        {
-                                            SqlP.Direction = ParameterDirection.Input;
-                                        }
-                                        command.Parameters.Add(SqlP).Value = sqlPar.Value;
                                     }
                                 }
-                            }
 
 
-                            command.CommandTimeout = 200000;
-                            command.ExecuteNonQuery();
-                            Disconnect_Batch();
-                            if (!SetOuputParamaters(lSQL_Parameter, command.Parameters, ref ErrorMsg))
-                            {
-                                ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL_NoMultiTrans END ret false", null);
-                                return false;
+                                command.CommandTimeout = 200000;
+                                command.ExecuteNonQuery();
+                                Disconnect_Batch();
+                                if (!SetOuputParamaters(lSQL_Parameter, command.Parameters, ref ErrorMsg))
+                                {
+                                    ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL_NoMultiTrans END ret false", null);
+                                    return false;
+                                }
                             }
-                        }
-                        ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL_NoMultiTrans END", null);
-                        return true;
+                            ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL_NoMultiTrans END", null);
+                            return true;
 
                         case eDBType.SQLITE:
-                        {
-
-                            SQLiteCommand command;
-                            command = new SQLiteCommand(sql, m_con_SQLite.Con);
-                            if (lSQL_Parameter != null)
                             {
-                                foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+
+                                SQLiteCommand command;
+                                command = new SQLiteCommand(sql, m_con_SQLite.Con);
+                                if (lSQL_Parameter != null)
                                 {
-                                    if (sqlPar.size > 0)
+                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
                                     {
-                                        sqlPar.mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
-                                        sqlPar.mySQLiteParameter.Value = sqlPar.Value;
-                                        command.Parameters.Add(sqlPar.mySQLiteParameter);
-                                    }
-                                    else
-                                    {
-                                        sqlPar.mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
-                                        sqlPar.mySQLiteParameter.Value = sqlPar.Value;
-                                        command.Parameters.Add(sqlPar.mySQLiteParameter);
+                                        if (sqlPar.size > 0)
+                                        {
+                                            sqlPar.mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
+                                            sqlPar.mySQLiteParameter.Value = sqlPar.Value;
+                                            command.Parameters.Add(sqlPar.mySQLiteParameter);
+                                        }
+                                        else
+                                        {
+                                            sqlPar.mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
+                                            sqlPar.mySQLiteParameter.Value = sqlPar.Value;
+                                            command.Parameters.Add(sqlPar.mySQLiteParameter);
+                                        }
                                     }
                                 }
+
+                                command.CommandTimeout = 200000;
+                                command.ExecuteNonQuery();
+                                Disconnect_Batch();
+
                             }
-
-                            command.CommandTimeout = 200000;
-                            command.ExecuteNonQuery();
-                            Disconnect_Batch();
-
-                        }
-                        ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL_NoMultiTrans END", null);
-                        return true;
+                            ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL_NoMultiTrans END", null);
+                            return true;
 
                         default:
                             MessageBox.Show("Error eSQLType in function public bool ExecuteNonQuerySQL_NoMultiTrans(...)");
@@ -2888,7 +2913,7 @@ namespace DBConnectionControl40
             return true;
         }
 
-        private bool GetParametersValue(string Name,ref object value, SqlParameterCollection sqlParameterCollection, ref string Err)
+        private bool GetParametersValue(string Name, ref object value, SqlParameterCollection sqlParameterCollection, ref string Err)
         {
             foreach (SqlParameter spar in sqlParameterCollection)
             {
@@ -2901,7 +2926,7 @@ namespace DBConnectionControl40
             return false;
         }
 
-        private bool Execute_SQLReadData(string sql, List<SQL_Parameter> lSQL_Parameter,out SQLReaderTable ReaderTable, ref string ErrorMsg)
+        private bool Execute_SQLReadData(string sql, List<SQL_Parameter> lSQL_Parameter, out SQLReaderTable ReaderTable, ref string ErrorMsg)
         {
             //SqlConnection Conn = new SqlConnection(xString);
             ReaderTable = null;
@@ -2914,7 +2939,7 @@ namespace DBConnectionControl40
                 {
                     sql = new_sql;
                 }
-                
+
             }
             try
             {
@@ -2923,149 +2948,149 @@ namespace DBConnectionControl40
                     switch (m_DBType)
                     {
                         case eDBType.MYSQL:
-                        {
-                            MySqlCommand command;
-                            command = new MySqlCommand(sql, m_con_MYSQL.Con);
-                            if (lSQL_Parameter != null)
                             {
-                                foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+                                MySqlCommand command;
+                                command = new MySqlCommand(sql, m_con_MYSQL.Con);
+                                if (lSQL_Parameter != null)
                                 {
-                                    if (sqlPar.size > 0)
+                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
                                     {
-                                        command.Parameters.Add(sqlPar.Name, sqlPar.MySQLdbType, sqlPar.size).Value = sqlPar.Value;
-                                    }
-                                    else
-                                    {
-                                        command.Parameters.Add(new MySqlParameter(sqlPar.Name, sqlPar.Value)).Value = sqlPar.Value;
+                                        if (sqlPar.size > 0)
+                                        {
+                                            command.Parameters.Add(sqlPar.Name, sqlPar.MySQLdbType, sqlPar.size).Value = sqlPar.Value;
+                                        }
+                                        else
+                                        {
+                                            command.Parameters.Add(new MySqlParameter(sqlPar.Name, sqlPar.Value)).Value = sqlPar.Value;
+                                        }
                                     }
                                 }
-                            }
 
-                            command.CommandTimeout = 200000;
+                                command.CommandTimeout = 200000;
 
-                            MySqlDataReader reader = command.ExecuteReader();
+                                MySqlDataReader reader = command.ExecuteReader();
 
-                            ReaderTable = new SQLReaderTable();
+                                ReaderTable = new SQLReaderTable();
 
-                            try
-                            {
-                                while (reader.Read())
+                                try
                                 {
-                                    SQLReaderRow ReaderRow = new SQLReaderRow();
-                                    foreach (Object obj in reader)
+                                    while (reader.Read())
                                     {
-                                        ReaderRow.column.Add(obj);
+                                        SQLReaderRow ReaderRow = new SQLReaderRow();
+                                        foreach (Object obj in reader)
+                                        {
+                                            ReaderRow.column.Add(obj);
+                                        }
+                                        ReaderTable.row.Add(ReaderRow);
                                     }
-                                    ReaderTable.row.Add(ReaderRow);
                                 }
-                            }
-                            finally
-                            {
-                                // Always call Close when done reading.
-                                reader.Close();
-                            }
+                                finally
+                                {
+                                    // Always call Close when done reading.
+                                    reader.Close();
+                                }
 
-                            Disconnect_Batch();
-                        }
-                        return true;
+                                Disconnect_Batch();
+                            }
+                            return true;
 
 
                         case eDBType.MSSQL:
-                        {
-                            SqlCommand command;
-                            command = new SqlCommand(sql, m_con_MSSQL.Con);
-                            if (lSQL_Parameter != null)
                             {
-                                foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+                                SqlCommand command;
+                                command = new SqlCommand(sql, m_con_MSSQL.Con);
+                                if (lSQL_Parameter != null)
                                 {
-                                    if (sqlPar.size > 0)
+                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
                                     {
-                                        command.Parameters.Add(sqlPar.Name, sqlPar.dbType, sqlPar.size).Value = sqlPar.Value;
-                                    }
-                                    else
-                                    {
-                                        command.Parameters.Add(new SqlParameter(sqlPar.Name, sqlPar.Value)).Value = sqlPar.Value;
+                                        if (sqlPar.size > 0)
+                                        {
+                                            command.Parameters.Add(sqlPar.Name, sqlPar.dbType, sqlPar.size).Value = sqlPar.Value;
+                                        }
+                                        else
+                                        {
+                                            command.Parameters.Add(new SqlParameter(sqlPar.Name, sqlPar.Value)).Value = sqlPar.Value;
+                                        }
                                     }
                                 }
-                            }
 
-                            command.CommandTimeout = 200000;
+                                command.CommandTimeout = 200000;
 
-                            SqlDataReader reader = command.ExecuteReader();
+                                SqlDataReader reader = command.ExecuteReader();
 
-                            ReaderTable = new SQLReaderTable();
+                                ReaderTable = new SQLReaderTable();
 
-                            try
-                            {
-                                while (reader.Read())
+                                try
                                 {
-                                    SQLReaderRow ReaderRow = new SQLReaderRow();
-                                    foreach (Object obj in reader)
+                                    while (reader.Read())
                                     {
-                                        ReaderRow.column.Add(obj);
+                                        SQLReaderRow ReaderRow = new SQLReaderRow();
+                                        foreach (Object obj in reader)
+                                        {
+                                            ReaderRow.column.Add(obj);
+                                        }
+                                        ReaderTable.row.Add(ReaderRow);
                                     }
-                                    ReaderTable.row.Add(ReaderRow);
                                 }
-                            }
-                            finally
-                            {
-                                // Always call Close when done reading.
-                                reader.Close();
-                            }
+                                finally
+                                {
+                                    // Always call Close when done reading.
+                                    reader.Close();
+                                }
 
 
-                            Disconnect_Batch();
-                        }
-                        return true;
+                                Disconnect_Batch();
+                            }
+                            return true;
 
                         case eDBType.SQLITE:
-                        {
-                            SQLiteCommand command;
-                            command = new SQLiteCommand(sql, m_con_SQLite.Con);
-                            if (lSQL_Parameter != null)
                             {
-                                foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+                                SQLiteCommand command;
+                                command = new SQLiteCommand(sql, m_con_SQLite.Con);
+                                if (lSQL_Parameter != null)
                                 {
-                                    if (sqlPar.size > 0)
+                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
                                     {
-                                        SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType);
-                                        mySQLiteParameter.Value = sqlPar.Value;
-                                        command.Parameters.Add(mySQLiteParameter);
-                                    }
-                                    else
-                                    {
-                                        command.Parameters.Add(new SQLiteParameter(sqlPar.Name, sqlPar.Value));
+                                        if (sqlPar.size > 0)
+                                        {
+                                            SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType);
+                                            mySQLiteParameter.Value = sqlPar.Value;
+                                            command.Parameters.Add(mySQLiteParameter);
+                                        }
+                                        else
+                                        {
+                                            command.Parameters.Add(new SQLiteParameter(sqlPar.Name, sqlPar.Value));
+                                        }
                                     }
                                 }
-                            }
 
-                            command.CommandTimeout = 200000;
+                                command.CommandTimeout = 200000;
 
-                            SQLiteDataReader reader = command.ExecuteReader();
+                                SQLiteDataReader reader = command.ExecuteReader();
 
-                            ReaderTable = new SQLReaderTable();
+                                ReaderTable = new SQLReaderTable();
 
-                            try
-                            {
-                                while (reader.Read())
+                                try
                                 {
-                                    SQLReaderRow ReaderRow = new SQLReaderRow();
-                                    foreach (Object obj in reader)
+                                    while (reader.Read())
                                     {
-                                        ReaderRow.column.Add(obj);
+                                        SQLReaderRow ReaderRow = new SQLReaderRow();
+                                        foreach (Object obj in reader)
+                                        {
+                                            ReaderRow.column.Add(obj);
+                                        }
+                                        ReaderTable.row.Add(ReaderRow);
                                     }
-                                    ReaderTable.row.Add(ReaderRow);
                                 }
-                            }
-                            finally
-                            {
-                                // Always call Close when done reading.
-                                reader.Close();
-                            }
+                                finally
+                                {
+                                    // Always call Close when done reading.
+                                    reader.Close();
+                                }
 
-                            Disconnect_Batch();
-                        }
-                        return true;
+                                Disconnect_Batch();
+                            }
+                            return true;
 
                         default:
                             MessageBox.Show("Error eSQLType in function: private bool Execute_SQLReadData(...)");
@@ -3096,82 +3121,82 @@ namespace DBConnectionControl40
             switch (m_DBType)
             {
                 case eDBType.MSSQL:
-                {
-                    DataSet ds = new DataSet();
-                    string csError = "";
-                    string sql_cmd = @"SELECT permission_name
+                    {
+                        DataSet ds = new DataSet();
+                        string csError = "";
+                        string sql_cmd = @"SELECT permission_name
                                        FROM fn_my_permissions(NULL, 'SERVER') WHERE permission_name = '" + const_MSSQL_ALTER_ANY_DATABASE + "'";
 
-                    string saved_DataBaseName = m_conData_MSSQL.m_DataBase;
-                    m_conData_MSSQL.m_DataBase = "";
+                        string saved_DataBaseName = m_con_MSSQL.DataBase;
+                        m_con_MSSQL.DataBase = "";
 
-                    if (ReadDataSet(ref ds, sql_cmd, ref csError))
-                    {
-                        m_conData_MSSQL.m_DataBase = saved_DataBaseName;
-
-                        if (ds.Tables.Count > 0)
+                        if (ReadDataSet(ref ds, sql_cmd, ref csError))
                         {
-                            if (ds.Tables[0].Rows.Count > 0)
+                            m_con_MSSQL.DataBase = saved_DataBaseName;
+
+                            if (ds.Tables.Count > 0)
                             {
-                                if (ds.Tables[0].Rows[0].ItemArray[0] != null)
+                                if (ds.Tables[0].Rows.Count > 0)
                                 {
-                                    if (ds.Tables[0].Rows[0].ItemArray[0].GetType() == typeof(String))
+                                    if (ds.Tables[0].Rows[0].ItemArray[0] != null)
                                     {
-                                        string sValue = ds.Tables[0].Rows[0].ItemArray[0].ToString();
-                                        if (sValue.Equals(const_MSSQL_ALTER_ANY_DATABASE))
+                                        if (ds.Tables[0].Rows[0].ItemArray[0].GetType() == typeof(String))
                                         {
-                                            return true;
+                                            string sValue = ds.Tables[0].Rows[0].ItemArray[0].ToString();
+                                            if (sValue.Equals(const_MSSQL_ALTER_ANY_DATABASE))
+                                            {
+                                                return true;
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
+                        else
+                        {
+                            m_con_MSSQL.DataBase = saved_DataBaseName;
+                        }
                     }
-                    else
-                    {
-                        m_conData_MSSQL.m_DataBase = saved_DataBaseName;
-                    }
-                }
-                return false;
+                    return false;
 
                 case eDBType.MYSQL:
-                {
-                    DataSet ds = new DataSet();
-                    string csError = "";
-                    string sql_cmd = @"SELECT Create_priv
-                                            FROM USER WHERE User = '" + m_conData_MSSQL.m_UserName + "'";
-
-                    string saved_DataBaseName = m_conData_MSSQL.m_DataBase;
-                    m_conData_MSSQL.m_DataBase = "";
-
-                    if (ReadDataSet(ref ds, sql_cmd, ref csError))
                     {
-                        m_conData_MSSQL.m_DataBase = saved_DataBaseName;
+                        DataSet ds = new DataSet();
+                        string csError = "";
+                        string sql_cmd = @"SELECT Create_priv
+                                            FROM USER WHERE User = '" + m_con_MYSQL.UserName + "'";
 
-                        if (ds.Tables.Count > 0)
+                        string saved_DataBaseName = m_con_MYSQL.DataBase;
+                        m_con_MYSQL.DataBase = "";
+
+                        if (ReadDataSet(ref ds, sql_cmd, ref csError))
                         {
-                            if (ds.Tables[0].Rows.Count > 0)
+                            m_con_MYSQL.DataBase = saved_DataBaseName;
+
+                            if (ds.Tables.Count > 0)
                             {
-                                if (ds.Tables[0].Rows[0].ItemArray[0] != null)
+                                if (ds.Tables[0].Rows.Count > 0)
                                 {
-                                    if (ds.Tables[0].Rows[0].ItemArray[0].GetType() == typeof(String))
+                                    if (ds.Tables[0].Rows[0].ItemArray[0] != null)
                                     {
-                                        string sValue = ds.Tables[0].Rows[0].ItemArray[0].ToString();
-                                        if (sValue.Equals(const_MSSQL_ALTER_ANY_DATABASE))
+                                        if (ds.Tables[0].Rows[0].ItemArray[0].GetType() == typeof(String))
                                         {
-                                            return true;
+                                            string sValue = ds.Tables[0].Rows[0].ItemArray[0].ToString();
+                                            if (sValue.Equals(const_MSSQL_ALTER_ANY_DATABASE))
+                                            {
+                                                return true;
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
+                        else
+                        {
+                            m_con_MYSQL.DataBase = saved_DataBaseName;
+                        }
                     }
-                    else
-                    {
-                        m_conData_MSSQL.m_DataBase = saved_DataBaseName;
-                    }
-                }
-                return false;
+                    return false;
 
                 case eDBType.SQLITE:
                     return true;
@@ -3186,23 +3211,23 @@ namespace DBConnectionControl40
         private void PreviewSQLCommand(string sql, List<SQL_Parameter> lSQL_Parameter, ref string OutString, ref bool bChanged, string Title)
         {
             bChanged = false;
-            SqlBuilder.Forms.frmEditor frmEditor = new SqlBuilder.Forms.frmEditor(sql,lSQL_Parameter, Title);
-            if (frmEditor.ShowDialog()==DialogResult.OK)
+            SqlBuilder.Forms.frmEditor frmEditor = new SqlBuilder.Forms.frmEditor(sql, lSQL_Parameter, Title);
+            if (frmEditor.ShowDialog() == DialogResult.OK)
             {
                 bChanged = true;
                 OutString = frmEditor.s_sql_text;
             }
         }
 
-        private void ShowDBErrorMessage(string ErrorMsg, List<SQL_Parameter> lSQL_Parameter, string Title)
+        internal static void ShowDBErrorMessage(string ErrorMsg, List<SQL_Parameter> lSQL_Parameter, string Title)
         {
-            if (m_ShowDBErrorMessages)
-            {
-                SqlBuilder.Forms.frmEditor frmEditor = new SqlBuilder.Forms.frmEditor(ErrorMsg, lSQL_Parameter, Title);
-                if (frmEditor.ShowDialog() == DialogResult.OK)
-                {
-                }
-            }
+            //if (m_ShowDBErrorMessages)
+            //{
+            //    SqlBuilder.Forms.frmEditor frmEditor = new SqlBuilder.Forms.frmEditor(ErrorMsg, lSQL_Parameter, Title);
+            //    if (frmEditor.ShowDialog() == DialogResult.OK)
+            //    {
+            //    }
+            //}
         }
 
         public string DataBase_BackupTemp
@@ -3212,9 +3237,9 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                        if (m_conData_MYSQL != null)
+                        if (m_con_MYSQL != null)
                         {
-                            return m_conData_MYSQL.m_DataBase + BACKUPTEMP;
+                            return m_con_MYSQL.DataBase + BACKUPTEMP;
                         }
                         else
                         {
@@ -3222,9 +3247,9 @@ namespace DBConnectionControl40
                         }
 
                     case eDBType.MSSQL:
-                        if (m_conData_MSSQL != null)
+                        if (m_con_MSSQL != null)
                         {
-                            return m_conData_MSSQL.m_DataBase + BACKUPTEMP;
+                            return m_con_MSSQL.DataBase + BACKUPTEMP;
                         }
                         else
                         {
@@ -3232,7 +3257,7 @@ namespace DBConnectionControl40
                         }
 
                     case eDBType.SQLITE:
-                        return m_conData_SQLITE.DataBaseFile + BACKUPTEMP;
+                        return m_con_SQLite.DataBaseFile + BACKUPTEMP;
                     default:
                         LogFile.Error.Show("Error: Illegal m_DBType in properrty DataBase");
                         return "";
@@ -3248,9 +3273,9 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                        if (m_conData_MYSQL != null)
+                        if (m_con_MYSQL != null)
                         {
-                            return m_conData_MYSQL.m_DataBase;
+                            return m_con_MYSQL.DataBase;
                         }
                         else
                         {
@@ -3258,9 +3283,9 @@ namespace DBConnectionControl40
                         }
 
                     case eDBType.MSSQL:
-                        if (m_conData_MSSQL != null)
+                        if (m_con_MSSQL != null)
                         {
-                            return m_conData_MSSQL.m_DataBase;
+                            return m_con_MSSQL.DataBase;
                         }
                         else
                         {
@@ -3268,11 +3293,11 @@ namespace DBConnectionControl40
                         }
 
                     case eDBType.SQLITE:
-                        return m_conData_SQLITE.DataBaseFile;
+                        return m_con_SQLite.DataBaseFile;
                     default:
                         LogFile.Error.Show("Error: Illegal m_DBType in properrty DataBase");
                         return "";
-                        
+
                 }
             }
             set
@@ -3280,13 +3305,13 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                        m_conData_MYSQL.m_DataBase = value;
+                        m_con_MYSQL.DataBase = value;
                         break;
                     case eDBType.MSSQL:
-                        m_conData_MSSQL.m_DataBase = value;
+                        m_con_MSSQL.DataBase = value;
                         break;
                     case eDBType.SQLITE:
-                        m_conData_SQLITE.DataBaseFile = value;
+                        m_con_SQLite.DataBaseFile = value;
                         break;
                     default:
                         LogFile.Error.Show("Error: Illegal m_DBType in properrty DataBase");
@@ -3302,13 +3327,13 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                        return m_conData_MYSQL.m_DataSource;
+                        return m_con_MYSQL.DataSource;
 
                     case eDBType.MSSQL:
-                        return m_conData_MSSQL.m_DataSource;
+                        return m_con_MSSQL.DataSource;
 
                     case eDBType.SQLITE:
-                        return m_conData_SQLITE.DataBaseFile;
+                        return m_con_SQLite.DataBaseFile;
 
                     default:
                         MessageBox.Show("Error eSQLType in property:  public string DataSource");
@@ -3320,13 +3345,13 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                        m_conData_MYSQL.m_DataSource = value;
+                        m_con_MYSQL.DataSource = value;
                         break;
                     case eDBType.MSSQL:
-                        m_conData_MSSQL.m_DataSource = value;
+                        m_con_MSSQL.DataSource = value;
                         break;
                     case eDBType.SQLITE:
-                        m_conData_SQLITE.DataBaseFile = value;
+                        m_con_SQLite.DataBaseFile = value;
                         break;
                 }
             }
@@ -3339,10 +3364,10 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                        return m_conData_MYSQL.m_UserName;
+                        return m_con_MYSQL.UserName;
 
                     case eDBType.MSSQL:
-                        return m_conData_MSSQL.m_UserName;
+                        return m_con_MSSQL.UserName;
 
                     case eDBType.SQLITE:
                         LogFile.Error.Show("Error in get property UserName:  SQLITE does not support UserName");
@@ -3358,10 +3383,10 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                        m_conData_MYSQL.m_UserName = value;
+                        m_con_MYSQL.UserName = value;
                         break;
                     case eDBType.MSSQL:
-                        m_conData_MSSQL.m_UserName = value;
+                        m_con_MSSQL.UserName = value;
                         break;
                     case eDBType.SQLITE:
                         LogFile.Error.Show("Error in property:  public string UserName : SQLITE does not have user name!");
@@ -3380,16 +3405,16 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                        return m_conData_MYSQL.m_crypted_Password;
+                        return m_con_MYSQL.PasswordCrypted;
 
                     case eDBType.MSSQL:
-                        return m_conData_MSSQL.m_crypted_Password;
+                        return m_con_MSSQL.PasswordCrypted;
 
                     case eDBType.SQLITE:
-                        return m_conData_MSSQL.m_crypted_Password;
+                        return m_con_SQLite.PasswordCrypted;
 
                     default:
-                        MessageBox.Show("Error eSQLType in property:  public string PasswordCrypted {}");
+                        LogFile.Error.Show("Error eSQLType in property:  public string PasswordCrypted {}");
                         return "Error";
                 }
             }
@@ -3398,12 +3423,15 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                    m_conData_MYSQL.m_crypted_Password = value;
-                    break;
+                        m_con_MYSQL.PasswordCrypted = value;
+                        break;
 
                     case eDBType.MSSQL:
-                    m_conData_MSSQL.m_crypted_Password = value;
-                    break;
+                        m_con_MSSQL.PasswordCrypted = value;
+                        break;
+                    case eDBType.SQLITE:
+                        m_con_SQLite.PasswordCrypted = value;
+                        break;
                 }
             }
 
@@ -3416,11 +3444,13 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                    return m_conData_MYSQL.m_Crypt.DecryptString(m_conData_MYSQL.m_crypted_Password);
+                        return m_con_MYSQL.Password;
                     case eDBType.MSSQL:
-                    return m_conData_MSSQL.m_Crypt.DecryptString(m_conData_MSSQL.m_crypted_Password);
+                        return m_con_MSSQL.Password;
+                    case eDBType.SQLITE:
+                        return m_con_SQLite.Password;
                     default:
-                    MessageBox.Show("Error eSQLType in property: public string Password");
+                        LogFile.Error.Show("Error eSQLType in property: public string Password");
                         return "Error Password";
                 }
             }
@@ -3429,11 +3459,17 @@ namespace DBConnectionControl40
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                    m_conData_MYSQL.m_crypted_Password = m_conData_MYSQL.m_Crypt.EncryptString(value);
-                    break;
+                        m_con_MYSQL.Password = value;
+                        break;
                     case eDBType.MSSQL:
-                    m_conData_MSSQL.m_crypted_Password = m_conData_MSSQL.m_Crypt.EncryptString(value); ;
-                    break;
+                        m_con_MSSQL.Password = value;
+                        break;
+                    case eDBType.SQLITE:
+                        m_con_SQLite.Password = value;
+                        break;
+                    default:
+                        LogFile.Error.Show("Error eSQLType in property: public string Password");
+                        break;
                 }
             }
         }
@@ -3442,35 +3478,36 @@ namespace DBConnectionControl40
 
 
 
-        public string ConnectionString 
-        { 
-            get{
-                    switch (m_DBType)
-                    {
-                        case eDBType.MYSQL:
-                            return m_conData_MYSQL.GetConnectionString();
+        public string ConnectionString
+        {
+            get
+            {
+                switch (m_DBType)
+                {
+                    case eDBType.MYSQL:
+                        return m_con_MYSQL.ConnectionString;
 
-                        case eDBType.MSSQL:
-                            return m_conData_MSSQL.GetConnectionString();
+                    case eDBType.MSSQL:
+                        return m_con_MSSQL.ConnectionString;
 
-                        case eDBType.SQLITE:
-                            return "Data Source=" + m_conData_SQLITE.DataBaseFile + ";Version=3;foreign keys=true;";//Password=Logina2761962SQLite";
+                    case eDBType.SQLITE:
+                        return "Data Source=" + m_con_SQLite.DataBaseFile + ";Version=3;foreign keys=true;";//Password=Logina2761962SQLite";
 
-                        default:
-                            MessageBox.Show("Program Error in public string ConnectionString");
-                            return "ERROE UNKNOWN";
-                    }
-               }
+                    default:
+                        LogFile.Error.Show("Program Error in public string ConnectionString");
+                        return "ERROE UNKNOWN";
+                }
+            }
         }
 
 
 
         public string LogTableName
-         {
-             get { return m_LogTableName; }
-             set { m_LogTableName = value; }
+        {
+            get { return m_LogTableName; }
+            set { m_LogTableName = value; }
 
-         }
+        }
 
         #endregion PUBLIC MEMBER FUNCTIONS
         #endregion PUBLIC
@@ -3499,7 +3536,7 @@ namespace DBConnectionControl40
                     LocalDB_data localDB = (LocalDB_data)DB_Param;
                     this.ConnectionName = localDB.ConnectionName;
                     DBType = eDBType.SQLITE;
-                    m_conData_SQLITE.SQLite_AllwaysCreateNew = localDB.bAllwaysCreateNew;
+                    m_con_SQLite.SQLite_AllwaysCreateNew = localDB.bAllwaysCreateNew;
                 }
                 else
                 {
@@ -3511,7 +3548,7 @@ namespace DBConnectionControl40
             switch (DBType)
             {
                 case eDBType.MSSQL:
-                    if (m_conData_MSSQL != null)
+                    if (m_con_MSSQL.m_conData_MSSQL != null)
                     {
                         if (DB_Param.GetType() == typeof(RemoteDB_data))
                         {
@@ -3520,7 +3557,7 @@ namespace DBConnectionControl40
                             DataSource = remoteDB_Param.DataSource;
                             DataBase = remoteDB_Param.DataBase;
                             UserName = remoteDB_Param.UserName;
-                            m_conData_MSSQL.m_crypted_Password = remoteDB_Param.crypted_Password;
+                            m_con_MSSQL.m_conData_MSSQL.m_crypted_Password = remoteDB_Param.crypted_Password;
                             DataBaseFilePath = remoteDB_Param.strDataBaseFilePath;
                             DataBaseLogFilePath = remoteDB_Param.strDataBaseLogFilePath;
                         }
@@ -3536,7 +3573,7 @@ namespace DBConnectionControl40
                     break;
 
                 case eDBType.MYSQL:
-                    if (m_conData_MYSQL != null)
+                    if (m_con_MYSQL.m_conData_MYSQL != null)
                     {
                         if (DB_Param.GetType() == typeof(RemoteDB_data))
                         {
@@ -3544,7 +3581,7 @@ namespace DBConnectionControl40
                             DataSource = remoteDB_Param.DataSource;
                             DataBase = remoteDB_Param.DataBase;
                             UserName = remoteDB_Param.UserName;
-                            m_conData_MYSQL.m_crypted_Password = remoteDB_Param.crypted_Password;
+                            m_con_MYSQL.m_conData_MYSQL.m_crypted_Password = remoteDB_Param.crypted_Password;
                         }
                         else
                         {
@@ -3558,22 +3595,22 @@ namespace DBConnectionControl40
                     break;
 
                 case eDBType.SQLITE:
-                    if (m_conData_SQLITE != null)
+                    if (m_con_SQLite.m_conData_SQLITE != null)
                     {
                         if (DB_Param.GetType() == typeof(LocalDB_data))
                         {
-                            LocalDB_data LocalDB_Param =  (LocalDB_data)DB_Param;
+                            LocalDB_data LocalDB_Param = (LocalDB_data)DB_Param;
 
                             if ((LocalDB_Param.DataBaseFilePath != null) && (LocalDB_Param.DataBaseFileName != null))
                             {
-                                m_conData_SQLITE.DataBaseFile = LocalDB_Param.DataBaseFilePath + LocalDB_Param.DataBaseFileName;
+                                m_con_SQLite.DataBaseFile = LocalDB_Param.DataBaseFilePath + LocalDB_Param.DataBaseFileName;
                             }
                             else
                             {
 
                                 LogFile.Error.Show("Error ((LocalDB_Param.DataBaseFilePath != null) && (LocalDB_Param.DataBaseFileName != null)) in function public void SetConnectionData(Object DB_Param)!");
                             }
-                            
+
                         }
                         else
                         {
@@ -3667,7 +3704,7 @@ namespace DBConnectionControl40
 
                                 command.CommandTimeout = 200000;
 
-                                 //Convert.ToInt64(nieuweID);
+                                //Convert.ToInt64(nieuweID);
                                 newID = new ID(Convert.ToInt64(command.ExecuteScalar()));
                                 //command.ExecuteNonQuery();
                                 Disconnect_Batch();
@@ -3759,7 +3796,7 @@ namespace DBConnectionControl40
             {
                 string new_sql = "";
                 bool bChanged = false;
-                PreviewSQLCommand(sqlGetColumnsNamesAndTypes,null,ref new_sql,ref bChanged, "ReadDataTable");
+                PreviewSQLCommand(sqlGetColumnsNamesAndTypes, null, ref new_sql, ref bChanged, "ReadDataTable");
                 if (bChanged)
                 {
                     sqlGetColumnsNamesAndTypes = new_sql;
@@ -3920,7 +3957,7 @@ namespace DBConnectionControl40
 
             string csError = null;
 
-            string sLastQuestion = lng.s_AreYouSureToDeleteDataBase.s + " " +this.DataBase + " on server:" +this.DataSource+ "?";
+            string sLastQuestion = lng.s_AreYouSureToDeleteDataBase.s + " " + this.DataBase + " on server:" + this.DataSource + "?";
 
             if (MessageBox.Show(sLastQuestion, lng.s_Question.s, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
@@ -3952,10 +3989,10 @@ namespace DBConnectionControl40
                     return DataBase_Make_BackupTemp_MYSQL();
 
                 case eDBType.MSSQL:
-                     return DataBase_Make_BackupTemp_MSSQL();
+                    return DataBase_Make_BackupTemp_MSSQL();
 
                 case eDBType.SQLITE:
-                     return DataBase_Make_BackupTemp_SQLite();
+                    return DataBase_Make_BackupTemp_SQLite();
 
                 default:
                     MessageBox.Show("Error eSQLType in function: public bool DataBase_Make_BackupTemp( ..)");
@@ -3974,7 +4011,7 @@ namespace DBConnectionControl40
                     return DataBase_Make_Backup_MSSQL(BackupFullFileNamePath);
 
                 case eDBType.SQLITE:
-                    return DataBase_Make_Backup_SQLite(BackupFullFileNamePath);
+                    return m_con_SQLite.DataBase_Make_Backup_SQLite(BackupFullFileNamePath);
 
                 default:
                     MessageBox.Show("Error eSQLType in function: public bool DataBase_Make_BackupTemp( ..)");
@@ -4001,21 +4038,9 @@ namespace DBConnectionControl40
             }
         }
 
-        private bool DataBase_Restore_SQLite(string BackupFullFileNamePath)
+        private bool DataBase_Restore_SQLite(string backupFullFileNamePath)
         {
-            string FullFileNamePath = this.m_conData_SQLITE.DataBaseFile;
-            string DestinationFullFileNamePath = GetBackUpName();
-            try
-            {
-                File.Copy(BackupFullFileNamePath, FullFileNamePath,true);
-                return true;
-
-            }
-            catch (Exception Ex)
-            {
-                LogFile.Error.Show("ERROR:DBConnection:DataBase_Restore_SQLite:Backup file = \""+ BackupFullFileNamePath +"\"\r\nException = " + Ex.Message);
-                return false;
-            }
+            return m_con_SQLite.DataBase_Restore_SQLite(backupFullFileNamePath);
         }
 
         private bool DataBase_Restore_MSSQL(string backupName)
@@ -4042,38 +4067,6 @@ namespace DBConnectionControl40
             return false;
         }
 
-        private bool DataBase_Make_Backup_SQLite(string BackupFullFileNamePath)
-        {
-            string FullFileNamePath = this.m_conData_SQLITE.DataBaseFile;
-            if (BackupFullFileNamePath==null)
-            {
-                string full_path = System.IO.Path.GetDirectoryName(FullFileNamePath);
-                string file_name = System.IO.Path.GetFileName(FullFileNamePath);
-                if ((full_path[full_path.Length-1]!='\\') && (full_path[full_path.Length - 1] != '/'))
-                {
-                    full_path += '\\';
-                }
-                BackupFullFileNamePath = full_path +"BACKUP_"+ file_name;
-            }
-
-            try
-            {
-                File.Copy(FullFileNamePath, BackupFullFileNamePath);
-                return true;
-
-            }
-            catch (Exception Ex)
-            {
-                LogFile.Error.Show("ERROR:DBConnection:DataBase_Make_BackupTemp_SQLite:Exception=" + Ex.Message);
-                return false;
-            }
-
-        }
-
-        private string GetBackUpName()
-        {
-            return null;
-        }
 
         public bool DataBase_Delete_BackupTemp()
         {
@@ -4104,12 +4097,12 @@ namespace DBConnectionControl40
             throw new NotImplementedException();
         }
 
-        
+
 
         private bool DataBase_Make_BackupTemp_SQLite()
         {
-            string FullFileNamePath = this.m_conData_SQLITE.DataBaseFile;
-            string DestinationFullFileNamePath = FullFileNamePath+BACKUPTEMP;
+            string FullFileNamePath = m_con_SQLite.m_conData_SQLITE.DataBaseFile;
+            string DestinationFullFileNamePath = FullFileNamePath + BACKUPTEMP;
             try
             {
                 File.Copy(FullFileNamePath, DestinationFullFileNamePath);
@@ -4124,7 +4117,7 @@ namespace DBConnectionControl40
         }
         private bool DataBase_Delete_BackupTemp_SQLite()
         {
-            string FullFileNamePath = this.m_conData_SQLITE.DataBaseFile;
+            string FullFileNamePath = m_con_SQLite.m_conData_SQLITE.DataBaseFile;
             string DestinationFullFileNamePath = FullFileNamePath + BACKUPTEMP;
             try
             {
@@ -4154,7 +4147,7 @@ namespace DBConnectionControl40
 
         public bool DataBase_Delete()
         {
-            string FullFileNamePath = this.m_conData_SQLITE.DataBaseFile;
+            string FullFileNamePath = m_con_SQLite.m_conData_SQLITE.DataBaseFile;
             try
             {
                 File.Delete(FullFileNamePath);
@@ -4201,7 +4194,7 @@ namespace DBConnectionControl40
                                 }
                                 catch (Exception ex)
                                 {
-                                    LogFile.Error.Show("ERROR:DBConnection:DataBase_Create:Execption="+ex.Message);
+                                    LogFile.Error.Show("ERROR:DBConnection:DataBase_Create:Execption=" + ex.Message);
                                     return false;
                                 }
                             }
@@ -4209,13 +4202,13 @@ namespace DBConnectionControl40
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:DBConnection:DataBase_Create:Err="+sErr);
+                            LogFile.Error.Show("ERROR:DBConnection:DataBase_Create:Err=" + sErr);
                             return false;
                         }
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:DBConnection:DataBase_Create:File:" + DataBase+" allready exist, can not overwrite database!");
+                        LogFile.Error.Show("ERROR:DBConnection:DataBase_Create:File:" + DataBase + " allready exist, can not overwrite database!");
                         return false;
                     }
                 }
@@ -4254,9 +4247,9 @@ namespace DBConnectionControl40
             }
             StringBuilder strB_CheckTable = new StringBuilder(strCheckTable);
             DataTable dt = new DataTable();
-            if (this.ReadDataTable(ref dt,strCheckTable,ref csError))
+            if (this.ReadDataTable(ref dt, strCheckTable, ref csError))
             {
-                if (dt.Rows.Count>0)
+                if (dt.Rows.Count > 0)
                 {
                     int res = (int)dt.Rows[0]["res"];
                     if (res > 0)
@@ -4277,6 +4270,17 @@ namespace DBConnectionControl40
             return false;
         }
 
+        internal ConnectionSQLITE.eSQLITEFileExist SQLITEFileExist(ref string sqlitefile)
+        {
+            if (m_con_SQLite != null)
+            {
+                return m_con_SQLite.SQLITEFileExist(ref sqlitefile);
+            }
+            else
+            {
+                return ConnectionSQLITE.eSQLITEFileExist.CONNECTION_FILE_NOT_DEFINED;
+            }
+        }
     }
 }
 

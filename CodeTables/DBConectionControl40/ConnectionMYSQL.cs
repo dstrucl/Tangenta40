@@ -11,20 +11,29 @@ namespace DBConnectionControl40
 {
     public class ConnectionMYSQL
     {
-        private conData_MYSQL m_conData_MYSQL = null;
+        public conData_MYSQL m_conData_MYSQL = null;
 
         private bool m_bOpened = false;
         private bool m_bBatchOpen = false;
+        private bool m_bSessionConnected = false;
 
         public MySqlConnection Con = null;
         public MySqlTransaction Tran = null;
         public MySqlCommand cmd = null;
+
+        public ConnectionDialog ConnectionDialog = null;
 
         public bool BatchOpen
         {
             get { return m_bBatchOpen; }
             set { m_bBatchOpen = value; }
         }
+
+        public bool SessionConnected
+        {
+            get { return m_bSessionConnected; }
+        }
+
 
         public ConnectionMYSQL()
         {
@@ -55,6 +64,125 @@ namespace DBConnectionControl40
             }
         }
 
+        public string DataBase
+        {
+            get
+            {
+                if (m_conData_MYSQL != null)
+                {
+                    return m_conData_MYSQL.m_DataBase;
+                }
+                return null;
+            }
+            set
+            {
+                if (m_conData_MYSQL != null)
+                {
+                    m_conData_MYSQL.m_DataBase = value;
+                }
+            }
+        }
+
+        public string DataSource
+        {
+            get
+            {
+                if (m_conData_MYSQL != null)
+                {
+                    return m_conData_MYSQL.m_DataSource;
+                }
+                return null;
+            }
+            set
+            {
+                if (m_conData_MYSQL != null)
+                {
+                    m_conData_MYSQL.m_DataSource = value;
+                }
+            }
+        }
+
+        public string UserName
+        {
+            get
+            {
+                if (m_conData_MYSQL != null)
+                {
+                    return m_conData_MYSQL.m_UserName;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (m_conData_MYSQL != null)
+                {
+                    m_conData_MYSQL.m_UserName = value;
+                }
+            }
+        }
+
+
+        public string DataBaseFilePath
+        {
+            get
+            {
+                LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_RUN_RELEASE, "Error: Property:DataBaseFilePath is not supported for eDBType.MYSQL!");
+                return null;
+
+            }
+            set
+            {
+                MessageBox.Show("Error setting property DataBaseFilePath in module DBConnection. MYSQL server does not support DataBaseFilePath definition");
+            }
+        }
+
+
+        public string PasswordCrypted
+        {
+            get
+            {
+                if (m_conData_MYSQL != null)
+                {
+                    return m_conData_MYSQL.m_crypted_Password;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (m_conData_MYSQL != null)
+                {
+                    m_conData_MYSQL.m_crypted_Password = value;
+                }
+            }
+        }
+
+        public string Password
+        {
+            get
+            {
+                if (m_conData_MYSQL != null)
+                {
+                    return m_conData_MYSQL.m_Crypt.DecryptString(m_conData_MYSQL.m_crypted_Password);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (m_conData_MYSQL != null)
+                {
+                    m_conData_MYSQL.m_crypted_Password = m_conData_MYSQL.m_Crypt.EncryptString(value);
+                }
+            }
+        }
 
         public void Open()
         {
@@ -158,12 +286,47 @@ namespace DBConnectionControl40
             return Connect(ref sError);
         }
 
+        public bool CheckConnectionToServerOnly()
+        {
+            try
+            {
+                Con.ConnectionString = m_conData_MYSQL.GetServerConnectionString();
+                Con.Open();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //sError = SetConnectionError() + "\n" + ex.Message;
+                //if (dbg.bON) dbg.Print(sError);
+                //Log.Write(1, sError);
+                LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_RUN_RELEASE, "Error:CheckConnectionToServerOnly: Exception = " + ex.Message);
+                return false;
+            }
+        }
+
+        public bool Connect_ToServerOnly(ref string sError)
+        {
+            try
+            {
+                //conData.SetConnectionString();
+                Con.Open();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                sError = SetConnectionError() + "\n" + ex.Message;
+                //if (dbg.bON) dbg.Print(sError);
+                //Log.Write(1, sError);
+                return false;
+            }
+        }
+
+
         public bool Connect(ref string sError)
         {
             ProgramDiagnostic.Diagnostic.Meassure("Connect START", null);
             try
             {
-                SetConnectionString();
                 Con.Open();
                 m_bOpened = true;
                 ProgramDiagnostic.Diagnostic.Meassure("Connect END", null);
@@ -197,45 +360,135 @@ namespace DBConnectionControl40
             }
         }
 
-        public bool Startup_03_Show_ConnectionDialog(NavigationButtons.Navigation nav)
+        public bool Disconnect_Batch()
         {
-            string sTitle = lng.s_Connection_to_Database.s + this.DataBase;
-            switch (m_DBType)
+            if (m_bBatchOpen)
             {
-                //case eDBType.MYSQL:
-                //    if ((m_conData_MYSQL.m_DataSource.Length > 0) && (m_conData_MYSQL.m_DataBase.Length > 0))
-                //    {
-                //        ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, this, sTitle, nav);
-                //    }
-                //    else
-                //    {
-                //        ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditAll, this, sTitle, nav);
-                //    }
-                //    break;
+                return true;
+            }
+            else
+            {
+                return Disconnect();
+            }
+        }
 
-                case eDBType.MSSQL:
-                    if ((m_conData_MSSQL.m_DataSource.Length > 0) && (m_conData_MSSQL.m_DataBase.Length > 0))
+        public bool SessionConnect(ref string sError)
+        {
+            if (BatchOpen)
+            {
+                m_bSessionConnected = true;
+                return true;
+            }
+            else
+            {
+                if (m_bBatchOpen)
+                {
+                    if (m_bOpened)
                     {
-                        ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, this, sTitle, nav);
+                        m_bSessionConnected = true;
+                        return true;
+                    }
+                }
+
+                if (Connect(ref sError))
+                {
+                    m_bBatchOpen = true;
+                    m_bSessionConnected = true;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool SessionDisconnect()
+        {
+            if (BatchOpen)
+            {
+                if (Disconnect())
+                {
+                    m_bBatchOpen = false;
+                    m_bSessionConnected = false;
+                    return true;
+                }
+                else
+                {
+                    m_bSessionConnected = false;
+                    return false;
+                }
+            }
+            else
+            {
+                if (!m_bBatchOpen)
+                {
+                    if (!m_bOpened)
+                    {
+                        m_bSessionConnected = false;
+                        return true;
                     }
                     else
                     {
-                        ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditAll, this, sTitle, nav);
+                        if (Disconnect())
+                        {
+                            m_bBatchOpen = false;
+                            m_bSessionConnected = false;
+                            return true;
+                        }
+                        else
+                        {
+                            m_bSessionConnected = false;
+                            return false;
+                        }
                     }
-                    nav.ShowForm(ConnectionDialog, ConnectionDialog.GetType().ToString());
+                }
+                else
+                {
+                    m_bSessionConnected = false;
                     return true;
-
-                case eDBType.SQLITE:
-
-                    SQLiteConnectionDialog = new SQLiteConnectionDialog(m_conData_SQLITE, this.RecentItemsFolder, this.BackupFolder, nav, this.ConnectionName);
-                    nav.ShowForm(SQLiteConnectionDialog, SQLiteConnectionDialog.GetType().ToString());
-                    return true;
-
-
-                default:
-                    MessageBox.Show("Error unknown eSQLType in function:  public ConnectResult_ENUM do_ConnectionDialog(string sTitle).");
-                    return false;
+                }
             }
+        }
 
+
+
+        public bool Startup_03_Show_ConnectionDialog(DBConnection dbconnection, NavigationButtons.Navigation nav)
+        {
+            string sTitle = lng.s_Connection_to_Database.s + this.DataBase;
+            if ((m_conData_MYSQL.m_DataSource.Length > 0) && (m_conData_MYSQL.m_DataBase.Length > 0))
+            {
+                ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, dbconnection, sTitle, nav);
+            }
+            else
+            {
+                ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditAll, dbconnection, sTitle, nav);
+            }
+            return true;
+        }
+
+
+        public void do_ConnectionDialog(DBConnection dbconnection, 
+                                        string sTitle, 
+                                        ref bool bNewDatabase, 
+                                        NavigationButtons.Navigation nav, 
+                                        ref bool bCanceled, 
+                                        string myConnectionName)
+        {
+            bNewDatabase = false;
+            if ((m_conData_MYSQL.m_DataSource.Length > 0) && (m_conData_MYSQL.m_DataBase.Length > 0))
+            {
+                ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, dbconnection, sTitle, nav);
+            }
+            else
+            {
+                ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditAll, dbconnection, sTitle, nav);
+            }
+        }
+
+        private string SetConnectionError()
+        {
+            return "ERROR Connection failed for MYSQL DataBase:\"" + this.DataBase + "\"\n";
         }
     }
+}

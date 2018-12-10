@@ -21,6 +21,7 @@ namespace DBConnectionControl40
         private bool bSQLite_AllwaysCreateNew = false;
 
         internal Crypt m_Crypt;
+        
 
         private string m_DataBaseFilePath = null;
         private string m_DataBaseFileName = null;
@@ -193,5 +194,7 @@ namespace DBConnectionControl40
         {
             return (IsValidDataBaseFilePath() && IsValidDataBaseFileName());
         }
+
+
     }
 }

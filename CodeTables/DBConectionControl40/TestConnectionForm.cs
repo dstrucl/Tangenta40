@@ -242,7 +242,7 @@ namespace DBConnectionControl40
                     string sError = null;
                     switch (sqlConn.SQLITEFileExist(ref sqlitefile))
                     {
-                        case DBConnection.eSQLITEFileExist.OK:
+                        case ConnectionSQLITE.eSQLITEFileExist.OK:
                             if (sqlConn.Connect(ref sError))
                             {
                                 sqlConn.Disconnect();
@@ -270,14 +270,14 @@ namespace DBConnectionControl40
                             }
                             break;
 
-                        case DBConnection.eSQLITEFileExist.NOT_EXISTS:
+                        case ConnectionSQLITE.eSQLITEFileExist.NOT_EXISTS:
                             string smsg = "SQLIte:" + lng.s_File_does_not_exist.s + " : \"" + sqlitefile + "\"";
                             ShowError(smsg);
                             this.TimerSQLiteShowErrorResult.Enabled = true;
                             m_eResult = eTestConnectionFormResult.CHANGE;
                             break;
 
-                        case DBConnection.eSQLITEFileExist.CONNECTION_FILE_NOT_DEFINED:
+                        case ConnectionSQLITE.eSQLITEFileExist.CONNECTION_FILE_NOT_DEFINED:
                             ShowError("ERROR:DBConnectionControl40:TestConnectionForm:TestConnectionForm_Load:SQlite connection file is not defined!");
                             this.TimerSQLiteShowErrorResult.Enabled = true;
                             m_eResult = eTestConnectionFormResult.FAILED;
@@ -287,7 +287,7 @@ namespace DBConnectionControl40
             }
         }
 
-
+    
 
         private void ShowOK()
         {

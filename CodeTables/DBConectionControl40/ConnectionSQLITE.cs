@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,8 +12,9 @@ namespace DBConnectionControl40
 {
     public class ConnectionSQLITE
     {
+        public enum eSQLITEFileExist { OK, NOT_EXISTS, CONNECTION_FILE_NOT_DEFINED };
 
-        private conData_SQLITE m_conData_SQLITE = null;
+        public conData_SQLITE m_conData_SQLITE = null;
 
         private bool m_bOpened = false;
         private bool m_bBatchOpen = false;
@@ -24,12 +26,167 @@ namespace DBConnectionControl40
         public SQLiteTransaction Tran = null;
         public SQLiteCommand cmd = null;
 
-        private SQLiteConnectionDialog SQLiteConnectionDialog = null;
+        public SQLiteConnectionDialog SQLiteConnectionDialog = null;
 
         public bool BatchOpen
         {
             get { return m_bBatchOpen; }
             set { m_bBatchOpen = value; }
+        }
+
+        public bool SessionConnected
+        {
+            get { return m_bSessionConnected; }
+        }
+
+        
+        public string DataBaseFile
+        {
+            get
+            {
+                if (m_conData_SQLITE != null)
+                {
+                    return m_conData_SQLITE.DataBaseFile;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (m_conData_SQLITE != null)
+                {
+                    m_conData_SQLITE.DataBaseFile = value;
+                }
+            }
+        }
+
+
+        public string DataBaseFileName
+        {
+            get
+            {
+                if (m_conData_SQLITE != null)
+                {
+                    return m_conData_SQLITE.DataBaseFileName;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (m_conData_SQLITE != null)
+                {
+                    m_conData_SQLITE.DataBaseFileName = value;
+                }
+            }
+        }
+
+        public string DataBaseFilePath
+        {
+            get
+            {
+                if (m_conData_SQLITE != null)
+                {
+                    return m_conData_SQLITE.DataBaseFilePath;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (m_conData_SQLITE != null)
+                {
+                    m_conData_SQLITE.DataBaseFilePath = value;
+                }
+            }
+        }
+
+
+        public string SQLiteDataBaseFile
+        {
+            get
+            {
+                if (m_conData_SQLITE != null)
+                {
+                    return m_conData_SQLITE.DataBaseFile;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (m_conData_SQLITE != null)
+                {
+                    m_conData_SQLITE.DataBaseFile = value;
+                }
+            }
+        }
+
+        public DateTime SQLiteDataBaseFileCreationTime
+        {
+            get
+            {
+                if (m_conData_SQLITE != null)
+                {
+                    return m_conData_SQLITE.DataBaseFileCreationTime;
+                }
+                else
+                {
+                    return DateTime.MinValue;
+                }
+            }
+        }
+
+        public string PasswordCrypted
+        {
+            get
+            {
+                if (m_conData_SQLITE != null)
+                {
+                    return m_conData_SQLITE.m_crypted_Password;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (m_conData_SQLITE != null)
+                {
+                    m_conData_SQLITE.m_crypted_Password = value;
+                }
+            }
+        }
+
+        public string Password
+        {
+            get
+            {
+                if (m_conData_SQLITE != null)
+                {
+                    return m_conData_SQLITE.m_Crypt.DecryptString(PasswordCrypted);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (m_conData_SQLITE != null)
+                {
+                    m_conData_SQLITE.m_crypted_Password = m_conData_SQLITE.m_Crypt.EncryptString(value); 
+                }
+            }
         }
 
         public ConnectionSQLITE()
@@ -166,13 +323,44 @@ namespace DBConnectionControl40
         }
 
 
+        public bool CheckConnectionToServerOnly()
+        {
+            try
+            {
+                Con.ConnectionString = m_conData_SQLITE.DataBaseFile;
+                Con.Open();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //sError = SetConnectionError() + "\n" + ex.Message;
+                //if (dbg.bON) dbg.Print(sError);
+                //Log.Write(1, sError);
+                LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_RUN_RELEASE, "Error:CheckConnectionToServerOnly: Exception = " + ex.Message);
+                return false;
+            }
+        }
+
+        public bool Connect_ToServerOnly(ref string sError)
+        {
+            try
+            {
+                Con.Open();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                sError = SetConnectionError() + "\n" + ex.Message;
+                return false;
+            }
+        }
+
 
         public bool Connect(ref string sError)
         {
             ProgramDiagnostic.Diagnostic.Meassure("Connect START", null);
             try
             {
-                SetConnectionString();
                 Con.Open();
                 m_bOpened = true;
                 ProgramDiagnostic.Diagnostic.Meassure("Connect END", null);
@@ -204,6 +392,19 @@ namespace DBConnectionControl40
                 ProgramDiagnostic.Diagnostic.Meassure("Disconnect END ERROR", null);
                 MessageBox.Show("Error can not disconnect from:" + ConnectionString + "\n\n Exception = " + ex.Message, "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
                 return false;
+            }
+        }
+
+
+        public bool Disconnect_Batch()
+        {
+            if (m_bBatchOpen)
+            {
+                return true;
+            }
+            else
+            {
+                return Disconnect();
             }
         }
 
@@ -293,17 +494,24 @@ namespace DBConnectionControl40
         }
 
 
-
-        public string SQLiteDataBaseFile
+        public bool Startup_03_Show_ConnectionDialog(NavigationButtons.Navigation nav, string recentItemsFolder, string backupFolder, string connectionName)
         {
-            get
-            {
-                return m_conData_SQLITE.DataBaseFile;
-            }
-            set
-            {
-                 m_conData_SQLITE.DataBaseFile = value;
-            }
+            SQLiteConnectionDialog = new SQLiteConnectionDialog(m_conData_SQLITE, recentItemsFolder, backupFolder, nav, connectionName);
+            nav.ShowForm(SQLiteConnectionDialog, SQLiteConnectionDialog.GetType().ToString());
+            return true;
+        }
+
+        public void do_ConnectionDialog(string sTitle,
+                                        ref bool bNewDatabase,
+                                        NavigationButtons.Navigation nav,
+                                        ref bool bCanceled,
+                                        string myConnectionName,
+                                        string recentItemsFolder,
+                                        string backupFolder
+                                        )
+        {
+            bNewDatabase = false;
+            SQLiteConnectionDialog = new SQLiteConnectionDialog(m_conData_SQLITE, recentItemsFolder, backupFolder, nav, myConnectionName);
         }
 
 
@@ -317,34 +525,34 @@ namespace DBConnectionControl40
                 string sError = "";
                 if (Connect_Batch(ref sError))
                 {
-                    command = new SQLiteCommand(sqlTran.ToString(), m_con_SQLite.Con);
-                    command.CommandTimeout = 200000;
+                    cmd.CommandText = sql.ToString();
                     if (lSQL_Parameter != null)
                     {
+                        cmd.Parameters.Clear();
                         foreach (SQL_Parameter sqlPar in lSQL_Parameter)
                         {
                             if (sqlPar.size > 0)
                             {
                                 SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
                                 mySQLiteParameter.Value = sqlPar.Value;
-                                command.Parameters.Add(mySQLiteParameter);
+                                cmd.Parameters.Add(mySQLiteParameter);
                             }
                             else
                             {
                                 SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
-                                command.Parameters.Add(mySQLiteParameter);
+                                cmd.Parameters.Add(mySQLiteParameter);
                             }
                         }
                     }
 
-                    Object ReturnObject = command.ExecuteScalar();
+                    Object ReturnObject = cmd.ExecuteScalar();
                     Disconnect_Batch();
                     if (ReturnObject == null)
                     {
                         //SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() AS ID" , m_con_SQLite);
                         // On different Sqlite.dll runs different !
                         //                                    SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() from " + SQlite_table_name, m_con_SQLite);
-                        SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid()", m_con_SQLite.Con);
+                        cmd.CommandText = "SELECT last_insert_rowid()";
                         // Bepaal de nieuwe ID en sla deze op in het juiste veld
                         if (Connect_Batch(ref sError))
                         {
@@ -365,7 +573,7 @@ namespace DBConnectionControl40
                         {
                             string s;
                             s = (string)ReturnObject;
-                            if (IsNumber(s))
+                            if (DBConnection.IsNumber(s))
                             {
                                 id_new = new ID(ReturnObject);
                             }
@@ -397,53 +605,103 @@ namespace DBConnectionControl40
             {
                 //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
                 csError = "Error ExecuteQuerySQL :" + ex.Message;
-                ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuerySQL");
+                DBConnection.ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuerySQL");
                 Disconnect();
-                WriteLogTable(ex);
+                DBConnection.WriteLogTable(ex);
                 ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
                 return false;
             }
         }
 
-        public bool Startup_03_Show_ConnectionDialog(NavigationButtons.Navigation nav)
+
+        internal eSQLITEFileExist SQLITEFileExist(ref string sqlitefile)
         {
-            string sTitle = lng.s_Connection_to_Database.s + this.DataBase;
-            switch (m_DBType)
+            if (m_conData_SQLITE != null)
             {
-                //case eDBType.MYSQL:
-                //    if ((m_conData_MYSQL.m_DataSource.Length > 0) && (m_conData_MYSQL.m_DataBase.Length > 0))
-                //    {
-                //        ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, this, sTitle, nav);
-                //    }
-                //    else
-                //    {
-                //        ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditAll, this, sTitle, nav);
-                //    }
-                //    break;
-
-                case eDBType.MSSQL:
-                    if ((m_conData_MSSQL.m_DataSource.Length > 0) && (m_conData_MSSQL.m_DataBase.Length > 0))
-                    {
-                        ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, this, sTitle, nav);
-                    }
-                    else
-                    {
-                        ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditAll, this, sTitle, nav);
-                    }
-                    nav.ShowForm(ConnectionDialog, ConnectionDialog.GetType().ToString());
-                    return true;
-
-                case eDBType.SQLITE:
-
-                    SQLiteConnectionDialog = new SQLiteConnectionDialog(m_conData_SQLITE, this.RecentItemsFolder, this.BackupFolder, nav, this.ConnectionName);
-                    nav.ShowForm(SQLiteConnectionDialog, SQLiteConnectionDialog.GetType().ToString());
-                    return true;
-
-
-                default:
-                    MessageBox.Show("Error unknown eSQLType in function:  public ConnectResult_ENUM do_ConnectionDialog(string sTitle).");
-                    return false;
+                sqlitefile = m_conData_SQLITE.DataBaseFile;
+                if (File.Exists(sqlitefile))
+                {
+                    return eSQLITEFileExist.OK;
+                }
+                else
+                {
+                    return eSQLITEFileExist.NOT_EXISTS;
+                }
+            }
+            else
+            {
+                return eSQLITEFileExist.CONNECTION_FILE_NOT_DEFINED;
             }
         }
+
+        public bool SQLite_AllwaysCreateNew
+        {
+            get
+            {
+                if (m_conData_SQLITE != null)
+                {
+                    return m_conData_SQLITE.SQLite_AllwaysCreateNew;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            set
+            {
+                if (m_conData_SQLITE != null)
+                {
+                    m_conData_SQLITE.SQLite_AllwaysCreateNew = value;
+                }
+            }
+        }
+
+        internal bool DataBase_Make_Backup_SQLite(string backupFullFileNamePath)
+        {
+            string FullFileNamePath = this.m_conData_SQLITE.DataBaseFile;
+            if (backupFullFileNamePath == null)
+            {
+                string full_path = System.IO.Path.GetDirectoryName(FullFileNamePath);
+                string file_name = System.IO.Path.GetFileName(FullFileNamePath);
+                if ((full_path[full_path.Length - 1] != '\\') && (full_path[full_path.Length - 1] != '/'))
+                {
+                    full_path += '\\';
+                }
+                backupFullFileNamePath = full_path + "BACKUP_" + file_name;
+            }
+
+            try
+            {
+                File.Copy(FullFileNamePath, backupFullFileNamePath);
+                return true;
+
+            }
+            catch (Exception Ex)
+            {
+                LogFile.Error.Show("ERROR:DBConnection:DataBase_Make_BackupTemp_SQLite:Exception=" + Ex.Message);
+                return false;
+            }
+
+        }
+
+
+
+        internal bool DataBase_Restore_SQLite(string BackupFullFileNamePath)
+        {
+            string FullFileNamePath = this.m_conData_SQLITE.DataBaseFile;
+            try
+            {
+                File.Copy(BackupFullFileNamePath, FullFileNamePath, true);
+                return true;
+
+            }
+            catch (Exception Ex)
+            {
+                LogFile.Error.Show("ERROR:ConnectionSQLITE:DataBase_Restore_SQLite:Backup file = \"" + BackupFullFileNamePath + "\"\r\nException = " + Ex.Message);
+                return false;
+            }
+        }
+
     }
 }
