@@ -16,15 +16,63 @@ namespace DBConnectionControl40
 
         public conData_SQLITE m_conData_SQLITE = null;
 
-        private bool m_bOpened = false;
         private bool m_bBatchOpen = false;
 
         private bool m_bSessionConnected = false;
 
 
         public SQLiteConnection Con = null;
-        public SQLiteTransaction Tran = null;
         public SQLiteCommand cmd = null;
+        public SQLiteTransaction Tran = null;
+
+        private bool m_TransactionsOnly = true;
+        public bool TransactionsOnly
+        {
+            get
+            {
+                return m_TransactionsOnly;
+            }
+            set
+            {
+                m_TransactionsOnly = value;
+            }
+        }
+
+        private string m_TransactionName = null;
+        public string TransactionName
+        {
+            get
+            {
+                return "T"+ m_TransactionNumber.ToString()+"_"+m_TransactionName;
+            }
+        }
+
+        public bool TransactionIsActive
+        {
+            get
+            {
+                if (m_TransactionName != null)
+                {
+                    return m_TransactionName.Length > 0;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+        }
+
+
+        public long m_TransactionNumber = 0;
+        public long TransactionNumber
+        {
+            get
+            {
+                return m_TransactionNumber;
+            }
+        }
+
 
         public SQLiteConnectionDialog SQLiteConnectionDialog = null;
 
@@ -39,7 +87,14 @@ namespace DBConnectionControl40
             get { return m_bSessionConnected; }
         }
 
-        
+        public bool Connected
+        {
+            get
+            {
+                return (Con != null);
+            }
+        }
+
         public string DataBaseFile
         {
             get
@@ -191,7 +246,7 @@ namespace DBConnectionControl40
 
         public ConnectionSQLITE()
         {
-            Con = new SQLiteConnection();
+            Con = null;
         }
 
         public ConnectionSQLITE(string connectionString)
@@ -207,15 +262,16 @@ namespace DBConnectionControl40
             }
         }
 
+        private string m_ConnectionString = null;
         public string ConnectionString
         {
             get
             {
-                return Con.ConnectionString;
+                return m_ConnectionString;
             }
             set
             {
-                Con.ConnectionString = value;
+                m_ConnectionString = value;
             }
         }
 
@@ -224,59 +280,103 @@ namespace DBConnectionControl40
             Con.Open();
         }
 
-        public bool BeginTransaction()
+        public bool BeginTransaction(string transaction_name)
         {
-            if (Tran == null)
+            if (Connected)
             {
-                Tran = Con.BeginTransaction();
-                return true;
+                if (Tran == null)
+                {
+                    m_TransactionName = transaction_name;
+                    m_TransactionNumber++;
+                    Tran = Con.BeginTransaction();
+                    if (cmd!=null)
+                    {
+                        cmd.Dispose();
+                        cmd = null;
+                    }
+                    cmd = Con.CreateCommand();
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR::DBConnectionControl40:ConncetionSQLITE:BeginTransaction:Can not begin new Transaction! Transaction:" + TransactionName + " is still active!");
+                    return false;
+                }
             }
             else
             {
+                LogFile.Error.Show("ERROR:DBConnectionControl40:ConncetionSQLITE::BeginTransaction:Can not begin new Transaction (" + TransactionName + ") if connection is not opened!");
                 return false;
             }
         }
 
         public bool Commit()
         {
-            if (Tran != null)
+            if (Connected)
             {
-                try
+                if (Tran != null)
                 {
-                    Tran.Commit();
-                    return true;
+                    try
+                    {
+                        Tran.Commit();
+                        m_TransactionName = "";
+                        if (cmd != null)
+                        {
+                            cmd.Dispose();
+                            cmd = null;
+                        }
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:ConnectionSQLITE:Commit:Transaction:'" + TransactionName + "' commit failed!\r\nException = " + ex.Message);
+                        return false;
+                    }
                 }
-                catch ( Exception ex)
+                else
                 {
-                    LogFile.Error.Show("ERROR:DBConnectionControl40:ConnectionSQLITE:Commit:Exception = " + ex.Message);
+                    LogFile.Error.Show("ERROR:DBConnectionControl40:ConnectionSQLITE:Commit: Commit Transaction without BeginTransatction!");
                     return false;
                 }
             }
             else
             {
+                LogFile.Error.Show("ERROR:DBConnectionControl40:ConncetionSQLITE:BeginTransaction:Can not begin new Transaction (" + TransactionName + ") if connection is not opened!");
                 return false;
             }
         }
 
         public bool RollbackTransaction(ref string sError)
         {
-            if (Tran != null)
+            if (Connected)
             {
-                try
+                if (Tran != null)
                 {
-                    Tran.Rollback();
-                    sError = null;
-                    return true;
+                    try
+                    {
+                        Tran.Rollback();
+                        sError = null;
+                        if (cmd != null)
+                        {
+                            cmd.Dispose();
+                            cmd = null;
+                        }
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        sError = "ERROR:DBConnectionControl40:ConnectionSQLITE:RollbackTransaction ('"+TransactionName+"') failed!\r\nException = " + ex.Message;
+                        return false;
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    sError = "ERROR:DBConnectionControl40:ConnectionSQLITE:RollbackTransaction:Exception = " + ex.Message;
+                    sError = "ERROR:DBConnectionControl40:ConnectionSQLITE:RollbackTransaction:Tran = null";
                     return false;
                 }
             }
             else
             {
-                sError = "ERROR:DBConnectionControl40:ConnectionSQLITE:Tran = null";
+                sError = "ERROR:DBConnectionControl40:ConncetionSQLITE:RollbackTransaction:Can not RollbackTransaction (" + TransactionName + ") if connection is not opened!";
                 return false;
             }
         }
@@ -314,7 +414,7 @@ namespace DBConnectionControl40
         {
             if (m_bBatchOpen)
             {
-                if (m_bOpened)
+                if (Con!=null)
                 {
                     return true;
                 }
@@ -361,14 +461,26 @@ namespace DBConnectionControl40
             ProgramDiagnostic.Diagnostic.Meassure("Connect START", null);
             try
             {
-                Con.Open();
-                m_bOpened = true;
-                ProgramDiagnostic.Diagnostic.Meassure("Connect END", null);
-                return true;
+                if (Con == null)
+                {
+                    Con = new SQLiteConnection(ConnectionString);
+                    Con.Open();
+                    ProgramDiagnostic.Diagnostic.Meassure("Connect END", null);
+                    return true;
+                }
+                else
+                {
+                    return true;
+                }
 
             }
             catch (Exception ex)
             {
+                if (Con!=null)
+                {
+                    Con.Dispose();
+                    Con = null;
+                }
                 sError = SetConnectionError() + "\n" + ex.Message;
                 if (dbg.bON) dbg.Print(sError);
                 Log.Write(1, sError);
@@ -382,15 +494,23 @@ namespace DBConnectionControl40
             ProgramDiagnostic.Diagnostic.Meassure("Disconnect START", null);
             try
             {
-                        Con.Close();
-                        m_bOpened = false;
-                        ProgramDiagnostic.Diagnostic.Meassure("Disconnect END", null);
-                        return true;
+                if (Con != null)
+                {
+                    Con.Close();
+                    Con.Dispose();
+                    Con = null;
+                    ProgramDiagnostic.Diagnostic.Meassure("Disconnect END", null);
+                    return true;
+                }
+                else
+                {
+                    return true;
+                }
             }
             catch (Exception ex)
             {
                 ProgramDiagnostic.Diagnostic.Meassure("Disconnect END ERROR", null);
-                MessageBox.Show("Error can not disconnect from:" + ConnectionString + "\n\n Exception = " + ex.Message, "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                LogFile.Error.Show("Error can not disconnect from:" + ConnectionString + "\n\n Exception = " + ex.Message, "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -425,7 +545,7 @@ namespace DBConnectionControl40
             {
                 if (m_bBatchOpen)
                 {
-                    if (m_bOpened)
+                    if (Connected)
                     {
                         m_bSessionConnected = true;
                         return true;
@@ -465,7 +585,7 @@ namespace DBConnectionControl40
             {
                 if (!m_bBatchOpen)
                 {
-                    if (!m_bOpened)
+                    if (!Connected)
                     {
                         m_bSessionConnected = false;
                         return true;
@@ -518,101 +638,558 @@ namespace DBConnectionControl40
 
         public bool ExecuteQuerySQL(StringBuilder sql, List<SQL_Parameter> lSQL_Parameter, ref ID id_new, ref string csError, string SQlite_table_name)
         {
-
-            try
+            if (TransactionsOnly)
             {
-                SQLiteCommand command;
-                string sError = "";
-                if (Connect_Batch(ref sError))
+                if (TransactionIsActive)
                 {
-                    cmd.CommandText = sql.ToString();
-                    if (lSQL_Parameter != null)
+                    if (cmd != null)
                     {
-                        cmd.Parameters.Clear();
-                        foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+                        try
                         {
-                            if (sqlPar.size > 0)
+                            cmd.CommandText = sql.ToString();
+                            cmd.Parameters.Clear();
+                            if (lSQL_Parameter != null)
                             {
-                                SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
-                                mySQLiteParameter.Value = sqlPar.Value;
-                                cmd.Parameters.Add(mySQLiteParameter);
+                                foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+                                {
+                                    if (sqlPar.size > 0)
+                                    {
+                                        SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
+                                        mySQLiteParameter.Value = sqlPar.Value;
+                                        cmd.Parameters.Add(mySQLiteParameter);
+                                    }
+                                    else
+                                    {
+                                        SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
+                                        cmd.Parameters.Add(mySQLiteParameter);
+                                    }
+                                }
+                            }
+
+                            Object ReturnObject = cmd.ExecuteScalar();
+                            if (ReturnObject == null)
+                            {
+                                cmd.CommandText = "SELECT last_insert_rowid()";
+                                // Bepaal de nieuwe ID en sla deze op in het juiste veld
+                                object nieuweID = cmd.ExecuteScalar();
+                                id_new = new ID(nieuweID);
                             }
                             else
                             {
-                                SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
-                                cmd.Parameters.Add(mySQLiteParameter);
+                                if (ReturnObject.GetType() == typeof(string))
+                                {
+                                    string s;
+                                    s = (string)ReturnObject;
+                                    if (DBConnection.IsNumber(s))
+                                    {
+                                        id_new = new ID(ReturnObject);
+                                    }
+                                }
+                                else if (ReturnObject.GetType() == typeof(long))
+                                {
+                                    id_new = new ID(ReturnObject);
+                                }
+                                else if (ReturnObject.GetType() == typeof(Int32))
+                                {
+                                    id_new = new ID(ReturnObject);
+                                }
+                                else if (ReturnObject.GetType() == typeof(Int64))
+                                {
+                                    id_new = new ID(ReturnObject);
+                                }
                             }
-                        }
-                    }
-
-                    Object ReturnObject = cmd.ExecuteScalar();
-                    Disconnect_Batch();
-                    if (ReturnObject == null)
-                    {
-                        //SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() AS ID" , m_con_SQLite);
-                        // On different Sqlite.dll runs different !
-                        //                                    SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() from " + SQlite_table_name, m_con_SQLite);
-                        cmd.CommandText = "SELECT last_insert_rowid()";
-                        // Bepaal de nieuwe ID en sla deze op in het juiste veld
-                        if (Connect_Batch(ref sError))
-                        {
-                            object nieuweID = cmd.ExecuteScalar();
-                            id_new = new ID(nieuweID);
-                            Disconnect_Batch();
-                        }
-                        else
-                        {
-                            LogFile.Error.Show(sError);
                             ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
+                            return true;
+                        }
+                        catch (System.Exception ex)
+                        {
+                            //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
+                            csError = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteQuerySQL:\r\n", sql, cmd.Parameters);
+                            DBConnection.ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuery");
+                            Disconnect();
+                            DBConnection.WriteLogTable(ex);
+
+                            ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
                             return false;
                         }
                     }
                     else
                     {
-                        if (ReturnObject.GetType() == typeof(string))
+                        csError = "Error ExecuteQuerySQL : SQLite Command is not created!";
+                        return false;
+                    }
+                }
+                else
+                {
+                    csError = "Error ExecuteQuerySQL : Transaction is not active!";
+                    return false;
+                }
+            }
+            else
+            {
+                try
+                {
+                    string sError = "";
+                    if (Connect_Batch(ref sError))
+                    {
+                        if (cmd == null)
                         {
-                            string s;
-                            s = (string)ReturnObject;
-                            if (DBConnection.IsNumber(s))
+                            cmd = Con.CreateCommand();
+                        }
+                        cmd.CommandText = sql.ToString();
+                        if (lSQL_Parameter != null)
+                        {
+                            cmd.Parameters.Clear();
+                            foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+                            {
+                                if (sqlPar.size > 0)
+                                {
+                                    SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
+                                    mySQLiteParameter.Value = sqlPar.Value;
+                                    cmd.Parameters.Add(mySQLiteParameter);
+                                }
+                                else
+                                {
+                                    SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
+                                    cmd.Parameters.Add(mySQLiteParameter);
+                                }
+                            }
+                        }
+
+                        Object ReturnObject = cmd.ExecuteScalar();
+                        Disconnect_Batch();
+                        if (ReturnObject == null)
+                        {
+                            //SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() AS ID" , m_con_SQLite);
+                            // On different Sqlite.dll runs different !
+                            //                                    SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() from " + SQlite_table_name, m_con_SQLite);
+                            cmd.CommandText = "SELECT last_insert_rowid()";
+                            // Bepaal de nieuwe ID en sla deze op in het juiste veld
+                            if (Connect_Batch(ref sError))
+                            {
+                                object nieuweID = cmd.ExecuteScalar();
+                                id_new = new ID(nieuweID);
+                                Disconnect_Batch();
+                            }
+                            else
+                            {
+                                LogFile.Error.Show(sError);
+                                ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            if (ReturnObject.GetType() == typeof(string))
+                            {
+                                string s;
+                                s = (string) ReturnObject;
+                                if (DBConnection.IsNumber(s))
+                                {
+                                    id_new = new ID(ReturnObject);
+                                }
+                            }
+                            else if (ReturnObject.GetType() == typeof(long))
+                            {
+                                id_new = new ID(ReturnObject);
+                            }
+                            else if (ReturnObject.GetType() == typeof(Int32))
+                            {
+                                id_new = new ID(ReturnObject);
+                            }
+                            else if (ReturnObject.GetType() == typeof(Int64))
                             {
                                 id_new = new ID(ReturnObject);
                             }
                         }
-                        else if (ReturnObject.GetType() == typeof(long))
-                        {
-                            id_new = new ID(ReturnObject);
-                        }
-                        else if (ReturnObject.GetType() == typeof(Int32))
-                        {
-                            id_new = new ID(ReturnObject);
-                        }
-                        else if (ReturnObject.GetType() == typeof(Int64))
-                        {
-                            id_new = new ID(ReturnObject);
-                        }
+                        ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
+                        return true;
                     }
-                    ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
-                    return true;
+                    else
+                    {
+                        LogFile.Error.Show(sError);
+                        ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
+                        return false;
+                    }
                 }
-                else
+                catch (System.Exception ex)
                 {
-                    LogFile.Error.Show(sError);
+                    //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
+                    csError = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteQuerySQL:\r\n", sql, cmd.Parameters);
+                    DBConnection.ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuerySQL");
+                    Disconnect();
+                    DBConnection.WriteLogTable(ex);
                     ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
                     return false;
                 }
             }
-            catch (System.Exception ex)
+        }
+
+        public bool ExecuteNonQuerySQL(string sql, List<SQL_Parameter> lSQL_Parameter, ref object Result, ref string ErrorMsg)
+        {
+            //SqlConnection Conn = new SqlConnection(xString);
+            if (TransactionsOnly)
             {
-                //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
-                csError = "Error ExecuteQuerySQL :" + ex.Message;
-                DBConnection.ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuerySQL");
-                Disconnect();
-                DBConnection.WriteLogTable(ex);
-                ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
-                return false;
+                if (TransactionIsActive)
+                {
+                    if (cmd != null)
+                    {
+                        try
+                        {
+                            cmd.CommandText = sql.ToString();
+                            cmd.Parameters.Clear();
+                            if (lSQL_Parameter != null)
+                            {
+                                foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+                                {
+                                    if (sqlPar.size > 0)
+                                    {
+                                        SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
+                                        mySQLiteParameter.Value = sqlPar.Value;
+                                        cmd.Parameters.Add(mySQLiteParameter);
+                                    }
+                                    else
+                                    {
+                                        SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
+                                        cmd.Parameters.Add(mySQLiteParameter);
+                                    }
+                                }
+                            }
+                            cmd.CommandTimeout = 20000;
+                            cmd.ExecuteNonQuery();
+                            ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
+                        }
+                        catch (System.Exception ex)
+                        {
+                            //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
+                            ErrorMsg = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteQuerySQL:\r\n", sql, cmd.Parameters);
+                            DBConnection.ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuery");
+                            Disconnect();
+                            DBConnection.WriteLogTable(ex);
+
+                            ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        ErrorMsg = "Error ExecuteNonQuerySQL : SQLite Command is not created!";
+                        return false;
+                    }
+                }
+                else
+                {
+                        ErrorMsg = "Error ExecuteQuerySQL : Transaction is not active!";
+                    return false;
+                }
+
+            }
+            else
+            {
+                try
+                { 
+                    SQLiteCommand command;
+                    command = new SQLiteCommand(sql.ToString(), Con);
+                    if (lSQL_Parameter != null)
+                    {
+                        foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+                        {
+
+                            if (sqlPar.size > 0)
+                            {
+                                sqlPar.mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
+                                sqlPar.mySQLiteParameter.Value = sqlPar.Value;
+
+                            }
+                            else
+                            {
+                                sqlPar.mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
+                                sqlPar.mySQLiteParameter.Value = sqlPar.Value;
+                            }
+                            command.Parameters.Add(sqlPar.mySQLiteParameter);
+
+                        }
+                    }
+                    command.CommandTimeout = 20000;
+                    command.ExecuteNonQuery();
+                    Disconnect_Batch();
+                    ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END", null);
+                    return true;
+                }
+                catch (System.Exception ex)
+                {
+                    //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
+                    ErrorMsg = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteQuerySQL:\r\n", sql, cmd.Parameters);
+                    DBConnection.ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuery");
+                    Disconnect();
+                    DBConnection.WriteLogTable(ex);
+
+                    ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
+                    return false;
+                }
             }
         }
 
+
+
+        private string SetError(string errheader, StringBuilder sql, SQLiteParameterCollection parameters)
+        {
+            return errheader + "\r\nSQL=" + sql + "\r\n\r\nParameters:" + ParametersToString(parameters);
+        }
+
+        private string ParametersToString(SQLiteParameterCollection parameters)
+        {
+            string slines = "";
+            foreach(SQLiteParameter par in parameters)
+            {
+                slines += "\r\n"+DbValueToString(par);
+            }
+            return slines;
+        }
+
+        private string DbValueToString(SQLiteParameter par)
+        {
+            string s = null;
+            switch (par.DbType)
+            {
+                case DbType.AnsiString:
+                    s = "AnsiString:=" +SetValueString(par);
+                    break;
+                case DbType.AnsiStringFixedLength:
+                    s = "AnsiStringFixedLength:=" + SetValueString(par);
+                    break;
+                case DbType.Binary:
+                    s = "Binary:="+ SetValueString(par);
+                    break;
+                case DbType.Boolean:
+                    s = "Boolean:=" +SetValueString(par); 
+                    break;
+                case DbType.Byte:
+                    s = "Byte:=" +SetValueString(par); 
+                    break;
+                case DbType.Currency:
+                    s = "Currency:=" +SetValueString(par); 
+                    break;
+                case DbType.Date:
+                    s = "Date:=" +SetValueString(par); 
+                    break;
+                case DbType.DateTime:
+                    s = "DateTime:=" +SetValueString(par); 
+                    break;
+                case DbType.DateTime2:
+                    s = "DateTime2:=" +SetValueString(par); 
+                    break;
+                case DbType.DateTimeOffset:
+                    s = "DateTimeOffset:=" +SetValueString(par); 
+                    break;
+                case DbType.Decimal:
+                    s = "Decimal:=" +SetValueString(par); 
+                    break;
+                case DbType.Double:
+                    s = "Double:=" +SetValueString(par); 
+                    break;
+                case DbType.Guid:
+                    s = "Guid:=" +SetValueString(par); 
+                    break;
+                case DbType.Int16:
+                    s = "Int16:=" +SetValueString(par); 
+                    break;
+                case DbType.Int32:
+                    s = "Int32:=" +SetValueString(par); 
+                    break;
+                case DbType.Int64:
+                    s = "Int64:=" +SetValueString(par); 
+                    break;
+                case DbType.Object:
+                    s = "Object:=" +SetValueString(par); 
+                    break;
+                case DbType.SByte:
+                    s = "SByte:=" +SetValueString(par); 
+                    break;
+                case DbType.Single:
+                    s = "Single:=" +SetValueString(par); 
+                    break;
+                case DbType.String:
+                    s = "String:=" +SetValueString(par); 
+                    break;
+                case DbType.StringFixedLength:
+                    s = "StringFixedLength:=" +SetValueString(par); 
+                    break;
+                case DbType.Time:
+                    s = "Time:=" +SetValueString(par); 
+                    break;
+                case DbType.UInt16:
+                    s = "UInt16:=" +SetValueString(par); 
+                    break;
+                case DbType.UInt32:
+                    s = "UInt32:=" +SetValueString(par); 
+                    break;
+                case DbType.UInt64:
+                    s = "UInt64:=" +SetValueString(par); 
+                    break;
+                case DbType.VarNumeric:
+                    s = "VarNumeric:=" +SetValueString(par); 
+                    break;
+                case DbType.Xml:
+                    s = "Xml:=" +SetValueString(par); 
+                    break;
+                default:
+                    s = "par.DbType not defined!:=" + SetValueString(par);
+                    break;
+            }
+            return s;
+        }
+
+        private string SetValueString(SQLiteParameter par)
+        {
+            string s = null;
+            try
+            {
+                switch (par.DbType)
+                {
+                    case DbType.AnsiString:
+                        s = "AnsiString:='" + Convert.ToString(par.Value)+"'";
+                        break;
+                    case DbType.AnsiStringFixedLength:
+                        s = "AnsiStringFixedLength:='" + Convert.ToString(par.Value)+"'";
+                        break;
+                    case DbType.Binary:
+                        s = "Binary:=" + ConvertBinaryToString(par.Value);
+                        break;
+                    case DbType.Boolean:
+                        s = "Boolean:=" + SetValueString(par);
+                        break;
+                    case DbType.Byte:
+                        s = "Byte:=" + SetValueString(par);
+                        break;
+                    case DbType.Currency:
+                        s = "Currency:=" + SetValueString(par);
+                        break;
+                    case DbType.Date:
+                        s = "Date:=" + SetValueString(par);
+                        break;
+                    case DbType.DateTime:
+                        s = "DateTime:=" + SetValueString(par);
+                        break;
+                    case DbType.DateTime2:
+                        s = "DateTime2:=" + SetValueString(par);
+                        break;
+                    case DbType.DateTimeOffset:
+                        s = "DateTimeOffset:=" + SetValueString(par);
+                        break;
+                    case DbType.Decimal:
+                        s = "Decimal:=" + SetValueString(par);
+                        break;
+                    case DbType.Double:
+                        s = "Double:=" + SetValueString(par);
+                        break;
+                    case DbType.Guid:
+                        s = "Guid:=" + SetValueString(par);
+                        break;
+                    case DbType.Int16:
+                        s = "Int16:=" + SetValueString(par);
+                        break;
+                    case DbType.Int32:
+                        s = "Int32:=" + SetValueString(par);
+                        break;
+                    case DbType.Int64:
+                        s = "Int64:=" + SetValueString(par);
+                        break;
+                    case DbType.Object:
+                        s = "Object:=" + SetValueString(par);
+                        break;
+                    case DbType.SByte:
+                        s = "SByte:=" + SetValueString(par);
+                        break;
+                    case DbType.Single:
+                        s = "Single:=" + SetValueString(par);
+                        break;
+                    case DbType.String:
+                        s = "String:=" + SetValueString(par);
+                        break;
+                    case DbType.StringFixedLength:
+                        s = "StringFixedLength:=" + SetValueString(par);
+                        break;
+                    case DbType.Time:
+                        s = "Time:=" + SetValueString(par);
+                        break;
+                    case DbType.UInt16:
+                        s = "UInt16:=" + SetValueString(par);
+                        break;
+                    case DbType.UInt32:
+                        s = "UInt32:=" + SetValueString(par);
+                        break;
+                    case DbType.UInt64:
+                        s = "UInt64:=" + SetValueString(par);
+                        break;
+                    case DbType.VarNumeric:
+                        s = "VarNumeric:=" + SetValueString(par);
+                        break;
+                    case DbType.Xml:
+                        s = "Xml:=" + SetValueString(par);
+                        break;
+                    default:
+                        s = "par.DbType not defined!:=";
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                s = "ERROR:Can not convert value to string! Exception = "+ex.Message;
+            }
+            return s;
+        }
+
+        private string ConvertBinaryToString(object value)
+        {
+            try
+            { 
+                string s = "null";
+                if (value != null)
+                {
+                    if (value is byte[])
+                    {
+                        long len = ((byte[])value).Length;
+                        s = "ByteArray:Length=" + len.ToString() + ":";
+                        for (long l = 0; l < 10; l++)
+                        {
+                            if (l < len)
+                            {
+                                if (l == 0)
+                                {
+                                    s = Convert.ToInt32(((byte[])value)[l]).ToString();
+                                }
+                                else
+                                {
+                                    s += "," + Convert.ToInt32(((byte[])value)[l]).ToString();
+                                }
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        if (len > 10)
+                        {
+                            s += ",...";
+                        }
+                        return s;
+                    }
+                    else
+                    {
+                        return Convert.ToString(value);
+                    }
+                }
+                else
+                {
+                    return s;
+                }
+            }
+            catch (Exception ex)
+            {
+                return "ConvertBinaryToString failed! Exception ex=" + ex.Message;
+            }
+        }
 
         internal eSQLITEFileExist SQLITEFileExist(ref string sqlitefile)
         {

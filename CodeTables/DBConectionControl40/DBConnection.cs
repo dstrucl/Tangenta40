@@ -2091,228 +2091,128 @@ namespace DBConnectionControl40
                 }
             }
 
-            StringBuilder sqlTran = new StringBuilder();
-
-            id_new = null;
-            try
+            switch (m_DBType)
             {
-                switch (m_DBType)
-                {
-                    case eDBType.MYSQL:
-                        {
-                            sqlTran.Append("START TRANSACTION; \n");
-                            sqlTran.Append(sql);
-                            sqlTran.Append("\nCOMMIT;\n");
-                            MySqlCommand command;
-                            string sError = "";
-                            if (Connect_Batch(ref sError))
-                            {
-                                command = new MySqlCommand(sqlTran.ToString(), m_con_MYSQL.Con);
-                                command.CommandTimeout = 20000;
-                                if (lSQL_Parameter != null)
-                                {
-                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
-                                    {
-                                        if (sqlPar.size > 0)
-                                        {
-                                            command.Parameters.Add(sqlPar.Name, sqlPar.MySQLdbType, sqlPar.size).Value = sqlPar.Value;
-                                        }
-                                        else
-                                        {
-                                            command.Parameters.Add(new MySqlParameter(sqlPar.Name, sqlPar.Value)).Value = sqlPar.Value;
-                                        }
-                                    }
-                                }
+                case eDBType.MYSQL:
+                //{
+                //    sqlTran.Append("START TRANSACTION; \n");
+                //    sqlTran.Append(sql);
+                //    sqlTran.Append("\nCOMMIT;\n");
+                //    MySqlCommand command;
+                //    string sError = "";
+                //    if (Connect_Batch(ref sError))
+                //    {
+                //        command = new MySqlCommand(sqlTran.ToString(), m_con_MYSQL.Con);
+                //        command.CommandTimeout = 20000;
+                //        if (lSQL_Parameter != null)
+                //        {
+                //            foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+                //            {
+                //                if (sqlPar.size > 0)
+                //                {
+                //                    command.Parameters.Add(sqlPar.Name, sqlPar.MySQLdbType, sqlPar.size).Value = sqlPar.Value;
+                //                }
+                //                else
+                //                {
+                //                    command.Parameters.Add(new MySqlParameter(sqlPar.Name, sqlPar.Value)).Value = sqlPar.Value;
+                //                }
+                //            }
+                //        }
 
-                                Object ReturnObject = command.ExecuteScalar();
-                                if (ReturnObject != null)
-                                {
-                                    if (ReturnObject.GetType() == typeof(string))
-                                    {
-                                        string s;
-                                        s = (string)ReturnObject;
-                                        if (IsNumber(s))
-                                        {
-                                            id_new = new ID(s);
-                                        }
-                                    }
-                                    else if (ReturnObject.GetType() == typeof(Int32))
-                                    {
-                                        id_new = new ID(ReturnObject);
-                                    }
-                                    else if (ReturnObject.GetType() == typeof(Int64))
-                                    {
-                                        id_new = new ID(ReturnObject);
-                                    }
-                                }
-                                Disconnect_Batch();
-                                ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
-                                return true;
-                            }
-                            else
-                            {
-                                MessageBox.Show(sError, "ERROR", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-                                ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
-                                return false;
-                            }
-                        }
-                    //break;
+                //        Object ReturnObject = command.ExecuteScalar();
+                //        if (ReturnObject != null)
+                //        {
+                //            if (ReturnObject.GetType() == typeof(string))
+                //            {
+                //                string s;
+                //                s = (string)ReturnObject;
+                //                if (IsNumber(s))
+                //                {
+                //                    id_new = new ID(s);
+                //                }
+                //            }
+                //            else if (ReturnObject.GetType() == typeof(Int32))
+                //            {
+                //                id_new = new ID(ReturnObject);
+                //            }
+                //            else if (ReturnObject.GetType() == typeof(Int64))
+                //            {
+                //                id_new = new ID(ReturnObject);
+                //            }
+                //        }
+                //        Disconnect_Batch();
+                //        ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
+                //        return true;
+                //    }
+                //    else
+                //    {
+                //        MessageBox.Show(sError, "ERROR", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                //        ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
+                //        return false;
+                //    }
+                //}
+                break;
 
-                    case eDBType.MSSQL:
-                        {
-                            sqlTran.Append("BEGIN TRAN TRANSACTION_EVLicence; \n");
-                            sqlTran.Append(sql);
-                            sqlTran.Append("\nCOMMIT TRAN TRANSACTION_EVLicence; \n");
+                case eDBType.MSSQL:
+                    //{
+                    //    sqlTran.Append("BEGIN TRAN TRANSACTION_EVLicence; \n");
+                    //    sqlTran.Append(sql);
+                    //    sqlTran.Append("\nCOMMIT TRAN TRANSACTION_EVLicence; \n");
 
-                            SqlCommand command;
-                            string sError = "";
-                            if (Connect_Batch(ref sError))
-                            {
-                                command = new SqlCommand(sqlTran.ToString(), m_con_MSSQL.Con);
-                                command.CommandTimeout = 200000;
-                                if (lSQL_Parameter != null)
-                                {
-                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
-                                    {
-                                        if (sqlPar.size > 0)
-                                        {
-                                            command.Parameters.Add(sqlPar.Name, sqlPar.dbType, sqlPar.size).Value = sqlPar.Value;
-                                        }
-                                        else
-                                        {
-                                            command.Parameters.Add(new SqlParameter(sqlPar.Name, sqlPar.Value)).Value = sqlPar.Value;
-                                        }
-                                    }
-                                }
+                    //    SqlCommand command;
+                    //    string sError = "";
+                    //    if (Connect_Batch(ref sError))
+                    //    {
+                    //        command = new SqlCommand(sqlTran.ToString(), m_con_MSSQL.Con);
+                    //        command.CommandTimeout = 200000;
+                    //        if (lSQL_Parameter != null)
+                    //        {
+                    //            foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+                    //            {
+                    //                if (sqlPar.size > 0)
+                    //                {
+                    //                    command.Parameters.Add(sqlPar.Name, sqlPar.dbType, sqlPar.size).Value = sqlPar.Value;
+                    //                }
+                    //                else
+                    //                {
+                    //                    command.Parameters.Add(new SqlParameter(sqlPar.Name, sqlPar.Value)).Value = sqlPar.Value;
+                    //                }
+                    //            }
+                    //        }
 
-                                Object ReturnObject = command.ExecuteScalar();
-                                if (ReturnObject != null)
-                                {
-                                    if (ReturnObject.GetType() == typeof(string))
-                                    {
-                                        string s;
-                                        s = (string)ReturnObject;
-                                        if (IsNumber(s))
-                                        {
-                                            id_new = new ID(s);
-                                        }
-                                    }
-                                }
-                                Disconnect_Batch();
-                                ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
-                                return true;
-                            }
-                            else
-                            {
-                                MessageBox.Show(sError, "ERROR", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-                                ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
-                                return false;
-                            }
-                        }
-                    //break;
+                    //        Object ReturnObject = command.ExecuteScalar();
+                    //        if (ReturnObject != null)
+                    //        {
+                    //            if (ReturnObject.GetType() == typeof(string))
+                    //            {
+                    //                string s;
+                    //                s = (string)ReturnObject;
+                    //                if (IsNumber(s))
+                    //                {
+                    //                    id_new = new ID(s);
+                    //                }
+                    //            }
+                    //        }
+                    //        Disconnect_Batch();
+                    //        ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
+                    //        return true;
+                    //    }
+                    //    else
+                    //    {
+                    //        MessageBox.Show(sError, "ERROR", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                    //        ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
+                    //        return false;
+                    //    }
+                    //}
+                break;
 
-                    case eDBType.SQLITE:
-                        {
-                            sqlTran.Append("BEGIN TRANSACTION;\n");
-                            sqlTran.Append(sql);
-                            sqlTran.Append(";\nCOMMIT TRANSACTION;\n");
-                            SQLiteCommand command;
-                            string sError = "";
-                            if (Connect_Batch(ref sError))
-                            {
-                                command = new SQLiteCommand(sqlTran.ToString(), m_con_SQLite.Con);
-                                command.CommandTimeout = 200000;
-                                if (lSQL_Parameter != null)
-                                {
-                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
-                                    {
-                                        if (sqlPar.size > 0)
-                                        {
-                                            SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
-                                            mySQLiteParameter.Value = sqlPar.Value;
-                                            command.Parameters.Add(mySQLiteParameter);
-                                        }
-                                        else
-                                        {
-                                            SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
-                                            command.Parameters.Add(mySQLiteParameter);
-                                        }
-                                    }
-                                }
+                case eDBType.SQLITE:
+                    return m_con_SQLite.ExecuteQuerySQL(sql, lSQL_Parameter, ref id_new, ref csError, SQlite_table_name);
 
-                                Object ReturnObject = command.ExecuteScalar();
-                                Disconnect_Batch();
-                                if (ReturnObject == null)
-                                {
-                                    //SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() AS ID" , m_con_SQLite);
-                                    // On different Sqlite.dll runs different !
-                                    //                                    SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() from " + SQlite_table_name, m_con_SQLite);
-                                    SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid()", m_con_SQLite.Con);
-                                    // Bepaal de nieuwe ID en sla deze op in het juiste veld
-                                    if (Connect_Batch(ref sError))
-                                    {
-                                        object nieuweID = cmd.ExecuteScalar();
-                                        id_new = new ID(nieuweID);
-                                        Disconnect_Batch();
-                                    }
-                                    else
-                                    {
-                                        LogFile.Error.Show(sError);
-                                        ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
-                                        return false;
-                                    }
-                                }
-                                else
-                                {
-                                    if (ReturnObject.GetType() == typeof(string))
-                                    {
-                                        string s;
-                                        s = (string)ReturnObject;
-                                        if (IsNumber(s))
-                                        {
-                                            id_new = new ID(ReturnObject);
-                                        }
-                                    }
-                                    else if (ReturnObject.GetType() == typeof(long))
-                                    {
-                                        id_new = new ID(ReturnObject);
-                                    }
-                                    else if (ReturnObject.GetType() == typeof(Int32))
-                                    {
-                                        id_new = new ID(ReturnObject);
-                                    }
-                                    else if (ReturnObject.GetType() == typeof(Int64))
-                                    {
-                                        id_new = new ID(ReturnObject);
-                                    }
-                                }
-                                ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
-                                return true;
-                            }
-                            else
-                            {
-                                LogFile.Error.Show(sError);
-                                ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
-                                return false;
-                            }
-                        }
-                    //break;
-
-                    default:
-                        LogFile.Error.Show("Error eSQLType in function:public bool ExecuteQuerySQL(...)");
-                        ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
-                        return false;
-                }
-            }
-            catch (System.Exception ex)
-            {
-                //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
-                csError = "Error ExecuteQuerySQL :" + ex.Message;
-                ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuerySQL");
-                Disconnect();
-                WriteLogTable(ex);
-                ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
-                return false;
+                default:
+                    LogFile.Error.Show("Error eSQLType in function:public bool ExecuteQuerySQL(...)");
+                    ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
+                    return false;
             }
         }
 
