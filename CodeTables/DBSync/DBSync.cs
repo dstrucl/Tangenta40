@@ -408,7 +408,7 @@ namespace DBSync
 
         public static bool ExecuteNonQuerySQL_NoMultiTrans(string sql, List<SQL_Parameter> lpar,ref string Err)
         {
-            return DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL_NoMultiTrans(sql, lpar, ref Err);
+            return DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL(sql, lpar, ref Err);
         }
         
 
@@ -426,7 +426,7 @@ namespace DBSync
                 SQLTable tbl = DB_for_Tangenta.m_DBTables.GetTable(stbl);
                 if (tbl != null)
                 {
-                    if (DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL_NoMultiTrans(tbl.sql_CreateTable,null, ref err))
+                    if (DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL(tbl.sql_CreateTable,null, ref err))
                     {
                         continue;
                     }

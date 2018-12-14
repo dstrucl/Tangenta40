@@ -760,7 +760,7 @@ namespace DBConnectionControl40
             m_con.DataBase = "";
             //m_con.conData.SetConnectionString();
 
-            if (this.m_con.ExecuteNonQuerySQL_NoMultiTrans(sqlCreateDBQuery, null, ref csError))
+            if (this.m_con.ExecuteNonQuerySQL(sqlCreateDBQuery, null, ref csError))
             {
                 // Data Base Created OK
                 m_con.DataBase = DBParam.DatabaseName;

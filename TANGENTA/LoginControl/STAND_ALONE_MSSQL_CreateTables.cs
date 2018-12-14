@@ -90,86 +90,86 @@ namespace LoginControl
                         {
                             string create_VIEW = STAND_ALONE_MSSQL_commands.create_VIEW;
 
-                            if (Login_con.ExecuteNonQuerySQL_NoMultiTrans(create_VIEW, null, ref Err))
+                            if (Login_con.ExecuteNonQuerySQL(create_VIEW, null, ref Err))
                             {
                                 string drop_view_LoginManagerJournal_VIEW = STAND_ALONE_MSSQL_commands.drop_view_LoginManagerJournal_VIEW;
 
-                                if (Login_con.ExecuteNonQuerySQL_NoMultiTrans(drop_view_LoginManagerJournal_VIEW, null, ref Err))
+                                if (Login_con.ExecuteNonQuerySQL(drop_view_LoginManagerJournal_VIEW, null, ref Err))
                                 {
 
                                     string sql_LoginManagerJournal_VIEW = STAND_ALONE_MSSQL_commands.sql_LoginManagerJournal_VIEW;
 
-                                    if (Login_con.ExecuteNonQuerySQL_NoMultiTrans(sql_LoginManagerJournal_VIEW, null, ref Err))
+                                    if (Login_con.ExecuteNonQuerySQL(sql_LoginManagerJournal_VIEW, null, ref Err))
                                     {
                                         string drop_view_LoginSession_VIEW = STAND_ALONE_MSSQL_commands.drop_view_LoginSession_VIEW;
 
-                                        if (Login_con.ExecuteNonQuerySQL_NoMultiTrans(drop_view_LoginSession_VIEW, null, ref Err))
+                                        if (Login_con.ExecuteNonQuerySQL(drop_view_LoginSession_VIEW, null, ref Err))
                                         {
                                             string sql_LoginSession_VIEW = STAND_ALONE_MSSQL_commands.sql_LoginSession_VIEW;
 
-                                            if (Login_con.ExecuteNonQuerySQL_NoMultiTrans(sql_LoginSession_VIEW, null, ref Err))
+                                            if (Login_con.ExecuteNonQuerySQL(sql_LoginSession_VIEW, null, ref Err))
                                             {
                                                 string sql_drop_procedures_and_functions = STAND_ALONE_MSSQL_commands.sql_drop_procedures_and_functions;
 
-                                                if (Login_con.ExecuteNonQuerySQL_NoMultiTrans(sql_drop_procedures_and_functions, null, ref Err))
+                                                if (Login_con.ExecuteNonQuerySQL(sql_drop_procedures_and_functions, null, ref Err))
                                                 {
 
                                                     string sql_Login_Server_GetDate = STAND_ALONE_MSSQL_commands.sql_Login_Server_GetDate;
 
-                                                    if (Login_con.ExecuteNonQuerySQL_NoMultiTrans(sql_Login_Server_GetDate, null, ref Err))
+                                                    if (Login_con.ExecuteNonQuerySQL(sql_Login_Server_GetDate, null, ref Err))
                                                     {
 
                                                         string sql_Login_PasswordExpired = STAND_ALONE_MSSQL_commands.sql_Login_PasswordExpired;
 
-                                                        if (Login_con.ExecuteNonQuerySQL_NoMultiTrans(sql_Login_PasswordExpired, null, ref Err))
+                                                        if (Login_con.ExecuteNonQuerySQL(sql_Login_PasswordExpired, null, ref Err))
                                                         {
 
                                                             string sql_LoginManager_AddJournal = STAND_ALONE_MSSQL_commands.sql_LoginManager_AddJournal;
 
-                                                            if (Login_con.ExecuteNonQuerySQL_NoMultiTrans(sql_LoginManager_AddJournal, null, ref Err))
+                                                            if (Login_con.ExecuteNonQuerySQL(sql_LoginManager_AddJournal, null, ref Err))
                                                             {
                                                                 string sql_LoginSession_Start = STAND_ALONE_MSSQL_commands.sql_LoginSession_Start;
 
-                                                                if (Login_con.ExecuteNonQuerySQL_NoMultiTrans(sql_LoginSession_Start, null, ref Err))
+                                                                if (Login_con.ExecuteNonQuerySQL(sql_LoginSession_Start, null, ref Err))
                                                                 {
                                                                     string sql_LoginSession_End = STAND_ALONE_MSSQL_commands.sql_LoginSession_End;
 
-                                                                    if (Login_con.ExecuteNonQuerySQL_NoMultiTrans(sql_LoginSession_End, null, ref Err))
+                                                                    if (Login_con.ExecuteNonQuerySQL(sql_LoginSession_End, null, ref Err))
                                                                     {
                                                                         string sql_LoginUsers_ChangeData = STAND_ALONE_MSSQL_commands.sql_LoginUsers_ChangeData;
 
-                                                                        if (Login_con.ExecuteNonQuerySQL_NoMultiTrans(sql_LoginUsers_ChangeData, null, ref Err))
+                                                                        if (Login_con.ExecuteNonQuerySQL(sql_LoginUsers_ChangeData, null, ref Err))
                                                                         {
                                                                             string sql_LoginUsers_UserChangeItsOwnPassword = STAND_ALONE_MSSQL_commands.sql_LoginUsers_UserChangeItsOwnPassword;
 
-                                                                            if (Login_con.ExecuteNonQuerySQL_NoMultiTrans(sql_LoginUsers_UserChangeItsOwnPassword, null, ref Err))
+                                                                            if (Login_con.ExecuteNonQuerySQL(sql_LoginUsers_UserChangeItsOwnPassword, null, ref Err))
                                                                             {
 
                                                                                 string sql_LoginUsers_Administrator_ChangePassword = STAND_ALONE_MSSQL_commands.sql_LoginUsers_Administrator_ChangePassword;
 
-                                                                                if (Login_con.ExecuteNonQuerySQL_NoMultiTrans(sql_LoginUsers_Administrator_ChangePassword, null, ref Err))
+                                                                                if (Login_con.ExecuteNonQuerySQL(sql_LoginUsers_Administrator_ChangePassword, null, ref Err))
                                                                                 {
                                                                                     string sql_LoginUsers_Administrator_ChangePasswordParameters = STAND_ALONE_MSSQL_commands.sql_LoginUsers_Administrator_ChangePasswordParameters;
 
-                                                                                    if (Login_con.ExecuteNonQuerySQL_NoMultiTrans(sql_LoginUsers_Administrator_ChangePasswordParameters, null, ref Err))
+                                                                                    if (Login_con.ExecuteNonQuerySQL(sql_LoginUsers_Administrator_ChangePasswordParameters, null, ref Err))
                                                                                     {
                                                                                         string sql_LoginUsers_Administrator_AddUser = STAND_ALONE_MSSQL_commands.sql_LoginUsers_Administrator_AddUser;
 
-                                                                                        if (Login_con.ExecuteNonQuerySQL_NoMultiTrans(sql_LoginUsers_Administrator_AddUser, null, ref Err))
+                                                                                        if (Login_con.ExecuteNonQuerySQL(sql_LoginUsers_Administrator_AddUser, null, ref Err))
                                                                                         {
                                                                                             string sql_LoginUsers_Administrator_DeleteUser = STAND_ALONE_MSSQL_commands.sql_LoginUsers_Administrator_DeleteUser;
 
-                                                                                            if (Login_con.ExecuteNonQuerySQL_NoMultiTrans(sql_LoginUsers_Administrator_DeleteUser, null, ref Err))
+                                                                                            if (Login_con.ExecuteNonQuerySQL(sql_LoginUsers_Administrator_DeleteUser, null, ref Err))
                                                                                             {
 
                                                                                                 string sql_LoginUsers_Administrator_AddRole = STAND_ALONE_MSSQL_commands.sql_LoginUsers_Administrator_AddRole;
 
-                                                                                                if (Login_con.ExecuteNonQuerySQL_NoMultiTrans(sql_LoginUsers_Administrator_AddRole, null, ref Err))
+                                                                                                if (Login_con.ExecuteNonQuerySQL(sql_LoginUsers_Administrator_AddRole, null, ref Err))
                                                                                                 {
 
                                                                                                     string sql_LoginUsersAndLoginRoles_Add = STAND_ALONE_MSSQL_commands.sql_LoginUsersAndLoginRoles_Add;
 
-                                                                                                    if (Login_con.ExecuteNonQuerySQL_NoMultiTrans(sql_LoginUsersAndLoginRoles_Add, null, ref Err))
+                                                                                                    if (Login_con.ExecuteNonQuerySQL(sql_LoginUsersAndLoginRoles_Add, null, ref Err))
                                                                                                     {
 
                                                                                                         return true;

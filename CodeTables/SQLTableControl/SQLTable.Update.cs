@@ -71,7 +71,7 @@ namespace CodeTables
                                                         "\nSET " + col.Name + " = " + sPar +
                                                         "\nWHERE " + id_column.Name + " = " + sParID + ";");
                                                     ID newID = null;
-                                                    if (dbTables.m_con.ExecuteQuerySQL(sbsqlUpdate, sqlParamList, ref newID,  ref csError, this.TableName))
+                                                    if (dbTables.m_con.ExecuteScalar(sbsqlUpdate, sqlParamList, ref newID,  ref csError, this.TableName))
                                                     {
                                                         return true;
                                                     }
@@ -130,7 +130,7 @@ namespace CodeTables
                                                             "\n  " + sPar +
                                                             "\n);");
                                                     ID newID = null;
-                                                    if (dbTables.m_con.ExecuteQuerySQL(sbsqlUpdate, sqlParamList, ref newID, ref csError, TableName))
+                                                    if (dbTables.m_con.ExecuteScalar(sbsqlUpdate, sqlParamList, ref newID, ref csError, TableName))
                                                     {
                                                         string sVar = newID.ToString();
                                                         string sParID_Parent = newID.ToString();

@@ -1186,7 +1186,7 @@ namespace CodeTables
                 case DBConnection.eDBType.MYSQL:
                     {
                         string sql = "USE `" + m_con.DataBase + "`;" + m_strSQLCreate.ToString();
-                        bRes = this.m_con.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref csErrorMsg);
+                        bRes = this.m_con.ExecuteNonQuerySQL(sql, null, ref csErrorMsg);
                     }
                     break;
                 case DBConnection.eDBType.MSSQL:
@@ -1204,7 +1204,7 @@ namespace CodeTables
                     break;
 
                 case DBConnection.eDBType.SQLITE:
-                    bRes = this.m_con.ExecuteNonQuerySQL_NoMultiTrans(m_strSQLCreate.ToString(), null, ref csErrorMsg);
+                    bRes = this.m_con.ExecuteNonQuerySQL(m_strSQLCreate.ToString(), null, ref csErrorMsg);
                     break;
                 default:
                     LogFile.Error.Show("Error m_con.DBType in function:public bool CreateDatabaseTables()");
@@ -1220,7 +1220,7 @@ namespace CodeTables
                     {
                         File.WriteAllText("C:\\TangentaDB\\JOURNAL_myOrganisation_Person_AccessR_VIEW.txt", dbv.SQLCommand, Encoding.UTF8);
                     }
-                    if (this.m_con.ExecuteNonQuerySQL_NoMultiTrans(dbv.SQLCommand, null, ref csErrorMsg))
+                    if (this.m_con.ExecuteNonQuerySQL(dbv.SQLCommand, null, ref csErrorMsg))
                     {
                     }
                     else
@@ -1529,7 +1529,7 @@ namespace CodeTables
                 sql = xDataBaseView.SQLCommand + "\r\n";
                 String csErrorMsg = "";
                // object oResult = null;
-                if (this.m_con.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref csErrorMsg))
+                if (this.m_con.ExecuteNonQuerySQL(sql, null, ref csErrorMsg))
                 {
                     continue;
                 }
