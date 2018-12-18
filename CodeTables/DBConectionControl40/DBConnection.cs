@@ -2062,7 +2062,7 @@ namespace DBConnectionControl40
             return true;
         }
 
-        public bool ExecuteScalar(StringBuilder sql, List<SQL_Parameter> lSQL_Parameter, ref ID id_new, ref string csError, string SQlite_table_name)
+        public bool ExecuteScalarReturnID(StringBuilder sql, List<SQL_Parameter> lSQL_Parameter, ref ID id_new, ref string csError, string SQlite_table_name)
         {
             //SqlConnection Conn = new SqlConnection("Data Source=razvoj1;Initial Catalog=NOS_BIH;Persist Security Info=True;User ID=sa;Password=sa;");
 
@@ -2194,7 +2194,7 @@ namespace DBConnectionControl40
                     return false; 
 
                 case eDBType.SQLITE:
-                    return m_con_SQLite.ExecuteScalar(sql, lSQL_Parameter, ref id_new, ref csError, SQlite_table_name);
+                    return m_con_SQLite.ExecuteScalarReturnID(sql.ToString(), lSQL_Parameter, ref id_new, ref csError, SQlite_table_name);
 
                 default:
                     LogFile.Error.Show("Error eSQLType in function:public bool ExecuteQuerySQL(...)");
@@ -2203,135 +2203,135 @@ namespace DBConnectionControl40
             }
         }
 
-        public bool ExecuteNonQuerySQL(string sql, List<SQL_Parameter> lSQL_Parameter, ref object Result, ref string ErrorMsg)
-        {
-            //SqlConnection Conn = new SqlConnection(xString);
-            ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL START", sql);
-            if (DynSettings.bPreviewSQLBeforeExecution)
-            {
-                string new_sql = "";
-                bool bChanged = false;
-                PreviewSQLCommand(sql, lSQL_Parameter, ref new_sql, ref bChanged, "ExecuteNonQuerySQL");
-                if (bChanged)
-                {
-                    sql = new_sql;
-                }
+        //public bool ExecuteNonQuerySQL(string sql, List<SQL_Parameter> lSQL_Parameter, ref object Result, ref string ErrorMsg)
+        //{
+        //    //SqlConnection Conn = new SqlConnection(xString);
+        //    ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL START", sql);
+        //    if (DynSettings.bPreviewSQLBeforeExecution)
+        //    {
+        //        string new_sql = "";
+        //        bool bChanged = false;
+        //        PreviewSQLCommand(sql, lSQL_Parameter, ref new_sql, ref bChanged, "ExecuteNonQuerySQL");
+        //        if (bChanged)
+        //        {
+        //            sql = new_sql;
+        //        }
 
-            }
-            StringBuilder sqlTran = new StringBuilder();
-            switch (m_DBType)
-            {
-                case eDBType.MYSQL:
-                    //{
-                    //    sqlTran.Append("START TRANSACTION; \n");
-                    //    sqlTran.Append(sql);
-                    //    sqlTran.Append("\nCOMMIT; \n");
-                    //    MySqlCommand command;
-                    //    command = new MySqlCommand(sqlTran.ToString(), m_con_MYSQL.Con);
-                    //    if (lSQL_Parameter != null)
-                    //    {
-                    //        foreach (SQL_Parameter sqlPar in lSQL_Parameter)
-                    //        {
-                    //            if (sqlPar.size > 0)
-                    //            {
-                    //                command.Parameters.Add(sqlPar.Name, sqlPar.MySQLdbType, sqlPar.size).Value = sqlPar.Value;
-                    //            }
-                    //            else
-                    //            {
-                    //                command.Parameters.Add(new MySqlParameter(sqlPar.Name, sqlPar.Value)).Value = sqlPar.Value;
-                    //            }
-                    //        }
-                    //    }
+        //    }
+        //    StringBuilder sqlTran = new StringBuilder();
+        //    switch (m_DBType)
+        //    {
+        //        case eDBType.MYSQL:
+        //            //{
+        //            //    sqlTran.Append("START TRANSACTION; \n");
+        //            //    sqlTran.Append(sql);
+        //            //    sqlTran.Append("\nCOMMIT; \n");
+        //            //    MySqlCommand command;
+        //            //    command = new MySqlCommand(sqlTran.ToString(), m_con_MYSQL.Con);
+        //            //    if (lSQL_Parameter != null)
+        //            //    {
+        //            //        foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+        //            //        {
+        //            //            if (sqlPar.size > 0)
+        //            //            {
+        //            //                command.Parameters.Add(sqlPar.Name, sqlPar.MySQLdbType, sqlPar.size).Value = sqlPar.Value;
+        //            //            }
+        //            //            else
+        //            //            {
+        //            //                command.Parameters.Add(new MySqlParameter(sqlPar.Name, sqlPar.Value)).Value = sqlPar.Value;
+        //            //            }
+        //            //        }
+        //            //    }
 
-                    //    command.CommandTimeout = 200000;
-                    //    command.ExecuteNonQuery();
-                    //    Disconnect_Batch();
-                    //}
-                    //ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END", null);
-                    return false;
+        //            //    command.CommandTimeout = 200000;
+        //            //    command.ExecuteNonQuery();
+        //            //    Disconnect_Batch();
+        //            //}
+        //            //ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END", null);
+        //            return false;
 
-                case eDBType.MSSQL:
-                    //{
-                    //    sqlTran.Append("BEGIN TRAN TRANSACTION_EVLicence; \n");
-                    //    sqlTran.Append(sql);
-                    //    sqlTran.Append("\nCOMMIT TRAN TRANSACTION_EVLicence; \n");
-                    //    SqlCommand command;
-                    //    SqlParameter OutPar = null;
-                    //    command = new SqlCommand(sqlTran.ToString(), m_con_MSSQL.Con);
-                    //    if (lSQL_Parameter != null)
-                    //    {
-                    //        foreach (SQL_Parameter sqlPar in lSQL_Parameter)
-                    //        {
-                    //            if (sqlPar.size > 0)
-                    //            {
-                    //                SqlParameter SqlP = new SqlParameter(sqlPar.Name, sqlPar.dbType, sqlPar.size);
-                    //                sqlPar.MS_SqlSqlParameter = SqlP;
-                    //                if (sqlPar.IsOutputParameter)
-                    //                {
-                    //                    SqlP.Direction = ParameterDirection.Output;
-                    //                    if (OutPar == null)
-                    //                    {
-                    //                        // only first is return value!
-                    //                        OutPar = SqlP;
-                    //                    }
-                    //                }
-                    //                else
-                    //                {
-                    //                    SqlP.Direction = ParameterDirection.Input;
-                    //                }
-                    //                command.Parameters.Add(SqlP).Value = sqlPar.Value;
-                    //            }
-                    //            else
-                    //            {
-                    //                SqlParameter SqlP = new SqlParameter(sqlPar.Name, sqlPar.Value);
-                    //                sqlPar.MS_SqlSqlParameter = SqlP;
-                    //                if (sqlPar.IsOutputParameter)
-                    //                {
-                    //                    SqlP.Direction = ParameterDirection.Output;
-                    //                    sqlPar.Value = SqlP.Value;
-                    //                    if (OutPar == null)
-                    //                    {
-                    //                        // only first is return value!
-                    //                        OutPar = SqlP;
-                    //                    }
-                    //                }
-                    //                else
-                    //                {
-                    //                    SqlP.Direction = ParameterDirection.Input;
-                    //                }
-                    //                command.Parameters.Add(SqlP).Value = sqlPar.Value;
-                    //            }
-                    //        }
-                    //    }
+        //        case eDBType.MSSQL:
+        //            //{
+        //            //    sqlTran.Append("BEGIN TRAN TRANSACTION_EVLicence; \n");
+        //            //    sqlTran.Append(sql);
+        //            //    sqlTran.Append("\nCOMMIT TRAN TRANSACTION_EVLicence; \n");
+        //            //    SqlCommand command;
+        //            //    SqlParameter OutPar = null;
+        //            //    command = new SqlCommand(sqlTran.ToString(), m_con_MSSQL.Con);
+        //            //    if (lSQL_Parameter != null)
+        //            //    {
+        //            //        foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+        //            //        {
+        //            //            if (sqlPar.size > 0)
+        //            //            {
+        //            //                SqlParameter SqlP = new SqlParameter(sqlPar.Name, sqlPar.dbType, sqlPar.size);
+        //            //                sqlPar.MS_SqlSqlParameter = SqlP;
+        //            //                if (sqlPar.IsOutputParameter)
+        //            //                {
+        //            //                    SqlP.Direction = ParameterDirection.Output;
+        //            //                    if (OutPar == null)
+        //            //                    {
+        //            //                        // only first is return value!
+        //            //                        OutPar = SqlP;
+        //            //                    }
+        //            //                }
+        //            //                else
+        //            //                {
+        //            //                    SqlP.Direction = ParameterDirection.Input;
+        //            //                }
+        //            //                command.Parameters.Add(SqlP).Value = sqlPar.Value;
+        //            //            }
+        //            //            else
+        //            //            {
+        //            //                SqlParameter SqlP = new SqlParameter(sqlPar.Name, sqlPar.Value);
+        //            //                sqlPar.MS_SqlSqlParameter = SqlP;
+        //            //                if (sqlPar.IsOutputParameter)
+        //            //                {
+        //            //                    SqlP.Direction = ParameterDirection.Output;
+        //            //                    sqlPar.Value = SqlP.Value;
+        //            //                    if (OutPar == null)
+        //            //                    {
+        //            //                        // only first is return value!
+        //            //                        OutPar = SqlP;
+        //            //                    }
+        //            //                }
+        //            //                else
+        //            //                {
+        //            //                    SqlP.Direction = ParameterDirection.Input;
+        //            //                }
+        //            //                command.Parameters.Add(SqlP).Value = sqlPar.Value;
+        //            //            }
+        //            //        }
+        //            //    }
 
-                    //    command.CommandTimeout = 3600;
-                    //    command.ExecuteNonQuery();
-                    //    if (Result != null)
-                    //    {
-                    //        if (OutPar != null)
-                    //        {
-                    //            Result = OutPar.Value;
-                    //        }
-                    //        else
-                    //        {
-                    //            Result = OutPar;
-                    //        }
-                    //    }
-                    //    Disconnect_Batch();
-                    //    ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END", null);
-                    //    return true;
-                    //}
-                 return false;
+        //            //    command.CommandTimeout = 3600;
+        //            //    command.ExecuteNonQuery();
+        //            //    if (Result != null)
+        //            //    {
+        //            //        if (OutPar != null)
+        //            //        {
+        //            //            Result = OutPar.Value;
+        //            //        }
+        //            //        else
+        //            //        {
+        //            //            Result = OutPar;
+        //            //        }
+        //            //    }
+        //            //    Disconnect_Batch();
+        //            //    ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END", null);
+        //            //    return true;
+        //            //}
+        //         return false;
 
-                case eDBType.SQLITE:
-                    return ExecuteNonQuerySQL(sql, lSQL_Parameter,ref Result, ref ErrorMsg);
+        //        case eDBType.SQLITE:
+        //            return ExecuteNonQuerySQL(sql, lSQL_Parameter,ref Result, ref ErrorMsg);
 
-                default:
-                    MessageBox.Show("Error eSQLType in function: ExecuteNonQuerySQL(...)");
-                    ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END ERROR", null);
-                    return false;
-            }
-        }
+        //        default:
+        //            MessageBox.Show("Error eSQLType in function: ExecuteNonQuerySQL(...)");
+        //            ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END ERROR", null);
+        //            return false;
+        //    }
+        //}
 
         internal static void WriteLogTable(Exception ex)
         {
@@ -2540,6 +2540,204 @@ namespace DBConnectionControl40
             }
         }
 
+        public bool ExecuteNonQuerySQL_ReturnResult(string sql, List<SQL_Parameter> lSQL_Parameter, ref object Result, ref string ErrorMsg)
+        {
+            //SqlConnection Conn = new SqlConnection(xString);
+            ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL START", sql);
+            if (DynSettings.bPreviewSQLBeforeExecution)
+            {
+                string new_sql = "";
+                bool bChanged = false;
+                PreviewSQLCommand(sql, lSQL_Parameter, ref new_sql, ref bChanged, "ExecuteNonQuerySQL");
+                if (bChanged)
+                {
+                    sql = new_sql;
+                }
+
+            }
+            StringBuilder sqlTran = new StringBuilder();
+
+
+            try
+            {
+                if (Connect_Batch(ref ErrorMsg))
+                {
+                    switch (m_DBType)
+                    {
+                        case eDBType.MYSQL:
+                            {
+                                sqlTran.Append("START TRANSACTION; \n");
+                                sqlTran.Append(sql);
+                                sqlTran.Append("\nCOMMIT; \n");
+                                MySqlCommand command;
+                                command = new MySqlCommand(sqlTran.ToString(), m_con_MYSQL.Con);
+                                if (lSQL_Parameter != null)
+                                {
+                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+                                    {
+                                        if (sqlPar.size > 0)
+                                        {
+                                            command.Parameters.Add(sqlPar.Name, sqlPar.MySQLdbType, sqlPar.size).Value = sqlPar.Value;
+                                        }
+                                        else
+                                        {
+                                            command.Parameters.Add(new MySqlParameter(sqlPar.Name, sqlPar.Value)).Value = sqlPar.Value;
+                                        }
+                                    }
+                                }
+
+                                command.CommandTimeout = 200000;
+                                command.ExecuteNonQuery();
+                                Disconnect_Batch();
+                            }
+                            ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END", null);
+                            return true;
+
+                        case eDBType.MSSQL:
+                            {
+                                sqlTran.Append("BEGIN TRAN TRANSACTION_EVLicence; \n");
+                                sqlTran.Append(sql);
+                                sqlTran.Append("\nCOMMIT TRAN TRANSACTION_EVLicence; \n");
+                                SqlCommand command;
+                                SqlParameter OutPar = null;
+                                command = new SqlCommand(sqlTran.ToString(), m_con_MSSQL.Con);
+                                if (lSQL_Parameter != null)
+                                {
+                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+                                    {
+                                        if (sqlPar.size > 0)
+                                        {
+                                            SqlParameter SqlP = new SqlParameter(sqlPar.Name, sqlPar.dbType, sqlPar.size);
+                                            sqlPar.MS_SqlSqlParameter = SqlP;
+                                            if (sqlPar.IsOutputParameter)
+                                            {
+                                                SqlP.Direction = ParameterDirection.Output;
+                                                if (OutPar == null)
+                                                {
+                                                    // only first is return value!
+                                                    OutPar = SqlP;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                SqlP.Direction = ParameterDirection.Input;
+                                            }
+                                            command.Parameters.Add(SqlP).Value = sqlPar.Value;
+                                        }
+                                        else
+                                        {
+                                            SqlParameter SqlP = new SqlParameter(sqlPar.Name, sqlPar.Value);
+                                            sqlPar.MS_SqlSqlParameter = SqlP;
+                                            if (sqlPar.IsOutputParameter)
+                                            {
+                                                SqlP.Direction = ParameterDirection.Output;
+                                                sqlPar.Value = SqlP.Value;
+                                                if (OutPar == null)
+                                                {
+                                                    // only first is return value!
+                                                    OutPar = SqlP;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                SqlP.Direction = ParameterDirection.Input;
+                                            }
+                                            command.Parameters.Add(SqlP).Value = sqlPar.Value;
+                                        }
+                                    }
+                                }
+
+                                command.CommandTimeout = 3600;
+                                command.ExecuteNonQuery();
+                                if (Result != null)
+                                {
+                                    if (OutPar != null)
+                                    {
+                                        Result = OutPar.Value;
+                                    }
+                                    else
+                                    {
+                                        Result = OutPar;
+                                    }
+                                }
+                                Disconnect_Batch();
+                                ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END", null);
+                                return true;
+                            }
+                        //  return true;
+
+                        case eDBType.SQLITE:
+                            {
+                                sqlTran.Append("BEGIN TRANSACTION; \n");
+                                sqlTran.Append(sql);
+                                sqlTran.Append(";\nCOMMIT TRANSACTION; \n");
+                                SQLiteCommand command;
+                                command = new SQLiteCommand(sqlTran.ToString(), m_con_SQLite.Con);
+                                if (lSQL_Parameter != null)
+                                {
+                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+                                    {
+
+                                        if (sqlPar.size > 0)
+                                        {
+                                            sqlPar.mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
+                                            sqlPar.mySQLiteParameter.Value = sqlPar.Value;
+
+                                        }
+                                        else
+                                        {
+                                            sqlPar.mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
+                                            sqlPar.mySQLiteParameter.Value = sqlPar.Value;
+                                        }
+                                        command.Parameters.Add(sqlPar.mySQLiteParameter);
+
+                                    }
+                                }
+                                command.CommandTimeout = 20000;
+                                command.ExecuteNonQuery();
+                                Disconnect_Batch();
+                            }
+                            ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END", null);
+                            return true;
+
+                        default:
+                            MessageBox.Show("Error eSQLType in function: ExecuteNonQuerySQL(...)");
+                            ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END ERROR", null);
+                            return false;
+                    }
+                }
+                else
+                {
+                    //               MessageBox.Show(csError, "ERROR", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
+                ErrorMsg = ex.Message;
+                Disconnect();
+
+                ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuerySQL");
+
+
+                try
+                {
+                    WriteLogTable(ex);
+                    ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END ERROR", null);
+                    return false;
+                }
+                catch (Exception ee)
+                {
+                    Disconnect();
+                    Console.WriteLine(ee.ToString());
+                    ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END ERROR", null);
+                    return false;
+                    //throw new Exception(ee.ToString(), ee);
+                }
+            }
+        }
+
         public bool ExecuteNonQuerySQL(string sql, List<SQL_Parameter> lSQL_Parameter, ref string ErrorMsg)
         {
             //SqlConnection Conn = new SqlConnection(xString);
@@ -2653,36 +2851,7 @@ namespace DBConnectionControl40
                             return true;
 
                         case eDBType.SQLITE:
-                            {
-
-                                SQLiteCommand command;
-                                command = new SQLiteCommand(sql, m_con_SQLite.Con);
-                                if (lSQL_Parameter != null)
-                                {
-                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
-                                    {
-                                        if (sqlPar.size > 0)
-                                        {
-                                            sqlPar.mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
-                                            sqlPar.mySQLiteParameter.Value = sqlPar.Value;
-                                            command.Parameters.Add(sqlPar.mySQLiteParameter);
-                                        }
-                                        else
-                                        {
-                                            sqlPar.mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
-                                            sqlPar.mySQLiteParameter.Value = sqlPar.Value;
-                                            command.Parameters.Add(sqlPar.mySQLiteParameter);
-                                        }
-                                    }
-                                }
-
-                                command.CommandTimeout = 200000;
-                                command.ExecuteNonQuery();
-                                Disconnect_Batch();
-
-                            }
-                            ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL_NoMultiTrans END", null);
-                            return true;
+                            return m_con_SQLite.ExecuteNonQuerySQL(sql, lSQL_Parameter, ref ErrorMsg);
 
                         default:
                             MessageBox.Show("Error eSQLType in function public bool ExecuteNonQuerySQL_NoMultiTrans(...)");

@@ -71,7 +71,7 @@ namespace CodeTables
                                                         "\nSET " + col.Name + " = " + sPar +
                                                         "\nWHERE " + id_column.Name + " = " + sParID + ";");
                                                     ID newID = null;
-                                                    if (dbTables.m_con.ExecuteScalar(sbsqlUpdate, sqlParamList, ref newID,  ref csError, this.TableName))
+                                                    if (dbTables.m_con.ExecuteScalarReturnID(sbsqlUpdate, sqlParamList, ref newID,  ref csError, this.TableName))
                                                     {
                                                         return true;
                                                     }
@@ -89,8 +89,7 @@ namespace CodeTables
                                                         string sUpdate = "\nUPDATE " + col.ownerTable.pParentTable.TableName +
                                                                             "\nSET " + col.ownerTable + "_ID = " + newID.ToString() +
                                                                             "\nWHERE ID = " + col.ownerTable.pParentTable.tag_ID.ToString() + ";";
-                                                        Object oResult = null;
-                                                        if (dbTables.m_con.ExecuteNonQuerySQL(sUpdate, sqlParamList, ref oResult, ref csError))
+                                                        if (dbTables.m_con.ExecuteNonQuerySQL(sUpdate, sqlParamList,  ref csError))
                                                         {
                                                         }
                                                         else
@@ -130,15 +129,14 @@ namespace CodeTables
                                                             "\n  " + sPar +
                                                             "\n);");
                                                     ID newID = null;
-                                                    if (dbTables.m_con.ExecuteScalar(sbsqlUpdate, sqlParamList, ref newID, ref csError, TableName))
+                                                    if (dbTables.m_con.ExecuteScalarReturnID(sbsqlUpdate, sqlParamList, ref newID, ref csError, TableName))
                                                     {
                                                         string sVar = newID.ToString();
                                                         string sParID_Parent = newID.ToString();
                                                         string sUpdate = "\nUPDATE " + col.ownerTable.pParentTable.TableName +
                                                                             "\nSET " + sParentfKeyColumnName + " = " + sVar +
                                                                             "\nWHERE ID = " + sParID_Parent + ";";
-                                                        Object oResult = null;
-                                                        if (dbTables.m_con.ExecuteNonQuerySQL(sUpdate, sqlParamList,ref oResult, ref csError))
+                                                        if (dbTables.m_con.ExecuteNonQuerySQL(sUpdate, sqlParamList, ref csError))
                                                         {
                                                         }
                                                         else
@@ -161,8 +159,7 @@ namespace CodeTables
                                                                             "\nSET " + col.ownerTable.TableName + "_ID" + " = " + lnewID.ToString() +
                                                                             "\nWHERE ID = " + col.ownerTable.pParentTable.tag_ID.ToString() + ";";
 
-                                                        Object oResult = null;
-                                                        if (dbTables.m_con.ExecuteNonQuerySQL(sUpdate, sqlParamList,ref oResult, ref csError))
+                                                        if (dbTables.m_con.ExecuteNonQuerySQL(sUpdate, sqlParamList, ref csError))
                                                         {
                                                         }
                                                         else
@@ -190,8 +187,7 @@ namespace CodeTables
                                         string sUpdate = "\nUPDATE " + col.ownerTable.TableName +
                                                             "\nSET " + col.Name + " = " + sPar +
                                                             "\nWHERE " + id_column.Name + " = " + sParID + ";";
-                                        Object oResult = null;
-                                        if (dbTables.m_con.ExecuteNonQuerySQL(sUpdate, sqlParamList,ref oResult, ref csError))
+                                        if (dbTables.m_con.ExecuteNonQuerySQL(sUpdate, sqlParamList,ref csError))
                                         {
                                         }
                                         else
@@ -302,8 +298,7 @@ namespace CodeTables
                                     }
 
                                     string csErrorMsg = "";
-                                    object oResult = null;
-                                    if (dbTables.m_con.ExecuteNonQuerySQL(sqlUpdate, sqlParamList,ref oResult, ref csErrorMsg))
+                                    if (dbTables.m_con.ExecuteNonQuerySQL(sqlUpdate, sqlParamList,ref csErrorMsg))
                                     {
                                         return true;
                                     }
@@ -327,8 +322,7 @@ namespace CodeTables
                                         Error.Show(lng.s_Error_Table_DoesNotHavePrimary_ID.s);
                                         return false;
                                     }
-                                    object oResult = null;
-                                    if (dbTables.m_con.ExecuteNonQuerySQL(sqlUpdate, sqlParamList,ref oResult, ref csError))
+                                    if (dbTables.m_con.ExecuteNonQuerySQL(sqlUpdate, sqlParamList, ref csError))
                                     {
                                         return true;
                                     }
@@ -682,8 +676,7 @@ namespace CodeTables
                             if (sqlite_update.Length > 0)
                             {
                                 sqlite_update += " where ID = " + id1.ToString();
-                                object oRes = new object();
-                                if (dbTables.m_con.ExecuteNonQuerySQL(sqlite_update,sqlParamList,ref oRes,ref Err))
+                                if (dbTables.m_con.ExecuteNonQuerySQL(sqlite_update,sqlParamList,ref Err))
                                 {
                                     ID = id1;
                                     return true;
@@ -861,8 +854,7 @@ namespace CodeTables
                             if (sqlite_update.Length > 0)
                             {
                                 sqlite_update += " where ID = " + id1.ToString();
-                                object oRes = new object();
-                                if (dbTables.m_con.ExecuteNonQuerySQL(sqlite_update, sqlParamList, ref oRes, ref Err))
+                                if (dbTables.m_con.ExecuteNonQuerySQL(sqlite_update, sqlParamList, ref Err))
                                 {
                                     ID = id1;
                                     return true;

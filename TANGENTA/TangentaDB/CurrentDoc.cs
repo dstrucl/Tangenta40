@@ -227,13 +227,12 @@ namespace TangentaDB
         internal bool SaveDocProformaInvoice(string xDocTyp,ref ID xDocInvoice_ID, DocProformaInvoice_AddOn xDocProformaInvoice_AddOn,string ElectronicDevice_Name, ref int xNumberInFinancialYear)
         {
             string sql = null;
-            object ores = null;
             string Err = null;
             if (GetNewNumberInFinancialYear(xDocTyp, ElectronicDevice_Name))
             {
                 xNumberInFinancialYear = NumberInFinancialYear;
                 sql = "update DocProformaInvoice set Draft =0,NumberInFinancialYear = " + NumberInFinancialYear.ToString() + "  where ID = " + Doc_ID.ToString(); // Close Proforma Invoice
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
                 {
                     xDocInvoice_ID = Doc_ID;
                     return true;
@@ -307,8 +306,7 @@ namespace TangentaDB
         {
             string sql = "update "+ xDocTyp + " set Atom_Customer_Org_ID = null,Atom_Customer_Person_ID = null where ID = " + this.Doc_ID.ToString();
             string Err = null;
-            object ores = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
             {
                 this.Atom_Customer_Org_ID = null;
                 this.Atom_Customer_Person_ID = null;
@@ -329,18 +327,17 @@ namespace TangentaDB
             {
                 sIn_ID_list += ")";
                 string sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocInvoice_ShopC_Item where (DocInvoice_ID = " + Doc_ID.ToString() + ") and DocInvoice_ShopC_Item.Stock_ID is null and Atom_Price_Item_ID in " + sIn_ID_list;
-                object objret = null;
                 string Err = null;
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_DocInvoice_Atom_Item_Stock, null, ref objret, ref Err))
+                if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_DocInvoice_Atom_Item_Stock, null,  ref Err))
                 {
                     string sql_Delete_Atom_Price_Item = "delete from Atom_Price_Item where ID not in  (select Atom_Price_Item_ID from DocInvoice_ShopC_Item)";
-                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Price_Item, null, ref objret, ref Err))
+                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Price_Item, null,  ref Err))
                     {
                         string sql_Delete_Atom_Item_Image = "delete from Atom_Item_Image where Atom_Item_Image.Atom_Item_ID not in (select Atom_Item_ID from Atom_Price_Item)";
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Item_Image, null, ref objret, ref Err))
+                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Item_Image, null,  ref Err))
                         {
                             string sql_Delete_Atom_Item_ImageLib = "delete from Atom_Item_ImageLib where ID not in (select Atom_Item_ImageLib_ID from Atom_Item_Image)";
-                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Item_ImageLib, null, ref objret, ref Err))
+                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Item_ImageLib, null,  ref Err))
                             {
 
                                 return true;
@@ -381,13 +378,12 @@ namespace TangentaDB
         public bool SaveDocInvoice(string xDocTyp,ref ID xDocInvoice_ID, DocInvoice_AddOn xDocInvoice_AddOn,CashierActivity ca, string ElectronicDevice_Name,ref int xNumberInFinancialYear)
         {
             string sql = null;
-            object ores = null;
             string Err = null;
             if (GetNewNumberInFinancialYear(xDocTyp,  ElectronicDevice_Name))
             {
                 xNumberInFinancialYear = NumberInFinancialYear;
                 sql = "update DocInvoice set Draft =0,NumberInFinancialYear = " + NumberInFinancialYear.ToString() + "  where ID = " + Doc_ID.ToString(); // Close Proforma Invoice
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null,  ref Err))
                 {
                     xDocInvoice_ID = Doc_ID;
                     if (ca != null)
@@ -503,8 +499,7 @@ namespace TangentaDB
                 {
                     string sql = "update "+xDocTyp+" set Atom_Customer_Person_ID = " + xAtom_Customer_Person_ID.ToString() + ",Atom_Customer_Org_ID = null where ID = " + this.Doc_ID.ToString();
                     string Err = null;
-                    object ores = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
                     {
                         if (Atom_Customer_Person_ID == null)
                         {
@@ -531,8 +526,7 @@ namespace TangentaDB
                 {
                     string sql = "update "+xDocTyp+" set Atom_Customer_Org_ID = " + xAtom_Customer_Org_ID.ToString() + ",Atom_Customer_Person_ID = null where ID = " + this.Doc_ID.ToString();
                     string Err = null;
-                    object ores = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
                     {
                         if (Atom_Customer_Org_ID == null)
                         {
@@ -590,7 +584,6 @@ namespace TangentaDB
 
         public bool Storno(ID xAtom_WorkPeriod_ID, ref ID Storno_DocInvoice_ID, bool bStorno, string ElectronicDevice_Name, string sReason, ref DateTime retissue_time)
         {
-            object ores = null;
             string Err = null;
             DataTable dt_ProfInv = new DataTable();
             string sql = @"select  
@@ -729,7 +722,7 @@ namespace TangentaDB
                                                        Invoice_Reference_ID = " + Storno_DocInvoice_ID.ToString() + @",
                                                        Invoice_Reference_Type = 'STORNO' where ID = " + this.Doc_ID.ToString();
 
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
                         {
                             ID stornoReason_ID = null;
                             if (f_StornoReason.Get(Storno_DocInvoice_ID, sReason, ref stornoReason_ID))

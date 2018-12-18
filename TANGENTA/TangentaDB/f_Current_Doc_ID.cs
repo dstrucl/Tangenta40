@@ -203,8 +203,7 @@ namespace TangentaDB
                     string sql = @"update Current_" + doctype + "_ID set " + doctype + "_ID = " + sval_Doc_ID +
                                 " where " + scond_Current_Doc_ID;
 
-                    object ores = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref ores, ref Err))
+                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
                     {
                         return true;
                     }

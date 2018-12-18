@@ -102,9 +102,8 @@ namespace TangentaDB
                     SQL_Parameter par_dQuantity_New_in_Stock = new SQL_Parameter(spar_dQuantity_New_in_Stock, SQL_Parameter.eSQL_Parameter.Decimal, false, dQuantity_New_in_Stock_v.v);
                     lpar.Add(par_dQuantity_New_in_Stock);
                     string sql = "update stock set dQuantity = " + spar_dQuantity_New_in_Stock + " where ID = " + Stock_ID.ToString();
-                    object ores = null;
                     string Err = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref ores, ref Err))
+                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
                     {
                         ID JOURNAL_Stock_ID = null;
                         DateTime EventTime = DateTime.Now;

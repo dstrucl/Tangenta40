@@ -344,8 +344,7 @@ namespace UpgradeDB
                                         SQL_Parameter par_Logout = new SQL_Parameter(spar_Logout, SQL_Parameter.eSQL_Parameter.Datetime, false, dtcorr);
                                         lpar.Add(par_Logout);
                                         sql = "update Atom_WorkPeriod set LogoutTime = " + spar_Logout + " where ID = " + id.ToString();
-                                        object oret = null;
-                                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar,ref oret,ref Err))
+                                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar,ref Err))
                                         {
                                             LogFile.Error.Show("ERROR:UpgradeDB:UpgradeDB_1_26_to_1_27:correct_vilabella_atomWorkPeriodsBug:\r\nsql=" + sql + "\r\nErr=" + Err);
                                             return false;
@@ -401,8 +400,7 @@ namespace UpgradeDB
                             SQL_Parameter par_StockTakeNum = new SQL_Parameter(spar_StockTakeNum, SQL_Parameter.eSQL_Parameter.Bigint, false, j);
                             lpar.Add(par_StockTakeNum);
                             sql = "update StockTake set StockTakeNum = " + spar_StockTakeNum + " where ID = " + id.ToString();
-                            object ores = null;
-                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar, ref ores,ref Err))
+                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar, ref Err))
                             {
                                 return false;
                             }

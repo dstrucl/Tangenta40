@@ -533,8 +533,7 @@ namespace UpgradeDB
                                         lpary.Add(par_StockTakePriceTotalReal);
 
                                         sql = "update PurchasePrice set PurchasePricePerUnit = " + spar_PurchasePricePerUnitReal + " where PurchasePricePerUnit = " + spar_PurchasePricePerUnitWrong;
-                                        object ores = null;
-                                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpary, ref ores, ref Err))
+                                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpary,  ref Err))
                                         {
                                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
                                             return false;
@@ -567,7 +566,7 @@ namespace UpgradeDB
                                                     SQL_Parameter par_StockTakePriceTotal = new SQL_Parameter(spar_StockTakePriceTotal, SQL_Parameter.eSQL_Parameter.Decimal, false, dsum);
                                                     lparx.Add(par_StockTakePriceTotal);
                                                     sql = "update StockTake set StockTakePriceTotal = " + spar_StockTakePriceTotal + " where ID = " + StockTake_ID.ToString();
-                                                    if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lparx, ref ores, ref Err))
+                                                    if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lparx, ref Err))
                                                     {
                                                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
                                                         return false;

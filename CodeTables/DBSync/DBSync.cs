@@ -401,9 +401,9 @@ namespace DBSync
             return DB_for_Tangenta.m_DBTables.m_con.ReadDataTable(ref dt, sql,lpar, ref Err);
         }
 
-        public static bool ExecuteNonQuerySQL(string sql, List<SQL_Parameter> lpar,ref object ores,ref string Err)
+        public static bool ExecuteNonQuerySQL(string sql, List<SQL_Parameter> lpar,ref string Err)
         {
-            return DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL(sql, lpar, ref ores, ref Err);
+            return DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL(sql, lpar, ref Err);
         }
 
         public static bool ExecuteNonQuerySQL_NoMultiTrans(string sql, List<SQL_Parameter> lpar,ref string Err)

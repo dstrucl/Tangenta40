@@ -100,8 +100,7 @@ namespace TangentaDB
                                                 if (dt.Rows.Count > 0)
                                                 {
                                                     sql = "update TermsOfPayment_Default set TermsOfPayment_ID = " + xTermsOfPayment_ID.ToString();
-                                                    object ores = null;
-                                                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                                                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
                                                     {
                                                         return true;
                                                     }

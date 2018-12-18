@@ -843,8 +843,7 @@ WHERE id = " + GetIDValue(Columns);
                     break;
             }
         }
-        object oResult = null;
-        bool bRes = m_con.ExecuteNonQuerySQL(m_sql_UpdateAll, m_UpdateAllPar,ref oResult, ref csError);
+        bool bRes = m_con.ExecuteNonQuerySQL(m_sql_UpdateAll, m_UpdateAllPar, ref csError);
         if (bRes)
         {
             bModified = false;
@@ -1460,7 +1459,7 @@ public class XFunction
 
 
         object Result = new object();
-        bool bRes = m_con.ExecuteNonQuerySQL(sql_select,
+        bool bRes = m_con.ExecuteNonQuerySQL_ReturnResult(sql_select,
                                              lPar,
                                              ref Result,
                                              ref csError);
@@ -1547,7 +1546,7 @@ public class XProcedure
 
 
         Object Result = null;
-        bool bRes = m_con.ExecuteNonQuerySQL(sql_select,
+        bool bRes = m_con.ExecuteNonQuerySQL_ReturnResult(sql_select,
                                              lPar,
                                              ref Result,
                                              ref csError);

@@ -583,9 +583,8 @@ namespace TangentaDB
 
 
             string sql = "update Atom_WorkPeriod set LogoutTime = " + spar_WorkPeriodEnd + " where ID = " + Atom_WorkPeriod_ID.ToString();
-            object ores = null;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar,ref ores,ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar,ref Err))
             {
                 return true;
             }

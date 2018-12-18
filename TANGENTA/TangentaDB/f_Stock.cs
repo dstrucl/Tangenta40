@@ -309,9 +309,8 @@ namespace TangentaDB
 
             string sql = "update Stock set dQuantity = " + spar_dQuantity
                             + " where ID = " + stock_ID.ToString();
-            object oret = null;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref oret, ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
             {
                 return true;
             }
@@ -331,8 +330,7 @@ namespace TangentaDB
                          where ID in (select s.ID from Stock s
                                      inner join PurchasePrice_Item ppi on  s.PurchasePrice_Item_ID = ppi.ID
                                      where ppi.StockTake_ID = " + StockTake_ID.ToString() + " and s.ID =" + Stock_ID.ToString()+")";
-            object oret = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref oret, ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
             {
                 return true;
             }
@@ -400,8 +398,8 @@ namespace TangentaDB
                             + ",Stock_AddressLevel1_ID = " + spar_Stock_AddressLevel1_ID
                             + ",description = " + spar_Description
                             + " where ID = " + currentStock_ID.ToString();
-            object oret = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref oret, ref Err))
+
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
             {
                 ID JOURNAL_Stock_ID = null;
                 if (f_JOURNAL_Stock.Get(currentStock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed, xAtom_WorkPeriod_ID, DateTime.Now, dQuantity, ref JOURNAL_Stock_ID))

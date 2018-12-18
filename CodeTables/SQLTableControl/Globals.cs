@@ -338,8 +338,7 @@ namespace CodeTables
                                 else
                                 {
                                     sqlTbl.SQLcmd_Insert_MSSQL(ref sbSQLInsert, sPrevVar, ref sVarID, ref lsqlPar, dbTables.items,0);
-                                    object oResult = null;
-                                    if (dbTables.m_con.ExecuteNonQuerySQL(sbSQLInsert.ToString(), lsqlPar,ref oResult, ref ErrorMsg))
+                                    if (dbTables.m_con.ExecuteNonQuerySQL(sbSQLInsert.ToString(), lsqlPar, ref ErrorMsg))
                                     {
                                         lsqlPar.Clear();
                                         sbSQLInsert.Remove(0, sbSQLInsert.Length);

@@ -139,8 +139,7 @@ namespace TangentaDB
                             + " and " + scond_ProgramModule_ID
                             + " and  " + scond_myOrgPer_ID
                             + " and  " + scond_Name + " ";
-                        object ores = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref ores, ref Err))
+                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,  ref Err))
                         {
                             return true;
                         }
@@ -204,9 +203,8 @@ namespace TangentaDB
 
             string sql = @"update PropertiesSettings set SValue = " + spar_SettingsValue
                            + " where ID = " + spar_propertiesSettings_ID;
-            object ores = null;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref ores, ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
             {
                 return true;
             }

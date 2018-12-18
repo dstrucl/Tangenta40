@@ -213,14 +213,13 @@ namespace PriseLists
                     if (ID.Validate(id_Taxation))
                     {
                         string sql = null;
-                        object ores = null;
                         string Err = null;
                         if (m_eShopType == eShopType.ShopB)
                         {
 
                             sql = @" insert into Price_SimpleItem (SimpleItem_ID,PriceList_ID,Taxation_ID,RetailSimpleItemPrice,Discount) 
                                     select id," + ID.ToString() + "," + id_Taxation.ToString() + ",-1,0 from SimpleItem where ToOffer = 1";
-                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
                             {
                                 if (tbl_Price_SimpleItem == null)
                                 {
@@ -261,7 +260,7 @@ namespace PriseLists
                         {
                             sql = @" insert into Price_Item (Item_ID,PriceList_ID,Taxation_ID,RetailPricePerUnit,Discount) 
                                             select id," + ID.ToString() + "," + id_Taxation.ToString() + ",-1,0 from Item where ToOffer = 1";
-                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
                             {
                                 if (tbl_Price_Item == null)
                                 {

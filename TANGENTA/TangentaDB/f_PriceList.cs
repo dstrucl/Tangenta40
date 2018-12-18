@@ -24,7 +24,6 @@ namespace TangentaDB
         public static bool Get(string sPriceListName, bool valid, ID Currency_ID, DateTime_v ValidFrom_v, DateTime_v ValidTo_v, DateTime_v CreationDate_v, string Description, ref ID PriceList_ID)
         {
             string Err = null;
-            object oret = null;
             string sql = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -131,7 +130,7 @@ namespace TangentaDB
                                                                     " , CreationDate = " + sval_CreationDate +
                                                                     " , Description = " + sval_Description +
                                                                     " where ID = " + PriceList_ID.ToString();
-                                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref oret, ref Err))
+                                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,  ref Err))
                                 {
                                     return true;
                                 }
@@ -206,9 +205,8 @@ namespace TangentaDB
                     {
                         ID PriceList_ID = new ID(dr["PriceList_ID"]);
                         ID SimpleItem_ID = new ID(dr["SimpleItem_ID"]);
-                        object objresult = new object();
                         string sql = "insert into Price_SimpleItem (RetailSimpleItemPrice,Discount,Taxation_ID,SimpleItem_ID,PriceList_ID) values (-1,0," + id_Taxation.ToString() + "," + SimpleItem_ID.ToString() + "," + PriceList_ID.ToString() + ")";
-                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref objresult, ref Err))
+                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null,  ref Err))
                         {
                             LogFile.Error.Show("ERROR:f_PriceList:Update:sql=" + sql + "\r\nErr=" + Err);
                             return false;
@@ -250,8 +248,7 @@ namespace TangentaDB
                         ID PriceList_ID = new ID(dr["PriceList_ID"]);
                         ID Item_ID = new ID(dr["Item_ID"]);
                         string sql = "insert into Price_Item (RetailPricePerUnit,Discount,Taxation_ID,Item_ID,PriceList_ID) values (-1,0," + id_Taxation.ToString() + "," + Item_ID.ToString() + "," + PriceList_ID.ToString() + ")";
-                        object objresult = new object();
-                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref objresult, ref Err))
+                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null,  ref Err))
                         {
                             LogFile.Error.Show("ERROR:f_PriceList:Update:sql=" + sql + "\r\nErr=" + Err);
                             return false;

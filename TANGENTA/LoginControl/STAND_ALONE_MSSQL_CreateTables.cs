@@ -14,9 +14,8 @@ namespace LoginControl
             {
                 case DBConnection.eDBType.MSSQL:
                     string sql_DropConstraints = STAND_ALONE_MSSQL_commands.sql_DropConstraints;
-                    object Result = null;
                     string Err = null;
-                    if (db_con.ExecuteNonQuerySQL(sql_DropConstraints, null, ref Result, ref Err))
+                    if (db_con.ExecuteNonQuerySQL(sql_DropConstraints, null, ref Err))
                     {
                         return true;
                     }
@@ -38,9 +37,8 @@ namespace LoginControl
             {
                 case DBConnection.eDBType.MSSQL:
                     string sql_DropTables = STAND_ALONE_MSSQL_commands.sql_DropTables;
-                    object Result = null;
                     string Err = null;
-                    if (db_con.ExecuteNonQuerySQL(sql_DropTables, null, ref Result, ref Err))
+                    if (db_con.ExecuteNonQuerySQL(sql_DropTables, null, ref Err))
                     {
                         return true;
                     }
@@ -80,13 +78,12 @@ namespace LoginControl
                             LogFile.Error.Show("ERROR:LoginControl does not support ??? database yet.");
                             return false;
                     }
-                    object Result = null;
                     string Err = null;
-                    if (Login_con.ExecuteNonQuerySQL(sCreateLoginTables, null, ref Result, ref Err))
+                    if (Login_con.ExecuteNonQuerySQL(sCreateLoginTables, null,  ref Err))
                     {
                         string drop_view = STAND_ALONE_MSSQL_commands.drop_view;
 
-                        if (Login_con.ExecuteNonQuerySQL(drop_view, null, ref Result, ref Err))
+                        if (Login_con.ExecuteNonQuerySQL(drop_view, null, ref Err))
                         {
                             string create_VIEW = STAND_ALONE_MSSQL_commands.create_VIEW;
 

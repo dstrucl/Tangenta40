@@ -707,10 +707,9 @@ namespace TangentaDB
                                                                  + "," + sval_DocDurationType
                                                                  + "," + sval_Atom_Notice_ID
                                                                 + " where ID = " + DocProformaInvoiceAddOn_ID.ToString();
-                        object ores = null;
                         string Err = null;
 
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref ores, ref Err))
+                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
                         {
                             return true;
                         }

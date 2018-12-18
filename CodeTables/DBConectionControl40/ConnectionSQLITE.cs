@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace DBConnectionControl40
 {
-    public class ConnectionSQLITE
+    public partial class ConnectionSQLITE
     {
         public enum eSQLITEFileExist { OK, NOT_EXISTS, CONNECTION_FILE_NOT_DEFINED };
 
@@ -638,125 +638,6 @@ namespace DBConnectionControl40
 
 
 
-        public bool ExecuteNonQuerySQL(string sql, List<SQL_Parameter> lSQL_Parameter, ref object Result, ref string ErrorMsg)
-        {
-            //SqlConnection Conn = new SqlConnection(xString);
-            if (TransactionsOnly)
-            {
-                if (TransactionIsActive)
-                {
-                    if (cmd != null)
-                    {
-                        try
-                        {
-                            cmd.CommandText = sql.ToString();
-                            cmd.Parameters.Clear();
-                            if (lSQL_Parameter != null)
-                            {
-                                foreach (SQL_Parameter sqlPar in lSQL_Parameter)
-                                {
-                                    if (sqlPar.size > 0)
-                                    {
-                                        SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
-                                        mySQLiteParameter.Value = sqlPar.Value;
-                                        cmd.Parameters.Add(mySQLiteParameter);
-                                    }
-                                    else
-                                    {
-                                        SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
-                                        cmd.Parameters.Add(mySQLiteParameter);
-                                    }
-                                }
-                            }
-                            cmd.CommandTimeout = 20000;
-                            cmd.ExecuteNonQuery();
-                            ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
-                            return true;
-                        }
-                        catch (System.Exception ex)
-                        {
-                            //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
-                            ErrorMsg = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteQuerySQL:\r\n", sql, cmd.Parameters);
-                            DBConnection.ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuery");
-                            Disconnect();
-                            DBConnection.WriteLogTable(ex);
-
-                            ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        ErrorMsg = "Error ExecuteNonQuerySQL : SQLite Command is not created!";
-                        return false;
-                    }
-                }
-                else
-                {
-                    ErrorMsg = "Error ExecuteQuerySQL : Transaction is not active!";
-                    return false;
-                }
-            }
-            else
-            {
-                try
-                {
-                    string sError = "";
-                    if (Connect_Batch(ref sError))
-                    {
-                        if (cmd == null)
-                        {
-                            cmd = Con.CreateCommand();
-                        }
-                        cmd.CommandText = sql.ToString();
-
-                        cmd.Parameters.Clear();
-                        if (lSQL_Parameter != null)
-                        {
-                            foreach (SQL_Parameter sqlPar in lSQL_Parameter)
-                            {
-
-                                if (sqlPar.size > 0)
-                                {
-                                    sqlPar.mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
-                                    sqlPar.mySQLiteParameter.Value = sqlPar.Value;
-
-                                }
-                                else
-                                {
-                                    sqlPar.mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
-                                    sqlPar.mySQLiteParameter.Value = sqlPar.Value;
-                                }
-                                cmd.Parameters.Add(sqlPar.mySQLiteParameter);
-
-                            }
-                        }
-                        cmd.CommandTimeout = 20000;
-                        cmd.ExecuteNonQuery();
-                        Disconnect_Batch();
-                        ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END", null);
-                        return true;
-                    }
-                    else
-                    {
-                        LogFile.Error.Show(sError);
-                        ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END ERROR", null);
-                        return false;
-                    }
-                }
-                catch (System.Exception ex)
-                {
-                    //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
-                    ErrorMsg = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteQuerySQL:\r\n", sql, cmd.Parameters);
-                    DBConnection.ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuery");
-                    Disconnect();
-                    DBConnection.WriteLogTable(ex);
-
-                    ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
-                    return false;
-                }
-            }
-        }
 
 
 

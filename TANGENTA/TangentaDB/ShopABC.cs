@@ -1455,8 +1455,7 @@ namespace TangentaDB
                     LogFile.Error.Show(Err);
                     return false;
                 }
-                object ores = null;
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql_update_Atom_SimpleItem, lpar, ref ores, ref Err))
+                if (DBSync.DBSync.ExecuteNonQuerySQL(sql_update_Atom_SimpleItem, lpar,ref Err))
                 {
                     return true;
                 }
@@ -1541,8 +1540,7 @@ namespace TangentaDB
                 Err = "ERROR:ShopABC.cs:ShopABC:Delete_SelectedSimpleItem:DocTyp=" + DocTyp + " not implemented.";
                 return false;
             }
-            object ores = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_delete_Atom_SimpleItem, null, ref ores, ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_delete_Atom_SimpleItem, null, ref Err))
             {
                 return true;
             }

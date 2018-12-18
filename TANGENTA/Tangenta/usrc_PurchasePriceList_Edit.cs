@@ -86,8 +86,7 @@ namespace Tangenta
                     string Err = null;
                     string sql = @" insert into PurchasePrice_Item (Item_ID,PurchasePrice_ID,Taxation_ID,PurchasePricePerUnit,Discount) 
                                 select id," + xID.ToString() + "," + id_Taxation.ToString() + ",-1,0 from Item where ToOffer = 1";
-                    object ores = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
                     {
                         SQLTable tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_Item)));
                         tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
@@ -157,8 +156,7 @@ namespace Tangenta
                             long PriceList_ID = (long)dt_PriceList.Rows[0]["ID"];
                             sql = @" insert into PurchasePrice_Item (Item_ID,PriceList_ID,Taxation_ID,PurchasePricePerUnit) 
                                                         select id," + PriceList_ID.ToString() + "," + id_Taxation.ToString() + ",-1 from Item where ToOffer = 1";
-                            object ores = null;
-                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
                             {
                                 SQLTable tbl_PurchasePrice_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(PurchasePrice_Item)));
                                 tbl_PurchasePrice_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);

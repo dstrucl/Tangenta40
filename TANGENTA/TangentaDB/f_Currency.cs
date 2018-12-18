@@ -128,8 +128,7 @@ namespace TangentaDB
                         else
                         {
                             sql = "update Currency set Name = " + spar_Name + ", Symbol = " + spar_Symbol + ", CurrencyCode = " + spar_CurrencyCode + ",DecimalPlaces = " + spar_DecimalPlaces + " where ID = " + Currency_ID.ToString();
-                            object ores = null;
-                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar,ref ores,ref Err))
+                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar,ref Err))
                             {
                                 LogFile.Error.Show("ERROR:f_Currency:InsertDefault:sql=" + sql + "\r\nErr=" + Err);
                                 return false;

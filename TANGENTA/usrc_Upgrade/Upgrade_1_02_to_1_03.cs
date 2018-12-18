@@ -49,8 +49,7 @@ namespace UpgradeDB
                         SQL_Parameter par_TaxPrice = new SQL_Parameter(spar_TaxPrice, SQL_Parameter.eSQL_Parameter.Decimal, false, TaxPrice);
                         lpar.Add(par_TaxPrice);
                         sql = " update atom_price_simpleitem set TaxPrice=" + spar_TaxPrice + " where ID = " + ID.ToString();
-                        object ores = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref ores, ref Err))
+                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
                         {
                             continue;
                         }

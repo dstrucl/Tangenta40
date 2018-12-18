@@ -85,7 +85,6 @@ namespace TangentaDB
             string Err = null;
             DataTable dt = new DataTable();
             string sql = null;
-            object oret = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_Name = "@par_Name";
             SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Name);
@@ -237,7 +236,7 @@ namespace TangentaDB
                                                     Description = " + sval_Description + @",
                                                     Expiry_ID = " + sval_Expiry_ID + @",
                                                     Warranty_ID = " + sval_Warranty_ID + " where ID = " + Item_ID.ToString();
-                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref oret, ref Err))
+                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
                             {
                                 return true;
                             }

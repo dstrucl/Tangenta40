@@ -71,8 +71,7 @@ namespace TangentaDB
                            set ExtraDiscount = " + spar_extraDiscount + @"
                            where ID = " + doc_ShopC_Item_ID.ToString(); ;
             string Err = null;
-            object oret = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,ref oret,  ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
             {
                 return true;
             }
@@ -168,9 +167,8 @@ namespace TangentaDB
         public static bool Delete(ID doc_ShopC_Item_ID)
         {
             string sql = "delete from DocInvoice_ShopC_Item where ID = " + doc_ShopC_Item_ID.ToString();
-            object objret = null;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref objret, ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null,  ref Err))
             {
                 return true;
             }

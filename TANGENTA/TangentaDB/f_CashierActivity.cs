@@ -401,9 +401,8 @@ namespace TangentaDB
             lpar.Add(par_CashierActivity_ID);
 
             string sql = "update CashierActivity set CashierActivityClosed_ID = " + spar_CashierActivityClosed_ID + " where ID = " + spar_CashierActivity_ID;
-            object ores = null;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar, ref ores, ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar, ref Err))
             {
                 return true;
             }

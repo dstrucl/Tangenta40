@@ -346,8 +346,7 @@ namespace TangentaDB
                         }
                         if (sql != null)
                         {
-                            object ores = null;
-                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref ores, ref Err))
+                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
                             {
                                 LogFile.Error.Show("ERROR:f_ElectronicDevice:Get:sql=" + sql + "\r\nErr=" + Err);
                                 return false;

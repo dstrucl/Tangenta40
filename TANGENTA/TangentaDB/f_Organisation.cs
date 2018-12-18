@@ -160,8 +160,7 @@ namespace TangentaDB
                                  +", TaxPayer = " + TaxPayer_value
                                              + ", Comment1_ID = " + Comment1_ID_value
                                 + " where ID = " + Organisation_ID.ToString();
-                            object ores = null;
-                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar1, ref ores, ref Err))
+                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar1, ref Err))
                             {
                                 LogFile.Error.Show("ERROR:TangentaDB:f_Organisation:Get:sql=" + sql + "\r\nErr=" + Err);
                                 return false;
@@ -187,8 +186,7 @@ namespace TangentaDB
                                              + ", TaxPayer = " + TaxPayer_value
                                              + ", Comment1_ID = " + Comment1_ID_value
                                              + " where ID = " + Organisation_ID.ToString();
-                                object ores = null;
-                                if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar1, ref ores, ref Err))
+                                if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar1,  ref Err))
                                 {
                                     LogFile.Error.Show("ERROR:TangentaDB:f_Organisation:Get:sql=" + sql + "\r\nErr=" + Err);
                                     return false;
@@ -218,8 +216,8 @@ namespace TangentaDB
                                          + ", TaxPayer = " + TaxPayer_value
                                          + ", Comment1_ID = " + Comment1_ID_value
                                          + " where ID = " + Organisation_ID.ToString();
-                            object ores = null;
-                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar1, ref ores, ref Err))
+
+                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar1,  ref Err))
                             {
                                 LogFile.Error.Show("ERROR:TangentaDB:f_Organisation:Get:sql=" + sql + "\r\nErr=" + Err);
                                 return false;

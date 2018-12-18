@@ -196,8 +196,7 @@ namespace UpgradeDB
                                 // Correct Item's Units
                                 UpgradeDB_inThread.Set_DataBase_Version("1.05");
                                 string sql = "update item set Unit_ID=1";
-                                object ores = null;
-                                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null,  ref Err))
                                 {
                                     wfp_ui_thread.End();
                                     return true;
@@ -270,8 +269,7 @@ namespace UpgradeDB
                                     if (((DocInvoice_ID == 45) || (DocInvoice_ID == 47) || (DocInvoice_ID == 89)) && (DocInvoice_ShopB_Item_ID >= 0))
                                     {
                                         string sql_update = "update DocInvoice_ShopB_Item set iQuantity = 1 where DocInvoice_ID = " + DocInvoice_ID.ToString() + " and ID =" + DocInvoice_ShopB_Item_ID.ToString();
-                                        object ores = null;
-                                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql_update, null, ref ores, ref Err))
+                                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql_update, null,  ref Err))
                                         {
                                             LogFile.Error.Show("ERROR:usrc_Upgrade:Check_DB_1_04:sql=" + sql + "\r\nErr=" + Err);
                                             return false;

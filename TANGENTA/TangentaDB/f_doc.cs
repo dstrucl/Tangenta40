@@ -502,12 +502,11 @@ namespace TangentaDB
                         SQL_Parameter par_bDefault = new SQL_Parameter(spar_bDefault, SQL_Parameter.eSQL_Parameter.Bit, false, Default);
                         lpar.Add(par_bDefault);
 
-                        object oret = null;
 
                         if (Default)
                         {
                             sql = @"update doc set bDefault = 0 where doc_type_ID = " + sval_doc_type_ID + " and doc_page_type_ID = " + sval_doc_page_type_ID + " and Language_ID = " + sval_Language_ID;
-                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,ref oret,  ref Err))
+                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,  ref Err))
                             {
                                 LogFile.Error.Show("ERROR:f_doc:Get:sql=" + sql + "\r\nErr=" + Err);
                                 return false;
@@ -685,12 +684,11 @@ namespace TangentaDB
         {
             string Err = null;
             string sql = "update doc set bDefault = 0";
-            object objres = null;
-            if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL(sql, null, ref objres, ref Err))
+            if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL(sql, null,  ref Err))
             {
                 sql = "update doc set bDefault = 1 where id = " + id.ToString();
-                objres = null;
-                if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL(sql, null, ref objres, ref Err))
+ 
+                if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL(sql, null,  ref Err))
                 {
                     return true;
                 }

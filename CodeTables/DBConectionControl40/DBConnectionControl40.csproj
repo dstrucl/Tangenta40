@@ -120,6 +120,7 @@
     <Compile Include="ConnectionMSSQL.cs" />
     <Compile Include="ConnectionMYSQL.cs" />
     <Compile Include="ConnectionSQLITE.cs" />
+    <Compile Include="ConnectionSQLITEExecute.cs" />
     <Compile Include="Connection_Control.cs">
       <SubType>UserControl</SubType>
     </Compile>

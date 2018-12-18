@@ -108,13 +108,12 @@ namespace TangentaDB
 
         public static bool SetDefault(ID Language_ID)
         {
-            object oret = null;
             string Err = null;
             string sql = "update Language set bDefault = 0";
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref oret, ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null,  ref Err))
             {
                 sql = "update Language set bDefault = 1 where ID = " + Language_ID.ToString();
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref oret, ref Err))
+                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null,  ref Err))
                 {
                     return true;
                 }
@@ -133,13 +132,13 @@ namespace TangentaDB
 
         public static bool SetDefault(int LanguageIndex)
         {
-            object oret = null;
+
             string Err = null;
             string sql = "update Language set bDefault = 0";
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref oret, ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
             {
                 sql = "update Language set bDefault = 1 where LanguageIndex = " + LanguageIndex.ToString();
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref oret, ref Err))
+                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
                 {
                     return true;
                 }

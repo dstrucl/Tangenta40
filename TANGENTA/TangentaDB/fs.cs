@@ -245,7 +245,6 @@ namespace TangentaDB
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
-                object oret = null;
                 if (dt.Rows.Count > 0)
                 {
                     if (ID ==null)
@@ -254,7 +253,7 @@ namespace TangentaDB
                     }
                     ID.Set(dt.Rows[0]["ID"]);
                     sql = "update " + s_DBSettings_table_name + " set TextValue = '" + textValue + "',ReadOnly = " + sbReadOnly + " where ID = " + ID.ToString(); ;
-                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref oret, ref Err))
+                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
                     {
                         return true;
                     }
@@ -292,14 +291,13 @@ namespace TangentaDB
         {
             string Err = null;
             string sql = "delete from " + TableName;
-            object Result = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Result, ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
             {
                 switch (DBSync.DBSync.m_DBType)
                 {
                     case DBConnection.eDBType.SQLITE:
                         sql = "UPDATE SQLITE_SEQUENCE SET seq = 0 WHERE name = '" + TableName + "'";
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Result, ref Err))
+                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null,  ref Err))
                         {
                             return true;
                         }
@@ -310,7 +308,7 @@ namespace TangentaDB
                         }
                     case DBConnection.eDBType.MSSQL:
                         sql = "DBCC CHECKIDENT("+ TableName + ", RESEED, 0)";
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Result, ref Err))
+                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
                         {
                             return true;
                         }
@@ -570,8 +568,7 @@ namespace TangentaDB
                     {
                         string sValues = "'" + currency.Name + "','" + currency.Abbreviation + "','" + currency.Symbol + "'," + currency.CurrencyCode.ToString() + "," + currency.DecimalPlaces.ToString();
                         string sql = sql_Currency + sValues + ")";
-                        object Result = null;
-                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Result, ref Err))
+                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
                         {
                             Err = "ERROR::TangentaDB:fs:Init_Currency_Table:Err=" + Err;
                             LogFile.Error.Show(Err);
@@ -667,8 +664,7 @@ namespace TangentaDB
                         }
                         string sValues = "'" + unit.Name + "','" + unit.Symbol + "'," + unit.DecimalPlaces.ToString() + "," + sStorageOptionValue + ",'" + unit.Description + "'";
                         string sql = sql_Unit + sValues + ")";
-                        object Result = null;
-                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Result, ref Err))
+                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
                         {
                             Err = "ERROR::TangentaDB:fs:Init_Unit_Table:Err=" + Err;
                             if (!DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.SessionConnected)
@@ -722,8 +718,7 @@ namespace TangentaDB
 
                 case enum_GetDBSettings.No_Data_Rows:
                     string sql_DB_StockCheckAtStartup = "insert into DBSettings ( name,textvalue,readonly ) values ('AdminPassword','',0)";
-                    object Result = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql_DB_StockCheckAtStartup, null, ref Result, ref Err))
+                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql_DB_StockCheckAtStartup, null, ref Err))
                     {
                         return true;
                     }
@@ -770,8 +765,7 @@ namespace TangentaDB
 
                 case enum_GetDBSettings.No_Data_Rows:
                     string sql_DB_StockCheckAtStartup = "insert into DBSettings ( name,textvalue,readonly ) values ('StockCheckAtStartup','1',0)";
-                    object Result = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql_DB_StockCheckAtStartup, null, ref Result, ref Err))
+                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql_DB_StockCheckAtStartup, null, ref Err))
                     {
                         return true;
                     }
@@ -2204,9 +2198,8 @@ namespace TangentaDB
         public static bool IssueDoc(string docInvoice, ID doc_ID)
         {
             string sql_SetPrice = "update "+ docInvoice + " set Draft = 0 where ID = " + doc_ID.ToString();
-            object ores = null;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_SetPrice, null, ref ores, ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_SetPrice, null, ref Err))
             {
                 return true;
             }
@@ -2495,9 +2488,8 @@ namespace TangentaDB
             lpar.Add(par_NetSum);
 
             string sql_SetPrice = "update " + DocTyp + " set GrossSum = " + spar_GrossSum + ",TaxSum = " + spar_TaxSum + ",NetSum = " + spar_NetSum + " where ID = " + Doc_ID.ToString();
-            object ores = null;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_SetPrice, lpar, ref ores, ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_SetPrice, lpar, ref Err))
             {
                 return true;
             }

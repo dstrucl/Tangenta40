@@ -224,12 +224,11 @@ namespace UpgradeDB
         {
             // now write
             string Err = null;
-            object ores = null;
             string sql = "Delete from " + tbl_name;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
             {
                 sql = "UPDATE SQLITE_SEQUENCE SET seq = 0 WHERE name = '" + tbl_name + "'";
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
                 {
                     return true;
                 }

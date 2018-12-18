@@ -821,8 +821,7 @@ namespace CodeTables
                                 string sql_DBm = "";
                                 string sql_create = tbl.SQLcmd_CreateTable(this, UniqueConstraintNameList, ref sql_DBm, null);
                                 string sql_create_All = sql_DBm + sql_create;
-                                object oResult = null;
-                                if (m_con.ExecuteNonQuerySQL(sql_create_All, null, ref oResult, ref csError))
+                                if (m_con.ExecuteNonQuerySQL(sql_create_All, null, ref csError))
                                 {
                                     return true;
                                 }
@@ -1198,8 +1197,7 @@ namespace CodeTables
 
                                   SET ANSI_PADDING ON;
                                   " + m_strSQLCreate.ToString();
-                      Object oResult = null;
-                      bRes= this.m_con.ExecuteNonQuerySQL(sql, null,ref oResult, ref csErrorMsg);
+                      bRes= this.m_con.ExecuteNonQuerySQL(sql, null, ref csErrorMsg);
                     }
                     break;
 
@@ -1271,8 +1269,7 @@ namespace CodeTables
                         foreach (string sTblName in sTableList)
                         {
                             string s_SQLite_Drop_table = @"DROP View '" + sTblName + "';";
-                            object oResult = null;
-                            if (!this.m_con.ExecuteNonQuerySQL(s_SQLite_Drop_table, null,ref oResult, ref serror))
+                            if (!this.m_con.ExecuteNonQuerySQL(s_SQLite_Drop_table, null, ref serror))
                             {
                                 return false;
                             }
@@ -1330,8 +1327,7 @@ namespace CodeTables
                                  string s_SQLite_Drop_table = @"delete from '" + sTblName + @"';    
                                                                delete from sqlite_sequence where name='" + sTblName + @"';
                                                                DROP TABLE '" + sTblName + "';";
-                                 object oResult = null;
-                                 if (!this.m_con.ExecuteNonQuerySQL(s_SQLite_Drop_table, null,ref oResult, ref serror))
+                                 if (!this.m_con.ExecuteNonQuerySQL(s_SQLite_Drop_table, null, ref serror))
                                  {
                                      return false;
                                  }
@@ -1501,8 +1497,7 @@ namespace CodeTables
             if (sql_DropAllTables!=null)
             {
                 string csErrorMsg=null;
-                object oResult = null;
-                if (this.m_con.ExecuteNonQuerySQL(sql_DropAllTables, null,ref oResult, ref csErrorMsg))
+                if (this.m_con.ExecuteNonQuerySQL(sql_DropAllTables, null, ref csErrorMsg))
                 {
                     MessageBox.Show(m_ParentForm, lng.s_AllTablesDropedOK.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return true;
@@ -1561,8 +1556,7 @@ namespace CodeTables
             }
 
             String csErrorMsg = "";
-            object oResult = null;
-            if (this.m_con.ExecuteNonQuerySQL(sql, null, ref oResult, ref csErrorMsg))
+            if (this.m_con.ExecuteNonQuerySQL(sql, null, ref csErrorMsg))
             {
                 return true;
             }
@@ -1584,8 +1578,7 @@ namespace CodeTables
             StringBuilder m_strSQLDrop = SQLcmd_DropAllTables(m_con);
 
             String csErrorMsg = "";
-            object oResult = null;
-            if (this.m_con.ExecuteNonQuerySQL(m_strSQLDrop.ToString(), null,ref oResult, ref csErrorMsg))
+            if (this.m_con.ExecuteNonQuerySQL(m_strSQLDrop.ToString(), null, ref csErrorMsg))
             {
                 MessageBox.Show(m_ParentForm, lng.s_AllTablesDropedOK.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return true;

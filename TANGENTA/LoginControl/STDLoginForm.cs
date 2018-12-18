@@ -68,8 +68,7 @@ namespace LoginControl
                                     if (change_pass_form.ShowDialog() == DialogResult.OK)
                                     {
                                         string sql_change_enabled = "UPDATE " + LoginDB_DataSet.LoginUsers.tablename_const + " SET " + LoginDB_DataSet.LoginUsers.ChangePasswordOnFirstLogin.name + " = 0 where " + LoginDB_DataSet.LoginUsers.id.name + " = " + LoginUsers.o_id.id_.ToString();
-                                        object res = null;
-                                        if (std.Login_con.ExecuteNonQuerySQL(sql_change_enabled, null, ref res, ref Err))
+                                        if (std.Login_con.ExecuteNonQuerySQL(sql_change_enabled, null,  ref Err))
                                         {
                                             DialogResult = DialogResult.OK;
                                             Close();
@@ -90,8 +89,7 @@ namespace LoginControl
                                     if (LoginUsers.o_NotActiveAfterPasswordExpires.NotActiveAfterPasswordExpires_)
                                     {
                                         string sql_change_enabled = "UPDATE " + LoginDB_DataSet.LoginUsers.tablename_const + " SET " + LoginDB_DataSet.LoginUsers.enabled.name + " = 0 where " + LoginDB_DataSet.LoginUsers.id.name + " = " + LoginUsers.o_id.id_.ToString();
-                                        object res = null;
-                                        if (!std.Login_con.ExecuteNonQuerySQL(sql_change_enabled, null, ref res, ref Err))
+                                        if (!std.Login_con.ExecuteNonQuerySQL(sql_change_enabled, null,ref Err))
                                         {
                                             LogFile.Error.Show("Error:LoginForm:" + sql_change_enabled + ":Err=" + Err);
                                         }

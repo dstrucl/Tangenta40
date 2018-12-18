@@ -137,9 +137,8 @@ namespace TangentaDB
 
             string sql = "update DocProformaInvoice_ShopC_Item set dQuantity = " + spar_dQuantity
                             + " where ID = " + doc_ShopC_Item_ID.ToString();
-            object oret = null;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref oret, ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,  ref Err))
             {
                 return true;
             }
@@ -246,9 +245,8 @@ namespace TangentaDB
         public static bool Delete(ID doc_ShopC_Item_ID)
         {
             string sql = "delete from DocProformaInvoice_ShopC_Item where ID = " + doc_ShopC_Item_ID.ToString();
-            object objret = null;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref objret, ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
             {
                 return true;
             }

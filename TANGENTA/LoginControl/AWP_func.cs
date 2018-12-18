@@ -654,9 +654,8 @@ SELECT
             SQL_Parameter par_LoginUsers_ID = new SQL_Parameter(spar_LoginUsers_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, awpld.ID);
             lpar.Add(par_LoginUsers_ID);
             string sql = "UPDATE LoginUsers SET  ChangePasswordOnFirstLogin  = 0  where id = " + spar_LoginUsers_ID;
-            object oret = null;
             string Err = null;
-            if (con.ExecuteNonQuerySQL(sql,lpar,ref oret,ref Err))
+            if (con.ExecuteNonQuerySQL(sql,lpar,ref Err))
             {
                 return true;
             }
@@ -687,8 +686,8 @@ SELECT
             string sql = "UPDATE LoginUsers SET ChangePasswordOnFirstLogin = 0, Time_When_UserSetsItsOwnPassword_LastTime = " + spar_Time_When_UserSetsItsOwnPassword_LastTime +
                                                  ",Password = " + spar_Pssword + " where id = " + spar_LoginUsers_ID;
             string Err = null;
-            object oret = null;
-            if (con.ExecuteNonQuerySQL(sql, lpar, ref oret, ref Err))
+
+            if (con.ExecuteNonQuerySQL(sql, lpar,  ref Err))
             {
                 awpld.Time_When_UserSetsItsOwnPassword_LastTime = xTime_When_UserSetsItsOwnPassword_LastTime;
                 return true;
@@ -703,9 +702,8 @@ SELECT
         internal static bool DeactivateUserName(ID iD)
         {
             string sql_change_enabled = "UPDATE LoginUsers SET enabled = 0 where id = " + iD.ToString();
-            object res = null;
             string Err = null;
-            if (con.ExecuteNonQuerySQL(sql_change_enabled, null, ref res, ref Err))
+            if (con.ExecuteNonQuerySQL(sql_change_enabled, null, ref Err))
             {
                 return true;
             }
@@ -842,9 +840,8 @@ SELECT
             lpar.Add(par_LoginRoles_ID);
 
             string sql = "DELETE FROM LoginUsersAndLoginRoles where LoginUsers_ID = " + spar_LoginUsers_ID + " and LoginRoles_ID = " + spar_LoginRoles_ID;
-            object oret = null;
             string err = null;
-            if (con.ExecuteNonQuerySQL(sql, lpar, ref oret, ref err))
+            if (con.ExecuteNonQuerySQL(sql, lpar, ref err))
             {
                 return true;
             }
@@ -1218,8 +1215,7 @@ SELECT
                 return false; 
             }
 
-            object oret = null;
-            if (con.ExecuteNonQuerySQL(sql, lpar, ref oret, ref Err))
+            if (con.ExecuteNonQuerySQL(sql, lpar, ref Err))
             {
                 return true;
             }
@@ -1514,8 +1510,7 @@ SELECT
         {
             string err = null;
             string sql = "delete from LoginRoles where Role = 'WriteInvoiceAndProformaInvoice'";
-            object ores = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null,  ref err))
             {
                 return true;
             }
@@ -1541,8 +1536,7 @@ SELECT
                     {
                         string sql = "update LoginRoles set Role = 'WriteInvoice' where ID = "+ id_WriteInvoiceAndProformaInvoice.ToString();
                         string err = null;
-                        object ores = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref err))
+                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref err))
                         {
                             return remove_WriteInvoiceAndProformaInvoice();
                         }
@@ -1571,8 +1565,7 @@ SELECT
                     {
                         string sql = "insert into LoginRoles (Role)values('WriteInvoice')";
                         string err = null;
-                        object ores = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref err))
+                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref err))
                         {
                             return remove_WriteInvoiceAndProformaInvoice();
                         }
@@ -1605,8 +1598,7 @@ SELECT
                     {
                         string err = null;
                         sql = "update LoginRoles set Role = 'WriteProformaInvoice' where ID = " + id_WriteInvoiceAndProformaInvoice.ToString();
-                        object ores = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref err))
+                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref err))
                         {
                             return Check_Role_WriteInvoice(null);
                         }

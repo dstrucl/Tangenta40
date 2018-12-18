@@ -1674,7 +1674,7 @@ namespace CodeTables
                 SQL_Parameter par_ReturnID = new SQL_Parameter("@ReturnID"+sVarID, SQL_Parameter.eSQL_Parameter.Bigint,true,oResult);
                 lsqlPar.Add(par_ReturnID);
                 sqlinsert.Append("\r\n set  " + par_ReturnID.Name + " = @" + sVarID);
-                if (xcon.ExecuteNonQuerySQL(sqlinsert.ToString(), lsqlPar,ref oResult, ref csError))
+                if (xcon.ExecuteNonQuerySQL_ReturnResult(sqlinsert.ToString(), lsqlPar,ref oResult, ref csError))
                 {
                     int iCount = lsqlPar.Count();
                     if (xcon.DBType == DBConnection.eDBType.MSSQL)
@@ -1706,7 +1706,7 @@ namespace CodeTables
                 lsqlPar.Add(par_ReturnID);
                 sqlinsert.Append("\r\n set  " + par_ReturnID.Name + " = @" + sVarID);
                 DBConnectionControl40.DynSettings.bPreviewSQLBeforeExecution = true;
-                if (xcon.ExecuteNonQuerySQL(sqlinsert.ToString(), lsqlPar, ref oResult, ref csError))
+                if (xcon.ExecuteNonQuerySQL_ReturnResult(sqlinsert.ToString(), lsqlPar, ref oResult, ref csError))
                 {
                     int iCount = lsqlPar.Count();
                     if (xcon.DBType == DBConnection.eDBType.MSSQL)

@@ -17,6 +17,7 @@ using LanguageControl;
 using DBConnectionControl40;
 using StaticLib;
 using LogFile;
+using System.Data;
 
 namespace CodeTables
 {
@@ -626,10 +627,11 @@ namespace CodeTables
             List<SQL_Parameter> lsqlPar = new List<SQL_Parameter>();
             string sbl = "\nSELECT " + this.Name + " FROM " + this.ownerTable.TableName + " WHERE " + this.Name + " = " + DBTypes.DBtypesFunc.DbValueForSql(ref this.obj,this.BasicType(), this.ownerTable.sThisVar, ref lsqlPar, this.Name);
             string cs_Error = "";
-            Object ObjRet = null;
-            if (my_SQLConnection.ExecuteNonQuerySQL(sbl, lsqlPar,  ref ObjRet, ref cs_Error))
+            DataTable dt = new DataTable();
+            if (my_SQLConnection.ReadDataTable(ref dt,sbl, lsqlPar,   ref cs_Error))
             {
-                if (ObjRet != null)
+             
+                if (dt.Rows.Count>0)
                 {
                     return true;
                 }
@@ -637,6 +639,7 @@ namespace CodeTables
                 {
                     return false;
                 }
+
             }
             else
             {

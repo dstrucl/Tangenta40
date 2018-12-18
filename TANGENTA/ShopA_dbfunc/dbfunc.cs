@@ -287,9 +287,7 @@ namespace ShopA_dbfunc
                 return false;
             }
 
-
-            object ores = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null,ref Err))
             {
                 return true;
             }

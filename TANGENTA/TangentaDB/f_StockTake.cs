@@ -363,8 +363,7 @@ namespace TangentaDB
                                         + ",Trucking_ID = " +sval_Trucking_ID 
                                         + ",Draft="+sval_Draft + " where ID = "+ StockTake_ID.ToString()+";";
             string Err = null;
-            object oret = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,ref oret, ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
             {
                         return true;
             }
@@ -381,9 +380,8 @@ namespace TangentaDB
             if (ID.Validate(StockTake_ID))
             {
                 string sql = "update StockTake set Draft = 0 where ID = " + StockTake_ID.ToString();
-                object ores = null;
                 string Err = null;
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
                 {
                     ID JOURNAL_StockTake_ID = null;
                     TangentaDB.f_JOURNAL_StockTake.Get(xAtom_WorkPeriod_ID,StockTake_ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_Opened_StockTake_closed, DateTime.Now, ref JOURNAL_StockTake_ID);
@@ -406,9 +404,8 @@ namespace TangentaDB
             if (ID.Validate(StockTake_ID))
             {
                 string sql = "update StockTake set Draft = 1 where ID = " + StockTake_ID.ToString();
-                object ores = null;
                 string Err = null;
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
                 {
                     ID JOURNAL_StockTake_ID = null;
                     TangentaDB.f_JOURNAL_StockTake.Get(xAtom_WorkPeriod_ID,StockTake_ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_Closed_StockTake_reopened, DateTime.Now, ref JOURNAL_StockTake_ID);

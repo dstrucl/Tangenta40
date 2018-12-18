@@ -684,8 +684,7 @@ namespace LoginControl
             {
                     sql_change_roles += "\r\n insert into " +LoginDB_DataSet.LoginUsersAndLoginRoles.tablename_const + " ( " + LoginDB_DataSet.LoginUsersAndLoginRoles.LoginUsers_id.name + "," + LoginDB_DataSet.LoginUsersAndLoginRoles.LoginRoles_id.name + ") values ("+ usr_id.ToString()+"," + role.id.ToString()+")";
             }
-            object res = null;
-            if (Login_con.ExecuteNonQuerySQL(sql_change_roles,null,ref res,ref Err))
+            if (Login_con.ExecuteNonQuerySQL(sql_change_roles,null,ref Err))
             {
                 return true;
             }

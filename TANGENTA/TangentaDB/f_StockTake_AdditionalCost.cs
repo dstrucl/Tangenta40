@@ -105,8 +105,7 @@ namespace TangentaDB
                                                                + ",Cost=" + spar_Cost 
                                                                + ", StockTakeCostDescription_ID = " + spar_StocTakeCostDescription_ID
                                                                + " where StockTake_ID = " + spar_StocTake_ID + " and ID =" + StockTake_AdditionalCost_ID.ToString();
-                object oret = null;
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref oret, ref Err))
+                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
                 {
                     return true;
                 }
@@ -122,8 +121,7 @@ namespace TangentaDB
         {
             string Err = null;
             string sql = "delete from StockTake_AdditionalCost where StockTake_ID = " + StockTake_ID.ToString() + " and ID =" + StockTake_AdditionalCost_ID.ToString();
-            object oret = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql,null, ref oret, ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql,null, ref Err))
             {
                 return true;
             }

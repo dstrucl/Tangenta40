@@ -691,10 +691,9 @@ namespace TangentaDB
                                                                 + "," + sval_PaymentDeadline
                                                                 + "," + sval_Atom_Notice_ID
                                                                 + " where ID = " + DocInvoiceAddOn_ID.ToString();
-                        object ores = null;
                         string Err = null;
 
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref ores, ref Err))
+                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,  ref Err))
                         {
                             return true;
                         }
@@ -812,7 +811,6 @@ namespace TangentaDB
 
             public bool Update_FURS_Response_Data(ID DocInvoice_ID, bool FursTESTEnvironment)
             {
-                object oret = null;
                 string Err = null;
                 string sql = null;
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -874,7 +872,7 @@ namespace TangentaDB
                         ",TestEnvironment = " + spar_TestEnvironment +
                         " where DocInvoice_ID = " + spar_Invoice_ID;
 
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,ref oret, ref Err))
+                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,ref Err))
                 {
                     Set_Invoice_Furs_Token();
                     return true;
