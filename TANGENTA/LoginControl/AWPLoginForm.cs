@@ -37,6 +37,7 @@ namespace LoginControl
         private void DoLogin()
         {
             this.cmbR_UserName.Set(this.cmbR_UserName.Text);
+            Transaction transaction_DoLogin_Login_Start = new Transaction("DoLogin_Login_Start");
             switch (m_LMOUser.awpld.GetData(ref dtLoginUsers,cmbR_UserName.Text, AWP.awpd))
             {
                 case AWPLoginData.eGetDateResult.OK:
@@ -47,10 +48,24 @@ namespace LoginControl
                             AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(m_LMOUser, lng.s_AdministratorRequestForNewPassword.s);
                             if (change_pass_form.ShowDialog() == DialogResult.OK)
                             {
-                                Login_Start();
-                                DialogResult = DialogResult.OK;
-                                Close();
-                                return;
+                                if (Login_Start(transaction_DoLogin_Login_Start))
+                                {
+                                    if (transaction_DoLogin_Login_Start.Commit())
+                                    {
+                                        DialogResult = DialogResult.OK;
+                                        Close();
+                                        return;
+                                    }
+                                    else
+                                    {
+                                        return;
+                                    }
+                                }
+                                else
+                                {
+                                    transaction_DoLogin_Login_Start.Rollback();
+                                    return;
+                                }
                             }
                             else
                             {
@@ -76,12 +91,22 @@ namespace LoginControl
                                         if (AWP_func.Remove_ChangePasswordOnFirstLogin(m_LMOUser.awpld))
                                         {
                                             // change password dialog
-                                            if (Login_Start())
+                                            if (Login_Start(transaction_DoLogin_Login_Start))
                                             {
-
-                                                DialogResult = DialogResult.OK;
-                                                Close();
-                                                return;
+                                                if (transaction_DoLogin_Login_Start.Commit())
+                                                {
+                                                    DialogResult = DialogResult.OK;
+                                                    Close();
+                                                    return;
+                                                }
+                                                else
+                                                {
+                                                    return;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                transaction_DoLogin_Login_Start.Rollback();
                                             }
                                         }
                                     }
@@ -89,11 +114,22 @@ namespace LoginControl
                             }
                             else
                             {
-                                if (Login_Start())
+                                if (Login_Start(transaction_DoLogin_Login_Start))
                                 {
-                                    DialogResult = DialogResult.OK;
-                                    Close();
-                                    return;
+                                    if (transaction_DoLogin_Login_Start.Commit())
+                                    {
+                                        DialogResult = DialogResult.OK;
+                                        Close();
+                                        return;
+                                    }
+                                    else
+                                    {
+                                        return;
+                                    }
+                                }
+                                else
+                                {
+                                    transaction_DoLogin_Login_Start.Rollback();
                                 }
                             }
                         }
@@ -145,7 +181,7 @@ namespace LoginControl
             DoLogin();
         }
 
-        private bool Login_Start()
+        private bool Login_Start(Transaction transaction)
         {
             DateTime TimeOnServer = new DateTime();
             if (AWP_func.con.DBType == DBConnectionControl40.DBConnection.eDBType.MSSQL)
@@ -158,7 +194,7 @@ namespace LoginControl
                 }
             }
             ID Atom_WorkPeriod_ID = null;
-            if (LoginCtrl.GetWorkPeriodEx(m_LMOUser,ref Atom_WorkPeriod_ID))
+            if (LoginCtrl.GetWorkPeriodEx(m_LMOUser,ref Atom_WorkPeriod_ID, transaction))
             {
                     ID LoginSession_id = null;
                     if (AWP_func.GetLoginSession(m_LMOUser.awpld.ID,Atom_WorkPeriod_ID, ref LoginSession_id))

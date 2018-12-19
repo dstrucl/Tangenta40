@@ -420,14 +420,14 @@ namespace Tangenta
             Program.nav.oStartup = m_startup;
         }
 
-        public bool GetWorkPeriod(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
+        public bool GetWorkPeriod(startup myStartup, object oData, NavigationButtons.Navigation xnav,Transaction transaction, ref string Err)
         {
             if (Program.OperationMode.MultiUser)
             {
                 bool bCancel = false;
                 loginControl1.Init(this,
                                                 LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
-                                                DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
+                                                DBSync.DBSync.Con,
                                                 null,
                                                 LanguageControl.DynSettings.LanguageID,
                                                 false,
@@ -479,7 +479,7 @@ namespace Tangenta
                     bool bCancel = false;
                     loginControl1.Init(this,
                                                     LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
-                                                    DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
+                                                    DBSync.DBSync.Con,
                                                     null,
                                                     LanguageControl.DynSettings.LanguageID,
                                                     true,
@@ -488,7 +488,7 @@ namespace Tangenta
                     LMO1User.myOrganisation_Person_ID = myOrganisation_Person_SingleUser_ID;
                     ID xAtom_myOrganisation_Person_ID = null;
                     string_v office_v = null;
-                    if (!f_Atom_myOrganisation_Person.Get(LMO1User.myOrganisation_Person_ID,ref xAtom_myOrganisation_Person_ID, ref office_v))
+                    if (!f_Atom_myOrganisation_Person.Get(LMO1User.myOrganisation_Person_ID,ref xAtom_myOrganisation_Person_ID, ref office_v, transaction))
                     {
                         return false;
                     }
@@ -498,7 +498,7 @@ namespace Tangenta
                     if (Program.bFirstTimeInstallation)
                     {
                         ID xAtom_WorkPeriod_ID = null;
-                        if (LoginControl.LoginCtrl.GetWorkPeriodEx(LMO1User, ref xAtom_WorkPeriod_ID))
+                        if (LoginControl.LoginCtrl.GetWorkPeriodEx(LMO1User, ref xAtom_WorkPeriod_ID, transaction))
                
                         {
                             LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;                           
@@ -521,7 +521,7 @@ namespace Tangenta
                             if (doorFor1.DoLoginAsAdministrator((Form)this.Parent))
                             {
                                 ID xAtom_WorkPeriod_ID = null;
-                                if (LoginControl.LoginCtrl.GetWorkPeriodEx(LMO1User, ref xAtom_WorkPeriod_ID))
+                                if (LoginControl.LoginCtrl.GetWorkPeriodEx(LMO1User, ref xAtom_WorkPeriod_ID, transaction))
                                 {
                                     LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
                                     return true;
@@ -540,7 +540,7 @@ namespace Tangenta
                         else
                         {
                             ID xAtom_WorkPeriod_ID = null;
-                            if (LoginControl.LoginCtrl.GetWorkPeriodEx(LMO1User, ref xAtom_WorkPeriod_ID))
+                            if (LoginControl.LoginCtrl.GetWorkPeriodEx(LMO1User, ref xAtom_WorkPeriod_ID, transaction))
                             {
                                 LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;                                
                                 return true;
@@ -800,7 +800,15 @@ namespace Tangenta
                         ID atom_work_period_id = loginControl1.awp.LMO1User.Atom_WorkPeriod_ID;
                         if (ID.Validate(atom_work_period_id))
                         {
-                            TangentaDB.f_Atom_WorkPeriod.End(loginControl1.awp.LMO1User.Atom_WorkPeriod_ID);
+                            Transaction transaction_loginControl1_awp_LMO1User = new Transaction("loginControl1_awp_LMO1User");
+                            if (TangentaDB.f_Atom_WorkPeriod.End(loginControl1.awp.LMO1User.Atom_WorkPeriod_ID, transaction_loginControl1_awp_LMO1User))
+                            {
+                                transaction_loginControl1_awp_LMO1User.Commit();
+                            }
+                            else
+                            {
+                                transaction_loginControl1_awp_LMO1User.Rollback();
+                            }
                         }
                     }
                 }

@@ -79,7 +79,8 @@ namespace TangentaDB
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
-
+                const string TRANSACTION_doc_type_definitions_Set = "doc_type_definitions_Set";
+                string transaction_doc_type_definitions_Set_id = null;
                 foreach (doc_type doct in doc_type_list)
                 {
                     if (Get(doct, dt))
@@ -88,7 +89,25 @@ namespace TangentaDB
                     }
                     else
                     {
-                        Set(doct);
+                        if (transaction_doc_type_definitions_Set_id==null)
+                        {
+                            if (!DBSync.DBSync.DB_for_Tangenta.BeginTransaction(TRANSACTION_doc_type_definitions_Set,ref transaction_doc_type_definitions_Set_id))
+                            {
+                                return false;
+                            }
+                        }
+                        if (!Set(doct))
+                        {
+                            DBSync.DBSync.DB_for_Tangenta.RollbackTransaction(transaction_doc_type_definitions_Set_id);
+                            return false;
+                        }
+                    }
+                }
+                if (transaction_doc_type_definitions_Set_id != null)
+                {
+                    if (!DBSync.DBSync.DB_for_Tangenta.CommitTransaction(transaction_doc_type_definitions_Set_id))
+                    {
+                        return false;
                     }
                 }
                 return true;

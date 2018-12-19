@@ -19,7 +19,8 @@ namespace TangentaDB
     {
         public static bool Get(
                                  ID Office_Data_ID,
-                                 ref ID Atom_Office_Data_ID)
+                                 ref ID Atom_Office_Data_ID,
+                                 Transaction transaction)
         {
 
             ID cAddress_Org_ID = null;
@@ -79,9 +80,9 @@ namespace TangentaDB
                     ID Atom_cAddress_Org_ID = null;
                     ID Atom_Office_ID = null;
 
-                    if (f_Atom_Office.Get(Office_ID, ref Atom_Office_ID))
+                    if (f_Atom_Office.Get(Office_ID, ref Atom_Office_ID,transaction))
                     {
-                        if (f_Atom_cAddress_Org.Get(cAddress_Org_ID, ref Atom_cAddress_Org_ID))
+                        if (f_Atom_cAddress_Org.Get(cAddress_Org_ID, ref Atom_cAddress_Org_ID, transaction))
                         {
                             DBTypes.string_v Office_Name = new DBTypes.string_v();
                             List<SQL_Parameter> lpar = new List<SQL_Parameter>();

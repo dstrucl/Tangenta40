@@ -22,7 +22,10 @@ namespace TangentaDB
     public static class f_Atom_ElectronicDevice
     {
 
-        public static bool Get(string xElectronicDevice_Name, string xElectronicDevice_Description,ref ID xAtom_ElectronicDevice_ID)
+        public static bool Get(string xElectronicDevice_Name, 
+                               string xElectronicDevice_Description,
+                               ref ID xAtom_ElectronicDevice_ID,
+                               Transaction transaction)
         {
             string Err = null;
 
@@ -35,7 +38,7 @@ namespace TangentaDB
                 {
                     ID xAtom_Office_ID = null;
 
-                    if (f_Atom_Office.Get(myOrg.m_myOrg_Office.ID, ref xAtom_Office_ID))
+                    if (f_Atom_Office.Get(myOrg.m_myOrg_Office.ID, ref xAtom_Office_ID, transaction))
                     {
 
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -57,7 +60,7 @@ namespace TangentaDB
                         }
 
 
-                        if (f_Atom_Computer.Get(ref GlobalData.Atom_Computer_ID))
+                        if (f_Atom_Computer.Get(ref GlobalData.Atom_Computer_ID, transaction))
                         {
 
 
@@ -280,13 +283,13 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(ID Atom_Office_ID, ref ID xAtom_ElectronicDevice_ID)
+        public static bool Get(ID Atom_Office_ID, ref ID xAtom_ElectronicDevice_ID, Transaction transaction)
         {
             xAtom_ElectronicDevice_ID = null;
             if (ID.Validate(Atom_Office_ID))
             {
                 ID Atom_Computer_ID = null;
-                if (f_Atom_Computer.Get(ref Atom_Computer_ID))
+                if (f_Atom_Computer.Get(ref Atom_Computer_ID, transaction))
                 {
                     string sql = @"SELECT 
                                 Atom_ElectronicDevice.ID as Atom_ElectronicDevice_ID
@@ -309,7 +312,7 @@ namespace TangentaDB
                         }
                         else
                         {
-                            if (Get(Atom_Office_ID, myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name, myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name, ref xAtom_ElectronicDevice_ID))
+                            if (Get(Atom_Office_ID, myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name, myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name, ref xAtom_ElectronicDevice_ID, transaction))
                             {
                                 return true;
                             }
@@ -337,11 +340,11 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(ID xAtom_Office_ID,string ElectronicDevice_Name, string ElectronicDevice_Description, ref ID Atom_ElectronicDevice_ID)
+        public static bool Get(ID xAtom_Office_ID,string ElectronicDevice_Name, string ElectronicDevice_Description, ref ID Atom_ElectronicDevice_ID, Transaction transaction)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            if (f_Atom_Computer.Get(ref GlobalData.Atom_Computer_ID))
+            if (f_Atom_Computer.Get(ref GlobalData.Atom_Computer_ID, transaction))
             {
                 string scond_Atom_Computer_ID = null;
                 string sval_Atom_Computer_ID = "null";
@@ -422,6 +425,10 @@ namespace TangentaDB
                     }
                     else
                     {
+                        if (!transaction.Get(DBSync.DBSync.Con))
+                        {
+                            return false;
+                        }
                         sql = @"insert into Atom_ElectronicDevice (Name,Description,Atom_Office_ID,Atom_Computer_ID) values (" + sval_ElectronicDevice_Name + "," + sval_ElectronicDevice_Description + "," + sval_Atom_Office_ID+","+ sval_Atom_Computer_ID + ")";
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_ElectronicDevice_ID, ref Err, "Atom_ElectronicDevice"))
                         {

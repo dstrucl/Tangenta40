@@ -17,7 +17,8 @@ namespace TangentaDB
                               ID Atom_BankAccount_ID,
                               ref ID PaymentType_ID,
                               ref string_v PaymentType_v,
-                              ref ID MethodOfPayment_DI_ID)
+                              ref ID MethodOfPayment_DI_ID,
+                              Transaction transaction)
         {
             MethodOfPayment_DI_ID = null;
             if (f_PaymentType.Get(GlobalData.Get_sPaymentType(ePaymentType), ref PaymentType_v, ref PaymentType_ID))
@@ -53,7 +54,10 @@ namespace TangentaDB
                     }
                     else
                     {
-
+                        if (!transaction.Get(DBSync.DBSync.Con))
+                        {
+                          return false;
+                        }
                         sql = @" insert into  MethodOfPayment_DI (PaymentType_ID,Atom_BankAccount_ID) values
                                                         (" + spar_PaymentType_ID + ","+ sval_Atom_BankAccount_ID + ")";
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref MethodOfPayment_DI_ID,  ref Err, "MethodOfPayment_DI"))
@@ -86,10 +90,12 @@ namespace TangentaDB
                               ref ID PaymentType_ID,
                               ref string_v PaymentType_v,
                               ref ID MethodOfPayment_DI_BAccount_ID,
-                              ref ID MethodOfPayment_DI_ID)
+                              ref ID MethodOfPayment_DI_ID,
+                              Transaction transaction)
         {
             MethodOfPayment_DI_ID = null;
-            if (f_PaymentType.Get(GlobalData.Get_sPaymentType(ePaymentType), PaymentType_Name, ref PaymentType_v, ref PaymentType_ID))
+            string transaction_MethodOfPayment_DI_Set_id = null;
+            if (f_PaymentType.Get(GlobalData.Get_sPaymentType(ePaymentType), PaymentType_Name, ref PaymentType_v, ref PaymentType_ID,transaction))
             {
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                 string Err = null;

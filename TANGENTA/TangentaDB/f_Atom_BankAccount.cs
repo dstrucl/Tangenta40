@@ -18,11 +18,13 @@ namespace TangentaDB
                             bool Active,
                             string BankAccount,
                             string Description,
-                            ref ID Atom_BankAccount_ID
+                            ref ID Atom_BankAccount_ID,
+                            Transaction transaction
                             )
         {
             ID XAtom_Bank_ID = null;
-            if (f_Atom_Bank.Get(BankName, Tax_ID, Registrattion_ID, TaxPayer_v, Comment1_v,  ref XAtom_Bank_ID))
+            if (f_Atom_Bank.Get(BankName, Tax_ID, Registrattion_ID, TaxPayer_v, Comment1_v,  ref XAtom_Bank_ID,
+                                transaction))
             {
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -81,6 +83,10 @@ namespace TangentaDB
                     }
                     else
                     {
+                        if (!transaction.Get(DBSync.DBSync.Con))
+                        {
+                                return false;
+                        }
                         sql = @"insert into Atom_BankAccount (Atom_Bank_ID,
                                                              Active,
                                                              TRR,

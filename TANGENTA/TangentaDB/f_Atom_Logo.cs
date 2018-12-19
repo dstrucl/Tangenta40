@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_Atom_Logo
     {
-        public static bool Get(string_v Logo_Hash_v, byte_array_v Logo_v, string_v Logo_Description_v, ref ID Atom_Logo_ID)
+        public static bool Get(string_v Logo_Hash_v, byte_array_v Logo_v, string_v Logo_Description_v, ref ID Atom_Logo_ID, Transaction transaction)
         {
             string Err = null;
             if (Logo_Hash_v == null)
@@ -77,6 +77,10 @@ namespace TangentaDB
                 }
                 else
                 {
+                    if (!transaction.Get(DBSync.DBSync.Con))
+                    {
+                        return false;
+                    }
                     sql = " insert into Atom_Logo (Image_Hash,Image_Data,Description) values (" + Image_Hash_Value + "," + Image_Data_Value + "," + Description_Value + ")";
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Logo_ID,  ref Err, "Atom_Logo"))
                     {

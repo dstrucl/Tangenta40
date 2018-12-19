@@ -14,14 +14,14 @@ namespace TangentaDB
         {
             return Environment.MachineName;
         }
-        public static bool Get(ref ID Atom_ComputerName_ID)
+        public static bool Get(ref ID Atom_ComputerName_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string ComputerName = f_Atom_ComputerName.Get();
-            return f_Atom_ComputerName.Get(ComputerName, ref Atom_ComputerName_ID);
+            return f_Atom_ComputerName.Get(ComputerName, ref Atom_ComputerName_ID, transaction);
         }
 
-        public static bool Get(string xComputerName, ref ID Atom_ComputerName_ID)
+        public static bool Get(string xComputerName, ref ID Atom_ComputerName_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
         
@@ -60,6 +60,10 @@ namespace TangentaDB
                 }
                 else
                 {
+                    if (!transaction.Get(DBSync.DBSync.Con))
+                    {
+                        return false;
+                    }
                     sql = @"insert into Atom_ComputerName (Name) values (" + sval_ComputerName + ")";
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_ComputerName_ID,  ref Err, "Atom_ComputerName"))
                     {

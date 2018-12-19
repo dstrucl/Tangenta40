@@ -38,7 +38,8 @@ namespace TangentaDB
                            ref ID OrganisationData_ID,
                            ref ID OrganisationAccount_ID,
                            ref ID Person_ID,
-                           ref ID Contact_ID)
+                           ref ID Contact_ID,
+                           Transaction transaction)
         {
             if (f_Organisation.Get(Organisation_Name_v,
                                    Tax_ID_v,
@@ -59,7 +60,8 @@ namespace TangentaDB
                                    ref cAdressAtom_Org_iD,
                                    ref Organisation_ID,
                                    ref OrganisationData_ID,
-                                   ref OrganisationAccount_ID
+                                   ref OrganisationAccount_ID,
+                                   transaction
             ))
             {
                 string sql_select = null;
@@ -72,9 +74,14 @@ namespace TangentaDB
                                     DateOfBirth_v,
                                     Person_Tax_ID_v,
                                     Person_Registration_ID_v,
-                                    ref Person_ID))
+                                    ref Person_ID,
+                                    transaction))
                     {
                         sql_select = "select ID from Contact where OrganisationData_ID = " + OrganisationData_ID.ToString() + " and Person_ID =" + Person_ID.ToString() + ";";
+                        if (!transaction.Get(DBSync.DBSync.Con))
+                        {
+                            return false;
+                        }
                         sql_insert = "insert into Contact (OrganisationData_ID,Person_ID)values(" + OrganisationData_ID.ToString() + "," + Person_ID.ToString() + ");";
                     }
                     else
@@ -85,6 +92,10 @@ namespace TangentaDB
                 else
                 {
                     sql_select = "select ID from Contact where OrganisationData_ID = " + OrganisationData_ID.ToString() + " and Person_ID is null";
+                    if (!transaction.Get(DBSync.DBSync.Con))
+                    {
+                        return false;
+                    }
                     sql_insert = "insert into Contact (OrganisationData_ID,Person_ID)values(" + OrganisationData_ID.ToString() + ",null);";
                 }
 

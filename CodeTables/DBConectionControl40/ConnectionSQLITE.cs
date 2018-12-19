@@ -23,7 +23,19 @@ namespace DBConnectionControl40
 
         public SQLiteConnection Con = null;
         public SQLiteCommand cmd = null;
-        public SQLiteTransaction Tran = null;
+
+        private SQLiteTransaction m_Tran = null;
+        public SQLiteTransaction Tran
+        {
+            get
+            {
+                return m_Tran;
+            }
+            set
+            {
+                m_Tran = value;
+            }
+        }
 
         private bool m_TransactionsOnly = true;
         public bool TransactionsOnly
@@ -280,14 +292,16 @@ namespace DBConnectionControl40
             Con.Open();
         }
 
-        public bool BeginTransaction(string transaction_name)
+        public bool BeginTransaction(string transaction_name, ref string transaction_id)
         {
+            transaction_id = null;
             if (Connected)
             {
                 if (Tran == null)
                 {
                     m_TransactionName = transaction_name;
                     m_TransactionNumber++;
+                    transaction_id = TransactionName;
                     Tran = Con.BeginTransaction();
                     if (cmd!=null)
                     {
@@ -310,26 +324,36 @@ namespace DBConnectionControl40
             }
         }
 
-        public bool Commit()
+        public bool Commit(string transaction_id)
         {
             if (Connected)
             {
                 if (Tran != null)
                 {
-                    try
+                    if (transaction_id.Equals(TransactionName))
                     {
-                        Tran.Commit();
-                        m_TransactionName = "";
-                        if (cmd != null)
+                        try
                         {
-                            cmd.Dispose();
-                            cmd = null;
+                            Tran.Commit();
+                            m_TransactionName = "";
+                            if (cmd != null)
+                            {
+                                cmd.Dispose();
+                                cmd = null;
+                            }
+                            Tran.Dispose();
+                            Tran = null;
+                            return true;
                         }
-                        return true;
+                        catch (Exception ex)
+                        {
+                            LogFile.Error.Show("ERROR:DBConnectionControl40:ConnectionSQLITE:Commit:Transaction:'" + TransactionName + "' commit failed!\r\nException = " + ex.Message);
+                            return false;
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        LogFile.Error.Show("ERROR:DBConnectionControl40:ConnectionSQLITE:Commit:Transaction:'" + TransactionName + "' commit failed!\r\nException = " + ex.Message);
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:ConnectionSQLITE:CommitTransaction " + transaction_id_not_equal(transaction_id));
                         return false;
                     }
                 }
@@ -346,38 +370,51 @@ namespace DBConnectionControl40
             }
         }
 
-        public bool RollbackTransaction(ref string sError)
+        private string transaction_id_not_equal(string transaction_id)
+        {
+            return " '"+transaction_id + "' not equal BeginTransaction = '" + TransactionName + "'!";
+        }
+        public bool RollbackTransaction(string transaction_id)
         {
             if (Connected)
             {
                 if (Tran != null)
                 {
-                    try
+                    if (transaction_id.Equals(TransactionName))
                     {
-                        Tran.Rollback();
-                        sError = null;
-                        if (cmd != null)
+                        try
                         {
-                            cmd.Dispose();
-                            cmd = null;
+                            Tran.Rollback();
+                            if (cmd != null)
+                            {
+                                cmd.Dispose();
+                                cmd = null;
+                            }
+                            Tran.Dispose();
+                            Tran = null;
+                            return true;
                         }
-                        return true;
+                        catch (Exception ex)
+                        {
+                            LogFile.Error.Show("ERROR:DBConnectionControl40:ConnectionSQLITE:RollbackTransaction ('" + TransactionName + "') failed!\r\nException = " + ex.Message);
+                            return false;
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        sError = "ERROR:DBConnectionControl40:ConnectionSQLITE:RollbackTransaction ('"+TransactionName+"') failed!\r\nException = " + ex.Message;
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:ConnectionSQLITE:RollbackTransaction '" + transaction_id_not_equal(transaction_id));
                         return false;
                     }
                 }
                 else
                 {
-                    sError = "ERROR:DBConnectionControl40:ConnectionSQLITE:RollbackTransaction:Tran = null";
+                    LogFile.Error.Show("ERROR:DBConnectionControl40:ConnectionSQLITE:RollbackTransaction:Tran = null");
                     return false;
                 }
             }
             else
             {
-                sError = "ERROR:DBConnectionControl40:ConncetionSQLITE:RollbackTransaction:Can not RollbackTransaction (" + TransactionName + ") if connection is not opened!";
+                LogFile.Error.Show("ERROR:DBConnectionControl40:ConncetionSQLITE:RollbackTransaction:Can not RollbackTransaction (" + TransactionName + ") if connection is not opened!");
                 return false;
             }
         }

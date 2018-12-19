@@ -125,10 +125,10 @@ namespace TangentaDB
 
             }
 
-            internal bool Get(ref ID TermsOfPayment_ID)
+            internal bool Get(ref ID TermsOfPayment_ID, Transaction transaction)
             {
                 
-                if (f_TermsOfPayment.Get(Description, ref TermsOfPayment_ID))
+                if (f_TermsOfPayment.Get(Description, ref TermsOfPayment_ID, transaction))
                 {
                     if (ID.Validate(TermsOfPayment_ID))
                     {
@@ -141,7 +141,21 @@ namespace TangentaDB
 
             public void GetDefault()
             {
-                f_TermsOfPayment.GetDefault(ref m_ID, ref m_Description);
+                Transaction transaction_GetDefault = new Transaction("GetDefault");
+                if (f_TermsOfPayment.GetDefault(ref m_ID, ref m_Description, transaction_GetDefault))
+                {
+                    if (!transaction_GetDefault.Commit())
+                    {
+
+                    }
+                }
+                else
+                {
+                    if (!transaction_GetDefault.Rollback())
+                    {
+
+                    }
+                }
             }
         }
 
@@ -266,7 +280,7 @@ namespace TangentaDB
                 return null;
             }
 
-            internal bool Get(ref ID MethodOfPayment_DI_ID)
+            internal bool Get(ref ID MethodOfPayment_DI_ID,Transaction transaction)
             {
                 ID Atom_BankAccount_ID = null;
                 ID PaymentType_ID = null;
@@ -288,7 +302,9 @@ namespace TangentaDB
                                                    true,
                                                    this.m_MyOrgBankAccountPayment.BankAccount,
                                                    this.Description,
-                                                   ref Atom_BankAccount_ID))
+                                                   ref Atom_BankAccount_ID,
+                                                   transaction
+                                                   ))
                         {
                             if (Atom_BankAccount_ID != null)
                             {
@@ -296,7 +312,9 @@ namespace TangentaDB
                                                              Atom_BankAccount_ID,
                                                              ref PaymentType_ID,
                                                              ref PaymentType_v,
-                                                             ref MethodOfPayment_DI_ID))
+                                                             ref MethodOfPayment_DI_ID,
+                                                             transaction
+                                                             ))
                                 {
                                     return true;
                                 }
@@ -312,7 +330,8 @@ namespace TangentaDB
                                                              null,
                                                              ref PaymentType_ID,
                                                              ref PaymentType_v,
-                                                             ref MethodOfPayment_DI_ID))
+                                                             ref MethodOfPayment_DI_ID,
+                                                              transaction))
                         {
                             return true;
                         }
@@ -485,7 +504,7 @@ namespace TangentaDB
             }
         }
 
-        public bool Set(ID DocInvoice_ID, ref ltext ltMsg)
+        public bool Set(ID DocInvoice_ID, ref ltext ltMsg, Transaction transaction)
         {
            
                 if (this.DocInvoice_ID == null)
@@ -501,11 +520,11 @@ namespace TangentaDB
                 {
                     if (ID.Validate(DocInvoiceAddOn_ID))
                     {
-                        return Update();
+                        return Update(transaction);
                     }
                     else
                     {
-                        return Insert();
+                        return Insert(transaction);
                     }
                 }
                 else
@@ -515,7 +534,7 @@ namespace TangentaDB
            
         }
 
-        private bool Insert()
+        private bool Insert(Transaction transaction)
         {
             if (DocInvoice_ID== null)
             {
@@ -524,12 +543,12 @@ namespace TangentaDB
             }
             ltext ltMsg = null;
             ID MethodOfPayment_DI_ID = null;
-            if (m_MethodOfPayment_DI.Get(ref MethodOfPayment_DI_ID))
+            if (m_MethodOfPayment_DI.Get(ref MethodOfPayment_DI_ID, transaction))
             {
                 if (m_TermsOfPayment != null)
                 {
                     ID TermsOfPayment_ID = null;
-                    if (m_TermsOfPayment.Get(ref TermsOfPayment_ID))
+                    if (m_TermsOfPayment.Get(ref TermsOfPayment_ID, transaction))
                     {
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -539,11 +558,11 @@ namespace TangentaDB
                         string sval_Atom_Notice_ID = "null";
                         if (m_NoticeText != null)
                         {
-                            if (!f_Notice.Get(m_NoticeText, ref Notice_ID))
+                            if (!f_Notice.Get(m_NoticeText, ref Notice_ID, transaction))
                             {
                                 return false;
                             }
-                            if (!f_Atom_Notice.Get(m_NoticeText, ref Atom_Notice_ID))
+                            if (!f_Atom_Notice.Get(m_NoticeText, ref Atom_Notice_ID, transaction))
                             {
                                 return false;
                             }
@@ -625,16 +644,16 @@ namespace TangentaDB
             }
         }
 
-        private bool Update()
+        private bool Update(Transaction transaction)
         {
             ltext ltMsg = null;   
             ID MethodOfPayment_DI_ID = null;
-            if (m_MethodOfPayment_DI.Get(ref MethodOfPayment_DI_ID))
+            if (m_MethodOfPayment_DI.Get(ref MethodOfPayment_DI_ID,transaction))
             {
                 if (m_TermsOfPayment != null)
                 {
                     ID TermsOfPayment_ID = null;
-                    if (m_TermsOfPayment.Get(ref TermsOfPayment_ID))
+                    if (m_TermsOfPayment.Get(ref TermsOfPayment_ID, transaction))
                     {
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -644,11 +663,11 @@ namespace TangentaDB
 
                         if (m_NoticeText != null)
                         {
-                            if (!f_Notice.Get(m_NoticeText, ref Notice_ID))
+                            if (!f_Notice.Get(m_NoticeText, ref Notice_ID, transaction))
                             {
                                 return false;
                             }
-                            if (!f_Atom_Notice.Get(m_NoticeText, ref Atom_Notice_ID))
+                            if (!f_Atom_Notice.Get(m_NoticeText, ref Atom_Notice_ID, transaction))
                             {
                                 return false;
                             }
@@ -683,7 +702,10 @@ namespace TangentaDB
                         SQL_Parameter par_IssueDate = new SQL_Parameter(spar_IssueDate, SQL_Parameter.eSQL_Parameter.Datetime, false, m_IssueDate.Date);
                         lpar.Add(par_IssueDate);
 
-
+                        if (!transaction.Get(DBSync.DBSync.Con))
+                        {
+                            return false;
+                        }
 
                         string sql = "update DocInvoiceAddOn set IssueDate = " + spar_IssueDate
                                                                 + ",MethodOfPayment_DI_ID = " + spar_MethodOfPayment_ID
@@ -743,7 +765,7 @@ namespace TangentaDB
             public UniversalInvoice.Invoice_FURS_Token Invoice_FURS_Token = null;
 
 
-            public bool Write_FURS_Response_Data(ID DocInvoice_ID,bool FursTESTEnvironment)
+            public bool Write_FURS_Response_Data(ID DocInvoice_ID,bool FursTESTEnvironment, Transaction transaction)
             {
                 string Err = null;
                 string sql = null;
@@ -794,6 +816,10 @@ namespace TangentaDB
                 SQL_Parameter par_TestEnvironment = new SQL_Parameter(spar_TestEnvironment, SQL_Parameter.eSQL_Parameter.Bit, false, FursTESTEnvironment);
                 lpar.Add(par_TestEnvironment);
 
+                if (!transaction.Get(DBSync.DBSync.Con))
+                {
+                    return false;
+                }
                 sql = "insert into fvi_slo_response (DocInvoice_ID,MessageID,UniqueInvoiceID,BarCodeValue,Response_DateTime,TestEnvironment) values (" + spar_Invoice_ID + "," + spar_MessageID + "," + sval_UniqueInvoiceID + "," + spar_BarCodeValue + "," + spar_Response_DateTime + ","+ spar_TestEnvironment+")";
                 ID id = null;
                 if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id,  ref Err, "fvi_slo_response"))
@@ -809,7 +835,7 @@ namespace TangentaDB
             }
 
 
-            public bool Update_FURS_Response_Data(ID DocInvoice_ID, bool FursTESTEnvironment)
+            public bool Update_FURS_Response_Data(ID DocInvoice_ID, bool FursTESTEnvironment, Transaction transaction)
             {
                 string Err = null;
                 string sql = null;
@@ -823,7 +849,7 @@ namespace TangentaDB
                 {
                     if (dt.Rows.Count == 0)
                     {
-                        if (Write_FURS_Response_Data(DocInvoice_ID, FursTESTEnvironment))
+                        if (Write_FURS_Response_Data(DocInvoice_ID, FursTESTEnvironment, transaction))
                         {
                             return true;
                         }
@@ -864,6 +890,11 @@ namespace TangentaDB
                 string spar_TestEnvironment = "@par_TestEnvironment";
                 SQL_Parameter par_TestEnvironment = new SQL_Parameter(spar_TestEnvironment, SQL_Parameter.eSQL_Parameter.Bit, false, FursTESTEnvironment);
                 lpar.Add(par_TestEnvironment);
+
+                if (!transaction.Get(DBSync.DBSync.Con))
+                {
+                    return false;
+                }
 
                 sql = @"Update fvi_slo_response set MessageID = " + spar_MessageID +
                         ",UniqueInvoiceID = " + sval_UniqueInvoiceID +

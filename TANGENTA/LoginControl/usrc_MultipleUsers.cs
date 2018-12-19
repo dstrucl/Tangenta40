@@ -360,7 +360,7 @@ namespace LoginControl
             return false;
         }
 
-        internal void LogoutAll()
+        internal bool LogoutAll(Transaction transaction)
         {
             foreach (Control ctrl in this.pnl_Items.Controls)
             {
@@ -371,11 +371,19 @@ namespace LoginControl
                     {
                         if (xusrc_LMOUser.m_LMOUser.LoggedIn)
                         {
-                            xusrc_LMOUser.DoLogout();
+                            if (xusrc_LMOUser.DoLogout(transaction))
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                return false;
+                            }
                         }
                     }
                 }
             }
+            return true;
         }
 
         internal int LoggedIn_Count()
@@ -408,23 +416,33 @@ namespace LoginControl
                 {
                     if (o_data is DataRow)
                     {
-                        usrc_item.SetData((DataRow)o_data);
-                        if (usrc_item.m_LMOUser!=null)
+                        Transaction transaction_usrc_item_SetData = new Transaction("usrc_item_SetData");
+                        if (usrc_item.SetData((DataRow)o_data, transaction_usrc_item_SetData))
                         {
-                            if (usrc_item.m_LMOUser.HasLoginControlRole(new string[] { AWP.ROLE_Administrator }))
+                            if (transaction_usrc_item_SetData.Commit())
                             {
-                                if (!chk_ShowAdministrators.Checked)
+                                if (usrc_item.m_LMOUser != null)
                                 {
-                                    usrc_item.Visible = false;
-                                    usrc_item.Enabled = false;
-                                    return;
+                                    if (usrc_item.m_LMOUser.HasLoginControlRole(new string[] { AWP.ROLE_Administrator }))
+                                    {
+                                        if (!chk_ShowAdministrators.Checked)
+                                        {
+                                            usrc_item.Visible = false;
+                                            usrc_item.Enabled = false;
+                                            return;
+                                        }
+                                    }
                                 }
+                                //Item_Data iData = (Item_Data)o_data;
+                                usrc_item.Visible = true;
+                                usrc_item.Enabled = true;
+                                usrc_item.DoPaint(null, s_name_Group, null);
                             }
                         }
-                        //Item_Data iData = (Item_Data)o_data;
-                        usrc_item.Visible = true;
-                        usrc_item.Enabled = true;
-                        usrc_item.DoPaint(null, s_name_Group, null);
+                        else
+                        {
+                            transaction_usrc_item_SetData.Rollback();
+                        }
                     }
                 }
                 else

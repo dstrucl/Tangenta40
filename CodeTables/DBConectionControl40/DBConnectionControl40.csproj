@@ -232,6 +232,7 @@
     <Compile Include="TestConnectionForm.Designer.cs">
       <DependentUpon>TestConnectionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="transaction.cs" />
     <Compile Include="View_AccessRights_Form.cs">
       <SubType>Form</SubType>
     </Compile>

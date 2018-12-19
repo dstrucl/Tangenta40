@@ -106,7 +106,7 @@ namespace Tangenta
 
                 this.dgvx_Office.SelectionChanged -= new System.EventHandler(this.dgvx_Office_SelectionChanged);
 
-                if (f_Office_Data.Get(null, ref tOffice))
+                if (f_Office_Data.Read(null, ref tOffice))
                 {
                     dgvx_Office.DataSource = tOffice;
                     DBSync.DBSync.DB_for_Tangenta.t_Office_Data.SetVIEW_DataGridViewImageColumns_Headers(dgvx_Office,DBSync.DBSync.DB_for_Tangenta.m_DBTables);
@@ -254,6 +254,7 @@ namespace Tangenta
 
         private void btn_Write_Click(object sender, EventArgs e)
         {
+            
             string xElectronicDevice_Name = txt_ElectronicDevice_Name.Text;
             string xElectronicDevice_Description = txt_ElectronicDevice_Description.Text;
             if (xElectronicDevice_Description.Length==0)
@@ -263,14 +264,24 @@ namespace Tangenta
             if (xElectronicDevice_Name.Length>0)
             {
                 ID xAtom_ElectronicDevice_ID = null;
-                if (f_ElectronicDevice.Get(m_myOrg_Office.ID, xElectronicDevice_Name, xElectronicDevice_Description,ref xAtom_ElectronicDevice_ID))
+                Transaction transaction_Form_SetElectronicDeviceName_btn_Write_Click = new Transaction("Form_SetElectronicDeviceName_btn_Write_Click");
+                if (f_ElectronicDevice.Get(m_myOrg_Office.ID, xElectronicDevice_Name, xElectronicDevice_Description,ref xAtom_ElectronicDevice_ID, transaction_Form_SetElectronicDeviceName_btn_Write_Click))
                 {
-                    if (ID.Validate(xAtom_ElectronicDevice_ID))
+                    if (transaction_Form_SetElectronicDeviceName_btn_Write_Click.Commit())
                     {
-                        myOrg.Get();
-                        Show_Office_Electronic_Devices();
+                        if (ID.Validate(xAtom_ElectronicDevice_ID))
+                        {
+                            myOrg.Get();
+                            Show_Office_Electronic_Devices();
+                        }
                     }
                 }
+                else
+                {
+                    if (transaction_Form_SetElectronicDeviceName_btn_Write_Click.Rollback())
+                    {
+                    }
+                    }
             }
         }
     }

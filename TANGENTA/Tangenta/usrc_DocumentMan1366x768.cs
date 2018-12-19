@@ -973,55 +973,71 @@ namespace Tangenta
 
             if (Program.b_FVI_SLO)
             {
-                if (f_Atom_FVI_SLO_RealEstateBP.Get_Atom_FVI_SLO_RealEstateBP_ID(m_Form_Document, ref myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.Atom_FVI_SLO_RealEstate_ID, 1))
+                Transaction transaction_Atom_FVI_SLO_RealEstate_ID_1 = new Transaction("Atom_FVI_SLO_RealEstate_ID_1");
+                if (f_Atom_FVI_SLO_RealEstateBP.Get_Atom_FVI_SLO_RealEstateBP_ID(m_Form_Document, ref myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.Atom_FVI_SLO_RealEstate_ID, 1, transaction_Atom_FVI_SLO_RealEstate_ID_1))
                 {
-                }
-            }
-
-            LogFile.LogFile.WriteDEBUG("usrc_Document.cs:Init():before this.m_usrc_DocumentMan.Init(xnav)!");
-
-            if (this.InitMan())
-            {
-                if (Program.b_FVI_SLO)
-                {
-                    switch (this.usrc_FVI_SLO1.m_FVI_SLO.Start(false,ref Err))
+                    if (!transaction_Atom_FVI_SLO_RealEstate_ID_1.Commit())
                     {
-                        case FiscalVerificationOfInvoices_SLO.FVI_SLO.eStartResult.OK:
-                        case FiscalVerificationOfInvoices_SLO.FVI_SLO.eStartResult.ALLREADY_RUNNING:
-                            this.usrc_FVI_SLO1.Enabled = true;
-                            if (DocM.IsDocInvoice)
-                            {
-                                if (Program.b_FVI_SLO)
-                                {
-                                    this.m_usrc_DocumentEditor1366x768.DocE.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                                    if (Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC, this.m_usrc_DocumentEditor1366x768.DocE.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor1366x768.DocE.m_InvoiceData.AddOnDPI))
-                                    {
-                                        return this.SetDocument();
-                                    }
-                                    //Program.usrc_FVI_SLO1.Check_SalesBookInvoice(this.m_usrc_DocumentMan.m_usrc_Invoice.m_ShopABC, this.m_usrc_DocumentMan.m_usrc_Invoice.m_InvoiceData.AddOnDI, this.m_usrc_DocumentMan.m_usrc_Invoice.m_InvoiceData.AddOnDPI);
-                                }
-                            }
-                            return true;
-
-                        case FiscalVerificationOfInvoices_SLO.FVI_SLO.eStartResult.ERROR:
-                            LogFile.Error.Show("usrc_Main:Init:this.usrc_FVI_SLO1.Start(ref Err):Err=" + Err);
-                            return false;
+                        return false;
                     }
-                    LogFile.Error.Show("usrc_Main:Init:Ended on wrong place!");
-                    return false;
                 }
                 else
                 {
-                    return this.SetDocument();
+                    if (!transaction_Atom_FVI_SLO_RealEstate_ID_1.Rollback())
+                    {
+
+                    }
+                    return false;
+                }
+
+
+                LogFile.LogFile.WriteDEBUG("usrc_Document.cs:Init():before this.m_usrc_DocumentMan.Init(xnav)!");
+
+                if (this.InitMan())
+                {
+                    if (Program.b_FVI_SLO)
+                    {
+                        switch (this.usrc_FVI_SLO1.m_FVI_SLO.Start(false, ref Err))
+                        {
+                            case FiscalVerificationOfInvoices_SLO.FVI_SLO.eStartResult.OK:
+                            case FiscalVerificationOfInvoices_SLO.FVI_SLO.eStartResult.ALLREADY_RUNNING:
+                                this.usrc_FVI_SLO1.Enabled = true;
+                                if (DocM.IsDocInvoice)
+                                {
+                                    if (Program.b_FVI_SLO)
+                                    {
+                                        this.m_usrc_DocumentEditor1366x768.DocE.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                                        if (Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC, this.m_usrc_DocumentEditor1366x768.DocE.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor1366x768.DocE.m_InvoiceData.AddOnDPI))
+                                        {
+                                            return this.SetDocument();
+                                        }
+                                        //Program.usrc_FVI_SLO1.Check_SalesBookInvoice(this.m_usrc_DocumentMan.m_usrc_Invoice.m_ShopABC, this.m_usrc_DocumentMan.m_usrc_Invoice.m_InvoiceData.AddOnDI, this.m_usrc_DocumentMan.m_usrc_Invoice.m_InvoiceData.AddOnDPI);
+                                    }
+                                }
+                                return true;
+
+                            case FiscalVerificationOfInvoices_SLO.FVI_SLO.eStartResult.ERROR:
+                                LogFile.Error.Show("usrc_Main:Init:this.usrc_FVI_SLO1.Start(ref Err):Err=" + Err);
+                                return false;
+                        }
+                        LogFile.Error.Show("usrc_Main:Init:Ended on wrong place!");
+                        return false;
+                    }
+                    else
+                    {
+                        return this.SetDocument();
+                    }
+                }
+                else
+                {
+                    return false;
                 }
             }
             else
             {
-                return false;
+                return true;
             }
         }
-
-   
 
 
         private void btn_Exit_Click(object sender, EventArgs e)

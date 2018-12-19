@@ -16,6 +16,11 @@ namespace UpgradeDB
 
         internal static object UpgradeDB_1_24_to_1_25(object obj, ref string Err)
         {
+            Transaction transaction_UpgradeDB_1_24_to_1_25  = new Transaction("UpgradeDB_1_24_to_1_25");
+            if (!transaction_UpgradeDB_1_24_to_1_25.Get(DBSync.DBSync.Con))
+            {
+                return false;
+            }
             if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 //change Atom_myOrganisation_Person
@@ -67,7 +72,7 @@ namespace UpgradeDB
                     return false;
                 }
 
-                if (!Import_From_Atom_WorkPeriod_To_Atom_WorkPeriod_Temp())
+                if (!Import_From_Atom_WorkPeriod_To_Atom_WorkPeriod_Temp(transaction_UpgradeDB_1_24_to_1_25))
                 {
                     return false;
                 }
@@ -237,20 +242,34 @@ namespace UpgradeDB
 
                 if (DBSync.DBSync.Create_VIEWs())
                 {
-                    return UpgradeDB_inThread.Set_DataBase_Version("1.25");
+                    if (UpgradeDB_inThread.Set_DataBase_Version("1.25"))
+                    {
+                        if (!transaction_UpgradeDB_1_24_to_1_25.Commit())
+                        {
+                            return false;
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        transaction_UpgradeDB_1_24_to_1_25.Rollback();
+                        return false;
+                    }
                 }
                 else
                 {
+                    transaction_UpgradeDB_1_24_to_1_25.Rollback();
                     return false;
                 }
             }
             else
             {
+                transaction_UpgradeDB_1_24_to_1_25.Rollback();
                 return false;
             }
         }
 
-        private static bool Import_From_Atom_WorkPeriod_To_Atom_WorkPeriod_Temp()
+        private static bool Import_From_Atom_WorkPeriod_To_Atom_WorkPeriod_Temp(Transaction transaction)
         {
             string sql = @"select awp.ID as Atom_WorkPeriod_ID,
                                   ac.ID as Atom_Computer_ID,
@@ -301,7 +320,8 @@ namespace UpgradeDB
                                  sAtom_Computer_UserName_v,
                                  sAtom_Computer_IP_Address_v,
                                  sAtom_Computer_MAC_Address_v,
-                                 ref xAtom_Computer_ID))
+                                 ref xAtom_Computer_ID,
+                                 transaction))
                     {
 
                         string sAtom_ElectronicDevice_Name = null;
@@ -368,7 +388,8 @@ namespace UpgradeDB
             string_v UserName_v,
              string_v IP_address_v,
              string_v MAC_address_v,
-            ref ID xAtom_Computer_ID)
+            ref ID xAtom_Computer_ID,
+            Transaction transaction)
         {
             string Err = null;
             string sql = null; 
@@ -387,7 +408,7 @@ namespace UpgradeDB
                 lpar.Add(par_ID);
                 string sval_ID = spar_ID;
 
-                if (!f_Atom_ComputerName.Get(Name_v.v, ref Atom_ComputerName_ID))
+                if (!f_Atom_ComputerName.Get(Name_v.v, ref Atom_ComputerName_ID, transaction))
                 {
                     return false;
                 }

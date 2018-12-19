@@ -659,7 +659,7 @@ namespace PriseLists
             {
                 if (m_tbl.TableName.Equals("Currency"))
                 {
-                    m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, uctrln, GlobalData.BaseCurrency.ID, true, ref Err);
+                    m_tbl.FillDataInputControl(DBSync.DBSync.Con, uctrln, GlobalData.BaseCurrency.ID, true, ref Err);
                 }
             }
         }

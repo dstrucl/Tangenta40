@@ -9,7 +9,7 @@ namespace TangentaDB
 {
     public static class f_JOURNAL_Atom_WorkPeriod
     {
-        public static bool Get(ID JOURNAL_Atom_WorkPeriod_TYPE_ID, ID Atom_WorkPeriod_id, DateTime dEventTime, ref ID JOURNAL_Atom_WorkPeriod_ID)
+        public static bool Get(ID JOURNAL_Atom_WorkPeriod_TYPE_ID, ID Atom_WorkPeriod_id, DateTime dEventTime, ref ID JOURNAL_Atom_WorkPeriod_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_JOURNAL_Atom_WorkPeriod_TYPE_ID = "@par_Atom_WorkPeriod_TYPE_ID";
@@ -25,6 +25,10 @@ namespace TangentaDB
             lpar.Add(par_Atom_WorkPeriod_ID);
 
             string table_name = "JOURNAL_Atom_WorkPeriod";
+            if (!transaction.Get(DBSync.DBSync.Con))
+            {
+                return false;
+            }
             string sql = "insert into " + table_name + " (JOURNAL_Atom_WorkPeriod_TYPE_ID,EventTime,Atom_WorkPeriod_ID)values(" + spar_JOURNAL_Atom_WorkPeriod_TYPE_ID + "," + spar_EventTime +"," + spar_Atom_WorkPeriod_ID + ")";
             string Err = null;
 

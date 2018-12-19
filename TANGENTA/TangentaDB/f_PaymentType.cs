@@ -10,7 +10,8 @@ namespace TangentaDB
 {
     public static class f_PaymentType
     {
-        public static bool Get(string identification,string name,ref string_v PaymentType_Name_v,ref ID PaymentType_ID)
+        public static bool Get(string identification,string name,ref string_v PaymentType_Name_v,ref ID PaymentType_ID, 
+                               Transaction transaction)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -34,6 +35,11 @@ namespace TangentaDB
                 }
                 else
                 {
+                    if (!transaction.Get(DBSync.DBSync.Con))
+                    {
+                      return false;
+                    }
+                    
                     string spar_Name = "@par_Name";
                     SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, name);
                     lpar.Add(par_Name);

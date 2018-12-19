@@ -491,9 +491,9 @@ namespace TangentaDB
             return GetNewNumberInFinancialYear(xDocTyp, ElectronicDevice_Name,ref NumberInFinancialYear);
         }
 
-        public bool Update_Customer_Person(string xDocTyp, ID Customer_Person_ID, ref ID xAtom_Customer_Person_ID)
+        public bool Update_Customer_Person(string xDocTyp, ID Customer_Person_ID, ref ID xAtom_Customer_Person_ID, Transaction transaction)
         {
-            if (f_Atom_Customer_Person.Get(Customer_Person_ID, ref xAtom_Customer_Person_ID))
+            if (f_Atom_Customer_Person.Get(Customer_Person_ID, ref xAtom_Customer_Person_ID, transaction))
             {
                 if (ID.Validate(xAtom_Customer_Person_ID))
                 {
@@ -518,9 +518,9 @@ namespace TangentaDB
             return false;
         }
 
-        public bool Update_Customer_Org(string xDocTyp,ID Customer_Org_ID, ref ID xAtom_Customer_Org_ID)
+        public bool Update_Customer_Org(string xDocTyp,ID Customer_Org_ID, ref ID xAtom_Customer_Org_ID, Transaction transaction)
         {
-            if (f_Atom_Customer_Org.Get(Customer_Org_ID, ref xAtom_Customer_Org_ID))
+            if (f_Atom_Customer_Org.Get(Customer_Org_ID, ref xAtom_Customer_Org_ID, transaction))
             {
                 if (ID.Validate(xAtom_Customer_Org_ID))
                 {
@@ -547,13 +547,13 @@ namespace TangentaDB
 
 
 
-        public bool SetDocInvoiceTime(DateTime_v issue_time,ID xAtom_WorkPeriod_ID)
+        public bool SetDocInvoiceTime(DateTime_v issue_time,ID xAtom_WorkPeriod_ID, Transaction transaction)
         {
             if (issue_time != null)
             {
                 ID Journal_DocInvoice_ID = null;
               
-                return f_Journal_DocInvoice.Write(this.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID, issue_time, ref Journal_DocInvoice_ID);
+                return f_Journal_DocInvoice.Write(this.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID, issue_time, ref Journal_DocInvoice_ID, transaction);
               
             }
             else
@@ -564,13 +564,13 @@ namespace TangentaDB
             }
         }
 
-        public bool SetDocProformaInvoiceTime(DateTime_v issue_time, ID xAtom_WorkPeriod_ID)
+        public bool SetDocProformaInvoiceTime(DateTime_v issue_time, ID xAtom_WorkPeriod_ID, Transaction transaction)
         {
             if (issue_time != null)
             {
                 ID Journal_DocInvoice_ID = null;
 
-                return f_Journal_DocProformaInvoice.Write(this.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceTime.ID, issue_time, ref Journal_DocInvoice_ID);
+                return f_Journal_DocProformaInvoice.Write(this.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceTime.ID, issue_time, ref Journal_DocInvoice_ID, transaction);
 
             }
             else
@@ -582,7 +582,7 @@ namespace TangentaDB
         }
 
 
-        public bool Storno(ID xAtom_WorkPeriod_ID, ref ID Storno_DocInvoice_ID, bool bStorno, string ElectronicDevice_Name, string sReason, ref DateTime retissue_time)
+        public bool Storno(ID xAtom_WorkPeriod_ID, ref ID Storno_DocInvoice_ID, bool bStorno, string ElectronicDevice_Name, string sReason, ref DateTime retissue_time, Transaction transaction)
         {
             string Err = null;
             DataTable dt_ProfInv = new DataTable();
@@ -642,6 +642,10 @@ namespace TangentaDB
                 GrossSum_v.v = -GrossSum_v.v;
 
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+                if (!transaction.Get(DBSync.DBSync.Con))
+                {
+                    return false;
+                }
                 sql = @"insert into DocInvoice (
                                                 Draft,
                                                 DraftNumber,
@@ -698,6 +702,11 @@ namespace TangentaDB
                     SQL_Parameter par_MethodOfPayment_DI_ID = new SQL_Parameter(spar_MethodOfPayment_DI_ID, false, MethodOfPayment_DI_ID);
                     lpar.Add(par_MethodOfPayment_DI_ID);
 
+                    if (!transaction.Get(DBSync.DBSync.Con))
+                    {
+                        return false;
+                    }
+
                     sql = @" insert into DocInvoiceAddOn
                                      (DocInvoice_ID,
                                       IssueDate,
@@ -718,6 +727,10 @@ namespace TangentaDB
                         {
                             sBit = "1";
                         }
+                        if (!transaction.Get(DBSync.DBSync.Con))
+                        {
+                            return false;
+                        }
                         sql = " update Docinvoice set Storno  = " + sBit + @",
                                                        Invoice_Reference_ID = " + Storno_DocInvoice_ID.ToString() + @",
                                                        Invoice_Reference_Type = 'STORNO' where ID = " + this.Doc_ID.ToString();
@@ -731,7 +744,7 @@ namespace TangentaDB
                                 DateTime_v issue_time = new DateTime_v(DateTime.Now);
                                 retissue_time = issue_time.v;
 
-                                if (f_Journal_DocInvoice.Write(Storno_DocInvoice_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID, issue_time, ref Journal_DocInvoice_ID))
+                                if (f_Journal_DocInvoice.Write(Storno_DocInvoice_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID, issue_time, ref Journal_DocInvoice_ID, transaction))
                                 {
                                     return true;
                                 }

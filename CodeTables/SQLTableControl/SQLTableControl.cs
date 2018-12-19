@@ -29,6 +29,8 @@ namespace CodeTables
         private static Form_dtSQLdb form_dtSQLdb = null;
 
         public static DataTable  dtSQLdb = new DataTable();
+        private const string TRANSACTION_CreateDatabaseTables = "CreateDatabaseTables";
+
         public const string col_TABLE_NAME = "TABLE_NAME";
         public const string col_VIEW_NAME = "VIEW_NAME";
         public const string col_SQL_CreateTABLE = "SQL_CreateTABLE";
@@ -1180,63 +1182,85 @@ namespace CodeTables
 
             StringBuilder m_strSQLCreate = SQLcmd_CreateAllTables(m_con, dbVersion);
 
-            switch (m_con.DBType)
+            string transaction__CreateDatabaseTables_id = null;
+            if (m_con.BeginTransaction(TRANSACTION_CreateDatabaseTables, ref transaction__CreateDatabaseTables_id))
             {
-                case DBConnection.eDBType.MYSQL:
-                    {
-                        string sql = "USE `" + m_con.DataBase + "`;" + m_strSQLCreate.ToString();
-                        bRes = this.m_con.ExecuteNonQuerySQL(sql, null, ref csErrorMsg);
-                    }
-                    break;
-                case DBConnection.eDBType.MSSQL:
-                    {
-                    string sql =@"USE [" + m_con.DataBase + @"]
-                                  SET ANSI_NULLS ON;
-
-                                  SET QUOTED_IDENTIFIER ON;
-
-                                  SET ANSI_PADDING ON;
-                                  " + m_strSQLCreate.ToString();
-                      bRes= this.m_con.ExecuteNonQuerySQL(sql, null, ref csErrorMsg);
-                    }
-                    break;
-
-                case DBConnection.eDBType.SQLITE:
-                    bRes = this.m_con.ExecuteNonQuerySQL(m_strSQLCreate.ToString(), null, ref csErrorMsg);
-                    break;
-                default:
-                    LogFile.Error.Show("Error m_con.DBType in function:public bool CreateDatabaseTables()");
-                    bRes = false;
-                    break;
-
-            }
-            if (bRes)
-            {
-                foreach (DataBaseView dbv in SQL_DataBase_VIEW_List)
+                switch (m_con.DBType)
                 {
-                    if (dbv.ViewName.Equals("JOURNAL_myOrganisation_Person_AccessR_VIEW"))
-                    {
-                        File.WriteAllText("C:\\TangentaDB\\JOURNAL_myOrganisation_Person_AccessR_VIEW.txt", dbv.SQLCommand, Encoding.UTF8);
-                    }
-                    if (this.m_con.ExecuteNonQuerySQL(dbv.SQLCommand, null, ref csErrorMsg))
-                    {
-                    }
-                    else
-                    {
-                        xCreateTables_WindowsForm_Thread.End();
-                        Error.Show(m_ParentForm, lng.s_ErrorView.s + " " + dbv.ViewName + "\n\nException = " + csErrorMsg, lng.s_Error.s);
-                        return false;
-                    }
-                }
+                    case DBConnection.eDBType.MYSQL:
+                        {
+                            string sql = "USE `" + m_con.DataBase + "`;" + m_strSQLCreate.ToString();
+                            bRes = this.m_con.ExecuteNonQuerySQL(sql, null, ref csErrorMsg);
+                        }
+                        break;
+                    case DBConnection.eDBType.MSSQL:
+                        {
+                            string sql = @"USE [" + m_con.DataBase + @"]
+                                      SET ANSI_NULLS ON;
 
-                xCreateTables_WindowsForm_Thread.End();
-                //MessageBox.Show(m_ParentForm, lng.s_AllTablesCreatedOK.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return true;
+                                      SET QUOTED_IDENTIFIER ON;
+
+                                      SET ANSI_PADDING ON;
+                                      " + m_strSQLCreate.ToString();
+                            bRes = this.m_con.ExecuteNonQuerySQL(sql, null, ref csErrorMsg);
+                        }
+                        break;
+
+                    case DBConnection.eDBType.SQLITE:
+                        bRes = this.m_con.ExecuteNonQuerySQL(m_strSQLCreate.ToString(), null, ref csErrorMsg);
+                        break;
+                    default:
+                        LogFile.Error.Show("Error m_con.DBType in function:public bool CreateDatabaseTables()");
+                        bRes = false;
+                        break;
+
+                }
+                if (bRes)
+                {
+                    foreach (DataBaseView dbv in SQL_DataBase_VIEW_List)
+                    {
+                        if (dbv.ViewName.Equals("JOURNAL_myOrganisation_Person_AccessR_VIEW"))
+                        {
+                            File.WriteAllText("C:\\TangentaDB\\JOURNAL_myOrganisation_Person_AccessR_VIEW.txt", dbv.SQLCommand, Encoding.UTF8);
+                        }
+                        if (this.m_con.ExecuteNonQuerySQL(dbv.SQLCommand, null, ref csErrorMsg))
+                        {
+                        }
+                        else
+                        {
+                            xCreateTables_WindowsForm_Thread.End();
+                            Error.Show(m_ParentForm, lng.s_ErrorView.s + " " + dbv.ViewName + "\n\nException = " + csErrorMsg, lng.s_Error.s);
+                            if (!this.m_con.RollbackTransaction(transaction__CreateDatabaseTables_id))
+                            {
+                            }
+                            return false;
+                        }
+                    }
+
+                    xCreateTables_WindowsForm_Thread.End();
+                    //MessageBox.Show(m_ParentForm, lng.s_AllTablesCreatedOK.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    string err = null;
+                    if (!this.m_con.CommitTransaction(transaction__CreateDatabaseTables_id))
+                    {
+                        LogFile.Error.Show("ERROR:CodeTables:SQLTableControl:CreateDataBaseTables:" + err);
+                    }
+                    return true;
+                }
+                else
+                {
+                    xCreateTables_WindowsForm_Thread.End();
+                    string err = null;
+                    if (!this.m_con.RollbackTransaction(transaction__CreateDatabaseTables_id))
+                    {
+                        LogFile.Error.Show("ERROR:CodeTables:SQLTableControl:CreateDataBaseTables:" + err);
+                    }
+
+                    Error.Show(m_ParentForm, lng.s_err_AllTablesCreated.s + "\n\nException = " + csErrorMsg, lng.s_Error.s);
+                    return false;
+                }
             }
             else
             {
-                xCreateTables_WindowsForm_Thread.End();
-                Error.Show(m_ParentForm, lng.s_err_AllTablesCreated.s + "\n\nException = " + csErrorMsg, lng.s_Error.s);
                 return false;
             }
         }

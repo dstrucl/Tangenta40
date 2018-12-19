@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_cOrgTYPE
     {
-        public static bool Get(string OrgTYPE, ref ID cOrgTYPE_ID)
+        public static bool Get(string OrgTYPE, ref ID cOrgTYPE_ID, Transaction transaction)
         {
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -55,6 +55,10 @@ namespace TangentaDB
                 }
                 else
                 {
+                    if (!transaction.Get(DBSync.DBSync.Con))
+                    {
+                        return false;
+                    }
                     sql = @"insert into cOrgTYPE (OrgTYPE) values (" + sval_OrgTYPE + ")";
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cOrgTYPE_ID, ref Err, "Atom_cOrgTYPE"))
                     {
@@ -75,7 +79,7 @@ namespace TangentaDB
 
         }
 
-        internal static bool Get(string_v OrgTYPE_v, ref ID cOrgTYPE_ID)
+        internal static bool Get(string_v OrgTYPE_v, ref ID cOrgTYPE_ID, Transaction transaction)
         {
             if (OrgTYPE_v != null)
             {
@@ -99,6 +103,10 @@ namespace TangentaDB
                     }
                     else
                     {
+                        if (!transaction.Get(DBSync.DBSync.Con))
+                        {
+                            return false;
+                        }
                         sql = @"insert into cOrgTYPE (OrganisationTYPE) values (@par)";
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cOrgTYPE_ID,  ref Err, "cOrgTYPE"))
                         {

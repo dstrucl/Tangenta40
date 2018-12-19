@@ -573,7 +573,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool End(ID Atom_WorkPeriod_ID)
+        public static bool End(ID Atom_WorkPeriod_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             DateTime dtWorkPeriodEnd = DateTime.Now;
@@ -581,6 +581,10 @@ namespace TangentaDB
             SQL_Parameter par_PeriodEnd = new SQL_Parameter(spar_WorkPeriodEnd,SQL_Parameter.eSQL_Parameter.Datetime,false,dtWorkPeriodEnd);
             lpar.Add(par_PeriodEnd);
 
+            if (!transaction.Get(DBSync.DBSync.Con))
+            {
+                return false;
+            }
 
             string sql = "update Atom_WorkPeriod set LogoutTime = " + spar_WorkPeriodEnd + " where ID = " + Atom_WorkPeriod_ID.ToString();
             string Err = null;
@@ -595,9 +599,9 @@ namespace TangentaDB
             }
         }
 
-        public static bool End(ID xAtom_WorkPeriod_ID, ID JOURNAL_Atom_WorkPeriod_TYPE_ID)
+        public static bool End(ID xAtom_WorkPeriod_ID, ID JOURNAL_Atom_WorkPeriod_TYPE_ID, Transaction transaction)
         {
-            if (End(xAtom_WorkPeriod_ID))
+            if (End(xAtom_WorkPeriod_ID,transaction))
             {
                 ID xJOURNAL_Atom_WorkPeriod = null;
                 DateTime dtnow = DateTime.Now;
@@ -605,7 +609,8 @@ namespace TangentaDB
                     f_JOURNAL_Atom_WorkPeriod_TYPE.JOURNAL_Atom_WorkPeriod_TYPE_ID_WorkPeriodNotClosedInPreviousSession,
                     xAtom_WorkPeriod_ID,
                     dtnow,
-                    ref xJOURNAL_Atom_WorkPeriod);
+                    ref xJOURNAL_Atom_WorkPeriod,
+                    transaction);
                 return true;
             }
             else

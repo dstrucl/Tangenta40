@@ -1224,14 +1224,14 @@ namespace DBConnectionControl40
         }
 
 
-        public bool BeginTransaction(string transaction_name)
+        public bool BeginTransaction(string transaction_name, ref string transaction_id)
         {
             switch (m_DBType)
             {
                 case eDBType.MYSQL:
                     if (m_con_MYSQL.State == ConnectionState.Open)
                     {
-                        return m_con_MYSQL.BeginTransaction();
+                        return m_con_MYSQL.BeginTransaction(transaction_name, ref transaction_id);
                     }
                     else
                     {
@@ -1240,7 +1240,7 @@ namespace DBConnectionControl40
                 case eDBType.MSSQL:
                     if (m_con_MSSQL.State == ConnectionState.Open)
                     {
-                        return m_con_MSSQL.BeginTransaction();
+                        return m_con_MSSQL.BeginTransaction(transaction_name, ref transaction_id);
                     }
                     else
                     {
@@ -1251,7 +1251,7 @@ namespace DBConnectionControl40
                 case eDBType.SQLITE:
                     if (m_con_SQLite.State == ConnectionState.Open)
                     {
-                        return m_con_SQLite.BeginTransaction(transaction_name);
+                        return m_con_SQLite.BeginTransaction(transaction_name, ref transaction_id);
                     }
                     else
                     {
@@ -1292,37 +1292,24 @@ namespace DBConnectionControl40
             }
         }
 
-        public bool CommitTransaction(ref string sError)
+        public bool CommitTransaction(string transaction_id)
         {
-            //ProgramDiagnostic.Diagnostic.Meassure("Connect START", null);
-            try
+            switch (m_DBType)
             {
-                //SetConnectionString();
-                switch (m_DBType)
-                {
-                    case eDBType.MYSQL:
-                        return m_con_MYSQL.Commit();
+                case eDBType.MYSQL:
+                    return m_con_MYSQL.Commit(transaction_id);
 
-                    case eDBType.MSSQL:
-                        return m_con_MSSQL.Commit();
+                case eDBType.MSSQL:
+                    return m_con_MSSQL.Commit(transaction_id);
 
 
-                    case eDBType.SQLITE:
-                        return m_con_SQLite.Commit();
+                case eDBType.SQLITE:
+                    return m_con_SQLite.Commit(transaction_id);
 
-                    default:
-                        //ProgramDiagnostic.Diagnostic.Meassure("Connect END with ERROR", null);
-                        MessageBox.Show("Error unknown eSQLType in function: public bool CommitTransaction(ref string sError)");
-                        return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                sError = SetCommitTransactionError() + "\n" + ex.Message;
-                if (dbg.bON) dbg.Print(sError);
-                Log.Write(1, sError);
-                //ProgramDiagnostic.Diagnostic.Meassure("Connect END with ERROR", null);
-                return false;
+                default:
+                    //ProgramDiagnostic.Diagnostic.Meassure("Connect END with ERROR", null);
+                    MessageBox.Show("Error unknown eSQLType in function: public bool CommitTransaction(ref string sError)");
+                    return false;
             }
         }
 
@@ -1354,36 +1341,23 @@ namespace DBConnectionControl40
         }
 
 
-        public bool RollbackTransaction(ref string sError)
+        public bool RollbackTransaction(string transaction_name)
         {
-            //ProgramDiagnostic.Diagnostic.Meassure("Connect START", null);
-            try
+            switch (m_DBType)
             {
-                //SetConnectionString();
-                switch (m_DBType)
-                {
-                    case eDBType.MYSQL:
-                        return m_con_MYSQL.RollbackTransaction(ref sError);
+                case eDBType.MYSQL:
+                    return m_con_MYSQL.RollbackTransaction(transaction_name);
 
-                    case eDBType.MSSQL:
-                        return m_con_MSSQL.RollbackTransaction(ref sError);
+                case eDBType.MSSQL:
+                    return m_con_MSSQL.RollbackTransaction(transaction_name);
 
-                    case eDBType.SQLITE:
-                        return m_con_SQLite.RollbackTransaction(ref sError);
+                case eDBType.SQLITE:
+                    return m_con_SQLite.RollbackTransaction(transaction_name);
 
-                    default:
-                        //ProgramDiagnostic.Diagnostic.Meassure("Connect END with ERROR", null);
-                        MessageBox.Show("Error unknown eSQLType in function: public bool RollbackTransaction(ref string sError)");
-                        return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                sError = SetRollbackTransactionError() + "\n" + ex.Message;
-                if (dbg.bON) dbg.Print(sError);
-                Log.Write(1, sError);
-                //ProgramDiagnostic.Diagnostic.Meassure("Connect END with ERROR", null);
-                return false;
+                default:
+                    //ProgramDiagnostic.Diagnostic.Meassure("Connect END with ERROR", null);
+                    MessageBox.Show("Error unknown eSQLType in function: public bool RollbackTransaction(ref string sError)");
+                    return false;
             }
         }
 
@@ -3701,39 +3675,8 @@ namespace DBConnectionControl40
                             return true;
 
                         case eDBType.SQLITE:
-                            {
-                                //sqlTran.Append("BEGIN TRANSACTION; \n");
-                                sqlTran.Append(sql);
-                                //sqlTran.Append(";\nCOMMIT TRANSACTION; \n");
-                                SQLiteCommand command;
-                                command = new SQLiteCommand(sqlTran.ToString(), m_con_SQLite.Con);
-                                if (lSQL_Parameter != null)
-                                {
-                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
-                                    {
-                                        if (sqlPar.size > 0)
-                                        {
-                                            SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
-                                            mySQLiteParameter.Value = sqlPar.Value;
-                                            command.Parameters.Add(mySQLiteParameter);
+                            return m_con_SQLite.ExecuteNonQueryReturnID(sql, lSQL_Parameter, ref newID, ref ErrorMsg, SQlite_table_name);
 
-                                        }
-                                        else
-                                        {
-                                            SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
-                                            mySQLiteParameter.Value = sqlPar.Value;
-                                            command.Parameters.Add(mySQLiteParameter);
-                                        }
-                                    }
-                                }
-                                command.CommandTimeout = 200000;
-                                command.ExecuteNonQuery();
-                                SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() from " + SQlite_table_name, m_con_SQLite.Con);
-                                newID = new ID(cmd.ExecuteScalar());
-                                Disconnect_Batch();
-                            }
-                            ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQLReturnID END", null);
-                            return true;
 
                         default:
                             MessageBox.Show("Error eSQLType in function: ExecuteNonQuerySQL(...)");

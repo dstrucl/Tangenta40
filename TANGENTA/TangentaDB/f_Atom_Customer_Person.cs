@@ -19,7 +19,7 @@ namespace TangentaDB
 {
     public static class f_Atom_Customer_Person
     {
-        public static bool Get(ID Customer_Person_ID, ref ID Atom_Customer_Person_ID)
+        public static bool Get(ID Customer_Person_ID, ref ID Atom_Customer_Person_ID, Transaction transaction)
         {
             DataTable dt = new DataTable();
             string sql = "select Person_ID from Customer_Person where ID = " + Customer_Person_ID.ToString();
@@ -124,7 +124,8 @@ namespace TangentaDB
                                                         CardType_v,
                                                         Image_Hash_v,
                                                         Image_Data_v,
-                                                        ref Atom_Person_ID))
+                                                        ref Atom_Person_ID,
+                                                        transaction))
                                 {
                                     return false;
                                 }
@@ -142,6 +143,10 @@ namespace TangentaDB
                                         }
                                         else
                                         {
+                                            if (!transaction.Get(DBSync.DBSync.Con))
+                                            {
+                                                return false;
+                                            }
                                             sql = "insert into Atom_Customer_Person (Atom_Person_ID) values (" + Atom_Person_ID.ToString() + ")";
                                             if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_Customer_Person_ID, ref Err, "Atom_Customer_Person"))
                                             {

@@ -21,7 +21,8 @@ namespace TangentaDB
                                     string Name,
                                     string ShortName,
                                     ID myOrganisation_ID,
-                                    ref ID Office_ID)
+                                    ref ID Office_ID,
+                                    Transaction transaction)
             {
 
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -90,6 +91,10 @@ namespace TangentaDB
                 }
                 else
                 {
+                    if (!transaction.Get(DBSync.DBSync.Con))
+                    {
+                        return false;
+                    }
                     sql = @"insert into Office (myOrganisation_ID,
                                                         Name,
                                                         ShortName) values ("

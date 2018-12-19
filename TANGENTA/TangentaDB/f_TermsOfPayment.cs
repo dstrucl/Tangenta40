@@ -10,7 +10,7 @@ namespace TangentaDB
 {
     public static class f_TermsOfPayment
     {
-        public static bool Get(string Description, ref ID TermsOfPayment_ID)
+        public static bool Get(string Description, ref ID TermsOfPayment_ID, Transaction transaction)
         {
             if (Description != null)
             {
@@ -44,7 +44,10 @@ namespace TangentaDB
                     }
                     else
                     {
-
+                        if (!transaction.Get(DBSync.DBSync.Con))
+                        {
+                            return false;
+                        }
                         sql = @" insert into  TermsOfPayment (Description) values
                                                       (" + sval_Description + ")";
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref TermsOfPayment_ID, ref Err, "TermsOfPayment"))
@@ -71,7 +74,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool SetDefault(ID xTermsOfPayment_ID)
+        internal static bool SetDefault(ID xTermsOfPayment_ID, Transaction transaction)
         {
             if (ID.Validate(myOrg.ElectronicDevice_ID))
             {
@@ -80,7 +83,7 @@ namespace TangentaDB
                     if (ID.Validate(myOrg.m_myOrg_Office.ID))
                     {
                         ID xAtom_Office_ID = null;
-                        if (f_Atom_Office.Get(myOrg.m_myOrg_Office.ID,ref xAtom_Office_ID))
+                        if (f_Atom_Office.Get(myOrg.m_myOrg_Office.ID,ref xAtom_Office_ID, transaction))
                         {
                             ID xAtom_ElectronicDevice_ID = null;
                             if (myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice!=null)
@@ -88,7 +91,7 @@ namespace TangentaDB
 
                                 if (myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name!=null)
                                 { 
-                                    if (f_Atom_ElectronicDevice.Get(xAtom_Office_ID, myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name, myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Description, ref xAtom_ElectronicDevice_ID))
+                                    if (f_Atom_ElectronicDevice.Get(xAtom_Office_ID, myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name, myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Description, ref xAtom_ElectronicDevice_ID,transaction))
                                     {
                                         if (ID.Validate(xAtom_ElectronicDevice_ID))
                                         {
@@ -99,6 +102,10 @@ namespace TangentaDB
                                             {
                                                 if (dt.Rows.Count > 0)
                                                 {
+                                                    if (!transaction.Get(DBSync.DBSync.Con))
+                                                    {
+                                                        return false;
+                                                    }
                                                     sql = "update TermsOfPayment_Default set TermsOfPayment_ID = " + xTermsOfPayment_ID.ToString();
                                                     if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
                                                     {
@@ -112,6 +119,10 @@ namespace TangentaDB
                                                 }
                                                 else
                                                 {
+                                                    if (!transaction.Get(DBSync.DBSync.Con))
+                                                    {
+                                                        return false;
+                                                    }
                                                     sql = "insert into TermsOfPayment_Default (TermsOfPayment_ID,Atom_ElectronicDevice_ID)values(" + xTermsOfPayment_ID.ToString() + "," + xAtom_ElectronicDevice_ID.ToString() + ")";
                                                     ID xTermsOfPayment_Default_ID = null;
                                                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref xTermsOfPayment_Default_ID, ref Err, "TermsOfPayment_Default"))
@@ -206,7 +217,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool GetDefault(ref ID xIDdefault, ref string_v description_v)
+        internal static bool GetDefault(ref ID xIDdefault, ref string_v description_v, Transaction transaction)
         {
             if (ID.Validate(myOrg.ElectronicDevice_ID))
             {
@@ -280,7 +291,7 @@ namespace TangentaDB
                                         xIDdefault = tf.set_ID(dt.Rows[0]["TermsOfPayment_ID"]);
                                         if (ID.Validate(xIDdefault))
                                         {
-                                            SetDefault(xIDdefault);
+                                            SetDefault(xIDdefault, transaction);
                                             description_v = tf.set_string(dt.Rows[0]["Description"]);
                                             if (description_v == null)
                                             {
@@ -313,7 +324,7 @@ namespace TangentaDB
                                                 xIDdefault = tf.set_ID(dt.Rows[0]["TermsOfPayment_ID"]);
                                                 if (ID.Validate(xIDdefault))
                                                 {
-                                                    SetDefault(xIDdefault);
+                                                    SetDefault(xIDdefault,transaction);
                                                     description_v = tf.set_string(dt.Rows[0]["Description"]);
                                                     if (description_v==null)
                                                     {
@@ -355,7 +366,7 @@ namespace TangentaDB
                                                             xIDdefault = tf.set_ID(dt.Rows[0]["ID"]);
                                                             if (ID.Validate(xIDdefault))
                                                             {
-                                                                if (SetDefault(xIDdefault))
+                                                                if (SetDefault(xIDdefault,transaction))
                                                                 {
                                                                     iTry++;
                                                                     goto DoSelectAgain;
@@ -407,11 +418,11 @@ namespace TangentaDB
             }
         }
 
-        public static bool GetDefault(ref ID xID,ref string xDescription)
+        public static bool GetDefault(ref ID xID,ref string xDescription, Transaction transaction)
         {
             string_v description_v = null;
             ID xIDdefault = null;
-            if (f_TermsOfPayment.GetDefault(ref xIDdefault, ref description_v))
+            if (f_TermsOfPayment.GetDefault(ref xIDdefault, ref description_v,transaction))
             {
                 if (description_v != null)
                 {

@@ -11,7 +11,7 @@ namespace TangentaDB
 {
     public static class f_ElectronicDevice
     {
-        public static bool Get(ref string xElectronicDevice_Name, ref string xElectronicDevice_Description, ref ID ElectronicDevice_ID)
+        public static bool Get(ref string xElectronicDevice_Name, ref string xElectronicDevice_Description, ref ID ElectronicDevice_ID, Transaction transaction)
         {
             string Err = null;
 
@@ -24,7 +24,7 @@ namespace TangentaDB
             string_v xElectronicDevice_Description_v = null;
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            if (f_Atom_Computer.Get(ref GlobalData.Atom_Computer_ID))
+            if (f_Atom_Computer.Get(ref GlobalData.Atom_Computer_ID, transaction))
             {
                 string scond_Atom_Computer_ID = null;
                 string sval_Atom_Computer_ID = "null";
@@ -196,12 +196,12 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(ID Office_ID, ref ID ElectronicDevice_ID, ref ID xAtom_Computer_ID)
+        public static bool Get(ID Office_ID, ref ID ElectronicDevice_ID, ref ID xAtom_Computer_ID, Transaction transaction)
         {
             ElectronicDevice_ID = null;
             if (ID.Validate(Office_ID))
             {
-                if (f_Atom_Computer.Get(ref xAtom_Computer_ID))
+                if (f_Atom_Computer.Get(ref xAtom_Computer_ID, transaction))
                 {
                     string sql = @"SELECT 
                                  ElectronicDevice.ID as ElectronicDevice_ID
@@ -246,11 +246,11 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(ID xOffice_ID, string ElectronicDevice_Name, string ElectronicDevice_Description, ref ID ElectronicDevice_ID)
+        public static bool Get(ID xOffice_ID, string ElectronicDevice_Name, string ElectronicDevice_Description, ref ID ElectronicDevice_ID, Transaction transaction)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            if (f_Atom_Computer.Get(ref GlobalData.Atom_Computer_ID))
+            if (f_Atom_Computer.Get(ref GlobalData.Atom_Computer_ID, transaction))
             {
                 string scond_Atom_Computer_ID = null;
                 string sval_Atom_Computer_ID = "null";
@@ -335,12 +335,20 @@ namespace TangentaDB
                         sql = null;
                         if ((ElectronicDevice_Description == null) && (Current_ElectronicDevice_Description is string))
                         {
+                            if (!transaction.Get(DBSync.DBSync.Con))
+                            {
+                                return false;
+                            }
                             sql = @"Update ElectronicDevice set Description = null where ID = " + ElectronicDevice_ID.ToString();
                         }
                         else if ((ElectronicDevice_Description != null) && (Current_ElectronicDevice_Description is string))
                         {
                             if (ElectronicDevice_Description.Equals((string)Current_ElectronicDevice_Description))
                             {
+                                if (!transaction.Get(DBSync.DBSync.Con))
+                                {
+                                    return false;
+                                }
                                 sql = @"Update ElectronicDevice set Description = " + sval_ElectronicDevice_Description + " where ID = " + ElectronicDevice_ID.ToString();
                             }
                         }
@@ -356,6 +364,10 @@ namespace TangentaDB
                     }
                     else
                     {
+                        if (!transaction.Get(DBSync.DBSync.Con))
+                        {
+                            return false;
+                        }
                         sql = @"insert into ElectronicDevice (Name,Description,Office_ID,Atom_Computer_ID) values (" + sval_ElectronicDevice_Name + "," + sval_ElectronicDevice_Description + "," + sval_Office_ID + "," + sval_Atom_Computer_ID + ")";
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref ElectronicDevice_ID, ref Err, "ElectronicDevice"))
                         {

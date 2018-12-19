@@ -365,7 +365,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Close(ID xCashierActivity_ID,ID xAtom_WorkPeriod_ID)
+        public static bool Close(ID xCashierActivity_ID,ID xAtom_WorkPeriod_ID, Transaction transaction)
         {
             bool bIsOpened = false;
             if (IsOpened(xCashierActivity_ID, ref bIsOpened))
@@ -381,7 +381,7 @@ namespace TangentaDB
                 return false;
             }
             ID xCashierActivityClosed_ID = null;
-            if (!f_CashierActivityClosed.Get(xAtom_WorkPeriod_ID, ref xCashierActivityClosed_ID))
+            if (!f_CashierActivityClosed.Get(xAtom_WorkPeriod_ID, ref xCashierActivityClosed_ID, transaction))
             {
                 return false;
             }
@@ -400,6 +400,10 @@ namespace TangentaDB
             SQL_Parameter par_CashierActivity_ID = new SQL_Parameter(spar_CashierActivity_ID, false, xCashierActivity_ID);
             lpar.Add(par_CashierActivity_ID);
 
+            if (!transaction.Get(DBSync.DBSync.Con))
+            {
+                return false;
+            }
             string sql = "update CashierActivity set CashierActivityClosed_ID = " + spar_CashierActivityClosed_ID + " where ID = " + spar_CashierActivity_ID;
             string Err = null;
             if (DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar, ref Err))

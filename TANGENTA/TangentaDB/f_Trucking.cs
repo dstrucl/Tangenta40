@@ -154,7 +154,8 @@ namespace TangentaDB
                    ref ID OrganisationAccount_ID,
                    ref ID Person_ID,
                    ref ID Contact_ID,
-                   ref ID Trucking_ID)
+                   ref ID Trucking_ID,
+                   Transaction transaction)
         {
             if (f_Contact.Get(Organisation_Name_v,
                               Tax_ID_v,
@@ -183,7 +184,8 @@ namespace TangentaDB
                    ref OrganisationData_ID,
                    ref OrganisationAccount_ID,
                    ref Person_ID,
-                   ref Contact_ID))
+                   ref Contact_ID,
+                   transaction))
             {
                 return f_Trucking.Get(Contact_ID, TruckingCost_v, TruckingNumber_v, Customs_v, Description_v,ref Trucking_ID);
             }

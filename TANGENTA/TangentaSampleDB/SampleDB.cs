@@ -323,7 +323,7 @@ namespace TangentaSampleDB
 
 
 
-            public bool Write()
+            public bool Write(Transaction transaction)
             {
                 if (MyOrg_Image_Data_v != null)
                 {
@@ -341,7 +341,7 @@ namespace TangentaSampleDB
 
                         ID MyOrg_BankAccount_ID = null;
                         ID OrganisationAccount_ID = null;
-                        if (f_BankAccount.Get(MyOrg_BankAccount_TRR_v, MyOrg_BankAccount_Active_v, MyOrg_BankAccount_Description_v, Bank_ID, ref MyOrg_BankAccount_ID))
+                        if (f_BankAccount.Get(MyOrg_BankAccount_TRR_v, MyOrg_BankAccount_Active_v, MyOrg_BankAccount_Description_v, Bank_ID, ref MyOrg_BankAccount_ID, transaction))
                         {
                             if (f_Organisation.Get(MyOrg_Name_v,
                                                 MyOrg_Tax_ID_v,
@@ -362,18 +362,18 @@ namespace TangentaSampleDB
                                                     ref cAdressAtom_Org_iD,
                                                     ref MyOrg_Organisation_ID,
                                                     ref MyOrg_OrganisationData_ID,
-                                                    ref OrganisationAccount_ID))
+                                                    ref OrganisationAccount_ID, transaction))
                             {
-                                if (f_OrganisationAccount.Get(MyOrg_BankAccount_ID, MyOrg_Organisation_ID, MyOrg_BankAccount_Description_v, ref OrganisationAccount_ID))
+                                if (f_OrganisationAccount.Get(MyOrg_BankAccount_ID, MyOrg_Organisation_ID, MyOrg_BankAccount_Description_v, ref OrganisationAccount_ID, transaction))
                                 {
                                     ID myOrganisation_ID = null;
-                                    if (f_myOrganisation.Get(MyOrg_OrganisationData_ID, ref myOrganisation_ID))
+                                    if (f_myOrganisation.Get(MyOrg_OrganisationData_ID, ref myOrganisation_ID,transaction))
                                     {
                                         ID Office_ID = null;
-                                        if (f_Office.Get(MyOrg_Office_Name_v.v, MyOrg_Office_ShortName_v.v, myOrganisation_ID, ref Office_ID))
+                                        if (f_Office.Get(MyOrg_Office_Name_v.v, MyOrg_Office_ShortName_v.v, myOrganisation_ID, ref Office_ID, transaction))
                                         {
                                             ID Office_Data_ID = null;
-                                            if (f_Office_Data.Get(cAdressAtom_Org_iD, Office_ID, null, ref Office_Data_ID))
+                                            if (f_Office_Data.Get(cAdressAtom_Org_iD, Office_ID, null, ref Office_Data_ID, transaction))
                                             {
                                                 ID Person_ID = null;
                                                 if (f_Person.Get(MyOrg_Person_Gender_v,
@@ -382,7 +382,8 @@ namespace TangentaSampleDB
                                                                     MyOrg_Person_DateOfBirth_v,
                                                                     MyOrg_Person_Tax_ID_v,
                                                                     MyOrg_Person_Registration_ID_v,
-                                                                    ref Person_ID
+                                                                    ref Person_ID,
+                                                                    transaction
                                                                     ))
                                                 {
                                                     MyOrg_Person_Person_ID = new ID(Person_ID);
@@ -412,7 +413,23 @@ namespace TangentaSampleDB
 
         public bool WriteMyOrg()
         {
-            return myOrgSample.Write();
+            Transaction transaction_WriteMyOrg = new Transaction("SampleDB_WriteMyOrg");
+            if (myOrgSample.Write(transaction_WriteMyOrg))
+            {
+                if (transaction_WriteMyOrg.Commit())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                transaction_WriteMyOrg.Rollback();
+                return false;
+            }
         }
 
         public MyOrgSample myOrgSample = null;

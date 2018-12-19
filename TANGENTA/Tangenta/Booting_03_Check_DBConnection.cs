@@ -70,7 +70,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_03_onformresult_Show_TestConnectionForm;
-            return DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Startup_03_Show_TestConnectionForm(frm, xnav);
+            return DBSync.DBSync.Con.Startup_03_Show_TestConnectionForm(frm, xnav);
         }
 
         private bool Startup_03_Show_ConnectionDialog(startup_step xstartup_step,
@@ -78,7 +78,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_03_onformresult_ShowDBConnnection;
-            return DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Startup_03_Show_ConnectionDialog(xnav);
+            return DBSync.DBSync.Con.Startup_03_Show_ConnectionDialog(xnav);
         }
         
         private Startup_onformresult_proc_Result Startup_03_onformresult_Show_TestConnectionForm(startup_step myStartup_step,

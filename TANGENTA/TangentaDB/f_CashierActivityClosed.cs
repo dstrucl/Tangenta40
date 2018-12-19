@@ -11,7 +11,7 @@ namespace TangentaDB
 {
     public static class f_CashierActivityClosed
     {
-        public static bool Get(ID Atom_WorkPeriod_ID, ref ID xCashierActivityClosed_ID)
+        public static bool Get(ID Atom_WorkPeriod_ID, ref ID xCashierActivityClosed_ID, Transaction transaction)
         {
             string Err = null;
             string sql = null;
@@ -44,6 +44,10 @@ namespace TangentaDB
                 }
                 else
                 {
+                    if (!transaction.Get(DBSync.DBSync.Con))
+                    {
+                        return false;
+                    }
                     sql = @"insert into CashierActivityClosed (Atom_WorkPeriod_ID) values (" + sval_Atom_WorkPeriod_ID + ")";
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref xCashierActivityClosed_ID, ref Err, "CashierActivityClosed"))
                     {

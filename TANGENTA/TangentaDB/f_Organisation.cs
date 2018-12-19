@@ -38,7 +38,8 @@ namespace TangentaDB
                                  ref ID cAdressAtom_Org_iD,
                                  ref ID Organisation_ID,
                                  ref ID OrganisationData_ID,
-                                 ref ID OrganisationAccount_ID)
+                                 ref ID OrganisationAccount_ID,
+                                 Transaction transaction)
         {
             string Err = null;
             string Name_condition = null;
@@ -156,6 +157,10 @@ namespace TangentaDB
                             {
                                 lpar1.Add(par_Comment1_ID);
                             }
+                            if (!transaction.Get(DBSync.DBSync.Con))
+                            {
+                                return false;
+                            }
                             string sql = "update Organisation set Registration_ID = null"
                                  +", TaxPayer = " + TaxPayer_value
                                              + ", Comment1_ID = " + Comment1_ID_value
@@ -181,6 +186,10 @@ namespace TangentaDB
                                 if (par_Comment1_ID!=null)
                                 {
                                     lpar1.Add(par_Comment1_ID);
+                                }
+                                if (!transaction.Get(DBSync.DBSync.Con))
+                                {
+                                    return false;
                                 }
                                 string sql = "update Organisation set Registration_ID = " + spar_Registration_ID 
                                              + ", TaxPayer = " + TaxPayer_value
@@ -212,6 +221,10 @@ namespace TangentaDB
                             {
                                 lpar1.Add(par_Comment1_ID);
                             }
+                            if (!transaction.Get(DBSync.DBSync.Con))
+                            {
+                                return false;
+                            }
                             string sql = "update Organisation set Registration_ID = " + spar_Registration_ID
                                          + ", TaxPayer = " + TaxPayer_value
                                          + ", Comment1_ID = " + Comment1_ID_value
@@ -236,14 +249,16 @@ namespace TangentaDB
                                                        Image_Data_v,
                                                        Image_Description_v,
                                                        ref cAdressAtom_Org_iD,
-                                                       ref OrganisationData_ID))
+                                                       ref OrganisationData_ID,
+                                                       transaction))
                     {
                         if (BankAccount_ID != null)
                         {
                             return f_OrganisationAccount.Get(BankAccount_ID,
                                                       Organisation_ID,
                                                       Organisation_BankAccount_Description_v,
-                                                      ref OrganisationAccount_ID);
+                                                      ref OrganisationAccount_ID,
+                                                      transaction);
                         }
                         else
                         {
@@ -271,14 +286,16 @@ namespace TangentaDB
                                                                                Image_Data_v,
                                                                                Image_Description_v,
                                                                                 ref cAdressAtom_Org_iD,
-                                                                               ref OrganisationData_ID))
+                                                                               ref OrganisationData_ID,
+                                                                               transaction))
                         {
                             if (BankAccount_ID != null)
                             {
                                 return f_OrganisationAccount.Get(BankAccount_ID,
                                                           Organisation_ID,
                                                           Organisation_BankAccount_Description_v,
-                                                          ref OrganisationAccount_ID);
+                                                          ref OrganisationAccount_ID,
+                                                          transaction);
                             }
                             else
                             {

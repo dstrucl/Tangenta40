@@ -236,19 +236,33 @@ eres_check:
                                         else
                                         {
                                             ID Atom_WorkPeriod_ID = null;
+                                            Transaction transaction_GetWorkPeriodEx_LMO1User = new Transaction("GetWorkPeriodEx_LMO1User");
                                             if (LoginCtrl.GetWorkPeriodEx(LMO1User,
-                                                          ref LMO1User.Atom_myOrganisation_Person_ID 
+                                                          ref LMO1User.Atom_myOrganisation_Person_ID,
+                                                          transaction_GetWorkPeriodEx_LMO1User
                                                           ))
                                             {
                                                 ID LoginSession_ID = null;
-                                                if (AWP_func.WriteLoginSession(LMO1User.awpld.ID, Atom_WorkPeriod_ID, ref LoginSession_ID))
+                                                if (AWP_func.WriteLoginSession(LMO1User.awpld.ID, Atom_WorkPeriod_ID, ref LoginSession_ID, transaction_GetWorkPeriodEx_LMO1User))
                                                 {
                                                     if (lctrl.m_usrc_LoginCtrl != null)
                                                     {
                                                         lctrl.m_usrc_LoginCtrl.lbl_username.Text = LMO1User.UserName + ": " + LMO1User.FirstName + " " + LMO1User.LastName;
                                                     }
-                                                    return eAWP_dtLogin_Vaild_result.OK;
+                                                    if (transaction_GetWorkPeriodEx_LMO1User.Commit())
+                                                    {
+                                                        return eAWP_dtLogin_Vaild_result.OK;
+                                                    }
+                                                    else
+                                                    {
+                                                        return eAWP_dtLogin_Vaild_result.ERROR;
+                                                    }
                                                 }
+                                            }
+                                            else
+                                            {
+                                                transaction_GetWorkPeriodEx_LMO1User.Rollback();
+                                                return eAWP_dtLogin_Vaild_result.ERROR;
                                             }
                                         }
                                         return eres;
@@ -283,23 +297,40 @@ eres_check:
                                     }
                                 }
                                 ID xAtom_WorkPeriod_ID = null;
-
+                                Transaction transaction_GetWorkPeriodEx_LMO1User = new Transaction("GetWorkPeriodEx_LMO1User");
                                 if (LoginCtrl.GetWorkPeriodEx(LMO1User,
-                                                            ref xAtom_WorkPeriod_ID
-                                                            ))
+                                                            ref xAtom_WorkPeriod_ID,
+                                                            transaction_GetWorkPeriodEx_LMO1User))
                                 {
                                     ID LoginSession_ID = null;
                                     LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
-                                    if (AWP_func.WriteLoginSession(LMO1User.awpld.ID, LMO1User.Atom_WorkPeriod_ID, ref LoginSession_ID))
+                                    if (AWP_func.WriteLoginSession(LMO1User.awpld.ID, LMO1User.Atom_WorkPeriod_ID, ref LoginSession_ID, transaction_GetWorkPeriodEx_LMO1User))
                                     {
                                         if (lctrl.m_usrc_LoginCtrl != null)
                                         {
                                             lctrl.m_usrc_LoginCtrl.lbl_username.Text = LMO1User.UserName + ": " + LMO1User.FirstName + " " + LMO1User.LastName;
                                         }
-                                        return eAWP_dtLogin_Vaild_result.OK; 
+                                        if (transaction_GetWorkPeriodEx_LMO1User.Commit())
+                                        {
+                                            return eAWP_dtLogin_Vaild_result.OK;
+                                        }
+                                        else
+                                        {
+                                            return eAWP_dtLogin_Vaild_result.ERROR;
+                                        }
                                     }
+                                    else
+                                    {
+                                        transaction_GetWorkPeriodEx_LMO1User.Rollback();
+                                        return eAWP_dtLogin_Vaild_result.ERROR;
+                                    }
+
                                 }
-                                return eres;
+                                else
+                                {
+                                    transaction_GetWorkPeriodEx_LMO1User.Rollback();
+                                    return eAWP_dtLogin_Vaild_result.ERROR;
+                                }
                         }
                         return eres;
 
@@ -357,7 +388,7 @@ eres_check:
         }
 
 
-        internal enum eAWP_dtLogin_Vaild_result { OK,NO_PASSWORD_FOR_FIRST_USER,NO_USERS}
+        internal enum eAWP_dtLogin_Vaild_result { OK,NO_PASSWORD_FOR_FIRST_USER,NO_USERS, ERROR}
 
         private eAWP_dtLogin_Vaild_result AWP_dtLogin_Vaild()
         {

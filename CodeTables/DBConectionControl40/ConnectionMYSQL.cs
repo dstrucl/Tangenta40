@@ -19,6 +19,25 @@ namespace DBConnectionControl40
 
         public MySqlConnection Con = null;
         public MySqlTransaction Tran = null;
+        public long m_TransactionNumber = 0;
+        public long TransactionNumber
+        {
+            get
+            {
+                return m_TransactionNumber;
+            }
+        }
+        private string m_TransactionName = null;
+        public string TransactionName
+        {
+            get
+            {
+                return "T" + m_TransactionNumber.ToString() + "_" + m_TransactionName;
+            }
+        }
+
+
+
         public MySqlCommand cmd = null;
 
         public ConnectionDialog ConnectionDialog = null;
@@ -189,59 +208,143 @@ namespace DBConnectionControl40
             Con.Open();
         }
 
-        public bool BeginTransaction()
+        public bool Connected
         {
-            if (Tran == null)
+            get
             {
-                Tran = Con.BeginTransaction();
-                return true;
-            }
-            else
-            {
-                return false;
+                return (Con != null);
             }
         }
-
-        public bool Commit()
+        public bool BeginTransaction(string transaction_name, ref string transaction_id)
         {
-            if (Tran != null)
+            transaction_id = null;
+            if (Connected)
             {
-                try
+                if (Tran == null)
                 {
-                    Tran.Commit();
-                    return true;
+                    try
+                    {
+                        m_TransactionName = transaction_name;
+                        m_TransactionNumber++;
+                        transaction_id = TransactionName;
+                        Tran = Con.BeginTransaction();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction_id = null;
+                        m_TransactionName = "";
+                        m_TransactionNumber--;
+                        LogFile.Error.Show("ERROR:ConnectionMYSQL:BeginTransaction('" + transaction_name + "') failed! Exception = " + ex.Message);
+                        return false;
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    LogFile.Error.Show("ERROR:DBConnectionControl40:ConnectionMYSQL:Commit:Exception = " + ex.Message);
+                    LogFile.Error.Show("ERROR:ConnectionMYSQL:BeginTransaction failed! Transaction with name ='" + TransactionName + " is allready active!");
                     return false;
                 }
             }
             else
             {
+                LogFile.Error.Show("ERROR:DBConnectionControl40:ConnectionMYSQL:BeginTransaction:Can not begin new Transaction (" + TransactionName + ") if connection is not opened!");
                 return false;
             }
         }
 
-        public bool RollbackTransaction(ref string sError)
+        private string transaction_id_not_equal(string transaction_id)
         {
-            if (Tran != null)
+            return " '" + transaction_id + "' not equal BeginTransaction = '" + Tran.ToString() + "'!";
+        }
+
+        public bool Commit(string transaction_id)
+        {
+            if (Connected)
             {
-                try
+                if (Tran != null)
                 {
-                    Tran.Rollback();
-                    sError = null;
-                    return true;
+                    if (transaction_id.Equals(TransactionName))
+                    {
+                        try
+                        {
+                            Tran.Commit();
+                            m_TransactionName = "";
+                            if (cmd != null)
+                            {
+                                cmd.Dispose();
+                                cmd = null;
+                            }
+                            Tran.Dispose();
+                            Tran = null;
+                            return true;
+                        }
+                        catch (Exception ex)
+                        {
+                            LogFile.Error.Show("ERROR:DBConnectionControl40:ConnectionMYSQL:Commit:Exception = " + ex.Message);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:ConnectionMYSQL:Commit:Transaction " + transaction_id_not_equal(transaction_id));
+                        return false;
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    sError = "ERROR:DBConnectionControl40:ConnectionMYSQL:RollbackTransaction:Exception = " + ex.Message;
+                    LogFile.Error.Show("ERROR:DBConnectionControl40:ConnectionMYSQL:Commit: Commit Transaction without BeginTransatction!");
                     return false;
                 }
             }
             else
             {
-                sError = "ERROR:DBConnectionControl40:ConnectionMYSQL:Tran = null";
+                LogFile.Error.Show("ERROR:DBConnectionControl40:ConncetionMYSQL:BeginTransaction:Can not begin new Transaction (" + TransactionName + ") if connection is not opened!");
+                return false;
+            }
+        }
+
+        public bool RollbackTransaction(string transaction_id)
+        {
+            if (Connected)
+            {
+                if (Tran != null)
+                {
+
+                    if (transaction_id.Equals(TransactionName))
+                    {
+                        try
+                        {
+                            Tran.Rollback();
+                            if (cmd != null)
+                            {
+                                cmd.Dispose();
+                                cmd = null;
+                            }
+                            Tran.Dispose();
+                            Tran = null;
+                            return true;
+                        }
+                        catch (Exception ex)
+                        {
+                            LogFile.Error.Show("ERROR:DBConnectionControl40:ConnectionMYSQL:RollbackTransaction:Exception = " + ex.Message);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:ConnectionMYSQL:RollbackTransaction '" + transaction_id_not_equal(transaction_id));
+                        return false;
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:DBConnectionControl40:ConnectionMYSQL:RollbackTransaction:Tran = null");
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DBConnectionControl40:ConnectionMYSQL:RollbackTransaction:Can not RollbackTransaction (" + TransactionName + ") if connection is not opened!");
                 return false;
             }
         }

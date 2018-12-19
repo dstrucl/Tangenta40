@@ -684,11 +684,11 @@ namespace TangentaDB
         {
             string Err = null;
             string sql = "update doc set bDefault = 0";
-            if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL(sql, null,  ref Err))
+            if (DBSync.DBSync.Con.ExecuteNonQuerySQL(sql, null,  ref Err))
             {
                 sql = "update doc set bDefault = 1 where id = " + id.ToString();
  
-                if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL(sql, null,  ref Err))
+                if (DBSync.DBSync.Con.ExecuteNonQuerySQL(sql, null,  ref Err))
                 {
                     return true;
                 }
@@ -711,7 +711,7 @@ namespace TangentaDB
             string Err = null;
             string sql = "select doc_$$Name,doc_$$xDocument,doc_$$Compressed from doc_VIEW where ID = " + id.ToString();
             DataTable dt = new DataTable();
-            if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.ReadDataTable(ref dt, sql, ref Err))
+            if (DBSync.DBSync.Con.ReadDataTable(ref dt, sql, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
@@ -926,7 +926,7 @@ namespace TangentaDB
                           + " and " + scond_page_height
                           + " order by doc_$$bDefault desc;";
             DataTable dt = new DataTable();
-            if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.ReadDataTable(ref dt, sql, lpar, ref Err))
+            if (DBSync.DBSync.Con.ReadDataTable(ref dt, sql, lpar, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {

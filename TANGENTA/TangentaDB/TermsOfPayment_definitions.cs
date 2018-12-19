@@ -47,12 +47,12 @@ namespace TangentaDB
             }
 
         }
-        public bool InsertDefault()
+        public bool InsertDefault(Transaction transaction)
         {
             
-            if (f_TermsOfPayment.Get(lng.s_TermsOfPayment_Default_100PercentInAdvance.s,ref Advanced_100PercentPayment_ID))
+            if (f_TermsOfPayment.Get(lng.s_TermsOfPayment_Default_100PercentInAdvance.s,ref Advanced_100PercentPayment_ID, transaction))
             {
-                if (f_TermsOfPayment.SetDefault(Advanced_100PercentPayment_ID))
+                if (f_TermsOfPayment.SetDefault(Advanced_100PercentPayment_ID, transaction))
                 {
                     return true;
                 }

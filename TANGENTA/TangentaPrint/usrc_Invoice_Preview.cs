@@ -313,6 +313,7 @@ namespace TangentaPrint
 
         private void btn_Print_Click(object sender, EventArgs e)
         {
+            Transaction transaction_usrc_InvoicePreview_btn_Print_Click = new Transaction("usrc_InvoicePreview_btn_Print_Click");
             if (bDocInvoicePrinted)
             {
                 if (m_InvoiceData.IsDocInvoice)
@@ -356,7 +357,11 @@ namespace TangentaPrint
                         }
                     }
                     ID journal_docinvoice_id = null;
-                    f_Journal_DocInvoice.Write(m_InvoiceData.DocInvoice_ID, m_Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, m_InvoiceData.PrintingTime_v, ref journal_docinvoice_id);
+                    if (!f_Journal_DocInvoice.Write(m_InvoiceData.DocInvoice_ID, m_Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, m_InvoiceData.PrintingTime_v, ref journal_docinvoice_id, transaction_usrc_InvoicePreview_btn_Print_Click))
+                    {
+                        transaction_usrc_InvoicePreview_btn_Print_Click.Rollback();
+                        return;
+                    }
                 }
                 else
                 {
@@ -370,12 +375,16 @@ namespace TangentaPrint
                         }
                     }
                     ID journal_docinvoice_id = null;
-                    f_Journal_DocInvoice.Write(m_InvoiceData.DocInvoice_ID, m_Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, m_InvoiceData.PrintingTime_v, ref journal_docinvoice_id);
+                    if (!f_Journal_DocInvoice.Write(m_InvoiceData.DocInvoice_ID, m_Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, m_InvoiceData.PrintingTime_v, ref journal_docinvoice_id, transaction_usrc_InvoicePreview_btn_Print_Click))
+                    {
+                        transaction_usrc_InvoicePreview_btn_Print_Click.Rollback();
+                        return;
+                    }
                 }
                 bDocInvoicePrinted = true;
             }
 
-            if (m_InvoiceData.IsDocProformaInvoice)
+            else if (m_InvoiceData.IsDocProformaInvoice)
             {
                 string s_journal_invoice_type = f_Journal_DocProformaInvoice.PRINT;
                 string s_journal_invoice_description = "";
@@ -389,15 +398,25 @@ namespace TangentaPrint
                 }
                 ID journal_docproformainvoice_type_id = null;
                 DateTime_v print_time_v = new DateTime_v(DateTime.Now);
-                if (f_Journal_DocProformaInvoice.Get_journal_DocProformaInvoice_type_id(s_journal_invoice_type, s_journal_invoice_description, ref journal_docproformainvoice_type_id))
+                if (f_Journal_DocProformaInvoice.Get_journal_DocProformaInvoice_type_id(s_journal_invoice_type, s_journal_invoice_description, ref journal_docproformainvoice_type_id, transaction_usrc_InvoicePreview_btn_Print_Click))
                 {
                     if (ID.Validate(journal_docproformainvoice_type_id))
                     {
-                        f_Journal_DocProformaInvoice.Write(m_InvoiceData.DocInvoice_ID, m_Atom_WorkPeriod_ID, journal_docproformainvoice_type_id, print_time_v, ref journal_docproformainvoice_id);
+                        if (!f_Journal_DocProformaInvoice.Write(m_InvoiceData.DocInvoice_ID, m_Atom_WorkPeriod_ID, journal_docproformainvoice_type_id, print_time_v, ref journal_docproformainvoice_id, transaction_usrc_InvoicePreview_btn_Print_Click))
+                        {
+                            transaction_usrc_InvoicePreview_btn_Print_Click.Rollback();
+                            return;
+                        }
+                        
                     }
                 }
+                else
+                {
+                    transaction_usrc_InvoicePreview_btn_Print_Click.Rollback();
+                    return;
+                }
             }
-            
+            transaction_usrc_InvoicePreview_btn_Print_Click.Commit();
         }
 
         private void Pd_PrintPage(object sender, PrintPageEventArgs e)

@@ -22,7 +22,7 @@ namespace TangentaDB
 {
     public static class f_Atom_myOrganisation_Person
     {
-        public static bool Get(ID myOrganisation_Person_ID, ref ID Atom_myOrganisation_Person_ID, ref string_v office_name)
+        public static bool Get(ID myOrganisation_Person_ID, ref ID Atom_myOrganisation_Person_ID, ref string_v office_name, Transaction transaction)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -32,13 +32,13 @@ namespace TangentaDB
             if (Find_myOrganisation_Office(myOrganisation_Person_ID, ref Person_ID, ref myOrganisation_ID, ref Office_ID, ref Err))
             {
                 ID Atom_myOrganisation_ID = null;
-                if (f_Atom_myOrganisation.Get(myOrganisation_ID, ref Atom_myOrganisation_ID))
+                if (f_Atom_myOrganisation.Get(myOrganisation_ID, ref Atom_myOrganisation_ID, transaction))
                 {
                     ID Atom_Office_ID = null;
-                    if (f_Atom_Office.Get(Office_ID,ref Atom_Office_ID))
+                    if (f_Atom_Office.Get(Office_ID,ref Atom_Office_ID, transaction))
                     {
                         DataTable dtOfficeData_of_Office_ID = new DataTable();
-                        if (f_Office_Data.Get(Office_ID, ref dtOfficeData_of_Office_ID))
+                        if (f_Office_Data.Read(Office_ID, ref dtOfficeData_of_Office_ID))
                         {
                             if (dtOfficeData_of_Office_ID!=null)
                             {
@@ -50,7 +50,7 @@ namespace TangentaDB
                                     {
                                         ID OfficeData_ID = new ID(dtOfficeData_of_Office_ID.Rows[i]["ID"]);
                                         ID Atom_Office_Data_ID = null;
-                                        if (!f_Atom_Office_Data.Get(OfficeData_ID, ref Atom_Office_Data_ID))
+                                        if (!f_Atom_Office_Data.Get(OfficeData_ID, ref Atom_Office_Data_ID,transaction))
                                         {
                                             return false;
                                         }
@@ -177,7 +177,8 @@ namespace TangentaDB
                                                                     CardType_v,
                                                                     Image_Hash_v,
                                                                     Image_Data_v,
-                                                                    ref Atom_Person_ID))
+                                                                    ref Atom_Person_ID,
+                                                                    transaction))
                                             {
 
                                                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();

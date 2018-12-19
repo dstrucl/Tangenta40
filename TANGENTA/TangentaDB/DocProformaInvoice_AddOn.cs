@@ -123,10 +123,10 @@ namespace TangentaDB
             }
            
 
-            internal bool Get(ref ID xTermsOfPayment_ID)
+            internal bool Get(ref ID xTermsOfPayment_ID, Transaction transaction)
             {
 
-                if (f_TermsOfPayment.Get(Description, ref xTermsOfPayment_ID))
+                if (f_TermsOfPayment.Get(Description, ref xTermsOfPayment_ID, transaction))
                 {
                     if (ID.Validate(this.ID))
                     {
@@ -137,11 +137,11 @@ namespace TangentaDB
                 return false;
             }
 
-            public bool SetDefault()
+            public bool SetDefault(Transaction transaction)
             {
                 string_v description_v = null;
                 ID default_TermsOfPayment_ID = null;
-                if (f_TermsOfPayment.GetDefault(ref default_TermsOfPayment_ID, ref description_v))
+                if (f_TermsOfPayment.GetDefault(ref default_TermsOfPayment_ID, ref description_v, transaction))
                 {
                     if (ID.Validate(default_TermsOfPayment_ID))
                     {
@@ -284,7 +284,7 @@ namespace TangentaDB
                 return null;
             }
 
-            internal bool Get(ref ID MethodOfPayment_DPI_ID)
+            internal bool Get(ref ID MethodOfPayment_DPI_ID, Transaction transaction)
             {
                 ID Atom_BankAccount_ID = null;
                 ID PaymentType_ID = null;
@@ -301,7 +301,8 @@ namespace TangentaDB
                                                    true,
                                                    this.m_MyOrgBankAccountPayment.BankAccount,
                                                    this.Description,
-                                                   ref Atom_BankAccount_ID))
+                                                   ref Atom_BankAccount_ID,
+                                                   transaction))
                         {
                             if (Atom_BankAccount_ID != null)
                             {
@@ -309,7 +310,8 @@ namespace TangentaDB
                                                              Atom_BankAccount_ID,
                                                              ref PaymentType_ID,
                                                              ref PaymentType_v,
-                                                             ref MethodOfPayment_DPI_ID))
+                                                             ref MethodOfPayment_DPI_ID,
+                                                             transaction))
                                 {
                                     return true;
                                 }
@@ -325,7 +327,8 @@ namespace TangentaDB
                                                              null,
                                                              ref PaymentType_ID,
                                                              ref PaymentType_v,
-                                                             ref MethodOfPayment_DPI_ID))
+                                                             ref MethodOfPayment_DPI_ID,
+                                                             transaction))
                         {
                             return true;
                         }
@@ -486,7 +489,7 @@ namespace TangentaDB
             }
         }
 
-        public bool Set(ID xDocProformaInvoice_ID, ref ltext ltMsg)
+        public bool Set(ID xDocProformaInvoice_ID, ref ltext ltMsg, Transaction transaction)
         {
 
             DocProformaInvoice_ID = xDocProformaInvoice_ID;
@@ -495,11 +498,11 @@ namespace TangentaDB
             {
                 if (ID.Validate(DocProformaInvoiceAddOn_ID))
                 {
-                    return Update();
+                    return Update(transaction);
                 }
                 else
                 {
-                    return Insert();
+                    return Insert(transaction);
                 }
             }
             else
@@ -509,7 +512,7 @@ namespace TangentaDB
 
         }
 
-        private bool Insert()
+        private bool Insert(Transaction transaction)
         {
             if (!ID.Validate(DocProformaInvoice_ID))
             {
@@ -518,12 +521,12 @@ namespace TangentaDB
             }
             ltext ltMsg = null;
             ID MethodOfPayment_DPI_ID = null;
-            if (m_MethodOfPayment_DPI.Get(ref MethodOfPayment_DPI_ID))
+            if (m_MethodOfPayment_DPI.Get(ref MethodOfPayment_DPI_ID, transaction))
             {
                 if (m_TermsOfPayment != null)
                 {
                     ID TermsOfPayment_ID = null;
-                    if (m_TermsOfPayment.Get(ref TermsOfPayment_ID))
+                    if (m_TermsOfPayment.Get(ref TermsOfPayment_ID, transaction))
                     {
 
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -534,11 +537,11 @@ namespace TangentaDB
                         string sval_Atom_Notice_ID = "null";
                         if (m_NoticeText != null)
                         {
-                            if (!f_Notice.Get(m_NoticeText, ref Notice_ID))
+                            if (!f_Notice.Get(m_NoticeText, ref Notice_ID, transaction))
                             {
                                 return false;
                             }
-                            if (!f_Atom_Notice.Get(m_NoticeText, ref Atom_Notice_ID))
+                            if (!f_Atom_Notice.Get(m_NoticeText, ref Atom_Notice_ID, transaction))
                             {
                                 return false;
                             }
@@ -632,16 +635,16 @@ namespace TangentaDB
             }
         }
 
-        private bool Update()
+        private bool Update(Transaction transaction)
         {
             ltext ltMsg = null;
             ID MethodOfPayment_DPI_ID = null;
-            if (m_MethodOfPayment_DPI.Get(ref MethodOfPayment_DPI_ID))
+            if (m_MethodOfPayment_DPI.Get(ref MethodOfPayment_DPI_ID, transaction))
             {
                 if (m_TermsOfPayment != null)
                 {
                     ID TermsOfPayment_ID = null;
-                    if (m_TermsOfPayment.Get(ref TermsOfPayment_ID))
+                    if (m_TermsOfPayment.Get(ref TermsOfPayment_ID, transaction))
                     {
 
 
@@ -653,11 +656,11 @@ namespace TangentaDB
 
                         if (m_NoticeText != null)
                         {
-                            if (!f_Notice.Get(m_NoticeText, ref Notice_ID))
+                            if (!f_Notice.Get(m_NoticeText, ref Notice_ID, transaction))
                             {
                                 return false;
                             }
-                            if (!f_Atom_Notice.Get(m_NoticeText, ref Atom_Notice_ID))
+                            if (!f_Atom_Notice.Get(m_NoticeText, ref Atom_Notice_ID, transaction))
                             {
                                 return false;
                             }

@@ -624,10 +624,11 @@ namespace LoginControl
                                           ref string xAtom_myOrganisation_Person_Tax_ID,
                                           ref string xAtom_myOrgPerson_AtomOfficeShortName,
                                           ref string xAtom_ElectronicDevice_AtomOfficeShortName,
-                                          ref string xElectronicDeviceName)
+                                          ref string xElectronicDeviceName,
+                                          Transaction transaction)
         {
             string Err = null;
-            if (GlobalData.GetWorkPeriod(myOrganisation_Person_ID, f_Atom_WorkPeriod.sWorkPeriod, lng.s_WorkPeriod.s, DateTime.Now, null,ref xAtom_myOrganisation_Person_ID, ref xAtom_WorkPeriod_ID, ref Err))
+            if (GlobalData.GetWorkPeriod(myOrganisation_Person_ID, f_Atom_WorkPeriod.sWorkPeriod, lng.s_WorkPeriod.s, DateTime.Now, null,ref xAtom_myOrganisation_Person_ID, ref xAtom_WorkPeriod_ID, ref Err,transaction))
             {
                 if (f_Atom_myOrganisation_Person.Get(xAtom_myOrganisation_Person_ID, ref xAtom_myOrgPerson_AtomOfficeShortName, ref xAtom_myOrganisation_Person_Tax_ID))
                 {
@@ -655,7 +656,8 @@ namespace LoginControl
         }
 
         public static bool GetWorkPeriodEx(LMOUser lmouUser,
-                                            ref ID xAtom_WorkPeriod_ID)
+                                            ref ID xAtom_WorkPeriod_ID,
+                                            Transaction transaction)
         {
             string xAtom_myOrganisation_Person_Tax_ID = null;
             string xAtom_myOrgPerson_Atom_Office_ShortName = null;
@@ -667,7 +669,8 @@ namespace LoginControl
                                                             ref xAtom_myOrganisation_Person_Tax_ID,
                                                             ref xAtom_myOrgPerson_Atom_Office_ShortName,
                                                             ref xAtom_ElectronicDevice_Atom_Office_ShortName,
-                                                            ref xAtom_ElectronicDevice_Name))
+                                                            ref xAtom_ElectronicDevice_Name,
+                                                            transaction))
             {
                 lmouUser.Atom_myOrganisation_Person_Tax_ID = xAtom_myOrganisation_Person_Tax_ID;
                 lmouUser.Atom_myOrganisation_Person_Atom_Office_ShortName = xAtom_myOrgPerson_Atom_Office_ShortName;
@@ -762,7 +765,7 @@ namespace LoginControl
 
 
 
-        internal static bool Logout(ID xAtom_WorkPeriod_ID)
+        internal static bool Logout(ID xAtom_WorkPeriod_ID, Transaction transaction)
         {
             DateTime TimeOnServer = new DateTime();
             if (AWP_func.con.DBType == DBConnectionControl40.DBConnection.eDBType.MSSQL)
@@ -777,7 +780,7 @@ namespace LoginControl
 
             if (ID.Validate(xAtom_WorkPeriod_ID))
             {
-                if (TangentaDB.f_Atom_WorkPeriod.End(xAtom_WorkPeriod_ID))
+                if (TangentaDB.f_Atom_WorkPeriod.End(xAtom_WorkPeriod_ID, transaction))
                 {
                     return true;
                 }

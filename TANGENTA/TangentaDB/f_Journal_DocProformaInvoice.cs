@@ -20,7 +20,7 @@ namespace TangentaDB
     {
         public  const string PRINT = "PRINT";
 
-        public static bool Write(ID DocProformaInvoice_ID, ID Atom_WorkPeriod_ID, ID journal_docproformainvoice_type_id, DateTime_v issue_time, ref ID Journal_DocInvoice_ID)
+        public static bool Write(ID DocProformaInvoice_ID, ID Atom_WorkPeriod_ID, ID journal_docproformainvoice_type_id, DateTime_v issue_time, ref ID Journal_DocInvoice_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_journal_docinvoice_type_id = "@par_journal_docproformainvoice_type_id";
@@ -44,6 +44,10 @@ namespace TangentaDB
             string spar_EventTime = "@par_EventTime";
             SQL_Parameter par_EventTime = new SQL_Parameter(spar_EventTime, SQL_Parameter.eSQL_Parameter.Datetime, false, dtime);
             lpar.Add(par_EventTime);
+            if (!transaction.Get(DBSync.DBSync.Con))
+            {
+                return false;
+            }
             string sql = "insert into journal_docproformainvoice (journal_docproformainvoice_type_id,DocProformaInvoice_ID,EventTime,Atom_WorkPeriod_ID)values(" + spar_journal_docinvoice_type_id + "," + spar_DocProfromaInvoice_ID + "," + spar_EventTime + "," + spar_Atom_WorkPeriod_ID + ")";
             string Err = null;
             if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Journal_DocInvoice_ID,  ref Err, "journal_docproformainvoice"))
@@ -57,7 +61,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get_journal_DocProformaInvoice_type_id(string Event_Type, string Event_Description, ref ID journal_invoice_type_id)
+        public static bool Get_journal_DocProformaInvoice_type_id(string Event_Type, string Event_Description, ref ID journal_invoice_type_id, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_Name = "@par_Name";
@@ -97,6 +101,10 @@ namespace TangentaDB
                 }
                 else
                 {
+                    if (!transaction.Get(DBSync.DBSync.Con))
+                    {
+                        return false;
+                    }
                     sql = "insert into journal_DocProformaInvoice_type (Name,Description) values (" + spar_Name + "," + par_Description_value + ")";
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref journal_invoice_type_id,  ref Err, "journal_docproformainvoice_type"))
                     {

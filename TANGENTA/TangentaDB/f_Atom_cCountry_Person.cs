@@ -108,7 +108,8 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(string_v country_v, string_v country_ISO_3166_a2_v, string_v country_ISO_3166_a3_v, short_v country_ISO_3166_num_v, ref ID atom_cCountry_Person_ID)
+        internal static bool Get(string_v country_v, string_v country_ISO_3166_a2_v, string_v country_ISO_3166_a3_v, short_v country_ISO_3166_num_v, ref ID atom_cCountry_Person_ID,
+                                Transaction transaction)
         {
             if ((country_v != null) && (country_ISO_3166_a2_v != null) && (country_ISO_3166_a3_v != null) && (country_ISO_3166_num_v != null))
             {
@@ -147,6 +148,10 @@ namespace TangentaDB
                     }
                     else
                     {
+                        if (!transaction.Get(DBSync.DBSync.Con))
+                        {
+                            return false;
+                        }
                         sql = @"insert into Atom_cCountry_Person (Country,Country_ISO_3166_a2,Country_ISO_3166_a3,Country_ISO_3166_num) values (" + spar_country_v + ","
                                                                                                                                     + spar_country_ISO_3166_a2_v + ","
                                                                                                                                     + spar_country_ISO_3166_a3_v + ","

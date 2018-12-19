@@ -1008,7 +1008,9 @@ namespace TangentaDB
                                   ID xAtom_WorkArea_ID,
                                   string DocTyp,
                                   string ElectronicDevice_Name,
-                                  ref string Err)
+                                  ref string Err,
+                                  Transaction transaction
+                                  )
         {
             DataTable dt = new DataTable();
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -1080,12 +1082,17 @@ namespace TangentaDB
                 m_CurrentDoc.FinancialYear = iFinancialYear;
                 m_CurrentDoc.DraftNumber = xDraftNumber;
                 string_v office_name = null;
-                if (f_Atom_myOrganisation_Person.Get(myOrganisation_Person_ID, ref Atom_myOrganisation_Person_ID, ref office_name))
+                if (f_Atom_myOrganisation_Person.Get(myOrganisation_Person_ID, ref Atom_myOrganisation_Person_ID, ref office_name,transaction))
                 {
                     //**TODO
                     string sql_SetDraftDocInvoice = null;
                     if (IsDocInvoice)
                     {
+                        if (!transaction.Get(DBSync.DBSync.Con))
+                        {
+                            return false;
+                        }
+
                         sql_SetDraftDocInvoice = "insert into " + DocTyp
                         + "("
                             + DBtcn.GetName(td.m_DocInvoice.FinancialYear.GetType()) + ","
@@ -1103,6 +1110,10 @@ namespace TangentaDB
                     }
                     else if (IsDocProformaInvoice)
                     {
+                        if (!transaction.Get(DBSync.DBSync.Con))
+                        {
+                            return false;
+                        }
                         sql_SetDraftDocInvoice = "insert into " + DocTyp
                         + "("
                             + DBtcn.GetName(td.m_DocInvoice.FinancialYear.GetType()) + ","
@@ -1137,12 +1148,12 @@ namespace TangentaDB
                         ID Journal_DocInvoice_ID = null;
                         if (IsDocInvoice)
                         {
-                            return f_Journal_DocInvoice.Write(this.m_CurrentDoc.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID);
+                            return f_Journal_DocInvoice.Write(this.m_CurrentDoc.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID, transaction);
                         }
                         else if (IsDocProformaInvoice)
                         {
                             DateTime_v dt_v = new DateTime_v(DateTime.Now);
-                            return f_Journal_DocProformaInvoice.Write(this.m_CurrentDoc.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID);
+                            return f_Journal_DocProformaInvoice.Write(this.m_CurrentDoc.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID, transaction);
                         }
                         else
                         {

@@ -112,8 +112,8 @@ namespace UpgradeDB
 
         private string Get_m_Full_backup_filename()
         {
-            string sdbfilepath = DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DataBaseFilePath;
-            string sdbfilename = DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DataBaseName;
+            string sdbfilepath = DBSync.DBSync.Con.DataBaseFilePath;
+            string sdbfilename = DBSync.DBSync.Con.DataBaseName;
             return sdbfilepath+UPGRADEBACKUP+ sdbfilename;
 
         }
@@ -168,7 +168,7 @@ namespace UpgradeDB
                     }
                     if (slist.Length>0)
                     {
-                        Err = "ERROR:There are tables in DataBase " + DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DataSource + " which are not used in program:" + slist;
+                        Err = "ERROR:There are tables in DataBase " + DBSync.DBSync.Con.DataSource + " which are not used in program:" + slist;
                     }
                 }
                 if (missing_table_list.Count > 0)
@@ -200,7 +200,7 @@ namespace UpgradeDB
                             Err += ",";
                         }
                     }
-                    Err += "\r\n are not defined in DataBase '" + DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DataSource + "'";
+                    Err += "\r\n are not defined in DataBase '" + DBSync.DBSync.Con.DataSource + "'";
                 }
                 if (Err == null)
                 {
@@ -299,8 +299,8 @@ namespace UpgradeDB
 
             if (DBSync.DBSync.m_DBType == DBConnection.eDBType.SQLITE)
             {
-                string full_backup_folder = DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DataBaseFilePath;
-                string DB_Name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DataBaseName;
+                string full_backup_folder = DBSync.DBSync.Con.DataBaseFilePath;
+                string DB_Name = DBSync.DBSync.Con.DataBaseName;
                 full_backup_filename = null;
                 if (full_backup_folder != null)
                 {
@@ -318,7 +318,7 @@ namespace UpgradeDB
                             {
                                 try
                                 {
-                                    string sOrgDBFile = DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.SQLiteDataBaseFile;
+                                    string sOrgDBFile = DBSync.DBSync.Con.SQLiteDataBaseFile;
                                     File.Copy(full_backup_filename, sOrgDBFile, true);
                                     File.Delete(full_backup_filename);
                                     return true;

@@ -89,9 +89,11 @@ namespace LoginControl
 
         private void DoLogin()
         {
+            Transaction transaction_MultipleUsers_LoginStart = new Transaction("MultipleUsers_LoginStart");
             switch (m_LMOUser.awpld.GetData(ref dtLoginUsers, txt_UserName.Text, AWP.awpd))
             {
                 case AWPLoginData.eGetDateResult.OK:
+
                     if (LoginCtrl.PasswordMatch(m_LMOUser.awpld.Password, txt_Password.Text))
                     {
                         if (m_LMOUser.awpld.ChangePasswordOnFirstLogin)
@@ -99,10 +101,25 @@ namespace LoginControl
                             AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(m_LMOUser,  lng.s_AdministratorRequestForNewPassword.s);
                             if (change_pass_form.ShowDialog() == DialogResult.OK)
                             {
-                                Login_Start();
-                                DialogResult = DialogResult.OK;
-                                Close();
-                                return;
+                                
+                                if (Login_Start(transaction_MultipleUsers_LoginStart))
+                                {
+                                    if (transaction_MultipleUsers_LoginStart.Commit())
+                                    {
+                                        DialogResult = DialogResult.OK;
+                                        Close();
+                                        return;
+                                    }
+                                    else
+                                    {
+                                        return;
+                                    }
+                                }
+                                else
+                                {
+                                    transaction_MultipleUsers_LoginStart.Rollback();
+                                    return;
+                                }
                             }
                             else
                             {
@@ -128,12 +145,23 @@ namespace LoginControl
                                         if (AWP_func.Remove_ChangePasswordOnFirstLogin(m_LMOUser.awpld))
                                         {
                                             // change password dialog
-                                            if (Login_Start())
+                                            if (Login_Start(transaction_MultipleUsers_LoginStart))
                                             {
 
-                                                DialogResult = DialogResult.OK;
-                                                Close();
-                                                return;
+                                                if (transaction_MultipleUsers_LoginStart.Commit())
+                                                {
+                                                    DialogResult = DialogResult.OK;
+                                                    Close();
+                                                    return;
+                                                }
+                                                else
+                                                {
+                                                    return;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                transaction_MultipleUsers_LoginStart.Rollback();
                                             }
                                         }
                                     }
@@ -143,22 +171,45 @@ namespace LoginControl
                             {
                                 if (m_loginType == AWPLoginForm_OneFromMultipleUsers.LoginType.LOGIN)
                                 {
-                                    if (Login_Start())
+                                    if (Login_Start(transaction_MultipleUsers_LoginStart))
                                     {
-                                        DialogResult = DialogResult.OK;
-                                        Close();
+                                        if (transaction_MultipleUsers_LoginStart.Commit())
+                                        {
+                                            DialogResult = DialogResult.OK;
+                                            Close();
+                                            return;
+                                        }
+                                        else
+                                        {
+                                            return;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        transaction_MultipleUsers_LoginStart.Rollback();
                                         return;
                                     }
                                 }
                                 else
                                 {
-                                    if (LoginControl.LoginCtrl.Logout(this.Atom_WorkPeriod_ID))
+                                    Transaction transaction_MultipleUsers_Logout = new Transaction("MultipleUsers_Logout");
+                                    if (LoginControl.LoginCtrl.Logout(this.Atom_WorkPeriod_ID, transaction_MultipleUsers_Logout))
                                     {
-                                        DialogResult = DialogResult.OK;
-                                        Close();
-                                        return;
+                                        if (transaction_MultipleUsers_Logout.Commit())
+                                        {
+                                            DialogResult = DialogResult.OK;
+                                            Close();
+                                            return;
+                                        }
+                                        else
+                                        {
+                                            return;
+                                        }
                                     }
-
+                                    else
+                                    {
+                                        transaction_MultipleUsers_Logout.Rollback();
+                                    }
                                 }
                             }
                         }
@@ -208,7 +259,7 @@ namespace LoginControl
             DoLogin();
         }
 
-        private bool Login_Start()
+        private bool Login_Start(Transaction transaction)
         {
             DateTime TimeOnServer = new DateTime();
             if (AWP_func.con.DBType == DBConnectionControl40.DBConnection.eDBType.MSSQL)
@@ -221,7 +272,8 @@ namespace LoginControl
                 }
             }
             if (LoginCtrl.GetWorkPeriodEx(m_LMOUser,
-                                        ref Atom_WorkPeriod_ID))
+                                        ref Atom_WorkPeriod_ID,
+                                        transaction))
             {
 
                 if (AWP_func.GetLoginSession(m_LMOUser.awpld.ID,Atom_WorkPeriod_ID, ref LoginSession_id))

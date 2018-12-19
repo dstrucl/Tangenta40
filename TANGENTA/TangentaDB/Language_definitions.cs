@@ -64,28 +64,47 @@ namespace TangentaDB
 
         public bool Get()
         {
+            const string TRANSACTION_Language_definitions_Get = "Language_definitions_Get";
             int i = 0;
             int index = 0;
-            for (i = 0; i < LanguageControl.DynSettings.s_language.sTextArr.Length; i++)
+            string transaction_Language_definitions_Get_id = null;
+            if (DBSync.DBSync.DB_for_Tangenta.BeginTransaction(TRANSACTION_Language_definitions_Get, ref transaction_Language_definitions_Get_id))
             {
-                if (LanguageControl.DynSettings.s_language.sTextArr[i] != null)
+                string err = null;
+                for (i = 0; i < LanguageControl.DynSettings.s_language.sTextArr.Length; i++)
                 {
-                    string_v Description_v = new string_v(LanguageControl.DynSettings.s_language.sTextArr[i]);
-                    Language lang = new Language(LanguageControl.DynSettings.s_language.sTextArr[i], Description_v.v);
-                    ID xLanguage_ID = null;
-                    if (f_Language.Get(LanguageControl.DynSettings.s_language.sTextArr[i], Description_v, index, ref xLanguage_ID))
+                    if (LanguageControl.DynSettings.s_language.sTextArr[i] != null)
                     {
-                        lang.ID = xLanguage_ID;
-                        Language_list.Add(lang);
-                        index++;
-                    }
-                    else
-                    {
-                        return false;
+                        string_v Description_v = new string_v(LanguageControl.DynSettings.s_language.sTextArr[i]);
+                        Language lang = new Language(LanguageControl.DynSettings.s_language.sTextArr[i], Description_v.v);
+                        ID xLanguage_ID = null;
+                        if (f_Language.Get(LanguageControl.DynSettings.s_language.sTextArr[i], Description_v, index, ref xLanguage_ID))
+                        {
+                            lang.ID = xLanguage_ID;
+                            Language_list.Add(lang);
+                            index++;
+                        }
+                        else
+                        {
+                            if (!DBSync.DBSync.DB_for_Tangenta.RollbackTransaction(transaction_Language_definitions_Get_id))
+                            {
+                                LogFile.Error.Show("ERROR:TangentaDB:Language_definitions:Get:RollbackTransaction:Err=" + err);
+                            }
+                            return false;
+                        }
                     }
                 }
+                if (!DBSync.DBSync.DB_for_Tangenta.CommitTransaction(transaction_Language_definitions_Get_id))
+                {
+                    LogFile.Error.Show("ERROR:TangentaDB:Language_definitions:Get:RollbackTransaction:Err=" + err);
+                    return false;
+                }
+                return true;
             }
-            return true;
+            else
+            {
+                return false;
+            }
         }
 
 

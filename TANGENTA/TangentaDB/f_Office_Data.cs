@@ -15,7 +15,8 @@ namespace TangentaDB
                                    ID cAddress_Org_ID,
                                    ID Office_ID,
                                    string Description,
-                                   ref ID Office_Data_ID)
+                                   ref ID Office_Data_ID,
+                                   Transaction transaction)
         {
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -53,6 +54,10 @@ namespace TangentaDB
                 }
                 else
                 {
+                    if (!transaction.Get(DBSync.DBSync.Con))
+                    {
+                        return false;
+                    }
                     sql = @"insert into Office_Data (cAddress_Org_ID,
                                                             Office_ID,
                                                             Description) values ("
@@ -78,7 +83,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(ID Office_ID, ref DataTable dtOfficeData_of_Office_ID)
+        public static bool Read(ID Office_ID, ref DataTable dtOfficeData_of_Office_ID)
         {
             if (ID.Validate(Office_ID))
             {

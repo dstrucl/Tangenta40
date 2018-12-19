@@ -280,7 +280,18 @@ namespace TangentaDB
                 }
                 else
                 {
-                    return m_myOrg_Office.Get_m_myOrg_Person_SingleUser();
+                    Transaction transaction_Get_m_myOrg_Person_SingleUser = new Transaction("Get_m_myOrg_Person_SingleUser");
+                    myOrg_Office.eGet_m_myOrg_Person_SingleUser_Result res = m_myOrg_Office.Get_m_myOrg_Person_SingleUser(transaction_Get_m_myOrg_Person_SingleUser);
+                    if (res == myOrg_Office.eGet_m_myOrg_Person_SingleUser_Result.ERROR)
+                    {
+                        transaction_Get_m_myOrg_Person_SingleUser.Rollback();
+                    }
+                    else
+                    {
+                        transaction_Get_m_myOrg_Person_SingleUser.Commit();
+                    }
+                    return res;
+
                 }
             }
             else

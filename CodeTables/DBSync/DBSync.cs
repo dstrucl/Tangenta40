@@ -122,9 +122,9 @@ namespace DBSync
             if (LocalDB_data_SQLite.Save(MyDataBase_Tangenta.DataBaseFilePrefix,ref Err))
             {
                 // Connect to create SQLite file !
-                if (DB_for_Tangenta.m_DBTables.m_con.Connect(ref Err))
+                if (Con.Connect(ref Err))
                 {
-                    DB_for_Tangenta.m_DBTables.m_con.Disconnect();
+                    Con.Disconnect();
                     return true;
                 }
                 else
@@ -140,7 +140,7 @@ namespace DBSync
 
         public static bool Startup_03_Show_ConnectionDialog(NavigationButtons.Navigation nav)
         {
-            return DBSync.DB_for_Tangenta.m_DBTables.m_con.Startup_03_Show_ConnectionDialog(nav);
+            return DBSync.Con.Startup_03_Show_ConnectionDialog(nav);
         }
 
         public static bool Init_DBType(bool bReset, string IniFileFolder, ref string DataBaseType, bool bChangeConnection, ref bool bNewDatabaseCreated, NavigationButtons.Navigation xnav, ref bool bCanceled)
@@ -238,7 +238,7 @@ namespace DBSync
 
         public static bool Startup_03_CreateNewDatabase(Form pParentForm,ref bool bNewDatabase, ref bool bCancel)
         {
-            return DB_for_Tangenta.m_DBTables.m_con.Startup_03_CreateNewDataBaseConnection(pParentForm, ref bNewDatabase, ref bCancel);
+            return Con.Startup_03_CreateNewDataBaseConnection(pParentForm, ref bNewDatabase, ref bCancel);
         }
 
         public static bool Evaluate_InitDBType(bool bReset, string IniFileFolder, ref string DataBaseType, bool bChangeConnection, ref bool bNewDatabaseCreated, NavigationButtons.Navigation xnav, ref bool bCanceled,string dbVersion)
@@ -346,38 +346,70 @@ namespace DBSync
 
         public static string ServerType
         {
-            get { return DB_for_Tangenta.m_DBTables.m_con.ServerType; }
+            get { return Con.ServerType; }
         }
 
         public static string DataSource
         {
             get
             {
-                if (DB_for_Tangenta.m_DBTables.m_con.DBType == DBConnection.eDBType.SQLITE)
+                if (Con.DBType == DBConnection.eDBType.SQLITE)
                 {
-                    return DB_for_Tangenta.m_DBTables.m_con.DataBaseFilePath + "\\" + DB_for_Tangenta.m_DBTables.m_con.DataBaseName;
+                    return Con.DataBaseFilePath + "\\" + Con.DataBaseName;
                 }
                 else
                 {
-                    return DB_for_Tangenta.m_DBTables.m_con.DataSource;
+                    return Con.DataSource;
                 }
             }
         }
 
         public static string DataBase_BackupTemp
         {
-            get { return DB_for_Tangenta.m_DBTables.m_con.DataBase_BackupTemp; }
+            get { return Con.DataBase_BackupTemp; }
+        }
+
+        public static DBConnection Con
+        {
+            get
+            {
+                if (DB_for_Tangenta != null)
+                {
+                    if (DB_for_Tangenta.m_DBTables != null)
+                    {
+                        if (DB_for_Tangenta.m_DBTables.m_con != null)
+                        {
+                            return DB_for_Tangenta.m_DBTables.m_con;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:DBSync:DBSync:Con():DB_for_Tangenta.m_DBTables.m_con = null");
+                            return null;
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:DBSync:DBSync:Con():DB_for_Tangenta.m_DBTables = null");
+                        return null;
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:DBSync:DBSync:Con():DB_for_Tangenta = null");
+                    return null;
+                }
+            }
         }
 
         public static bool ReadDataTable(ref DataTable dt,string sql,ref string Err)
         {
-            return DB_for_Tangenta.m_DBTables.m_con.ReadDataTable(ref dt, sql, ref Err);
+            return Con.ReadDataTable(ref dt, sql, ref Err);
         }
 
 
         public static bool DB_for_Tangenta_SessionConnect(ref string Err)
         {
-            return DB_for_Tangenta.m_DBTables.m_con.SessionConnect(ref Err);
+            return Con.SessionConnect(ref Err);
         }
 
         public static bool DB_for_Tangenta_SessionDisconnect()
@@ -398,23 +430,23 @@ namespace DBSync
 
         public static bool ReadDataTable(ref DataTable dt, string sql,List<SQL_Parameter> lpar, ref string Err)
         {
-            return DB_for_Tangenta.m_DBTables.m_con.ReadDataTable(ref dt, sql,lpar, ref Err);
+            return Con.ReadDataTable(ref dt, sql,lpar, ref Err);
         }
 
         public static bool ExecuteNonQuerySQL(string sql, List<SQL_Parameter> lpar,ref string Err)
         {
-            return DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL(sql, lpar, ref Err);
+            return Con.ExecuteNonQuerySQL(sql, lpar, ref Err);
         }
 
         public static bool ExecuteNonQuerySQL_NoMultiTrans(string sql, List<SQL_Parameter> lpar,ref string Err)
         {
-            return DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL(sql, lpar, ref Err);
+            return Con.ExecuteNonQuerySQL(sql, lpar, ref Err);
         }
         
 
         public static bool ExecuteNonQuerySQLReturnID(string sql, List<SQL_Parameter> lpar, ref ID id,  ref string Err, string sTableName)
         {
-            return DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref Err, sTableName);
+            return Con.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref Err, sTableName);
         }
 
         public static bool CreateTables(string[] new_tables,ref string Err)
@@ -426,7 +458,7 @@ namespace DBSync
                 SQLTable tbl = DB_for_Tangenta.m_DBTables.GetTable(stbl);
                 if (tbl != null)
                 {
-                    if (DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL(tbl.sql_CreateTable,null, ref err))
+                    if (Con.ExecuteNonQuerySQL(tbl.sql_CreateTable,null, ref err))
                     {
                         continue;
                     }
@@ -524,7 +556,7 @@ namespace DBSync
 
         public static bool TableExists(string table_name, ref string err)
         {
-            return DB_for_Tangenta.m_DBTables.m_con.TableExists(table_name, ref err);
+            return Con.TableExists(table_name, ref err);
         }
     }
 }

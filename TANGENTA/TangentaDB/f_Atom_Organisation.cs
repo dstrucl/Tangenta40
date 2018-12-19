@@ -23,7 +23,9 @@ namespace TangentaDB
                          string_v Registration_ID_v,
                          bool_v TaxPayer_v,
                          string_v Comment1_v,
-                         ref ID Atom_Organisation_ID)
+                         ref ID Atom_Organisation_ID,
+                         Transaction transaction
+                         )
         {
             string Err = null;
             string Name_condition = null;
@@ -94,7 +96,10 @@ namespace TangentaDB
             string Atom_Comment1_ID_value = "null";
             if (Comment1_v != null)
             {
-                if (f_Atom_Comment1.Get(Comment1_v.v, ref xAtom_Comment1_ID))
+                if (f_Atom_Comment1.Get(Comment1_v.v, 
+                                        ref xAtom_Comment1_ID,
+                                        transaction
+                                        ))
                 {
                     SQL_Parameter par_Atom_Comment1_ID = new SQL_Parameter("@par_Atom_Comment1_ID", false, xAtom_Comment1_ID);
                     lpar.Add(par_Atom_Comment1_ID);
@@ -125,6 +130,10 @@ namespace TangentaDB
                 }
                 else
                 {
+                    if (!transaction.Get(DBSync.DBSync.Con))
+                    {
+                    }
+
                     string sql_insert = " insert into Atom_Organisation  (Name,Tax_ID,Registration_ID,TaxPayer,Atom_Comment1_ID) values (" + sName_value + "," + sTaxID_value + "," + sRegistration_ID_value + "," + TaxPayer_value + "," + Atom_Comment1_ID_value + ")";
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Atom_Organisation_ID, ref Err, "Atom_Organisation"))
                     {
@@ -164,7 +173,8 @@ namespace TangentaDB
                                  byte_array_v Image_Data_v,
                                  string_v Image_Description_v,
                                  ref ID Atom_Organisation_ID,
-                                 ref ID Atom_OrganisationData_ID)
+                                 ref ID Atom_OrganisationData_ID,
+                                 Transaction transaction)
         {
             string Err = null;
             string Name_condition = null;
@@ -236,7 +246,7 @@ namespace TangentaDB
 
             if (Comment1_v != null)
             {
-                if (f_Atom_Comment1.Get(Comment1_v.v, ref xAtom_Comment1_ID))
+                if (f_Atom_Comment1.Get(Comment1_v.v, ref xAtom_Comment1_ID, transaction))
                 {
                     SQL_Parameter par_Atom_Comment1_ID = new SQL_Parameter("@par_Atom_Comment1_ID",  false, xAtom_Comment1_ID);
                     lpar.Add(par_Atom_Comment1_ID);
@@ -277,10 +287,15 @@ namespace TangentaDB
                                                        Image_Description_v,
                                                        BankName_v,
                                                        TRR_v,
-                                                       ref Atom_OrganisationData_ID);
+                                                       ref Atom_OrganisationData_ID,
+                                                       transaction);
                 }
                 else
                 {
+                    if (!transaction.Get(DBSync.DBSync.Con))
+                    {
+                        return false;
+                    }
                     string sql_insert = " insert into Atom_Organisation  (Name,Tax_ID,Registration_ID, TaxPayer,Atom_Comment1_ID) values (" + sName_value + "," + sTaxID_value + "," + sRegistration_ID_value + "," + TaxPayer_value + "," + Atom_Comment1_ID_value + ")";
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Atom_Organisation_ID,  ref Err, "Atom_Organisation"))
                     {
@@ -296,7 +311,8 @@ namespace TangentaDB
                                                                                Image_Description_v,
                                                                                BankName_v,
                                                                                TRR_v,
-                                                                               ref Atom_OrganisationData_ID);
+                                                                               ref Atom_OrganisationData_ID,
+                                                                               transaction);
                     }
                     else
                     {

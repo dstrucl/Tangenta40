@@ -21,7 +21,8 @@ namespace TangentaDB
     {
         public static bool Get(
                          ID FVI_SLO_RealEstateBP_ID,
-                         ref ID Atom_FVI_SLO_RealEstateBP_ID)
+                         ref ID Atom_FVI_SLO_RealEstateBP_ID,
+                         Transaction transaction)
         {
 
             ID Office_Data_ID = null;
@@ -50,7 +51,7 @@ namespace TangentaDB
                     }
                     Office_Data_ID.Set(dt.Rows[0]["Office_Data_ID"]);
                     ID xAtom_Office_Data_ID = null;
-                    if (f_Atom_Office_Data.Get(Office_Data_ID, ref xAtom_Office_Data_ID))
+                    if (f_Atom_Office_Data.Get(Office_Data_ID, ref xAtom_Office_Data_ID, transaction))
                     {
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -126,6 +127,10 @@ namespace TangentaDB
                             }
                             else
                             {
+                                if (!transaction.Get(DBSync.DBSync.Con))
+                                {
+                                    return false;
+                                }
                                 sql = @"insert into Atom_FVI_SLO_RealEstateBP (
                                                         Atom_Office_Data_ID
                                                         ,Community
@@ -174,7 +179,7 @@ namespace TangentaDB
         }
 
 
-        public static bool Get_Atom_FVI_SLO_RealEstateBP_ID(Form main_Form, ref ID Atom_FVI_SLO_RealEstateBP_ID, int limit)
+        public static bool Get_Atom_FVI_SLO_RealEstateBP_ID(Form main_Form, ref ID Atom_FVI_SLO_RealEstateBP_ID, int limit, Transaction transaction)
         {
             string Err = null;
             string sTop = "";
@@ -200,7 +205,7 @@ namespace TangentaDB
                 if (dt.Rows.Count>0)
                 {
                     ID FVI_SLO_RealEstateBP_ID = new ID(dt.Rows[0]["ID"]);
-                    return f_Atom_FVI_SLO_RealEstateBP.Get(FVI_SLO_RealEstateBP_ID, ref Atom_FVI_SLO_RealEstateBP_ID);
+                    return f_Atom_FVI_SLO_RealEstateBP.Get(FVI_SLO_RealEstateBP_ID, ref Atom_FVI_SLO_RealEstateBP_ID, transaction);
                 }
                 else
                 {

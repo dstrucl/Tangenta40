@@ -34,7 +34,8 @@ namespace TangentaDB
                                 string_v Logo_Description_v,
                                 string_v BankName_v,
                                 string_v TRR_v,
-                                ref ID Atom_OrganisationData_ID)
+                                ref ID Atom_OrganisationData_ID,
+                                Transaction transaction)
         {
             string Err = null;
             string BankName_condition = null;
@@ -45,13 +46,13 @@ namespace TangentaDB
           //  long_v Atom_Organisation_ID_v = null;
 
             ID xcAdressAtom_Org_iD = null;
-            if (f_Atom_cAddress_Org.Get(Address_v, ref xcAdressAtom_Org_iD))
+            if (f_Atom_cAddress_Org.Get(Address_v, ref xcAdressAtom_Org_iD, transaction))
             {
                 ID cHomePage_Org_ID = null;
                 string cHomePage_Org_ID_v_cond = "cHomePage_Org_ID is null";
                 string cHomePage_Org_ID_v_Value = "null";
 
-                if (fs.Get_ID("cHomePage_Org", "HomePage", HomePage_v, ref cHomePage_Org_ID, ref Err))
+                if (fs.Get_ID("cHomePage_Org", "HomePage", HomePage_v, ref cHomePage_Org_ID, ref Err, transaction))
                 {
                     if (cHomePage_Org_ID != null)
                     {
@@ -64,7 +65,7 @@ namespace TangentaDB
                 string cEmail_Org_ID_v_cond = "cEmail_Org_ID is null";
                 string cEmail_Org_ID_v_Value = "null";
 
-                if (fs.Get_ID("cEmail_Org", "Email", Email_v, ref cEmail_Org_ID, ref Err))
+                if (fs.Get_ID("cEmail_Org", "Email", Email_v, ref cEmail_Org_ID, ref Err, transaction))
                 {
                     if (cEmail_Org_ID != null)
                     {
@@ -77,7 +78,7 @@ namespace TangentaDB
                 string cPhoneNumber_Org_ID_v_cond = "cPhoneNumber_Org_ID is null";
                 string cPhoneNumber_Org_ID_v_Value = "null";
 
-                if (fs.Get_ID("cPhoneNumber_Org", "PhoneNumber", PhoneNumber_v, ref cPhoneNumber_Org_ID, ref Err))
+                if (fs.Get_ID("cPhoneNumber_Org", "PhoneNumber", PhoneNumber_v, ref cPhoneNumber_Org_ID, ref Err, transaction))
                 {
                     if (cPhoneNumber_Org_ID != null)
                     {
@@ -90,7 +91,7 @@ namespace TangentaDB
                 string cFaxNumber_Org_ID_v_cond = "cFaxNumber_Org_ID is null";
                 string cFaxNumber_Org_ID_v_Value = "null";
 
-                if (fs.Get_ID("cFaxNumber_Org", "FaxNumber", FaxNumber_v, ref cFaxNumber_Org_ID, ref Err))
+                if (fs.Get_ID("cFaxNumber_Org", "FaxNumber", FaxNumber_v, ref cFaxNumber_Org_ID, ref Err, transaction))
                 {
                     if (cFaxNumber_Org_ID != null)
                     {
@@ -110,7 +111,7 @@ namespace TangentaDB
                 //    Image_Data_v = new byte_array_v();
                 //    Image_Data_v.v = DBtypesFunc.imageToByteArray(Logo, Logo.RawFormat);
                 //}
-                if (f_Atom_Logo.Get(Logo_Hash_v, Image_Data_v, Logo_Description_v, ref xLogo_ID))
+                if (f_Atom_Logo.Get(Logo_Hash_v, Image_Data_v, Logo_Description_v, ref xLogo_ID, transaction))
                 {
                     if (xLogo_ID != null)
                     {

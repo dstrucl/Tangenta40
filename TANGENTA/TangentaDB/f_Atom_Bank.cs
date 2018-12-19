@@ -15,7 +15,8 @@ namespace TangentaDB
                                string Registrattion_ID,
                                bool_v TaxPayer_v,
                                string_v Comment1_v,
-                               ref ID AtomBank_ID
+                               ref ID AtomBank_ID,
+                               Transaction transaction
                                )
         {
             AtomBank_ID = null;
@@ -23,7 +24,13 @@ namespace TangentaDB
             string_v Tax_ID_v = DBTypes.string_v.Set(Tax_ID);
             string_v Registrattion_ID_v = DBTypes.string_v.Set(Registrattion_ID);
             ID Atom_Organisation_ID = null;
-            if (f_Atom_Organisation.Get(OrganisationName_v, Tax_ID_v, Registrattion_ID_v, TaxPayer_v, Comment1_v, ref Atom_Organisation_ID))
+            if (f_Atom_Organisation.Get(OrganisationName_v,
+                                        Tax_ID_v,
+                                        Registrattion_ID_v,
+                                        TaxPayer_v,
+                                        Comment1_v,
+                                        ref Atom_Organisation_ID,
+                                        transaction))
             {
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                 string scond_Atom_Organisation_ID = " Atom_Organisation_ID is null ";
@@ -52,6 +59,10 @@ namespace TangentaDB
                     }
                     else
                     {
+                        if (!transaction.Get(DBSync.DBSync.Con))
+                        {
+                                return false;
+                        }
                         sql = "insert into Atom_Bank (Atom_Organisation_ID) values(" + sval_Atom_Organisation_ID + ")";
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref AtomBank_ID,  ref Err, "Atom_Bank"))
                         { 

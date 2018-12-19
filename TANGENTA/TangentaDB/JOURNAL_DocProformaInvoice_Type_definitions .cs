@@ -44,6 +44,8 @@ namespace TangentaDB
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt,sql,ref Err))
             {
+                const string TRANSACTION_JOURNAL_DocProformaInvoice_Type_definitions_Set = "JOURNAL_DocProformaInvoice_Type_definitions_Set";
+                string transaction_JOURNAL_DocProformaInvoice_Type_definitions_Set_ID = null;
 
                 foreach (journaltype jrt in journaltype_list)
                 {
@@ -53,10 +55,34 @@ namespace TangentaDB
                     }
                     else
                     {
-                        Set(jrt);
+                        if (transaction_JOURNAL_DocProformaInvoice_Type_definitions_Set_ID==null)
+                        {
+                            if (!DBSync.DBSync.DB_for_Tangenta.BeginTransaction(TRANSACTION_JOURNAL_DocProformaInvoice_Type_definitions_Set,
+                                                                               ref transaction_JOURNAL_DocProformaInvoice_Type_definitions_Set_ID
+                                                                                ))
+                            {
+                                return false;
+                            }
+                        }
+                        if (!Set(jrt))
+                        {
+                            DBSync.DBSync.DB_for_Tangenta.RollbackTransaction(transaction_JOURNAL_DocProformaInvoice_Type_definitions_Set_ID);
+                            return false;
+                        }
                     }
                 }
-                return true;
+                if (transaction_JOURNAL_DocProformaInvoice_Type_definitions_Set_ID != null)
+                {
+                    if (!DBSync.DBSync.DB_for_Tangenta.CommitTransaction(transaction_JOURNAL_DocProformaInvoice_Type_definitions_Set_ID))
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                else
+                {
+                    return true;
+                }
             }
             else
             {

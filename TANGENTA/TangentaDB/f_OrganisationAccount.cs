@@ -14,7 +14,8 @@ namespace TangentaDB
                         ID BankAccount_ID,
                         ID Organisation_ID,
                         string_v Organisation_BankAccount_Description_v,
-                        ref ID OrganisationAccount_ID)
+                        ref ID OrganisationAccount_ID,
+                        Transaction transaction)
         {
             string Err = null;
 
@@ -66,6 +67,10 @@ namespace TangentaDB
                 }
                 else
                 {
+                    if (!transaction.Get(DBSync.DBSync.Con))
+                    {
+                        return false;
+                    }
                     string sql_insert = @"insert into OrganisationAccount (BankAccount_ID,Organisation_ID,Description) values (
                                                                             " + BankAccount_ID_v_Value.ToString() + @",
                                                                             " + Organisation_ID_v_Value + @",

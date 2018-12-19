@@ -18,7 +18,8 @@ namespace TangentaDB
                                ID StockTake_Supplier_ID,
                                ID StockTake_Trucking_ID,
                                bool_v StockTake_Draft_v,
-                               ref ID StockTake_ID
+                               ref ID StockTake_ID,
+                               Transaction transaction
                                )
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -161,6 +162,10 @@ namespace TangentaDB
                 }
                 else
                 {
+                    if (!transaction.Get(DBSync.DBSync.Con))
+                    {
+                        return false;
+                    }
                     sql = @"insert into StockTake (  Name,
                                                      StockTake_Date,
                                                      StockTakePriceTotal,

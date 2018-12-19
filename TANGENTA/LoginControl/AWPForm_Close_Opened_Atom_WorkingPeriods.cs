@@ -28,6 +28,7 @@ namespace LoginControl
 
         private void btn_Close_Opened_Atom_WorkingPeriods_Click(object sender, EventArgs e)
         {
+            Transaction transaction_btn_Close_Opened_Atom_WorkingPeriods_Click = new Transaction("btn_Close_Opened_Atom_WorkingPeriods_Click");
             if (f_JOURNAL_Atom_WorkPeriod_TYPE.JOURNAL_Atom_WorkPeriod_TYPE_ID_WorkPeriodNotClosedInPreviousSession == null)
             {
                 if (!f_JOURNAL_Atom_WorkPeriod_TYPE.Get_JOURNAL_Atom_WorkPeriod_TYPE_ID())
@@ -40,14 +41,18 @@ namespace LoginControl
                 ID xAtom_WorkPeriod_ID = tf.set_ID(dr["LoginSession_$_awperiod_$$ID"]);
                 if (ID.Validate(xAtom_WorkPeriod_ID))
                 {
-                    if (!f_Atom_WorkPeriod.End(xAtom_WorkPeriod_ID, f_JOURNAL_Atom_WorkPeriod_TYPE.JOURNAL_Atom_WorkPeriod_TYPE_ID_WorkPeriodNotClosedInPreviousSession))
+                    if (!f_Atom_WorkPeriod.End(xAtom_WorkPeriod_ID, f_JOURNAL_Atom_WorkPeriod_TYPE.JOURNAL_Atom_WorkPeriod_TYPE_ID_WorkPeriodNotClosedInPreviousSession, transaction_btn_Close_Opened_Atom_WorkingPeriods_Click))
                     {
+                        transaction_btn_Close_Opened_Atom_WorkingPeriods_Click.Rollback();
                         return;
                     }
                 }
             }
-            this.Close();
-            DialogResult = DialogResult.OK;
+            if (transaction_btn_Close_Opened_Atom_WorkingPeriods_Click.Commit())
+            {
+                this.Close();
+                DialogResult = DialogResult.OK;
+            }
         }
 
         private void AWPForm_Close_Opened_Atom_WorkingPeriods_Load(object sender, EventArgs e)

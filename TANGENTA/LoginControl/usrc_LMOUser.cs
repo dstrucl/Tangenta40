@@ -65,13 +65,13 @@ namespace LoginControl
             }
         }
 
-        internal void SetData(DataRow dr)
+        internal bool SetData(DataRow dr, Transaction transaction)
         {
             if (m_LMOUser==null)
             {
                 m_LMOUser = new LMOUser(this);
             }
-            m_LMOUser.SetData(dr);
+            return m_LMOUser.SetData(dr,transaction);
 
         }
 
@@ -130,8 +130,25 @@ namespace LoginControl
 
                     if (awpLoginForm_OneFromMultipleUsers.LogoutALL)
                     {
-                        this.m_usrc_MultipleUsers.LogoutAll();
-                        bAllLoggedOut = true;
+                        Transaction transaction_LogoutALL = new Transaction("LogoutALL");
+                        if (this.m_usrc_MultipleUsers.LogoutAll(transaction_LogoutALL))
+                        {
+                            if (transaction_LogoutALL.Commit())
+                            {
+                                bAllLoggedOut = true;
+                            }
+                            else
+                            {
+                                return;
+                            }
+
+                        }
+                        else
+                        {
+                            transaction_LogoutALL.Rollback();
+                            return;
+                        }
+                        
                     }
                     else
                     {
@@ -153,22 +170,49 @@ namespace LoginControl
                             {
                                 m_usrc_MultipleUsers.m_CashierActivity.Last_Atom_WorkPeriod_ID = m_LMOUser.Atom_WorkPeriod_ID;
                                 Form_CloseCashier frm_closecashier = new Form_CloseCashier(m_usrc_MultipleUsers.m_CashierActivity, m_LMOUser);
+                                Transaction transaction_m_CashierActivity_Close = new Transaction("m_CashierActivity_Close");
                                 switch (frm_closecashier.ShowDialog(this))
                                 {
                                     case DialogResult.OK:
-                                        if (m_usrc_MultipleUsers.m_CashierActivity.Close(m_LMOUser.Atom_WorkPeriod_ID))
+                                        
+                                        if (m_usrc_MultipleUsers.m_CashierActivity.Close(m_LMOUser.Atom_WorkPeriod_ID, transaction_m_CashierActivity_Close))
                                         {
-                                            m_usrc_MultipleUsers.CashierState = eCashierState.CLOSED;
-                                            PrintCashierActivity printcashieractivity = new PrintCashierActivity(m_usrc_MultipleUsers.m_CashierActivity);
-                                            printcashieractivity.Print();
+                                            if (transaction_m_CashierActivity_Close.Commit())
+                                            {
+                                                m_usrc_MultipleUsers.CashierState = eCashierState.CLOSED;
+                                                PrintCashierActivity printcashieractivity = new PrintCashierActivity(m_usrc_MultipleUsers.m_CashierActivity);
+                                                printcashieractivity.Print();
+                                            }
+                                            else
+                                            {
+                                                m_usrc_MultipleUsers.CashierState = eCashierState.OPENED;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            transaction_m_CashierActivity_Close.Rollback();
+                                            m_usrc_MultipleUsers.CashierState = eCashierState.OPENED;
                                         }
                                         break;
                                     case DialogResult.Yes:
-                                        if (m_usrc_MultipleUsers.m_CashierActivity.Close(m_LMOUser.Atom_WorkPeriod_ID))
+                                        if (m_usrc_MultipleUsers.m_CashierActivity.Close(m_LMOUser.Atom_WorkPeriod_ID, transaction_m_CashierActivity_Close))
                                         {
                                             //Do Print
-                                            m_usrc_MultipleUsers.CashierState = eCashierState.CLOSED;
+                                            if (transaction_m_CashierActivity_Close.Commit())
+                                            {
+                                                m_usrc_MultipleUsers.CashierState = eCashierState.CLOSED;
+                                            }
+                                            else
+                                            {
+                                                m_usrc_MultipleUsers.CashierState = eCashierState.OPENED;
+                                            }
                                         }
+                                        else
+                                        {
+                                            transaction_m_CashierActivity_Close.Rollback();
+                                            m_usrc_MultipleUsers.CashierState = eCashierState.OPENED;
+                                        }
+
                                         break;
                                     case DialogResult.No:
                                         break;
@@ -234,12 +278,17 @@ namespace LoginControl
             lctrl.IdleCtrl.TimerCounter_Start();
         }
 
-        internal void DoLogout()
+        internal bool DoLogout(Transaction transaction)
         {
-            if (LoginControl.LoginCtrl.Logout(m_LMOUser.Atom_WorkPeriod_ID))
+            if (LoginControl.LoginCtrl.Logout(m_LMOUser.Atom_WorkPeriod_ID, transaction))
             {
                 m_LMOUser.LoggedIn = false;
                 lctrl.Trigger_EventUserLoggedOut(m_LMOUser);
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

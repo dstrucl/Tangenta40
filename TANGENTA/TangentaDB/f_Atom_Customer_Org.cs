@@ -19,7 +19,7 @@ namespace TangentaDB
 {
     public static class f_Atom_Customer_Org
     {
-        public static bool Get(ID Customer_Org_ID, ref ID Atom_Customer_Org_ID)
+        public static bool Get(ID Customer_Org_ID, ref ID Atom_Customer_Org_ID, Transaction transaction)
         {
             DataTable dt = new DataTable();
             string sql = @"select orgd.Organisation_ID 
@@ -124,7 +124,8 @@ namespace TangentaDB
                                                             Image_Data_v,
                                                             Description_v,
                                                             ref Atom_Organisation_ID,
-                                                            ref Atom_OrganisationData_ID))
+                                                            ref Atom_OrganisationData_ID,
+                                                            transaction))
                             {
                                 sql = "select ID from Atom_Customer_Org where Atom_Organisation_ID = " + Atom_Organisation_ID.ToString();
                                 dt.Clear();

@@ -10,7 +10,8 @@ namespace TangentaDB
 {
     public static class f_Notice
     {
-        public static bool Get(string NoticeText, ref ID Notice_ID)
+        public static bool Get(string NoticeText, ref ID Notice_ID,
+                               Transaction transaction)
         {
             string Err = null;
             string sql = null;
@@ -43,6 +44,10 @@ namespace TangentaDB
                 }
                 else
                 {
+                    if (!transaction.Get(DBSync.DBSync.Con))
+                    {
+                        return false;
+                    }
                     sql = @"insert into Notice (NoticeText) values (" + sval_NoticeText + ")";
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Notice_ID,  ref Err, "Notice"))
                     {

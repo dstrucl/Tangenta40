@@ -267,6 +267,7 @@ namespace Tangenta
 
         private void btn_Issue_Click(object sender, EventArgs e)
         {
+            Transaction transaction = new Transaction("DocInvoice_AddOn_btn_Issue_Click");
 
             if (m_AddOnDI.m_IssueDate == null)
             {
@@ -291,7 +292,7 @@ namespace Tangenta
             m_AddOnDI.m_NoticeText = this.usrc_Notice1.NoticeText;
             if (m_AddOnDI.Completed(ref ltMsg))
             {
-                if (m_AddOnDI.Set(m_usrc_AddOn.docM.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, ref ltMsg))
+                if (m_AddOnDI.Set(m_usrc_AddOn.docM.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, ref ltMsg, transaction))
                 {
                     if (Issue != null)
                     {

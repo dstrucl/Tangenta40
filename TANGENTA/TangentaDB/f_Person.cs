@@ -24,7 +24,9 @@ namespace TangentaDB
                                  DateTime_v DateOfBirth_v,
                                  string_v Tax_ID_v,
                                  string_v Registration_ID_v,
-                                 ref ID Person_ID)
+                                 ref ID Person_ID,
+                                 Transaction transaction
+                                 )
         {
             string Err = null;
             string Gender_condition = null;
@@ -153,6 +155,10 @@ namespace TangentaDB
                         }
                         else
                         {
+                            if (!transaction.Get(DBSync.DBSync.Con))
+                            {
+                                return false;
+                            }
                             string sql_insert = @" insert into Person  (Gender,
                                                                     cFirstName_ID,
                                                                     cLastName_ID,

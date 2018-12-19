@@ -41,7 +41,8 @@ namespace TangentaDB
                                       string_v CardType_v,
                                       string_v Image_Hash_v,
                                       byte_array_v Image_Data_v,
-                                      ref ID Atom_Person_ID)
+                                      ref ID Atom_Person_ID,
+                                      Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string Gender_cond = null;
@@ -52,7 +53,7 @@ namespace TangentaDB
             }
 
             ID xAtom_cFirstName_ID = null;
-            if (!fs.Get_string_table_ID("Atom_cFirstName", "FirstName", FirstName_v, ref xAtom_cFirstName_ID))
+            if (!fs.Get_string_table_ID("Atom_cFirstName", "FirstName", FirstName_v, ref xAtom_cFirstName_ID, transaction))
             {
                 return false;
             }
@@ -64,7 +65,7 @@ namespace TangentaDB
             }
 
             ID xAtom_cLastName_ID = null;
-            if (!fs.Get_string_table_ID("Atom_cLastName", "LastName", LastName_v, ref xAtom_cLastName_ID))
+            if (!fs.Get_string_table_ID("Atom_cLastName", "LastName", LastName_v, ref xAtom_cLastName_ID, transaction))
             {
                 return false;
             }
@@ -98,7 +99,7 @@ namespace TangentaDB
 
 
             ID xAtom_cGsmNumber_Person_ID = null;
-            if (!fs.Get_string_table_ID("Atom_cGsmNumber_Person", "GsmNumber", GsmNumber_v, ref xAtom_cGsmNumber_Person_ID))
+            if (!fs.Get_string_table_ID("Atom_cGsmNumber_Person", "GsmNumber", GsmNumber_v, ref xAtom_cGsmNumber_Person_ID, transaction))
             {
                 return false;
 
@@ -111,7 +112,7 @@ namespace TangentaDB
             }
 
             ID xAtom_cPhoneNumber_Person_ID = null;
-            if (!fs.Get_string_table_ID("Atom_cPhoneNumber_Person", "PhoneNumber", PhoneNumber_v, ref xAtom_cPhoneNumber_Person_ID))
+            if (!fs.Get_string_table_ID("Atom_cPhoneNumber_Person", "PhoneNumber", PhoneNumber_v, ref xAtom_cPhoneNumber_Person_ID, transaction))
             {
                 return false;
 
@@ -124,7 +125,7 @@ namespace TangentaDB
             }
 
             ID xAtom_cEmail_Person_ID = null;
-            if (!fs.Get_string_table_ID("Atom_cEmail_Person", "Email", Email_v, ref xAtom_cEmail_Person_ID))
+            if (!fs.Get_string_table_ID("Atom_cEmail_Person", "Email", Email_v, ref xAtom_cEmail_Person_ID, transaction))
             {
                 return false;
 
@@ -146,7 +147,8 @@ namespace TangentaDB
                                             Country_ISO_3166_a3,
                                             Country_ISO_3166_num,
                                             State_v,
-                                            ref xAtom_cAddress_Person_ID
+                                            ref xAtom_cAddress_Person_ID,
+                                            transaction
                                             ))
             {
                 return false;
@@ -167,7 +169,7 @@ namespace TangentaDB
 
 
             ID xAtom_cCardType_Person_ID = null;
-            if (!fs.Get_string_table_ID("Atom_cCardType_Person", "CardType", CardType_v, ref xAtom_cCardType_Person_ID))
+            if (!fs.Get_string_table_ID("Atom_cCardType_Person", "CardType", CardType_v, ref xAtom_cCardType_Person_ID, transaction))
             {
                 return false;
 
@@ -181,7 +183,7 @@ namespace TangentaDB
             }
 
             ID xAtom_PersonImage_ID = null;
-            if (!fs.Get_Atom_PersonImage_ID(Image_Hash_v, Image_Data_v, ref xAtom_PersonImage_ID))
+            if (!fs.Get_Atom_PersonImage_ID(Image_Hash_v, Image_Data_v, ref xAtom_PersonImage_ID, transaction))
             {
                 return false;
             }
@@ -222,6 +224,10 @@ namespace TangentaDB
                 }
                 else
                 {
+                    if (!transaction.Get(DBSync.DBSync.Con))
+                    {
+                        return false;
+                    }
                     sql = @"insert into Atom_Person (Gender,
                                                     Atom_cFirstName_ID,
                                                     Atom_cLastName_ID,

@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_Atom_cCity_Person
     {
-        public static bool Get(ID cCity_Person_ID, ref ID Atom_cCity_Person_ID)
+        public static bool Get(ID cCity_Person_ID, ref ID Atom_cCity_Person_ID, Transaction transaction)
         {
             string Err = null;
             string sql = @"select City from cCity_Person where ID = " + cCity_Person_ID.ToString();
@@ -64,6 +64,10 @@ namespace TangentaDB
                             }
                             else
                             {
+                                if (!transaction.Get(DBSync.DBSync.Con))
+                                {
+                                    return false;
+                                }
                                 sql = @"insert into Atom_cCity_Person (City) values (" + sval_City + ")";
                                 if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_cCity_Person_ID,  ref Err, "Atom_cCity_Person"))
                                 {
@@ -101,7 +105,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(string_v city_v, ref ID atom_cCity_Person_ID)
+        internal static bool Get(string_v city_v, ref ID atom_cCity_Person_ID, Transaction transaction)
         {
             if (city_v != null)
             {
@@ -125,6 +129,10 @@ namespace TangentaDB
                     }
                     else
                     {
+                        if (!transaction.Get(DBSync.DBSync.Con))
+                        {
+                            return false;
+                        }
                         sql = @"insert into Atom_cCity_Person (City) values (@par)";
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref atom_cCity_Person_ID, ref Err, "Atom_cCity_Person"))
                         {

@@ -178,7 +178,8 @@ namespace TangentaDB
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
-
+                const string TRANSACTION_doc_page_type_definitions_Set = "doc_page_type_definitions_Set";
+                string transaction__doc_page_type_definitions_Set_id = null;
                 foreach (doc_page_type dpt in doc_page_type_list)
                 {
                     if (Get(dpt, dt))
@@ -187,7 +188,25 @@ namespace TangentaDB
                     }
                     else
                     {
-                        Set(dpt);
+                        if (transaction__doc_page_type_definitions_Set_id==null)
+                        {
+                            if (!DBSync.DBSync.DB_for_Tangenta.BeginTransaction(TRANSACTION_doc_page_type_definitions_Set, ref transaction__doc_page_type_definitions_Set_id))
+                            {
+                                return false;
+                            }
+                        }
+                        if (!Set(dpt))
+                        {
+                            DBSync.DBSync.DB_for_Tangenta.RollbackTransaction(transaction__doc_page_type_definitions_Set_id);
+                            return false;
+                        }
+                    }
+                }
+                if (transaction__doc_page_type_definitions_Set_id != null)
+                {
+                    if (!DBSync.DBSync.DB_for_Tangenta.CommitTransaction(transaction__doc_page_type_definitions_Set_id))
+                    {
+                        return false;
                     }
                 }
                 return true;

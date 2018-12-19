@@ -400,7 +400,7 @@ namespace LoginControl
             }
         }
 
-        internal void SetData(DataRow dr)
+        internal bool SetData(DataRow dr, Transaction transaction)
         {
             m_UserName = tf._set_string(dr["UserName"]);
             LoginUsers_ID = tf.set_ID(dr["ID"]);
@@ -438,12 +438,14 @@ namespace LoginControl
             if (!ID.Validate(xmyOrganisation_Person_ID))
             {
                 LogFile.Error.Show("ERROR:LoginControl:usrc_LoginOfMyOrguser:SetData:xmyOrganisation_Person_ID is not valid.");
+                return false;
             }
 
             string_v office_name_v = null;
-            if (!f_Atom_myOrganisation_Person.Get(xmyOrganisation_Person_ID, ref Atom_myOrganisation_Person_ID, ref office_name_v))
+            if (!f_Atom_myOrganisation_Person.Get(xmyOrganisation_Person_ID, ref Atom_myOrganisation_Person_ID, ref office_name_v, transaction))
             {
                 LogFile.Error.Show("ERROR:LoginControl:usrc_LoginOfMyOrguser:SetData:_Atom_myOrganisation_Person.Get failed!");
+                return false;
             }
             byte_array_v imagebytes_v = tf.set_byte_array(dr["PersonData_$_perimg_$$Image_Data"]);
             PIN_v = tf.set_int(dr["PersonData_$$PIN"]);
@@ -464,6 +466,7 @@ namespace LoginControl
             }
             LoginSession_ID = null;
             LoggedIn = AWP_func.IsUserLoggedIn(LoginUsers_ID, ref LoginSession_ID);
+            return true;
         }
 
         public bool GetLast_Doc_ID()

@@ -323,12 +323,12 @@ namespace TangentaDB
                                                           myOrg_Office_NOT_DEFINED,
                                                           ERROR };
 
-        internal eGet_m_myOrg_Person_SingleUser_Result Get_m_myOrg_Person_SingleUser()
+        internal eGet_m_myOrg_Person_SingleUser_Result Get_m_myOrg_Person_SingleUser(Transaction transaction)
         {
             string Err = null;
             ID xElectronicDevice_ID = null;
             ID xAtom_Computer_ID = null;
-            if (f_ElectronicDevice.Get(this.ID, ref xElectronicDevice_ID,ref xAtom_Computer_ID))
+            if (f_ElectronicDevice.Get(this.ID, ref xElectronicDevice_ID,ref xAtom_Computer_ID, transaction))
             {
                 if (ID.Validate(xElectronicDevice_ID))
                 {

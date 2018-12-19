@@ -317,12 +317,13 @@ namespace TangentaPrint
                                     int BaseCurrencyDecimalPlaces,
                                     GlobalData.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time,
                                     Form_PrintDocument.delegate_Door_OpenIfUserIsAdministrator xDoor_OpenIfUserIsAdministrator,
-                                    NavigationButtons.Navigation nav)
+                                    NavigationButtons.Navigation nav,
+                                    Transaction transaction)
         {
 
             if (Printer_is_ESC_POS())
             {
-                Print_Receipt_ESC_POS(xAtom_WorkPeriod_ID,xInvoiceData, FursD_BussinesPremiseID,ElectronicDevice_ID, BaseCurrencyDecimalPlaces, PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                Print_Receipt_ESC_POS(xAtom_WorkPeriod_ID,xInvoiceData, FursD_BussinesPremiseID,ElectronicDevice_ID, BaseCurrencyDecimalPlaces, PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time, transaction);
             }
             else
             {
@@ -945,7 +946,8 @@ namespace TangentaPrint
                                             string FursD_BussinesPremiseID,
                                             string ElectronicDevice_ID,
                                             int BaseCurrency_DecimalPlaces,
-                                            GlobalData.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+                                            GlobalData.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time,
+                                            Transaction transaction)
         {
 
 
@@ -1279,13 +1281,13 @@ namespace TangentaPrint
 
                 string s_journal_invoice_type = lng.s_journal_invoice_type_Print.s;
                 string s_journal_invoice_description = PrinterName;
-                f_Journal_DocInvoice.Write(xInvoiceData.DocInvoice_ID, xAtom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_docinvoice_id);
+                f_Journal_DocInvoice.Write(xInvoiceData.DocInvoice_ID, xAtom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_docinvoice_id, transaction);
             }
             catch (Exception ex)
             {
                 string s_journal_invoice_type = lng.s_journal_invoice_type_PrintError.s + PrinterName + "\nErr=" + ex.Message;
                 string s_journal_invoice_description = PrinterName;
-                f_Journal_DocInvoice.Write(xInvoiceData.DocInvoice_ID, xAtom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_docinvoice_id);
+                f_Journal_DocInvoice.Write(xInvoiceData.DocInvoice_ID, xAtom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_docinvoice_id, transaction);
             }
         }
 

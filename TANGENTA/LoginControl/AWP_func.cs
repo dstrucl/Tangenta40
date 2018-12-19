@@ -586,7 +586,7 @@ SELECT
             }
         }
 
-        internal static bool WriteLoginSession(ID loginUsers_ID, ID atom_WorkPeriod_ID, ref ID loginSession_ID)
+        internal static bool WriteLoginSession(ID loginUsers_ID, ID atom_WorkPeriod_ID, ref ID loginSession_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_LoginUsers_ID = "@par_LoginUsers_ID";
@@ -595,6 +595,10 @@ SELECT
             string spar_Atom_WorkPeriod_ID = "@par_Atom_WorkPeriod_ID";
             SQL_Parameter par_Atom_WorkPeriod_ID = new SQL_Parameter(spar_Atom_WorkPeriod_ID, false, atom_WorkPeriod_ID);
             lpar.Add(par_Atom_WorkPeriod_ID);
+            if (!transaction.Get(DBSync.DBSync.Con))
+            {
+                return false;
+            }
             string sql = "insert into LoginSession (LoginUsers_ID,Atom_WorkPeriod_ID)values(" + spar_LoginUsers_ID + "," + spar_Atom_WorkPeriod_ID + ")";
             string Err = null;
 

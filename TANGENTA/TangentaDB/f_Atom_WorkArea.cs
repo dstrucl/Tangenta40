@@ -17,7 +17,7 @@ namespace TangentaDB
 {
     public static class f_Atom_WorkArea
     {
-        public static bool Get(string Atom_WorkArea_Name,string Description,ref ID Atom_WorkArea_ID)
+        public static bool Get(string Atom_WorkArea_Name,string Description,ref ID Atom_WorkArea_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -73,6 +73,10 @@ namespace TangentaDB
                 }
                 else
                 {
+                    if (!transaction.Get(DBSync.DBSync.Con))
+                    {
+                        return false;
+                    }
                     sql = @"insert into Atom_WorkArea (Name,Description) values (" + sval_Atom_WorkArea_Name + "," + sval_Atom_WorkArea_Description + ")";
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_WorkArea_ID, ref Err, "Atom_WorkArea"))
                     {

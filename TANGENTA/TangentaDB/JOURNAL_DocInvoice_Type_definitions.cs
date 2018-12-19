@@ -49,19 +49,47 @@ namespace TangentaDB
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt,sql,ref Err))
             {
-
+                string transaction_Set_JournalTyp_id = null;
                 foreach (journaltype jrt in journaltype_list)
                 {
-                    if (Get(jrt,dt))
+                    if (Get(jrt, dt))
                     {
                         continue;
                     }
                     else
                     {
-                        Set(jrt);
+                        const string TRANSACTION_Set_JournalType = "Set_JournalType";
+                        if (transaction_Set_JournalTyp_id==null)
+                        {
+                            if (!DBSync.DBSync.DB_for_Tangenta.BeginTransaction(TRANSACTION_Set_JournalType, ref transaction_Set_JournalTyp_id))
+                            {
+                                return false;
+                            }
+                        }
+                        if (!Set(jrt))
+                        {
+                            DBSync.DBSync.DB_for_Tangenta.RollbackTransaction(transaction_Set_JournalTyp_id);
+                            return false;
+                        }
+                    }
+
+                }
+                if (transaction_Set_JournalTyp_id != null)
+                {
+                    if (DBSync.DBSync.DB_for_Tangenta.CommitTransaction(transaction_Set_JournalTyp_id))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+
+                        return false;
                     }
                 }
-                return true;
+                else
+                {
+                    return true;
+                }
             }
             else
             {

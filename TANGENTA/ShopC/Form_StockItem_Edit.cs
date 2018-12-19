@@ -92,13 +92,13 @@ namespace ShopC
                 if (m_tbl.TableName.ToLower().Equals("purchaseprice_item"))
                 {
                     string Err = null;
-                    m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,uctrln, PurchasePrice_Item_ID, true,ref Err);
+                    m_tbl.FillDataInputControl(DBSync.DBSync.Con,uctrln, PurchasePrice_Item_ID, true,ref Err);
                 }
             }
             else if (m_tbl.TableName.ToLower().Equals("item"))
             {
                 string Err = null;
-                m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, uctrln, m_Item_Data.Item_ID,true, ref Err);
+                m_tbl.FillDataInputControl(DBSync.DBSync.Con, uctrln, m_Item_Data.Item_ID,true, ref Err);
             }
         }
 

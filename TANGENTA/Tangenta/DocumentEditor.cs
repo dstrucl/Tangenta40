@@ -608,8 +608,19 @@ namespace Tangenta
                                 LogFile.Error.Show("ERROR:Tangenta:uscr_Invoice:btn_Issue_Click:Unknown doc type.");
                             }
 
-                            IssueDocument(pform,xdelegate_control_Printing_DocInvoice,xdelegate_DocInvoiceSaved, xdelegate_DocProformaInvoiceSaved);
-                            xdelegate_control_DoCurrent(m_ShopABC.m_CurrentDoc.Doc_ID);// DoCurrent(m_ShopABC.m_CurrentDoc.Doc_ID);
+                            Transaction transaction_DocumentEditor_IssueDocument = new Transaction("DocumentEditor_IssueDocument");
+                            if (IssueDocument(pform,xdelegate_control_Printing_DocInvoice,xdelegate_DocInvoiceSaved, xdelegate_DocProformaInvoiceSaved, transaction_DocumentEditor_IssueDocument))
+                            {
+                                if (!transaction_DocumentEditor_IssueDocument.Commit())
+                                {
+                                    return; 
+                                }
+                                xdelegate_control_DoCurrent(m_ShopABC.m_CurrentDoc.Doc_ID);// DoCurrent(m_ShopABC.m_CurrentDoc.Doc_ID);
+                            }
+                            else
+                            {
+                                transaction_DocumentEditor_IssueDocument.Rollback();
+                            }
                             return;
                         }
                         else
@@ -923,13 +934,14 @@ namespace Tangenta
         private bool IssueDocument(Form pform,
                                     delegate_control_Printing_DocInvoice xdelegate_control_Printing_DocInvoice,
                                     delegate_DocInvoiceSaved xdelegate_DocInvoiceSaved,
-                                    delegate_DocProformaInvoiceSaved xdelegate_DocProformaInvoiceSaved)
+                                    delegate_DocProformaInvoiceSaved xdelegate_DocProformaInvoiceSaved,
+                                    Transaction transaction)
         {
             //ProgramDiagnostic.Diagnostic.Enabled = true;
             //ProgramDiagnostic.Diagnostic.Init();
             //ProgramDiagnostic.Diagnostic.Clear();
             //ProgramDiagnostic.Diagnostic.Meassure("Before fs.UpdatePriceInDraft", "?");
-
+            
             if (fs.UpdatePriceInDraft(DocTyp, m_ShopABC.m_CurrentDoc.Doc_ID, GrossSum, TaxSum.Value,NetSum))
             {
                 if (DocM.IsDocInvoice)
@@ -938,7 +950,7 @@ namespace Tangenta
 
                     ID DocInvoice_ID = null;
                     // save doc Invoice 
-                    if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID, Program.CashierActivity, GlobalData.ElectronicDevice_Name, m_LMOUser.Atom_WorkPeriod_ID))
+                    if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID, Program.CashierActivity, GlobalData.ElectronicDevice_Name, m_LMOUser.Atom_WorkPeriod_ID, transaction))
                     {
 
                         m_ShopABC.m_CurrentDoc.Doc_ID = DocInvoice_ID;
@@ -952,7 +964,7 @@ namespace Tangenta
                                 )
                             {
                                 UniversalInvoice.Person xInvoiceAuthor = fs.GetInvoiceAuthor(m_LMOUser.Atom_myOrganisation_Person_ID);
-                                this.SendInvoice(pform,GrossSum, TaxSum, xInvoiceAuthor);
+                                this.SendInvoice(pform,GrossSum, TaxSum, xInvoiceAuthor, transaction);
                             }
                         }
 
@@ -977,7 +989,7 @@ namespace Tangenta
                 {
                     ID DocInvoice_ID = null;
                     // save doc Invoice 
-                    if (m_InvoiceData.SaveDocProformaInvoice(ref DocInvoice_ID, GlobalData.ElectronicDevice_Name, m_LMOUser.Atom_WorkPeriod_ID))
+                    if (m_InvoiceData.SaveDocProformaInvoice(ref DocInvoice_ID, GlobalData.ElectronicDevice_Name, m_LMOUser.Atom_WorkPeriod_ID,transaction))
                     {
                         m_ShopABC.m_CurrentDoc.Doc_ID = DocInvoice_ID;
                         // read saved doc Invoice again !
@@ -1009,7 +1021,7 @@ namespace Tangenta
             }
         }
 
-        private void SendInvoice(Form pform,decimal dGrossSum, StaticLib.TaxSum xTaxSum, UniversalInvoice.Person xInvoiceAuthor)
+        private void SendInvoice(Form pform,decimal dGrossSum, StaticLib.TaxSum xTaxSum, UniversalInvoice.Person xInvoiceAuthor, Transaction transaction)
         {
             //if (m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v != null)
             //{
@@ -1046,7 +1058,7 @@ namespace Tangenta
                     m_InvoiceData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(furs_UniqeInvID);
                     m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v = new string_v(furs_BarCodeValue);
                     m_InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = img_QR;
-                    m_InvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(m_InvoiceData.DocInvoice_ID, Program.FVI_SLO1.FursTESTEnvironment);
+                    m_InvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(m_InvoiceData.DocInvoice_ID, Program.FVI_SLO1.FursTESTEnvironment, transaction);
                     break;
 
                 case FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.ERROR:
@@ -1120,6 +1132,7 @@ namespace Tangenta
         {
             ID DocInvoice_ID = null;
             string Err = null;
+            Transaction transaction_SetNewInvoiceDraft = new Transaction("SetNewInvoiceDraft");
             if (Program.OperationMode.MultiUser)
             {
                 myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(xLMOUser.myOrganisation_Person_ID);
@@ -1134,13 +1147,14 @@ namespace Tangenta
             ID xAtom_WorkArea_ID = null;
             if (workArea != null)
             {
-                if (!f_Atom_WorkArea.Get(workArea.Name, workArea.Description, ref xAtom_WorkArea_ID))
+                if (!f_Atom_WorkArea.Get(workArea.Name, workArea.Description, ref xAtom_WorkArea_ID, transaction_SetNewInvoiceDraft))
                 {
+                    transaction_SetNewInvoiceDraft.Rollback();
                     return false;
                 }
             }
 
-            if (m_ShopABC.SetNewDraft_DocInvoice(m_LMOUser.Atom_WorkPeriod_ID, FinancialYear, xcurrency, xAtom_Currency_ID, pform, ref DocInvoice_ID, myOrg.m_myOrg_Office.m_myOrg_Person.ID, xAtom_WorkArea_ID, DocTyp, GlobalData.ElectronicDevice_Name, ref Err))
+            if (m_ShopABC.SetNewDraft_DocInvoice(m_LMOUser.Atom_WorkPeriod_ID, FinancialYear, xcurrency, xAtom_Currency_ID, pform, ref DocInvoice_ID, myOrg.m_myOrg_Office.m_myOrg_Person.ID, xAtom_WorkArea_ID, DocTyp, GlobalData.ElectronicDevice_Name, ref Err, transaction_SetNewInvoiceDraft))
             {
                 if (ID.Validate(m_ShopABC.m_CurrentDoc.Doc_ID))
                 {
@@ -1164,13 +1178,26 @@ namespace Tangenta
                                             )
         {
             ID Atom_Customer_Person_ID = null;
-            if (m_ShopABC.m_CurrentDoc.Update_Customer_Person(DocTyp, Customer_Person_ID, ref Atom_Customer_Person_ID))
+            Transaction transaction_Customer_Person_Changed = new Transaction("Customer_Person_Changed");
+            if (m_ShopABC.m_CurrentDoc.Update_Customer_Person(DocTyp, Customer_Person_ID, ref Atom_Customer_Person_ID, transaction_Customer_Person_Changed))
             {
                 if (ID.Validate(Atom_Customer_Person_ID))
                 {
+                    if (!transaction_Customer_Person_Changed.Commit())
+                    {
+                        return;
+                    }
                     xdelegate_control_usrc_Customer_Show_Customer_Person(m_ShopABC.m_CurrentDoc);// usrc_Customer.Show_Customer_Person(m_ShopABC.m_CurrentDoc);
                     xdelegate_Customer_Person_Changed(Customer_Person_ID);
                 }
+                else
+                {
+                    transaction_Customer_Person_Changed.Rollback();
+                }
+            }
+            else
+            {
+                transaction_Customer_Person_Changed.Rollback();
             }
         }
 
@@ -1214,7 +1241,8 @@ namespace Tangenta
 
                                     ID Storno_DocInvoice_ID = null;
                                     DateTime stornoInvoiceIssueDateTime = new DateTime();
-                                    if (m_ShopABC.m_CurrentDoc.Storno(m_LMOUser.Atom_WorkPeriod_ID, ref Storno_DocInvoice_ID, true, GlobalData.ElectronicDevice_Name, frm_storno_dlg.m_Reason, ref stornoInvoiceIssueDateTime))
+                                    Transaction transaction_Storno = new Transaction("Storno");
+                                    if (m_ShopABC.m_CurrentDoc.Storno(m_LMOUser.Atom_WorkPeriod_ID, ref Storno_DocInvoice_ID, true, GlobalData.ElectronicDevice_Name, frm_storno_dlg.m_Reason, ref stornoInvoiceIssueDateTime, transaction_Storno))
                                     {
 
                                         if (Program.b_FVI_SLO)
@@ -1247,7 +1275,10 @@ namespace Tangenta
                                                     xInvoiceData.AddOnDI.m_FURS.FURS_ZOI_v = new string_v(furs_UniqeMsgID);
                                                     xInvoiceData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(furs_UniqeInvID);
                                                     xInvoiceData.AddOnDI.m_FURS.FURS_QR_v = new string_v(furs_BarCodeValue);
-                                                    xInvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(xInvoiceData.DocInvoice_ID, Program.FVI_SLO1.FursTESTEnvironment);
+                                                    if (xInvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(xInvoiceData.DocInvoice_ID, Program.FVI_SLO1.FursTESTEnvironment,transaction_Storno))
+                                                    {
+
+                                                    }
                                                 }
                                                 else
                                                 {
@@ -1286,16 +1317,28 @@ namespace Tangenta
                                                         )
         {
             ID Atom_Customer_Org_ID = null;
-            if (m_ShopABC.m_CurrentDoc.Update_Customer_Org(DocTyp, Customer_Org_ID, ref Atom_Customer_Org_ID))
+            Transaction transaction_Customer_Org_Changed = new Transaction("Customer_Org_Changed");
+            if (m_ShopABC.m_CurrentDoc.Update_Customer_Org(DocTyp, Customer_Org_ID, ref Atom_Customer_Org_ID, transaction_Customer_Org_Changed))
             {
                 m_ShopABC.m_CurrentDoc.Atom_Customer_Org_ID = Atom_Customer_Org_ID;
                 if (ID.Validate(Atom_Customer_Org_ID))
                 {
+                    if (!transaction_Customer_Org_Changed.Commit())
+                    {
+                        return;
+                    }
                     xdelegate_control_usrc_Customer_Show_Customer_Organisation(m_ShopABC.m_CurrentDoc);
                     //usrc_Customer.Show_Customer_Org(m_ShopABC.m_CurrentDoc);
                     xdelegate_Customer_Org_Changed(Customer_Org_ID);
                 }
-
+                else
+                {
+                    transaction_Customer_Org_Changed.Rollback();
+                }
+            }
+            else
+            {
+                transaction_Customer_Org_Changed.Rollback();
             }
         }
     }

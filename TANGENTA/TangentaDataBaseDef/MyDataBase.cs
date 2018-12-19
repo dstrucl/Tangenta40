@@ -118,12 +118,27 @@ namespace TangentaDataBaseDef
             return this.m_DBTables.Create_VIEWs();
         }
 
+        public bool BeginTransaction(string transaction_name, ref string transaction_id)
+        {
+            return m_DBTables.m_con.BeginTransaction(transaction_name, ref transaction_id);
+        }
+
+        public bool CommitTransaction(string transaction_id)
+        {
+            return m_DBTables.m_con.CommitTransaction(transaction_id);
+        }
+
+        public bool RollbackTransaction(string transaction_id)
+        {
+            return m_DBTables.m_con.RollbackTransaction(transaction_id);
+        }
+        
         //private void Define_Image_SQL_Database_Tables()
-        //{
-        //    SQLTable tbl_DBm_Image_Name = new SQLTable((Object)new DBm_Image_Name(), Column.Flags.FILTER_AND_UNIQUE, lng.lngt_DBm_Image_Name);
-        //    tbl_DBm_Image_Name.AddColumn((Object)mt_DB.m_DBm_Image_Name.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new string[] { "ID", "ID" });
-        //    tbl_DBm_Image_Name.AddColumn((Object)mt_DB.m_DBm_Image_Name.Image_Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox, new string[] { "Image Name", "Ime slike" });
-        //    m_DBTables.items.Add(tbl_DBm_Image_Name);
+             //{
+             //    SQLTable tbl_DBm_Image_Name = new SQLTable((Object)new DBm_Image_Name(), Column.Flags.FILTER_AND_UNIQUE, lng.lngt_DBm_Image_Name);
+             //    tbl_DBm_Image_Name.AddColumn((Object)mt_DB.m_DBm_Image_Name.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new string[] { "ID", "ID" });
+             //    tbl_DBm_Image_Name.AddColumn((Object)mt_DB.m_DBm_Image_Name.Image_Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox, new string[] { "Image Name", "Ime slike" });
+             //    m_DBTables.items.Add(tbl_DBm_Image_Name);
 
         //    SQLTable tbl_DBm_Image_Author = new SQLTable((Object)new DBm_Image_Author(), Column.Flags.FILTER_AND_UNIQUE, lng.lngt_DBm_Image_Author);
         //    tbl_DBm_Image_Author.AddColumn((Object)mt_DB.m_DBm_Image_Author.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new string[] { "ID", "ID" });

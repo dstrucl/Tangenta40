@@ -51,12 +51,21 @@ namespace Tangenta
             }
             else
             {
-                if (frm.GetWorkPeriod(m_startup, null, m_startup.nav, ref Err))
+                Transaction transaction_Startup_13_Login = new Transaction("Startup_13_Login");
+                if (frm.GetWorkPeriod(m_startup, null, m_startup.nav, transaction_Startup_13_Login, ref Err))
                 {
-                    return Startup_check_proc_Result.CHECK_OK;
+                    if (transaction_Startup_13_Login.Commit())
+                    {
+                        return Startup_check_proc_Result.CHECK_OK;
+                    }
+                    else
+                    {
+                        return Startup_check_proc_Result.CHECK_ERROR;
+                    }
                 }
                 else
                 {
+                    transaction_Startup_13_Login.Rollback();
                     return Startup_check_proc_Result.CHECK_ERROR;
                 }
             }
@@ -66,7 +75,7 @@ namespace Tangenta
         {
             bool bCancel = false;
             frm.loginControl1.Init(frm,LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
-                                            DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,
+                                            DBSync.DBSync.Con,
                                             null,
                                             LanguageControl.DynSettings.LanguageID,
                                             false,

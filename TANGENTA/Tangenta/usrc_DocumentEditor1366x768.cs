@@ -850,7 +850,7 @@ namespace Tangenta
 
 
 
-        private bool IssueDocument()
+        private bool IssueDocument(Transaction transaction)
         {
             //ProgramDiagnostic.Diagnostic.Enabled = true;
             //ProgramDiagnostic.Diagnostic.Init();
@@ -865,7 +865,7 @@ namespace Tangenta
                   
                     ID DocInvoice_ID = null;
                     // save doc Invoice 
-                    if (DocE.m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID,Program.CashierActivity,GlobalData.ElectronicDevice_Name, DocE.m_LMOUser.Atom_WorkPeriod_ID))
+                    if (DocE.m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID,Program.CashierActivity,GlobalData.ElectronicDevice_Name, DocE.m_LMOUser.Atom_WorkPeriod_ID, transaction))
                     {
 
                         DocE.m_ShopABC.m_CurrentDoc.Doc_ID = DocInvoice_ID;
@@ -879,7 +879,7 @@ namespace Tangenta
                                 )
                             {
                                 UniversalInvoice.Person xInvoiceAuthor = fs.GetInvoiceAuthor(DocE.m_LMOUser.Atom_myOrganisation_Person_ID);
-                                this.SendInvoice(DocE.GrossSum, DocE.TaxSum, xInvoiceAuthor);
+                                this.SendInvoice(DocE.GrossSum, DocE.TaxSum, xInvoiceAuthor, transaction);
                             }
                         }
 
@@ -908,7 +908,7 @@ namespace Tangenta
                 {
                     ID DocInvoice_ID = null;
                     // save doc Invoice 
-                    if (DocE.m_InvoiceData.SaveDocProformaInvoice(ref DocInvoice_ID,GlobalData.ElectronicDevice_Name, DocE.m_LMOUser.Atom_WorkPeriod_ID))
+                    if (DocE.m_InvoiceData.SaveDocProformaInvoice(ref DocInvoice_ID,GlobalData.ElectronicDevice_Name, DocE.m_LMOUser.Atom_WorkPeriod_ID, transaction))
                     {
                         DocE.m_ShopABC.m_CurrentDoc.Doc_ID = DocInvoice_ID;
                         // read saved doc Invoice again !
@@ -945,7 +945,7 @@ namespace Tangenta
             }
         }
 
-        private void SendInvoice(decimal dGrossSum,StaticLib.TaxSum xTaxSum,UniversalInvoice.Person xInvoiceAuthor)
+        private void SendInvoice(decimal dGrossSum,StaticLib.TaxSum xTaxSum,UniversalInvoice.Person xInvoiceAuthor, Transaction transaction)
         {
             //if (m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v != null)
             //{
@@ -982,7 +982,7 @@ namespace Tangenta
                     DocE.m_InvoiceData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(furs_UniqeInvID);
                     DocE.m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v = new string_v(furs_BarCodeValue);
                     DocE.m_InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = img_QR;
-                    DocE.m_InvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(DocE.m_InvoiceData.DocInvoice_ID,Program.FVI_SLO1.FursTESTEnvironment);
+                    DocE.m_InvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(DocE.m_InvoiceData.DocInvoice_ID,Program.FVI_SLO1.FursTESTEnvironment, transaction);
                     break;
 
                 case FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.ERROR:

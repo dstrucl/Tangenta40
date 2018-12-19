@@ -19,7 +19,8 @@ namespace TangentaDB
     {
         public static bool Get(
                                  ID Office_ID,
-                                 ref ID Atom_Office_ID)
+                                 ref ID Atom_Office_ID,
+                                 Transaction transaction)
         {
 
             string Office_Name = null;
@@ -77,7 +78,7 @@ namespace TangentaDB
                     }
 
                     ID Atom_myOrganisation_ID = null;
-                    if (f_Atom_myOrganisation.Get(myOrganisation_ID, ref Atom_myOrganisation_ID))
+                    if (f_Atom_myOrganisation.Get(myOrganisation_ID, ref Atom_myOrganisation_ID, transaction))
                     {
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -145,6 +146,10 @@ namespace TangentaDB
                             }
                             else
                             {
+                                if (!transaction.Get(DBSync.DBSync.Con))
+                                {
+                                    return false;
+                                }
                                 sql = @"insert into Atom_Office (Atom_myOrganisation_ID,
                                                                     Name,
                                                                     ShortName) values 

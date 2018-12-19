@@ -343,13 +343,21 @@ namespace Tangenta
             ltext ltMsg = null;
             if (m_AddOnDPI.Completed(ref ltMsg))
             {
-                if (m_AddOnDPI.Set(m_usrc_AddOn.docM.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, ref ltMsg))
+                Transaction transaction_m_AddOnDPI_Set = new Transaction("m_AddOnDPI_Set");
+                if (m_AddOnDPI.Set(m_usrc_AddOn.docM.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, ref ltMsg, transaction_m_AddOnDPI_Set))
                 {
-
+                    if (!transaction_m_AddOnDPI_Set.Commit())
+                    {
+                        return;
+                    }
                     if (OK != null)
                     {
                         OK();
                     }
+                }
+                else
+                {
+                    transaction_m_AddOnDPI_Set.Rollback();
                 }
             }
             else

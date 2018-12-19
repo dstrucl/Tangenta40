@@ -1098,8 +1098,20 @@ namespace Tangenta
 
             if (Program.b_FVI_SLO)
             {
-                if (f_Atom_FVI_SLO_RealEstateBP.Get_Atom_FVI_SLO_RealEstateBP_ID(m_Form_Document, ref myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.Atom_FVI_SLO_RealEstate_ID, 1))
+                Transaction transaction_Get_Atom_FVI_SLO_RealEstateBP_ID_1 = new Transaction("Get_Atom_FVI_SLO_RealEstateBP_ID_1");
+
+                if (f_Atom_FVI_SLO_RealEstateBP.Get_Atom_FVI_SLO_RealEstateBP_ID(m_Form_Document, ref myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.Atom_FVI_SLO_RealEstate_ID, 1, transaction_Get_Atom_FVI_SLO_RealEstateBP_ID_1))
                 {
+                    if (!transaction_Get_Atom_FVI_SLO_RealEstateBP_ID_1.Commit())
+                    {
+                        return false;
+                    }
+
+                }
+                else
+                {
+                    transaction_Get_Atom_FVI_SLO_RealEstateBP_ID_1.Rollback();
+                    return false;
                 }
             }
 

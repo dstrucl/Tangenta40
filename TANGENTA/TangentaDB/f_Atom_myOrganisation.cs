@@ -19,7 +19,7 @@ namespace TangentaDB
 {
     public static class f_Atom_myOrganisation
     {
-        public static bool Get(ID myOrganisation_ID, ref ID Atom_myOrganisation_ID)
+        public static bool Get(ID myOrganisation_ID, ref ID Atom_myOrganisation_ID, Transaction transaction)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -101,7 +101,8 @@ namespace TangentaDB
                                               myOrg.Logo_Hash_v,
                                               myOrg.Logo_Image_Data_v,
                                               myOrg.Logo_Description_v,
-                                              ref xAtom_myOrganisation_iD))
+                                              ref xAtom_myOrganisation_iD,
+                                              transaction))
                     {
                         return false;
                     }
@@ -156,7 +157,8 @@ namespace TangentaDB
                                 string_v Logo_Hash_v,
                                 byte_array_v Logo_Image_Data_v,
                                 string_v Logo_Description_v,
-                                ref ID iD)
+                                ref ID iD,
+                                Transaction transaction)
         {
             string Err = null;
             ID Atom_Organisation_ID = null;
@@ -179,7 +181,8 @@ namespace TangentaDB
                                 Logo_Image_Data_v,
                                 Logo_Description_v,
                                 ref Atom_Organisation_ID,
-                                ref Atom_OrganisationData_ID
+                                ref Atom_OrganisationData_ID,
+                                transaction
                                 ))
             {
                 DataTable dt = new DataTable();

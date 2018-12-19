@@ -360,12 +360,13 @@ namespace TangentaDB
                                          DateTime_v dtEnd_v,
                                          ref ID xAtom_myOrganisation_Person_ID,
                                          ref ID xAtom_WorkPeriod_ID,
-                                         ref string Err)
+                                         ref string Err,
+                                         Transaction transaction)
         {
             string_v office_name = null;
-            if (f_Atom_myOrganisation_Person.Get(myOrganisation_Person_ID, ref xAtom_myOrganisation_Person_ID, ref office_name))
+            if (f_Atom_myOrganisation_Person.Get(myOrganisation_Person_ID, ref xAtom_myOrganisation_Person_ID, ref office_name, transaction))
             {
-                if (f_Atom_ElectronicDevice.Get(myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name, myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Description, ref GlobalData.Atom_ElectronicDevice_ID))
+                if (f_Atom_ElectronicDevice.Get(myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name, myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Description, ref GlobalData.Atom_ElectronicDevice_ID, transaction))
                 {
                     string Atom_WorkPeriod_Type_Description = x_Atom_WorkPeriod_Type_Description;
                     if (Atom_WorkPeriod_Type_Name.Equals(f_Atom_WorkPeriod.sWorkPeriod_DB_ver_1_04))
@@ -524,7 +525,20 @@ namespace TangentaDB
             }
             else
             {
-                return termsOfPayment_definitions.InsertDefault();
+                Transaction transaction_termsOfPayment_definitions_InsertDefault = new Transaction("termsOfPayment_definitions_InsertDefault");
+                if(termsOfPayment_definitions.InsertDefault(transaction_termsOfPayment_definitions_InsertDefault))
+                {
+                    if (!transaction_termsOfPayment_definitions_InsertDefault.Commit())
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                else
+                {
+                    transaction_termsOfPayment_definitions_InsertDefault.Rollback();
+                    return false;
+                }
             }
         }
 

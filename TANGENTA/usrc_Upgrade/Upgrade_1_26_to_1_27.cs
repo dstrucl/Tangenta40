@@ -245,6 +245,12 @@ namespace UpgradeDB
 
         internal static object UpgradeDB_1_26_to_1_27(object obj, ref string Err)
         {
+
+            Transaction transaction_UpgradeDB_1_26_to_1_27 = new Transaction("UpgradeDB_1_26_to_1_27");
+            if (!transaction_UpgradeDB_1_26_to_1_27.Get(DBSync.DBSync.Con))
+            {
+                return false;
+            }
             cashierActivityList.Clear();
             if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
@@ -301,7 +307,7 @@ namespace UpgradeDB
             }
         }
 
-        private static bool correct_vilabella_atomWorkPeriodsBug()
+        private static bool correct_vilabella_atomWorkPeriodsBug(Transaction transaction)
         {
             if (DBSync.DBSync.DataBase.Contains("Bella") && (DBSync.DBSync.DataBase.Contains("Vil")))
             {
@@ -343,6 +349,10 @@ namespace UpgradeDB
                                         string spar_Logout = "@spar_LogoutTime";
                                         SQL_Parameter par_Logout = new SQL_Parameter(spar_Logout, SQL_Parameter.eSQL_Parameter.Datetime, false, dtcorr);
                                         lpar.Add(par_Logout);
+                                        if (!transaction.Get(DBSync.DBSync.Con))
+                                        {
+                                            return false;
+                                        }
                                         sql = "update Atom_WorkPeriod set LogoutTime = " + spar_Logout + " where ID = " + id.ToString();
                                         if (!DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar,ref Err))
                                         {
@@ -369,7 +379,7 @@ namespace UpgradeDB
             }
         }
 
-        private static bool set_stocktake_numbers()
+        private static bool set_stocktake_numbers(Transaction transaction)
         {
             string sql = "select ID,Draft,StockTakeNum from StockTake";
             DataTable dt = new DataTable();
@@ -399,6 +409,10 @@ namespace UpgradeDB
                             string spar_StockTakeNum = "@par_StockTakeNum";
                             SQL_Parameter par_StockTakeNum = new SQL_Parameter(spar_StockTakeNum, SQL_Parameter.eSQL_Parameter.Bigint, false, j);
                             lpar.Add(par_StockTakeNum);
+                            if (!transaction.Get(DBSync.DBSync.Con))
+                            {
+                                return false;
+                            }
                             sql = "update StockTake set StockTakeNum = " + spar_StockTakeNum + " where ID = " + id.ToString();
                             if (!DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar, ref Err))
                             {
@@ -417,7 +431,7 @@ namespace UpgradeDB
             }
         }
 
-        private static bool Create_DailyCashierActivityFromAtomWorkPeriod()
+        private static bool Create_DailyCashierActivityFromAtomWorkPeriod(Transaction transaction)
         {
             string sql = @"select di.ID as DocInvoice_ID,
 								  di.NumberInFinancialYear,
@@ -593,7 +607,8 @@ namespace UpgradeDB
                             }
                         }
                         if (!f_CashierActivity.Close(xCashierActivity_ID,
-                                               ca.Last_Atom_WorkPeriod_ID
+                                               ca.Last_Atom_WorkPeriod_ID,
+                                               transaction
                                                ))
                         {
                             return false;

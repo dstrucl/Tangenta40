@@ -10,7 +10,7 @@ namespace TangentaDB
 {
     public static class f_myOrganisation
     {
-        public static bool Get(ID OrganisationData_ID, ref ID myOrganisation_ID)
+        public static bool Get(ID OrganisationData_ID, ref ID myOrganisation_ID, Transaction transaction)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -30,6 +30,10 @@ namespace TangentaDB
                     }
                     else
                     {
+                        if (!transaction.Get(DBSync.DBSync.Con))
+                        {
+                            return false;
+                        }
                         sql = "update myOrganisation set OrganisationData_ID = " + OrganisationData_ID.ToString() + " where ID = " + myOrganisation_ID.ToString();
                         if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                         {
@@ -45,6 +49,10 @@ namespace TangentaDB
                 else
                 {
 
+                    if (!transaction.Get(DBSync.DBSync.Con))
+                    {
+                        return false;
+                    }
                     sql = "insert into myOrganisation (OrganisationData_ID)values(" + OrganisationData_ID.ToString() + ")";
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref myOrganisation_ID,  ref Err, "myOrganisation"))
                     {

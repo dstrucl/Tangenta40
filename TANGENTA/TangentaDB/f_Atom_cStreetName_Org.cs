@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_Atom_cStreetName_Org
     {
-        public static bool Get(ID cStreetName_Org_ID,ref ID Atom_cStreetName_Org_ID)
+        public static bool Get(ID cStreetName_Org_ID,ref ID Atom_cStreetName_Org_ID, Transaction transaction)
         {
             string Err = null;
             string sql = @"select StreetName from cStreetName_Org where ID = " + cStreetName_Org_ID.ToString();
@@ -64,6 +64,10 @@ namespace TangentaDB
                             }
                             else
                             {
+                                if (!transaction.Get(DBSync.DBSync.Con))
+                                {
+                                    return false;
+                                }
                                 sql = @"insert into Atom_cStreetName_Org (StreetName) values (" + sval_StreetName+")";
                                 if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_cStreetName_Org_ID,  ref Err, "Atom_cStreetName_Org"))
                                 {
@@ -101,7 +105,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(string_v streetName_v, ref ID atom_cStreetName_Org_ID)
+        internal static bool Get(string_v streetName_v, ref ID atom_cStreetName_Org_ID, Transaction transaction)
         {
             if (streetName_v != null)
             {
@@ -125,6 +129,10 @@ namespace TangentaDB
                     }
                     else
                     {
+                        if (!transaction.Get(DBSync.DBSync.Con))
+                        {
+                            return false;
+                        }
                         sql = @"insert into Atom_cStreetName_Org (StreetName) values (@par)";
                         ID xAtom_cStreetName_Org_ID = null;
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref xAtom_cStreetName_Org_ID,  ref Err, "Atom_cStreetName_Org"))

@@ -15,7 +15,8 @@ namespace TangentaDB
                 bool_v Active_v,
                 string_v BankAccount_Description_v,
                 ID Bank_ID,
-                ref ID BankAccount_ID)
+                ref ID BankAccount_ID,
+                Transaction transaction)
         {
             string Err = null;
 
@@ -86,6 +87,10 @@ namespace TangentaDB
                 }
                 else
                 {
+                    if (!transaction.Get(DBSync.DBSync.Con))
+                    {
+                        return false;
+                    }
                     string sql_insert = @"insert into BankAccount (TRR,Active,Description,Bank_ID) values (
                                                                             " + TRR_v_Value + @",
                                                                             " + Active_v_Value + @",

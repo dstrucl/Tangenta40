@@ -13,6 +13,13 @@ namespace UpgradeDB
     {
         internal static object UpgradeDB_1_19_to_1_20(object obj, ref string Err)
         {
+            Transaction transaction_Upgrade_1_19_to_1_20 = new Transaction("Upgrade_1_19_to_1_20");
+
+            if (!transaction_Upgrade_1_19_to_1_20.Get(DBSync.DBSync.Con))
+            {
+                return false;
+            }
+
             string sql = @"
                             PRAGMA foreign_keys = OFF;
 
@@ -87,7 +94,14 @@ namespace UpgradeDB
 
 
                 TermsOfPayment_definitions tmpdef = new TermsOfPayment_definitions();
-                tmpdef.InsertDefault();
+                if (tmpdef.InsertDefault(transaction_Upgrade_1_19_to_1_20))
+                {
+                }
+                else
+                {
+                    transaction_Upgrade_1_19_to_1_20.Rollback();
+                    return false;
+                }
 
                 ID PaymentType_ID = null;
                 string_v sPaymentType_v = null;
@@ -95,16 +109,19 @@ namespace UpgradeDB
                 ID CARD_MethodOfPayment_DI = null;
                 ID ALLREADY_PAID_MethodOfPayment_DI = null;
 
-                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.CASH, null, ref PaymentType_ID, ref sPaymentType_v, ref CASH_MethodOfPayment_DI))
+                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.CASH, null, ref PaymentType_ID, ref sPaymentType_v, ref CASH_MethodOfPayment_DI, transaction_Upgrade_1_19_to_1_20))
                 {
+                    transaction_Upgrade_1_19_to_1_20.Rollback();
                     return false;
                 }
-                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.CARD, null, ref PaymentType_ID, ref sPaymentType_v, ref CARD_MethodOfPayment_DI))
+                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.CARD, null, ref PaymentType_ID, ref sPaymentType_v, ref CARD_MethodOfPayment_DI, transaction_Upgrade_1_19_to_1_20))
                 {
+                    transaction_Upgrade_1_19_to_1_20.Rollback();
                     return false;
                 }
-                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.ALLREADY_PAID, null, ref PaymentType_ID, ref sPaymentType_v, ref ALLREADY_PAID_MethodOfPayment_DI))
+                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.ALLREADY_PAID, null, ref PaymentType_ID, ref sPaymentType_v, ref ALLREADY_PAID_MethodOfPayment_DI, transaction_Upgrade_1_19_to_1_20))
                 {
+                    transaction_Upgrade_1_19_to_1_20.Rollback();
                     return false;
                 }
 
@@ -244,6 +261,7 @@ namespace UpgradeDB
                 ";
                 if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                 {
+                    transaction_Upgrade_1_19_to_1_20.Rollback();
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
@@ -788,46 +806,56 @@ namespace UpgradeDB
                                     if (DBSync.DBSync.Create_VIEWs())
                                     {
                                         UpgradeDB_inThread.Set_DataBase_Version("1.20");
+
+                                        transaction_Upgrade_1_19_to_1_20.Commit();
+
+
                                         return true;
                                     }
                                     else
                                     {
+                                        transaction_Upgrade_1_19_to_1_20.Rollback();
                                         return false;
                                     }
                                 }
                                 else
                                 {
+                                    transaction_Upgrade_1_19_to_1_20.Rollback();
                                     return false;
                                 }
                             }
                             else
                             {
                                 LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                                transaction_Upgrade_1_19_to_1_20.Rollback();
                                 return false;
                             }
                         }
                         else
                         {
                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                            transaction_Upgrade_1_19_to_1_20.Rollback();
                             return false;
                         }
                     }
                     else
                     {
+                        transaction_Upgrade_1_19_to_1_20.Rollback();
                         return false;
                     }
                 }
                 else
                 {
+                    transaction_Upgrade_1_19_to_1_20.Rollback();
                     return false;
                 }
             }
             else
             {
+                transaction_Upgrade_1_19_to_1_20.Rollback();
                 Err = "ERROR:function UpgradeDB_1_19_to_1_20 not implemented";
                 return false;
             }
         }
-
     }
 }

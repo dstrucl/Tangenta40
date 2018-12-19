@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using DBConnectionControl40;
 
 namespace FiscalVerificationOfInvoices_SLO
 {
@@ -174,7 +175,15 @@ namespace FiscalVerificationOfInvoices_SLO
                         xInvData.AddOnDI.m_FURS.FURS_ZOI_v = new string_v(ZOI);
                         xInvData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(EOR);
                         xInvData.AddOnDI.m_FURS.FURS_QR_v = new string_v(BarCodeValue);
-                        xInvData.AddOnDI.m_FURS.Write_FURS_Response_Data(xInvData.DocInvoice_ID,this.m_usrc_FVI_SLO.FursTESTEnvironment);
+                        Transaction transaction_Dgvx_SalesBookInvoice_Unsent_CellContentClick = new Transaction("Dgvx_SalesBookInvoice_Unsent_CellContentClick");
+                        if (xInvData.AddOnDI.m_FURS.Write_FURS_Response_Data(xInvData.DocInvoice_ID,this.m_usrc_FVI_SLO.FursTESTEnvironment, transaction_Dgvx_SalesBookInvoice_Unsent_CellContentClick))
+                        {
+                            transaction_Dgvx_SalesBookInvoice_Unsent_CellContentClick.Commit();
+                        }
+                        else
+                        {
+                            transaction_Dgvx_SalesBookInvoice_Unsent_CellContentClick.Rollback();
+                        }
                     }
                 }
             }

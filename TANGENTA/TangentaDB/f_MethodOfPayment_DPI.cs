@@ -18,7 +18,8 @@ namespace TangentaDB
                               ID Atom_BankAccount_ID,
                               ref ID PaymentType_ID,
                               ref string_v PaymentType_v,
-                              ref ID MethodOfPayment_DPI_ID)
+                              ref ID MethodOfPayment_DPI_ID,
+                              Transaction transaction)
         {
             if (f_PaymentType.Get(GlobalData.Get_sPaymentType(ePaymentType), ref PaymentType_v, ref PaymentType_ID))
             {
@@ -55,6 +56,10 @@ namespace TangentaDB
                     }
                     else
                     {
+                        if (!transaction.Get(DBSync.DBSync.Con))
+                        {
+                            return false;
+                        }
 
                         sql = @" insert into  MethodOfPayment_DPI (PaymentType_ID,Atom_BankAccount_ID) values (" + spar_PaymentType_ID + ","+ sval_Atom_BankAccount_ID + ")";
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref MethodOfPayment_DPI_ID,  ref Err, "MethodOfPayment_DPI"))

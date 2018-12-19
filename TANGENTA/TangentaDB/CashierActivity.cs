@@ -712,7 +712,7 @@ namespace TangentaDB
             }
         }
 
-        public bool Close(ID xAtom_WorkPeriod_ID)
+        public bool Close(ID xAtom_WorkPeriod_ID, Transaction transaction)
         {
             if (!ID.Validate(xAtom_WorkPeriod_ID))
             {
@@ -720,10 +720,10 @@ namespace TangentaDB
                 return false;
             }
             ID xCashierActivityClosed_ID = null;
-            if (f_CashierActivityClosed.Get(xAtom_WorkPeriod_ID, ref xCashierActivityClosed_ID))
+            if (f_CashierActivityClosed.Get(xAtom_WorkPeriod_ID, ref xCashierActivityClosed_ID, transaction))
             {
                 this.CashierActivityClosed_ID = xCashierActivityClosed_ID;
-                if (f_CashierActivity.Close(this.ID, xAtom_WorkPeriod_ID))
+                if (f_CashierActivity.Close(this.ID, xAtom_WorkPeriod_ID, transaction))
                 {
                     return true;
                 }

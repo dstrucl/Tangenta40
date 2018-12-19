@@ -91,7 +91,7 @@ namespace Tangenta
             if (m_tbl.TableName.ToLower().Equals("office_data"))
             {
                 string Err = null;
-                m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, uctrln, m_Office_Data_ID, true, ref Err);
+                m_tbl.FillDataInputControl(DBSync.DBSync.Con, uctrln, m_Office_Data_ID, true, ref Err);
             }
         }
 

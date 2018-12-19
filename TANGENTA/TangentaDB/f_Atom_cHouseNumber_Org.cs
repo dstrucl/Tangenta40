@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_Atom_cHouseNumber_Org
     {
-        public static bool Get(ID cHouseNumber_Org_ID, ref ID Atom_cHouseNumber_Org_ID)
+        public static bool Get(ID cHouseNumber_Org_ID, ref ID Atom_cHouseNumber_Org_ID, Transaction transaction)
         {
             string Err = null;
             string sql = @"select HouseNumber from cHouseNumber_Org where ID = " + cHouseNumber_Org_ID.ToString();
@@ -64,6 +64,10 @@ namespace TangentaDB
                             }
                             else
                             {
+                                if (!transaction.Get(DBSync.DBSync.Con))
+                                {
+                                    return false;
+                                }
                                 sql = @"insert into Atom_cHouseNumber_Org (HouseNumber) values (" + sval_HouseNumber + ")";
                                 if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_cHouseNumber_Org_ID,  ref Err, "Atom_cHouseNumber_Org"))
                                 {
@@ -101,7 +105,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(string_v houseNumber_v, ref ID atom_cHouseNumber_Org_ID)
+        internal static bool Get(string_v houseNumber_v, ref ID atom_cHouseNumber_Org_ID, Transaction transaction)
         {
             if (houseNumber_v != null)
             {
@@ -125,6 +129,10 @@ namespace TangentaDB
                     }
                     else
                     {
+                        if (!transaction.Get(DBSync.DBSync.Con))
+                        {
+                            return false;
+                        }
                         sql = @"insert into Atom_cHouseNumber_Org (HouseNumber) values (@par)";
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref atom_cHouseNumber_Org_ID,  ref Err, "Atom_cHouseNumber_Org"))
                         { 

@@ -43,7 +43,7 @@ namespace Tangenta
         private void btn_View_SQL_StateMents_Click(object sender, EventArgs e)
         {
             Form pform = Global.f.GetParentForm((Control)m_usrc_DocumentMan);
-            CodeTables.DBTableControl.Show_Form_dtSQLdb(pform,DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,  MyDataBase_Tangenta.VERSION);
+            CodeTables.DBTableControl.Show_Form_dtSQLdb(pform,DBSync.DBSync.Con,  MyDataBase_Tangenta.VERSION);
         }
 
         private void btn_ShopC_TablesInspection_Click(object sender, EventArgs e)

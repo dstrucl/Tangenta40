@@ -22,7 +22,7 @@ namespace TangentaDB
     {
 
 
-        public static bool Get(ref ID Atom_Computer_ID)
+        public static bool Get(ref ID Atom_Computer_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             ID Atom_ComputerName_ID = null;
@@ -32,7 +32,7 @@ namespace TangentaDB
             string Err = null;
             DataTable dt = new DataTable();
 
-            if (f_Atom_ComputerName.Get(ref Atom_ComputerName_ID))
+            if (f_Atom_ComputerName.Get(ref Atom_ComputerName_ID, transaction))
             {
                 string scond_Atom_ComputerName_ID = null;
                 string sval_Atom_ComputerName_ID = "null";
