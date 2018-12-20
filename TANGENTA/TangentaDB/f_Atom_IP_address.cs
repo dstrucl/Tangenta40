@@ -62,7 +62,7 @@ namespace TangentaDB
         }
 
 
-        public static bool Get(string xIP_address,ref ID Atom_IP_address_ID)
+        public static bool Get(string xIP_address,ref ID Atom_IP_address_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -102,7 +102,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into Atom_IP_address (IP_address) values (" + sval_IP_address + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_IP_address_ID,  ref Err, "Atom_IP_address"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_IP_address_ID,  ref Err, "Atom_IP_address"))
                     {
                         return true;
                     }
@@ -120,11 +120,11 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(ref ID Atom_IP_address_ID)
+        public static bool Get(ref ID Atom_IP_address_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string IP_address = Get();
-            return f_Atom_IP_address.Get(IP_address, ref Atom_IP_address_ID);
+            return f_Atom_IP_address.Get(IP_address, ref Atom_IP_address_ID, transaction);
         }
     }
 }

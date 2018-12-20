@@ -18,7 +18,8 @@ namespace TangentaDB
                                 ref int xCashierActivityNumber, 
                                 ref DateTime loginTime,
                                 ref ID xCashierActivity_ID, 
-                                ref bool bAllreadyOpened)
+                                ref bool bAllreadyOpened,
+                                Transaction transaction)
         {
             string Err = null;
             string sql = null;
@@ -87,7 +88,7 @@ namespace TangentaDB
 
             sql = @"insert into CashierActivity (CashierActivityNumber,CashierActivityOpened_ID,CashierActivityClosed_ID) values (" + spar_CashierActivityNumber+"," + sval_CashierActivityOpened_ID+",null)";
 
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref xCashierActivity_ID, ref Err, "CashierActivity"))
+            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref xCashierActivity_ID, ref Err, "CashierActivity"))
             {
                 xCashierActivityNumber = cashierActivityNumber;
                 return true;
@@ -400,13 +401,9 @@ namespace TangentaDB
             SQL_Parameter par_CashierActivity_ID = new SQL_Parameter(spar_CashierActivity_ID, false, xCashierActivity_ID);
             lpar.Add(par_CashierActivity_ID);
 
-            if (!transaction.Get(DBSync.DBSync.Con))
-            {
-                return false;
-            }
             string sql = "update CashierActivity set CashierActivityClosed_ID = " + spar_CashierActivityClosed_ID + " where ID = " + spar_CashierActivity_ID;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar, ref Err))
+            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql,lpar, ref Err))
             {
                 return true;
             }

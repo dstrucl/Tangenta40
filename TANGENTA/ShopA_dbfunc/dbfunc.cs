@@ -99,7 +99,7 @@ namespace ShopA_dbfunc
             }
         }
 
-        public static bool Write_ShopA_Price_Item_Table(string docInvoice, ID doc_ID, DataTable xdt_ShopA_Items)
+        public static bool Write_ShopA_Price_Item_Table(string docInvoice, ID doc_ID, DataTable xdt_ShopA_Items,Transaction transaction)
         {
             DocInvoice_ShopA_Item x_DocInvoice_ShopA_Item = new DocInvoice_ShopA_Item();
             foreach (DataRow dr in xdt_ShopA_Items.Rows)
@@ -118,7 +118,7 @@ namespace ShopA_dbfunc
 
                 x_DocInvoice_ShopA_Item.TAX.type_v = tf.set_decimal(dr[docInvoice + "_ShopA_Item_$$TAX"]);
                 ID DocInvoice_ShopA_Item_ID = null;
-                if (insert(docInvoice, x_DocInvoice_ShopA_Item,ref DocInvoice_ShopA_Item_ID))
+                if (insert(docInvoice, x_DocInvoice_ShopA_Item,ref DocInvoice_ShopA_Item_ID, transaction))
                 {
                     continue;
                 }
@@ -131,25 +131,25 @@ namespace ShopA_dbfunc
         }
 
 
-        public static bool insert(string DocInvoice,DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item, ref ID DocInvoice_ShopA_Item_ID)
+        public static bool insert(string DocInvoice,DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item, ref ID DocInvoice_ShopA_Item_ID, Transaction transaction)
         {
             if (ID.Validate(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID))
             {
-                return insert_ex(DocInvoice, m_DocInvoice_ShopA_Item, ref  DocInvoice_ShopA_Item_ID);
+                return insert_ex(DocInvoice, m_DocInvoice_ShopA_Item, ref  DocInvoice_ShopA_Item_ID, transaction);
             }
             else
             {
                 ID Atom_ItemShopA_ID = null;
-                if (get(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA, ref Atom_ItemShopA_ID))
+                if (get(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA, ref Atom_ItemShopA_ID, transaction))
                 {
                     m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.Set(Atom_ItemShopA_ID);
-                    return insert_ex(DocInvoice, m_DocInvoice_ShopA_Item, ref DocInvoice_ShopA_Item_ID);
+                    return insert_ex(DocInvoice, m_DocInvoice_ShopA_Item, ref DocInvoice_ShopA_Item_ID, transaction);
                 }
             }
             return false;
         }
 
-        private static bool insert_ex(string docInvoice, DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item, ref ID DocInvoice_ShopA_Item_ID)
+        private static bool insert_ex(string docInvoice, DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item, ref ID DocInvoice_ShopA_Item_ID,Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string Err = null;
@@ -197,7 +197,7 @@ namespace ShopA_dbfunc
                 LogFile.Error.Show("ERROR:ShopA_dbfunc:dbfunc:insert_ex(Atom_ItemShopA m_Atom_ItemShopA, ref long atom_ItemShopA_ID) DocInvoice=" + docInvoice + " not implemented.");
                 return false;
             }
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref DocInvoice_ShopA_Item_ID,  ref Err, docInvoice+"_ShopA_Item"))
+            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref DocInvoice_ShopA_Item_ID,  ref Err, docInvoice+"_ShopA_Item"))
             {
                 return true;
             }
@@ -209,7 +209,7 @@ namespace ShopA_dbfunc
         }
 
 
-        public static bool get(Atom_ItemShopA m_Atom_ItemShopA, ref ID Atom_ItemShopA_ID)
+        public static bool get(Atom_ItemShopA m_Atom_ItemShopA, ref ID Atom_ItemShopA_ID,Transaction transaction)
         {
             string Err = null;
             string scond = null;
@@ -249,7 +249,7 @@ namespace ShopA_dbfunc
                             + m_Atom_ItemShopA.Description.value + ","
                             + m_Atom_ItemShopA.m_Taxation.ID.value + ","
                             + sval_Unit + ",1)";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar,ref Atom_ItemShopA_ID, ref Err, "Atom_ItemShopA"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql,lpar,ref Atom_ItemShopA_ID, ref Err, "Atom_ItemShopA"))
                     {
                         return true;
                     }
@@ -267,7 +267,7 @@ namespace ShopA_dbfunc
             }
         }
 
-        public static bool delete(string DocInvoice,ID atom_ItemShopA_Price_ID)
+        public static bool delete(string DocInvoice,ID atom_ItemShopA_Price_ID, Transaction transaction)
         {
             string Err = null;
             string sql = null;
@@ -287,7 +287,7 @@ namespace ShopA_dbfunc
                 return false;
             }
 
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null,ref Err))
+            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null,ref Err))
             {
                 return true;
             }

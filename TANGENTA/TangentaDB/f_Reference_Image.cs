@@ -72,7 +72,7 @@ namespace TangentaDB
                 else
                 {
                     sql = " insert into Reference_Image (Image_Hash,Image_Data) values (" + Image_Hash_Value + "," + Image_Data_Value+ ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Reference_Image_ID, ref Err, "Reference_Image"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Reference_Image_ID, ref Err, "Reference_Image"))
                     {
                         return true;
                     }

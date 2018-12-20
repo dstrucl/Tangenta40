@@ -155,10 +155,7 @@ namespace TangentaDB
                         }
                         else
                         {
-                            if (!transaction.Get(DBSync.DBSync.Con))
-                            {
-                                return false;
-                            }
+                           
                             string sql_insert = @" insert into Person  (Gender,
                                                                     cFirstName_ID,
                                                                     cLastName_ID,
@@ -170,7 +167,7 @@ namespace TangentaDB
                                                                                                   + sDateOfBirth_value + ","
                                                                                                   + sTaxID_value + ","
                                                                                                   + sRegistration_ID_value + ")";
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Person_ID, ref Err, "Person"))
+                            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_insert, lpar, ref Person_ID, ref Err, "Person"))
                             {
                                 return true;
                             }
@@ -277,9 +274,9 @@ namespace TangentaDB
             }
 
         }
-        public static bool DeleteAll()
+        public static bool DeleteAll(Transaction transaction)
         {
-            return fs.DeleteAll("Person");
+            return fs.DeleteAll("Person", transaction);
         }
     }
 }

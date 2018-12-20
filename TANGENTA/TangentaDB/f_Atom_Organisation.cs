@@ -130,12 +130,8 @@ namespace TangentaDB
                 }
                 else
                 {
-                    if (!transaction.Get(DBSync.DBSync.Con))
-                    {
-                    }
-
                     string sql_insert = " insert into Atom_Organisation  (Name,Tax_ID,Registration_ID,TaxPayer,Atom_Comment1_ID) values (" + sName_value + "," + sTaxID_value + "," + sRegistration_ID_value + "," + TaxPayer_value + "," + Atom_Comment1_ID_value + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Atom_Organisation_ID, ref Err, "Atom_Organisation"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_insert, lpar, ref Atom_Organisation_ID, ref Err, "Atom_Organisation"))
                     {
                         return true;
                     }
@@ -292,12 +288,8 @@ namespace TangentaDB
                 }
                 else
                 {
-                    if (!transaction.Get(DBSync.DBSync.Con))
-                    {
-                        return false;
-                    }
                     string sql_insert = " insert into Atom_Organisation  (Name,Tax_ID,Registration_ID, TaxPayer,Atom_Comment1_ID) values (" + sName_value + "," + sTaxID_value + "," + sRegistration_ID_value + "," + TaxPayer_value + "," + Atom_Comment1_ID_value + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Atom_Organisation_ID,  ref Err, "Atom_Organisation"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_insert, lpar, ref Atom_Organisation_ID,  ref Err, "Atom_Organisation"))
                     {
                         return f_Atom_OrganisationData.Get(Atom_Organisation_ID,
                                                                                OrganisationTYPE_v,

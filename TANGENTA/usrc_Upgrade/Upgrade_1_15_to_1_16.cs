@@ -17,7 +17,7 @@ namespace UpgradeDB
                     ALTER TABLE Invoice ADD COLUMN Invoice_Reference_ID INTEGER NULL;
                     ALTER TABLE Invoice ADD COLUMN Invoice_Reference_Type varchar(25) NULL;
                     ";
-                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                if (transaction.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                 {
                     if (DBSync.DBSync.Create_VIEWs())
                     {

@@ -63,7 +63,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into cCountry_Person (Country,Country_ISO_3166_a2,Country_ISO_3166_a3,Country_ISO_3166_num) values (" + spar_Country + "," + spar_Country_ISO_3166_a2 + "," + spar_Country_ISO_3166_a3 + "," + spar_Country_ISO_3166_num + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCountry_Person_ID, ref Err, "cCountry_Person"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cCountry_Person_ID, ref Err, "cCountry_Person"))
                     {
                         return true;
                     }
@@ -124,7 +124,7 @@ namespace TangentaDB
                                                                                                                                     + spar_state_ISO_3166_a2_v + ","
                                                                                                                                     + spar_state_ISO_3166_a3_v + ","
                                                                                                                                     + spar_state_ISO_3166_num_v + ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref atom_cCountry_Person_ID,  ref Err, "cCountry_Person"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref atom_cCountry_Person_ID,  ref Err, "cCountry_Person"))
                         {
                             return true;
                         }

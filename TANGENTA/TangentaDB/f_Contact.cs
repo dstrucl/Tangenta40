@@ -78,10 +78,6 @@ namespace TangentaDB
                                     transaction))
                     {
                         sql_select = "select ID from Contact where OrganisationData_ID = " + OrganisationData_ID.ToString() + " and Person_ID =" + Person_ID.ToString() + ";";
-                        if (!transaction.Get(DBSync.DBSync.Con))
-                        {
-                            return false;
-                        }
                         sql_insert = "insert into Contact (OrganisationData_ID,Person_ID)values(" + OrganisationData_ID.ToString() + "," + Person_ID.ToString() + ");";
                     }
                     else
@@ -92,10 +88,6 @@ namespace TangentaDB
                 else
                 {
                     sql_select = "select ID from Contact where OrganisationData_ID = " + OrganisationData_ID.ToString() + " and Person_ID is null";
-                    if (!transaction.Get(DBSync.DBSync.Con))
-                    {
-                        return false;
-                    }
                     sql_insert = "insert into Contact (OrganisationData_ID,Person_ID)values(" + OrganisationData_ID.ToString() + ",null);";
                 }
 
@@ -114,7 +106,7 @@ namespace TangentaDB
                     }
                     else
                     {
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, null, ref Contact_ID, ref Err, "Contact"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_insert, null, ref Contact_ID, ref Err, "Contact"))
                         {
                             return true;
                         }

@@ -192,7 +192,7 @@ namespace TangentaDB
                                                                                     " + BankName_Value + @",
                                                                                     " + TRR_Value + @",
                                                                                     " + Atom_Logo_ID_Value + ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Atom_OrganisationData_ID,  ref Err, "Atom_OrganisationData"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_insert, lpar, ref Atom_OrganisationData_ID,  ref Err, "Atom_OrganisationData"))
                         {
                             return true;
                         }

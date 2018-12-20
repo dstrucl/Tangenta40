@@ -11,7 +11,7 @@ namespace TangentaDB
 {
     public static class f_StornoName
     {
-        public static bool Get(string stornoName, ref ID cStornoName_ID)
+        public static bool Get(string stornoName, ref ID cStornoName_ID, Transaction transaction)
         {
             string Err = null;
             string sql = null;
@@ -49,7 +49,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into StornoName (Name) values (" + sval_StornoName + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cStornoName_ID,  ref Err, "cStornoName"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cStornoName_ID,  ref Err, "cStornoName"))
                     {
                         return true;
                     }

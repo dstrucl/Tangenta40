@@ -374,7 +374,7 @@ namespace TangentaDB
                         Atom_WorkPeriod_Type_Description = "Stari šiht od 29.4.2015 do " + dtEnd_v.v.Day.ToString() + "." + dtEnd_v.v.Month.ToString() + "." + dtEnd_v.v.Year.ToString();
                     }
                     ID Atom_IP_address_ID = null;
-                    if (f_Atom_IP_address.Get(ref Atom_IP_address_ID))
+                    if (f_Atom_IP_address.Get(ref Atom_IP_address_ID, transaction))
                     {
                         if (f_Atom_WorkPeriod.Get(Atom_WorkPeriod_Type_Name,
                                                   Atom_WorkPeriod_Type_Description,
@@ -383,7 +383,7 @@ namespace TangentaDB
                                                   Atom_IP_address_ID,
                                                   dtStart,
                                                   dtEnd_v,
-                                                  ref xAtom_WorkPeriod_ID))
+                                                  ref xAtom_WorkPeriod_ID, transaction))
                         {
                             return true;
                         }
@@ -460,10 +460,10 @@ namespace TangentaDB
             }
         }
 
-        public static bool InsertIntoBaseCurrency(ID currency_ID, ref string Err)
+        public static bool InsertIntoBaseCurrency(ID currency_ID, ref string Err, Transaction transaction)
         {
             string sql_SetBaseCurrency = "Insert into BaseCurrency (Currency_ID) Values (" + currency_ID.ToString() + ")";
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_SetBaseCurrency, null, ref Err))
+            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_SetBaseCurrency, null, ref Err))
             {
                 return true;
             }
@@ -481,31 +481,42 @@ namespace TangentaDB
             {
                 GlobalData.Init();
             }
-            if (language_definitions.Get())
+
+            Transaction transaction_Type_definitions_Read = new Transaction("Type_definitions_Read");
+            if (language_definitions.Get(transaction_Type_definitions_Read))
             {
-                if (JOURNAL_type_definitions_Read())
+                if (JOURNAL_type_definitions_Read(transaction_Type_definitions_Read))
                 {
-                    if (Doc_type_definitions_Read())
+                    if (Doc_type_definitions_Read(transaction_Type_definitions_Read))
                     {
                         if (TermsOfPayment_definitions_Read())
                         {
-                            if (Payment_definitions_Read())
+                            if (Payment_definitions_Read(transaction_Type_definitions_Read))
                             {
-                                if (fs.Get_JOURNAL_TYPE_ID())
+                                
+                                if (fs.Get_JOURNAL_TYPE_ID(transaction_Type_definitions_Read))
                                 {
-                                    return true;
+                                    if (transaction_Type_definitions_Read.Commit())
+                                    {
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        return false;
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+            transaction_Type_definitions_Read.Rollback();
             return false;
         }
 
-        private static bool Payment_definitions_Read()
+        private static bool Payment_definitions_Read(Transaction transaction)
         {
-            return paymentType_definitions.Get();
+            return paymentType_definitions.Get(transaction);
         }
 
         private static bool TermsOfPayment_definitions_Read()
@@ -543,11 +554,11 @@ namespace TangentaDB
         }
 
 
-    private static bool Doc_type_definitions_Read()
+    private static bool Doc_type_definitions_Read(Transaction transaction)
         {
-            if (GlobalData.doc_type_definitions.Read())
+            if (GlobalData.doc_type_definitions.Read(transaction))
             {
-                if (GlobalData.doc_page_type_definitions.Read())
+                if (GlobalData.doc_page_type_definitions.Read(transaction))
                 {
                     return true;
                 }
@@ -555,11 +566,11 @@ namespace TangentaDB
             return false;
         }
 
-        private static bool JOURNAL_type_definitions_Read()
+        private static bool JOURNAL_type_definitions_Read(Transaction transaction)
         {
-            if (GlobalData.JOURNAL_DocInvoice_Type_definitions.Read())
+            if (GlobalData.JOURNAL_DocInvoice_Type_definitions.Read(transaction))
             {
-                if (GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.Read())
+                if (GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.Read(transaction))
                 {
                     return true;
                 }

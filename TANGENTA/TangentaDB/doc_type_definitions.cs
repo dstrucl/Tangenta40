@@ -72,15 +72,13 @@ namespace TangentaDB
         }
 
 
-        public bool Read()
+        public bool Read(Transaction transaction)
         {
             string Err = null;
             string sql = "select ID,Name, Description from doc_type";
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
-                const string TRANSACTION_doc_type_definitions_Set = "doc_type_definitions_Set";
-                string transaction_doc_type_definitions_Set_id = null;
                 foreach (doc_type doct in doc_type_list)
                 {
                     if (Get(doct, dt))
@@ -89,25 +87,10 @@ namespace TangentaDB
                     }
                     else
                     {
-                        if (transaction_doc_type_definitions_Set_id==null)
+                        if (!Set(doct, transaction))
                         {
-                            if (!DBSync.DBSync.DB_for_Tangenta.BeginTransaction(TRANSACTION_doc_type_definitions_Set,ref transaction_doc_type_definitions_Set_id))
-                            {
-                                return false;
-                            }
-                        }
-                        if (!Set(doct))
-                        {
-                            DBSync.DBSync.DB_for_Tangenta.RollbackTransaction(transaction_doc_type_definitions_Set_id);
                             return false;
                         }
-                    }
-                }
-                if (transaction_doc_type_definitions_Set_id != null)
-                {
-                    if (!DBSync.DBSync.DB_for_Tangenta.CommitTransaction(transaction_doc_type_definitions_Set_id))
-                    {
-                        return false;
                     }
                 }
                 return true;
@@ -140,7 +123,7 @@ namespace TangentaDB
             return false;
         }
 
-        private bool Set(doc_type doct)
+        private bool Set(doc_type doct, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -161,11 +144,11 @@ namespace TangentaDB
                 }
             }
 
-
+         
             string sql = "insert into doc_type (Name,Description) values (" + sval_Name + "," + sval_Description +")";
             ID dpt_id = null;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref dpt_id,  ref Err, "doc_type"))
+            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref dpt_id,  ref Err, "doc_type"))
             {
                 doct.ID = dpt_id;
                 return true;

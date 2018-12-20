@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_Atom_cCountry_Org
     {
-        public static bool Get(ID cCountry_Org_ID, ref ID Atom_cCountry_Org_ID)
+        public static bool Get(ID cCountry_Org_ID, ref ID Atom_cCountry_Org_ID, Transaction transaction)
         {
             string Err = null;
             string sql = @"select Country, Country_ISO_3166_a2,Country_ISO_3166_a3,Country_ISO_3166_num from cCountry_Org where ID = " + cCountry_Org_ID.ToString();
@@ -72,7 +72,7 @@ namespace TangentaDB
                             else
                             {
                                 sql = @"insert into Atom_cCountry_Org (Country,Country_ISO_3166_a2,Country_ISO_3166_a3,Country_ISO_3166_num) values (" + spar_Country+ ","+ spar_Country_ISO_3166_a2+","+ spar_Country_ISO_3166_a3 +","+ spar_Country_ISO_3166_num + ")";
-                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_cCountry_Org_ID, ref Err, "Atom_cCountry_Org"))
+                                if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_cCountry_Org_ID, ref Err, "Atom_cCountry_Org"))
                                 {
                                     return true;
                                 }
@@ -108,7 +108,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref ID atom_cCountry_Org_ID)
+        internal static bool Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref ID atom_cCountry_Org_ID, Transaction transaction)
         {
             if ((state_v != null)&& (state_ISO_3166_a2_v != null)&&(state_ISO_3166_a3_v!=null) && (state_ISO_3166_num_v!=null))
             {
@@ -151,7 +151,7 @@ namespace TangentaDB
                                                                                                                                     + spar_state_ISO_3166_a2_v + ","
                                                                                                                                     + spar_state_ISO_3166_a3_v + ","
                                                                                                                                     + spar_state_ISO_3166_num_v +")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref atom_cCountry_Org_ID,  ref Err, "Atom_cCountry_Org"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref atom_cCountry_Org_ID,  ref Err, "Atom_cCountry_Org"))
                         {
                             return true;
                         }

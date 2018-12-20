@@ -50,7 +50,7 @@ namespace TangentaDB
                     sval_Atom_ComputerName_ID = "null";
                 }
 
-                if (f_Atom_ComputerUsername.Get(ref Atom_ComputerUsername_ID))
+                if (f_Atom_ComputerUsername.Get(ref Atom_ComputerUsername_ID, transaction))
                 {
                     string scond_Atom_ComputerUsername_ID = null;
                     string sval_Atom_ComputerUsername_ID = "null";
@@ -106,7 +106,7 @@ namespace TangentaDB
                             else
                             {
                                 sql = @"insert into Atom_Computer (Atom_ComputerName_ID,Atom_ComputerUsername_ID,Atom_MAC_address_ID) values (" + sval_Atom_ComputerName_ID + "," + sval_Atom_ComputerUsername_ID + "," + sval_Atom_MAC_address_ID +  ")";
-                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Computer_ID, ref Err, "Atom_Computer"))
+                                if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_Computer_ID, ref Err, "Atom_Computer"))
                                 {
                                     return true;
                                 }

@@ -73,12 +73,8 @@ namespace TangentaDB
                             }
                             else
                             {
-                                if (!transaction.Get(DBSync.DBSync.Con))
-                                {
-                                    return false;
-                                }
                                 sql = @"insert into myOrganisation_Person_SingleUser (myOrganisation_Person_ID,ElectronicDevice_ID) values (" + sval_myOrganisation_Person_ID + "," + sval_x_ElectronicDevice_ID + ")";
-                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref myOrganisation_Person_SingleUser_ID, ref Err, "myOrganisation_Person_SingleUser"))
+                                if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref myOrganisation_Person_SingleUser_ID, ref Err, "myOrganisation_Person_SingleUser"))
                                 {
                                     return true;
                                 }

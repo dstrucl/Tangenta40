@@ -159,7 +159,15 @@ namespace ShopC
                         }
                     }
                     ID JOURNAL_Stock_id = null;
-                    f_JOURNAL_Stock.Get(m_Atom_WorkPeriod_ID,ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data, EventTime, dq, ref JOURNAL_Stock_id);
+                    Transaction transaction_f_JOURNAL_Stock_Get = new Transaction("f_JOURNAL_Stock_Get");
+                    if (f_JOURNAL_Stock.Get(m_Atom_WorkPeriod_ID,ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data, EventTime, dq, ref JOURNAL_Stock_id, transaction_f_JOURNAL_Stock_Get))
+                    {
+                        transaction_f_JOURNAL_Stock_Get.Commit();
+                    }
+                    else
+                    {
+                        transaction_f_JOURNAL_Stock_Get.Rollback();
+                    }
                 }
             }
             m_bChanged = true;
@@ -187,7 +195,15 @@ namespace ShopC
                         }
                     }
                     ID JOURNAL_Stock_id = null;
-                    f_JOURNAL_Stock.Get(m_Atom_WorkPeriod_ID,ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed, EventTime, dq, ref JOURNAL_Stock_id);
+                    Transaction transaction_f_JOURNAL_Stock_Get = new Transaction("f_JOURNAL_Stock_Get");
+                    if (f_JOURNAL_Stock.Get(m_Atom_WorkPeriod_ID,ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed, EventTime, dq, ref JOURNAL_Stock_id, transaction_f_JOURNAL_Stock_Get))
+                    {
+                        transaction_f_JOURNAL_Stock_Get.Commit();
+                    }
+                    else
+                    {
+                        transaction_f_JOURNAL_Stock_Get.Rollback();
+                    }
                 }
             }
             m_bChanged = true;

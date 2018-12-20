@@ -49,7 +49,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into CashierActivityOpened (Atom_WorkPeriod_ID) values (" + sval_Atom_WorkPeriod_ID + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref xCashierActivityOpened_ID, ref Err, "CashierActivityOpened"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref xCashierActivityOpened_ID, ref Err, "CashierActivityOpened"))
                     {
                         return true;
                     }

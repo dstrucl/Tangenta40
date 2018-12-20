@@ -69,11 +69,11 @@ namespace UpgradeDB
         //            if (!ID.Validate(GlobalData.Office_ID))
         //            {
         //                string sql = "insert into Office (myOrganisation_ID,Name)values(1,'P1')";
-        //                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref GlobalData.Office_ID,  ref Err, "Office"))
+        //                if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, null, ref GlobalData.Office_ID,  ref Err, "Office"))
         //                {
         //                    sql = "insert into myOrganisation_Person (UserName,Password,Job,Active,Description,Person_ID,Office_ID)values('marjetkah',null,'Direktor',1,'Direktorica in lastnica podjetja',1,1)";
         //                    ID x_myOrganisation_Person_ID = null;
-        //                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref x_myOrganisation_Person_ID, ref Err, "Office"))
+        //                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, null, ref x_myOrganisation_Person_ID, ref Err, "Office"))
         //                    {
 
         //                    }
@@ -96,7 +96,7 @@ namespace UpgradeDB
         //            if (!ID.Validate(GlobalData.Atom_Office_ID))
         //            {
         //                sql = "insert into Atom_Office (Atom_myOrganisation_ID,Name)values(1,'P1')";
-        //                if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref GlobalData.Atom_Office_ID, ref Err, "Atom_Office"))
+        //                if (!transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, null, ref GlobalData.Atom_Office_ID, ref Err, "Atom_Office"))
         //                {
         //                    LogFile.Error.Show("ERROR:usrc_Upgrade:Write2DB:sql=" + sql + "\r\nErr=" + Err);
         //                    return false;
@@ -264,7 +264,7 @@ namespace UpgradeDB
 
         //            string sql_insert = " insert into " + tname + " (" + sql_insert_columns + ") values (" + sql_insert_values + ")";
         //            ID new_id = null;
-        //            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref new_id,  ref Err, tname))
+        //            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_insert, lpar, ref new_id,  ref Err, tname))
         //            {
         //                dr["OLD_ID"] = old_id.V;
         //                dr["id"] = new_id.V;

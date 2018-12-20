@@ -15,6 +15,8 @@ namespace UpgradeDB
         internal static object UpgradeDB_1_02_to_1_03(object obj, ref string Err)
         {
             // correct taxation
+            Transaction transaction_UpgradeDB_1_02_to_1_03 = new Transaction("UpgradeDB_1_02_to_1_03");
+
             string sql = @"select apsi.ID,RetailSimpleItemPrice,Discount,iQuantity,RetailSimpleItemPriceWithDiscount,ExtraDiscount,Rate from atom_price_simpleitem apsi 
                             inner join atom_taxation at on apsi.atom_taxation_ID = at.ID";
             DataTable dt_atom_price_simpleitem1 = new DataTable();
@@ -49,7 +51,7 @@ namespace UpgradeDB
                         SQL_Parameter par_TaxPrice = new SQL_Parameter(spar_TaxPrice, SQL_Parameter.eSQL_Parameter.Decimal, false, TaxPrice);
                         lpar.Add(par_TaxPrice);
                         sql = " update atom_price_simpleitem set TaxPrice=" + spar_TaxPrice + " where ID = " + ID.ToString();
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
+                        if (transaction_UpgradeDB_1_02_to_1_03.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar, ref Err))
                         {
                             continue;
                         }
@@ -192,12 +194,20 @@ namespace UpgradeDB
                         //                        }
                         //                    }
                         //                }
-                        if (UpgradeDB_inThread.Set_DataBase_Version("1.03"))
+                        if (UpgradeDB_inThread.Set_DataBase_Version("1.03", transaction_UpgradeDB_1_02_to_1_03))
                         {
-                            return true;
+                            if (transaction_UpgradeDB_1_02_to_1_03.Commit())
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
                         }
                         else
                         {
+                            transaction_UpgradeDB_1_02_to_1_03.Rollback();
                             return false;
                         }
                         //            }
@@ -205,16 +215,19 @@ namespace UpgradeDB
                         //    }
                         //}
                     }
+                    transaction_UpgradeDB_1_02_to_1_03.Rollback();
                     return false;
                 }
                 else
                 {
+                    transaction_UpgradeDB_1_02_to_1_03.Rollback();
                     LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_02_to_1_03:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
+                transaction_UpgradeDB_1_02_to_1_03.Rollback();
                 LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_02_to_1_03:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }

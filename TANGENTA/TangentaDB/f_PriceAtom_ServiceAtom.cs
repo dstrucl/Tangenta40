@@ -125,7 +125,7 @@ namespace TangentaDB
                                                             )";
                                     }
                                     string Err = null;
-                                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref DocInvoice_ShopB_Item_ID,  ref Err, DocInvoice+"_ShopB_Item"))
+                                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref DocInvoice_ShopB_Item_ID,  ref Err, DocInvoice+"_ShopB_Item"))
                                     {
                                         return true;
                                     }

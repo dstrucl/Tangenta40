@@ -44,13 +44,9 @@ namespace TangentaDB
                     }
                     else
                     {
-                        if (!transaction.Get(DBSync.DBSync.Con))
-                        {
-                            return false;
-                        }
                         sql = @" insert into  TermsOfPayment (Description) values
                                                       (" + sval_Description + ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref TermsOfPayment_ID, ref Err, "TermsOfPayment"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref TermsOfPayment_ID, ref Err, "TermsOfPayment"))
                         {
                             return true;
                         }
@@ -102,12 +98,9 @@ namespace TangentaDB
                                             {
                                                 if (dt.Rows.Count > 0)
                                                 {
-                                                    if (!transaction.Get(DBSync.DBSync.Con))
-                                                    {
-                                                        return false;
-                                                    }
+                                                    
                                                     sql = "update TermsOfPayment_Default set TermsOfPayment_ID = " + xTermsOfPayment_ID.ToString();
-                                                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
+                                                    if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
                                                     {
                                                         return true;
                                                     }
@@ -119,13 +112,9 @@ namespace TangentaDB
                                                 }
                                                 else
                                                 {
-                                                    if (!transaction.Get(DBSync.DBSync.Con))
-                                                    {
-                                                        return false;
-                                                    }
                                                     sql = "insert into TermsOfPayment_Default (TermsOfPayment_ID,Atom_ElectronicDevice_ID)values(" + xTermsOfPayment_ID.ToString() + "," + xAtom_ElectronicDevice_ID.ToString() + ")";
                                                     ID xTermsOfPayment_Default_ID = null;
-                                                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref xTermsOfPayment_Default_ID, ref Err, "TermsOfPayment_Default"))
+                                                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, null, ref xTermsOfPayment_Default_ID, ref Err, "TermsOfPayment_Default"))
                                                     {
                                                         return true;
                                                     }

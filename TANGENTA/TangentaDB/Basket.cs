@@ -64,7 +64,16 @@ namespace TangentaDB
                 }
                 if (xdsci.dQuantity_FromFactory > 0)
                 {
-                    RemoveFactory(DocTyp,xdsci);
+                    Transaction transaction_RemoveFactory = new Transaction("RemoveFactory");
+                    if (RemoveFactory(DocTyp, xdsci, transaction_RemoveFactory))
+                    {
+                        transaction_RemoveFactory.Commit();
+                    }
+                    else
+                    {
+                        transaction_RemoveFactory.Rollback();
+                        return;
+                    }
                 }
                 Basket_Doc_ShopC_Item_LIST.Remove(xdsci);
             }
@@ -433,7 +442,7 @@ namespace TangentaDB
         }
 
 
-        public bool Add2Basket(ref Doc_ShopC_Item dsci,string docTyp,ID doc_ID,decimal xquantity2add, Item_Data xData, deleagate_Select_Items_From_Stock_Dialog delegate_Select_Items_From_Stock_Dialog)
+        public bool Add2Basket(ref Doc_ShopC_Item dsci,string docTyp,ID doc_ID,decimal xquantity2add, Item_Data xData, deleagate_Select_Items_From_Stock_Dialog delegate_Select_Items_From_Stock_Dialog, Transaction transaction)
         {
 
             dsci = Find(xData.Item_UniqueName_v.v);
@@ -459,7 +468,8 @@ namespace TangentaDB
                                                     xData,
                                                     ref dsci,
                                                     taken_from_Stock_List,
-                                                    xquantity2add - dQuantitySelectedFromStock))
+                                                    xquantity2add - dQuantitySelectedFromStock,
+                                                    transaction))
                 {
                     return true;
                 }
@@ -523,7 +533,7 @@ namespace TangentaDB
         }
 
 
-        public bool WriteItemStockTransferInDataBase(string doc_type,ID doc_ID, Item_Data xData, ref Doc_ShopC_Item dsci, List<Stock_Data> taken_from_Stock_List, decimal dQuantity_FromFactory2Add)
+        public bool WriteItemStockTransferInDataBase(string doc_type,ID doc_ID, Item_Data xData, ref Doc_ShopC_Item dsci, List<Stock_Data> taken_from_Stock_List, decimal dQuantity_FromFactory2Add,Transaction transaction)
         {
             if (dsci == null)
             {
@@ -550,7 +560,7 @@ namespace TangentaDB
                     {
                         std.dQuantity_v.v = std.dQuantity_v.v - stdtaken.dQuantity_Taken_v.v;
 
-                        if (!f_Stock.UpdateQuantity(std.Stock_ID, std.dQuantity_v.v))
+                        if (!f_Stock.UpdateQuantity(std.Stock_ID, std.dQuantity_v.v,transaction))
                         {
                             return false;
                         }
@@ -890,7 +900,7 @@ namespace TangentaDB
             }
         }
 
-        public bool RemoveFactory(string xDocTyp,Doc_ShopC_Item xdsci)
+        public bool RemoveFactory(string xDocTyp,Doc_ShopC_Item xdsci, Transaction transaction)
         {
             string sql = null;
 
@@ -963,16 +973,16 @@ namespace TangentaDB
                         return false;
                     }
 
-                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_DocInvoice_Atom_Item_Stock, null,  ref Err))
+                    if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_Delete_DocInvoice_Atom_Item_Stock, null,  ref Err))
                     {
                         string sql_Delete_Atom_Price_Item = "delete from Atom_Price_Item where ID not in  (select Atom_Price_Item_ID from DocInvoice_ShopC_Item UNION select Atom_Price_Item_ID from DocProformaInvoice_ShopC_Item)";
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Price_Item, null, ref Err))
+                        if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_Delete_Atom_Price_Item, null, ref Err))
                         {
                             string sql_Delete_Atom_Item_Image = "delete from Atom_Item_Image where Atom_Item_Image.Atom_Item_ID not in (select Atom_Item_ID from Atom_Price_Item)";
-                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Item_Image, null,  ref Err))
+                            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_Delete_Atom_Item_Image, null,  ref Err))
                             {
                                 string sql_Delete_Atom_Item_ImageLib = "delete from Atom_Item_ImageLib where ID not in (select Atom_Item_ImageLib_ID from Atom_Item_Image)";
-                                if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Item_ImageLib, null, ref Err))
+                                if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_Delete_Atom_Item_ImageLib, null, ref Err))
                                 {
                                     RemoveFactory_from_list(xdsci);
                                     if (xdsci.dQuantity_all==0)
@@ -1064,16 +1074,16 @@ namespace TangentaDB
         }
 
 
-        private bool UpdateStock(ID xAtom_WorkPeriod_ID,List<Return_to_shop_shelf_data> Return_to_basket_data_List, List<SQL_Parameter> lpar)
+        private bool UpdateStock(ID xAtom_WorkPeriod_ID,List<Return_to_shop_shelf_data> Return_to_basket_data_List, List<SQL_Parameter> lpar, Transaction transaction)
         {
             string Err = null;
             DateTime EventTime = DateTime.Now;
             foreach (Return_to_shop_shelf_data rtb in Return_to_basket_data_List)
             {
-                if (DBSync.DBSync.ExecuteNonQuerySQL(rtb.sql_update_stock, lpar, ref Err))
+                if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,rtb.sql_update_stock, lpar, ref Err))
                 {
                     ID JOURNAL_Stock_ID = null;
-                    if (f_JOURNAL_Stock.Get(rtb.stock_id, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_from_basket_to_stock,xAtom_WorkPeriod_ID, EventTime, rtb.dQuantity_from_basket_to_stock, ref JOURNAL_Stock_ID))
+                    if (f_JOURNAL_Stock.Get(rtb.stock_id, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_from_basket_to_stock,xAtom_WorkPeriod_ID, EventTime, rtb.dQuantity_from_basket_to_stock, ref JOURNAL_Stock_ID, transaction))
                     {
                         continue;
                     }

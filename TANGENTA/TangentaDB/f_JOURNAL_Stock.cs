@@ -41,15 +41,15 @@ namespace TangentaDB
         { get { return m_JOURNAL_Stock_Type_ID_from_basket_to_stock; } }
 
 
-        public static bool Get_JOURNAL_Stock_Type_ID()
+        public static bool Get_JOURNAL_Stock_Type_ID(Transaction transaction)
         {
-            if (fs.Get_JOURNAL_TYPE(JOURNAL_Stock_Type_TABLE, New_Stock_Data, ref m_JOURNAL_Stock_Type_ID_new_stock_data))
+            if (fs.Get_JOURNAL_TYPE(JOURNAL_Stock_Type_TABLE, New_Stock_Data, ref m_JOURNAL_Stock_Type_ID_new_stock_data, transaction))
             {
-                if (fs.Get_JOURNAL_TYPE(JOURNAL_Stock_Type_TABLE, Stock_Data_Changed, ref m_JOURNAL_Stock_Type_ID_stock_data_changed))
+                if (fs.Get_JOURNAL_TYPE(JOURNAL_Stock_Type_TABLE, Stock_Data_Changed, ref m_JOURNAL_Stock_Type_ID_stock_data_changed, transaction))
                 {
-                    if (fs.Get_JOURNAL_TYPE(JOURNAL_Stock_Type_TABLE, From_Stock_To_Basket, ref m_JOURNAL_Stock_Type_ID_from_stock_to_basket))
+                    if (fs.Get_JOURNAL_TYPE(JOURNAL_Stock_Type_TABLE, From_Stock_To_Basket, ref m_JOURNAL_Stock_Type_ID_from_stock_to_basket, transaction))
                     {
-                        if (fs.Get_JOURNAL_TYPE(JOURNAL_Stock_Type_TABLE, From_Basket_To_Stock, ref m_JOURNAL_Stock_Type_ID_from_basket_to_stock))
+                        if (fs.Get_JOURNAL_TYPE(JOURNAL_Stock_Type_TABLE, From_Basket_To_Stock, ref m_JOURNAL_Stock_Type_ID_from_basket_to_stock, transaction))
                         {
                             return true;
                         }
@@ -58,7 +58,7 @@ namespace TangentaDB
             }
             return false;
         }
-        public static bool Get(ID Stock_id, ID stock_type_id,ID xAtom_WorkPeriod_ID, DateTime dEventTime, decimal dQuantity, ref ID JOURNAL_Stock_ID)
+        public static bool Get(ID Stock_id, ID stock_type_id,ID xAtom_WorkPeriod_ID, DateTime dEventTime, decimal dQuantity, ref ID JOURNAL_Stock_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_JOURNAL_Stock_Type_ID = "@par_JOURNAL_Stock_Type_ID";
@@ -85,7 +85,7 @@ namespace TangentaDB
             string table_name = "JOURNAL_Stock";
             string sql = "insert into " + table_name + " (JOURNAL_Stock_Type_ID,Stock_ID,EventTime,Atom_WorkPeriod_ID,dQuantity)values(" + spar_JOURNAL_Stock_Type_ID + "," + spar_Stock_ID + "," + spar_EventTime + "," + spar_Atom_WorkPeriod_ID + "," + spar_dQuantity + ")";
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref JOURNAL_Stock_ID, ref Err, table_name))
+            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref JOURNAL_Stock_ID, ref Err, table_name))
             {
                 return true;
             }

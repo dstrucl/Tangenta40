@@ -43,7 +43,7 @@ namespace TangentaDB
                 {
 
                     sql = @"insert into Atom_Currency (Name,Abbreviation,Symbol,CurrencyCode,DecimalPlaces) select Name,Abbreviation,Symbol,CurrencyCode,DecimalPlaces from Currency where ID = " + Currency_ID.ToString();
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_Currency_ID, ref Err, "Atom_Currency"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, null, ref Atom_Currency_ID, ref Err, "Atom_Currency"))
                     {
                         return true;
                     }

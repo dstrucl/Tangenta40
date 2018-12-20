@@ -130,7 +130,7 @@ namespace TangentaDB
                                                                     " , CreationDate = " + sval_CreationDate +
                                                                     " , Description = " + sval_Description +
                                                                     " where ID = " + PriceList_ID.ToString();
-                                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,  ref Err))
+                                if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar,  ref Err))
                                 {
                                     return true;
                                 }
@@ -164,7 +164,7 @@ namespace TangentaDB
                                                         "," + sval_CreationDate +
                                                         "," + sval_Description +
                                                             ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref PriceList_ID,  ref Err, "PriceList"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref PriceList_ID,  ref Err, "PriceList"))
                         {
                             return true;
                         }
@@ -206,7 +206,7 @@ namespace TangentaDB
                         ID PriceList_ID = new ID(dr["PriceList_ID"]);
                         ID SimpleItem_ID = new ID(dr["SimpleItem_ID"]);
                         string sql = "insert into Price_SimpleItem (RetailSimpleItemPrice,Discount,Taxation_ID,SimpleItem_ID,PriceList_ID) values (-1,0," + id_Taxation.ToString() + "," + SimpleItem_ID.ToString() + "," + PriceList_ID.ToString() + ")";
-                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null,  ref Err))
+                        if (!transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null,  ref Err))
                         {
                             LogFile.Error.Show("ERROR:f_PriceList:Update:sql=" + sql + "\r\nErr=" + Err);
                             return false;
@@ -248,7 +248,7 @@ namespace TangentaDB
                         ID PriceList_ID = new ID(dr["PriceList_ID"]);
                         ID Item_ID = new ID(dr["Item_ID"]);
                         string sql = "insert into Price_Item (RetailPricePerUnit,Discount,Taxation_ID,Item_ID,PriceList_ID) values (-1,0," + id_Taxation.ToString() + "," + Item_ID.ToString() + "," + PriceList_ID.ToString() + ")";
-                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null,  ref Err))
+                        if (!transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null,  ref Err))
                         {
                             LogFile.Error.Show("ERROR:f_PriceList:Update:sql=" + sql + "\r\nErr=" + Err);
                             return false;

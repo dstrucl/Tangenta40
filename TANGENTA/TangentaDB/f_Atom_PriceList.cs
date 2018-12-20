@@ -68,7 +68,7 @@ namespace TangentaDB
 
                                     sql = "insert into Atom_PriceList (Atom_PriceList_Name_ID,Valid,ValidFrom,ValidTo,Description,Atom_Currency_ID) select "+ Atom_PriceList_Name_ID.ToString() + ",Valid,ValidFrom,ValidTo,Description," + Atom_Currency_ID.ToString() + " from PriceList where ID = " + PriceList_ID.ToString();
 
-                                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_PriceList_ID, ref Err, "Atom_PriceList"))
+                                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, null, ref Atom_PriceList_ID, ref Err, "Atom_PriceList"))
                                     {
                                         return true;
                                     }
@@ -178,7 +178,7 @@ namespace TangentaDB
                                             {
                                                 sql = "insert into Atom_PriceList (Atom_PriceList_Name_ID,Valid,ValidFrom,ValidTo,Description,CreationDate,Atom_Currency_ID) select "+ Atom_PriceList_Name_ID.ToString() + ",Valid,ValidFrom,ValidTo,Description,CreationDate," + Atom_Currency_ID.ToString() + " from PriceList where ID = " + PriceList_ID.ToString();
 
-                                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_PriceList_ID, ref Err, "Atom_PriceList"))
+                                                if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, null, ref Atom_PriceList_ID, ref Err, "Atom_PriceList"))
                                                 {
                                                     return true;
                                                 }

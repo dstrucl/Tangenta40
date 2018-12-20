@@ -11,12 +11,12 @@ namespace TangentaDB
 {
     public static class f_Supplier
     {
-        public static bool Get(ID Contact_ID,ref ID Supplier_ID)
+        public static bool Get(ID Contact_ID,ref ID Supplier_ID,Transaction transaction)
         {
-            return Get("Supplier", Contact_ID, ref Supplier_ID);
+            return Get("Supplier", Contact_ID, ref Supplier_ID, transaction);
         }
 
-        public static bool Get(string Supplier_TableName,ID Contact_ID, ref ID Supplier_ID)
+        public static bool Get(string Supplier_TableName,ID Contact_ID, ref ID Supplier_ID, Transaction transaction)
         {
             string sql = "select ID from "+ Supplier_TableName + " where Contact_ID = " + Contact_ID.ToString();
             DataTable dt = new DataTable();
@@ -35,7 +35,7 @@ namespace TangentaDB
                 else
                 {
                     sql = "insert into "+ Supplier_TableName + " (Contact_ID)values(" + Contact_ID.ToString() + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Supplier_ID,  ref Err, Supplier_TableName))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, null, ref Supplier_ID,  ref Err, Supplier_TableName))
                     {
                         return true;
                     }
@@ -115,7 +115,7 @@ namespace TangentaDB
                    ref Contact_ID,
                    transaction))
             {
-                return f_Supplier.Get(Contact_ID, ref Supplier_ID);
+                return f_Supplier.Get(Contact_ID, ref Supplier_ID, transaction);
             }
             else
             {

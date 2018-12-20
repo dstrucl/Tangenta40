@@ -15,10 +15,6 @@ namespace UpgradeDB
         {
             Transaction transaction_Upgrade_1_19_to_1_20 = new Transaction("Upgrade_1_19_to_1_20");
 
-            if (!transaction_Upgrade_1_19_to_1_20.Get(DBSync.DBSync.Con))
-            {
-                return false;
-            }
 
             string sql = @"
                             PRAGMA foreign_keys = OFF;
@@ -27,7 +23,7 @@ namespace UpgradeDB
 
                              ";
 
-            if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+            if (!transaction_Upgrade_1_19_to_1_20.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
             {
                 LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
                 return false;
@@ -68,7 +64,7 @@ namespace UpgradeDB
             if (DBSync.DBSync.CreateTables(new_tables, ref Err))
             {
                 PaymentType_definitions xpaymentType_definitions = new PaymentType_definitions();
-                if (!xpaymentType_definitions.Get())
+                if (!xpaymentType_definitions.Get(transaction_Upgrade_1_19_to_1_20))
                 {
                     return false;
                 }
@@ -86,7 +82,7 @@ namespace UpgradeDB
                                                     Atom_Comment1_ID = 1
                                                     where Tax_ID = '19300808';
                              ";
-                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                if (!transaction_Upgrade_1_19_to_1_20.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                 {
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
                     return false;
@@ -259,7 +255,7 @@ namespace UpgradeDB
                                    Stock_ID
                                 from Atom_ProformaInvoice_Price_Item_Stock;
                 ";
-                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                if (!transaction_Upgrade_1_19_to_1_20.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                 {
                     transaction_Upgrade_1_19_to_1_20.Rollback();
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
@@ -383,7 +379,7 @@ namespace UpgradeDB
 
                     ";
 
-                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                if (transaction_Upgrade_1_19_to_1_20.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                 {
                     if (DBSync.DBSync.Drop_VIEWs(ref Err))
                     {
@@ -405,7 +401,7 @@ namespace UpgradeDB
                                 Drop Table Invoice;
                                 Drop Table MethodOfPayment;
                         ";
-                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                        if (transaction_Upgrade_1_19_to_1_20.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                         {
                             sql = @"
                                   PRAGMA foreign_keys = OFF;
@@ -674,7 +670,7 @@ namespace UpgradeDB
 
                                 ";
 
-                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                            if (transaction_Upgrade_1_19_to_1_20.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                             {
                                 DataTable dtLanguage = new DataTable();
                                 sql = "select Name,Description,bDefault from Language";
@@ -767,7 +763,7 @@ namespace UpgradeDB
                                     }
 
                                     sql = "insert into Language_NEW (LanguageIndex,Name,Description,bDefault)values(" + spar_LanguageIndex + "," + spar_Name + "," + sval_Description + "," + sval_bDefault + ")";
-                                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, lparx, ref Err))
+                                    if (!transaction_Upgrade_1_19_to_1_20.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, lparx, ref Err))
                                     {
                                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
                                         return false;
@@ -778,7 +774,7 @@ namespace UpgradeDB
                                         ALTER TABLE Language_NEW RENAME TO Language;
                                         PRAGMA foreign_keys = ON;
                                         ";
-                                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                if (!transaction_Upgrade_1_19_to_1_20.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                 {
                                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
                                     return false;
@@ -789,7 +785,7 @@ namespace UpgradeDB
                                 if (sdb.Contains("StudioMarjetka"))
                                 {
                                     sql = "update Atom_WorkPeriod set Atom_myOrganisation_Person_ID = 2";
-                                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                    if (!transaction_Upgrade_1_19_to_1_20.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                     {
                                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
                                         return false;
@@ -805,12 +801,23 @@ namespace UpgradeDB
                                 {
                                     if (DBSync.DBSync.Create_VIEWs())
                                     {
-                                        UpgradeDB_inThread.Set_DataBase_Version("1.20");
+                                        if (UpgradeDB_inThread.Set_DataBase_Version("1.20", transaction_Upgrade_1_19_to_1_20))
+                                        {
+                                            if (transaction_Upgrade_1_19_to_1_20.Commit())
+                                            {
+                                                return true;
+                                            }
+                                            else
+                                            {
+                                                return false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            transaction_Upgrade_1_19_to_1_20.Rollback();
+                                            return false;
+                                        }
 
-                                        transaction_Upgrade_1_19_to_1_20.Commit();
-
-
-                                        return true;
                                     }
                                     else
                                     {

@@ -394,10 +394,23 @@ namespace TangentaDB
                     return eGetOrganisationDataResult.NO_COUNTRY;
                 }
 
+                Transaction transaction_MyOrg_GetOrganisationData = new Transaction("MyOrg_GetOrganisationData");
 
-                f_Currency.Get(myOrg.Address_v.Country_ISO_3166_num, ref myOrg.Default_Currency_ID);
-                f_Taxation.Get(myOrg.Address_v.Country_ISO_3166_num, ref myOrg.Default_TaxRates);
+                if (!f_Currency.Get(myOrg.Address_v.Country_ISO_3166_num, ref myOrg.Default_Currency_ID, transaction_MyOrg_GetOrganisationData))
+                {
+                    transaction_MyOrg_GetOrganisationData.Rollback();
+                    return eGetOrganisationDataResult.ERROR;
+                }
 
+                if (f_Taxation.Get(myOrg.Address_v.Country_ISO_3166_num, ref myOrg.Default_TaxRates, transaction_MyOrg_GetOrganisationData))
+                {
+                    transaction_MyOrg_GetOrganisationData.Commit();
+                }
+                else
+                {
+                    transaction_MyOrg_GetOrganisationData.Rollback();
+                    return eGetOrganisationDataResult.ERROR;
+                }
 
                 if (myOrg.myOrg_Office_list.Count > 0)
                 {

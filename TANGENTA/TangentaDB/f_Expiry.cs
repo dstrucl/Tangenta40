@@ -65,7 +65,7 @@ namespace TangentaDB
                                                          + expiry_v.SaleBeforeExpiryDateInDays.ToString() + ","
                                                          + expiry_v.DiscardBeforeExpiryDateInDays.ToString() + ","
                                                          + sval_ExpiryDescription + ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Expiry_ID, ref Err, "Expiry"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Expiry_ID, ref Err, "Expiry"))
                         {
                             return true;
                         }

@@ -857,7 +857,7 @@ namespace Tangenta
             //ProgramDiagnostic.Diagnostic.Clear();
             //ProgramDiagnostic.Diagnostic.Meassure("Before fs.UpdatePriceInDraft", "?");
 
-            if (fs.UpdatePriceInDraft(DocE.DocTyp, DocE.m_ShopABC.m_CurrentDoc.Doc_ID, DocE.GrossSum, DocE.TaxSum.Value, DocE.NetSum))
+            if (fs.UpdatePriceInDraft(DocE.DocTyp, DocE.m_ShopABC.m_CurrentDoc.Doc_ID, DocE.GrossSum, DocE.TaxSum.Value, DocE.NetSum, transaction))
             {
                 if (IsDocInvoice)
                 {
@@ -1141,13 +1141,16 @@ namespace Tangenta
         private bool usrc_Customer_aa_Customer_Removed(string xDoxTyp)
         {
             this.Cursor = Cursors.WaitCursor;
-            if (DocE.m_ShopABC.m_CurrentDoc.Update_Customer_Remove(xDoxTyp))
+            Transaction transaction_Update_Customer_Remove = new Transaction("Update_Customer_Remove");
+            if (DocE.m_ShopABC.m_CurrentDoc.Update_Customer_Remove(xDoxTyp, transaction_Update_Customer_Remove))
             {
+                transaction_Update_Customer_Remove.Commit();
                 this.Cursor = Cursors.Arrow;
                 return true;
             }
             else
             {
+                transaction_Update_Customer_Remove.Rollback();
                 this.Cursor = Cursors.Arrow;
                 return false;
             }

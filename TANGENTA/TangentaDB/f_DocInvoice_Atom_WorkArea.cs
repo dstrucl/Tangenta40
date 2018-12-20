@@ -63,7 +63,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @" insert into DocInvoice_Atom_WorkArea (DocInvoice_ID,Atom_WorkArea_ID)values(" + sval_docInvoice_ID + "," + sval_Atom_WorkArea_ID + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar, ref docInvoice_Atom_WorkArea_ID,ref Err, "DocInvoice_Atom_WorkArea"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql,lpar, ref docInvoice_Atom_WorkArea_ID,ref Err, "DocInvoice_Atom_WorkArea"))
                     {
                         return true;
                     }

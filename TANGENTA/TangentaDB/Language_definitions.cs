@@ -56,59 +56,42 @@ namespace TangentaDB
                 return new ID(Language_list[LanguageControl.DynSettings.LanguageID].ID);
             }
         }
-                    
+
 
         public Language_definitions()
         {
         }
 
-        public bool Get()
+        public bool Get(Transaction transaction)
         {
-            const string TRANSACTION_Language_definitions_Get = "Language_definitions_Get";
             int i = 0;
             int index = 0;
-            string transaction_Language_definitions_Get_id = null;
-            if (DBSync.DBSync.DB_for_Tangenta.BeginTransaction(TRANSACTION_Language_definitions_Get, ref transaction_Language_definitions_Get_id))
+            string err = null;
+            for (i = 0; i < LanguageControl.DynSettings.s_language.sTextArr.Length; i++)
             {
-                string err = null;
-                for (i = 0; i < LanguageControl.DynSettings.s_language.sTextArr.Length; i++)
+                if (LanguageControl.DynSettings.s_language.sTextArr[i] != null)
                 {
-                    if (LanguageControl.DynSettings.s_language.sTextArr[i] != null)
+                    string_v Description_v = new string_v(LanguageControl.DynSettings.s_language.sTextArr[i]);
+                    Language lang = new Language(LanguageControl.DynSettings.s_language.sTextArr[i], Description_v.v);
+                    ID xLanguage_ID = null;
+                    if (f_Language.Get(LanguageControl.DynSettings.s_language.sTextArr[i], Description_v, index, ref xLanguage_ID, transaction))
                     {
-                        string_v Description_v = new string_v(LanguageControl.DynSettings.s_language.sTextArr[i]);
-                        Language lang = new Language(LanguageControl.DynSettings.s_language.sTextArr[i], Description_v.v);
-                        ID xLanguage_ID = null;
-                        if (f_Language.Get(LanguageControl.DynSettings.s_language.sTextArr[i], Description_v, index, ref xLanguage_ID))
-                        {
-                            lang.ID = xLanguage_ID;
-                            Language_list.Add(lang);
-                            index++;
-                        }
-                        else
-                        {
-                            if (!DBSync.DBSync.DB_for_Tangenta.RollbackTransaction(transaction_Language_definitions_Get_id))
-                            {
-                                LogFile.Error.Show("ERROR:TangentaDB:Language_definitions:Get:RollbackTransaction:Err=" + err);
-                            }
-                            return false;
-                        }
+                        lang.ID = xLanguage_ID;
+                        Language_list.Add(lang);
+                        index++;
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
-                if (!DBSync.DBSync.DB_for_Tangenta.CommitTransaction(transaction_Language_definitions_Get_id))
-                {
-                    LogFile.Error.Show("ERROR:TangentaDB:Language_definitions:Get:RollbackTransaction:Err=" + err);
-                    return false;
-                }
-                return true;
             }
-            else
-            {
-                return false;
-            }
+            return true;
         }
 
 
-        public bool Read()
+
+        public bool Read(Transaction transaction)
         {
             string Err = null;
             string sql = "select Name, Description,LanguageIndex,ID from Language";
@@ -124,7 +107,7 @@ namespace TangentaDB
                     }
                     else
                     {
-                        Set(lang);
+                        Set(lang, transaction);
                     }
                 }
                 return true;
@@ -154,7 +137,7 @@ namespace TangentaDB
             return false;
         }
 
-        private bool Set(Language lang)
+        private bool Set(Language lang, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -181,11 +164,11 @@ namespace TangentaDB
             sval_Description = spar_LanguageIndex;
             lpar.Add(par_LanguageIndex);
 
-
-            string sql = "insert into Language (Name,Description,LanguageIndex) values (" + sval_Name + "," + sval_Description + ","+ sval_LanguageIndex + ")";
+          
+            string sql = "insert into Language (Name,Description,LanguageIndex) values (" + sval_Name + "," + sval_Description + "," + sval_LanguageIndex + ")";
             ID dpt_id = null;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref dpt_id, ref Err, "Language"))
+            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref dpt_id, ref Err, "Language"))
             {
                 lang.ID = dpt_id;
                 return true;
@@ -198,3 +181,5 @@ namespace TangentaDB
         }
     }
 }
+    
+

@@ -83,10 +83,6 @@ namespace TangentaDB
                     }
                     else
                     {
-                        if (!transaction.Get(DBSync.DBSync.Con))
-                        {
-                                return false;
-                        }
                         sql = @"insert into Atom_BankAccount (Atom_Bank_ID,
                                                              Active,
                                                              TRR,
@@ -96,7 +92,7 @@ namespace TangentaDB
                                                              "," + sval_BankAccount +
                                                              "," + sval_Description +
                                                              ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_BankAccount_ID,  ref Err, "Atom_BankAccount"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_BankAccount_ID,  ref Err, "Atom_BankAccount"))
                         {
                             return true;
                         }

@@ -50,7 +50,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into SettingsValue (SettingsVal) values (" + sval_SettingsValue + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref SettingsValue_ID, ref Err, "SettingsValue"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref SettingsValue_ID, ref Err, "SettingsValue"))
                     {
                         return true;
                     }

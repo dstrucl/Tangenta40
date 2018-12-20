@@ -139,7 +139,7 @@ namespace TangentaDB
 
 
 
-                                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref atom_Price_Item_ID, ref Err, "Atom_Price_Item"))
+                                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref atom_Price_Item_ID, ref Err, "Atom_Price_Item"))
                                         {
                                             return true;
                                         }

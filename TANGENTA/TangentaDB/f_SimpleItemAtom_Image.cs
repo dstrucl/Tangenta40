@@ -40,7 +40,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into Atom_SimpleItem_Image (Image_Hash,Image_Data) select Image_Hash,Image_Data from SimpleItem_Image where ID = "+SimpleItem_Image_ID.ToString();
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_SimpleItem_Image_ID, ref Err, "Atom_SimpleItem_Image"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, null, ref Atom_SimpleItem_Image_ID, ref Err, "Atom_SimpleItem_Image"))
                     {
                         return true;
                     }

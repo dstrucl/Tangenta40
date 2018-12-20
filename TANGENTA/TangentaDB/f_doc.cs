@@ -41,7 +41,7 @@ namespace TangentaDB
 
         public static long doc_Html_Invoice_Template_A4_ID = 0;
 
-        public static bool InsertDefault()
+        public static bool InsertDefault(Transaction transaction)
         {
 
             Tangenta_DefaultPrintTemplates.TemplatesLoader.Init();
@@ -116,7 +116,8 @@ namespace TangentaDB
                             true,
                             true,
                             true,
-                            ref doc_ID
+                            ref doc_ID,
+                            transaction
                             ))
                 {
                     return false;
@@ -352,7 +353,8 @@ namespace TangentaDB
                                 bool Active,
                                 bool Default,
                                 bool bOverwriteIfNameAndTypesAreTheSame,
-                                ref ID doc_ID)
+                                ref ID doc_ID,
+                                Transaction transaction)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -468,7 +470,8 @@ namespace TangentaDB
                                            Language_ID,
                                            commpressed,
                                            Active,
-                                           Default))
+                                           Default,
+                                           transaction))
                                     {
                                         doc_ID = doc_id;
                                         return true;
@@ -506,7 +509,7 @@ namespace TangentaDB
                         if (Default)
                         {
                             sql = @"update doc set bDefault = 0 where doc_type_ID = " + sval_doc_type_ID + " and doc_page_type_ID = " + sval_doc_page_type_ID + " and Language_ID = " + sval_Language_ID;
-                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,  ref Err))
+                            if (!transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar,  ref Err))
                             {
                                 LogFile.Error.Show("ERROR:f_doc:Get:sql=" + sql + "\r\nErr=" + Err);
                                 return false;
@@ -532,7 +535,7 @@ namespace TangentaDB
                                                   + sval_Language_ID + ","
                                                   + sCompressed +@",
                                                   1,"+ spar_bDefault + ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref doc_ID,  ref Err, "doc"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref doc_ID,  ref Err, "doc"))
                         {
                             return true;
                         }
@@ -566,7 +569,8 @@ namespace TangentaDB
                                 ID Language_ID,
                                 bool commpressed,
                                 bool Active,
-                                bool Default)
+                                bool Default,
+                                Transaction transaction)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -663,7 +667,7 @@ namespace TangentaDB
                                             + ", Language_ID = " + sval_Language_ID
                                             + ", Compressed = " + sCompressed
                                             + ", Active =1,bDefault = " + spar_bDefault + " where ID = " + doc_ID.ToString();
-                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref doc_ID, ref Err, "doc"))
+                if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref doc_ID, ref Err, "doc"))
                 {
                     return true;
                 }

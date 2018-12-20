@@ -77,12 +77,8 @@ namespace TangentaDB
                 }
                 else
                 {
-                    if (!transaction.Get(DBSync.DBSync.Con))
-                    {
-                        return false;
-                    }
                     sql = " insert into Atom_Logo (Image_Hash,Image_Data,Description) values (" + Image_Hash_Value + "," + Image_Data_Value + "," + Description_Value + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Logo_ID,  ref Err, "Atom_Logo"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_Logo_ID,  ref Err, "Atom_Logo"))
                     {
                         return true;
                     }

@@ -70,7 +70,6 @@ namespace DBConnectionControl40
                     {
                         ErrorMsg = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteQuerySQL:\r\n", sql, cmd.Parameters);
                         DBConnection.ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuery");
-                        Disconnect();
                         DBConnection.WriteLogTable(ex);
                         ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
                         return false;
@@ -133,7 +132,6 @@ namespace DBConnectionControl40
                     //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
                     ErrorMsg = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteQuerySQL:\r\n", sql, cmd.Parameters);
                     DBConnection.ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuery");
-                    Disconnect();
                     DBConnection.WriteLogTable(ex);
 
                     ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
@@ -185,7 +183,6 @@ namespace DBConnectionControl40
                         //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
                         ErrorMsg = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteQuerySQL:\r\n", sql, cmd.Parameters);
                         DBConnection.ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuery");
-                        Disconnect();
                         DBConnection.WriteLogTable(ex);
                         ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
                         return false;
@@ -235,7 +232,6 @@ namespace DBConnectionControl40
                     {
                         ErrorMsg = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteQuerySQL:\r\n", sql, cmd.Parameters);
                         DBConnection.ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuery");
-                        Disconnect();
                         DBConnection.WriteLogTable(ex);
                         ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
                         return false;
@@ -423,7 +419,6 @@ namespace DBConnectionControl40
                     //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
                     csError = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteQuerySQL:\r\n", sql, cmd.Parameters);
                     DBConnection.ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuery");
-                    Disconnect();
                     DBConnection.WriteLogTable(ex);
                     ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
                     return false;

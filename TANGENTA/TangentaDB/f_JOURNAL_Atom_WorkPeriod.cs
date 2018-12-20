@@ -25,14 +25,11 @@ namespace TangentaDB
             lpar.Add(par_Atom_WorkPeriod_ID);
 
             string table_name = "JOURNAL_Atom_WorkPeriod";
-            if (!transaction.Get(DBSync.DBSync.Con))
-            {
-                return false;
-            }
+         
             string sql = "insert into " + table_name + " (JOURNAL_Atom_WorkPeriod_TYPE_ID,EventTime,Atom_WorkPeriod_ID)values(" + spar_JOURNAL_Atom_WorkPeriod_TYPE_ID + "," + spar_EventTime +"," + spar_Atom_WorkPeriod_ID + ")";
             string Err = null;
 
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref JOURNAL_Atom_WorkPeriod_ID, ref Err, table_name))
+            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref JOURNAL_Atom_WorkPeriod_ID, ref Err, table_name))
             {
                 return true;
             }

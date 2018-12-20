@@ -80,7 +80,8 @@ namespace TangentaDB
                                string Item_ParentGroup2,
                                string Item_ParentGroup3,
                                ref ID Unit_ID,
-                               ref ID Item_ID)
+                               ref ID Item_ID,
+                               Transaction transaction)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -236,7 +237,7 @@ namespace TangentaDB
                                                     Description = " + sval_Description + @",
                                                     Expiry_ID = " + sval_Expiry_ID + @",
                                                     Warranty_ID = " + sval_Warranty_ID + " where ID = " + Item_ID.ToString();
-                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
+                            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar, ref Err))
                             {
                                 return true;
                             }
@@ -279,7 +280,7 @@ namespace TangentaDB
                                             + sval_Expiry_ID + ","
                                             + sval_Warranty_ID +
                                             ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Item_ID, ref Err, "Item"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Item_ID, ref Err, "Item"))
                     {
                         return true;
                     }

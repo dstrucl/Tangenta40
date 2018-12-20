@@ -54,10 +54,6 @@ namespace TangentaDB
                 }
                 else
                 {
-                    if (!transaction.Get(DBSync.DBSync.Con))
-                    {
-                        return false;
-                    }
                     sql = @"insert into Office_Data (cAddress_Org_ID,
                                                             Office_ID,
                                                             Description) values ("
@@ -180,9 +176,9 @@ namespace TangentaDB
             }
         }
 
-        public static bool DeleteAll()
+        public static bool DeleteAll(Transaction transaction)
         {
-            return fs.DeleteAll("Office_Data");
+            return fs.DeleteAll("Office_Data",transaction);
         }
     }
 }

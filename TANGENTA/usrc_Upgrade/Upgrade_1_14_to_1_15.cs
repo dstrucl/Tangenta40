@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DBConnectionControl40;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,8 @@ namespace UpgradeDB
     {
         internal static object UpgradeDB_1_14_to_1_15(object obj, ref string Err)
         {
+            Transaction transaction_UpgradeDB_1_14_to_1_15 = new Transaction("UpgradeDB_1_14_to_1_15");
+
             if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 string sql = null;
@@ -24,7 +27,7 @@ namespace UpgradeDB
                         'Description' varchar(2000) NULL
                         )
                 ";
-                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                if (transaction_UpgradeDB_1_14_to_1_15.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                 {
                     sql = @"INSERT INTO Stock_backup (ImportTime,
 						 dQuantity,
@@ -40,42 +43,55 @@ namespace UpgradeDB
 						Stock_AddressLevel1_ID,
 						Description 
 						FROM Stock";
-                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    if (transaction_UpgradeDB_1_14_to_1_15.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                     {
                         sql = @"PRAGMA foreign_keys = OFF;
                         DROP TABLE Stock;
                         ALTER TABLE Stock_backup RENAME TO Stock;
                         PRAGMA foreign_keys = ON;";
-                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                        if (transaction_UpgradeDB_1_14_to_1_15.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                         {
                             string[] new_tables = new string[] { "FVI_SLO_SalesBookInvoice" };
                             if (DBSync.DBSync.CreateTables(new_tables, ref Err))
                             {
                                 if (DBSync.DBSync.Create_VIEWs())
                                 {
-                                    UpgradeDB_inThread.Set_DataBase_Version("1.15");
-                                    return true;
+                                    if (UpgradeDB_inThread.Set_DataBase_Version("1.15", transaction_UpgradeDB_1_14_to_1_15))
+                                    {
+                                        if (transaction_UpgradeDB_1_14_to_1_15.Commit())
+                                        {
+                                            return true;
+                                        }
+                                        else
+                                        {
+                                            return false;
+                                        }
+                                    }
                                 }
                             }
                         }
                         else
                         {
+                            transaction_UpgradeDB_1_14_to_1_15.Rollback();
                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
                     else
                     {
+                        transaction_UpgradeDB_1_14_to_1_15.Rollback();
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                         return false;
                     }
                 }
                 else
                 {
+                    transaction_UpgradeDB_1_14_to_1_15.Rollback();
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Person:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
+            transaction_UpgradeDB_1_14_to_1_15.Rollback();
             return false;
         }
     }

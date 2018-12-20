@@ -10,7 +10,7 @@ namespace TangentaDB
 {
     public static class f_Atom_Item_Name
     {
-        public static bool Get(string_v Item_Name, ref ID Atom_Item_Name_ID)
+        public static bool Get(string_v Item_Name, ref ID Atom_Item_Name_ID, Transaction transaction)
         {
             string Err = null;
             if (Item_Name != null)
@@ -35,7 +35,7 @@ namespace TangentaDB
                     else
                     {
                         sql = @"insert into Atom_Item_Name (Name)values(" + spar_Name + ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Item_Name_ID,  ref Err, "Atom_Item_Name"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_Item_Name_ID,  ref Err, "Atom_Item_Name"))
                         {
                             return true;
                         }

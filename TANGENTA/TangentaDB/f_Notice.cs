@@ -44,12 +44,8 @@ namespace TangentaDB
                 }
                 else
                 {
-                    if (!transaction.Get(DBSync.DBSync.Con))
-                    {
-                        return false;
-                    }
                     sql = @"insert into Notice (NoticeText) values (" + sval_NoticeText + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Notice_ID,  ref Err, "Notice"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Notice_ID,  ref Err, "Notice"))
                     {
                         return true;
                     }

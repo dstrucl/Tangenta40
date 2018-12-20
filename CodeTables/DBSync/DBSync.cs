@@ -124,7 +124,7 @@ namespace DBSync
                 // Connect to create SQLite file !
                 if (Con.Connect(ref Err))
                 {
-                    Con.Disconnect();
+                    //Con.Disconnect();
                     return true;
                 }
                 else

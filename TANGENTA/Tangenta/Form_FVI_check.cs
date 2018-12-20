@@ -77,20 +77,33 @@ namespace Tangenta
         {
             Program.b_FVI_SLO = false;
             ID DBSettings_ID = null;
+            Transaction transaction_WriteDBSettings_FiscalVerificationOfInvoices = new Transaction("WriteDBSettings_FiscalVerificationOfInvoices");
             if (chk_FVI.Checked)
             {
                 string sFiscalVerificationOfInvoices = "1";
-                if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.FiscalVerificationOfInvoices.Name, sFiscalVerificationOfInvoices, "0", ref DBSettings_ID))
+                if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.FiscalVerificationOfInvoices.Name, sFiscalVerificationOfInvoices, "0", ref DBSettings_ID, transaction_WriteDBSettings_FiscalVerificationOfInvoices))
                 {
+                    transaction_WriteDBSettings_FiscalVerificationOfInvoices.Commit();
                     Program.b_FVI_SLO = sFiscalVerificationOfInvoices.Equals("1");
+                }
+                else
+                {
+                    transaction_WriteDBSettings_FiscalVerificationOfInvoices.Rollback();
+                    return false;
                 }
             }
             else
             {
                 string sFiscalVerificationOfInvoices = "0";
-                if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.FiscalVerificationOfInvoices.Name, sFiscalVerificationOfInvoices, "0", ref DBSettings_ID))
+                if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.FiscalVerificationOfInvoices.Name, sFiscalVerificationOfInvoices, "0", ref DBSettings_ID, transaction_WriteDBSettings_FiscalVerificationOfInvoices))
                 {
+                    transaction_WriteDBSettings_FiscalVerificationOfInvoices.Commit();
                     Program.b_FVI_SLO = sFiscalVerificationOfInvoices.Equals("1");
+                }
+                else
+                {
+                    transaction_WriteDBSettings_FiscalVerificationOfInvoices.Rollback();
+                    return false;
                 }
             }
             Close();

@@ -158,7 +158,7 @@ namespace Tangenta
                 {
                     sql = @"insert into customer_org (OrganisationData_ID)values(" + OrganisationData_ID.ToString()+")";
 
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,null,ref CustomerOrganisationData_ID,  ref Err,"customer_org"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql,null,ref CustomerOrganisationData_ID,  ref Err,"customer_org"))
                     {
                         return true;
                     }

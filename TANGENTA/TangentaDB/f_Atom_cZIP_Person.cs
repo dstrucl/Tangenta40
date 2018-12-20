@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_Atom_cZIP_Person
     {
-        public static bool Get(ID cZIP_Person_ID, ref ID Atom_cZIP_Person_ID)
+        public static bool Get(ID cZIP_Person_ID, ref ID Atom_cZIP_Person_ID, Transaction transaction)
         {
             string Err = null;
             string sql = @"select ZIP from cZIP_Person where ID = " + cZIP_Person_ID.ToString();
@@ -65,7 +65,7 @@ namespace TangentaDB
                             else
                             {
                                 sql = @"insert into Atom_cZIP_Person (ZIP) values (" + sval_ZIP + ")";
-                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_cZIP_Person_ID,  ref Err, "Atom_cZIP_Person"))
+                                if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_cZIP_Person_ID,  ref Err, "Atom_cZIP_Person"))
                                 {
                                     return true;
                                 }
@@ -101,7 +101,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(string_v zIP_v, ref ID atom_cZIP_Person_ID)
+        internal static bool Get(string_v zIP_v, ref ID atom_cZIP_Person_ID, Transaction transaction)
         {
             if (zIP_v != null)
             {
@@ -126,7 +126,7 @@ namespace TangentaDB
                     else
                     {
                         sql = @"insert into Atom_cZIP_Person (ZIP) values (@par)";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref atom_cZIP_Person_ID, ref Err, "Atom_cZIP_Person"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref atom_cZIP_Person_ID, ref Err, "Atom_cZIP_Person"))
                         {
                             return true;
                         }

@@ -203,7 +203,7 @@ namespace TangentaDB
                     string sql = @"update Current_" + doctype + "_ID set " + doctype + "_ID = " + sval_Doc_ID +
                                 " where " + scond_Current_Doc_ID;
 
-                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
+                    if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar, ref Err))
                     {
                         return true;
                     }
@@ -226,7 +226,7 @@ namespace TangentaDB
                                   + "," + sval_Doc_ID
                                   + "," + sval_myOrganisation_Person_ID
                                   + "," + sval_ElectronicDevice_ID + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref xLast_Current_Doc_ID, ref Err, "Current_" + doctype + "_ID"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref xLast_Current_Doc_ID, ref Err, "Current_" + doctype + "_ID"))
                     {
                         return true;
                     }

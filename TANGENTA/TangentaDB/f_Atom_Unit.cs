@@ -135,7 +135,7 @@ namespace TangentaDB
                                                                                              + sv_Unit_StorageOption + ","
                                                                                              + sv_Unit_Description
                                                                                             + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Unit, lpar, ref Atom_Unit_ID, ref Err, "Atom_Unit"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_Insert_Atom_Unit, lpar, ref Atom_Unit_ID, ref Err, "Atom_Unit"))
                     {
                         return true;
                     }

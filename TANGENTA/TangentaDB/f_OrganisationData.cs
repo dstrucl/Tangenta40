@@ -43,7 +43,7 @@ namespace TangentaDB
             ID OrganisationTYPE_ID = null;
             if (f_cOrgTYPE.Get(OrganisationTYPE_v, ref OrganisationTYPE_ID, transaction))
             {
-                if (f_cAddress_Org.Get(Address_v, ref cAdressAtom_Org_iD))
+                if (f_cAddress_Org.Get(Address_v, ref cAdressAtom_Org_iD, transaction))
                 {
                     ID xcHomePage_Org_ID = null;
                     string cHomePage_Org_ID_v_cond = "cHomePage_Org_ID is null";
@@ -190,6 +190,7 @@ namespace TangentaDB
                         }
                         else
                         {
+                           
                             string sql_insert = @"insert into OrganisationData (Organisation_ID,cOrgTYPE_ID,cAddress_Org_ID,cHomePage_Org_ID,cEmail_Org_ID,cPhoneNumber_Org_ID,cFaxNumber_Org_ID,Logo_ID) values (
                                                                                     " + Organisation_ID.ToString() + @",
                                                                                     " + cOrgTYPE_ID_value + @",
@@ -199,7 +200,7 @@ namespace TangentaDB
                                                                                     " + cPhoneNumber_Org_ID_v_Value + @",
                                                                                     " + cFaxNumber_Org_ID_v_Value + @",
                                                                                     " + Logo_ID_Value + ")";
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref OrganisationData_ID, ref Err, "OrganisationData"))
+                            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_insert, lpar, ref OrganisationData_ID, ref Err, "OrganisationData"))
                             {
                                 return true;
                             }
@@ -289,10 +290,10 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool DeleteAll()
+        public static bool DeleteAll(Transaction transaction)
         {
 
-            return fs.DeleteAll("OrganisationData");
+            return fs.DeleteAll("OrganisationData", transaction);
         }
     }
 }

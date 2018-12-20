@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_cCity_Org
     {
-        public static bool Get(string City, ref ID cCity_Org_ID)
+        public static bool Get(string City, ref ID cCity_Org_ID, Transaction transaction)
         {
        
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -57,7 +57,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into cCity_Org (City) values (" + sval_City + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCity_Org_ID,  ref Err, "Atom_cCity_Org"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cCity_Org_ID,  ref Err, "Atom_cCity_Org"))
                     {
                         return true;
                     }
@@ -76,7 +76,7 @@ namespace TangentaDB
             
         }
 
-        internal static bool Get(string_v city_v, ref ID cCity_Org_ID)
+        internal static bool Get(string_v city_v, ref ID cCity_Org_ID, Transaction transaction)
         {
             if (city_v != null)
             {
@@ -101,7 +101,7 @@ namespace TangentaDB
                     else
                     {
                         sql = @"insert into cCity_Org (City) values (@par)";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCity_Org_ID,  ref Err, "cCity_Org"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cCity_Org_ID,  ref Err, "cCity_Org"))
                         {
                             return true;
                         }
@@ -125,9 +125,9 @@ namespace TangentaDB
             }
         }
 
-        public static bool DeleteAll()
+        public static bool DeleteAll(Transaction transaction)
         {
-            return fs.DeleteAll("cCity_Org");
+            return fs.DeleteAll("cCity_Org", transaction);
         }
     }
 }

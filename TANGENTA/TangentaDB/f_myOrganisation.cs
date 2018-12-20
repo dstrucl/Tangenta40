@@ -30,12 +30,8 @@ namespace TangentaDB
                     }
                     else
                     {
-                        if (!transaction.Get(DBSync.DBSync.Con))
-                        {
-                            return false;
-                        }
                         sql = "update myOrganisation set OrganisationData_ID = " + OrganisationData_ID.ToString() + " where ID = " + myOrganisation_ID.ToString();
-                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                        if (transaction.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                         {
                             return true;
                         }
@@ -49,12 +45,8 @@ namespace TangentaDB
                 else
                 {
 
-                    if (!transaction.Get(DBSync.DBSync.Con))
-                    {
-                        return false;
-                    }
                     sql = "insert into myOrganisation (OrganisationData_ID)values(" + OrganisationData_ID.ToString() + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref myOrganisation_ID,  ref Err, "myOrganisation"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, null, ref myOrganisation_ID,  ref Err, "myOrganisation"))
                     {
                         return true;
                     }
@@ -72,9 +64,9 @@ namespace TangentaDB
             }
         }
 
-        public static bool DeleteAll()
+        public static bool DeleteAll(Transaction transaction)
         {
-           return  fs.DeleteAll("myOrganisation");
+           return  fs.DeleteAll("myOrganisation", transaction);
         }
     }
 }

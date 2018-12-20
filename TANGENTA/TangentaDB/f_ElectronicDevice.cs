@@ -335,26 +335,19 @@ namespace TangentaDB
                         sql = null;
                         if ((ElectronicDevice_Description == null) && (Current_ElectronicDevice_Description is string))
                         {
-                            if (!transaction.Get(DBSync.DBSync.Con))
-                            {
-                                return false;
-                            }
+                            
                             sql = @"Update ElectronicDevice set Description = null where ID = " + ElectronicDevice_ID.ToString();
                         }
                         else if ((ElectronicDevice_Description != null) && (Current_ElectronicDevice_Description is string))
                         {
                             if (ElectronicDevice_Description.Equals((string)Current_ElectronicDevice_Description))
                             {
-                                if (!transaction.Get(DBSync.DBSync.Con))
-                                {
-                                    return false;
-                                }
                                 sql = @"Update ElectronicDevice set Description = " + sval_ElectronicDevice_Description + " where ID = " + ElectronicDevice_ID.ToString();
                             }
                         }
                         if (sql != null)
                         {
-                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
+                            if (!transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar, ref Err))
                             {
                                 LogFile.Error.Show("ERROR:f_ElectronicDevice:Get:sql=" + sql + "\r\nErr=" + Err);
                                 return false;
@@ -364,12 +357,8 @@ namespace TangentaDB
                     }
                     else
                     {
-                        if (!transaction.Get(DBSync.DBSync.Con))
-                        {
-                            return false;
-                        }
                         sql = @"insert into ElectronicDevice (Name,Description,Office_ID,Atom_Computer_ID) values (" + sval_ElectronicDevice_Name + "," + sval_ElectronicDevice_Description + "," + sval_Office_ID + "," + sval_Atom_Computer_ID + ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref ElectronicDevice_ID, ref Err, "ElectronicDevice"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref ElectronicDevice_ID, ref Err, "ElectronicDevice"))
                         {
                             return true;
                         }

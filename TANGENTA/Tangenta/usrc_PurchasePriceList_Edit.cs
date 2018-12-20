@@ -86,12 +86,15 @@ namespace Tangenta
                     string Err = null;
                     string sql = @" insert into PurchasePrice_Item (Item_ID,PurchasePrice_ID,Taxation_ID,PurchasePricePerUnit,Discount) 
                                 select id," + xID.ToString() + "," + id_Taxation.ToString() + ",-1,0 from Item where ToOffer = 1";
-                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
+                    Transaction transaction_usrc_EditTable_PurchasePrice_after_InsertInDataBase = new Transaction("usrc_EditTable_PurchasePrice_after_InsertInDataBase");
+                    if (transaction_usrc_EditTable_PurchasePrice_after_InsertInDataBase.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
                     {
-                        SQLTable tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_Item)));
-                        tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
-                        string where_condition = " where PurchasePrice_$_ID = " + xID.ToString() + " ";
-                        string selection = @"ID,
+                        if (transaction_usrc_EditTable_PurchasePrice_after_InsertInDataBase.Commit())
+                        {
+                            SQLTable tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_Item)));
+                            tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                            string where_condition = " where PurchasePrice_$_ID = " + xID.ToString() + " ";
+                            string selection = @"ID,
                                  PurchasePrice_Item_$$PurchasePricePerUnit,
                                  PurchasePrice_Item_$_pp_$_Cur_$$Symbol,
                                  PurchasePrice_Item_$_i_$$UniqueName,
@@ -101,13 +104,19 @@ namespace Tangenta
                                  PurchasePrice_Item_$_i_$$Code
             ";
 
-                        if (usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, where_condition, null, false,nav))
+                            if (usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, where_condition, null, false, nav))
+                            {
+                                Edit_PurchasePrice_Item(id_Taxation);
+                            }
+                        }
+                        else
                         {
-                            Edit_PurchasePrice_Item(id_Taxation);
+                            return;
                         }
                     }
                     else
                     {
+                        transaction_usrc_EditTable_PurchasePrice_after_InsertInDataBase.Rollback();
                         LogFile.Error.Show("ERROR:usrc_PriceList_Edit:usrc_EditTable_PriceList_after_InsertInDataBase:Err=" + Err + "\r\nSql=" + sql);
                     }
                 }
@@ -154,13 +163,18 @@ namespace Tangenta
                         if (dt_PriceList.Rows.Count > 0)
                         {
                             long PriceList_ID = (long)dt_PriceList.Rows[0]["ID"];
+
                             sql = @" insert into PurchasePrice_Item (Item_ID,PriceList_ID,Taxation_ID,PurchasePricePerUnit) 
                                                         select id," + PriceList_ID.ToString() + "," + id_Taxation.ToString() + ",-1 from Item where ToOffer = 1";
-                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
+                            Transaction transaction_Edit_PurchasePrice_Item = new Transaction("Edit_PurchasePrice_Item");
+                            if (transaction_Edit_PurchasePrice_Item.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
                             {
-                                SQLTable tbl_PurchasePrice_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(PurchasePrice_Item)));
-                                tbl_PurchasePrice_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
-                                string selection = @"ID,
+                                if (transaction_Edit_PurchasePrice_Item.Commit())
+                                {
+
+                                    SQLTable tbl_PurchasePrice_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(PurchasePrice_Item)));
+                                    tbl_PurchasePrice_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                                    string selection = @"ID,
                                  PurchasePrice_Item_$$PurchasePricePerUnit,
                                  PurchasePrice_Item_$_pp_$_Cur_$$Symbol,
                                  PurchasePrice_Item_$_i_$$UniqueName,
@@ -173,13 +187,19 @@ namespace Tangenta
                                  PurchasePrice_Item_$_pp_$_myOrganisation_Person_$$LastName
                                  PurchasePrice_Item_$_i_$$Code
 ";
-                                if (usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_PurchasePrice_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, null, null, false, nav))
+                                    if (usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_PurchasePrice_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, null, null, false, nav))
+                                    {
+                                        return;
+                                    }
+                                }
+                                else
                                 {
                                     return;
                                 }
                             }
                             else
                             {
+                                transaction_Edit_PurchasePrice_Item.Rollback();
                                 LogFile.Error.Show("ERROR:usrc_PriceList_Edit:usrc_EditTable_PriceList_after_InsertInDataBase:Err=" + Err + "\r\nSql=" + sql);
                             }
                         }

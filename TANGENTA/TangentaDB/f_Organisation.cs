@@ -100,7 +100,7 @@ namespace TangentaDB
             SQL_Parameter par_Comment1_ID = null;
             if (Comment1_v != null)
             {
-                if (f_Comment1.Get(Comment1_v.v, ref Comment1_ID))
+                if (f_Comment1.Get(Comment1_v.v, ref Comment1_ID, transaction))
                 {
                     par_Comment1_ID = new SQL_Parameter("@par_Comment1_ID", false, Comment1_ID);
                     lpar.Add(par_Comment1_ID);
@@ -157,15 +157,11 @@ namespace TangentaDB
                             {
                                 lpar1.Add(par_Comment1_ID);
                             }
-                            if (!transaction.Get(DBSync.DBSync.Con))
-                            {
-                                return false;
-                            }
                             string sql = "update Organisation set Registration_ID = null"
                                  +", TaxPayer = " + TaxPayer_value
                                              + ", Comment1_ID = " + Comment1_ID_value
                                 + " where ID = " + Organisation_ID.ToString();
-                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar1, ref Err))
+                            if (!transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar1, ref Err))
                             {
                                 LogFile.Error.Show("ERROR:TangentaDB:f_Organisation:Get:sql=" + sql + "\r\nErr=" + Err);
                                 return false;
@@ -187,15 +183,11 @@ namespace TangentaDB
                                 {
                                     lpar1.Add(par_Comment1_ID);
                                 }
-                                if (!transaction.Get(DBSync.DBSync.Con))
-                                {
-                                    return false;
-                                }
                                 string sql = "update Organisation set Registration_ID = " + spar_Registration_ID 
                                              + ", TaxPayer = " + TaxPayer_value
                                              + ", Comment1_ID = " + Comment1_ID_value
                                              + " where ID = " + Organisation_ID.ToString();
-                                if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar1,  ref Err))
+                                if (!transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar1,  ref Err))
                                 {
                                     LogFile.Error.Show("ERROR:TangentaDB:f_Organisation:Get:sql=" + sql + "\r\nErr=" + Err);
                                     return false;
@@ -221,16 +213,14 @@ namespace TangentaDB
                             {
                                 lpar1.Add(par_Comment1_ID);
                             }
-                            if (!transaction.Get(DBSync.DBSync.Con))
-                            {
-                                return false;
-                            }
+
+                           
                             string sql = "update Organisation set Registration_ID = " + spar_Registration_ID
                                          + ", TaxPayer = " + TaxPayer_value
                                          + ", Comment1_ID = " + Comment1_ID_value
                                          + " where ID = " + Organisation_ID.ToString();
 
-                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar1,  ref Err))
+                            if (!transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar1,  ref Err))
                             {
                                 LogFile.Error.Show("ERROR:TangentaDB:f_Organisation:Get:sql=" + sql + "\r\nErr=" + Err);
                                 return false;
@@ -273,7 +263,7 @@ namespace TangentaDB
                 else
                 {
                     string sql_insert = " insert into Organisation  (Name,Tax_ID,Registration_ID,TaxPayer,Comment1_ID) values (" + sName_value + "," + sTaxID_value + "," + sRegistration_ID_value + "," + TaxPayer_value + "," + Comment1_ID_value +")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Organisation_ID, ref Err, "Organisation"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_insert, lpar, ref Organisation_ID, ref Err, "Organisation"))
                     {
                         if (f_OrganisationData.Get(Organisation_ID,
                                                                                OrganisationTYPE_v,
@@ -324,7 +314,8 @@ namespace TangentaDB
         public static bool Get(string_v Organisation_Name_v,
                                  string_v Tax_ID_v,
                                  string_v Registration_ID_v,
-                                 ref ID Organisation_ID
+                                 ref ID Organisation_ID,
+                                 Transaction transaction
                                  )
         {
             string Err = null;
@@ -395,7 +386,7 @@ namespace TangentaDB
                 else
                 {
                     string sql_insert = " insert into Organisation  (Name,Tax_ID,Registration_ID) values (" + sName_value + "," + sTaxID_value + "," + sRegistration_ID_value + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Organisation_ID, ref Err, "Organisation"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_insert, lpar, ref Organisation_ID, ref Err, "Organisation"))
                     {
                         return true;
                     }
@@ -413,9 +404,9 @@ namespace TangentaDB
             }
         }
 
-        public static bool DeleteAll()
+        public static bool DeleteAll(Transaction transaction)
         {
-            return fs.DeleteAll("Organisation");
+            return fs.DeleteAll("Organisation", transaction);
         }
     }
 }

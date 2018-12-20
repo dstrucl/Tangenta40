@@ -219,8 +219,10 @@ namespace PriseLists
 
                             sql = @" insert into Price_SimpleItem (SimpleItem_ID,PriceList_ID,Taxation_ID,RetailSimpleItemPrice,Discount) 
                                     select id," + ID.ToString() + "," + id_Taxation.ToString() + ",-1,0 from SimpleItem where ToOffer = 1";
-                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
+                            Transaction transaction_usrc_EditTable_PriceList_after_InsertInDataBase = new Transaction("usrc_EditTable_PriceList_after_InsertInDataBase");
+                            if (transaction_usrc_EditTable_PriceList_after_InsertInDataBase.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
                             {
+                                transaction_usrc_EditTable_PriceList_after_InsertInDataBase.Commit();
                                 if (tbl_Price_SimpleItem == null)
                                 {
                                     tbl_Price_SimpleItem = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_SimpleItem)));
@@ -252,16 +254,19 @@ namespace PriseLists
                             }
                             else
                             {
+                                transaction_usrc_EditTable_PriceList_after_InsertInDataBase.Rollback();
                                 LogFile.Error.Show("ERROR:usrc_PriceList_Edit:usrc_EditTable_PriceList_after_InsertInDataBase:Err=" + Err + "\r\nSql=" + sql);
                                 return;
                             }
                         }
                         else
                         {
+                            Transaction transaction_usrc_EditTable_PriceList_after_InsertInDataBase = new Transaction("usrc_EditTable_PriceList_after_InsertInDataBase");
                             sql = @" insert into Price_Item (Item_ID,PriceList_ID,Taxation_ID,RetailPricePerUnit,Discount) 
                                             select id," + ID.ToString() + "," + id_Taxation.ToString() + ",-1,0 from Item where ToOffer = 1";
-                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
+                            if (transaction_usrc_EditTable_PriceList_after_InsertInDataBase.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
                             {
+                                transaction_usrc_EditTable_PriceList_after_InsertInDataBase.Commit();
                                 if (tbl_Price_Item == null)
                                 {
                                     tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_Item)));
@@ -300,6 +305,7 @@ namespace PriseLists
                             }
                             else
                             {
+                                transaction_usrc_EditTable_PriceList_after_InsertInDataBase.Rollback();
                                 LogFile.Error.Show("ERROR:usrc_PriceList_Edit:usrc_EditTable_PriceList_after_InsertInDataBase:Err=" + Err + "\r\nSql=" + sql);
                             }
                         }

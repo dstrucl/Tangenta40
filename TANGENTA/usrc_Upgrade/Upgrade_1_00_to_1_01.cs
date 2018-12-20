@@ -1,4 +1,5 @@
 ﻿using CodeTables;
+using DBConnectionControl40;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,29 +13,30 @@ namespace UpgradeDB
     {
         internal static object UpgradeDB_1_00_to_1_01(object o, ref string Err)
         {
+            Transaction transaction_UpgradeDB_1_00_to_1_01 = new Transaction("UpgradeDB_1_00_to_1_01");
             SQLTable tbl_Logo = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Logo));
-            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_Logo.sql_CreateTable, null, ref Err))
+            if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,tbl_Logo.sql_CreateTable, null, ref Err))
             {
                 SQLTable tbl_Atom_Logo = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Logo));
-                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_Atom_Logo.sql_CreateTable, null, ref Err))
+                if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,tbl_Atom_Logo.sql_CreateTable, null, ref Err))
                 {
                     string sql = "alter table OrganisationData add column Logo_ID NULL references Logo(ID)";
-                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                     {
                         sql = "alter table Atom_OrganisationData add column Atom_Logo_ID NULL references Atom_Logo(ID)";
-                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                        if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                         {
                             sql = "DROP VIEW OrganisationData_VIEW";
-                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                            if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                             {
                                 sql = "DROP VIEW Atom_OrganisationData_VIEW";
-                                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                 {
                                     SQLTable tbl_OrganisationData = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationData));
-                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_OrganisationData.sql_CreateView, null, ref Err))
+                                    if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,tbl_OrganisationData.sql_CreateView, null, ref Err))
                                     {
                                         SQLTable tbl_Atom_OrganisationData = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_OrganisationData));
-                                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_Atom_OrganisationData.sql_CreateView, null, ref Err))
+                                        if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,tbl_Atom_OrganisationData.sql_CreateView, null, ref Err))
                                         {
 
                                             sql = @"PRAGMA foreign_keys = OFF;
@@ -93,7 +95,7 @@ namespace UpgradeDB
 
                                             PRAGMA foreign_keys = ON;";
 
-                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                            if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                             {
                                                 DataTable dt = new DataTable();
                                                 sql = "select Organisation_ID from myOrganisation order by ID desc";
@@ -112,7 +114,7 @@ namespace UpgradeDB
                                                     'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
                                                     OrganisationData_ID  INTEGER  NOT NULL REFERENCES OrganisationData(ID) UNIQUE
                                                     );";
-                                                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                 {
                                                     if (Organisation_ID >= 0)
                                                     {
@@ -125,7 +127,7 @@ namespace UpgradeDB
                                                             {
                                                                 OrganisationData_ID = (long)dt.Rows[0]["ID"];
                                                                 sql = "insert into myOrganisation (OrganisationData_ID)values(" + OrganisationData_ID.ToString() + ");";
-                                                                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                if (!transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                                 {
                                                                     return false;
                                                                 }
@@ -150,7 +152,7 @@ namespace UpgradeDB
                                                         'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
                                                         Atom_OrganisationData_ID  INTEGER  NOT NULL REFERENCES Atom_OrganisationData(ID) UNIQUE
                                                         );";
-                                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                    if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                     {
                                                         if (Atom_Organisation_ID >= 0)
                                                         {
@@ -163,7 +165,7 @@ namespace UpgradeDB
                                                                 {
                                                                     Atom_OrganisationData_ID = (long)dt.Rows[0]["ID"];
                                                                     sql = "insert into Atom_myOrganisation (Atom_OrganisationData_ID)values(" + Atom_OrganisationData_ID.ToString() + ");";
-                                                                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                    if (!transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                                     {
                                                                         return false;
                                                                     }
@@ -171,45 +173,52 @@ namespace UpgradeDB
                                                             }
                                                         }
                                                         sql = "DROP VIEW myOrganisation_Person_VIEW";
-                                                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                        if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                         {
                                                             SQLTable tbl_myOrganisation_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation_Person));
-                                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_myOrganisation_Person.sql_CreateView, null, ref Err))
+                                                            if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,tbl_myOrganisation_Person.sql_CreateView, null, ref Err))
                                                             {
                                                                 sql = "DROP VIEW myOrganisation_VIEW";
-                                                                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                                 {
                                                                     SQLTable tbl_myOrganisation = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation));
-                                                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_myOrganisation.sql_CreateView, null, ref Err))
+                                                                    if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,tbl_myOrganisation.sql_CreateView, null, ref Err))
                                                                     {
                                                                         sql = "DROP VIEW Atom_myOrganisation_Person_VIEW";
-                                                                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                        if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                                         {
                                                                             SQLTable tbl_Atom_myOrganisation_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myOrganisation_Person));
-                                                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_Atom_myOrganisation_Person.sql_CreateView, null, ref Err))
+                                                                            if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,tbl_Atom_myOrganisation_Person.sql_CreateView, null, ref Err))
                                                                             {
                                                                                 sql = "DROP VIEW Atom_myOrganisation_VIEW";
-                                                                                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                                if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                                                 {
                                                                                     SQLTable tbl_Atom_myOrganisation = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myOrganisation));
-                                                                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_Atom_myOrganisation.sql_CreateView, null, ref Err))
+                                                                                    if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,tbl_Atom_myOrganisation.sql_CreateView, null, ref Err))
                                                                                     {
 
                                                                                         sql = "DROP VIEW DocInvoice_VIEW";
-                                                                                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                                        if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                                                         {
                                                                                             SQLTable tbl_DocInvoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice));
-                                                                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_DocInvoice.sql_CreateView, null, ref Err))
+                                                                                            if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,tbl_DocInvoice.sql_CreateView, null, ref Err))
                                                                                             {
                                                                                                 sql = "DROP VIEW JOURNAL_DocInvoice_VIEW";
-                                                                                                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                                                if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                                                                 {
                                                                                                     SQLTable tbl_JOURNAL_DocInvoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(JOURNAL_DocInvoice));
-                                                                                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_JOURNAL_DocInvoice.sql_CreateView, null, ref Err))
+                                                                                                    if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,tbl_JOURNAL_DocInvoice.sql_CreateView, null, ref Err))
                                                                                                     {
-                                                                                                        if (UpgradeDB_inThread.Set_DataBase_Version("1.01"))
+                                                                                                        if (UpgradeDB_inThread.Set_DataBase_Version("1.01", transaction_UpgradeDB_1_00_to_1_01))
                                                                                                         {
-                                                                                                            return true;
+                                                                                                            if (transaction_UpgradeDB_1_00_to_1_01.Commit())
+                                                                                                            {
+                                                                                                                return true;
+                                                                                                            }
+                                                                                                            else
+                                                                                                            {
+                                                                                                                return false;
+                                                                                                            }
                                                                                                         }
                                                                                                     }
                                                                                                 }
@@ -234,6 +243,7 @@ namespace UpgradeDB
                     }
                 }
             }
+            transaction_UpgradeDB_1_00_to_1_01.Rollback();
             LogFile.Error.Show("ERROR:usrc_Invoice:UpgradeDB_1_0_to_1_01:Err=" + Err);
             return false;
         }

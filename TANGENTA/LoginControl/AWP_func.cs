@@ -595,10 +595,6 @@ SELECT
             string spar_Atom_WorkPeriod_ID = "@par_Atom_WorkPeriod_ID";
             SQL_Parameter par_Atom_WorkPeriod_ID = new SQL_Parameter(spar_Atom_WorkPeriod_ID, false, atom_WorkPeriod_ID);
             lpar.Add(par_Atom_WorkPeriod_ID);
-            if (!transaction.Get(DBSync.DBSync.Con))
-            {
-                return false;
-            }
             string sql = "insert into LoginSession (LoginUsers_ID,Atom_WorkPeriod_ID)values(" + spar_LoginUsers_ID + "," + spar_Atom_WorkPeriod_ID + ")";
             string Err = null;
 
@@ -1510,11 +1506,11 @@ SELECT
             }
         }
 
-        private static bool remove_WriteInvoiceAndProformaInvoice()
+        private static bool remove_WriteInvoiceAndProformaInvoice(Transaction transaction)
         {
             string err = null;
             string sql = "delete from LoginRoles where Role = 'WriteInvoiceAndProformaInvoice'";
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null,  ref err))
+            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null,  ref err))
             {
                 return true;
             }
@@ -1525,7 +1521,7 @@ SELECT
             }
         }
 
-        private static bool Check_Role_WriteInvoice(ID id_WriteInvoiceAndProformaInvoice)
+        private static bool Check_Role_WriteInvoice(ID id_WriteInvoiceAndProformaInvoice, Transaction transaction)
         {
             if (ID.Validate(id_WriteInvoiceAndProformaInvoice))
             {
@@ -1534,15 +1530,15 @@ SELECT
                 {
                     if (ID.Validate(id_WriteInvoice))
                     {
-                        return remove_WriteInvoiceAndProformaInvoice();
+                        return remove_WriteInvoiceAndProformaInvoice(transaction);
                     }
                     else
                     {
                         string sql = "update LoginRoles set Role = 'WriteInvoice' where ID = "+ id_WriteInvoiceAndProformaInvoice.ToString();
                         string err = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref err))
+                        if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref err))
                         {
-                            return remove_WriteInvoiceAndProformaInvoice();
+                            return remove_WriteInvoiceAndProformaInvoice(transaction);
                         }
                         else
                         {
@@ -1563,15 +1559,15 @@ SELECT
                 {
                     if (ID.Validate(id_WriteInvoice))
                     {
-                        return remove_WriteInvoiceAndProformaInvoice();
+                        return remove_WriteInvoiceAndProformaInvoice(transaction);
                     }
                     else
                     {
                         string sql = "insert into LoginRoles (Role)values('WriteInvoice')";
                         string err = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref err))
+                        if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref err))
                         {
-                            return remove_WriteInvoiceAndProformaInvoice();
+                            return remove_WriteInvoiceAndProformaInvoice(transaction);
                         }
                         else
                         {
@@ -1586,7 +1582,7 @@ SELECT
                 }
             }
         }
-        private static bool Correct_Roles(ID id_WriteInvoiceAndProformaInvoice)
+        private static bool Correct_Roles(ID id_WriteInvoiceAndProformaInvoice, Transaction transaction)
         {
             string sql = null;
             if (ID.Validate(id_WriteInvoiceAndProformaInvoice))
@@ -1596,15 +1592,15 @@ SELECT
                 {
                     if (ID.Validate(id_WriteProformaInvoice))
                     {
-                        return Check_Role_WriteInvoice(id_WriteInvoiceAndProformaInvoice);
+                        return Check_Role_WriteInvoice(id_WriteInvoiceAndProformaInvoice, transaction);
                     }
                     else
                     {
                         string err = null;
                         sql = "update LoginRoles set Role = 'WriteProformaInvoice' where ID = " + id_WriteInvoiceAndProformaInvoice.ToString();
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref err))
+                        if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref err))
                         {
-                            return Check_Role_WriteInvoice(null);
+                            return Check_Role_WriteInvoice(null, transaction);
                         }
                         else
                         {
@@ -1621,7 +1617,7 @@ SELECT
             }
         }
 
-        internal static bool AWPRoles_GetUserRoles(ID LoginUsers_ID, ref List<AWPRole> AWPRoles)
+        internal static bool AWPRoles_GetUserRoles(ID LoginUsers_ID, ref List<AWPRole> AWPRoles, Transaction transaction)
         {
 AWPRoles_GetUserRoles_start:
 
@@ -1656,7 +1652,7 @@ AWPRoles_GetUserRoles_start:
                     if (srole.Equals("WriteInvoiceAndProformaInvoice"))
                     {
                         ID id_WriteInvoiceAndProformaInvoice = tf.set_ID(dr["ID"]);
-                        if (Correct_Roles(id_WriteInvoiceAndProformaInvoice))
+                        if (Correct_Roles(id_WriteInvoiceAndProformaInvoice, transaction))
                         {
                             goto AWPRoles_GetUserRoles_start;
                         }

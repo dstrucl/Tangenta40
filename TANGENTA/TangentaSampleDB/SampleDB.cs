@@ -333,10 +333,10 @@ namespace TangentaSampleDB
                     }
                 }
                 ID Bank_Organisation_ID = null;
-                if (f_Organisation.Get(MyOrg_Bank_Name_v, MyOrg_Bank_Tax_ID_v, MyOrg_Bank_Registration_ID_v, ref Bank_Organisation_ID))
+                if (f_Organisation.Get(MyOrg_Bank_Name_v, MyOrg_Bank_Tax_ID_v, MyOrg_Bank_Registration_ID_v, ref Bank_Organisation_ID, transaction))
                 {
                     ID Bank_ID = null;
-                    if (f_Bank.Get(Bank_Organisation_ID, ref Bank_ID))
+                    if (f_Bank.Get(Bank_Organisation_ID, ref Bank_ID, transaction))
                     {
 
                         ID MyOrg_BankAccount_ID = null;
@@ -394,7 +394,8 @@ namespace TangentaSampleDB
                                                                                     MyOrg_Person_Description_v,
                                                                                     MyOrg_Person_Person_ID,
                                                                                     MyOrg_Person_Office_ID,
-                                                                                    ref myOrganisation_Person_ID))
+                                                                                    ref myOrganisation_Person_ID,
+                                                                                    transaction))
                                                     {
                                                         return true;
                                                     }
@@ -477,42 +478,42 @@ namespace TangentaSampleDB
         }
 
 
-        public bool DeleteAll()
+        public bool DeleteAll(Transaction transaction)
         {
 
-            if (f_OrganisationAccount.DeleteAll())
+            if (f_OrganisationAccount.DeleteAll(transaction))
             {
-                if (f_BankAccount.DeleteAll())
+                if (f_BankAccount.DeleteAll(transaction))
                 {
-                    if (f_Bank.DeleteAll())
+                    if (f_Bank.DeleteAll(transaction))
                     {
-                        if (f_Office_Data.DeleteAll())
+                        if (f_Office_Data.DeleteAll(transaction))
                         {
-                            if (f_myOrganisation_Person.DeleteAll())
+                            if (f_myOrganisation_Person.DeleteAll(transaction))
                             {
-                                if (f_Office.DeleteAll())
+                                if (f_Office.DeleteAll(transaction))
                                 {
-                                    if (f_myOrganisation.DeleteAll())
+                                    if (f_myOrganisation.DeleteAll(transaction))
                                     {
-                                        if (f_OrganisationData.DeleteAll())
+                                        if (f_OrganisationData.DeleteAll(transaction))
                                         {
-                                            if (f_Person.DeleteAll())
+                                            if (f_Person.DeleteAll(transaction))
                                             {
-                                                if (f_Organisation.DeleteAll())
+                                                if (f_Organisation.DeleteAll(transaction))
                                                 {
-                                                    if (f_cAddress_Org.DeleteAll())
+                                                    if (f_cAddress_Org.DeleteAll(transaction))
                                                     {
-                                                        if (f_cStreetName_Org.DeleteAll())
+                                                        if (f_cStreetName_Org.DeleteAll(transaction))
                                                         {
-                                                            if (f_cHouseNumber_Org.DeleteAll())
+                                                            if (f_cHouseNumber_Org.DeleteAll(transaction))
                                                             {
-                                                                if (f_cCity_Org.DeleteAll())
+                                                                if (f_cCity_Org.DeleteAll(transaction))
                                                                 {
-                                                                    if (f_cZIP_Org.DeleteAll())
+                                                                    if (f_cZIP_Org.DeleteAll(transaction))
                                                                     {
-                                                                        if (f_cCountry_Org.DeleteAll())
+                                                                        if (f_cCountry_Org.DeleteAll(transaction))
                                                                         {
-                                                                            if (f_cState_Org.DeleteAll())
+                                                                            if (f_cState_Org.DeleteAll(transaction))
                                                                             {
                                                                                 return true;
                                                                             }
@@ -541,7 +542,7 @@ namespace TangentaSampleDB
         }
 
 
-        public bool Startup_10_Write_ShopB_Items(Form_Items_Samples frm_Items_Samples)
+        public bool Startup_10_Write_ShopB_Items(Form_Items_Samples frm_Items_Samples, Transaction transaction)
         {
             string Currency_Name = null;
             string Currency_Abbreviation = null;
@@ -1046,7 +1047,8 @@ namespace TangentaSampleDB
                                                 sample_ShopB_Item.ShopB_Item_ParentGroup1,
                                                 sample_ShopB_Item.ShopB_Item_ParentGroup2,
                                                 sample_ShopB_Item.ShopB_Item_ParentGroup3,
-                                                ref sample_ShopB_Item.ShopB_Item_ID))
+                                                ref sample_ShopB_Item.ShopB_Item_ID,
+                                                transaction))
                         {
                             if (f_PriceList.Get(sample_ShopB_Item.PriceList_Name,
                                                 sample_ShopB_Item.PriceList_valid,
@@ -1059,14 +1061,15 @@ namespace TangentaSampleDB
                             {
                                 if (f_Taxation.Get(sample_ShopB_Item.TaxationName,
                                                     sample_ShopB_Item.TaxationRate,
-                                                    ref sample_ShopB_Item.Taxation_ID))
+                                                    ref sample_ShopB_Item.Taxation_ID,transaction))
                                 {
                                     if (f_Price_SimpleItem.Get(sample_ShopB_Item.RetailShopB_ItemPrice,
                                                                 sample_ShopB_Item.Discount_v,
                                                                 sample_ShopB_Item.Taxation_ID,
                                                                 sample_ShopB_Item.ShopB_Item_ID,
                                                                 sample_ShopB_Item.PriceList_ID,
-                                                                ref sample_ShopB_Item.Price_ShopB_Item_ID
+                                                                ref sample_ShopB_Item.Price_ShopB_Item_ID,
+                                                                transaction
                                                                 ))
                                     {
                                         if (k % 5 == 0)
@@ -1116,7 +1119,7 @@ namespace TangentaSampleDB
             }
         }
 
-        public bool Write_ShopB_Items(NavigationButtons.Navigation xnav)
+        public bool Write_ShopB_Items(NavigationButtons.Navigation xnav, Transaction transaction)
         {
             string Currency_Name = null;
             string Currency_Abbreviation = null;
@@ -1625,7 +1628,8 @@ namespace TangentaSampleDB
                                                     sample_ShopB_Item.ShopB_Item_ParentGroup1,
                                                     sample_ShopB_Item.ShopB_Item_ParentGroup2,
                                                     sample_ShopB_Item.ShopB_Item_ParentGroup3,
-                                                    ref sample_ShopB_Item.ShopB_Item_ID))
+                                                    ref sample_ShopB_Item.ShopB_Item_ID,
+                                                    transaction))
                             {
                                 if (f_PriceList.Get(sample_ShopB_Item.PriceList_Name,
                                                     sample_ShopB_Item.PriceList_valid,
@@ -1638,14 +1642,15 @@ namespace TangentaSampleDB
                                 {
                                     if (f_Taxation.Get(sample_ShopB_Item.TaxationName,
                                                        sample_ShopB_Item.TaxationRate,
-                                                       ref sample_ShopB_Item.Taxation_ID))
+                                                       ref sample_ShopB_Item.Taxation_ID, transaction))
                                     {
                                         if (f_Price_SimpleItem.Get(sample_ShopB_Item.RetailShopB_ItemPrice,
                                                                    sample_ShopB_Item.Discount_v,
                                                                    sample_ShopB_Item.Taxation_ID,
                                                                    sample_ShopB_Item.ShopB_Item_ID,
                                                                    sample_ShopB_Item.PriceList_ID,
-                                                                   ref sample_ShopB_Item.Price_ShopB_Item_ID
+                                                                   ref sample_ShopB_Item.Price_ShopB_Item_ID,
+                                                                   transaction
                                                                    ))
                                         {
                                             if (k % 5 == 0)
@@ -1779,7 +1784,7 @@ namespace TangentaSampleDB
             return lng.ShopC_Item_Name_Item.s + iItem.ToString() + "    " + ig.ToString() + sufix;
         }
 
-        public bool Startup_11_Write_ShopC_Items(Form_Items_Samples frm_Items_Samples)
+        public bool Startup_11_Write_ShopC_Items(Form_Items_Samples frm_Items_Samples, Transaction transaction)
         {
             string Currency_Name = null;
             string Currency_Abbreviation = null;
@@ -2478,7 +2483,8 @@ namespace TangentaSampleDB
                                         sample_ShopC_Item.ShopC_Item_ParentGroup2,
                                         sample_ShopC_Item.ShopC_Item_ParentGroup3,
                                         ref sample_ShopC_Item.ShopC_Item_Unit_ID,
-                                        ref sample_ShopC_Item.ShopC_Price_Item_Item_ID
+                                        ref sample_ShopC_Item.ShopC_Price_Item_Item_ID,
+                                        transaction
                                         ))
                         {
 
@@ -2493,7 +2499,7 @@ namespace TangentaSampleDB
                             {
                                 if (f_Taxation.Get(sample_ShopC_Item.ShopC_Price_Item_TaxationName,
                                                     sample_ShopC_Item.ShopC_Price_Item_TaxationRate,
-                                                    ref sample_ShopC_Item.ShopC_Price_Item_Taxation_ID))
+                                                    ref sample_ShopC_Item.ShopC_Price_Item_Taxation_ID, transaction))
                                 {
 
                                     if (f_Price_Item.Get(sample_ShopC_Item.ShopC_Price_Item_RetailPricePerUnit,
@@ -2501,7 +2507,7 @@ namespace TangentaSampleDB
                                                             sample_ShopC_Item.ShopC_Price_Item_Taxation_ID,
                                                             sample_ShopC_Item.ShopC_Price_Item_Item_ID,
                                                             sample_ShopC_Item.ShopC_Price_Item_PriceList_ID,
-                                                            ref sample_ShopC_Item.ShopC_Price_Item_ID
+                                                            ref sample_ShopC_Item.ShopC_Price_Item_ID, transaction
                                                             ))
                                     {
                                         if (k % 5 == 0)

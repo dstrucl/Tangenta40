@@ -9,7 +9,7 @@ namespace TangentaDB
 {
     public static class f_StockTake_AdditionalCost
     {
-        public static bool Add(ID StockTake_ID, string Name, decimal Cost, string Description, ref ID StockTake_AdditionalCost_ID)
+        public static bool Add(ID StockTake_ID, string Name, decimal Cost, string Description, ref ID StockTake_AdditionalCost_ID, Transaction transaction)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -50,7 +50,7 @@ namespace TangentaDB
                               + spar_StocTakeCostDescription_ID + ","
                               + spar_StocTake_ID 
                               + ")";
-                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref StockTake_AdditionalCost_ID, ref Err, "StockTake_AdditionalCost"))
+                if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref StockTake_AdditionalCost_ID, ref Err, "StockTake_AdditionalCost"))
                 {
                     return true;
                 }
@@ -105,7 +105,7 @@ namespace TangentaDB
                                                                + ",Cost=" + spar_Cost 
                                                                + ", StockTakeCostDescription_ID = " + spar_StocTakeCostDescription_ID
                                                                + " where StockTake_ID = " + spar_StocTake_ID + " and ID =" + StockTake_AdditionalCost_ID.ToString();
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
+                if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar, ref Err))
                 {
                     return true;
                 }
@@ -117,11 +117,11 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool Remove(ID StockTake_AdditionalCost_ID, ID StockTake_ID)
+        public static bool Remove(ID StockTake_AdditionalCost_ID, ID StockTake_ID, Transaction transaction)
         {
             string Err = null;
             string sql = "delete from StockTake_AdditionalCost where StockTake_ID = " + StockTake_ID.ToString() + " and ID =" + StockTake_AdditionalCost_ID.ToString();
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql,null, ref Err))
+            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql,null, ref Err))
             {
                 return true;
             }

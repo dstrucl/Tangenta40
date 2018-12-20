@@ -408,7 +408,7 @@ namespace LoginControl
             {
                 awpld = new AWPLoginData();
             }
-            if (AWP_func.AWPRoles_GetUserRoles(LoginUsers_ID, ref awpld.m_AWP_UserRoles))
+            if (AWP_func.AWPRoles_GetUserRoles(LoginUsers_ID, ref awpld.m_AWP_UserRoles, transaction))
             {
                 if (IsAdministrator)
                 {

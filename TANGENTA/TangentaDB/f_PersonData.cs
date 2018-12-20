@@ -57,7 +57,7 @@ namespace TangentaDB
                 lpar.Add(par_Person_ID);
                 string sql = "insert into PersonData (Person_ID)values(" + spar_Person_ID + ")";
                 string Err = null;
-                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar, ref personData_ID, ref Err, "PersonData"))
+                if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql,lpar, ref personData_ID, ref Err, "PersonData"))
                 {
                     return true;
                 }

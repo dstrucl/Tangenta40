@@ -55,12 +55,9 @@ namespace TangentaDB
                 }
                 else
                 {
-                    if (!transaction.Get(DBSync.DBSync.Con))
-                    {
-                        return false;
-                    }
+                 
                     sql = @"insert into cOrgTYPE (OrgTYPE) values (" + sval_OrgTYPE + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cOrgTYPE_ID, ref Err, "Atom_cOrgTYPE"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cOrgTYPE_ID, ref Err, "Atom_cOrgTYPE"))
                     {
                         return true;
                     }
@@ -103,12 +100,9 @@ namespace TangentaDB
                     }
                     else
                     {
-                        if (!transaction.Get(DBSync.DBSync.Con))
-                        {
-                            return false;
-                        }
+                        
                         sql = @"insert into cOrgTYPE (OrganisationTYPE) values (@par)";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cOrgTYPE_ID,  ref Err, "cOrgTYPE"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cOrgTYPE_ID,  ref Err, "cOrgTYPE"))
                         {
                             return true;
                         }

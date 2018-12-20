@@ -87,16 +87,12 @@ namespace TangentaDB
                 }
                 else
                 {
-                    if (!transaction.Get(DBSync.DBSync.Con))
-                    {
-                        return false;
-                    }
                     string sql_insert = @"insert into BankAccount (TRR,Active,Description,Bank_ID) values (
                                                                             " + TRR_v_Value + @",
                                                                             " + Active_v_Value + @",
                                                                             " + BankAccount_Description_v_Value + @",
                                                                             "  + Bank_ID_v_Value + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref BankAccount_ID,  ref Err, "BankAccount"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_insert, lpar, ref BankAccount_ID,  ref Err, "BankAccount"))
                     {
                         return true;
                     }
@@ -113,9 +109,9 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool DeleteAll()
+        public static bool DeleteAll(Transaction transaction)
         {
-            return fs.DeleteAll("BankAccount");
+            return fs.DeleteAll("BankAccount", transaction);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace TangentaDB
 {
     public static class f_SimpleItem
     {
-        public static bool Get(string Name, string Abbreviation, bool bToOffer, Image SimpleItem_Image, int_v Code_v, string SimpleItem_ParentGroup1, string SimpleItem_ParentGroup2, string SimpleItem_ParentGroup3, ref ID SimpleItem_ID)
+        public static bool Get(string Name, string Abbreviation, bool bToOffer, Image SimpleItem_Image, int_v Code_v, string SimpleItem_ParentGroup1, string SimpleItem_ParentGroup2, string SimpleItem_ParentGroup3, ref ID SimpleItem_ID, Transaction transaction)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -80,7 +80,7 @@ namespace TangentaDB
                 else
                 {
                     sql = "insert into SimpleItem (Name,Abbreviation,ToOffer,Code,SimpleItem_ParentGroup1_ID,SimpleItem_Image_ID)values(" + spar_Name + "," + spar_Abbreviation + ",1," + sval_Code + "," + sval_SimpleItem_ParentGroup1_ID + "," + sval_SimpleItem_Image_ID + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref SimpleItem_ID, ref Err, "SimpleItem"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref SimpleItem_ID, ref Err, "SimpleItem"))
                     {
                         return true;
                     }

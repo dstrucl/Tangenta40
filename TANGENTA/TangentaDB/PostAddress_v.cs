@@ -92,7 +92,7 @@ namespace TangentaDB
             }
         }
 
-        public bool Get_Address_Tabel_ID(SQLTable Address_Tabel, ref ID iD)
+        public bool Get_Address_Tabel_ID(SQLTable Address_Tabel, ref ID iD, Transaction transaction)
         {
             string Err = null;
             string sql_select = "select ID from " + Address_Tabel.TableName + " where ";
@@ -116,28 +116,28 @@ namespace TangentaDB
                                     {
                                         if (c.Name.Equals("StreetName"))
                                         {
-                                            if (!GetAddressElementID(col.fKey.fTable.TableName, c.Name, StreetName, ref col.fKey.reference_ID))
+                                            if (!GetAddressElementID(col.fKey.fTable.TableName, c.Name, StreetName, ref col.fKey.reference_ID, transaction))
                                             {
                                                 return false;
                                             }
                                         }
                                         else if (c.Name.Equals("HouseNumber"))
                                         {
-                                            if (!GetAddressElementID(col.fKey.fTable.TableName, c.Name, HouseNumber, ref col.fKey.reference_ID))
+                                            if (!GetAddressElementID(col.fKey.fTable.TableName, c.Name, HouseNumber, ref col.fKey.reference_ID, transaction))
                                             {
                                                 return false;
                                             }
                                         }
                                         else if (c.Name.Equals("ZIP"))
                                         {
-                                            if (!GetAddressElementID(col.fKey.fTable.TableName, c.Name, ZIP, ref col.fKey.reference_ID))
+                                            if (!GetAddressElementID(col.fKey.fTable.TableName, c.Name, ZIP, ref col.fKey.reference_ID, transaction))
                                             {
                                                 return false;
                                             }
                                         }
                                         else if (c.Name.Equals("City"))
                                         {
-                                            if (!GetAddressElementID(col.fKey.fTable.TableName, c.Name, City, ref col.fKey.reference_ID))
+                                            if (!GetAddressElementID(col.fKey.fTable.TableName, c.Name, City, ref col.fKey.reference_ID, transaction))
                                             {
                                                 return false;
                                             }
@@ -147,7 +147,7 @@ namespace TangentaDB
                                             string tbl_name = col.fKey.fTable.TableName;
                                             if (!GetAddressElementID(tbl_name, new string[] { "Country", "Country_ISO_3166_a2", "Country_ISO_3166_a3", "Country_ISO_3166_num" },
                                                                                                 new object[] { Country, Country_ISO_3166_a2, Country_ISO_3166_a3, Country_ISO_3166_num },
-                                                                                                ref col.fKey.reference_ID))
+                                                                                                ref col.fKey.reference_ID, transaction))
                                             {
                                                 return false;
                                             }
@@ -156,7 +156,7 @@ namespace TangentaDB
                                         {
                                             if (State_v != null)
                                             {
-                                                if (!GetAddressElementID(col.fKey.fTable.TableName, c.Name, State, ref col.fKey.reference_ID))
+                                                if (!GetAddressElementID(col.fKey.fTable.TableName, c.Name, State, ref col.fKey.reference_ID, transaction))
                                                 {
                                                     return false;
                                                 }
@@ -240,7 +240,7 @@ namespace TangentaDB
                 {
                     // insert
                     sql_insert += sql_insert_columns + ") Values (" + sql_values + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, null, ref iD, ref Err, Address_Tabel.TableName))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_insert, null, ref iD, ref Err, Address_Tabel.TableName))
                     {
                         return true;
                     }
@@ -258,7 +258,7 @@ namespace TangentaDB
             }
         }
 
-        private bool GetAddressElementID(string AddressElement_TableName, string[] AddressElement_ColumnNames, object[] oValues, ref ID iD)
+        private bool GetAddressElementID(string AddressElement_TableName, string[] AddressElement_ColumnNames, object[] oValues, ref ID iD, Transaction transaction)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -346,7 +346,7 @@ namespace TangentaDB
                         {
                             // insert
                             sql = "insert into " + AddressElement_TableName + "(" + sql_insert_Columns + ") values (" + sql_insert_Values + ")";
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref iD,  ref Err, AddressElement_TableName))
+                            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref iD,  ref Err, AddressElement_TableName))
                             {
                                 return true;
                             }
@@ -368,7 +368,7 @@ namespace TangentaDB
             return false;
         }
 
-        private bool GetAddressElementID(string AddressElement_TableName, string AddressElement_ColumnName, object oValue, ref ID iD)
+        private bool GetAddressElementID(string AddressElement_TableName, string AddressElement_ColumnName, object oValue, ref ID iD, Transaction transaction)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -415,7 +415,7 @@ namespace TangentaDB
                 {
                     // insert
                     sql = "insert into " + AddressElement_TableName + "(" + AddressElement_ColumnName + ") values (" + sparname + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref iD,  ref Err, AddressElement_TableName))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref iD,  ref Err, AddressElement_TableName))
                     {
                         return true;
                     }

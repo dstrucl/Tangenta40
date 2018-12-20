@@ -220,15 +220,15 @@ namespace UpgradeDB
         }
 
 
-        internal static bool DeleteTable_And_ResetAutoincrement(string tbl_name)
+        internal static bool DeleteTable_And_ResetAutoincrement(string tbl_name, Transaction transaction)
         {
             // now write
             string Err = null;
             string sql = "Delete from " + tbl_name;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
+            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
             {
                 sql = "UPDATE SQLITE_SEQUENCE SET seq = 0 WHERE name = '" + tbl_name + "'";
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
+                if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
                 {
                     return true;
                 }
@@ -246,7 +246,7 @@ namespace UpgradeDB
         }
 
 
-        public static bool Set_DataBase_Version(string Version)
+        public static bool Set_DataBase_Version(string Version, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_TextValue = "@par_TextValue";
@@ -263,7 +263,7 @@ namespace UpgradeDB
                 sql = @"update DBSettings set TextValue = " + spar_TextValue + @" where Name = 'Version';";
             }
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, lpar, ref Err))
+            if (transaction.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, lpar, ref Err))
             {
                 return true;
             }

@@ -15,6 +15,7 @@ namespace UpgradeDB
         internal static object UpgradeDB_1_03_to_1_04(object obj, ref string Err)
         {
             // correct taxation
+            Transaction transaction_UpgradeDB_1_03_to_1_04 = new Transaction("UpgradeDB_1_03_to_1_04");
             string sql = @"select apsi.ID,RetailSimpleItemPrice,Discount,iQuantity,RetailSimpleItemPriceWithDiscount,ExtraDiscount,Rate from atom_price_simpleitem apsi 
                             inner join atom_taxation at on apsi.atom_taxation_ID = at.ID";
             DataTable dt_atom_price_simpleitem1 = new DataTable();
@@ -49,7 +50,7 @@ namespace UpgradeDB
                         SQL_Parameter par_TaxPrice = new SQL_Parameter(spar_TaxPrice, SQL_Parameter.eSQL_Parameter.Decimal, false, TaxPrice);
                         lpar.Add(par_TaxPrice);
                         sql = " update atom_price_simpleitem set TaxPrice=" + spar_TaxPrice + " where ID = " + ID.ToString();
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,  ref Err))
+                        if (transaction_UpgradeDB_1_03_to_1_04.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar,  ref Err))
                         {
                             continue;
                         }
@@ -164,28 +165,28 @@ namespace UpgradeDB
                         }
 
 
-                        if (UpgradeDB_inThread.DeleteTable_And_ResetAutoincrement("journal_docinvoice"))
+                        if (UpgradeDB_inThread.DeleteTable_And_ResetAutoincrement("journal_docinvoice", transaction_UpgradeDB_1_03_to_1_04))
                         {
-                            if (UpgradeDB_inThread.DeleteTable_And_ResetAutoincrement("atom_price_simpleitem"))
+                            if (UpgradeDB_inThread.DeleteTable_And_ResetAutoincrement("atom_price_simpleitem", transaction_UpgradeDB_1_03_to_1_04))
                             {
-                                if (UpgradeDB_inThread.DeleteTable_And_ResetAutoincrement("DocInvoice"))
+                                if (UpgradeDB_inThread.DeleteTable_And_ResetAutoincrement("DocInvoice", transaction_UpgradeDB_1_03_to_1_04))
                                 {
-                                    if (UpgradeDB_inThread.DeleteTable_And_ResetAutoincrement("Invoice"))
+                                    if (UpgradeDB_inThread.DeleteTable_And_ResetAutoincrement("Invoice", transaction_UpgradeDB_1_03_to_1_04))
                                     {
 
                                         foreach (DataRow dr in dt_DocInvoice.Rows)
                                         {
                                             ID new_Invoice_id = null;
-                                            if (fs.WriteRow("Invoice", dr, Column_PrefixTable, true, ref new_Invoice_id))
+                                            if (fs.WriteRow("Invoice", dr, Column_PrefixTable, true, ref new_Invoice_id, transaction_UpgradeDB_1_03_to_1_04))
                                             {
                                                 dr["Invoice_ID"] = new_Invoice_id.V;
                                                 ID new_DocInvoice_id = null;
-                                                if (fs.WriteRow("DocInvoice", dr, Column_PrefixTable, false, ref new_DocInvoice_id))
+                                                if (fs.WriteRow("DocInvoice", dr, Column_PrefixTable, false, ref new_DocInvoice_id, transaction_UpgradeDB_1_03_to_1_04))
                                                 {
                                                     DocInvoice_Connection_Class xpicc = Get_DocInvoice_Connection_Class(DocInvoice_con_List,new ID(dr["ID"]));
                                                     if (xpicc != null)
                                                     {
-                                                        if (!xpicc.WriteNew(new_DocInvoice_id))
+                                                        if (!xpicc.WriteNew(new_DocInvoice_id, transaction_UpgradeDB_1_03_to_1_04))
                                                         {
                                                             return false;
                                                         }
@@ -193,12 +194,20 @@ namespace UpgradeDB
                                                 }
                                             }
                                         }
-                                        if (UpgradeDB_inThread.Set_DataBase_Version("1.04"))
+                                        if (UpgradeDB_inThread.Set_DataBase_Version("1.04", transaction_UpgradeDB_1_03_to_1_04))
                                         {
-                                            return true;
+                                            if (transaction_UpgradeDB_1_03_to_1_04.Commit())
+                                            {
+                                                return true;
+                                            }
+                                            else
+                                            {
+                                                return false;
+                                            }
                                         }
                                         else
                                         {
+                                            transaction_UpgradeDB_1_03_to_1_04.Rollback();
                                             return false;
                                         }
                                     }
@@ -206,16 +215,19 @@ namespace UpgradeDB
                             }
                         }
                     }
+                    transaction_UpgradeDB_1_03_to_1_04.Rollback();
                     return false;
                 }
                 else
                 {
+                    transaction_UpgradeDB_1_03_to_1_04.Rollback();
                     LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_02_to_1_03:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
+                transaction_UpgradeDB_1_03_to_1_04.Rollback();
                 LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_02_to_1_03:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }

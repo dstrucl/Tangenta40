@@ -39,7 +39,7 @@ namespace TangentaDB
                     lpar.Add(par_Image_Data);
 
                     sql = "insert into SimpleItem_Image (Image_Hash,Image_Data)values(" + spar_Image_Hash + "," + spar_Image_Data + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref SimpleItem_Image_ID, ref Err, "SimpleItem_Image"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref SimpleItem_Image_ID, ref Err, "SimpleItem_Image"))
                     {
                         return true;
                     }

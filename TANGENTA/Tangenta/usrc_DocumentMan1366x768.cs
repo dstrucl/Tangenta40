@@ -684,9 +684,10 @@ namespace Tangenta
         private bool WriteShopABC_items(string doc_type,
                                         List<Doc_ShopC_Item> xShopC_Data_Item_List, 
                                         DataTable xdt_ShopB_Items, 
-                                        DataTable xdt_ShopA_Items)
+                                        DataTable xdt_ShopA_Items,
+                                        Transaction transaction)
         {
-            if (ShopA_dbfunc.dbfunc.Write_ShopA_Price_Item_Table(DocM.DocTyp, this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, xdt_ShopA_Items))
+            if (ShopA_dbfunc.dbfunc.Write_ShopA_Price_Item_Table(DocM.DocTyp, this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, xdt_ShopA_Items, transaction))
             {
                 if (this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.Copy_ShopB_Price_Item_Table(DocM.DocTyp, this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, xdt_ShopB_Items))
                 {
@@ -745,12 +746,23 @@ namespace Tangenta
                             DateTime dtStart = DateTime.Now;
                             DateTime dtEnd = DateTime.Now;
                             m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
-                            WriteShopABC_items(xdocType,
+                            Transaction transaction_WriteShopABC_items = new Transaction("WriteShopABC_items");
+                            if (WriteShopABC_items(xdocType,
                                                xShopC_Data_Item_List,
                                                xdt_ShopB_Items,
-                                               xdt_ShopA_Items);
-                            m_usrc_TableOfDocuments.Init(DocM, true, false, DocM.mSettingsUserValues.FinancialYear, null);
-                            DocM.m_LMOUser.ReloadAdministratorsAndUserManagers();
+                                               xdt_ShopA_Items,
+                                               transaction_WriteShopABC_items))
+                            {
+                                if (transaction_WriteShopABC_items.Commit())
+                                {
+                                    m_usrc_TableOfDocuments.Init(DocM, true, false, DocM.mSettingsUserValues.FinancialYear, null);
+                                    DocM.m_LMOUser.ReloadAdministratorsAndUserManagers();
+                                }
+                            }
+                            else
+                            {
+                                transaction_WriteShopABC_items.Rollback();
+                            }
                         }
                     }
                     else
@@ -813,12 +825,23 @@ namespace Tangenta
                             DateTime dtStart = DateTime.Now;
                             DateTime dtEnd = DateTime.Now;
                             m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
-                            WriteShopABC_items(New_xdoctyp,
+                            Transaction transaction_WriteShopABC_items = new Transaction("WriteShopABC_items");
+                            if (WriteShopABC_items(New_xdoctyp,
                                             xShopC_Data_Item_List,
                                             xdt_ShopB_Items,
-                                            xdt_ShopA_Items);
-                            m_usrc_TableOfDocuments.Init(DocM, true, false, DocM.mSettingsUserValues.FinancialYear, null);
-                            DocM.m_LMOUser.ReloadAdministratorsAndUserManagers();
+                                            xdt_ShopA_Items,
+                                            transaction_WriteShopABC_items))
+                            {
+                                if (transaction_WriteShopABC_items.Commit())
+                                {
+                                    m_usrc_TableOfDocuments.Init(DocM, true, false, DocM.mSettingsUserValues.FinancialYear, null);
+                                    DocM.m_LMOUser.ReloadAdministratorsAndUserManagers();
+                                }
+                            }
+                            else
+                            {
+                                transaction_WriteShopABC_items.Rollback();
+                            }
                         }
                         else
                         {

@@ -14,14 +14,14 @@ namespace TangentaDB
         {
             return System.Security.Principal.WindowsIdentity.GetCurrent().Name;
         }
-        public static bool Get(ref ID Atom_ComputerUsername_ID)
+        public static bool Get(ref ID Atom_ComputerUsername_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string UserName = f_Atom_ComputerUsername.Get();
-            return f_Atom_ComputerUsername.Get(UserName, ref Atom_ComputerUsername_ID);
+            return f_Atom_ComputerUsername.Get(UserName, ref Atom_ComputerUsername_ID, transaction);
         }
 
-        public static bool Get(string xUserName,ref ID Atom_ComputerUsername_ID)
+        public static bool Get(string xUserName,ref ID Atom_ComputerUsername_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -61,7 +61,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into Atom_ComputerUsername (UserName) values (" + sval_ComputerUsername + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_ComputerUsername_ID,  ref Err, "Atom_ComputerUsername"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_ComputerUsername_ID,  ref Err, "Atom_ComputerUsername"))
                     {
                         return true;
                     }

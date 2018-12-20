@@ -91,10 +91,6 @@ namespace TangentaDB
                 }
                 else
                 {
-                    if (!transaction.Get(DBSync.DBSync.Con))
-                    {
-                        return false;
-                    }
                     sql = @"insert into Office (myOrganisation_ID,
                                                         Name,
                                                         ShortName) values ("
@@ -102,7 +98,7 @@ namespace TangentaDB
                                                             + sval_Office_Name + ","
                                                             + sval_Office_ShortName+
                                                             ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Office_ID, ref Err, "Office"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Office_ID, ref Err, "Office"))
                     {
                         return true;
                     }
@@ -150,9 +146,9 @@ namespace TangentaDB
             }
         }
 
-        public static bool DeleteAll()
+        public static bool DeleteAll(Transaction transaction)
         {
-            return fs.DeleteAll("Office");
+            return fs.DeleteAll("Office", transaction);
         }
     }
 }

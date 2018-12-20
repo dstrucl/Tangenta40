@@ -23,7 +23,7 @@ namespace UpgradeDB
                     alter table PurchasePrice add column 'PriceWithoutVAT' BIT NULL;
                     alter table PurchasePrice add column 'VATCanNotBeDeducted' BIT NULL;
                          ";
-                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                if (!transaction.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                 {
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_25_to_1_26:sql=" + sql + "\r\nErr=" + Err);
                     return false;

@@ -52,7 +52,7 @@ namespace TangentaDB
                             sval_Reference_Image_ID = Reference_Image_ID_v.ToString();
                         }
                         sql = @"insert into Reference (ReferenceNote,Reference_Image_ID)values(" + spar_ReferenceNote+","+ sval_Reference_Image_ID+");";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar,ref Reference_ID,ref Err, "Reference"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql,lpar,ref Reference_ID,ref Err, "Reference"))
                         {
                             return true;
                         }

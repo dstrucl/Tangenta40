@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_cHouseNumber_Org
     {
-        public static bool Get(string HouseNumber, ref ID cHouseNumber_Org_ID)
+        public static bool Get(string HouseNumber, ref ID cHouseNumber_Org_ID, Transaction transaction)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -53,7 +53,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into cHouseNumber_Org (HouseNumber) values (" + sval_HouseNumber + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cHouseNumber_Org_ID,  ref Err, "cHouseNumber_Org"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cHouseNumber_Org_ID,  ref Err, "cHouseNumber_Org"))
                     {
                         return true;
                     }
@@ -71,7 +71,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(string_v houseNumber_v, ref ID cHouseNumber_Org_ID)
+        internal static bool Get(string_v houseNumber_v, ref ID cHouseNumber_Org_ID, Transaction transaction)
         {
             if (houseNumber_v != null)
             {
@@ -96,7 +96,7 @@ namespace TangentaDB
                     else
                     {
                         sql = @"insert into cHouseNumber_Org (HouseNumber) values (@par)";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cHouseNumber_Org_ID,  ref Err, "cHouseNumber_Org"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cHouseNumber_Org_ID,  ref Err, "cHouseNumber_Org"))
                         {
                             return true;
                         }
@@ -120,9 +120,9 @@ namespace TangentaDB
             }
         }
 
-        public static bool DeleteAll()
+        public static bool DeleteAll(Transaction transaction)
         {
-            return fs.DeleteAll("cZIP_Org");
+            return fs.DeleteAll("cZIP_Org", transaction);
         }
     }
 }

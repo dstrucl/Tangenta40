@@ -11,7 +11,7 @@ namespace TangentaDB
 {
     public static class f_StornoReason
     {
-        public static bool Get(ID docInvoice_ID,ID stornoName_ID, ref ID stornoReason_ID)
+        public static bool Get(ID docInvoice_ID,ID stornoName_ID, ref ID stornoReason_ID, Transaction transaction)
         {
             string Err = null;
             string sql = null;
@@ -65,7 +65,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into StornoReason (DocInvoice_ID,sval_DocInvoice_ID) values (" + sval_DocInvoice_ID + ","+ sval_stornoName_ID + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref stornoReason_ID,  ref Err, "StornoReason"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref stornoReason_ID,  ref Err, "StornoReason"))
                     {
                         return true;
                     }
@@ -83,12 +83,12 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(ID docInvoice_ID,string xstornoName, ref ID stornoReason_ID)
+        public static bool Get(ID docInvoice_ID,string xstornoName, ref ID stornoReason_ID, Transaction transaction)
         {
             ID stornoName_ID = null;
-            if (f_StornoName.Get(xstornoName, ref stornoName_ID))
+            if (f_StornoName.Get(xstornoName, ref stornoName_ID, transaction))
             {
-                return Get(docInvoice_ID, stornoName_ID, ref stornoReason_ID);
+                return Get(docInvoice_ID, stornoName_ID, ref stornoReason_ID, transaction);
             }
             else
             {

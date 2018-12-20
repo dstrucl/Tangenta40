@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DBConnectionControl40;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace UpgradeDB
     {
         internal static object UpgradeDB_1_10_to_1_11(object obj, ref string Err)
         {
+            Transaction transaction_UpgradeDB_1_10_to_1_11 = new Transaction("UpgradeDB_1_10_to_1_11");
             if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 string sql = null;
@@ -40,21 +42,32 @@ namespace UpgradeDB
                       );
                     ";
                 }
-                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                if (transaction_UpgradeDB_1_10_to_1_11.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                 {
                     if (DBSync.DBSync.Create_VIEWs())
                     {
-                        UpgradeDB_inThread.Set_DataBase_Version("1.11");
-                        return true;
+                        if (UpgradeDB_inThread.Set_DataBase_Version("1.11", transaction_UpgradeDB_1_10_to_1_11))
+                        {
+                            if (transaction_UpgradeDB_1_10_to_1_11.Commit())
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
                     }
                 }
                 else
                 {
+                    transaction_UpgradeDB_1_10_to_1_11.Rollback();
                     LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_10_to_1_11:sql = " + sql + "\r\nErr=" + Err);
                     return false;
                 }
 
             }
+            transaction_UpgradeDB_1_10_to_1_11.Rollback();
             return false;
         }
     }

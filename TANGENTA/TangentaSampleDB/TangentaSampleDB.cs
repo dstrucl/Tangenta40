@@ -1,4 +1,5 @@
-﻿using LanguageControl;
+﻿using DBConnectionControl40;
+using LanguageControl;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -36,8 +37,10 @@ namespace TangentaSampleDB
             }
             else
             {
-                if (fs.Init_Default_DB(ref Err))
+                Transaction transaction_Init_Default_DB = new Transaction("Init_Default_DB");
+                if (fs.Init_Default_DB(ref Err, transaction_Init_Default_DB))
                 {
+                    transaction_Init_Default_DB.Commit();
                     sbd = xsbd;
                     if (sbd.Startup_05_Show_Form_EditMyOrgSampleData(ref bCanceled, xnav, oIcon))
                     {
@@ -55,6 +58,7 @@ namespace TangentaSampleDB
                 }
                 else
                 {
+                    transaction_Init_Default_DB.Rollback();
                     LogFile.Error.Show(Err);
                     return false;
                 }

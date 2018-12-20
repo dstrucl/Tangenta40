@@ -17,9 +17,9 @@ namespace TangentaDB
         public static ID JOURNAL_Atom_WorkPeriod_TYPE_ID_WorkPeriodNotClosedInPreviousSession
         { get { return m_JOURNAL_Atom_WorkPeriod_TYPE_ID_WorkPeriodNotClosedInPreviousSession; } }
 
-        public static bool Get_JOURNAL_Atom_WorkPeriod_TYPE_ID()
+        public static bool Get_JOURNAL_Atom_WorkPeriod_TYPE_ID(Transaction transaction)
         {
-            if (fs.Get_JOURNAL_TYPE(JOURNAL_Atom_WorkPeriod_TYPE, WorkPeriodNotClosedInPreviousSession, ref m_JOURNAL_Atom_WorkPeriod_TYPE_ID_WorkPeriodNotClosedInPreviousSession))
+            if (fs.Get_JOURNAL_TYPE(JOURNAL_Atom_WorkPeriod_TYPE, WorkPeriodNotClosedInPreviousSession, ref m_JOURNAL_Atom_WorkPeriod_TYPE_ID_WorkPeriodNotClosedInPreviousSession, transaction))
             {
                 return true;
             }

@@ -45,7 +45,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into Atom_SimpleItem_Name (Name,Abbreviation) values (" + sparam_Name + "," + sparam_Abbreviation + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_SimpleItem_Name_ID, ref Err, "Atom_SimpleItem_Name"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_SimpleItem_Name_ID, ref Err, "Atom_SimpleItem_Name"))
                     {
                         return true;
                     }

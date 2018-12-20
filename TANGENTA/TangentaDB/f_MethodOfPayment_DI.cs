@@ -54,13 +54,9 @@ namespace TangentaDB
                     }
                     else
                     {
-                        if (!transaction.Get(DBSync.DBSync.Con))
-                        {
-                          return false;
-                        }
                         sql = @" insert into  MethodOfPayment_DI (PaymentType_ID,Atom_BankAccount_ID) values
                                                         (" + spar_PaymentType_ID + ","+ sval_Atom_BankAccount_ID + ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref MethodOfPayment_DI_ID,  ref Err, "MethodOfPayment_DI"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref MethodOfPayment_DI_ID,  ref Err, "MethodOfPayment_DI"))
                         {
                             return true;
                         }
@@ -130,7 +126,7 @@ namespace TangentaDB
 
                         sql = @" insert into  MethodOfPayment_DI ( PaymentType_ID,Atom_BankAccount_ID) values
                                                         (" + spar_PaymentType_ID + ","+ sval_Atom_BankAccount_ID + ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref MethodOfPayment_DI_ID,  ref Err, "MethodOfPayment_DI"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref MethodOfPayment_DI_ID,  ref Err, "MethodOfPayment_DI"))
                         {
                             return true;
                         }

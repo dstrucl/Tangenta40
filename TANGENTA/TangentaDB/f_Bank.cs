@@ -12,7 +12,8 @@ namespace TangentaDB
     {
         public static bool Get(
                 ID Organisation_ID,
-                ref ID Bank_ID)
+                ref ID Bank_ID,
+                Transaction transaction)
         {
             string Err = null;
 
@@ -43,7 +44,7 @@ namespace TangentaDB
                 {
                     string sql_insert = @"insert into Bank (Organisation_ID) values (
                                                                             " + Organisation_ID_v_Value + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, null, ref Bank_ID,  ref Err, "Bank"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_insert, null, ref Bank_ID,  ref Err, "Bank"))
                     {
                         return true;
                     }
@@ -60,9 +61,9 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool DeleteAll()
+        public static bool DeleteAll(Transaction transaction)
         {
-            return fs.DeleteAll("Bank");
+            return fs.DeleteAll("Bank", transaction);
         }
     }
 }

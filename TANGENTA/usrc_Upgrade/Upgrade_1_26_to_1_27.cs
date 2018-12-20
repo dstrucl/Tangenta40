@@ -247,10 +247,6 @@ namespace UpgradeDB
         {
 
             Transaction transaction_UpgradeDB_1_26_to_1_27 = new Transaction("UpgradeDB_1_26_to_1_27");
-            if (!transaction_UpgradeDB_1_26_to_1_27.Get(DBSync.DBSync.Con))
-            {
-                return false;
-            }
             cashierActivityList.Clear();
             if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
@@ -271,8 +267,9 @@ namespace UpgradeDB
                 string sql = @"
                     alter table Reference add column 'ReferenceDate'  DATETIME NULL;
                     ";
-                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                if (!transaction_UpgradeDB_1_26_to_1_27.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                 {
+                    transaction_UpgradeDB_1_26_to_1_27.Rollback();
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_26_to_1_27:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
@@ -294,15 +291,26 @@ namespace UpgradeDB
 
                 if (DBSync.DBSync.Create_VIEWs())
                 {
-                    return UpgradeDB_inThread.Set_DataBase_Version("1.27");
+
+                    if (UpgradeDB_inThread.Set_DataBase_Version("1.27", transaction_UpgradeDB_1_26_to_1_27))
+                    {
+                        transaction_UpgradeDB_1_26_to_1_27.Commit();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
+                    transaction_UpgradeDB_1_26_to_1_27.Rollback();
                     return false;
                 }
             }
             else
             {
+                transaction_UpgradeDB_1_26_to_1_27.Rollback();
                 return false;
             }
         }
@@ -349,12 +357,8 @@ namespace UpgradeDB
                                         string spar_Logout = "@spar_LogoutTime";
                                         SQL_Parameter par_Logout = new SQL_Parameter(spar_Logout, SQL_Parameter.eSQL_Parameter.Datetime, false, dtcorr);
                                         lpar.Add(par_Logout);
-                                        if (!transaction.Get(DBSync.DBSync.Con))
-                                        {
-                                            return false;
-                                        }
                                         sql = "update Atom_WorkPeriod set LogoutTime = " + spar_Logout + " where ID = " + id.ToString();
-                                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar,ref Err))
+                                        if (!transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql,lpar,ref Err))
                                         {
                                             LogFile.Error.Show("ERROR:UpgradeDB:UpgradeDB_1_26_to_1_27:correct_vilabella_atomWorkPeriodsBug:\r\nsql=" + sql + "\r\nErr=" + Err);
                                             return false;
@@ -409,12 +413,8 @@ namespace UpgradeDB
                             string spar_StockTakeNum = "@par_StockTakeNum";
                             SQL_Parameter par_StockTakeNum = new SQL_Parameter(spar_StockTakeNum, SQL_Parameter.eSQL_Parameter.Bigint, false, j);
                             lpar.Add(par_StockTakeNum);
-                            if (!transaction.Get(DBSync.DBSync.Con))
-                            {
-                                return false;
-                            }
                             sql = "update StockTake set StockTakeNum = " + spar_StockTakeNum + " where ID = " + id.ToString();
-                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar, ref Err))
+                            if (!transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql,lpar, ref Err))
                             {
                                 return false;
                             }
@@ -588,7 +588,8 @@ namespace UpgradeDB
                                            ref iCashierActivityNumber,
                                            ref loginTime,
                                            ref xCashierActivity_ID,
-                                           ref bAlreadyOpened
+                                           ref bAlreadyOpened,
+                                           transaction
                                            ))
                     {
                         if (bAlreadyOpened)

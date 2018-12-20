@@ -34,7 +34,7 @@ namespace TangentaDB
                 else
                 {
                     sql = "insert into Item_ParentGroup3 (Name) values (" + spar_Name + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Item_ParentGroup3_ID, ref Err, "Item_ParentGroup3"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Item_ParentGroup3_ID, ref Err, "Item_ParentGroup3"))
                     {
                         return true;
                     }

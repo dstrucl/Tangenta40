@@ -128,7 +128,7 @@ namespace TangentaDB
                                 else
                                 {
                                     sql = @"insert into Atom_ElectronicDevice (Name,Description,Atom_Office_ID,Atom_Computer_ID) values (" + sval_ElectronicDevice_Name + "," + sval_ElectronicDevice_Description + "," + sval_Atom_Office_ID + "," + sval_Atom_Computer_ID + ")";
-                                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref xAtom_ElectronicDevice_ID, ref Err, "Atom_ElectronicDevice"))
+                                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref xAtom_ElectronicDevice_ID, ref Err, "Atom_ElectronicDevice"))
                                     {
                                         return true;
                                     }
@@ -425,12 +425,8 @@ namespace TangentaDB
                     }
                     else
                     {
-                        if (!transaction.Get(DBSync.DBSync.Con))
-                        {
-                            return false;
-                        }
                         sql = @"insert into Atom_ElectronicDevice (Name,Description,Atom_Office_ID,Atom_Computer_ID) values (" + sval_ElectronicDevice_Name + "," + sval_ElectronicDevice_Description + "," + sval_Atom_Office_ID+","+ sval_Atom_Computer_ID + ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_ElectronicDevice_ID, ref Err, "Atom_ElectronicDevice"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_ElectronicDevice_ID, ref Err, "Atom_ElectronicDevice"))
                         {
                             return true;
                         }
@@ -453,7 +449,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get_Temp(ID xAtom_Computer_ID,ID xAtom_Office_ID, string ElectronicDevice_Name, string ElectronicDevice_Description, ref ID Atom_ElectronicDevice_ID)
+        public static bool Get_Temp(ID xAtom_Computer_ID,ID xAtom_Office_ID, string ElectronicDevice_Name, string ElectronicDevice_Description, ref ID Atom_ElectronicDevice_ID, Transaction transaction)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -538,7 +534,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into Atom_ElectronicDevice_Temp (Name,Description,Atom_Office_ID,Atom_Computer_ID) values (" + sval_ElectronicDevice_Name + "," + sval_ElectronicDevice_Description + "," + sval_Atom_Office_ID + "," + sval_Atom_Computer_ID + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_ElectronicDevice_ID, ref Err, "Atom_ElectronicDevice_Temp"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_ElectronicDevice_ID, ref Err, "Atom_ElectronicDevice_Temp"))
                     {
                         return true;
                     }

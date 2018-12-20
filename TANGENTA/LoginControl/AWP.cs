@@ -411,10 +411,10 @@ eres_check:
             }
         }
 
-        internal bool AWPLoginRoles_Get(ID LoginUser_id, ref List<AWPRole> roles, ref string Err)
+        internal bool AWPLoginRoles_Get(ID LoginUser_id, ref List<AWPRole> roles, ref string Err, Transaction transaction)
         {
             DataTable dtRoles = new DataTable();
-            if (AWP_func.AWPRoles_GetUserRoles(LoginUser_id, ref roles))
+            if (AWP_func.AWPRoles_GetUserRoles(LoginUser_id, ref roles, transaction))
             {
                 return true;
             }

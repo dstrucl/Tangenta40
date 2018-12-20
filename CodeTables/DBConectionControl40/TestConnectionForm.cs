@@ -245,7 +245,7 @@ namespace DBConnectionControl40
                         case ConnectionSQLITE.eSQLITEFileExist.OK:
                             if (sqlConn.Connect(ref sError))
                             {
-                                sqlConn.Disconnect();
+                                //sqlConn.Disconnect();
                                 ShowOK();
                                 if (WaitToChangeDatabase)
                                 {
@@ -263,7 +263,7 @@ namespace DBConnectionControl40
                             }
                             else
                             {
-                                sqlConn.Disconnect();
+                                //sqlConn.Disconnect();
                                 ShowError(sError);
                                 this.TimerSQLiteShowErrorResult.Enabled = true;
                                 m_eResult = eTestConnectionFormResult.FAILED;

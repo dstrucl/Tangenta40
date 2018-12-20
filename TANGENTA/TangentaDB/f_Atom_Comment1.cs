@@ -47,13 +47,10 @@ namespace TangentaDB
                 }
                 else
                 {
-                    if (!transaction.Get(DBSync.DBSync.Con))
-                    {
-                       return false;
-                    }
+                   
                     sql = @"insert into Atom_Comment1 (Comment) values (" + sval_Comment + ")";
                     ID xAtom_Comment1_ID = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref xAtom_Comment1_ID, ref Err, "Atom_Comment1"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref xAtom_Comment1_ID, ref Err, "Atom_Comment1"))
                     {
                         if (Atom_Comment1_ID==null)
                         {

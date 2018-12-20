@@ -91,7 +91,7 @@ namespace TangentaDB
         //    dQuantity_v = tf.set_decimal(dria["dQuantity"]);
         //}
 
-        public bool Remove_from_StockShelf(ID xAtom_WorkPeriod_ID)
+        public bool Remove_from_StockShelf(ID xAtom_WorkPeriod_ID, Transaction transaction)
         {
             if (ID.Validate(Stock_ID))
             {
@@ -103,12 +103,12 @@ namespace TangentaDB
                     lpar.Add(par_dQuantity_New_in_Stock);
                     string sql = "update stock set dQuantity = " + spar_dQuantity_New_in_Stock + " where ID = " + Stock_ID.ToString();
                     string Err = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
+                    if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar, ref Err))
                     {
                         ID JOURNAL_Stock_ID = null;
                         DateTime EventTime = DateTime.Now;
                         decimal dQuantityRemovedFromStock = dQuantity_v.v;
-                        return f_JOURNAL_Stock.Get(Stock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_from_stock_to_basket, xAtom_WorkPeriod_ID, EventTime, dQuantityRemovedFromStock, ref JOURNAL_Stock_ID);
+                        return f_JOURNAL_Stock.Get(Stock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_from_stock_to_basket, xAtom_WorkPeriod_ID, EventTime, dQuantityRemovedFromStock, ref JOURNAL_Stock_ID, transaction);
                     }
                     else
                     {

@@ -16,10 +16,6 @@ namespace UpgradeDB
         internal static object UpgradeDB_1_20_to_1_21(object obj, ref string Err)
         {
             Transaction transaction_UpgradeDB_1_20_to_1_21 = new Transaction("UpgradeDB_1_20_to_1_21");
-            if (!transaction_UpgradeDB_1_20_to_1_21.Get(DBSync.DBSync.Con))
-            {
-                return false;
-            }
             if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 string[] new_tables = new string[] {"Contact",
@@ -79,7 +75,7 @@ namespace UpgradeDB
                         ALTER TABLE Atom_WorkPeriod_temp RENAME TO Atom_WorkPeriod;
                         PRAGMA foreign_keys = ON;
                         ";
-                        if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, lpar, ref Err))
+                        if (!transaction_UpgradeDB_1_20_to_1_21.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, lpar, ref Err))
                         {
                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_20_to_1_21:sql=" + sql + "\r\nErr=" + Err);
                             return false;
@@ -135,7 +131,7 @@ namespace UpgradeDB
                             PRAGMA foreign_keys = ON;
                         ";
 
-                        if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                        if (!transaction_UpgradeDB_1_20_to_1_21.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                         {
                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_20_to_1_21:sql=" + sql + "\r\nErr=" + Err);
                             return false;
@@ -149,7 +145,7 @@ namespace UpgradeDB
                         if (DBSync.DBSync.DataBase.Contains("StudioMarjetka"))
                         {
                             sql = "update Bank set Organisation_ID = 2 where ID = 1";
-                            if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                            if (!transaction_UpgradeDB_1_20_to_1_21.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                             {
                                 LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_20_to_1_21:sql=" + sql + "\r\nErr=" + Err);
                                 return false;
@@ -259,13 +255,13 @@ namespace UpgradeDB
                               DELETE FROM Currency;
                               delete from sqlite_sequence where name='Currency';
                               ";
-                        if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                        if (!transaction_UpgradeDB_1_20_to_1_21.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                         {
                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_20_to_1_21:sql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
 
-                        if (!fs.Init_Currency_Table(ref Err))
+                        if (!fs.Init_Currency_Table(ref Err, transaction_UpgradeDB_1_20_to_1_21))
                         {
                             return false;
                         }
@@ -274,7 +270,7 @@ namespace UpgradeDB
                                 PRAGMA foreign_keys = ON;
                               ";
 
-                        if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                        if (!transaction_UpgradeDB_1_20_to_1_21.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                         {
                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_20_to_1_21:sql=" + sql + "\r\nErr=" + Err);
                             return false;
@@ -288,7 +284,7 @@ namespace UpgradeDB
                         {
                             if (DBSync.DBSync.Create_VIEWs())
                             {
-                                if (UpgradeDB_inThread.Set_DataBase_Version("1.21"))
+                                if (UpgradeDB_inThread.Set_DataBase_Version("1.21", transaction_UpgradeDB_1_20_to_1_21))
                                 {
                                     if (transaction_UpgradeDB_1_20_to_1_21.Commit())
                                     {
@@ -372,7 +368,7 @@ namespace UpgradeDB
 
                                         ID Suplier_ID_drEckstein = null;
 
-                                        if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Suplier_ID_drEckstein, ref Err, "Supplier_NEW"))
+                                        if (!transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, null, ref Suplier_ID_drEckstein, ref Err, "Supplier_NEW"))
                                         {
                                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
                                             return false;
@@ -380,7 +376,7 @@ namespace UpgradeDB
 
                                         ID Suplier_ID_Bizjan_doo = null;
                                         sql = "insert into Supplier_NEW (Contact_ID)values(" + Contact_ID_Bizjan_doo.ToString() + ")";
-                                        if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Suplier_ID_Bizjan_doo,  ref Err, "Supplier_NEW"))
+                                        if (!transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, null, ref Suplier_ID_Bizjan_doo,  ref Err, "Supplier_NEW"))
                                         {
                                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
                                             return false;
@@ -541,7 +537,7 @@ namespace UpgradeDB
                                         update Language set Name = 'Slovensko' where Name = 'Slovene';
                                         PRAGMA foreign_keys = ON;
                                         ";
-                                        if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                        if (!transaction.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                         {
                                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
                                             return false;
@@ -559,13 +555,13 @@ namespace UpgradeDB
                                         lpary.Add(par_StockTakePriceTotalReal);
 
                                         sql = "update PurchasePrice set PurchasePricePerUnit = " + spar_PurchasePricePerUnitReal + " where PurchasePricePerUnit = " + spar_PurchasePricePerUnitWrong;
-                                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpary,  ref Err))
+                                        if (!transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpary,  ref Err))
                                         {
                                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
                                             return false;
                                         }
 
-                                        if (!f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())
+                                        if (!f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID(transaction))
                                         {
                                             return false;
                                         }
@@ -592,7 +588,7 @@ namespace UpgradeDB
                                                     SQL_Parameter par_StockTakePriceTotal = new SQL_Parameter(spar_StockTakePriceTotal, SQL_Parameter.eSQL_Parameter.Decimal, false, dsum);
                                                     lparx.Add(par_StockTakePriceTotal);
                                                     sql = "update StockTake set StockTakePriceTotal = " + spar_StockTakePriceTotal + " where ID = " + StockTake_ID.ToString();
-                                                    if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lparx, ref Err))
+                                                    if (!transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lparx, ref Err))
                                                     {
                                                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
                                                         return false;
@@ -632,7 +628,7 @@ namespace UpgradeDB
                                         update Language set Name = 'Slovensko' where Name = 'Slovene';
                                         PRAGMA foreign_keys = ON;
                                         ";
-                                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                if (!transaction.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                 {
                                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
                                     return false;
@@ -670,7 +666,7 @@ namespace UpgradeDB
             ID UnknownContact_ID = null;
             if (UnknownContact(ref UnknownContact_ID, transaction))
             {
-                return (f_Supplier.Get("Supplier_NEW", UnknownContact_ID, ref Unknown_Supplier_ID));
+                return (f_Supplier.Get("Supplier_NEW", UnknownContact_ID, ref Unknown_Supplier_ID, transaction));
             }
             else
             {
@@ -764,7 +760,7 @@ namespace UpgradeDB
                                 TruckingNumber_v,
                                 Customs_v,
                                 Description_v,
-                                        ref Unknown_Trucking_ID));
+                                        ref Unknown_Trucking_ID, transaction));
             }
             else
             {

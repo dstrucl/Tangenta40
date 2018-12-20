@@ -12,7 +12,7 @@ namespace TangentaDB
 {
     public static class f_Atom_cState_Org
     {
-        public static bool Get(ID cState_Org_ID, ref ID Atom_cState_Org_ID)
+        public static bool Get(ID cState_Org_ID, ref ID Atom_cState_Org_ID, Transaction transaction)
         {
             string Err = null;
             string sql = @"select State from cState_Org where ID = " + cState_Org_ID.ToString();
@@ -59,7 +59,7 @@ namespace TangentaDB
                             else
                             {
                                 sql = @"insert into Atom_cState_Org (State) values (" + sval_State + ")";
-                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_cState_Org_ID, ref Err, "Atom_cState_Org"))
+                                if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_cState_Org_ID, ref Err, "Atom_cState_Org"))
                                 {
                                     return true;
                                 }
@@ -95,7 +95,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(string_v country_v, ref ID atom_cState_Org_ID)
+        internal static bool Get(string_v country_v, ref ID atom_cState_Org_ID, Transaction transaction)
         {
             if (country_v != null)
             {
@@ -120,7 +120,7 @@ namespace TangentaDB
                     else
                     {
                         sql = @"insert into Atom_cState_Org (State) values (@par)";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref atom_cState_Org_ID, ref Err, "Atom_cState_Org"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref atom_cState_Org_ID, ref Err, "Atom_cState_Org"))
                         {
                             return true;
                         }

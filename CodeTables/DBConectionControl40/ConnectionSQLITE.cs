@@ -313,13 +313,13 @@ namespace DBConnectionControl40
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR::DBConnectionControl40:ConncetionSQLITE:BeginTransaction:Can not begin new Transaction! Transaction:" + TransactionName + " is still active!");
+                    LogFile.Error.Show("ERROR::DBConnectionControl40:ConncetionSQLITE:BeginTransaction:Can not begin new Transaction "+transaction_name+"! Transaction:" + TransactionName + " is still active!");
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:DBConnectionControl40:ConncetionSQLITE::BeginTransaction:Can not begin new Transaction (" + TransactionName + ") if connection is not opened!");
+                LogFile.Error.Show("ERROR:DBConnectionControl40:ConncetionSQLITE::BeginTransaction:Can not begin new Transaction (" + transaction_name + ") if connection is not opened!");
                 return false;
             }
         }

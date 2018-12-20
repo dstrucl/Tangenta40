@@ -19,7 +19,7 @@ namespace TangentaDB
 {
     public static class f_Language
     {
-        public static bool Get(string Name,string_v Description_v,int Index,ref ID Language_ID)
+        public static bool Get(string Name,string_v Description_v,int Index,ref ID Language_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -58,7 +58,7 @@ namespace TangentaDB
                 else
                 {
                     sql = "insert into Language (LanguageIndex,Name,Description,bDefault)values(" + spar_LanguageIndex + "," + spar_Name + "," + sval_Description + ",0)";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Language_ID, ref Err, "Language"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Language_ID, ref Err, "Language"))
                     {
                         return true;
                     }
@@ -106,14 +106,14 @@ namespace TangentaDB
             }
         }
 
-        public static bool SetDefault(ID Language_ID)
+        public static bool SetDefault(ID Language_ID, Transaction transaction)
         {
             string Err = null;
             string sql = "update Language set bDefault = 0";
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null,  ref Err))
+            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null,  ref Err))
             {
                 sql = "update Language set bDefault = 1 where ID = " + Language_ID.ToString();
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null,  ref Err))
+                if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null,  ref Err))
                 {
                     return true;
                 }
@@ -130,15 +130,15 @@ namespace TangentaDB
             }
         }
 
-        public static bool SetDefault(int LanguageIndex)
+        public static bool SetDefault(int LanguageIndex, Transaction transaction)
         {
 
             string Err = null;
             string sql = "update Language set bDefault = 0";
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
+            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
             {
                 sql = "update Language set bDefault = 1 where LanguageIndex = " + LanguageIndex.ToString();
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
+                if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
                 {
                     return true;
                 }

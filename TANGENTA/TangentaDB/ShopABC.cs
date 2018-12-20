@@ -1088,11 +1088,6 @@ namespace TangentaDB
                     string sql_SetDraftDocInvoice = null;
                     if (IsDocInvoice)
                     {
-                        if (!transaction.Get(DBSync.DBSync.Con))
-                        {
-                            return false;
-                        }
-
                         sql_SetDraftDocInvoice = "insert into " + DocTyp
                         + "("
                             + DBtcn.GetName(td.m_DocInvoice.FinancialYear.GetType()) + ","
@@ -1110,10 +1105,6 @@ namespace TangentaDB
                     }
                     else if (IsDocProformaInvoice)
                     {
-                        if (!transaction.Get(DBSync.DBSync.Con))
-                        {
-                            return false;
-                        }
                         sql_SetDraftDocInvoice = "insert into " + DocTyp
                         + "("
                             + DBtcn.GetName(td.m_DocInvoice.FinancialYear.GetType()) + ","
@@ -1134,7 +1125,7 @@ namespace TangentaDB
                         return false;
                     }
                     ID xDoc_ID = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_SetDraftDocInvoice, null, ref xDoc_ID,  ref Err, DocTyp))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_SetDraftDocInvoice, null, ref xDoc_ID,  ref Err, DocTyp))
                     {
                         this.m_CurrentDoc.Doc_ID = xDoc_ID;
 
@@ -1344,7 +1335,8 @@ namespace TangentaDB
                                              ref decimal RetailSimpleItemPriceWithDiscount,
                                              ref decimal TaxPrice,
                                              ref decimal PriceWithoutTax,
-                                             ref string Err)
+                                             ref string Err,
+                                             Transaction transaction)
         {
             int decimal_places = 2;
             if (GlobalData.BaseCurrency != null)
@@ -1378,7 +1370,7 @@ namespace TangentaDB
                     else
                     {
                         string sql_insert_Atom_SimpleItem_Taxation = "insert into Atom_Taxation (Name,Rate) values ('" + Taxation_Name + "'," + sparam_Atom_Taxation_Rate + ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert_Atom_SimpleItem_Taxation, lpar, ref new_Atom_Taxation_ID, ref Err, DBtcn.stbl_Atom_Taxation_TableName))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_insert_Atom_SimpleItem_Taxation, lpar, ref new_Atom_Taxation_ID, ref Err, DBtcn.stbl_Atom_Taxation_TableName))
                         {
                             if (!Atom_Taxation_ID.Equals(new_Atom_Taxation_ID))
                             {
@@ -1466,7 +1458,7 @@ namespace TangentaDB
                     LogFile.Error.Show(Err);
                     return false;
                 }
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql_update_Atom_SimpleItem, lpar,ref Err))
+                if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_update_Atom_SimpleItem, lpar,ref Err))
                 {
                     return true;
                 }
@@ -1532,7 +1524,7 @@ namespace TangentaDB
             }
         }
 
-        public bool Delete_SelectedSimpleItem(ID DocInvoice_ShopB_Item_ID, ref string Err)
+        public bool Delete_SelectedSimpleItem(ID DocInvoice_ShopB_Item_ID, ref string Err, Transaction transaction)
         {
 
             string sql_delete_Atom_SimpleItem = null;
@@ -1551,7 +1543,7 @@ namespace TangentaDB
                 Err = "ERROR:ShopABC.cs:ShopABC:Delete_SelectedSimpleItem:DocTyp=" + DocTyp + " not implemented.";
                 return false;
             }
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_delete_Atom_SimpleItem, null, ref Err))
+            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_delete_Atom_SimpleItem, null, ref Err))
             {
                 return true;
             }

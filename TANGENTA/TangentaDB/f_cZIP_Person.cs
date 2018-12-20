@@ -54,7 +54,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into cZIP_Person (ZIP) values (" + sval_ZIP + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cZIP_Person_ID,  ref Err, "cZIP_Person"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cZIP_Person_ID,  ref Err, "cZIP_Person"))
                     {
                         return true;
                     }
@@ -97,7 +97,7 @@ namespace TangentaDB
                     else
                     {
                         sql = @"insert into cZIP_Person (ZIP) values (@par)";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cZIP_Person_ID, ref Err, "cZIP_Person"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cZIP_Person_ID, ref Err, "cZIP_Person"))
                         {
                             return true;
                         }

@@ -11,7 +11,7 @@ namespace TangentaDB
 {
     public static class f_Unit
     {
-        public static bool Get(string Name, string Symbol, int DecimalPlaces, bool StorageOption, string Description, ref ID Unit_ID)
+        public static bool Get(string Name, string Symbol, int DecimalPlaces, bool StorageOption, string Description, ref ID Unit_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -63,7 +63,7 @@ namespace TangentaDB
                 else
                 {
                     sql = "insert into Unit (Name,Symbol,DecimalPlaces,StorageOption,Description)values(" + spar_Name + "," + spar_Symbol + "," + spar_DecimalPlaces + "," + spar_StorageOption + "," + sval_Description + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Unit_ID, ref Err, "Unit"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Unit_ID, ref Err, "Unit"))
                     {
                         return true;
                     }

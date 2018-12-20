@@ -64,12 +64,8 @@ namespace TangentaDB
                             }
                             else
                             {
-                                if (!transaction.Get(DBSync.DBSync.Con))
-                                {
-                                    return false;
-                                }
                                 sql = @"insert into Atom_cStreetName_Person (StreetName) values (" + sval_StreetName + ")";
-                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_cStreetName_Person_ID, ref Err, "Atom_cStreetName_Person"))
+                                if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_cStreetName_Person_ID, ref Err, "Atom_cStreetName_Person"))
                                 {
                                     return true;
                                 }
@@ -129,12 +125,9 @@ namespace TangentaDB
                     }
                     else
                     {
-                        if (!transaction.Get(DBSync.DBSync.Con))
-                        {
-                            return false;
-                        }
+                       
                         sql = @"insert into Atom_cStreetName_Person (StreetName) values (@par)";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref atom_cStreetName_Person_ID,  ref Err, "Atom_cStreetName_Person"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref atom_cStreetName_Person_ID,  ref Err, "Atom_cStreetName_Person"))
                         {
                             return true;
                         }

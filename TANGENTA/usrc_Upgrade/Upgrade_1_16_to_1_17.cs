@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DBConnectionControl40;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace UpgradeDB
     {
         internal static object UpgradeDB_1_16_to_1_17(object obj, ref string Err)
         {
+            Transaction transaction_UpgradeDB_1_16_to_1_17 = new Transaction("UpgradeDB_1_16_to_1_17");
             string sql = null;
             if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
@@ -24,7 +26,7 @@ namespace UpgradeDB
                           'Country_ISO_3166_num' smallint NOT NULL UNIQUE
                           )";
 
-                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                 {
                     sql = @"INSERT INTO cCountry_Person (Country,
 						 Country_ISO_3166_a2,
@@ -36,7 +38,7 @@ namespace UpgradeDB
 						State_ISO_3166_a3,
 						State_ISO_3166_num
 						FROM cState_Person";
-                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                     {
 
                         sql = @"
@@ -51,7 +53,7 @@ namespace UpgradeDB
                           'Country_ISO_3166_num' smallint NOT NULL UNIQUE
                           )";
 
-                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                        if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                         {
                             sql = @"INSERT INTO cCountry_Org (Country,
 						             Country_ISO_3166_a2,
@@ -63,7 +65,7 @@ namespace UpgradeDB
 						            State_ISO_3166_a3,
 						            State_ISO_3166_num
 						            FROM cState_Org";
-                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                            if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                             {
                                 sql = @"
                                 PRAGMA foreign_keys = OFF;
@@ -77,7 +79,7 @@ namespace UpgradeDB
                                   'Country_ISO_3166_num' smallint NOT NULL UNIQUE
                                   )";
 
-                                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                 {
                                     sql = @"INSERT INTO Atom_cCountry_Person (Country,
 						                             Country_ISO_3166_a2,
@@ -89,7 +91,7 @@ namespace UpgradeDB
 						                            State_ISO_3166_a3,
 						                            State_ISO_3166_num
 						                            FROM Atom_cState_Person";
-                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                    if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                     {
 
                                         sql = @"
@@ -104,7 +106,7 @@ namespace UpgradeDB
                                                       'Country_ISO_3166_num' smallint NOT NULL UNIQUE
                                                       )";
 
-                                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                        if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                         {
                                             sql = @"INSERT INTO Atom_cCountry_Org (Country,
 						                                    Country_ISO_3166_a2,
@@ -116,7 +118,7 @@ namespace UpgradeDB
 						                                    State_ISO_3166_a3,
 						                                    State_ISO_3166_num
 						                                    FROM Atom_cState_Org";
-                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                            if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                             {
                                                 sql = @"
                                                 CREATE TABLE cAddress_Person_backup
@@ -129,7 +131,7 @@ namespace UpgradeDB
                                                     cState_Person_ID  INTEGER  NULL REFERENCES cState_Person(ID),
                                                     cCountry_Person_ID  INTEGER NOT NULL REFERENCES cCountry_Person(ID)
                                                     )";
-                                                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                 {
                                                     sql = @"INSERT INTO cAddress_Person_backup (
                                                         cStreetName_Person_ID,
@@ -147,12 +149,12 @@ namespace UpgradeDB
                                                         cCountry_Person_ID,
                                                         cState_Person_ID
 						                                FROM cAddress_Person";
-                                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                    if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                     {
                                                         sql = @"PRAGMA foreign_keys = OFF;
                                                                 DROP TABLE cAddress_Person;
                                                                 ALTER TABLE cAddress_Person_backup RENAME TO cAddress_Person;";
-                                                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                        if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                         {
                                                             sql = @"
                                                                 CREATE TABLE cAddress_Org_backup
@@ -165,7 +167,7 @@ namespace UpgradeDB
                                                                    cState_Org_ID  INTEGER  NULL REFERENCES cState_Org(ID),
                                                                    cCountry_Org_ID  INTEGER NOT NULL REFERENCES cCountry_Org(ID)
                                                                   )";
-                                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                            if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                             {
                                                                 sql = @"INSERT INTO cAddress_Org_backup (
                                                                 cStreetName_Org_ID,
@@ -183,12 +185,12 @@ namespace UpgradeDB
                                                                 cCountry_Org_ID,
                                                                 cState_Org_ID
 						                                        FROM cAddress_Org";
-                                                                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                                 {
                                                                     sql = @"PRAGMA foreign_keys = OFF;
                                                                             DROP TABLE cAddress_Org;
                                                                             ALTER TABLE cAddress_Org_backup RENAME TO cAddress_Org;";
-                                                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                    if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                                     {
                                                                         sql = @"
                                                                             CREATE TABLE Atom_cAddress_Person_backup
@@ -201,7 +203,7 @@ namespace UpgradeDB
                                                                                 Atom_cState_Person_ID  INTEGER  NULL REFERENCES cState_Person(ID),
                                                                                 Atom_cCountry_Person_ID  INTEGER NOT NULL REFERENCES cCountry_Person(ID)
                                                                                 )";
-                                                                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                        if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                                         {
                                                                             sql = @"INSERT INTO Atom_cAddress_Person_backup (
                                                                                     Atom_cStreetName_Person_ID,
@@ -219,12 +221,12 @@ namespace UpgradeDB
                                                                                     Atom_cCountry_Person_ID,
                                                                                     Atom_cState_Person_ID
 						                                                            FROM Atom_cAddress_Person";
-                                                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                            if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                                             {
                                                                                 sql = @"PRAGMA foreign_keys = OFF;
                                                                                         DROP TABLE Atom_cAddress_Person;
                                                                                         ALTER TABLE Atom_cAddress_Person_backup RENAME TO Atom_cAddress_Person;";
-                                                                                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                                if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                                                 {
                                                                                     sql = @"
                                                                                     CREATE TABLE Atom_cAddress_Org_backup
@@ -237,7 +239,7 @@ namespace UpgradeDB
                                                                                        Atom_cState_Org_ID  INTEGER  NULL REFERENCES cState_Org(ID),
                                                                                        Atom_cCountry_Org_ID  INTEGER NOT NULL REFERENCES cCountry_Org(ID)
                                                                                       )";
-                                                                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                                    if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                                                     {
                                                                                         sql = @"INSERT INTO Atom_cAddress_Org_backup (
                                                                                                 Atom_cStreetName_Org_ID,
@@ -255,12 +257,12 @@ namespace UpgradeDB
                                                                                                 Atom_cCountry_Org_ID,
                                                                                                 Atom_cState_Org_ID
 						                                                                        FROM Atom_cAddress_Org";
-                                                                                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                                        if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                                                         {
                                                                                             sql = @"PRAGMA foreign_keys = OFF;
                                                                                                     DROP TABLE Atom_cAddress_Org;
                                                                                                     ALTER TABLE Atom_cAddress_Org_backup RENAME TO Atom_cAddress_Org;";
-                                                                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                                            if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                                                             {
 
                                                                                                 sql = @"PRAGMA foreign_keys = OFF;
@@ -271,7 +273,7 @@ namespace UpgradeDB
                                                                                                           'State' varchar(264) UNIQUE  NOT NULL UNIQUE
                                                                                                           )";
 
-                                                                                                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                                                if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                                                                 {
                                                                                                     sql = @"PRAGMA foreign_keys = OFF;
                                                                                                             DROP TABLE cState_Org;
@@ -280,7 +282,7 @@ namespace UpgradeDB
                                                                                                               'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
                                                                                                               'State' varchar(264) UNIQUE  NOT NULL UNIQUE
                                                                                                               )";
-                                                                                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                                                    if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                                                                     {
                                                                                                         sql = @"
                                                                                                         PRAGMA foreign_keys = OFF;
@@ -290,7 +292,7 @@ namespace UpgradeDB
                                                                                                           'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
                                                                                                           'State' varchar(264) UNIQUE  NOT NULL UNIQUE
                                                                                                           )";
-                                                                                                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                                                        if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                                                                         {
                                                                                                             sql = @"PRAGMA foreign_keys = OFF;
                                                                                                             DROP TABLE Atom_cState_Org;
@@ -299,175 +301,216 @@ namespace UpgradeDB
                                                                                                               'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
                                                                                                               'State' varchar(264) UNIQUE  NOT NULL UNIQUE
                                                                                                               )";
-                                                                                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                                                            if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                                                                             {
                                                                                                                 sql = @"PRAGMA foreign_keys = ON;";
-                                                                                                                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                                                                if (transaction_UpgradeDB_1_16_to_1_17.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                                                                                                                 {
 
 
                                                                                                                     if (DBSync.DBSync.Create_VIEWs())
                                                                                                                     {
-                                                                                                                        UpgradeDB_inThread.Set_DataBase_Version("1.17");
-                                                                                                                        return true;
+                                                                                                                        if (UpgradeDB_inThread.Set_DataBase_Version("1.17", transaction_UpgradeDB_1_16_to_1_17))
+                                                                                                                        {
+                                                                                                                            if (transaction_UpgradeDB_1_16_to_1_17.Commit())
+                                                                                                                            {
+                                                                                                                                return true;
+                                                                                                                            }
+                                                                                                                            else
+                                                                                                                            {
+                                                                                                                                return false;
+                                                                                                                            }
+                                                                                                                        }
+                                                                                                                        else
+                                                                                                                        {
+                                                                                                                            transaction_UpgradeDB_1_16_to_1_17.Rollback();
+                                                                                                                            return false;
+                                                                                                                        }
                                                                                                                     }
                                                                                                                     else
                                                                                                                     {
+                                                                                                                        transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                                                                                                         return false;
                                                                                                                     }
                                                                                                                 }
                                                                                                                 else
                                                                                                                 {
+                                                                                                                    transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                                                                                                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                                                                                                     return false;
                                                                                                                 }
                                                                                                             }
                                                                                                             else
                                                                                                             {
+                                                                                                                transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                                                                                                 LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                                                                                                 return false;
                                                                                                             }
                                                                                                         }
                                                                                                         else
                                                                                                         {
+                                                                                                            transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                                                                                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                                                                                             return false;
                                                                                                         }
                                                                                                     }
                                                                                                     else
                                                                                                     {
+                                                                                                        transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                                                                                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                                                                                         return false;
                                                                                                     }
                                                                                                 }
                                                                                                 else
                                                                                                 {
+                                                                                                    transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                                                                                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                                                                                     return false;
                                                                                                 }
                                                                                             }
                                                                                             else
                                                                                             {
+                                                                                                transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                                                                                 LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                                                                                 return false;
                                                                                             }
                                                                                         }
                                                                                         else
                                                                                         {
+                                                                                            transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                                                                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                                                                             return false;
                                                                                         }
                                                                                     }
                                                                                     else
                                                                                     {
+                                                                                        transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                                                                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                                                                         return false;
                                                                                     }
                                                                                 }
                                                                                 else
                                                                                 {
+                                                                                    transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                                                                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                                                                     return false;
                                                                                 }
                                                                             }
                                                                             else
                                                                             {
+                                                                                transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                                                                 LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                                                                 return false;
                                                                             }
                                                                         }
                                                                         else
                                                                         {
+                                                                            transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                                                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                                                             return false;
                                                                         }
                                                                     }
                                                                     else
                                                                     {
+                                                                        transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                                                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                                                         return false;
                                                                     }
                                                                 }
                                                                 else
                                                                 {
+                                                                    transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                                                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                                                     return false;
                                                                 }
                                                             }
                                                             else
                                                             {
+                                                                transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                                                 LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                                                 return false;
                                                             }
                                                         }
                                                         else
                                                         {
+                                                            transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                                             return false;
                                                         }
                                                     }
                                                     else
                                                     {
+                                                        transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                                         return false;
                                                     }
                                                 }
                                                 else
                                                 {
+                                                    transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                                     return false;
                                                 }
                                             }
                                             else
                                             {
+                                                transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                                 LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                                 return false;
                                             }
                                         }
                                         else
                                         {
+                                            transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                             return false;
                                         }
                                     }
                                     else
                                     {
+                                        transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                         return false;
                                     }
                                 }
                                 else
                                 {
+                                    transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                     return false;
                                 }
                             }
                             else
                             {
+                                transaction_UpgradeDB_1_16_to_1_17.Rollback();
                                 LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                 return false;
                             }
                         }
                         else
                         {
+                            transaction_UpgradeDB_1_16_to_1_17.Rollback();
                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
                     else
                     {
+                        transaction_UpgradeDB_1_16_to_1_17.Rollback();
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                         return false;
                     }
                 }
                 else
                 {
+                    transaction_UpgradeDB_1_16_to_1_17.Rollback();
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
+                transaction_UpgradeDB_1_16_to_1_17.Rollback();
                 LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }

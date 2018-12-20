@@ -76,7 +76,7 @@ namespace TangentaDB
                         sval_Atom_WorkPeriod_Type_Description = "null";
                     }
                     sql = @"insert into Atom_WorkPeriod_Type (Name,Description) values (" + sval_Atom_WorkPeriod_Type_Name + ","+sval_Atom_WorkPeriod_Type_Description+")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_WorkPeriod_Type_ID, ref Err, "Atom_WorkPeriod_Type"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_WorkPeriod_Type_ID, ref Err, "Atom_WorkPeriod_Type"))
                     {
                         return true;
                     }

@@ -42,14 +42,13 @@ namespace TangentaDB
 
         }
 
-        public bool Read()
+        public bool Read(Transaction transaction)
         {
             string Err = null;
             string sql = "select ID,Name,Description from JOURNAL_DocInvoice_Type";
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt,sql,ref Err))
             {
-                string transaction_Set_JournalTyp_id = null;
                 foreach (journaltype jrt in journaltype_list)
                 {
                     if (Get(jrt, dt))
@@ -58,38 +57,14 @@ namespace TangentaDB
                     }
                     else
                     {
-                        const string TRANSACTION_Set_JournalType = "Set_JournalType";
-                        if (transaction_Set_JournalTyp_id==null)
+                        if (!Set(jrt, transaction))
                         {
-                            if (!DBSync.DBSync.DB_for_Tangenta.BeginTransaction(TRANSACTION_Set_JournalType, ref transaction_Set_JournalTyp_id))
-                            {
-                                return false;
-                            }
-                        }
-                        if (!Set(jrt))
-                        {
-                            DBSync.DBSync.DB_for_Tangenta.RollbackTransaction(transaction_Set_JournalTyp_id);
                             return false;
                         }
                     }
 
                 }
-                if (transaction_Set_JournalTyp_id != null)
-                {
-                    if (DBSync.DBSync.DB_for_Tangenta.CommitTransaction(transaction_Set_JournalTyp_id))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-
-                        return false;
-                    }
-                }
-                else
-                {
-                    return true;
-                }
+                return true;
             }
             else
             {
@@ -115,7 +90,7 @@ namespace TangentaDB
             return false;
         }
 
-        private bool Set(journaltype jrt)
+        private bool Set(journaltype jrt, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_Name = "@par_Name";
@@ -134,11 +109,10 @@ namespace TangentaDB
                     lpar.Add(par_Description);
                 }
             }
-
             string sql = "insert into JOURNAL_DocInvoice_Type (Name,Description) values ("+sval_Name+","+sval_Description+")";
             ID jrt_id =null;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar,ref jrt_id,ref Err,"JOURNAL_DocInvoice_Type"))
+            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql,lpar,ref jrt_id,ref Err,"JOURNAL_DocInvoice_Type"))
             {
                 jrt.ID = jrt_id;
                 return true;

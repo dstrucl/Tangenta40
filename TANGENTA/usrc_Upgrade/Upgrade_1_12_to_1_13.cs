@@ -43,7 +43,7 @@ namespace UpgradeDB
                       )
                     ";
                 }
-                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                if (transaction.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                 {
                     if (DBSync.DBSync.Create_VIEWs())
                     {

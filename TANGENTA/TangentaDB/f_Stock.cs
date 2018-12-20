@@ -10,7 +10,7 @@ namespace TangentaDB
 {
     public static class f_Stock
     {
-        public static bool Add(ID xAtom_WorkPeriod_ID,DateTime tImportTime,decimal dQuantity,DateTime_v tExpiry_v,ID PurchasePrice_Item_ID,ID Stock_AddressLevel1_ID,string Description, ref ID Stock_ID)
+        public static bool Add(ID xAtom_WorkPeriod_ID,DateTime tImportTime,decimal dQuantity,DateTime_v tExpiry_v,ID PurchasePrice_Item_ID,ID Stock_AddressLevel1_ID,string Description, ref ID Stock_ID, Transaction transaction)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -61,10 +61,10 @@ namespace TangentaDB
                          + "," + spar_Stock_AddressLevel1_ID
                          + "," + spar_Description
                          + ")";
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Stock_ID,  ref Err, "Stock"))
+            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Stock_ID,  ref Err, "Stock"))
             {
                 ID JOURNAL_Stock_ID_v = null;
-                if (f_JOURNAL_Stock.Get(Stock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data, xAtom_WorkPeriod_ID,DateTime.Now, dQuantity, ref JOURNAL_Stock_ID_v))
+                if (f_JOURNAL_Stock.Get(Stock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data, xAtom_WorkPeriod_ID,DateTime.Now, dQuantity, ref JOURNAL_Stock_ID_v, transaction))
                 {
                     return true;
                 }
@@ -278,7 +278,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool GetQuantity(ID stock_ID, ref decimal_v dQuantityInStock_v)
+        internal static bool GetQuantity(ID stock_ID, ref decimal_v dQuantityInStock_v, Transaction transaction)
         {
             dQuantityInStock_v = null;
             string sql = @"select dQuantity                                
@@ -299,7 +299,8 @@ namespace TangentaDB
                 return false;
             }
         }
-            public static bool UpdateQuantity(ID stock_ID, decimal xdQuantity)
+
+        public static bool UpdateQuantity(ID stock_ID, decimal xdQuantity,Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -310,7 +311,7 @@ namespace TangentaDB
             string sql = "update Stock set dQuantity = " + spar_dQuantity
                             + " where ID = " + stock_ID.ToString();
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
+            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar, ref Err))
             {
                 return true;
             }
@@ -321,7 +322,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Remove(ID Stock_ID, ID StockTake_ID)
+        public static bool Remove(ID Stock_ID, ID StockTake_ID, Transaction transaction)
         {
                 string Err = null;
             string sql = @"
@@ -330,7 +331,7 @@ namespace TangentaDB
                          where ID in (select s.ID from Stock s
                                      inner join PurchasePrice_Item ppi on  s.PurchasePrice_Item_ID = ppi.ID
                                      where ppi.StockTake_ID = " + StockTake_ID.ToString() + " and s.ID =" + Stock_ID.ToString()+")";
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
+            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
             {
                 return true;
             }
@@ -348,7 +349,8 @@ namespace TangentaDB
                                   DateTime_v tExpiry_v, 
                                   ID PurchasePrice_Item_ID,
                                   ID Stock_AddressLevel1_ID, 
-                                  string Description)
+                                  string Description,
+                                  Transaction transaction)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -399,10 +401,10 @@ namespace TangentaDB
                             + ",description = " + spar_Description
                             + " where ID = " + currentStock_ID.ToString();
 
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
+            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar, ref Err))
             {
                 ID JOURNAL_Stock_ID = null;
-                if (f_JOURNAL_Stock.Get(currentStock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed, xAtom_WorkPeriod_ID, DateTime.Now, dQuantity, ref JOURNAL_Stock_ID))
+                if (f_JOURNAL_Stock.Get(currentStock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed, xAtom_WorkPeriod_ID, DateTime.Now, dQuantity, ref JOURNAL_Stock_ID, transaction))
                 {
                     return true;
                 }

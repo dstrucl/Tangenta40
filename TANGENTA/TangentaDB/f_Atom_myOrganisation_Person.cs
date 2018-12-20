@@ -267,7 +267,7 @@ namespace TangentaDB
                                                         sql = @"insert into  atom_myorganisation_person (Atom_Office_ID,Atom_Person_ID,Job,Description)values(" + sval_Atom_Office_ID + "," + sval_Atom_Person_ID + "," + sval_Job + "," + sval_Description + ")";
                                                         dt.Clear();
                                                         dt.Columns.Clear();
-                                                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_myOrganisation_Person_ID, ref Err, "atom_myorganisation_person"))
+                                                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_myOrganisation_Person_ID, ref Err, "atom_myorganisation_person"))
                                                         {
                                                             return true;
                                                         }

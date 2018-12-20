@@ -25,7 +25,7 @@ namespace TangentaDB
 
             string sql = @"insert into CashierActivity_DocInvoice (DocInvoice_ID,CashierActivity_ID) values (" + spar_DocInvoice_ID + "," + spar_CashierActivity_ID + ")";
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref xCashierActivity_ID, ref Err, "CashierActivity_DocInvoice"))
+            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref xCashierActivity_ID, ref Err, "CashierActivity_DocInvoice"))
             {
                 return true;
             }

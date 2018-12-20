@@ -139,7 +139,7 @@ namespace TangentaDB
                             + " and " + scond_ProgramModule_ID
                             + " and  " + scond_myOrgPer_ID
                             + " and  " + scond_Name + " ";
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,  ref Err))
+                        if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar,  ref Err))
                         {
                             return true;
                         }
@@ -172,7 +172,7 @@ namespace TangentaDB
                                                         + spar_Name + ","
                                                         + spar_SettingsType_ID + ","
                                                         + spar_SettingsValue + ",0,null)";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref PropertiesSettings_ID, ref Err, "PropertiesSettings"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref PropertiesSettings_ID, ref Err, "PropertiesSettings"))
                     {
                         return true;
                     }
@@ -204,7 +204,7 @@ namespace TangentaDB
             string sql = @"update PropertiesSettings set SValue = " + spar_SettingsValue
                            + " where ID = " + spar_propertiesSettings_ID;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
+            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar, ref Err))
             {
                 return true;
             }

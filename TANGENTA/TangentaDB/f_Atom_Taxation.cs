@@ -42,7 +42,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into Atom_Taxation (Name,Rate) select Name,Rate from Taxation where ID = " + Taxation_ID.ToString();
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_Taxation_ID,  ref Err, "Atom_Taxation"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, null, ref Atom_Taxation_ID,  ref Err, "Atom_Taxation"))
                     {
                         return true;
                     }
@@ -88,7 +88,7 @@ namespace TangentaDB
                     else
                     {
                         string sql_Insert_Atom_Item_Taxation = @"insert into Atom_Taxation (Name,Rate)values(" + spar_Taxation_Name + "," + spar_Taxation_Rate + ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Item_Taxation, lpar, ref Atom_Taxation_ID, ref Err, "Atom_Taxation"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_Insert_Atom_Item_Taxation, lpar, ref Atom_Taxation_ID, ref Err, "Atom_Taxation"))
                         {
                             return true;
                         }

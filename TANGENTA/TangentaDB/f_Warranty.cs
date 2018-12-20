@@ -18,7 +18,7 @@ namespace TangentaDB
             public string WarrantyConditions = null;
         }
 
-        public static bool Get(Warranty_v warranty_v, ref ID Warranty_ID)
+        public static bool Get(Warranty_v warranty_v, ref ID Warranty_ID, Transaction transaction)
         {
             if (warranty_v != null)
             {
@@ -61,7 +61,7 @@ namespace TangentaDB
                                                       (" + warranty_v.WarrantyDuration.ToString() + ","
                                                          + warranty_v.WarrantyDurationType.ToString() + ","
                                                          + sval_WarrantyConditions + ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Warranty_ID, ref Err, "Warranty"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Warranty_ID, ref Err, "Warranty"))
                         {
                             return true;
                         }

@@ -29,7 +29,8 @@ namespace TangentaDB
                                string_v Country_ISO_3166_a3_v,
                                short_v Country_ISO_3166_num_v,
                                string_v State_v, 
-                               ref ID cAddress_Org_ID)
+                               ref ID cAddress_Org_ID,
+                               Transaction transaction)
         {
             if ((StreetName_v == null) || (HouseNumber_v == null) || (ZIP_v == null) || (City_v == null) || (Country_v == null))
             {
@@ -38,7 +39,7 @@ namespace TangentaDB
             }
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             ID cStreetName_Org_ID = null;
-            if (!f_cStreetName_Org.Get(StreetName_v,ref cStreetName_Org_ID))
+            if (!f_cStreetName_Org.Get(StreetName_v,ref cStreetName_Org_ID,transaction))
             {
                 return false;
             }
@@ -49,7 +50,7 @@ namespace TangentaDB
                 return false;
             }
             ID cHouseNumber_Org_ID = null;
-            if (!f_cHouseNumber_Org.Get(HouseNumber_v, ref cHouseNumber_Org_ID))
+            if (!f_cHouseNumber_Org.Get(HouseNumber_v, ref cHouseNumber_Org_ID, transaction))
             {
                 return false;
             }
@@ -60,7 +61,7 @@ namespace TangentaDB
                 return false;
             }
             ID cZIP_Org_ID = null;
-            if (!f_cZIP_Org.Get(ZIP_v, ref cZIP_Org_ID))
+            if (!f_cZIP_Org.Get(ZIP_v, ref cZIP_Org_ID, transaction))
             {
                 return false;
             }
@@ -71,7 +72,7 @@ namespace TangentaDB
                 return false;
             }
             ID cCity_Org_ID = null;
-            if (!f_cCity_Org.Get(City_v, ref cCity_Org_ID))
+            if (!f_cCity_Org.Get(City_v, ref cCity_Org_ID, transaction))
             {
                 return false;
             }
@@ -82,7 +83,7 @@ namespace TangentaDB
                 return false;
             }
             ID cCountry_Org_ID = null;
-            if (!f_cCountry_Org.Get(Country_v,Country_ISO_3166_a2_v, Country_ISO_3166_a3_v, Country_ISO_3166_num_v, ref cCountry_Org_ID))
+            if (!f_cCountry_Org.Get(Country_v,Country_ISO_3166_a2_v, Country_ISO_3166_a3_v, Country_ISO_3166_num_v, ref cCountry_Org_ID, transaction))
             {
                 return false;
             }
@@ -93,7 +94,7 @@ namespace TangentaDB
                 return false;
             }
             ID cState_Org_ID = null;
-            if (!f_cState_Org.Get(State_v, ref cState_Org_ID))
+            if (!f_cState_Org.Get(State_v, ref cState_Org_ID, transaction))
             {
                 return false;
             }
@@ -126,7 +127,7 @@ namespace TangentaDB
                 else
                 {
                     sql = " insert into cAddress_Org (cStreetName_Org_ID,cHouseNumber_Org_ID,cZIP_Org_ID,cCity_Org_ID,cCountry_Org_ID,cState_Org_ID)values(" + cStreetName_Org_ID_value + "," + cHouseNumber_Org_ID_value + "," + cZIP_Org_ID_value + "," + cCity_Org_ID_value + "," + cCountry_Org_ID_value + "," + cState_Org_ID_value + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cAddress_Org_ID, ref Err, "cAddress_Org"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cAddress_Org_ID, ref Err, "cAddress_Org"))
                     {
                         return true;
                     }
@@ -144,7 +145,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(PostAddress_v address_v, ref ID cAdrressOrg_iD)
+        internal static bool Get(PostAddress_v address_v, ref ID cAdrressOrg_iD,Transaction transaction)
         {
             string Err = null;
             ID cStreetName_Org_ID = null;
@@ -154,19 +155,19 @@ namespace TangentaDB
             ID cCountry_Org_ID = null;
             ID cState_Org_ID = null;
 
-            if (f_cStreetName_Org.Get(address_v.StreetName_v, ref cStreetName_Org_ID))
+            if (f_cStreetName_Org.Get(address_v.StreetName_v, ref cStreetName_Org_ID, transaction))
             {
-                if (f_cHouseNumber_Org.Get(address_v.HouseNumber_v, ref cHouseNumber_Org_ID))
+                if (f_cHouseNumber_Org.Get(address_v.HouseNumber_v, ref cHouseNumber_Org_ID, transaction))
                 {
-                    if (f_cCity_Org.Get(address_v.City_v, ref cCity_Org_ID))
+                    if (f_cCity_Org.Get(address_v.City_v, ref cCity_Org_ID, transaction))
                     {
-                        if (f_cZIP_Org.Get(address_v.ZIP_v, ref cZIP_Org_ID))
+                        if (f_cZIP_Org.Get(address_v.ZIP_v, ref cZIP_Org_ID, transaction))
                         {
                             if (f_cCountry_Org.Get(address_v.Country_v,
                                                       address_v.Country_ISO_3166_a2_v,
                                                       address_v.Country_ISO_3166_a3_v,
                                                       address_v.Country_ISO_3166_num_v,
-                                                      ref cCountry_Org_ID))
+                                                      ref cCountry_Org_ID, transaction))
                             {
                                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -266,7 +267,7 @@ namespace TangentaDB
                                                 + sval_cZIP_Org_ID_v + ","
                                                 + sval_cCountry_Org_ID_v + ","
                                                 + sval_cState_Org_ID_v + ")";
-                                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cAdrressOrg_iD,  ref Err, "cAddress_Org"))
+                                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cAdrressOrg_iD,  ref Err, "cAddress_Org"))
                                         {
                                             return true;
                                         }
@@ -290,9 +291,9 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool DeleteAll()
+        public static bool DeleteAll(Transaction transaction)
         {
-            return fs.DeleteAll("cAddress_Org");
+            return fs.DeleteAll("cAddress_Org", transaction);
         }
     }
 }

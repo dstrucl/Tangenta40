@@ -617,7 +617,7 @@ namespace TangentaDB
                                                                    sval_Atom_Notice_ID+")";
                                                               
                         string Err = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar,ref DocInvoiceAddOn_ID, ref Err, "DocInvoiceAddOn"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar,ref DocInvoiceAddOn_ID, ref Err, "DocInvoiceAddOn"))
                         {
                             return true;
                         }
@@ -702,10 +702,6 @@ namespace TangentaDB
                         SQL_Parameter par_IssueDate = new SQL_Parameter(spar_IssueDate, SQL_Parameter.eSQL_Parameter.Datetime, false, m_IssueDate.Date);
                         lpar.Add(par_IssueDate);
 
-                        if (!transaction.Get(DBSync.DBSync.Con))
-                        {
-                            return false;
-                        }
 
                         string sql = "update DocInvoiceAddOn set IssueDate = " + spar_IssueDate
                                                                 + ",MethodOfPayment_DI_ID = " + spar_MethodOfPayment_ID
@@ -715,7 +711,7 @@ namespace TangentaDB
                                                                 + " where ID = " + DocInvoiceAddOn_ID.ToString();
                         string Err = null;
 
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,  ref Err))
+                        if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar,  ref Err))
                         {
                             return true;
                         }
@@ -816,13 +812,10 @@ namespace TangentaDB
                 SQL_Parameter par_TestEnvironment = new SQL_Parameter(spar_TestEnvironment, SQL_Parameter.eSQL_Parameter.Bit, false, FursTESTEnvironment);
                 lpar.Add(par_TestEnvironment);
 
-                if (!transaction.Get(DBSync.DBSync.Con))
-                {
-                    return false;
-                }
+                
                 sql = "insert into fvi_slo_response (DocInvoice_ID,MessageID,UniqueInvoiceID,BarCodeValue,Response_DateTime,TestEnvironment) values (" + spar_Invoice_ID + "," + spar_MessageID + "," + sval_UniqueInvoiceID + "," + spar_BarCodeValue + "," + spar_Response_DateTime + ","+ spar_TestEnvironment+")";
                 ID id = null;
-                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id,  ref Err, "fvi_slo_response"))
+                if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref id,  ref Err, "fvi_slo_response"))
                 {
                     Set_Invoice_Furs_Token();
                     return true;
@@ -891,10 +884,6 @@ namespace TangentaDB
                 SQL_Parameter par_TestEnvironment = new SQL_Parameter(spar_TestEnvironment, SQL_Parameter.eSQL_Parameter.Bit, false, FursTESTEnvironment);
                 lpar.Add(par_TestEnvironment);
 
-                if (!transaction.Get(DBSync.DBSync.Con))
-                {
-                    return false;
-                }
 
                 sql = @"Update fvi_slo_response set MessageID = " + spar_MessageID +
                         ",UniqueInvoiceID = " + sval_UniqueInvoiceID +
@@ -903,7 +892,7 @@ namespace TangentaDB
                         ",TestEnvironment = " + spar_TestEnvironment +
                         " where DocInvoice_ID = " + spar_Invoice_ID;
 
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,ref Err))
+                if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar,ref Err))
                 {
                     Set_Invoice_Furs_Token();
                     return true;

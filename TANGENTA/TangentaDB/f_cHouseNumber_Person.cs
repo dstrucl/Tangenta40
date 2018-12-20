@@ -53,7 +53,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into cHouseNumber_Person (HouseNumber) values (" + sval_HouseNumber + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cHouseNumber_Person_ID,  ref Err, "cHouseNumber_Person"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cHouseNumber_Person_ID,  ref Err, "cHouseNumber_Person"))
                     {
                         return true;
                     }
@@ -96,7 +96,7 @@ namespace TangentaDB
                     else
                     {
                         sql = @"insert into cHouseNumber_Person (HouseNumber) values (@par)";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cHouseNumber_Person_ID,  ref Err, "cHouseNumber_Person"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cHouseNumber_Person_ID,  ref Err, "cHouseNumber_Person"))
                         {
                             return true;
                         }

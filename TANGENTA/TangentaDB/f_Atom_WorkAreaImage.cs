@@ -78,7 +78,7 @@ namespace TangentaDB
                 else
                 {
                     sql = " insert into Atom_WorkAreaImage (Image_Hash,Image_Data,Description) values (" + Image_Hash_Value + "," + Image_Data_Value + "," + Description_Value + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_WorkAreaImage_ID, ref Err, "Atom_WorkAreaImage"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_WorkAreaImage_ID, ref Err, "Atom_WorkAreaImage"))
                     {
                         return true;
                     }

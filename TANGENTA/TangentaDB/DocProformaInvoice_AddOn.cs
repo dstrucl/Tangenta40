@@ -608,7 +608,7 @@ namespace TangentaDB
                                                                    sval_Atom_Notice_ID+")";
 
                         string Err = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref DocProformaInvoiceAddOn_ID, ref Err, "DocProformaInvoiceAddOn"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref DocProformaInvoiceAddOn_ID, ref Err, "DocProformaInvoiceAddOn"))
                         {
                             return true;
                         }
@@ -712,7 +712,7 @@ namespace TangentaDB
                                                                 + " where ID = " + DocProformaInvoiceAddOn_ID.ToString();
                         string Err = null;
 
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
+                        if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar, ref Err))
                         {
                             return true;
                         }

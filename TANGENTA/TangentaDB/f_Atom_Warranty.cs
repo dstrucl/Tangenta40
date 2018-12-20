@@ -76,7 +76,7 @@ namespace TangentaDB
                 else
                 {
                     string sql_Insert_Atom_Warranty = @"insert into Atom_Warranty (WarrantyDurationType, WarrantyDuration, WarrantyConditions)values(" + sv_WarrantyDurationType + "," + sv_WarrantyDuration + "," + sv_WarrantyConditions + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Warranty, lpar, ref Atom_Item_Atom_Warranty_ID, ref Err, "Atom_Warranty"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_Insert_Atom_Warranty, lpar, ref Atom_Item_Atom_Warranty_ID, ref Err, "Atom_Warranty"))
                     {
                         return true;
                     }

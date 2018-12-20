@@ -16,7 +16,8 @@ namespace TangentaDB
                                string_v TruckingNumber_v,
                                decimal_v Customs_v,
                                string_v Description_v,
-                               ref ID Trucking_ID)
+                               ref ID Trucking_ID,
+                               Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -104,7 +105,7 @@ namespace TangentaDB
                                                           + sval_TruckingNumber + ","
                                                           + sval_Customs + ","
                                                           + sval_Description + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Trucking_ID, ref Err, "Trucking"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Trucking_ID, ref Err, "Trucking"))
                     {
                         return true;
                     }
@@ -187,7 +188,7 @@ namespace TangentaDB
                    ref Contact_ID,
                    transaction))
             {
-                return f_Trucking.Get(Contact_ID, TruckingCost_v, TruckingNumber_v, Customs_v, Description_v,ref Trucking_ID);
+                return f_Trucking.Get(Contact_ID, TruckingCost_v, TruckingNumber_v, Customs_v, Description_v,ref Trucking_ID, transaction);
             }
             else
             {

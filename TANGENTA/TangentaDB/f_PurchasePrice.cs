@@ -74,7 +74,7 @@ namespace TangentaDB
                         + spar_ID_Currency + "," 
                         + spar_ID_Taxation + ","
                         + spar_PurchasePriceDate + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref PurchasePrice_ID, ref Err, "PurchasePrice"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref PurchasePrice_ID, ref Err, "PurchasePrice"))
                     {
                         return true;
                     }
@@ -130,7 +130,7 @@ namespace TangentaDB
                     SQL_Parameter par_PurchasePriceDate = new SQL_Parameter(spar_PurchasePriceDate, SQL_Parameter.eSQL_Parameter.Datetime, false, dtPurchasePriceDate);
                     lpar.Add(par_PurchasePriceDate);
                     sql = "insert into "+PurchasePrice_TableName+" (PurchasePricePerUnit,Currency_ID,Taxation_ID,PurchasePriceDate)values(" + spar_PricePerUnit + "," + spar_ID_Currency + "," + spar_ID_Taxation + "," + spar_PurchasePriceDate + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref PurchasePrice_ID,  ref Err, PurchasePrice_TableName))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref PurchasePrice_ID,  ref Err, PurchasePrice_TableName))
                     {
                         return true;
                     }

@@ -47,7 +47,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into Atom_PriceList_Name (Name) values (" + sval_Name + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_PriceList_Name_ID,  ref Err, "Atom_PriceList_Name"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_PriceList_Name_ID,  ref Err, "Atom_PriceList_Name"))
                     {
                         return true;
                     }

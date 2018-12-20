@@ -260,9 +260,15 @@ namespace LoginControl
                                 if (m_usrc_MultipleUsers.m_CashierActivity == null)
                                 {
                                     m_usrc_MultipleUsers.m_CashierActivity = new CashierActivity();
-                                    if (m_usrc_MultipleUsers.m_CashierActivity.Open(m_LMOUser.Atom_WorkPeriod_ID))
+                                    Transaction transaction_m_usrc_MultipleUsers_m_CashierActivity_Open = new Transaction("MultipleUsers_m_CashierActivity_Open");
+                                    if (m_usrc_MultipleUsers.m_CashierActivity.Open(m_LMOUser.Atom_WorkPeriod_ID, transaction_m_usrc_MultipleUsers_m_CashierActivity_Open))
                                     {
+                                        transaction_m_usrc_MultipleUsers_m_CashierActivity_Open.Commit();
                                         m_usrc_MultipleUsers.CashierState = eCashierState.OPENED;
+                                    }
+                                    else
+                                    {
+                                        transaction_m_usrc_MultipleUsers_m_CashierActivity_Open.Rollback();
                                     }
                                 }
                                 else

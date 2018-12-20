@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_cZIP_Org
     {
-        public static bool Get(string ZIP, ref ID cZIP_Org_ID)
+        public static bool Get(string ZIP, ref ID cZIP_Org_ID, Transaction transaction)
         {
             string Err = null;
            
@@ -53,8 +53,9 @@ namespace TangentaDB
                 }
                 else
                 {
+                  
                     sql = @"insert into cZIP_Org (ZIP) values (" + sval_ZIP + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cZIP_Org_ID,  ref Err, "cZIP_Org"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cZIP_Org_ID,  ref Err, "cZIP_Org"))
                     {
                         return true;
                     }
@@ -72,7 +73,7 @@ namespace TangentaDB
             }
        }
 
-        internal static bool Get(string_v zIP_v, ref ID cZIP_Org_ID)
+        internal static bool Get(string_v zIP_v, ref ID cZIP_Org_ID, Transaction transaction)
         {
             if (zIP_v != null)
             {
@@ -96,8 +97,9 @@ namespace TangentaDB
                     }
                     else
                     {
+                        
                         sql = @"insert into cZIP_Org (ZIP) values (@par)";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cZIP_Org_ID, ref Err, "cZIP_Org"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cZIP_Org_ID, ref Err, "cZIP_Org"))
                         {
                             return true;
                         }
@@ -121,9 +123,9 @@ namespace TangentaDB
             }
         }
 
-        public static bool DeleteAll()
+        public static bool DeleteAll(Transaction transaction)
         {
-            return fs.DeleteAll("cZIP_Org");
+            return fs.DeleteAll("cZIP_Org",transaction);
         }
     }
 }

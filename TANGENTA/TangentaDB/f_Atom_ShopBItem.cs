@@ -105,7 +105,7 @@ namespace TangentaDB
                             }
 
 
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_SimpleItem_ID, ref Err, "Atom_SimpleItem"))
+                            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, null, ref Atom_SimpleItem_ID, ref Err, "Atom_SimpleItem"))
                             {
                                 return true;
                             }

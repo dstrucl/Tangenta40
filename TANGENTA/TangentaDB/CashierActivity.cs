@@ -670,7 +670,7 @@ namespace TangentaDB
 
        
 
-        public bool Open(ID xAtom_WorkPeriod_ID)
+        public bool Open(ID xAtom_WorkPeriod_ID, Transaction transaction)
         {
 
             if (f_Atom_WorkPeriod.Get(xAtom_WorkPeriod_ID, ref m_Atom_ElectronicDevice_Name, ref m_Atom_Office_ShortName))
@@ -692,7 +692,9 @@ namespace TangentaDB
                                             ref iCashierActivityNumber,
                                             ref loginTime,
                                             ref xCashierActivity_ID,
-                                            ref balreadyopened
+                                            ref balreadyopened,
+                                            transaction
+
                     ))
                 {
                     this.FirstLogin = loginTime;

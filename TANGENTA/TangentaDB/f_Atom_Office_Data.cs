@@ -125,7 +125,7 @@ namespace TangentaDB
                                 else
                                 {
                                     sql = @"insert into Atom_Office_Data (Atom_Office_ID,Atom_cAddress_Org_ID,Description) values (" + Atom_Office_ID.ToString() + "," + Atom_cAddress_Org_ID.ToString() + "," + sval_Description + ")";
-                                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Office_Data_ID, ref Err, "Atom_Office_Data"))
+                                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_Office_Data_ID, ref Err, "Atom_Office_Data"))
                                     {
                                         return true;
                                     }

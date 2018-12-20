@@ -76,7 +76,7 @@ namespace TangentaDB
                 else
                 {
                     sql = "insert into doc_page_type (Name,Description,Width,Height)values(" + spar_Name + "," + sval_Description + "," + sval_Width + "," + sval_Height + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref doc_page_type_ID, ref Err, "doc_page_type"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref doc_page_type_ID, ref Err, "doc_page_type"))
                     {
                         return true;
                     }

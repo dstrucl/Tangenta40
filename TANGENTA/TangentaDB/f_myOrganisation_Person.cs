@@ -16,7 +16,8 @@ namespace TangentaDB
                                string_v Description_v,
                                ID Person_ID,
                                ID Office_ID,
-                               ref ID myOrganisation_Person_ID)
+                               ref ID myOrganisation_Person_ID,
+                               Transaction transaction)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -79,7 +80,7 @@ namespace TangentaDB
                                                         " + Description_value + @",
                                                         " + Person_ID_value + @",
                                                         " + Office_ID_value + @")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref myOrganisation_Person_ID, ref Err, "myOrganisation_Person"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref myOrganisation_Person_ID, ref Err, "myOrganisation_Person"))
                     {
                         return true;
                     }
@@ -97,9 +98,9 @@ namespace TangentaDB
             }
         }
 
-        public static bool DeleteAll()
+        public static bool DeleteAll(Transaction transaction)
         {
-            return fs.DeleteAll("myOrganisation_Person");
+            return fs.DeleteAll("myOrganisation_Person", transaction);
         }
 
         public static ID myOrganisation_Person_SingleUser_ID()

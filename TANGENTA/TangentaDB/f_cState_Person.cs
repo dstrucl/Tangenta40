@@ -55,7 +55,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into cState_Person (State) values (" + sval_State + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cState_Person_ID,  ref Err, "cState_Person"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cState_Person_ID,  ref Err, "cState_Person"))
                     {
                         return true;
                     }
@@ -99,7 +99,7 @@ namespace TangentaDB
                     else
                     {
                         sql = @"insert into cState_Person (State) values (@par)";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cState_Person_ID,  ref Err, "cState_Person"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cState_Person_ID,  ref Err, "cState_Person"))
                         {
                             return true;
                         }

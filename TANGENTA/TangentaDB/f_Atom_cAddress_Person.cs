@@ -116,12 +116,9 @@ namespace TangentaDB
                 }
                 else
                 {
-                    if (!transaction.Get(DBSync.DBSync.Con))
-                    {
-                        return false;
-                    }
+                   
                     sql = " insert into Atom_cAddress_Person (Atom_cStreetName_Person_ID,Atom_cHouseNumber_Person_ID,Atom_cZIP_Person_ID,Atom_cCity_Person_ID,Atom_cCountry_Person_ID,Atom_cState_Person_ID)values(" + Atom_cStreetName_Person_ID_value + "," + Atom_cHouseNumber_Person_ID_value + "," + Atom_cZIP_Person_ID_value + "," + Atom_cCity_Person_ID_value + "," + Atom_cCountry_Person_ID_value + "," + Atom_cState_Person_ID_value + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_cAddress_Person_ID,  ref Err, "Atom_cAddress_Person"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_cAddress_Person_ID,  ref Err, "Atom_cAddress_Person"))
                     {
                         return true;
                     }
@@ -155,7 +152,7 @@ namespace TangentaDB
                 {
                     if (f_Atom_cCity_Person.Get(address_v.City_v, ref xAtom_cCity_Person_ID, transaction))
                     {
-                        if (f_Atom_cZIP_Person.Get(address_v.ZIP_v, ref xAtom_cZIP_Person_ID))
+                        if (f_Atom_cZIP_Person.Get(address_v.ZIP_v, ref xAtom_cZIP_Person_ID, transaction))
                         {
                             if (f_Atom_cCountry_Person.Get(address_v.Country_v,
                                                       address_v.Country_ISO_3166_a2_v,
@@ -255,10 +252,7 @@ namespace TangentaDB
                                     }
                                     else
                                     {
-                                        if (!transaction.Get(DBSync.DBSync.Con))
-                                        {
-                                            return false;
-                                        }
+                                       
                                         sql = "insert into Atom_cAddress_Person (Atom_cStreetName_Person_ID,Atom_cHouseNumber_Person_ID,Atom_cCity_Person_ID,Atom_cZIP_Person_ID,Atom_cCountry_Person_ID,Atom_cState_Person_ID) values ("
                                                 + sval_Atom_cStreetName_Person_ID_v + ","
                                                 + sval_Atom_cHouseNumber_Person_ID_v + ","
@@ -266,7 +260,7 @@ namespace TangentaDB
                                                 + sval_Atom_cZIP_Person_ID_v + ","
                                                 + sval_Atom_cCountry_Person_ID_v + ","
                                                 + sval_Atom_cState_Person_ID_v + ")";
-                                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cAdressAtom_Person_iD, ref Err, "Atom_cAddress_Person"))
+                                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cAdressAtom_Person_iD, ref Err, "Atom_cAddress_Person"))
                                         {
                                             return true;
                                         }
@@ -344,9 +338,9 @@ namespace TangentaDB
                         {
                             if (f_Atom_cCity_Person.Get(cCity_Person_ID, ref Atom_cCity_Person_ID, transaction))
                             {
-                                if (f_Atom_cZIP_Person.Get(cZIP_Person_ID, ref Atom_cZIP_Person_ID))
+                                if (f_Atom_cZIP_Person.Get(cZIP_Person_ID, ref Atom_cZIP_Person_ID, transaction))
                                 {
-                                    if (f_Atom_cCountry_Person.Get(cCountry_Person_ID, ref Atom_cCountry_Person_ID))
+                                    if (f_Atom_cCountry_Person.Get(cCountry_Person_ID, ref Atom_cCountry_Person_ID, transaction))
                                     {
                                         sql = @"select
                                                     ID
@@ -374,7 +368,7 @@ namespace TangentaDB
                                                 sql = @"insert into Atom_cAddress_Person
                                                         (Atom_cStreetName_Person_ID,Atom_cHouseNumber_Person_ID,Atom_cZIP_Person_ID,Atom_cCity_Person_ID,Atom_cCountry_Person_ID,Atom_cState_Person_ID) values
                                                         (" + Atom_cStreetName_Person_ID.ToString() + "," + Atom_cHouseNumber_Person_ID.ToString() + "," + Atom_cZIP_Person_ID.ToString() + "," + Atom_cCity_Person_ID.ToString() + "," + Atom_cCountry_Person_ID.ToString() + "," + sStateVal + ")";
-                                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_cAddress_Person_ID, ref Err, "Atom_cAddress_Person"))
+                                                if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, null, ref Atom_cAddress_Person_ID, ref Err, "Atom_cAddress_Person"))
                                                 {
                                                     return true;
                                                 }

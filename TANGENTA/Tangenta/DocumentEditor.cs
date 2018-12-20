@@ -537,7 +537,7 @@ namespace Tangenta
         //    string sql_SetPrice = "update " + DocTyp + " set GrossSum = " + spar_GrossSum + ",TaxSum = " + spar_TaxSum + ",NetSum = " + spar_NetSum + " where ID = " + m_ShopABC.m_CurrentDoc.Doc_ID.ToString();
         //    object ores = null;
         //    string Err = null;
-        //    if (DBSync.DBSync.ExecuteNonQuerySQL(sql_SetPrice, lpar, ref ores, ref Err))
+        //    if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_SetPrice, lpar, ref ores, ref Err))
         //    {
         //        return true;
         //    }
@@ -942,7 +942,7 @@ namespace Tangenta
             //ProgramDiagnostic.Diagnostic.Clear();
             //ProgramDiagnostic.Diagnostic.Meassure("Before fs.UpdatePriceInDraft", "?");
             
-            if (fs.UpdatePriceInDraft(DocTyp, m_ShopABC.m_CurrentDoc.Doc_ID, GrossSum, TaxSum.Value,NetSum))
+            if (fs.UpdatePriceInDraft(DocTyp, m_ShopABC.m_CurrentDoc.Doc_ID, GrossSum, TaxSum.Value,NetSum, transaction))
             {
                 if (DocM.IsDocInvoice)
                 {

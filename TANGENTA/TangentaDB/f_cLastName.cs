@@ -49,7 +49,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into cLastName (LastName) values (" + sval_LastName + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cLastName_ID,  ref Err, "cLastName"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cLastName_ID,  ref Err, "cLastName"))
                     {
                         return true;
                     }

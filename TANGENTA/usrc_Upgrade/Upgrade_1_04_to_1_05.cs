@@ -1,4 +1,5 @@
 ﻿using CodeTables;
+using DBConnectionControl40;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -18,7 +19,9 @@ namespace UpgradeDB
 
         internal static object UpgradeDB_1_04_to_1_05(object obj, ref string Err)
         {
-            Check_DB_1_04();
+            Transaction transaction_UpgradeDB_1_04_to_1_05 = new Transaction("UpgradeDB_1_04_to_1_05");
+
+            Check_DB_1_04(transaction_UpgradeDB_1_04_to_1_05);
             m_Old_tables_1_04_to_1_05 = new Old_tables_1_04_to_1_05();
             if (m_Old_tables_1_04_to_1_05.Read())
             {
@@ -194,18 +197,21 @@ namespace UpgradeDB
                             if (Write_TableDataItem_List(m_eUpgrade, m_Old_tables_1_04_to_1_05))
                             {
                                 // Correct Item's Units
-                                UpgradeDB_inThread.Set_DataBase_Version("1.05");
                                 string sql = "update item set Unit_ID=1";
-                                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null,  ref Err))
+                                if (transaction_UpgradeDB_1_04_to_1_05.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null,  ref Err))
                                 {
-                                    wfp_ui_thread.End();
-                                    return true;
+                                    if (UpgradeDB_inThread.Set_DataBase_Version("1.05", transaction_UpgradeDB_1_04_to_1_05))
+                                    {
+                                        if (transaction_UpgradeDB_1_04_to_1_05.Commit())
+                                        {
+                                            wfp_ui_thread.End();
+                                            return true;
+                                        }
+                                    }
                                 }
                                 else
                                 {
-                                    wfp_ui_thread.End();
                                     LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
-                                    return false;
                                 }
 
                             }
@@ -213,15 +219,12 @@ namespace UpgradeDB
                     }
                 }
                 wfp_ui_thread.End();
-                return true;
             }
-            else
-            {
-                return false;
-            }
+            transaction_UpgradeDB_1_04_to_1_05.Rollback();
+            return false;
         }
 
-        private static bool Check_DB_1_04()
+        private static bool Check_DB_1_04(Transaction transaction)
         {
             string Err = null;
             string sql = "select ID,FinancialYear,NumberInFinancialYear,NetSum,TaxSum,GrossSum from DocInvoice where Draft=0";
@@ -269,7 +272,7 @@ namespace UpgradeDB
                                     if (((DocInvoice_ID == 45) || (DocInvoice_ID == 47) || (DocInvoice_ID == 89)) && (DocInvoice_ShopB_Item_ID >= 0))
                                     {
                                         string sql_update = "update DocInvoice_ShopB_Item set iQuantity = 1 where DocInvoice_ID = " + DocInvoice_ID.ToString() + " and ID =" + DocInvoice_ShopB_Item_ID.ToString();
-                                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql_update, null,  ref Err))
+                                        if (!transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_update, null,  ref Err))
                                         {
                                             LogFile.Error.Show("ERROR:usrc_Upgrade:Check_DB_1_04:sql=" + sql + "\r\nErr=" + Err);
                                             return false;

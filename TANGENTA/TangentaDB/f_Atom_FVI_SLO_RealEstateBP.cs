@@ -127,10 +127,6 @@ namespace TangentaDB
                             }
                             else
                             {
-                                if (!transaction.Get(DBSync.DBSync.Con))
-                                {
-                                    return false;
-                                }
                                 sql = @"insert into Atom_FVI_SLO_RealEstateBP (
                                                         Atom_Office_Data_ID
                                                         ,Community
@@ -150,7 +146,7 @@ namespace TangentaDB
                                                                  + spar_ClosingTag + ","
                                                                  + spar_SoftwareSupplier_TaxNumber + ","
                                                                  + spar_PremiseType + ")";
-                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_FVI_SLO_RealEstateBP_ID, ref Err, "Atom_FVI_SLO_RealEstateBP"))
+                                if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_FVI_SLO_RealEstateBP_ID, ref Err, "Atom_FVI_SLO_RealEstateBP"))
                                 {
                                     return true;
                                 }

@@ -17,10 +17,6 @@ namespace UpgradeDB
         internal static object UpgradeDB_1_24_to_1_25(object obj, ref string Err)
         {
             Transaction transaction_UpgradeDB_1_24_to_1_25  = new Transaction("UpgradeDB_1_24_to_1_25");
-            if (!transaction_UpgradeDB_1_24_to_1_25.Get(DBSync.DBSync.Con))
-            {
-                return false;
-            }
             if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 //change Atom_myOrganisation_Person
@@ -66,8 +62,9 @@ namespace UpgradeDB
                                                             Atom_WorkPeriod_TYPE_ID INTEGER NULL REFERENCES Atom_WorkPeriod_TYPE(ID) );
 
                          ";
-                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                if (!transaction_UpgradeDB_1_24_to_1_25.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                 {
+                    transaction_UpgradeDB_1_24_to_1_25.Rollback();
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_24_to_1_25:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
@@ -95,8 +92,9 @@ namespace UpgradeDB
 
                         ";
 
-                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                if (!transaction_UpgradeDB_1_24_to_1_25.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                 {
+                    transaction_UpgradeDB_1_24_to_1_25.Rollback();
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_24_to_1_25:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
@@ -234,7 +232,7 @@ namespace UpgradeDB
                         PRAGMA foreign_keys = ON;
                         ";
 
-                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                if (!transaction_UpgradeDB_1_24_to_1_25.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                 {
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_24_to_1_25:sql=" + sql + "\r\nErr=" + Err);
                     return false;
@@ -242,7 +240,7 @@ namespace UpgradeDB
 
                 if (DBSync.DBSync.Create_VIEWs())
                 {
-                    if (UpgradeDB_inThread.Set_DataBase_Version("1.25"))
+                    if (UpgradeDB_inThread.Set_DataBase_Version("1.25", transaction_UpgradeDB_1_24_to_1_25))
                     {
                         if (!transaction_UpgradeDB_1_24_to_1_25.Commit())
                         {
@@ -338,7 +336,7 @@ namespace UpgradeDB
                         }
 
                      
-                        if (!f_Atom_ElectronicDevice.Get_Temp(xAtom_Computer_ID,xAtom_Office_ID, sAtom_ElectronicDevice_Name, sAtom_ElectronicDevice_Description, ref Atom_ElectronicDevice_ID))
+                        if (!f_Atom_ElectronicDevice.Get_Temp(xAtom_Computer_ID,xAtom_Office_ID, sAtom_ElectronicDevice_Name, sAtom_ElectronicDevice_Description, ref Atom_ElectronicDevice_ID, transaction))
                         {
                             return false;
                         }
@@ -362,7 +360,7 @@ namespace UpgradeDB
                             LoginTime = LoginTime_v.v;
                         }
 
-                        if (!f_Atom_WorkPeriod.Insert_into_Atom_WorkPeriod_Temp(xAtom_WorkPeriod_ID, sAtom_WorkPeriod_TYPE_Name, sAtom_WorkPeriod_TYPE_Description, xAtom_myOrganisation_Person_ID, Atom_ElectronicDevice_ID, LoginTime, LogoutTime_v))
+                        if (!f_Atom_WorkPeriod.Insert_into_Atom_WorkPeriod_Temp(xAtom_WorkPeriod_ID, sAtom_WorkPeriod_TYPE_Name, sAtom_WorkPeriod_TYPE_Description, xAtom_myOrganisation_Person_ID, Atom_ElectronicDevice_ID, LoginTime, LogoutTime_v, transaction))
                         {
                             return false;
                         }
@@ -428,7 +426,7 @@ namespace UpgradeDB
                     return false;
                 }
 
-                if (!f_Atom_ComputerUsername.Get(UserName_v.v, ref Atom_ComputerUserName_ID))
+                if (!f_Atom_ComputerUsername.Get(UserName_v.v, ref Atom_ComputerUserName_ID, transaction))
                 {
                     return false;
                 }
@@ -450,7 +448,7 @@ namespace UpgradeDB
                 {
                     IP_address_v = new string_v(f_Atom_IP_address.Get());
                 }
-                if (!f_Atom_IP_address.Get(IP_address_v.v, ref Atom_IP_address_ID))
+                if (!f_Atom_IP_address.Get(IP_address_v.v, ref Atom_IP_address_ID, transaction))
                 {
                     return false;
                 }
@@ -518,7 +516,7 @@ namespace UpgradeDB
                                                             "," + sval_Atom_MAC_address_ID +
                                                             "," + sval_Atom_IP_address_ID +
                                                             ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref xAtom_Computer_ID, ref Err, "Atom_Computer_Temp"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref xAtom_Computer_ID, ref Err, "Atom_Computer_Temp"))
                         {
                             return true;
                         }

@@ -201,7 +201,7 @@ namespace TangentaDB
                     else
                     {
                         string sql_insert = " insert into Atom_myOrganisation  (Atom_OrganisationData_ID) values (" + Atom_OrganisationData_ID.ToString() + ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, null, ref iD,  ref Err, "Atom_myOrganisation"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_insert, null, ref iD,  ref Err, "Atom_myOrganisation"))
                         {
                             return true;
                         }

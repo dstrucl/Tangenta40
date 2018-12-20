@@ -11,7 +11,7 @@ namespace TangentaDB
 {
     public static class f_Atom_Item_Image
     {
-        public static bool Get(ID Atom_Item_ID, string_v Atom_Item_Image_Hash, byte_array_v Atom_Item_Image_Data, ref ID Atom_Item_Image_ID)
+        public static bool Get(ID Atom_Item_ID, string_v Atom_Item_Image_Hash, byte_array_v Atom_Item_Image_Data, ref ID Atom_Item_Image_ID, Transaction transaction)
         {
             string Err = null;
             if (Atom_Item_Image_Hash != null)
@@ -54,7 +54,7 @@ namespace TangentaDB
                                 DBConnectionControl40.SQL_Parameter par_Item_Image_Data = new DBConnectionControl40.SQL_Parameter(spar_Item_Image_Data, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Varbinary, false, Atom_Item_Image_Data.v);
                                 lpar.Add(par_Item_Image_Data);
                                 string sql_Insert_Atom_Item_Item_Image_Hash = @"insert into Atom_Item_ImageLib (Image_Hash,Image_Data)values(" + spar_Item_Image_Hash + "," + spar_Item_Image_Data + ")";
-                                if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Item_Item_Image_Hash, lpar, ref Atom_Item_ImageLib_ID, ref Err, "Atom_Item_ImageLib"))
+                                if (!transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_Insert_Atom_Item_Item_Image_Hash, lpar, ref Atom_Item_ImageLib_ID, ref Err, "Atom_Item_ImageLib"))
                                 {
                                     LogFile.Error.Show("ERROR:Get_Atom_Item_Image:insert into Atom_Item_ImageLib failed!\r\nErr=" + Err);
                                     return false;
@@ -67,7 +67,7 @@ namespace TangentaDB
                             return false;
                         }
                         string sql_Insert_Atom_Item_Image = @"insert into Atom_Item_Image (Atom_Item_ID,Atom_Item_ImageLib_ID)values(" + Atom_Item_ID.ToString() + "," + Atom_Item_ImageLib_ID.ToString() + ")";
-                        if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Item_Image, null, ref Atom_Item_Image_ID, ref Err, "Atom_Item_Image"))
+                        if (!transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_Insert_Atom_Item_Image, null, ref Atom_Item_Image_ID, ref Err, "Atom_Item_Image"))
                         {
                             LogFile.Error.Show("ERROR:Get_Atom_Item_Image:insert into Atom_Item_ImageLib failed!\r\nErr=" + Err);
                             return false;

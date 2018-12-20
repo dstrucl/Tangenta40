@@ -131,7 +131,7 @@ namespace TangentaDB
                 else
                 {
                     sql = " insert into cAddress_Person (cStreetName_Person_ID,cHouseNumber_Person_ID,cZIP_Person_ID,cCity_Person_ID,cCountry_Person_ID,cState_Person_ID)values(" + cStreetName_Person_ID_value + "," + cHouseNumber_Person_ID_value + "," + cZIP_Person_ID_value + "," + cCity_Person_ID_value + "," + cCountry_Person_ID_value + "," + cState_Person_ID_value + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cAddress_Person_ID, ref Err, "cAddress_Person"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cAddress_Person_ID, ref Err, "cAddress_Person"))
                     {
                         return true;
                     }
@@ -271,7 +271,7 @@ namespace TangentaDB
                                                 + sval_cZIP_Person_ID_v + ","
                                                 + sval_cCountry_Person_ID_v + ","
                                                 + sval_cState_Person_ID_v + ")";
-                                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cAdress_Person_iD,  ref Err, "cAddress_Person"))
+                                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cAdress_Person_iD,  ref Err, "cAddress_Person"))
                                         {
                                             return true;
                                         }

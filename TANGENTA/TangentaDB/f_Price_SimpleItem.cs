@@ -17,7 +17,8 @@ namespace TangentaDB
                                ID Taxation_ID,
                                ID SimpleItem_ID,
                                ID PriceList_ID,
-                               ref ID Price_SimpleItem_ID)
+                               ref ID Price_SimpleItem_ID,
+                               Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_RetailSimpleItemPrice = "@par_RetailSimpleItemPrice";
@@ -69,7 +70,7 @@ namespace TangentaDB
                                                           "," + SimpleItem_ID.ToString() +
                                                           "," + PriceList_ID.ToString() +
                                                           ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar,ref Price_SimpleItem_ID, ref Err, "Price_SimpleItem"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql,lpar,ref Price_SimpleItem_ID, ref Err, "Price_SimpleItem"))
                     {
                         return true;
                     }
@@ -114,17 +115,18 @@ namespace TangentaDB
                            ref ID SimpleItem_ID,
                            ref ID Taxation_ID,
                            ref ID PriceList_ID,
-                           ref ID Price_SimpleItem_ID)
+                           ref ID Price_SimpleItem_ID,
+                           Transaction transaction)
         {
-            if (f_Taxation.Get(TaxationName, TaxationRate,ref Taxation_ID))
+            if (f_Taxation.Get(TaxationName, TaxationRate,ref Taxation_ID, transaction))
             {
-                if (f_Currency.Get(Currency_Abbreviation, Currency_Name, Currency_Symbol, CurrencyCode, Currency_DecimalPlaces, ref Currency_ID))
+                if (f_Currency.Get(Currency_Abbreviation, Currency_Name, Currency_Symbol, CurrencyCode, Currency_DecimalPlaces, ref Currency_ID, transaction))
                 {
-                    if (f_SimpleItem.Get(SimpleItem_Name, Abbreviation, bToOffer, SimpleItem_Image, Code_v, SimpleItem_ParentGroup1, SimpleItem_ParentGroup2, SimpleItem_ParentGroup3, ref SimpleItem_ID))
+                    if (f_SimpleItem.Get(SimpleItem_Name, Abbreviation, bToOffer, SimpleItem_Image, Code_v, SimpleItem_ParentGroup1, SimpleItem_ParentGroup2, SimpleItem_ParentGroup3, ref SimpleItem_ID, transaction))
                     {
                         if (f_PriceList.Get(sPriceListName, valid, Currency_ID, ValidFrom_v, ValidTo_v, CreationDate_v, Description, ref PriceList_ID))
                         {
-                            if (Get(RetailSimpleItemPrice, Discount_v, Taxation_ID, SimpleItem_ID, PriceList_ID, ref Price_SimpleItem_ID))
+                            if (Get(RetailSimpleItemPrice, Discount_v, Taxation_ID, SimpleItem_ID, PriceList_ID, ref Price_SimpleItem_ID, transaction))
                             {
                                 return true;
                             }

@@ -224,7 +224,7 @@ namespace TangentaDB
 
      
 
-        internal bool SaveDocProformaInvoice(string xDocTyp,ref ID xDocInvoice_ID, DocProformaInvoice_AddOn xDocProformaInvoice_AddOn,string ElectronicDevice_Name, ref int xNumberInFinancialYear)
+        internal bool SaveDocProformaInvoice(string xDocTyp,ref ID xDocInvoice_ID, DocProformaInvoice_AddOn xDocProformaInvoice_AddOn,string ElectronicDevice_Name, ref int xNumberInFinancialYear, Transaction transaction)
         {
             string sql = null;
             string Err = null;
@@ -232,7 +232,7 @@ namespace TangentaDB
             {
                 xNumberInFinancialYear = NumberInFinancialYear;
                 sql = "update DocProformaInvoice set Draft =0,NumberInFinancialYear = " + NumberInFinancialYear.ToString() + "  where ID = " + Doc_ID.ToString(); // Close Proforma Invoice
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
+                if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
                 {
                     xDocInvoice_ID = Doc_ID;
                     return true;
@@ -302,11 +302,11 @@ namespace TangentaDB
             }
         }
 
-        public bool Update_Customer_Remove(string xDocTyp)
+        public bool Update_Customer_Remove(string xDocTyp, Transaction transaction)
         {
             string sql = "update "+ xDocTyp + " set Atom_Customer_Org_ID = null,Atom_Customer_Person_ID = null where ID = " + this.Doc_ID.ToString();
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
+            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
             {
                 this.Atom_Customer_Org_ID = null;
                 this.Atom_Customer_Person_ID = null;
@@ -320,7 +320,7 @@ namespace TangentaDB
         }
 
 
-        public bool Remove_usrc_Atom_Item_Factory_Items()
+        public bool Remove_usrc_Atom_Item_Factory_Items(Transaction transaction)
         {
             string sIn_ID_list = null;
             if (sIn_ID_list != null)
@@ -328,16 +328,16 @@ namespace TangentaDB
                 sIn_ID_list += ")";
                 string sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocInvoice_ShopC_Item where (DocInvoice_ID = " + Doc_ID.ToString() + ") and DocInvoice_ShopC_Item.Stock_ID is null and Atom_Price_Item_ID in " + sIn_ID_list;
                 string Err = null;
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_DocInvoice_Atom_Item_Stock, null,  ref Err))
+                if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_Delete_DocInvoice_Atom_Item_Stock, null,  ref Err))
                 {
                     string sql_Delete_Atom_Price_Item = "delete from Atom_Price_Item where ID not in  (select Atom_Price_Item_ID from DocInvoice_ShopC_Item)";
-                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Price_Item, null,  ref Err))
+                    if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_Delete_Atom_Price_Item, null,  ref Err))
                     {
                         string sql_Delete_Atom_Item_Image = "delete from Atom_Item_Image where Atom_Item_Image.Atom_Item_ID not in (select Atom_Item_ID from Atom_Price_Item)";
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Item_Image, null,  ref Err))
+                        if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_Delete_Atom_Item_Image, null,  ref Err))
                         {
                             string sql_Delete_Atom_Item_ImageLib = "delete from Atom_Item_ImageLib where ID not in (select Atom_Item_ImageLib_ID from Atom_Item_Image)";
-                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Item_ImageLib, null,  ref Err))
+                            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_Delete_Atom_Item_ImageLib, null,  ref Err))
                             {
 
                                 return true;
@@ -375,7 +375,7 @@ namespace TangentaDB
             }
         }
 
-        public bool SaveDocInvoice(string xDocTyp,ref ID xDocInvoice_ID, DocInvoice_AddOn xDocInvoice_AddOn,CashierActivity ca, string ElectronicDevice_Name,ref int xNumberInFinancialYear)
+        public bool SaveDocInvoice(string xDocTyp,ref ID xDocInvoice_ID, DocInvoice_AddOn xDocInvoice_AddOn,CashierActivity ca, string ElectronicDevice_Name,ref int xNumberInFinancialYear, Transaction transaction)
         {
             string sql = null;
             string Err = null;
@@ -383,7 +383,7 @@ namespace TangentaDB
             {
                 xNumberInFinancialYear = NumberInFinancialYear;
                 sql = "update DocInvoice set Draft =0,NumberInFinancialYear = " + NumberInFinancialYear.ToString() + "  where ID = " + Doc_ID.ToString(); // Close Proforma Invoice
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null,  ref Err))
+                if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null,  ref Err))
                 {
                     xDocInvoice_ID = Doc_ID;
                     if (ca != null)
@@ -499,7 +499,7 @@ namespace TangentaDB
                 {
                     string sql = "update "+xDocTyp+" set Atom_Customer_Person_ID = " + xAtom_Customer_Person_ID.ToString() + ",Atom_Customer_Org_ID = null where ID = " + this.Doc_ID.ToString();
                     string Err = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
+                    if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
                     {
                         if (Atom_Customer_Person_ID == null)
                         {
@@ -526,7 +526,7 @@ namespace TangentaDB
                 {
                     string sql = "update "+xDocTyp+" set Atom_Customer_Org_ID = " + xAtom_Customer_Org_ID.ToString() + ",Atom_Customer_Person_ID = null where ID = " + this.Doc_ID.ToString();
                     string Err = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
+                    if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
                     {
                         if (Atom_Customer_Org_ID == null)
                         {
@@ -642,10 +642,7 @@ namespace TangentaDB
                 GrossSum_v.v = -GrossSum_v.v;
 
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-                if (!transaction.Get(DBSync.DBSync.Con))
-                {
-                    return false;
-                }
+               
                 sql = @"insert into DocInvoice (
                                                 Draft,
                                                 DraftNumber,
@@ -682,7 +679,7 @@ namespace TangentaDB
                                                             'STORNO'
                                                             )";
 
-                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Storno_DocInvoice_ID, ref Err, GlobalData.const_DocInvoice))
+                if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Storno_DocInvoice_ID, ref Err, GlobalData.const_DocInvoice))
                 {
 
                     string spar_DocumentInvoice_ID = "@par_DocumentInvoice_ID";
@@ -702,11 +699,7 @@ namespace TangentaDB
                     SQL_Parameter par_MethodOfPayment_DI_ID = new SQL_Parameter(spar_MethodOfPayment_DI_ID, false, MethodOfPayment_DI_ID);
                     lpar.Add(par_MethodOfPayment_DI_ID);
 
-                    if (!transaction.Get(DBSync.DBSync.Con))
-                    {
-                        return false;
-                    }
-
+                   
                     sql = @" insert into DocInvoiceAddOn
                                      (DocInvoice_ID,
                                       IssueDate,
@@ -719,7 +712,7 @@ namespace TangentaDB
                              + spar_MethodOfPayment_DI_ID + ")";
 
                     ID Storno_DocInvoiceAddOn_ID = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Storno_DocInvoiceAddOn_ID, ref Err, "DocInvoiceAddOn"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Storno_DocInvoiceAddOn_ID, ref Err, "DocInvoiceAddOn"))
                     {
 
                         string sBit = "0";
@@ -727,15 +720,12 @@ namespace TangentaDB
                         {
                             sBit = "1";
                         }
-                        if (!transaction.Get(DBSync.DBSync.Con))
-                        {
-                            return false;
-                        }
+                        
                         sql = " update Docinvoice set Storno  = " + sBit + @",
                                                        Invoice_Reference_ID = " + Storno_DocInvoice_ID.ToString() + @",
                                                        Invoice_Reference_Type = 'STORNO' where ID = " + this.Doc_ID.ToString();
 
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
+                        if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
                         {
                             ID stornoReason_ID = null;
                             if (f_StornoReason.Get(Storno_DocInvoice_ID, sReason, ref stornoReason_ID))

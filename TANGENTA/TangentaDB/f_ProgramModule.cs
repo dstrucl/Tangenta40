@@ -50,7 +50,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into ProgramModule (Name) values (" + sval_ProgramModule + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref ProgramModule_ID, ref Err, "ProgramModule"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref ProgramModule_ID, ref Err, "ProgramModule"))
                     {
                         return true;
                     }

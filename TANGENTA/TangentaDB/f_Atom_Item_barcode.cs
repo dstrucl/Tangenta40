@@ -11,7 +11,7 @@ namespace TangentaDB
 {
     public static class f_Atom_Item_barcode
     {
-        public static bool Get(string_v item_barcode, ref ID atom_Item_barcode_ID, ref string Err)
+        public static bool Get(string_v item_barcode, ref ID atom_Item_barcode_ID, ref string Err, Transaction transaction)
         {
             if (item_barcode != null)
             {
@@ -31,7 +31,7 @@ namespace TangentaDB
                     else
                     {
                         string sql_Insert_Atom_Item_barcode = @"insert into Atom_Item_barcode (barcode)values(" + spar_barcode + ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Item_barcode, lpar, ref atom_Item_barcode_ID, ref Err, "Atom_Item_barcode"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_Insert_Atom_Item_barcode, lpar, ref atom_Item_barcode_ID, ref Err, "Atom_Item_barcode"))
                         {
                             return true;
                         }

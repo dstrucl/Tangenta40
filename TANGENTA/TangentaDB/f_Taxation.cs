@@ -14,7 +14,7 @@ namespace TangentaDB
     {
         private static DataTable dtTaxation = null;
 
-        public static bool Get(int Country_num, ref tnr[] tax_rates)
+        public static bool Get(int Country_num, ref tnr[] tax_rates, Transaction transaction)
         {
             tax_rates = null;
             Tax_Rates_by_Country_List country_ISO_3166_list = new Tax_Rates_by_Country_List();
@@ -30,7 +30,7 @@ namespace TangentaDB
                         for (i=0;i< tax_rates.Length;i++)
                         {
                             tax_rates[i] = taxc.rates[i].Clone();
-                            if (Get(tax_rates[i].Name, tax_rates[i].Rate, ref tax_rates[i].Taxation_ID))
+                            if (Get(tax_rates[i].Name, tax_rates[i].Rate, ref tax_rates[i].Taxation_ID, transaction))
                             {
                                 continue;
                             }
@@ -44,10 +44,10 @@ namespace TangentaDB
             }
             return true;
         }
-        public static bool Get(string Name,decimal Rate, ref object xTaxation_ID)
+        public static bool Get(string Name,decimal Rate, ref object xTaxation_ID, Transaction transaction)
         {
             ID Taxation_ID = null;
-            if (Get(Name, Rate, ref Taxation_ID))
+            if (Get(Name, Rate, ref Taxation_ID, transaction))
             {
                 xTaxation_ID = Taxation_ID;
                 return true;
@@ -60,7 +60,7 @@ namespace TangentaDB
         }
 
 
-        public static bool Get(string Name, decimal Rate, ref ID Taxation_ID)
+        public static bool Get(string Name, decimal Rate, ref ID Taxation_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -92,7 +92,7 @@ namespace TangentaDB
                 else
                 {
                     sql = "insert into Taxation (Name,Rate)values(" + spar_Name + "," + sval_Rate + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Taxation_ID, ref Err, "Taxation"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Taxation_ID, ref Err, "Taxation"))
                     {
                         return true;
                     }

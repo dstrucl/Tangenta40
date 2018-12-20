@@ -9,7 +9,7 @@ namespace TangentaDB
 {
     public static class f_StockTakeCostDescription
     {
-        public static bool Get(string Description, ref ID ID)
+        public static bool Get(string Description, ref ID ID, Transaction  transaction)
         {
 
             string Err = null;
@@ -34,7 +34,7 @@ namespace TangentaDB
                 else
                 {
                     sql = "insert into StockTakeCostDescription (Description)values(" + spar_Description + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref ID, ref Err, "StockTakeCostDescription"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref ID, ref Err, "StockTakeCostDescription"))
                     {
                         return true;
                     }

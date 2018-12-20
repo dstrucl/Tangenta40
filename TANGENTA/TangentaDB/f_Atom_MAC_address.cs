@@ -62,7 +62,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into Atom_MAC_address (MAC_address) values (" + sval_MAC_address + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_MAC_address_ID, ref Err, "Atom_MAC_address"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_MAC_address_ID, ref Err, "Atom_MAC_address"))
                     {
                         return true;
                     }

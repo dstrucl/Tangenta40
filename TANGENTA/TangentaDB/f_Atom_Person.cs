@@ -224,10 +224,6 @@ namespace TangentaDB
                 }
                 else
                 {
-                    if (!transaction.Get(DBSync.DBSync.Con))
-                    {
-                        return false;
-                    }
                     sql = @"insert into Atom_Person (Gender,
                                                     Atom_cFirstName_ID,
                                                     Atom_cLastName_ID,
@@ -255,7 +251,7 @@ namespace TangentaDB
                                                             + "," + Atom_cCardType_Person_ID_value
                                                             + "," + Atom_PersonImage_ID_value
                                                             + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Person_ID,  ref Err, "Atom_Person"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_Person_ID,  ref Err, "Atom_Person"))
                     {
                         return true;
                     }

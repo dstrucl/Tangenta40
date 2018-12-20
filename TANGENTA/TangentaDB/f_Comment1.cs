@@ -10,7 +10,7 @@ namespace TangentaDB
 {
     public static class f_Comment1
     {
-        public static bool Get(string Comment, ref ID Comment1_ID)
+        public static bool Get(string Comment, ref ID Comment1_ID, Transaction transaction)
         {
             string Err = null;
             string sql = null;
@@ -44,7 +44,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into Comment1 (Comment) values (" + sval_Comment + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Comment1_ID, ref Err, "Comment1"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Comment1_ID, ref Err, "Comment1"))
                     {
                         return true;
                     }

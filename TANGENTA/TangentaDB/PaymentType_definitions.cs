@@ -24,38 +24,26 @@ namespace TangentaDB
         public string_v PaymentType_Name_CASH_OR_CARD_v = null;
         public string_v PaymentType_Name_ALLREADY_PAID_v = null;
 
-        public bool Get()
+        public bool Get(Transaction transaction)
         {
-            Transaction transaction_PaymentType_Set = new Transaction("PaymentType_Set");
-            if (f_PaymentType.Get(GlobalData.Get_sPaymentType(GlobalData.ePaymentType.ANY_TYPE), GlobalData.Get_sPaymentType_ltext(GlobalData.ePaymentType.ANY_TYPE).s,ref PaymentType_Name_ANY_TYPE_v,ref PaymentType_ANY_TYPE_ID, transaction_PaymentType_Set))
+            if (f_PaymentType.Get(GlobalData.Get_sPaymentType(GlobalData.ePaymentType.ANY_TYPE), GlobalData.Get_sPaymentType_ltext(GlobalData.ePaymentType.ANY_TYPE).s,ref PaymentType_Name_ANY_TYPE_v,ref PaymentType_ANY_TYPE_ID, transaction))
             {
-                if (f_PaymentType.Get(GlobalData.Get_sPaymentType(GlobalData.ePaymentType.CASH), GlobalData.Get_sPaymentType_ltext(GlobalData.ePaymentType.CASH).s,ref PaymentType_Name_CASH_v, ref PaymentType_CASH_ID, transaction_PaymentType_Set))
+                if (f_PaymentType.Get(GlobalData.Get_sPaymentType(GlobalData.ePaymentType.CASH), GlobalData.Get_sPaymentType_ltext(GlobalData.ePaymentType.CASH).s,ref PaymentType_Name_CASH_v, ref PaymentType_CASH_ID, transaction))
                 {
-                    if (f_PaymentType.Get(GlobalData.Get_sPaymentType(GlobalData.ePaymentType.CARD), GlobalData.Get_sPaymentType_ltext(GlobalData.ePaymentType.CARD).s,ref PaymentType_Name_CARD_v, ref PaymentType_CARD_ID, transaction_PaymentType_Set))
+                    if (f_PaymentType.Get(GlobalData.Get_sPaymentType(GlobalData.ePaymentType.CARD), GlobalData.Get_sPaymentType_ltext(GlobalData.ePaymentType.CARD).s,ref PaymentType_Name_CARD_v, ref PaymentType_CARD_ID, transaction))
                     {
-                        if (f_PaymentType.Get(GlobalData.Get_sPaymentType(GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER), GlobalData.Get_sPaymentType_ltext(GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER).s,ref PaymentType_Name_BANK_ACCOUNT_TRANSFER_v,ref PaymentType_BANK_ACCOUNT_TRANSFER_ID, transaction_PaymentType_Set))
+                        if (f_PaymentType.Get(GlobalData.Get_sPaymentType(GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER), GlobalData.Get_sPaymentType_ltext(GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER).s,ref PaymentType_Name_BANK_ACCOUNT_TRANSFER_v,ref PaymentType_BANK_ACCOUNT_TRANSFER_ID, transaction))
                         {
-                            if (f_PaymentType.Get(GlobalData.Get_sPaymentType(GlobalData.ePaymentType.CASH_OR_CARD), GlobalData.Get_sPaymentType_ltext(GlobalData.ePaymentType.CASH_OR_CARD).s,ref PaymentType_Name_CASH_OR_CARD_v,ref PaymentType_CASH_OR_CARD_ID, transaction_PaymentType_Set))
+                            if (f_PaymentType.Get(GlobalData.Get_sPaymentType(GlobalData.ePaymentType.CASH_OR_CARD), GlobalData.Get_sPaymentType_ltext(GlobalData.ePaymentType.CASH_OR_CARD).s,ref PaymentType_Name_CASH_OR_CARD_v,ref PaymentType_CASH_OR_CARD_ID, transaction))
                             {
-                                if (f_PaymentType.Get(GlobalData.Get_sPaymentType(GlobalData.ePaymentType.ALLREADY_PAID), GlobalData.Get_sPaymentType_ltext(GlobalData.ePaymentType.ALLREADY_PAID).s,ref PaymentType_Name_ALLREADY_PAID_v, ref PaymentType_ALLREADY_PAID_ID, transaction_PaymentType_Set))
+                                if (f_PaymentType.Get(GlobalData.Get_sPaymentType(GlobalData.ePaymentType.ALLREADY_PAID), GlobalData.Get_sPaymentType_ltext(GlobalData.ePaymentType.ALLREADY_PAID).s,ref PaymentType_Name_ALLREADY_PAID_v, ref PaymentType_ALLREADY_PAID_ID, transaction))
                                 {
-                                    if (transaction_PaymentType_Set.Executed)
-                                    {
-                                        if (!transaction_PaymentType_Set.Commit())
-                                        {
-                                            return false;
-                                        }
-                                    }
                                     return true;
                                 }
                             }
                         }
                     }
                 }
-            }
-            if (transaction_PaymentType_Set.Executed)
-            {
-                transaction_PaymentType_Set.Rollback();
             }
             return false;
         }

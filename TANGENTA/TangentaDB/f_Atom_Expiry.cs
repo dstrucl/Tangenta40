@@ -15,7 +15,8 @@ namespace TangentaDB
                             int_v expiry_SaleBeforeExpiryDateInDays,
                             int_v expiry_DiscardBeforeExpiryDateInDays,
                             string_v expiry_ExpiryDescription,
-                            ref ID atom_Expiry_ID, ref string err)
+                            ref ID atom_Expiry_ID, ref string err,
+                            Transaction transaction)
         {
             string scond_ExpectedShelfLifeInDays = null;
             string sv_ExpectedShelfLifeInDays = null;
@@ -111,7 +112,7 @@ namespace TangentaDB
                                                                                              + sv_Expiry_DiscardBeforeExpiryDateInDays + ","
                                                                                              + sv_Expiry_ExpiryDescription
                                                                                             + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_Item_ExpiryDescription, lpar, ref atom_Expiry_ID, ref err, "Atom_Expiry"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql_Insert_Atom_Item_ExpiryDescription, lpar, ref atom_Expiry_ID, ref err, "Atom_Expiry"))
                     {
                         return true;
                     }

@@ -49,7 +49,7 @@ namespace DBConnectionControl40
             }
         }
 
-        public bool Get(DBConnection m_con)
+        public bool GetTransaction(DBConnection m_con)
         {
             if (id == null)
             {
@@ -117,6 +117,43 @@ namespace DBConnectionControl40
             else
             {
                 LogFile.Error.Show("ERROR:DBConnectionControl40:Transaction:Rollback():con==null!");
+                return false;
+            }
+        }
+
+        public bool ExecuteNonQuerySQL_NoMultiTrans(DBConnection con, string sql, List<SQL_Parameter> lpar, ref string err)
+        {
+            if (GetTransaction(con))
+            {
+                return con.ExecuteNonQuerySQL(sql, lpar, ref err);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool ExecuteNonQuerySQLReturnID(DBConnection con, string sql, List<SQL_Parameter> lpar, ref ID id, ref string err, string table_name)
+        {
+            if (GetTransaction(con))
+            {
+                return con.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref err, table_name);
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        public bool ExecuteNonQuerySQL(DBConnection con, string sql, List<SQL_Parameter> lpar, ref string err)
+        {
+            if (GetTransaction(con))
+            {
+                return con.ExecuteNonQuerySQL(sql, lpar, ref err);
+            }
+            else
+            {
                 return false;
             }
         }

@@ -14,6 +14,7 @@ namespace UpgradeDB
 
         internal static object UpgradeDB_1_28_to_1_29(object obj, ref string Err)
         {
+            Transaction transaction_UpgradeDB_1_28_to_1_29 = new Transaction("UpgradeDB_1_28_to_1_29");
             cashierActivityList.Clear();
             if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
@@ -97,23 +98,35 @@ namespace UpgradeDB
 
                                 PRAGMA foreign_keys = ON;
                     ";
-                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                if (!transaction_UpgradeDB_1_28_to_1_29.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                 {
+                    transaction_UpgradeDB_1_28_to_1_29.Rollback();
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_28_to_1_29:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
 
                 if (DBSync.DBSync.Create_VIEWs())
                 {
-                    return UpgradeDB_inThread.Set_DataBase_Version("1.29");
+                    if (UpgradeDB_inThread.Set_DataBase_Version("1.29", transaction_UpgradeDB_1_28_to_1_29))
+                    {
+                        transaction_UpgradeDB_1_28_to_1_29.Commit();
+                        return true;
+                    }
+                    else
+                    {
+                        transaction_UpgradeDB_1_28_to_1_29.Rollback();
+                        return false;
+                    }
                 }
                 else
                 {
+                    transaction_UpgradeDB_1_28_to_1_29.Rollback();
                     return false;
                 }
             }
             else
             {
+                transaction_UpgradeDB_1_28_to_1_29.Rollback();
                 return false;
             }
         }

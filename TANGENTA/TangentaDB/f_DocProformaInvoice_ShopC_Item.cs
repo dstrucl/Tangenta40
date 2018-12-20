@@ -138,7 +138,7 @@ namespace TangentaDB
             string sql = "update DocProformaInvoice_ShopC_Item set dQuantity = " + spar_dQuantity
                             + " where ID = " + doc_ShopC_Item_ID.ToString();
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,  ref Err))
+            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar,  ref Err))
             {
                 return true;
             }
@@ -231,7 +231,7 @@ namespace TangentaDB
                             " + sval_expiryDate + @",
                             " + sval_stock_ID + @")";
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref docProformaInvoice_ShopC_Item_ID, ref Err, "DocProformaInvoice_ShopC_Item"))
+            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref docProformaInvoice_ShopC_Item_ID, ref Err, "DocProformaInvoice_ShopC_Item"))
             {
                 return true;
             }
@@ -246,7 +246,7 @@ namespace TangentaDB
         {
             string sql = "delete from DocProformaInvoice_ShopC_Item where ID = " + doc_ShopC_Item_ID.ToString();
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
+            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
             {
                 return true;
             }

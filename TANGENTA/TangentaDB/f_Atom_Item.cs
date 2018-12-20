@@ -30,7 +30,8 @@ namespace TangentaDB
                                ref ID atom_Unit_ID,
                                ref ID atom_Expiry_ID,
                                ref ID atom_Warranty_ID,
-                               ref ID atom_Item_ID
+                               ref ID atom_Item_ID,
+                               Transaction transaction
                                )
         {
             string Err = null;
@@ -43,7 +44,7 @@ namespace TangentaDB
 
             if (item_Name_v != null)
             {
-                if (f_Atom_Item_Name.Get(item_Name_v, ref Atom_Item_Name_ID))
+                if (f_Atom_Item_Name.Get(item_Name_v, ref Atom_Item_Name_ID, transaction))
                 {
                     if (ID.Validate(Atom_Item_Name_ID))
                     {
@@ -82,7 +83,7 @@ namespace TangentaDB
                     ID atom_Item_barcode_ID = null;
                     string scond_Atom_Item_barcode_ID = null;
                     string sv_Atom_Item_barcode_ID = null;
-                    if (f_Atom_Item_barcode.Get(item_barcode_v, ref atom_Item_barcode_ID, ref Err))
+                    if (f_Atom_Item_barcode.Get(item_barcode_v, ref atom_Item_barcode_ID, ref Err, transaction))
                     {
                         if (ID.Validate(atom_Item_barcode_ID))
                         {
@@ -98,7 +99,7 @@ namespace TangentaDB
                     ID Atom_Item_Description_ID = null;
                     string scond_Atom_Item_Description_ID = null;
                     string sv_Atom_Item_Description_ID = null;
-                    if (f_Atom_Item_Description.Get(item_Description_v, ref Atom_Item_Description_ID, ref Err))
+                    if (f_Atom_Item_Description.Get(item_Description_v, ref Atom_Item_Description_ID, ref Err, transaction))
                     {
                         if (ID.Validate(Atom_Item_Description_ID))
                         {
@@ -120,7 +121,7 @@ namespace TangentaDB
                                               expiry_SaleBeforeExpiryDateInDays_v,
                                               expiry_DiscardBeforeExpiryDateInDays_v,
                                                expiry_ExpiryDescription_v,
-                                            ref atom_Expiry_ID, ref Err))
+                                            ref atom_Expiry_ID, ref Err, transaction))
                         {
                             scond_Atom_Expiry_ID = "(Atom_Expiry_ID = " + atom_Expiry_ID.ToString() + ")";
                             sv_Atom_Expiry_ID = atom_Expiry_ID.ToString();
@@ -199,7 +200,7 @@ namespace TangentaDB
                                     + sv_Atom_Expiry_ID
                                     + ")";
 
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref atom_Item_ID, ref Err, "Atom_Item"))
+                            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref atom_Item_ID, ref Err, "Atom_Item"))
                             {
                                 return true;
                             }

@@ -1600,7 +1600,7 @@ namespace DBConnectionControl40
                                         return false;
                                     }
                                 }
-                                Disconnect();
+                                //Disconnect();
                                 bNewDatabase = true;
                                 return true;
                             }
@@ -1693,7 +1693,7 @@ namespace DBConnectionControl40
                                         LogFile.Error.Show("ERROR:SQLite:PRAGMA foreign_keys = ON;! " + ex.Message);
                                     }
                                 }
-                                Disconnect();
+                                //Disconnect();
                                 bNewDatabase = true;
                             }
                             else
@@ -1882,7 +1882,7 @@ namespace DBConnectionControl40
             }
             catch (Exception ex)
             {
-                Disconnect();
+                //Disconnect();
 
                 ShowDBErrorMessage(ex.Message, null, "ExecuteNonQuerySQL");
                 csError = "ERROR:" + ex.Message;
@@ -2013,7 +2013,7 @@ namespace DBConnectionControl40
             catch (Exception ex)
             {
                 //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
-                Disconnect();
+                //Disconnect();
 
                 ShowDBErrorMessage(ex.Message, null, "ReadDataSet");
                 WriteLogTable(ex);
@@ -2475,7 +2475,7 @@ namespace DBConnectionControl40
                                 command = new MySqlCommand(sql, m_con_MYSQL.Con);
                                 command.CommandTimeout = 200000;
                                 command.ExecuteNonQuery();
-                                Disconnect();
+                                //Disconnect();
                             }
                             return true;
 
@@ -2485,7 +2485,7 @@ namespace DBConnectionControl40
                                 command = new SqlCommand(sql, m_con_MSSQL.Con);
                                 command.CommandTimeout = 200000;
                                 command.ExecuteNonQuery();
-                                Disconnect();
+                                //Disconnect();
                             }
                             return true;
 
@@ -2504,7 +2504,7 @@ namespace DBConnectionControl40
             {
                 //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
                 ErrorMsg = ex.Message;
-                Disconnect();
+                //Disconnect();
 
                 ShowDBErrorMessage(ex.Message, null, "ExecuteNonQuerySQL_NoMultiTrans");
 
@@ -2690,7 +2690,7 @@ namespace DBConnectionControl40
             {
                 //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
                 ErrorMsg = ex.Message;
-                Disconnect();
+                //Disconnect();
 
                 ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuerySQL");
 
@@ -2703,7 +2703,7 @@ namespace DBConnectionControl40
                 }
                 catch (Exception ee)
                 {
-                    Disconnect();
+                    //Disconnect();
                     Console.WriteLine(ee.ToString());
                     ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END ERROR", null);
                     return false;
@@ -2843,7 +2843,7 @@ namespace DBConnectionControl40
             {
                 //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
                 ErrorMsg = ex.Message;
-                Disconnect();
+                //Disconnect();
 
                 ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuerySQL_NoMultiTrans");
 
@@ -3069,7 +3069,7 @@ namespace DBConnectionControl40
             {
                 //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
                 ErrorMsg = ex.Message;
-                Disconnect();
+                //Disconnect();
 
                 ShowDBErrorMessage(ex.Message, lSQL_Parameter, "Execute_SQLReadData");
 
@@ -3695,7 +3695,7 @@ namespace DBConnectionControl40
             {
                 //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
                 ErrorMsg = ex.Message;
-                Disconnect();
+                //Disconnect();
 
                 ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuerySQL");
 
@@ -3709,7 +3709,7 @@ namespace DBConnectionControl40
                 }
                 catch (Exception ee)
                 {
-                    Disconnect();
+                    //Disconnect();
                     Console.WriteLine(ee.ToString());
                     ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQLReturnID END Error", null);
                     return false;
@@ -3856,7 +3856,7 @@ namespace DBConnectionControl40
             }
             catch (Exception ex)
             {
-                Disconnect();
+                //Disconnect();
                 csError = "Error:DBConnectionControl:ReadDataTable:Ex.Message:\r\n" + ex.Message;
                 ShowDBErrorMessage(ex.Message, null, "ExecuteNonQuerySQL");
 
@@ -4120,7 +4120,7 @@ namespace DBConnectionControl40
                                     SQLiteCommand cmd = m_con_SQLite.Con.CreateCommand();
                                     cmd.CommandText = "PRAGMA foreign_keys = ON;";
                                     cmd.ExecuteNonQuery();
-                                    Disconnect();
+                                    //Disconnect();
                                     return true;
                                 }
                                 catch (Exception ex)
@@ -4129,7 +4129,7 @@ namespace DBConnectionControl40
                                     return false;
                                 }
                             }
-                            Disconnect();
+                            //Disconnect();
                         }
                         else
                         {

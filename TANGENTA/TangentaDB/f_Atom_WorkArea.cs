@@ -73,12 +73,8 @@ namespace TangentaDB
                 }
                 else
                 {
-                    if (!transaction.Get(DBSync.DBSync.Con))
-                    {
-                        return false;
-                    }
                     sql = @"insert into Atom_WorkArea (Name,Description) values (" + sval_Atom_WorkArea_Name + "," + sval_Atom_WorkArea_Description + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_WorkArea_ID, ref Err, "Atom_WorkArea"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_WorkArea_ID, ref Err, "Atom_WorkArea"))
                     {
                         return true;
                     }

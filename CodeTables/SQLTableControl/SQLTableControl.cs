@@ -1488,20 +1488,21 @@ namespace CodeTables
                 {
                     try
                     {
-                        m_con.Disconnect();
+                        //m_con.Disconnect();
                         string serr = null;
                         if (DropAllTablesInSQLiteDataBase(pParentForm,ref bCancel,ref serr))
                         {
-                            if (m_con.Connect(ref serr))
-                            {
-                                m_con.Disconnect();
                                 return true;
-                            }
-                            else
-                            {
-                                LogFile.Error.Show(lng.s_CanNotMakeAConnection.s + "\n\nException = " + serr);
-                                return false;
-                            }
+                            //if (m_con.Connect(ref serr))
+                            //{
+                            //    m_con.Disconnect();
+                            //    return true;
+                            //}
+                            //else
+                            //{
+                            //    LogFile.Error.Show(lng.s_CanNotMakeAConnection.s + "\n\nException = " + serr);
+                            //    return false;
+                            //}
                         }
                         else
                         {

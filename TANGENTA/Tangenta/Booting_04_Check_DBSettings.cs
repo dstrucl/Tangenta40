@@ -71,9 +71,19 @@ namespace Tangenta
                 case fs.enum_GetDBSettings.No_Data_Rows:
                     //DataBaseVersion Not written !
                     ID ID_Version = null;
-                    if (fs.WriteDBSettings("Version", MyDataBase_Tangenta.VERSION, "1", ref ID_Version))
+
+                    Transaction transaction_MyDataBase_Tangenta_VERSION = new Transaction("MyDataBase_Tangenta_VERSION");
+
+                    if (fs.WriteDBSettings("Version", MyDataBase_Tangenta.VERSION, "1", ref ID_Version, transaction_MyDataBase_Tangenta_VERSION))
                     {
-                        eres = Startup_check_proc_Result.CHECK_OK;
+                        if (transaction_MyDataBase_Tangenta_VERSION.Commit())
+                        {
+                            eres = Startup_check_proc_Result.CHECK_OK;
+                        }
+                        else
+                        {
+                            eres = Startup_check_proc_Result.CHECK_ERROR;
+                        }
                     }
                     else
                     {
@@ -95,8 +105,10 @@ namespace Tangenta
             {
                 if (f_Currency.GetCurrencyTable(ref Err))
                 {
-                    if (fs.Init_Unit_Table(ref Err))
+                    Transaction transaction_Init_Unit_Table = new Transaction("Init_Unit_Table");
+                    if (fs.Init_Unit_Table(ref Err, transaction_Init_Unit_Table))
                     {
+                        transaction_Init_Unit_Table.Commit();
                         if (GetDBSettings(ref Err))
                         {
                             return eres;
@@ -131,6 +143,7 @@ namespace Tangenta
                     }
                     else
                     {
+                        transaction_Init_Unit_Table.Rollback();
                         LogFile.Error.Show("ERROR:Tangenta:Form_Document:Startup_04_Check_DBSettings:fs.Init_Unit_Table! Err=" + Err);
                         return Startup_check_proc_Result.CHECK_ERROR;
                     }
@@ -289,12 +302,21 @@ namespace Tangenta
         internal Startup_eUndoProcedureResult Startup_04_Undo(startup_step xstartup_step,
                                         ref string Err)
         {
-            if (fs.DeleteAll("DBSettings", ref Err))
+            Transaction transaction_Startup_04_Undo = new Transaction("Startup_04_Undo");
+            if (fs.DeleteAll("DBSettings", ref Err, transaction_Startup_04_Undo))
             {
-                return Startup_eUndoProcedureResult.OK;
+                if (transaction_Startup_04_Undo.Commit())
+                {
+                    return Startup_eUndoProcedureResult.OK;
+                }
+                else
+                {
+                    return Startup_eUndoProcedureResult.ERROR;
+                }
             }
             else
             {
+                transaction_Startup_04_Undo.Rollback();
                 return Startup_eUndoProcedureResult.ERROR;
             }
          }

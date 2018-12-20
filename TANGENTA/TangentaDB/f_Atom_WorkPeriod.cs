@@ -28,7 +28,8 @@ namespace TangentaDB
                                  ID   Atom_IP_address_ID,
                                  DateTime Login_time,
                                  DBTypes.DateTime_v Logout_time_v,
-                                 ref ID Atom_WorkPeriod_ID)
+                                 ref ID Atom_WorkPeriod_ID,
+                                 Transaction transaction)
         {
 
             ID Atom_WorkPeriod_Type_ID = null;
@@ -141,7 +142,7 @@ namespace TangentaDB
                     }
                     else
                     {
-                        if (f_Atom_IP_address.Get(ref Atom_IP_address_ID))
+                        if (f_Atom_IP_address.Get(ref Atom_IP_address_ID, transaction))
                         {
                             string sval_Atom_IP_address_ID = "null";
                             if (ID.Validate(Atom_IP_address_ID))
@@ -169,7 +170,7 @@ namespace TangentaDB
                                                                 + sval_Logout_time + ","
                                                                 + sval_Atom_IP_address_ID +
                                                                 ")";
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_WorkPeriod_ID, ref Err, "Atom_WorkPeriod"))
+                            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_WorkPeriod_ID, ref Err, "Atom_WorkPeriod"))
                             {
                                 return true;
                             }
@@ -254,7 +255,8 @@ namespace TangentaDB
                               ID Atom_myOrganisation_Person_ID,
                               ID Atom_ElectronicDevice_ID,
                               DateTime Login_time,
-                              DBTypes.DateTime_v Logout_time_v
+                              DBTypes.DateTime_v Logout_time_v,
+                              Transaction transaction
                               )
         {
 
@@ -377,7 +379,7 @@ namespace TangentaDB
                                                                 + sval_Logout_time +
                                                                 ")";
                 ID xAtom_WorkPeriod_ID = null;
-                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref xAtom_WorkPeriod_ID, ref Err, "Atom_WorkPeriod"))
+                if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref xAtom_WorkPeriod_ID, ref Err, "Atom_WorkPeriod"))
                 {
                     return true;
                 }
@@ -428,7 +430,8 @@ namespace TangentaDB
                                  ID Atom_Computer_ID,
                                  DateTime Login_time,
                                  DBTypes.DateTime_v Logout_time_v,
-                                 ref ID Atom_WorkPeriod_ID)
+                                 ref ID Atom_WorkPeriod_ID,
+                                 Transaction transaction)
         {
 
             ID Atom_WorkPeriod_Type_ID = null;
@@ -550,7 +553,7 @@ namespace TangentaDB
                                                                 + sval_Login_time + ","
                                                                 + sval_Logout_time +
                                                                 ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_WorkPeriod_ID,  ref Err, "Atom_WorkPeriod"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_WorkPeriod_ID,  ref Err, "Atom_WorkPeriod"))
                         {
                             return true;
                         }
@@ -581,14 +584,10 @@ namespace TangentaDB
             SQL_Parameter par_PeriodEnd = new SQL_Parameter(spar_WorkPeriodEnd,SQL_Parameter.eSQL_Parameter.Datetime,false,dtWorkPeriodEnd);
             lpar.Add(par_PeriodEnd);
 
-            if (!transaction.Get(DBSync.DBSync.Con))
-            {
-                return false;
-            }
 
             string sql = "update Atom_WorkPeriod set LogoutTime = " + spar_WorkPeriodEnd + " where ID = " + Atom_WorkPeriod_ID.ToString();
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar,ref Err))
+            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql,lpar,ref Err))
             {
                 return true;
             }

@@ -171,15 +171,13 @@ namespace TangentaDB
 
 
 
-        public  bool Read()
+        public  bool Read(Transaction transaction)
         {
             string Err = null;
             string sql = "select ID,Name, Description,Width,Height from doc_page_type";
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
-                const string TRANSACTION_doc_page_type_definitions_Set = "doc_page_type_definitions_Set";
-                string transaction__doc_page_type_definitions_Set_id = null;
                 foreach (doc_page_type dpt in doc_page_type_list)
                 {
                     if (Get(dpt, dt))
@@ -188,25 +186,10 @@ namespace TangentaDB
                     }
                     else
                     {
-                        if (transaction__doc_page_type_definitions_Set_id==null)
+                        if (!Set(dpt, transaction))
                         {
-                            if (!DBSync.DBSync.DB_for_Tangenta.BeginTransaction(TRANSACTION_doc_page_type_definitions_Set, ref transaction__doc_page_type_definitions_Set_id))
-                            {
-                                return false;
-                            }
-                        }
-                        if (!Set(dpt))
-                        {
-                            DBSync.DBSync.DB_for_Tangenta.RollbackTransaction(transaction__doc_page_type_definitions_Set_id);
                             return false;
                         }
-                    }
-                }
-                if (transaction__doc_page_type_definitions_Set_id != null)
-                {
-                    if (!DBSync.DBSync.DB_for_Tangenta.CommitTransaction(transaction__doc_page_type_definitions_Set_id))
-                    {
-                        return false;
                     }
                 }
                 return true;
@@ -239,7 +222,7 @@ namespace TangentaDB
             return false;
         }
 
-        private bool Set(doc_page_type dpt)
+        private bool Set(doc_page_type dpt, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -272,7 +255,7 @@ namespace TangentaDB
 
             string sql = "insert into doc_page_type (Name,Description,Width,Height) values (" + sval_Name + "," + sval_Description + "," + sval_Width + "," + sval_Height+ ")";
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref dpt.ID, ref Err, "doc_page_type"))
+            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref dpt.ID, ref Err, "doc_page_type"))
             {
                 return true;
             }

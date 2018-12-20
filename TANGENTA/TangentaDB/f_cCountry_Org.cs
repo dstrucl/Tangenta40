@@ -22,7 +22,8 @@ namespace TangentaDB
             string Country_ISO_3166_a2,
             string Country_ISO_3166_a3,
             short Country_ISO_3166_num,
-            ref ID cCountry_Org_ID)
+            ref ID cCountry_Org_ID,
+            Transaction transaction)
         {
            
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -63,7 +64,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into cCountry_Org (Country,Country_ISO_3166_a2,Country_ISO_3166_a3,Country_ISO_3166_num) values (" + spar_Country + "," + spar_Country_ISO_3166_a2 + "," + spar_Country_ISO_3166_a3 + "," + spar_Country_ISO_3166_num + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCountry_Org_ID, ref Err, "cCountry_Org"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cCountry_Org_ID, ref Err, "cCountry_Org"))
                     {
                         return true;
                     }
@@ -81,7 +82,8 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref ID cCountry_Org_ID)
+        internal static bool Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref ID cCountry_Org_ID,
+            Transaction transaction)
         {
             if ((state_v != null) && (state_ISO_3166_a2_v != null) && (state_ISO_3166_a3_v != null) && (state_ISO_3166_num_v != null))
             {
@@ -120,11 +122,12 @@ namespace TangentaDB
                     }
                     else
                     {
+                       
                         sql = @"insert into cCountry_Org (Country,Country_ISO_3166_a2,Country_ISO_3166_a3,Country_ISO_3166_num) values (" + spar_state_v + ","
                                                                                                                                                        + spar_state_ISO_3166_a2_v + ","
                                                                                                                                                        + spar_state_ISO_3166_a3_v + ","
                                                                                                                                                        + spar_state_ISO_3166_num_v + ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCountry_Org_ID, ref Err, "cCountry_Org"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref cCountry_Org_ID, ref Err, "cCountry_Org"))
                         {
                             return true;
                         }
@@ -148,9 +151,9 @@ namespace TangentaDB
             }
         }
 
-        public static bool DeleteAll()
+        public static bool DeleteAll(Transaction transaction)
         {
-            return fs.DeleteAll("cCountry_Org");
+            return fs.DeleteAll("cCountry_Org", transaction);
         }
     }
 }

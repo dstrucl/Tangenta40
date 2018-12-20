@@ -59,12 +59,8 @@ namespace TangentaDB
                     }
                     else
                     {
-                        if (!transaction.Get(DBSync.DBSync.Con))
-                        {
-                                return false;
-                        }
                         sql = "insert into Atom_Bank (Atom_Organisation_ID) values(" + sval_Atom_Organisation_ID + ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref AtomBank_ID,  ref Err, "Atom_Bank"))
+                        if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref AtomBank_ID,  ref Err, "Atom_Bank"))
                         { 
                             return true;
                         }

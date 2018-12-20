@@ -24,13 +24,13 @@ namespace TangentaDB
         public DataTable dt_atom_price_simpleitem = null;
         public DataTable dt_journal_docinvoice = null;
 
-        public bool WriteNew(ID new_DocInvoice_id)
+        public bool WriteNew(ID new_DocInvoice_id, Transaction transaction)
         {
             foreach (DataRow dr in dt_atom_price_simpleitem.Rows)
             {
                 dr["DocInvoice_ID"] = new_DocInvoice_id;
                 ID atom_price_simpleitem_ID = null;
-                if (!fs.WriteRow("atom_price_simpleitem", dr, null, false, ref atom_price_simpleitem_ID))
+                if (!fs.WriteRow("atom_price_simpleitem", dr, null, false, ref atom_price_simpleitem_ID, transaction))
                 {
                     return false;
                 }
@@ -39,7 +39,7 @@ namespace TangentaDB
             {
                 dr["DocInvoice_ID"] = new_DocInvoice_id;
                 ID journal_docinvoice_ID = null;
-                if (!fs.WriteRow("journal_docinvoice", dr, null, false, ref journal_docinvoice_ID))
+                if (!fs.WriteRow("journal_docinvoice", dr, null, false, ref journal_docinvoice_ID, transaction))
                 {
                     return false;
                 }

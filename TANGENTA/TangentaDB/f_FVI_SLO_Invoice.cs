@@ -49,7 +49,7 @@ namespace TangentaDB
         //        {
         //        sql = @"insert into FVI_SLO_SalesBookInvoice (Invoice_ID,SerialNumber,SetNumber,InvoiceNumber) values(" + spar_Invoice_ID + "," + spar_SerialNumber + "," + spar_SetNumber + "," + spar_InvoiceNumber + ")";
         //            object objretx = null;
-        //            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref FVI_SLO_SalesBookInvoice_ID, ref objretx, ref Err, "FVI_SLO_SalesBookInvoice"))
+        //            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref FVI_SLO_SalesBookInvoice_ID, ref objretx, ref Err, "FVI_SLO_SalesBookInvoice"))
         //            {
         //                return true;
         //            }

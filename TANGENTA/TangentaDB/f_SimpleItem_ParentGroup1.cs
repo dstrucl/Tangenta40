@@ -40,7 +40,7 @@ namespace TangentaDB
                         else
                         {
                             sql = "insert into SimpleItem_ParentGroup1 (Name,SimpleItem_ParentGroup2_ID) values (" + spar_Name + "," + SimpleItem_ParentGroup2_ID.ToString() + ")";
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref SimpleItem_ParentGroup1_ID, ref Err, "SimpleItem_ParentGroup1"))
+                            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref SimpleItem_ParentGroup1_ID, ref Err, "SimpleItem_ParentGroup1"))
                             {
                                 return true;
                             }
@@ -81,7 +81,7 @@ namespace TangentaDB
                 else
                 {
                     sql = "insert into SimpleItem_ParentGroup1 (Name,SimpleItem_ParentGroup2_ID) values (" + spar_Name + ",null)";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref SimpleItem_ParentGroup1_ID, ref Err, "SimpleItem_ParentGroup1"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref SimpleItem_ParentGroup1_ID, ref Err, "SimpleItem_ParentGroup1"))
                     {
                         return true;
                     }

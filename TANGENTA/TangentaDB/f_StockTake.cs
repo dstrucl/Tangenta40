@@ -162,10 +162,6 @@ namespace TangentaDB
                 }
                 else
                 {
-                    if (!transaction.Get(DBSync.DBSync.Con))
-                    {
-                        return false;
-                    }
                     sql = @"insert into StockTake (  Name,
                                                      StockTake_Date,
                                                      StockTakePriceTotal,
@@ -183,7 +179,7 @@ namespace TangentaDB
                                                      + sval_Trucking_ID + ","
                                                      + sval_Draft
                                                      + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref StockTake_ID, ref Err, "StockTake"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref StockTake_ID, ref Err, "StockTake"))
                     {
                         return true;
                     }
@@ -260,7 +256,8 @@ namespace TangentaDB
                        string StockTake_Description,
                        ID StockTake_Supplier_ID,
                        ID StockTake_Trucking_ID,
-                       bool_v StockTake_Draft_v
+                       bool_v StockTake_Draft_v,
+                       Transaction transaction
                        )
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -368,7 +365,7 @@ namespace TangentaDB
                                         + ",Trucking_ID = " +sval_Trucking_ID 
                                         + ",Draft="+sval_Draft + " where ID = "+ StockTake_ID.ToString()+";";
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref Err))
+            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar, ref Err))
             {
                         return true;
             }
@@ -380,16 +377,16 @@ namespace TangentaDB
         }
 
 
-        public static bool Lock(ID xAtom_WorkPeriod_ID,ID StockTake_ID)
+        public static bool Lock(ID xAtom_WorkPeriod_ID,ID StockTake_ID, Transaction transaction)
         {
             if (ID.Validate(StockTake_ID))
             {
                 string sql = "update StockTake set Draft = 0 where ID = " + StockTake_ID.ToString();
                 string Err = null;
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
+                if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
                 {
                     ID JOURNAL_StockTake_ID = null;
-                    TangentaDB.f_JOURNAL_StockTake.Get(xAtom_WorkPeriod_ID,StockTake_ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_Opened_StockTake_closed, DateTime.Now, ref JOURNAL_StockTake_ID);
+                    TangentaDB.f_JOURNAL_StockTake.Get(xAtom_WorkPeriod_ID,StockTake_ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_Opened_StockTake_closed, DateTime.Now, ref JOURNAL_StockTake_ID, transaction);
                     return true;
                 }
                 else
@@ -404,16 +401,16 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool UnLock(ID xAtom_WorkPeriod_ID,ID StockTake_ID)
+        public static bool UnLock(ID xAtom_WorkPeriod_ID,ID StockTake_ID, Transaction transaction)
         {
             if (ID.Validate(StockTake_ID))
             {
                 string sql = "update StockTake set Draft = 1 where ID = " + StockTake_ID.ToString();
                 string Err = null;
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Err))
+                if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
                 {
                     ID JOURNAL_StockTake_ID = null;
-                    TangentaDB.f_JOURNAL_StockTake.Get(xAtom_WorkPeriod_ID,StockTake_ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_Closed_StockTake_reopened, DateTime.Now, ref JOURNAL_StockTake_ID);
+                    TangentaDB.f_JOURNAL_StockTake.Get(xAtom_WorkPeriod_ID,StockTake_ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_Closed_StockTake_reopened, DateTime.Now, ref JOURNAL_StockTake_ID, transaction);
                     return true;
                 }
                 else

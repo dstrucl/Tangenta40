@@ -17,7 +17,8 @@ namespace TangentaDB
                        ID Taxation_ID,
                        ID Item_ID,
                        ID PriceList_ID,
-                       ref ID Price_Item_ID)
+                       ref ID Price_Item_ID,
+                       Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_RetailPricePerUnit = "@par_RetailPricePerUnit";
@@ -69,7 +70,7 @@ namespace TangentaDB
                                                           "," + Item_ID.ToString() +
                                                           "," + PriceList_ID.ToString() +
                                                           ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Price_Item_ID, ref Err, "Price_Item"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Price_Item_ID, ref Err, "Price_Item"))
                     {
                         return true;
                     }
@@ -124,17 +125,18 @@ namespace TangentaDB
                            ref ID Item_ID,
                            ref ID Taxation_ID,
                            ref ID PriceList_ID,
-                           ref ID Price_Item_ID)
+                           ref ID Price_Item_ID,
+                           Transaction transaction)
         {
-            if (f_Taxation.Get(TaxationName, TaxationRate, ref Taxation_ID))
+            if (f_Taxation.Get(TaxationName, TaxationRate, ref Taxation_ID, transaction))
             {
-                if (f_Currency.Get(Currency_Abbreviation, Currency_Name, Currency_Symbol, CurrencyCode, Currency_DecimalPlaces, ref Currency_ID))
+                if (f_Currency.Get(Currency_Abbreviation, Currency_Name, Currency_Symbol, CurrencyCode, Currency_DecimalPlaces, ref Currency_ID, transaction))
                 {
-                    if (f_Item.Get(Item_Name, UniqueName, bToOffer, Item_Image, Code_v, Unit_Name,Unit_Symbol,Unit_DecimalPlaces,Unit_StorageOption,Unit_Description,barcode, Item_Description, Expiry_v, Warranty_v, Item_ParentGroup1, Item_ParentGroup2, Item_ParentGroup3,ref Unit_ID, ref Item_ID))
+                    if (f_Item.Get(Item_Name, UniqueName, bToOffer, Item_Image, Code_v, Unit_Name,Unit_Symbol,Unit_DecimalPlaces,Unit_StorageOption,Unit_Description,barcode, Item_Description, Expiry_v, Warranty_v, Item_ParentGroup1, Item_ParentGroup2, Item_ParentGroup3,ref Unit_ID, ref Item_ID, transaction))
                     {
                         if (f_PriceList.Get(sPriceListName, valid, Currency_ID, ValidFrom_v, ValidTo_v, CreationDate_v, PriceList_Description, ref PriceList_ID))
                         {
-                            if (Get(RetailPricePerUnit, Discount_v, Taxation_ID, Item_ID, PriceList_ID, ref Price_Item_ID))
+                            if (Get(RetailPricePerUnit, Discount_v, Taxation_ID, Item_ID, PriceList_ID, ref Price_Item_ID, transaction))
                             {
                                 return true;
                             }

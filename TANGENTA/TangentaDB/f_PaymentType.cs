@@ -35,17 +35,13 @@ namespace TangentaDB
                 }
                 else
                 {
-                    if (!transaction.Get(DBSync.DBSync.Con))
-                    {
-                      return false;
-                    }
                     
                     string spar_Name = "@par_Name";
                     SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, name);
                     lpar.Add(par_Name);
 
                     sql = "insert into PaymentType (Identification,Name) values (" + spar_Identification + ","+ spar_Name + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref PaymentType_ID, ref Err, "PaymentType"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref PaymentType_ID, ref Err, "PaymentType"))
                     {
                         return true;
                     }

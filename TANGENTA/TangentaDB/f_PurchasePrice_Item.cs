@@ -75,7 +75,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into PurchasePrice_Item (Item_ID,PurchasePrice_ID,StockTake_ID) values (" + Item_ID.ToString() + "," + PurchasePrice_ID.ToString() + "," + StockTake_ID.ToString() + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref PurchasePrice_Item_ID, ref Err, "PurchasePrice_Item"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, null, ref PurchasePrice_Item_ID, ref Err, "PurchasePrice_Item"))
                     {
                         return true;
                     }
@@ -114,7 +114,7 @@ namespace TangentaDB
                 else
                 {
                     sql = @"insert into "+ PurchasePrice_Item_TableName + " (Item_ID,PurchasePrice_ID,StockTake_ID) values (" + Item_ID.ToString() + "," + PurchasePrice_ID.ToString() + "," + StockTake_ID.ToString() + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref PurchasePrice_Item_ID, ref Err, PurchasePrice_Item_TableName))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, null, ref PurchasePrice_Item_ID, ref Err, PurchasePrice_Item_TableName))
                     {
                         return true;
                     }

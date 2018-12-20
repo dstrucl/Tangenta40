@@ -14,6 +14,7 @@ namespace UpgradeDB
 
         internal static object UpgradeDB_1_27_to_1_28(object obj, ref string Err)
         {
+            Transaction transaction_UpgradeDB_1_27_to_1_28 = new Transaction("UpgradeDB_1_27_to_1_28");
             cashierActivityList.Clear();
             if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
@@ -28,6 +29,7 @@ namespace UpgradeDB
 
                 if (!DBSync.DBSync.CreateTables(new_tables, ref Err))
                 {
+                    transaction_UpgradeDB_1_27_to_1_28.Rollback();
                     return false;
                 }
 
@@ -108,19 +110,22 @@ namespace UpgradeDB
                     Atom_ComputerUserName_ID
                     from Atom_Computer;
                     ";
-                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                if (!transaction_UpgradeDB_1_27_to_1_28.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                 {
+                    transaction_UpgradeDB_1_27_to_1_28.Rollback();
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_27_to_1_28:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
 
-                if (!WriteDocInvoice_ShopC_Item_Source())
+                if (!WriteDocInvoice_ShopC_Item_Source(transaction_UpgradeDB_1_27_to_1_28))
                 {
+                    transaction_UpgradeDB_1_27_to_1_28.Rollback();
                     return false;
                 }
 
-                if (!WriteDocProformaInvoice_ShopC_Item_Source())
+                if (!WriteDocProformaInvoice_ShopC_Item_Source(transaction_UpgradeDB_1_27_to_1_28))
                 {
+                    transaction_UpgradeDB_1_27_to_1_28.Rollback();
                     return false;
                 }
 
@@ -139,7 +144,7 @@ namespace UpgradeDB
 
                                 PRAGMA foreign_keys = ON;
                     ";
-                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                if (!transaction_UpgradeDB_1_27_to_1_28.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                 {
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_27_to_1_28:sql=" + sql + "\r\nErr=" + Err);
                     return false;
@@ -148,20 +153,37 @@ namespace UpgradeDB
               
                 if (DBSync.DBSync.Create_VIEWs())
                 {
-                    return UpgradeDB_inThread.Set_DataBase_Version("1.28");
+                    if (UpgradeDB_inThread.Set_DataBase_Version("1.28", transaction_UpgradeDB_1_27_to_1_28))
+                    {
+                        if (transaction_UpgradeDB_1_27_to_1_28.Commit())
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        transaction_UpgradeDB_1_27_to_1_28.Rollback();
+                        return false;
+                    }
                 }
                 else
                 {
+                    transaction_UpgradeDB_1_27_to_1_28.Rollback();
                     return false;
                 }
             }
             else
             {
+                transaction_UpgradeDB_1_27_to_1_28.Rollback();
                 return false;
             }
         }
 
-        private static bool WriteDocInvoice_ShopC_Item_Source()
+        private static bool WriteDocInvoice_ShopC_Item_Source(Transaction transaction)
         {
             string sql_Temp = @"Select 
             ID, 
@@ -198,7 +220,7 @@ namespace UpgradeDB
 		            ExpiryDate
 		            from DocInvoice_ShopC_Item where DocInvoice_ID = " + doc_ID.ToString() + " and Atom_Price_Item_ID = "+ atom_Price_Item_ID.ToString();
 
-                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    if (!transaction.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                     {
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_27_to_1_28:sql=" + sql + "\r\nErr=" + Err);
                         return false;
@@ -214,7 +236,7 @@ namespace UpgradeDB
         }
 
 
-        private static bool WriteDocProformaInvoice_ShopC_Item_Source()
+        private static bool WriteDocProformaInvoice_ShopC_Item_Source(Transaction transaction)
         {
             string sql_Temp = @"Select 
             ID, 
@@ -251,7 +273,7 @@ namespace UpgradeDB
 		            ExpiryDate
 		            from DocProformaInvoice_ShopC_Item where DocProformaInvoice_ID = " + doc_ID.ToString() + " and Atom_Price_Item_ID = " + atom_Price_Item_ID.ToString();
 
-                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    if (!transaction.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                     {
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_27_to_1_28:sql=" + sql + "\r\nErr=" + Err);
                         return false;

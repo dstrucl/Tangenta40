@@ -60,12 +60,8 @@ namespace TangentaDB
                 }
                 else
                 {
-                    if (!transaction.Get(DBSync.DBSync.Con))
-                    {
-                        return false;
-                    }
                     sql = @"insert into Atom_ComputerName (Name) values (" + sval_ComputerName + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_ComputerName_ID,  ref Err, "Atom_ComputerName"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Atom_ComputerName_ID,  ref Err, "Atom_ComputerName"))
                     {
                         return true;
                     }

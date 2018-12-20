@@ -568,7 +568,7 @@ namespace TangentaDB
             int xNumberInFinancialYear = -1;
             DateTime_v InvoiceTime_v = new DateTime_v();
             InvoiceTime_v.v = DateTime.Now;
-            bool bRet= m_ShopABC.m_CurrentDoc.SaveDocProformaInvoice(DocInvoice,ref DocInvoice_ID, AddOnDPI, ElectronicDevice_Name, ref xNumberInFinancialYear);
+            bool bRet= m_ShopABC.m_CurrentDoc.SaveDocProformaInvoice(DocInvoice,ref DocInvoice_ID, AddOnDPI, ElectronicDevice_Name, ref xNumberInFinancialYear, transaction);
             if (bRet)
             {
                 docInvoice_ID = DocInvoice_ID;
@@ -666,7 +666,7 @@ namespace TangentaDB
         public bool SaveDocInvoice(ref ID docinvoice_ID,CashierActivity ca, string ElectronicDevice_Name, ID xAtom_WorkPeriod_ID, Transaction transaction)// GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
         {
             int xNumberInFinancialYear = -1;
-            bool bRet = m_ShopABC.m_CurrentDoc.SaveDocInvoice(DocInvoice,ref DocInvoice_ID, this.AddOnDI,ca, ElectronicDevice_Name, ref xNumberInFinancialYear);
+            bool bRet = m_ShopABC.m_CurrentDoc.SaveDocInvoice(DocInvoice,ref DocInvoice_ID, this.AddOnDI,ca, ElectronicDevice_Name, ref xNumberInFinancialYear, transaction);
             if (bRet)
             {
                 docinvoice_ID = DocInvoice_ID;

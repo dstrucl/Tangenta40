@@ -14,7 +14,7 @@ namespace TangentaDB
     {
         private static DataTable dtCurrency = null;
 
-        public static bool Get(int Country_num, ref ID Currency_ID)
+        public static bool Get(int Country_num, ref ID Currency_ID,Transaction transaction)
         {
             Currency_ID = null;
             ISO_3166_Table iso_3166_Table = new ISO_3166_Table();
@@ -23,7 +23,7 @@ namespace TangentaDB
             {
                 if (iso.State_Number == Country_num)
                 {
-                    if (Get(iso.Currency_Abbreviation, iso.Currency_Name, iso.Currency_Symbol,iso.Currency_Code,iso.Currency_DecimalPlaces, ref Currency_ID))
+                    if (Get(iso.Currency_Abbreviation, iso.Currency_Name, iso.Currency_Symbol,iso.Currency_Code,iso.Currency_DecimalPlaces, ref Currency_ID, transaction))
                     {
                         continue;
                     }
@@ -48,12 +48,29 @@ namespace TangentaDB
             }
             else
             {
-                return fs.Init_Currency_Table(ref Err);
+                Transaction transaction_Init_Currency_Table = new Transaction("Init_Currency_Table");
+                if (fs.Init_Currency_Table(ref Err, transaction_Init_Currency_Table))
+                {
+                    if (transaction_Init_Currency_Table.Commit())
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    transaction_Init_Currency_Table.Rollback();
+                    return false;
+                }
+
             }
         }
 
 
-        public static bool Get(string Abbreviation,string Name,string Symbol,int CurrencyCode, int DecimalPlaces, ref ID Currency_ID)
+        public static bool Get(string Abbreviation,string Name,string Symbol,int CurrencyCode, int DecimalPlaces, ref ID Currency_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -128,7 +145,7 @@ namespace TangentaDB
                         else
                         {
                             sql = "update Currency set Name = " + spar_Name + ", Symbol = " + spar_Symbol + ", CurrencyCode = " + spar_CurrencyCode + ",DecimalPlaces = " + spar_DecimalPlaces + " where ID = " + Currency_ID.ToString();
-                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar,ref Err))
+                            if (!transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql,lpar,ref Err))
                             {
                                 LogFile.Error.Show("ERROR:f_Currency:InsertDefault:sql=" + sql + "\r\nErr=" + Err);
                                 return false;
@@ -147,7 +164,7 @@ namespace TangentaDB
                 else
                 {
                     sql = "insert into Currency (Abbreviation,Name,Symbol,CurrencyCode,DecimalPlaces)values(" + spar_Abbreviation + "," + spar_Name + "," + spar_Symbol+ "," + spar_CurrencyCode + "," + spar_DecimalPlaces + ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Currency_ID, ref Err, "Currency"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Currency_ID, ref Err, "Currency"))
                     {
                         return true;
                     }
