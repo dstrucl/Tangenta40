@@ -1,4 +1,5 @@
 ﻿using CodeTables;
+using DBConnectionControl40;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,6 +18,7 @@ namespace UpgradeDB
         private static Database_Upgrade_WindowsForm_Thread wfp_ui_thread = null;
         internal static object UpgradeDB_1_01_to_1_02(object obj, ref string Err)
         {
+            Transaction transaction_UpgradeDB_1_01_to_1_02 = new Transaction("UpgradeDB_1_01_to_1_02");
             wfp_ui_thread = new Database_Upgrade_WindowsForm_Thread();
             wfp_ui_thread.Start();
 
@@ -74,11 +76,20 @@ namespace UpgradeDB
                         wfp_ui_thread.Message(lng.s_ImportData.s);
                         if (Write_TableDataItem_List(m_eUpgrade, m_Old_tables_1_04_to_1_05))
                         {
-                            UpgradeDB_inThread.Set_DataBase_Version("1.02");
+                            if (UpgradeDB_inThread.Set_DataBase_Version("1.02", transaction_UpgradeDB_1_01_to_1_02))
+                            {
+                                if (transaction_UpgradeDB_1_01_to_1_02.Commit())
+                                {
+                                    wfp_ui_thread.End();
+                                    return true;
+                                }
+                            }
+
                         }
                     }
                 }
             }
+            transaction_UpgradeDB_1_01_to_1_02.Rollback();
             wfp_ui_thread.End();
             return true;
         }

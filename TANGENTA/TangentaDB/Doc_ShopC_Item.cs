@@ -70,11 +70,11 @@ namespace TangentaDB
         public string_v Atom_Currency_Abbreviation_v = null;
         public string_v Atom_Currency_Symbol_v = null;
 
-        public bool UpdateExtraDiscount(string docTyp, decimal extradiscount)
+        public bool UpdateExtraDiscount(string docTyp, decimal extradiscount, Transaction transaction)
         {
             if (docTyp.Equals(GlobalData.const_DocInvoice))
             {
-                return f_DocInvoice_ShopC_Item.UpdateExtraDiscount(Doc_ShopC_Item_ID, extradiscount);
+                return f_DocInvoice_ShopC_Item.UpdateExtraDiscount(Doc_ShopC_Item_ID, extradiscount, transaction);
             }
             throw new NotImplementedException();
         }
@@ -378,7 +378,7 @@ namespace TangentaDB
         }
 
 
-        internal bool AddFactory(string doc_type, ID doc_ID, Item_Data xData, decimal dQuantity_FromFactory2Add)
+        internal bool AddFactory(string doc_type, ID doc_ID, Item_Data xData, decimal dQuantity_FromFactory2Add, Transaction transaction)
         {
             Doc_ShopC_Item_Source dsciSx = this.dsciS_List.FindFactory();
             if (dsciSx==null)
@@ -409,7 +409,8 @@ namespace TangentaDB
                                                                    taxPrice,
                                                                    xData.ExpiryDate_v,
                                                                    null,
-                                                                   ref docInvoice_ShopC_Item_Source_ID))
+                                                                   ref docInvoice_ShopC_Item_Source_ID,
+                                                                   transaction))
                         {
                             dsciSx = new Doc_ShopC_Item_Source();
                             dsciSx.SetNew(this.Doc_ShopC_Item_ID,
@@ -465,7 +466,8 @@ namespace TangentaDB
                         if (f_DocInvoice_ShopC_Item_Source.Update(dsciSx.Doc_ShopC_Item_Source_ID,
                                                                    dnew_Quantity_FromFActory,
                                                                    retailPriceWithDiscount,
-                                                                   taxPrice))
+                                                                   taxPrice,
+                                                                   transaction))
                         {
                             
                             dsciSx.Set(dnew_Quantity_FromFActory,
@@ -495,7 +497,7 @@ namespace TangentaDB
         }
 
 
-        internal bool SetFactory(string doc_type, ID doc_ID, Item_Data xData, decimal dQuantity_FromFactory)
+        internal bool SetFactory(string doc_type, ID doc_ID, Item_Data xData, decimal dQuantity_FromFactory, Transaction transaction)
         {
 
             Doc_ShopC_Item_Source dsciSx = this.dsciS_List.FindFactory();
@@ -529,7 +531,8 @@ namespace TangentaDB
                                                                         taxPrice,
                                                                         xData.ExpiryDate_v,
                                                                         null,
-                                                                        ref docInvoice_ShopC_Item_Source_ID))
+                                                                        ref docInvoice_ShopC_Item_Source_ID,
+                                                                        transaction))
                             {
                                 dsciSx = new Doc_ShopC_Item_Source();
                                 dsciSx.SetNew(this.Doc_ShopC_Item_ID,
@@ -592,7 +595,8 @@ namespace TangentaDB
                             if (f_DocInvoice_ShopC_Item_Source.Update(dsciSx.Doc_ShopC_Item_Source_ID,
                                                                         dQuantity_FromFactory,
                                                                         retailPriceWithDiscount,
-                                                                        taxPrice))
+                                                                        taxPrice,
+                                                                        transaction))
                             {
 
                                 dsciSx.Set(dQuantity_FromFactory,
@@ -608,7 +612,7 @@ namespace TangentaDB
                         }
                         else
                         {
-                            if (f_DocInvoice_ShopC_Item_Source.Delete(dsciSx.Doc_ShopC_Item_Source_ID))
+                            if (f_DocInvoice_ShopC_Item_Source.Delete(dsciSx.Doc_ShopC_Item_Source_ID, transaction))
                             {
                                 this.dsciS_List.dsciS_list.Remove(dsciSx);
                                 return true;
@@ -634,7 +638,7 @@ namespace TangentaDB
             }
         }
 
-        internal bool SetNew(string doc_type, ID doc_ID, Item_Data xData, List<Stock_Data> std_taken_List, decimal dQuantity_FromFactory2Add)
+        internal bool SetNew(string doc_type, ID doc_ID, Item_Data xData, List<Stock_Data> std_taken_List, decimal dQuantity_FromFactory2Add, Transaction transaction)
         {
             ID atom_Taxation_ID = null;
             ID atom_Item_ID = null;
@@ -665,7 +669,8 @@ namespace TangentaDB
                 xData.Taxation_Rate_v,
                 ref atom_Taxation_ID,
                 ref atom_Item_ID,
-                ref Atom_Price_Item_ID))
+                ref Atom_Price_Item_ID,
+                transaction))
             {
                 return false;
             }
@@ -675,7 +680,7 @@ namespace TangentaDB
 
             if (doc_type.Equals(GlobalData.const_DocInvoice))
             {
-                if (f_DocInvoice_ShopC_Item.Insert(doc_ID, Atom_Price_Item_ID, xData.ExtraDiscount,ref this.Doc_ShopC_Item_ID))
+                if (f_DocInvoice_ShopC_Item.Insert(doc_ID, Atom_Price_Item_ID, xData.ExtraDiscount,ref this.Doc_ShopC_Item_ID, transaction))
                 {
                     if (std_taken_List != null)
                     {
@@ -708,7 +713,7 @@ namespace TangentaDB
 
                                     decimal dnew_stock_quantity = stdx.dQuantity_v.v - stdx.dQuantity_Taken_v.v;
 
-                                    if (f_Stock.UpdateQuantity(stdx.Stock_ID, dnew_stock_quantity))
+                                    if (f_Stock.UpdateQuantity(stdx.Stock_ID, dnew_stock_quantity, transaction))
                                     {
                                         stdx.dQuantity_v.v = dnew_stock_quantity;
                                         Stock_Data std_data = xData.Find_Stock_Data(stdx);
@@ -727,7 +732,8 @@ namespace TangentaDB
                                                                                        taxPrice,
                                                                                        xData.ExpiryDate_v,
                                                                                        stdx.Stock_ID,
-                                                                                       ref docInvoice_ShopC_Item_Source_ID))
+                                                                                       ref docInvoice_ShopC_Item_Source_ID, 
+                                                                                       transaction))
                                             {
                                                 Doc_ShopC_Item_Source dsciSx = new Doc_ShopC_Item_Source();
                                                 dsciSx.SetNew(this.Doc_ShopC_Item_ID,
@@ -799,7 +805,7 @@ namespace TangentaDB
                                                                            taxPrice,
                                                                            xData.ExpiryDate_v,
                                                                            null,
-                                                                           ref docInvoice_ShopC_Item_Source_ID))
+                                                                           ref docInvoice_ShopC_Item_Source_ID, transaction))
                                 {
                                     Doc_ShopC_Item_Source dsciSx = new Doc_ShopC_Item_Source();
                                     dsciSx.SetNew(this.Doc_ShopC_Item_ID,
@@ -896,7 +902,7 @@ namespace TangentaDB
             ExtraDiscount = xData.ExtraDiscount;
         }
 
-        internal bool Set(string doc_type, ID doc_ID, Item_Data xData, List<Stock_Data> taken_from_Stock_List)
+        internal bool Set(string doc_type, ID doc_ID, Item_Data xData, List<Stock_Data> taken_from_Stock_List, Transaction transaction)
         {
             foreach (Stock_Data stdx in taken_from_Stock_List)
             {
@@ -937,7 +943,8 @@ namespace TangentaDB
                                                                        taxPrice,
                                                                        xData.ExpiryDate_v,
                                                                        stdx.Stock_ID,
-                                                                       ref docInvoice_ShopC_Item_Source_ID))
+                                                                       ref docInvoice_ShopC_Item_Source_ID,
+                                                                       transaction))
                             {
                                 dsciSx.SetNew(this.Doc_ShopC_Item_ID,
                                            docInvoice_ShopC_Item_Source_ID,
@@ -977,7 +984,7 @@ namespace TangentaDB
                                                   );
 
                     
-                    if (f_DocInvoice_ShopC_Item_Source.Update(dsciSx.Doc_ShopC_Item_Source_ID,dnewQuantity, retailPriceWithDiscount, taxPrice ))
+                    if (f_DocInvoice_ShopC_Item_Source.Update(dsciSx.Doc_ShopC_Item_Source_ID,dnewQuantity, retailPriceWithDiscount, taxPrice, transaction ))
                     {
                         dsciSx.dQuantity = dnewQuantity;
                         dsciSx.RetailPriceWithDiscount = retailPriceWithDiscount;
@@ -989,11 +996,11 @@ namespace TangentaDB
         }
 
 
-        internal bool RemoveSources(string docTyp, Item_Data xdata)
+        internal bool RemoveSources(string docTyp, Item_Data xdata, Transaction transaction)
         {
-           if (this.dsciS_List.RemoveSources(docTyp,xdata))
+           if (this.dsciS_List.RemoveSources(docTyp,xdata, transaction))
             {
-                if (f_DocInvoice_ShopC_Item.Delete(this.Doc_ShopC_Item_ID))
+                if (f_DocInvoice_ShopC_Item.Delete(this.Doc_ShopC_Item_ID, transaction))
                 {
                     return true;
                 }

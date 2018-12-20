@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_cState_Person
     {
-        public static bool Get(string State, ref ID cState_Person_ID)
+        public static bool Get(string State, ref ID cState_Person_ID, Transaction transaction)
         {
             string Err = null;
 
@@ -74,7 +74,7 @@ namespace TangentaDB
         }
 
 
-        internal static bool Get(string_v country_v, ref ID cState_Person_ID)
+        internal static bool Get(string_v country_v, ref ID cState_Person_ID, Transaction transaction)
         {
             if (country_v != null)
             {

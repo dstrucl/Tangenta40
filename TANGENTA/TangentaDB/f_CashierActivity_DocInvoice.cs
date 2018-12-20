@@ -9,7 +9,7 @@ namespace TangentaDB
 {
     public static class f_CashierActivity_DocInvoice
     {
-        public static bool Insert(ID xCashierActivity_ID,ID xDocInvoice_ID, ref ID xCashierActivity_DocInvoice_ID)
+        public static bool Insert(ID xCashierActivity_ID,ID xDocInvoice_ID, ref ID xCashierActivity_DocInvoice_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 

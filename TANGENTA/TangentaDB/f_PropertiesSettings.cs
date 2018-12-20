@@ -66,7 +66,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Save(ID ElectronicDevice_ID, ID ProgramModule_ID, ID myOrganisation_Person_ID, string name, ID SettingsType_ID, string SValue, ref ID PropertiesSettings_ID)
+        public static bool Save(ID ElectronicDevice_ID, ID ProgramModule_ID, ID myOrganisation_Person_ID, string name, ID SettingsType_ID, string SValue, ref ID PropertiesSettings_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string scond_ElectronicDevice_ID = " ElectronicDevice_ID is null ";
@@ -190,7 +190,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Update(ID propertiesSettings_ID, string SValue)
+        public static bool Update(ID propertiesSettings_ID, string SValue, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_SettingsValue = "@par_SettingsValue";

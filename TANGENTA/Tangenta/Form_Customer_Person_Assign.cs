@@ -191,7 +191,7 @@ namespace Tangenta
 
         }
 
-        public bool GetCustomerPerson()
+        public bool GetCustomerPerson(Transaction transaction)
         {
             DataTable dt = new DataTable();
             string sql = @"select ID from customer_person where Person_ID = "+Person_ID.ToString();
@@ -227,13 +227,16 @@ namespace Tangenta
 
         private void btn_Yes_Click(object sender, EventArgs e)
         {
-            if (GetCustomerPerson())
+            Transaction transaction_Form_Customer_Person_Assign_GetCustomerPerson = new Transaction("Form_Customer_Person_Assign.GetCustomerPerson");
+            if (GetCustomerPerson(transaction_Form_Customer_Person_Assign_GetCustomerPerson))
             {
+                transaction_Form_Customer_Person_Assign_GetCustomerPerson.Commit();
                 Close();
                 DialogResult = DialogResult.Yes;
             }
             else
             {
+                transaction_Form_Customer_Person_Assign_GetCustomerPerson.Rollback();
                 Close();
                 DialogResult = DialogResult.Abort;
             }

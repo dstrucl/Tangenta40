@@ -11,7 +11,7 @@ namespace TangentaDB
 {
     public static class f_Item_ParentGroup3
     {
-        public static bool Get(string Name, ref ID Item_ParentGroup3_ID)
+        public static bool Get(string Name, ref ID Item_ParentGroup3_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_Name = "@par_Name";

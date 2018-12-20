@@ -65,7 +65,8 @@ namespace TangentaDB
                               unit_DecimalPlaces_v,
                               unit_StorageOption_v,
                               unit_Description_v,
-                              ref atom_Unit_ID))
+                              ref atom_Unit_ID,
+                              transaction))
             {
 
                 if (ID.Validate(atom_Unit_ID))
@@ -141,7 +142,7 @@ namespace TangentaDB
                     string sv_Atom_Warranty_ID = null;
                     if (warranty_DurationType_v!=null)
                     {
-                        if (f_Atom_Warranty.Get(warranty_DurationType_v, warrantyDuration_v, warrantyConditions_v, ref atom_Warranty_ID, ref Err))
+                        if (f_Atom_Warranty.Get(warranty_DurationType_v, warrantyDuration_v, warrantyConditions_v, ref atom_Warranty_ID, ref Err, transaction))
                         {
                             scond_Atom_Warranty_ID = "(Atom_Warranty_ID = " + atom_Warranty_ID.ToString() + ")";
                             sv_Atom_Warranty_ID = atom_Warranty_ID.ToString();

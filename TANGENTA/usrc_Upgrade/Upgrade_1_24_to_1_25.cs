@@ -471,7 +471,7 @@ namespace UpgradeDB
                     MAC_address_v = new string_v(f_Atom_MAC_address.Get());
                 }
 
-                if (!f_Atom_MAC_address.Get(MAC_address_v.v, ref Atom_MAC_address_ID))
+                if (!f_Atom_MAC_address.Get(MAC_address_v.v, ref Atom_MAC_address_ID, transaction))
                 {
                     return false;
                 }

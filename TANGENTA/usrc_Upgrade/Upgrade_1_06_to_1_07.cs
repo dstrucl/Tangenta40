@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DBConnectionControl40;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace UpgradeDB
     {
         internal static object UpgradeDB_1_06_to_1_07(object obj, ref string Err)
         {
+            Transaction transaction_UpgradeDB_1_06_to_1_07 = new Transaction("UpgradeDB_1_06_to_1_07");
             if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 string[] new_tables = new string[] { "doc_page_type", "Language", "doc_type", "doc", "JOURNAL_doc_Type", "JOURNAL_doc" };
@@ -17,14 +19,18 @@ namespace UpgradeDB
                 {
                     if (DBSync.DBSync.Create_VIEWs())
                     {
-                        if (f_doc.InsertDefault())
+                        if (f_doc.InsertDefault(transaction_UpgradeDB_1_06_to_1_07))
                         {
-                            UpgradeDB_inThread.Set_DataBase_Version("1.07");
-                            return true;
+                            if (UpgradeDB_inThread.Set_DataBase_Version("1.07", transaction_UpgradeDB_1_06_to_1_07))
+                            {
+                                transaction_UpgradeDB_1_06_to_1_07.Commit();
+                                return true;
+                            }
                         }
                     }
                 }
             }
+            transaction_UpgradeDB_1_06_to_1_07.Rollback();
             return false;
         }
     }

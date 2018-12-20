@@ -725,19 +725,15 @@ namespace ShopC
             decimal_v Taxation_Rate_v = null;
             if (f_Taxation.Get(this.Taxation_ID, ref Taxation_Name_v, ref Taxation_Rate_v))
             {
-                if (Taxation_Rate_v!=null)
+                if (Taxation_Rate_v != null)
                 {
                     TaxationRate = Taxation_Rate_v.v;
 
                     CalculateAll_from_PurchasePricePerUnitWithoutTax();
 
                     SetControls();
-
                 }
             }
-
-
-
             PPriceDefined = true;
         }
 

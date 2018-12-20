@@ -38,11 +38,12 @@ namespace TangentaDB
                         decimal_v taxationRate_v,
                         ref ID atom_Taxation_ID,
                         ref ID atom_Item_ID,
-                        ref ID atom_Price_Item_ID)
+                        ref ID atom_Price_Item_ID,
+                        Transaction transaction)
         {
 
 
-            if (f_Atom_Taxation.Get(taxationName_v, taxationRate_v, ref atom_Taxation_ID))
+            if (f_Atom_Taxation.Get(taxationName_v, taxationRate_v, ref atom_Taxation_ID, transaction))
             {
                 if (ID.Validate(atom_Taxation_ID))
                 {
@@ -70,7 +71,8 @@ namespace TangentaDB
                                         ref  atom_Unit_ID,
                                         ref  atom_Expiry_ID,
                                         ref  atom_Warranty_ID,
-                                        ref  atom_Item_ID
+                                        ref  atom_Item_ID,
+                                        transaction
                                         ))
                     {
                         string scond_Atom_Item_ID = " Atom_Item_ID = " + atom_Item_ID.ToString();
@@ -78,12 +80,13 @@ namespace TangentaDB
                         if (f_Atom_PriceList.Get(priceListName_v,
                                                 currencyAbbreviation_v,
                                                 currencyName_v,
-                                                ref atom_PriceList_ID))
+                                                ref atom_PriceList_ID,
+                                                transaction))
                         {
                             if (ID.Validate(atom_PriceList_ID))
                             {
                                 ID atom_Item_Image_ID = null;
-                                f_Atom_Item_Image.Get(atom_Item_ID, item_Image_Hash_v, item_Image_Data_v, ref atom_Item_Image_ID);
+                                f_Atom_Item_Image.Get(atom_Item_ID, item_Image_Hash_v, item_Image_Data_v, ref atom_Item_Image_ID, transaction);
 
 
                                 string scond_Atom_PriceList_ID = " Atom_PriceList_ID = " + atom_PriceList_ID.ToString();

@@ -67,7 +67,7 @@ namespace TangentaDB
         //    }
         //}
 
-        public static bool Select_InvoiceNotConfirmed(ShopABC xInvoiceDB, DocInvoice_AddOn xAddOnDI, DocProformaInvoice_AddOn xAddOnDPI, ref List<InvoiceData> list, string xCasshierName)
+        public static bool Select_InvoiceNotConfirmed(ShopABC xInvoiceDB, DocInvoice_AddOn xAddOnDI, DocProformaInvoice_AddOn xAddOnDPI, ref List<InvoiceData> list, string xCasshierName, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string sempty = "";
@@ -93,7 +93,7 @@ namespace TangentaDB
                     {
                         ID invoice_id = new ID(dr["ID"]);
                         InvoiceData xInvoiceData = new InvoiceData(xInvoiceDB, invoice_id, xCasshierName);
-                        if (xInvoiceData.Read_DocInvoice())
+                        if (xInvoiceData.Read_DocInvoice(transaction))
                         {
                             list.Add(xInvoiceData);
                         }

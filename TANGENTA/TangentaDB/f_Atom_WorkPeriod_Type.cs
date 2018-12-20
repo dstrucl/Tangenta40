@@ -19,7 +19,7 @@ namespace TangentaDB
     {
         public static bool Get(string Atom_WorkPeriod_Type_Name,
                                  string Atom_WorkPeriod_Type_Description,
-                                 ref ID Atom_WorkPeriod_Type_ID)
+                                 ref ID Atom_WorkPeriod_Type_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 

@@ -105,7 +105,8 @@ namespace TangentaDB
                              string xDBSource,
                              ID xmyOrganisation_Person_ID,
                              ID xElectronicDevice_ID,
-                             ref ID xLast_Current_Doc_ID)
+                             ref ID xLast_Current_Doc_ID,
+                             Transaction transaction)
         {
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();

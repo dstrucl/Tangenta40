@@ -37,7 +37,15 @@ namespace Tangenta
                 Currency.Symbol = xcurrency.Symbol;
                 Currency.CurrencyCode = xcurrency.CurrencyCode;
                 Currency.DecimalPlaces = xcurrency.DecimalPlaces;
-                f_Atom_Currency.Get(Currency.ID, ref Atom_Currency_ID);
+                Transaction transaction_usrc_Currency_Init_f_Atom_Currency_Get = new Transaction("usrc_Currency.Init.f_Atom_Currency.Get");
+                if (f_Atom_Currency.Get(Currency.ID, ref Atom_Currency_ID, transaction_usrc_Currency_Init_f_Atom_Currency_Get))
+                {
+                    transaction_usrc_Currency_Init_f_Atom_Currency_Get.Commit();
+                }
+                else
+                {
+                    transaction_usrc_Currency_Init_f_Atom_Currency_Get.Rollback();
+                }
             }
             else
             {
@@ -88,12 +96,22 @@ namespace Tangenta
                 if (f_Currency.Get(Currency.ID,ref Currency.Abbreviation, ref Currency.Name,ref Currency.Symbol,ref xCurrencyCode,ref Currency.DecimalPlaces))
                 {
                     txt_Currency.Text = Currency.Abbreviation;
-                    if (f_Atom_Currency.Get(Currency.ID, ref Atom_Currency_ID))
+                    Transaction transaction_usrc_Currency_Select_Currency_f_Atom_Currency_Get = new Transaction("usrc_Currency.Select_Currency.f_Atom_Currency.Get");
+                    if (f_Atom_Currency.Get(Currency.ID,
+                                            ref Atom_Currency_ID,
+                                            transaction_usrc_Currency_Select_Currency_f_Atom_Currency_Get))
                     {
-                        if (CurrencyChanged!=null)
+                        if (transaction_usrc_Currency_Select_Currency_f_Atom_Currency_Get.Commit())
                         {
-                            CurrencyChanged(Currency, Atom_Currency_ID);
+                            if (CurrencyChanged != null)
+                            {
+                                CurrencyChanged(Currency, Atom_Currency_ID);
+                            }
                         }
+                    }
+                    else
+                    {
+                        transaction_usrc_Currency_Select_Currency_f_Atom_Currency_Get.Rollback();
                     }
                 }
             }

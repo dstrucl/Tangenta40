@@ -122,23 +122,28 @@ namespace ShopC
         {
             if (bFactory)
             {
-                if (this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveFactory(DocTyp,x_usrc_Atom_Item.m_dsci))
+                Transaction transaction_usrc_ItemAtomList_usrc_Atom_Item_RemoveClick_RemoveFactory = new Transaction("usrc_ItemAtomList.usrc_Atom_Item_RemoveClick.RemoveFactory");
+                if (this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveFactory(DocTyp,x_usrc_Atom_Item.m_dsci, transaction_usrc_ItemAtomList_usrc_Atom_Item_RemoveClick_RemoveFactory))
                 {
-                    if (m_usrc_ItemList.Show(x_usrc_Atom_Item.m_dsci))
+                    if (transaction_usrc_ItemAtomList_usrc_Atom_Item_RemoveClick_RemoveFactory.Commit())
                     {
-                        m_usrc_Item_PageHandler.DoPaint();
-                        if (After_Atom_Item_Remove!=null)
+                        if (m_usrc_ItemList.Show(x_usrc_Atom_Item.m_dsci))
                         {
-                            After_Atom_Item_Remove();
+                            m_usrc_Item_PageHandler.DoPaint();
+                            if (After_Atom_Item_Remove != null)
+                            {
+                                After_Atom_Item_Remove();
+                            }
                         }
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:m_usrc_ItemList.ShowFactory(x_usrc_Atom_Item.m_appisd failed !");
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:m_usrc_ItemList.ShowFactory(x_usrc_Atom_Item.m_appisd failed !");
+                        }
                     }
                 }
                 else
                 {
+                    transaction_usrc_ItemAtomList_usrc_Atom_Item_RemoveClick_RemoveFactory.Rollback();
                     LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:this.m_InvoiceDB.m_CurrentInvoice.m_Basket.DocInvoice_ShopC_Item_Data_LIST.Remove(x_usrc_Atom_Item.m_appisd) failed !");
                 }
             }
@@ -151,24 +156,32 @@ namespace ShopC
                     Item_Data xData = this.m_ShopBC.m_CurrentDoc.m_ShopShelf.Get_Item_Data(x_usrc_Atom_Item.m_dsci);
                     if (xData != null)
                     {
-
-                        if (this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveFromBasket_And_put_back_to_Stock(DocTyp, m_ShopBC.m_CurrentDoc.Doc_ID, x_usrc_Atom_Item.m_dsci.dQuantity_FromStock, xData))
+                        Transaction transaction_usrc_ItemAtomList_usrc_Atom_Item_RemoveClick_RemoveFromBasket_And_put_back_to_Stock = new Transaction("usrc_ItemAtomList.usrc_Atom_Item_RemoveClick.RemoveFromBasket_And_put_back_to_Stock");
+                        if (this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveFromBasket_And_put_back_to_Stock(DocTyp,
+                                                                                                       m_ShopBC.m_CurrentDoc.Doc_ID,
+                                                                                                       x_usrc_Atom_Item.m_dsci.dQuantity_FromStock,
+                                                                                                       xData,
+                                                                                                       transaction_usrc_ItemAtomList_usrc_Atom_Item_RemoveClick_RemoveFromBasket_And_put_back_to_Stock))
                         {
-                            if (m_usrc_ItemList.Show(x_usrc_Atom_Item.m_dsci))
+                            if (transaction_usrc_ItemAtomList_usrc_Atom_Item_RemoveClick_RemoveFromBasket_And_put_back_to_Stock.Commit())
                             {
-                                m_usrc_Item_PageHandler.DoPaint();
-                                if (After_Atom_Item_Remove != null)
+                                if (m_usrc_ItemList.Show(x_usrc_Atom_Item.m_dsci))
                                 {
-                                    After_Atom_Item_Remove();
+                                    m_usrc_Item_PageHandler.DoPaint();
+                                    if (After_Atom_Item_Remove != null)
+                                    {
+                                        After_Atom_Item_Remove();
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:1:m_usrc_ItemList.Show(x_usrc_Atom_Item.m_appisd failed !");
+                                else
+                                {
+                                    LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:1:m_usrc_ItemList.Show(x_usrc_Atom_Item.m_appisd failed !");
+                                }
                             }
                         }
                         else
                         {
+                            transaction_usrc_ItemAtomList_usrc_Atom_Item_RemoveClick_RemoveFromBasket_And_put_back_to_Stock.Rollback();
                             LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:this.m_InvoiceDB.m_CurrentInvoice.m_Basket.DocInvoice_ShopC_Item_Data_LIST.Remove(x_usrc_Atom_Item.m_appisd) failed !");
                         }
                     }
@@ -251,11 +264,24 @@ namespace ShopC
             if (XMessage.Box.Show(this, lng.s_Are_Sure_To_Remove_All_From_Basket, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 this.Cursor = Cursors.WaitCursor;
-                m_ShopBC.m_CurrentDoc.m_Basket.Empty(m_Atom_WorkPeriod_ID,DocTyp, m_ShopBC.m_CurrentDoc.m_ShopShelf);
-                m_usrc_Item_PageHandler.DoPaint();
-                m_usrc_ItemList.DoPaint();
-                this.Cursor = Cursors.Arrow;
-                btn_ClearAll.Visible = false;
+                Transaction transaction_usrc_ItemAtomsList_btn_ClearAll_Click_Empty = new Transaction("usrc_ItemAtomsList.btn_ClearAll_Click.Empty");
+                if (m_ShopBC.m_CurrentDoc.m_Basket.Empty(m_Atom_WorkPeriod_ID,
+                                                         DocTyp,
+                                                         m_ShopBC.m_CurrentDoc.m_ShopShelf,
+                                                         transaction_usrc_ItemAtomsList_btn_ClearAll_Click_Empty))
+                {
+                    if (transaction_usrc_ItemAtomsList_btn_ClearAll_Click_Empty.Commit())
+                    {
+                        m_usrc_Item_PageHandler.DoPaint();
+                        m_usrc_ItemList.DoPaint();
+                        this.Cursor = Cursors.Arrow;
+                        btn_ClearAll.Visible = false;
+                    }
+                }
+                else
+                {
+                    transaction_usrc_ItemAtomsList_btn_ClearAll_Click_Empty.Rollback();
+                }
             }
         }
 

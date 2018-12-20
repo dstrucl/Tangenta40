@@ -27,7 +27,6 @@ namespace Tangenta
         {
             InitializeComponent();
             Currency = GlobalData.BaseCurrency;
-            f_Atom_Currency.Get(Currency.ID, ref Atom_Currency_ID);
             m_dtWorkAreaAll = x_dtWorkAreaAll;
 
 
@@ -36,8 +35,25 @@ namespace Tangenta
 
         private void Form_NewDocument_WorkArea_Load(object sender, EventArgs e)
         {
-                this.usrc_WorkAreaAll1.dtWorkAreaAll = m_dtWorkAreaAll;
-                this.usrc_WorkAreaAll1.Init();
+            Transaction transaction_Form_NewDocument_WorkArea_f_Atom_Currency_Get = new Transaction("Form_NewDocument_WorkArea.f_Atom_Currency.Get");
+            if (f_Atom_Currency.Get(Currency.ID, ref Atom_Currency_ID, transaction_Form_NewDocument_WorkArea_f_Atom_Currency_Get))
+            {
+                if (!transaction_Form_NewDocument_WorkArea_f_Atom_Currency_Get.Commit())
+                {
+                    this.Close();
+                    DialogResult = DialogResult.Abort;
+                    return;
+                }
+            }
+            else
+            {
+                transaction_Form_NewDocument_WorkArea_f_Atom_Currency_Get.Rollback();
+                this.Close();
+                DialogResult = DialogResult.Abort;
+                return;
+            }
+            this.usrc_WorkAreaAll1.dtWorkAreaAll = m_dtWorkAreaAll;
+             this.usrc_WorkAreaAll1.Init();
         }
 
         private void usrc_WorkAreaAll1_Selected(WArea warea)

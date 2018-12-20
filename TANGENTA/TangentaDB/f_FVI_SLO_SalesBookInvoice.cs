@@ -17,7 +17,7 @@ namespace TangentaDB
 {
     public static class f_FVI_SLO_SalesBookInvoice
     {
-        public static bool Get(ID Invoice_ID, string xSerialNumber,string xSetNumber,string xInvoiceNumber, ref ID FVI_SLO_SalesBookInvoice_ID)
+        public static bool Get(ID Invoice_ID, string xSerialNumber,string xSetNumber,string xInvoiceNumber, ref ID FVI_SLO_SalesBookInvoice_ID, Transaction transaction)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -70,7 +70,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Select_SalesBookInvoice_NotSent(ShopABC xInvoiceDB,DocInvoice_AddOn xAddOnDI, DocProformaInvoice_AddOn xAddOnDPI, ref List<InvoiceData> list, string xCasshierName)
+        public static bool Select_SalesBookInvoice_NotSent(ShopABC xInvoiceDB,DocInvoice_AddOn xAddOnDI, DocProformaInvoice_AddOn xAddOnDPI, ref List<InvoiceData> list, string xCasshierName, Transaction transaction)
         {
             string sql = @"select pi.ID from DocInvoice pi
                                 inner join FVI_SLO_SalesBookInvoice fvisbi on fvisbi.DocInvoice_ID = pi.ID
@@ -91,7 +91,7 @@ namespace TangentaDB
                     {
                         ID invoice_id = new ID(dr["ID"]);
                         InvoiceData xInvoiceData = new InvoiceData(xInvoiceDB,  invoice_id,  xCasshierName);
-                        if (xInvoiceData.Read_DocInvoice())
+                        if (xInvoiceData.Read_DocInvoice(transaction))
                         {
                             list.Add(xInvoiceData);
                         }

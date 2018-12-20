@@ -75,13 +75,22 @@ namespace Tangenta
 
         internal bool Startup_06_set_DefaultCurrency(Form_Select_DefaultCurrency sel_basecurrency_dlg, ref string Err)
         {
-            if (GlobalData.InsertIntoBaseCurrency(sel_basecurrency_dlg.Currency_ID, ref Err))
+            Transaction transaction_Startup_06_set_DefaultCurrency = new Transaction("Startup_06_set_DefaultCurrency");
+            if (GlobalData.InsertIntoBaseCurrency(sel_basecurrency_dlg.Currency_ID, ref Err, transaction_Startup_06_set_DefaultCurrency))
             {
-                //usrc_Currency1.Init(GlobalData.BaseCurrency);
-                return true;
+                if (transaction_Startup_06_set_DefaultCurrency.Commit())
+                {
+                    //usrc_Currency1.Init(GlobalData.BaseCurrency);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
+                transaction_Startup_06_set_DefaultCurrency.Rollback();
                 Err = "ERROR:usrc_Invoice:Select_BaseCurrency:InsertIntoBaseCurrency:Err=" + Err;
                 return false;
             }

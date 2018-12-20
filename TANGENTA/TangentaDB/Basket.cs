@@ -44,7 +44,7 @@ namespace TangentaDB
             dtDraft_Doc_Doc_ShopC_Item = new DataTable();
         }
 
-        public void Empty(ID doc_ID,string DocTyp,ShopShelf xShopShelf)
+        public bool Empty(ID doc_ID,string DocTyp,ShopShelf xShopShelf, Transaction transaction)
         {
             while (Basket_Doc_ShopC_Item_LIST.Count > 0)
             {
@@ -54,29 +54,28 @@ namespace TangentaDB
                     Item_Data xData = xShopShelf.Get_Item_Data(xdsci);
                     if (xData != null)
                     {
-                        RemoveFromBasket_And_put_back_to_Stock(DocTyp, doc_ID, xdsci.dQuantity_FromStock, xData);
+                        if (!RemoveFromBasket_And_put_back_to_Stock(DocTyp, doc_ID, xdsci.dQuantity_FromStock, xData,transaction))
+                        {
+                            return false;
+                        }
                     }
                     else
                     {
                         LogFile.Error.Show("ERROR:TangentaDB:Basket:Empty: Item_Data == null!");
+                        return false;
                     }
                     //Remove_and_put_back_to_ShopShelf(xAtom_WorkPeriod_ID,DocTyp, xdsci, xShopShelf);
                 }
                 if (xdsci.dQuantity_FromFactory > 0)
                 {
-                    Transaction transaction_RemoveFactory = new Transaction("RemoveFactory");
-                    if (RemoveFactory(DocTyp, xdsci, transaction_RemoveFactory))
+                    if (!RemoveFactory(DocTyp, xdsci, transaction))
                     {
-                        transaction_RemoveFactory.Commit();
-                    }
-                    else
-                    {
-                        transaction_RemoveFactory.Rollback();
-                        return;
+                        return false;
                     }
                 }
                 Basket_Doc_ShopC_Item_LIST.Remove(xdsci);
             }
+            return true;
         }
 
         /// <summary>
@@ -87,7 +86,7 @@ namespace TangentaDB
         /// <param name="xDoc_ShopC_Item_LIST">output list of  item objects</param>
         /// <returns>Return true if no DB error
         ///</returns>
-        public bool Read_Doc_ShopC_Item_Table(string xDocTyp,ID xDoc_ID, ref List<Doc_ShopC_Item> xDoc_ShopC_Item_LIST)
+        public bool Read_Doc_ShopC_Item_Table(string xDocTyp,ID xDoc_ID, ref List<Doc_ShopC_Item> xDoc_ShopC_Item_LIST, Transaction transaction)
         {
             string Err = null;
             string sql_select_Doc_ShopC_Item = null;
@@ -395,12 +394,12 @@ namespace TangentaDB
             }
         }
 
-        public bool SetFactory(string docTyp, ID doc_ID, decimal dToTakeFromFactory, Item_Data xData)
+        public bool SetFactory(string docTyp, ID doc_ID, decimal dToTakeFromFactory, Item_Data xData, Transaction transaction)
         {
             Doc_ShopC_Item dsci = Find(xData.Item_UniqueName_v.v);
             if (dsci != null)
             {
-                return dsci.SetFactory(docTyp, doc_ID, xData, dToTakeFromFactory);
+                return dsci.SetFactory(docTyp, doc_ID, xData, dToTakeFromFactory, transaction);
             }
             else
             {
@@ -412,13 +411,13 @@ namespace TangentaDB
 
 
 
-        public bool Add2BasketFromFactory(ref Doc_ShopC_Item dsci,string docTyp, ID doc_ID, decimal xquantity2add, Item_Data xData)
+        public bool Add2BasketFromFactory(ref Doc_ShopC_Item dsci,string docTyp, ID doc_ID, decimal xquantity2add, Item_Data xData, Transaction transaction)
         {
             dsci = Find(xData.Item_UniqueName_v.v);
             if (dsci == null)
             {
                 dsci = new Doc_ShopC_Item();
-                if (dsci.SetNew(docTyp, doc_ID, xData, null, xquantity2add))
+                if (dsci.SetNew(docTyp, doc_ID, xData, null, xquantity2add, transaction))
                 {
                     this.Basket_Doc_ShopC_Item_LIST.Add(dsci);
                     return true;
@@ -430,7 +429,7 @@ namespace TangentaDB
             }
             else
             {
-                if (dsci.AddFactory(docTyp, doc_ID, xData, xquantity2add))
+                if (dsci.AddFactory(docTyp, doc_ID, xData, xquantity2add, transaction))
                 {
                     return true;
                 }
@@ -442,7 +441,7 @@ namespace TangentaDB
         }
 
 
-        public bool Add2Basket(ref Doc_ShopC_Item dsci,string docTyp,ID doc_ID,decimal xquantity2add, Item_Data xData, deleagate_Select_Items_From_Stock_Dialog delegate_Select_Items_From_Stock_Dialog, Transaction transaction)
+        public bool Add2Basket(ref Doc_ShopC_Item dsci,string docTyp,ID doc_ID,decimal xquantity2add, Item_Data xData, deleagate_Select_Items_From_Stock_Dialog delegate_Select_Items_From_Stock_Dialog)
         {
 
             dsci = Find(xData.Item_UniqueName_v.v);
@@ -462,6 +461,7 @@ namespace TangentaDB
                 {
                     AutoSelect_Items_From_Stock(xdt_ShopC_Item_In_Stock, xquantity2add, ref taken_from_Stock_List, ref dQuantitySelectedFromStock);
                 }
+                Transaction transaction_Basket_Add2Basket_WriteItemStockTransferInDataBase = new Transaction("Basket.Add2Basket.WriteItemStockTransferInDataBase");
 
                 if (WriteItemStockTransferInDataBase(docTyp,
                                                     doc_ID,
@@ -469,9 +469,16 @@ namespace TangentaDB
                                                     ref dsci,
                                                     taken_from_Stock_List,
                                                     xquantity2add - dQuantitySelectedFromStock,
-                                                    transaction))
+                                                    transaction_Basket_Add2Basket_WriteItemStockTransferInDataBase))
                 {
-                    return true;
+                    if (transaction_Basket_Add2Basket_WriteItemStockTransferInDataBase.Commit())
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    transaction_Basket_Add2Basket_WriteItemStockTransferInDataBase.Rollback();
                 }
             }
             return false;
@@ -539,7 +546,7 @@ namespace TangentaDB
             {
                 // Doc_ShopC_Item does not exist create new
                 dsci = new Doc_ShopC_Item();
-                if (dsci.SetNew(doc_type, doc_ID, xData, taken_from_Stock_List, dQuantity_FromFactory2Add))
+                if (dsci.SetNew(doc_type, doc_ID, xData, taken_from_Stock_List, dQuantity_FromFactory2Add, transaction))
                 {
                     this.Basket_Doc_ShopC_Item_LIST.Add(dsci);
                     return true;
@@ -575,12 +582,12 @@ namespace TangentaDB
                 // set basket
                 if (taken_from_Stock_List.Count > 0)
                 {
-                    dsci.Set(doc_type, doc_ID, xData, taken_from_Stock_List);
+                    dsci.Set(doc_type, doc_ID, xData, taken_from_Stock_List, transaction);
                 }
 
                 if (dQuantity_FromFactory2Add>0)
                 {
-                    if (dsci.AddFactory(doc_type, doc_ID, xData, dQuantity_FromFactory2Add))
+                    if (dsci.AddFactory(doc_type, doc_ID, xData, dQuantity_FromFactory2Add, transaction))
                     {
                         return true;
                     }
@@ -594,21 +601,21 @@ namespace TangentaDB
         }
 
 
-        public bool RemoveFromBasket_And_put_back_to_Stock(string docTyp, ID doc_ID, decimal xquantity2Remove, Item_Data xData)
+        public bool RemoveFromBasket_And_put_back_to_Stock(string docTyp, ID doc_ID, decimal xquantity2Remove, Item_Data xData, Transaction transaction)
         {
 
             Doc_ShopC_Item dsci = Find(xData.Item_UniqueName_v.v);
             if (dsci!=null)
             {
 
-                if (dsci.dsciS_List.RemoveStockSources(docTyp, xData, xquantity2Remove))
+                if (dsci.dsciS_List.RemoveStockSources(docTyp, xData, xquantity2Remove, transaction))
                 {
                     
                     if (dsci.dQuantity_all==0)
                     {
                         if (docTyp.Equals(GlobalData.const_DocInvoice))
                         {
-                            if (!f_DocInvoice_ShopC_Item.Delete(dsci.Doc_ShopC_Item_ID))
+                            if (!f_DocInvoice_ShopC_Item.Delete(dsci.Doc_ShopC_Item_ID, transaction))
                             {
                                 return false;
                             }
@@ -632,9 +639,9 @@ namespace TangentaDB
             return false;
         }
 
-        public bool RemoveItem(string docTyp, Doc_ShopC_Item dsci,Item_Data xdata)
+        public bool RemoveItem(string docTyp, Doc_ShopC_Item dsci,Item_Data xdata, Transaction transaction)
         {
-           if (dsci.RemoveSources(docTyp, xdata))
+           if (dsci.RemoveSources(docTyp, xdata, transaction))
             {
                 this.Basket_Doc_ShopC_Item_LIST.Remove(dsci);
                 return true;
@@ -989,7 +996,7 @@ namespace TangentaDB
                                     {
                                         if (xDocTyp.Equals(GlobalData.const_DocInvoice))
                                         {
-                                            if (f_DocInvoice_ShopC_Item.Delete(xdsci.Doc_ShopC_Item_ID))
+                                            if (f_DocInvoice_ShopC_Item.Delete(xdsci.Doc_ShopC_Item_ID, transaction))
                                             {
                                                 this.Basket_Doc_ShopC_Item_LIST.Remove(xdsci);
                                                 return true; 
@@ -1001,7 +1008,7 @@ namespace TangentaDB
                                         }
                                         else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
                                         {
-                                            if (f_DocProformaInvoice_ShopC_Item.Delete(xdsci.Doc_ShopC_Item_ID))
+                                            if (f_DocProformaInvoice_ShopC_Item.Delete(xdsci.Doc_ShopC_Item_ID, transaction))
                                             {
                                                 this.Basket_Doc_ShopC_Item_LIST.Remove(xdsci);
                                                 return true; 

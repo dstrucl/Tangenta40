@@ -68,7 +68,7 @@ namespace TangentaDB
                         sval_Atom_ComputerUsername_ID = "null";
                     }
 
-                    if (f_Atom_MAC_address.Get(ref Atom_MAC_address_ID))
+                    if (f_Atom_MAC_address.Get(ref Atom_MAC_address_ID, transaction))
                     {
                         string scond_Atom_MAC_address_ID = null;
                         string sval_Atom_MAC_address_ID = "null";

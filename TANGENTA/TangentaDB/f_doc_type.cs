@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_doc_type
     {
-        public static bool Get(string Name, string_v Description_v, ID Language_ID, ID doc_page_type_ID, ref ID doc_type_ID)
+        public static bool Get(string Name, string_v Description_v, ID Language_ID, ID doc_page_type_ID, ref ID doc_type_ID, Transaction transaction)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();

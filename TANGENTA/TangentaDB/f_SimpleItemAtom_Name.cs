@@ -17,7 +17,7 @@ namespace TangentaDB
 {
     public static class f_Atom_ShopBItem_Name
     {
-        public static bool Get(string Name,string Abbreviation, ref ID Atom_SimpleItem_Name_ID)
+        public static bool Get(string Name,string Abbreviation, ref ID Atom_SimpleItem_Name_ID, Transaction transaction)
         {
             string Err = null;
             List<DBConnectionControl40.SQL_Parameter> lpar = new List<DBConnectionControl40.SQL_Parameter>();

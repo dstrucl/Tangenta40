@@ -15,14 +15,14 @@ namespace TangentaDB
             return LogFile.LogFile.GetMACAddress();
         }
 
-        public static bool Get(ref ID Atom_MAC_address_ID)
+        public static bool Get(ref ID Atom_MAC_address_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string MAC_address = f_Atom_MAC_address.Get();
-            return f_Atom_MAC_address.Get(MAC_address, ref Atom_MAC_address_ID);
+            return f_Atom_MAC_address.Get(MAC_address, ref Atom_MAC_address_ID, transaction);
         }
 
-        public static bool Get(string xMAC_address,ref ID Atom_MAC_address_ID)
+        public static bool Get(string xMAC_address,ref ID Atom_MAC_address_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 

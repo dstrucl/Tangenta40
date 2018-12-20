@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DBConnectionControl40;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace UpgradeDB
 
         internal static object UpgradeDB_1_22_to_1_23(object obj, ref string Err)
         {
+            Transaction transaction_UpgradeDB_1_22_to_1_23 = new Transaction("UpgradeDB_1_22_to_1_23");
             if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 //change Atom_myOrganisation_Person
@@ -69,24 +71,24 @@ namespace UpgradeDB
                         PRAGMA foreign_keys = ON;
                                 ";
 
-                if (!transaction.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
+                if (!transaction_UpgradeDB_1_22_to_1_23.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                 {
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_22_to_1_23:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
                 if (DBSync.DBSync.Create_VIEWs())
                 {
-                    return UpgradeDB_inThread.Set_DataBase_Version("1.23");
-                }
-                else
-                {
-                    return false;
+                    if (UpgradeDB_inThread.Set_DataBase_Version("1.23", transaction_UpgradeDB_1_22_to_1_23))
+                    {
+                        if (transaction_UpgradeDB_1_22_to_1_23.Commit())
+                        {
+                            return true;
+                        }
+                    }
                 }
             }
-            else
-            {
-                return false;
-            }
+            transaction_UpgradeDB_1_22_to_1_23.Rollback();
+            return false;
         }
     }
 }

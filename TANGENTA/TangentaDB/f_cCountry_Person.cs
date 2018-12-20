@@ -22,7 +22,8 @@ namespace TangentaDB
             string Country_ISO_3166_a2,
             string Country_ISO_3166_a3,
             short Country_ISO_3166_num,
-            ref ID cCountry_Person_ID)
+            ref ID cCountry_Person_ID,
+            Transaction transaction)
         {
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -81,7 +82,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref ID atom_cCountry_Person_ID)
+        internal static bool Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref ID atom_cCountry_Person_ID, Transaction transaction)
         {
             if ((state_v != null) && (state_ISO_3166_a2_v != null) && (state_ISO_3166_a3_v != null) && (state_ISO_3166_num_v != null))
             {

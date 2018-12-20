@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_Atom_ShopBItem
     {
-        public static bool Get(ID SimpleItem_ID, ref ID Atom_SimpleItem_ID)
+        public static bool Get(ID SimpleItem_ID, ref ID Atom_SimpleItem_ID, Transaction transaction)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -57,7 +57,7 @@ namespace TangentaDB
                         if (ID.Validate(SimpleItem_Image_id))
                         {
                             ID Atom_SimpleItem_Image_id = null;
-                            if (f_Atom_ShopBItem_Image.Get(SimpleItem_Image_id,ref Atom_SimpleItem_Image_id))
+                            if (f_Atom_ShopBItem_Image.Get(SimpleItem_Image_id,ref Atom_SimpleItem_Image_id, transaction))
                             {
                                 s_Atom_SimpleItem_Image_id = Atom_SimpleItem_Image_id.ToString();
                             }
@@ -68,7 +68,7 @@ namespace TangentaDB
                         }
 
                         ID Atom_SimpleItem_Name_ID = null;
-                        if (f_Atom_ShopBItem_Name.Get(SimpleItem_Name, SimpleItem_Abbreviation, ref Atom_SimpleItem_Name_ID))
+                        if (f_Atom_ShopBItem_Name.Get(SimpleItem_Name, SimpleItem_Abbreviation, ref Atom_SimpleItem_Name_ID, transaction))
                         {
 
                             if (code_v == null)

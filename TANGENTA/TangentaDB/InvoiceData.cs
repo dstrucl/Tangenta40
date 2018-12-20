@@ -821,7 +821,7 @@ namespace TangentaDB
 
       
 
-        public bool Read_DocInvoice()
+        public bool Read_DocInvoice(Transaction transaction)
         {
             string sql = null;
 
@@ -1493,7 +1493,7 @@ namespace TangentaDB
                                 List<Doc_ShopC_Item> xDocProformaInvoice_ShopC_Item_Data_LIST = new List<Doc_ShopC_Item>();
                                 if (this.m_eType == eType.STORNO)
                                 {
-                                    if (!m_ShopABC.m_CurrentDoc.m_Basket.Read_Doc_ShopC_Item_Table(DocInvoice,xDoc_ID, ref xDocProformaInvoice_ShopC_Item_Data_LIST))
+                                    if (!m_ShopABC.m_CurrentDoc.m_Basket.Read_Doc_ShopC_Item_Table(DocInvoice,xDoc_ID, ref xDocProformaInvoice_ShopC_Item_Data_LIST, transaction))
                                     {
                                         return false;
                                     }

@@ -14,7 +14,7 @@ namespace TangentaDB
                                decimal Discount,
                                bool PriceWithoutVAT,
                                bool VATCanNotBeDeducted,
-                               ID ID_Taxation,ID ID_Currency, ref ID PurchasePrice_ID)
+                               ID ID_Taxation,ID ID_Currency, ref ID PurchasePrice_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -93,7 +93,7 @@ namespace TangentaDB
         }
 
 
-        public static bool Get_InUpdate(string PurchasePrice_TableName, decimal PricePerUnit, ID ID_Taxation, ID ID_Currency, ref ID PurchasePrice_ID)
+        public static bool Get_InUpdate(string PurchasePrice_TableName, decimal PricePerUnit, ID ID_Taxation, ID ID_Currency, ref ID PurchasePrice_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 

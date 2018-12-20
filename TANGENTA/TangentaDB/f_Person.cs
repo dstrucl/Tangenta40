@@ -48,10 +48,10 @@ namespace TangentaDB
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             ID cFirstName_ID = null;
-            if (f_cFirstName.Get(FirstName_v, ref cFirstName_ID))
+            if (f_cFirstName.Get(FirstName_v, ref cFirstName_ID, transaction))
             {
                 ID cLastName_ID = null;
-                if (f_cLastName.Get(LastName_v, ref cLastName_ID))
+                if (f_cLastName.Get(LastName_v, ref cLastName_ID, transaction))
                 {
 
                     if (Person_Gender_v != null)

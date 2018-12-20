@@ -56,13 +56,13 @@ namespace Tangenta
             return false;
         }
 
-        public bool Load(LoginControl.LMOUser luser)
+        public bool Load(LoginControl.LMOUser luser, Transaction transaction)
         {
             DataTable dt = null;
 
             if (!ID.Validate(Program.ProgramModule_ID))
             {
-                f_ProgramModule.Get(Program.AssemblyName, ref Program.ProgramModule_ID);
+                f_ProgramModule.Get(Program.AssemblyName, ref Program.ProgramModule_ID, transaction);
             }
 
             if (f_PropertiesSettings.GetTable(myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ID, Program.ProgramModule_ID, luser.myOrganisation_Person_ID, ref dt))
@@ -101,7 +101,7 @@ namespace Tangenta
                         //Store its default value
                         ID SettingsType_ID = null;
                         string sSettingsValue = set_string_value(currentProperty.GetValue(mSettingsUserValues));
-                        if (f_SattingsType.Get(currentProperty.PropertyType.ToString(), ref SettingsType_ID))
+                        if (f_SattingsType.Get(currentProperty.PropertyType.ToString(), ref SettingsType_ID, transaction))
                         {
                             ID xPropertiesSettings_ID = null;
                             if (f_PropertiesSettings.Save(
@@ -111,7 +111,8 @@ namespace Tangenta
                                                 currentProperty.Name,
                                                 SettingsType_ID,
                                                 sSettingsValue,
-                                                ref xPropertiesSettings_ID
+                                                ref xPropertiesSettings_ID,
+                                                transaction
                                                 ))
                             {
                                 xitem.Set(currentProperty.Name, currentProperty.PropertyType.ToString(), sSettingsValue);
@@ -134,7 +135,7 @@ namespace Tangenta
 
 
 
-        public bool Save()
+        public bool Save(Transaction transaction)
         {
             Type type = mSettingsUserValues.GetType();
             PropertyInfo[] properties = type.GetProperties();
@@ -154,7 +155,7 @@ namespace Tangenta
                     {
                         // property changed to loaded value
                         // so save this single property
-                        if (f_PropertiesSettings.Update(xitem.PropertiesSettings_ID, sval))
+                        if (f_PropertiesSettings.Update(xitem.PropertiesSettings_ID, sval, transaction))
                         {
                             continue;
                         }

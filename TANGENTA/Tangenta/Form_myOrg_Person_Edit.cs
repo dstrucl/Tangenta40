@@ -251,15 +251,26 @@ namespace Tangenta
                 }
                 else
                 {
-                    if (f_PersonData.InsertEmptyRow(Person_ID, ref  PersonData_ID))
+                    Transaction transaction_Form_myOrg_Person_Edit_btn_PersonData_Edit_Click_f_PersonData_InsertEmptyRow = new Transaction("Form_myOrg_Person_Edit.btn_PersonData_Edit_Click.f_PersonData.InsertEmptyRow");
+                    if (f_PersonData.InsertEmptyRow(Person_ID,
+                                                    ref  PersonData_ID,
+                                                    transaction_Form_myOrg_Person_Edit_btn_PersonData_Edit_Click_f_PersonData_InsertEmptyRow))
                     {
-                        edt_PersonData_dlg = new Form_PersonData_Edit(Person_ID,
-                                                                      " where PersonData_$_per_$$ID = " + Person_ID.ToString(),
-                                                                      DBSync.DBSync.DB_for_Tangenta.m_DBTables,
-                                                                      tbl_PersonData,
-                                                                      "PersonData_$_per_$_cln_$$LastName desc",
-                                                                      PersonData_ID,
-                                                                      nav);
+                        if (transaction_Form_myOrg_Person_Edit_btn_PersonData_Edit_Click_f_PersonData_InsertEmptyRow.Commit())
+                        {
+                            edt_PersonData_dlg = new Form_PersonData_Edit(Person_ID,
+                                                                          " where PersonData_$_per_$$ID = " + Person_ID.ToString(),
+                                                                          DBSync.DBSync.DB_for_Tangenta.m_DBTables,
+                                                                          tbl_PersonData,
+                                                                          "PersonData_$_per_$_cln_$$LastName desc",
+                                                                          PersonData_ID,
+                                                                          nav);
+                        }
+                    }
+                    else
+                    {
+                        transaction_Form_myOrg_Person_Edit_btn_PersonData_Edit_Click_f_PersonData_InsertEmptyRow.Rollback();
+                        return;
                     }
                 }
             }

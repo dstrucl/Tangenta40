@@ -10,7 +10,7 @@ namespace TangentaDB
 {
     public static class f_ProgramModule
     {
-        public static bool Get(string xProgramModule, ref ID ProgramModule_ID)
+        public static bool Get(string xProgramModule, ref ID ProgramModule_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 

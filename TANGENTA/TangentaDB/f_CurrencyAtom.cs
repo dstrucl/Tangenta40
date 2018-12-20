@@ -16,7 +16,7 @@ namespace TangentaDB
 {
     public static class f_Atom_Currency
     {
-        public static bool Get(ID Currency_ID, ref ID Atom_Currency_ID)
+        public static bool Get(ID Currency_ID, ref ID Atom_Currency_ID, Transaction transaction)
         {
             string Err = null;
             DataTable dt = new DataTable();

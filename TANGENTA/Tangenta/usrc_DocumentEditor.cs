@@ -835,6 +835,7 @@ namespace Tangenta
             Form pform = Global.f.GetParentForm(this);
             ID m_usrc_ShopB_usrc_PriceList1_ID = null;
             ID m_usrc_ShopC_usrc_PriceList1_ID = null;
+            Transaction transaction_usrc_DocumentEditor_DocE_Init = new Transaction("usrc_DocumentEditor.DocE.Init");
             if (DocE.Init(pform,
                             Document_ID,
                             ref m_usrc_ShopB_usrc_PriceList1_ID,
@@ -846,16 +847,25 @@ namespace Tangenta
                             m_usrc_ShopB_Get_Price_ShopBItem_Data,
                             this.DoCurrent,
                             m_usrc_ShopB_Set_dgv_SelectedShopB_Items,
-                            m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data
+                            m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data,
+                            transaction_usrc_DocumentEditor_DocE_Init
                             ))
             {
-                this.usrc_Customer.aa_Customer_Person_Changed += new Tangenta.usrc_Customer.delegate_Customer_Person_Changed(this.usrc_Customer_Customer_Person_Changed);
-                this.usrc_Customer.aa_Customer_Org_Changed += new Tangenta.usrc_Customer.delegate_Customer_Org_Changed(this.usrc_Customer_Customer_Org_Changed);
-                this.usrc_Customer.aa_Customer_Removed += new Tangenta.usrc_Customer.delegate_Customer_Removed(this.usrc_Customer_aa_Customer_Removed);
-                return true;
+                if (transaction_usrc_DocumentEditor_DocE_Init.Commit())
+                {
+                    this.usrc_Customer.aa_Customer_Person_Changed += new Tangenta.usrc_Customer.delegate_Customer_Person_Changed(this.usrc_Customer_Customer_Person_Changed);
+                    this.usrc_Customer.aa_Customer_Org_Changed += new Tangenta.usrc_Customer.delegate_Customer_Org_Changed(this.usrc_Customer_Customer_Org_Changed);
+                    this.usrc_Customer.aa_Customer_Removed += new Tangenta.usrc_Customer.delegate_Customer_Removed(this.usrc_Customer_aa_Customer_Removed);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
+                transaction_usrc_DocumentEditor_DocE_Init.Rollback();
                 return false;
             }
         }
@@ -916,7 +926,7 @@ namespace Tangenta
         }
 
 
-        public bool DoCurrent(ID xID)
+        public bool DoCurrent(ID xID, Transaction transaction)
         {
             return DocE.DoCurrent(xID,
                                     this.m_usrc_ShopB.SetDraftButtons,
@@ -939,7 +949,8 @@ namespace Tangenta
                                     this.m_usrc_ShopB.dt_SelectedShopBItem,
                                     this.btn_Issue_Show,
                                     this.lbl_Sum_ForeColor,
-                                    this.lbl_Sum_Text
+                                    this.lbl_Sum_Text,
+                                    transaction
                                     );
         }
 
@@ -994,10 +1005,18 @@ namespace Tangenta
         {
             if (PriseLists.usrc_PriceList.Ask_To_Update(chShop, dt_ShopB_Item_NotIn_PriceList, this))
             {
-                if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, this))
+                Transaction transaction_usrc_DocumentEditor_Insert_ShopB_Items_in_PriceList = new Transaction("usrc_DocumentEditor.Insert_ShopB_Items_in_PriceList");
+                if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, this, transaction_usrc_DocumentEditor_Insert_ShopB_Items_in_PriceList))
                 {
-                    bool bPriceListChanged = false;
-                    this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
+                    if (transaction_usrc_DocumentEditor_Insert_ShopB_Items_in_PriceList.Commit())
+                    {
+                        bool bPriceListChanged = false;
+                        this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
+                    }
+                }
+                else
+                {
+                    transaction_usrc_DocumentEditor_Insert_ShopB_Items_in_PriceList.Rollback();
                 }
             }
         }
@@ -1084,6 +1103,7 @@ namespace Tangenta
         private void btn_Issue_Click(object sender, EventArgs e)
         {
             Form pform = Global.f.GetParentForm(this);
+            Transaction transaction_usrc_DocumentEditor_btn_Issue_Click = new Transaction("usrc_DocumentEditor.btn_Issue_Click");
             DocE.btn_Issue_Click(pform,
                                 usrc_AddOn1.Check_DocInvoice_AddOn,
                                 usrc_AddOn1.Get_Doc_AddOn,
@@ -1137,11 +1157,13 @@ namespace Tangenta
         private void chk_Storno_CheckedChanged(object sender, EventArgs e)
         {
             Form pform = Global.f.GetParentForm(this);
+            Transaction transaction_usrc_DocumentEditor_chk_Storno_CheckedChanged = new Transaction("usrc_DocumentEditor.chk_Storno_CheckedChanged");
             DocE.Storno_CheckedChanged(pform,
                                        chk_Storno.Checked,
                                        txt_Number.Text,
                                        storno_event,
-                                       chk_Storno_Check
+                                       chk_Storno_Check,
+                                       transaction_usrc_DocumentEditor_chk_Storno_CheckedChanged
                                        );
         }
 
@@ -1158,10 +1180,10 @@ namespace Tangenta
             this.Cursor = Cursors.Arrow;
         }
 
-        private bool usrc_Customer_aa_Customer_Removed(string xDoxTyp)
+        private bool usrc_Customer_aa_Customer_Removed(string xDoxTyp, Transaction transaction)
         {
             this.Cursor = Cursors.WaitCursor;
-            if (DocE.m_ShopABC.m_CurrentDoc.Update_Customer_Remove(xDoxTyp))
+            if (DocE.m_ShopABC.m_CurrentDoc.Update_Customer_Remove(xDoxTyp, transaction))
             {
                 this.Cursor = Cursors.Arrow;
                 return true;

@@ -53,24 +53,33 @@ namespace Tangenta
         internal bool Startup_12_Get_Printer(startup myStartup, ref string Err)
         {
             //Insert default templates for Proforma Invoice and for 
-            if (f_doc.InsertDefault())
+            Transaction transaction_Startup_12_Get_Printer_f_doc_InsertDefault = new Transaction("Startup_12_Get_Printer.f_doc.InsertDefault");
+            if (f_doc.InsertDefault(transaction_Startup_12_Get_Printer_f_doc_InsertDefault))
             {
-                TangentaPrint.PrintersList.Init();
-
-                if (TangentaPrint.PrintersList.Read(Program.Reset2FactorySettings.TangentaPrint_DLL))
+                if (transaction_Startup_12_Get_Printer_f_doc_InsertDefault.Commit())
                 {
-                    //myStartup.eNextStep++;
-                    return true;
+                    TangentaPrint.PrintersList.Init();
+
+                    if (TangentaPrint.PrintersList.Read(Program.Reset2FactorySettings.TangentaPrint_DLL))
+                    {
+                        //myStartup.eNextStep++;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+
+                    }
                 }
                 else
                 {
                     return false;
-
                 }
             }
             else
             {
                 //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                transaction_Startup_12_Get_Printer_f_doc_InsertDefault.Rollback();
                 return false;
             }
         }

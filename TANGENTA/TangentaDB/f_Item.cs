@@ -129,7 +129,7 @@ namespace TangentaDB
 
 
             ID Expiry_ID = null;
-            if (!f_Expiry.Get(Expiry_v, ref Expiry_ID))
+            if (!f_Expiry.Get(Expiry_v, ref Expiry_ID, transaction))
             {
                 return false;
             }
@@ -145,7 +145,7 @@ namespace TangentaDB
             }
 
             ID Warranty_ID = null;
-            if (!f_Warranty.Get(Warranty_v, ref Warranty_ID))
+            if (!f_Warranty.Get(Warranty_v, ref Warranty_ID, transaction))
             {
                 return false;
             }
@@ -164,7 +164,7 @@ namespace TangentaDB
             string scond_Item_Image_ID = " Item_Image_ID is null ";
             string sval_Item_Image_ID = " null ";
 
-            if (!f_Unit.Get(Unit_Name, Unit_Symbol, Unit_DecimalPlaces, Unit_StorageOption, Unit_Description, ref Unit_ID))
+            if (!f_Unit.Get(Unit_Name, Unit_Symbol, Unit_DecimalPlaces, Unit_StorageOption, Unit_Description, ref Unit_ID, transaction))
             {
                 return false;
             }
@@ -173,14 +173,14 @@ namespace TangentaDB
             {
                 ID Item_ParentGroup1_ID = null;
                 ID Item_Image_ID = null;
-                if (f_Item_ParentGroup1.Get(Item_ParentGroup1, Item_ParentGroup2, Item_ParentGroup3, ref Item_ParentGroup1_ID))
+                if (f_Item_ParentGroup1.Get(Item_ParentGroup1, Item_ParentGroup2, Item_ParentGroup3, ref Item_ParentGroup1_ID, transaction))
                 {
                     scond_Item_ParentGroup1_ID = " Item_ParentGroup1_ID = " + Item_ParentGroup1_ID.ToString() + " ";
                     sval_Item_ParentGroup1_ID = " " + Item_ParentGroup1_ID.ToString() + " ";
 
                     if (Item_Image != null)
                     {
-                        if (f_Item_Image.Get(Item_Image, ref Item_Image_ID))
+                        if (f_Item_Image.Get(Item_Image, ref Item_Image_ID, transaction))
                         {
                             scond_Item_Image_ID = " Item_Image_ID = " + Item_Image_ID.ToString() + " ";
                             sval_Item_Image_ID = " " + Item_Image.ToString() + " ";

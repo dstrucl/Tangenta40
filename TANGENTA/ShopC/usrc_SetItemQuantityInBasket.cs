@@ -71,9 +71,17 @@ namespace ShopC
             {
                 if (dsci.ExtraDiscount != extradiscount)
                 {
-                    if (dsci.UpdateExtraDiscount(m_ShopBC.DocTyp, extradiscount))
+                    Transaction transaction_usrc_SetItemQuantityInBasket_btn_Change_Click_UpdateExtraDiscount = new Transaction("usrc_SetItemQuantityInBasket.btn_Change_Click.UpdateExtraDiscount");
+                    if (dsci.UpdateExtraDiscount(m_ShopBC.DocTyp, extradiscount, transaction_usrc_SetItemQuantityInBasket_btn_Change_Click_UpdateExtraDiscount))
                     {
-                        dsci.ExtraDiscount = extradiscount;
+                        if (transaction_usrc_SetItemQuantityInBasket_btn_Change_Click_UpdateExtraDiscount.Commit())
+                        {
+                            dsci.ExtraDiscount = extradiscount;
+                        }
+                    }
+                    else
+                    {
+                        transaction_usrc_SetItemQuantityInBasket_btn_Change_Click_UpdateExtraDiscount.Rollback();
                     }
                 }
             }
@@ -128,15 +136,44 @@ namespace ShopC
                     decimal dRemoveAndPutBack2Stock = dsci.dQuantity_FromStock-dToTakeFromStock;
                     if (dToTakeFromStock <= dsci.dQuantity_FromStock)
                     {
-                        bresFromStock = m_ShopBC.m_CurrentDoc.m_Basket.RemoveFromBasket_And_put_back_to_Stock(m_ShopBC.DocTyp, m_ShopBC.m_CurrentDoc.m_Doc_ID, dRemoveAndPutBack2Stock, idata);
+                        Transaction transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_RemoveFromBasket_And_put_back_to_Stock = new Transaction("usrc_SetItemQuantityInBasket.ChangeQuantitiesInDB.RemoveFromBasket_And_put_back_to_Stock");
+                        bresFromStock = m_ShopBC.m_CurrentDoc.m_Basket.RemoveFromBasket_And_put_back_to_Stock(m_ShopBC.DocTyp,
+                                                                                                              m_ShopBC.m_CurrentDoc.m_Doc_ID,
+                                                                                                              dRemoveAndPutBack2Stock,
+                                                                                                              idata,
+                                                                                                              transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_RemoveFromBasket_And_put_back_to_Stock);
+                       if (bresFromStock)
+                        {
+                            transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_RemoveFromBasket_And_put_back_to_Stock.Commit();
+                        }
+                       else
+                        {
+                            transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_RemoveFromBasket_And_put_back_to_Stock.Rollback();
+                            return;
+                        }
+
                     }
                 }
 
 
                 bool bresFromFactory = true;
 
-                bresFromFactory = m_ShopBC.m_CurrentDoc.m_Basket.SetFactory(m_ShopBC.DocTyp, m_ShopBC.m_CurrentDoc.m_Doc_ID, dToTakeFromFactory, idata);
+                Transaction transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory = new Transaction("usrc_SetItemQuantityInBasket.ChangeQuantitiesInDB.SetFactory");
+                bresFromFactory = m_ShopBC.m_CurrentDoc.m_Basket.SetFactory(m_ShopBC.DocTyp,
+                                                                            m_ShopBC.m_CurrentDoc.m_Doc_ID,
+                                                                            dToTakeFromFactory,
+                                                                            idata,
+                                                                            transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory);
 
+                if (bresFromFactory)
+                {
+                    transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory.Commit();
+                }
+                else
+                {
+                    transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory.Rollback();
+                    return;
+                }
                 if (bresFromStock && bresFromFactory)
                 {
                     m_usrc_Atom_Item1366x768.DoRefresh();

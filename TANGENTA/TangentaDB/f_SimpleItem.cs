@@ -46,14 +46,14 @@ namespace TangentaDB
             {
                 ID SimpleItem_ParentGroup1_ID = null;
                 ID SimpleItem_Image_ID = null;
-                if (f_SimpleItem_ParentGroup1.Get(SimpleItem_ParentGroup1, SimpleItem_ParentGroup2, SimpleItem_ParentGroup3, ref SimpleItem_ParentGroup1_ID))
+                if (f_SimpleItem_ParentGroup1.Get(SimpleItem_ParentGroup1, SimpleItem_ParentGroup2, SimpleItem_ParentGroup3, ref SimpleItem_ParentGroup1_ID, transaction))
                 {
                     scond_SimpleItem_ParentGroup1_ID = " SimpleItem_ParentGroup1_ID = " + SimpleItem_ParentGroup1_ID.ToString() + " ";
                     sval_SimpleItem_ParentGroup1_ID = " " + SimpleItem_ParentGroup1_ID.ToString() + " ";
 
                     if (SimpleItem_Image != null)
                     {
-                        if (f_SimpleItem_Image.Get(SimpleItem_Image, ref SimpleItem_Image_ID))
+                        if (f_SimpleItem_Image.Get(SimpleItem_Image, ref SimpleItem_Image_ID, transaction))
                         {
                             scond_SimpleItem_Image_ID = " SimpleItem_Image_ID = " + SimpleItem_Image_ID.ToString() + " ";
                             sval_SimpleItem_Image_ID = " " + SimpleItem_Image_ID.ToString() + " ";

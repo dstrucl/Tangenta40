@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_Atom_Taxation
     {
-        public static bool Get(ID Taxation_ID, ref ID Atom_Taxation_ID)
+        public static bool Get(ID Taxation_ID, ref ID Atom_Taxation_ID, Transaction transaction)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -60,7 +60,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(string_v Taxation_Name, decimal_v Taxation_Rate, ref ID Atom_Taxation_ID)
+        public static bool Get(string_v Taxation_Name, decimal_v Taxation_Rate, ref ID Atom_Taxation_ID, Transaction transaction)
         {
             string Err = null;
             if ((Taxation_Name != null) && (Taxation_Rate != null))

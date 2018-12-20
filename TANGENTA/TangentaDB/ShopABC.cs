@@ -109,7 +109,7 @@ namespace TangentaDB
             }
         }
 
-        public bool Get(bool bDraft, ID ID, string xTaxID,string xOfficeShortName, string xElectronicDeviceName,  ref string Err)
+        public bool Get(bool bDraft, ID ID, string xTaxID,string xOfficeShortName, string xElectronicDeviceName,  ref string Err, Transaction transaction)
         {
             //SQLTable tbl_Invoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Invoice));
             //SQLTable tbl_DocInvoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice));
@@ -431,7 +431,7 @@ namespace TangentaDB
                         if (Read_ShopB_Price_Item_Table(xDocInvoice_ID, ref m_CurrentDoc.dtCurrent_Atom_Price_ShopBItem))
                         {
                             m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.Clear();
-                            if (m_CurrentDoc.m_Basket.Read_Doc_ShopC_Item_Table(DocTyp,xDocInvoice_ID, ref m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST))
+                            if (m_CurrentDoc.m_Basket.Read_Doc_ShopC_Item_Table(DocTyp,xDocInvoice_ID, ref m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST, transaction))
                             {
                                 return true;
                             }
@@ -503,7 +503,7 @@ namespace TangentaDB
                         if (Read_ShopB_Price_Item_Table(xDocInvoice_ID, ref m_CurrentDoc.dtCurrent_Atom_Price_ShopBItem))
                         {
                             m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.Clear();
-                            if (m_CurrentDoc.m_Basket.Read_Doc_ShopC_Item_Table(DocTyp,xDocInvoice_ID, ref m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST))
+                            if (m_CurrentDoc.m_Basket.Read_Doc_ShopC_Item_Table(DocTyp,xDocInvoice_ID, ref m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST, transaction))
                             {
                                 return true;
                             }
@@ -630,7 +630,7 @@ namespace TangentaDB
             }
         }
 
-        public bool Copy_ShopB_Price_Item_Table(string xDocInvoice, ID doc_ID, DataTable xdt_ShopB_Items)
+        public bool Copy_ShopB_Price_Item_Table(string xDocInvoice, ID doc_ID, DataTable xdt_ShopB_Items, Transaction transaction)
         {
             foreach (DataRow dr in xdt_ShopB_Items.Rows)
             {
@@ -740,7 +740,8 @@ namespace TangentaDB
                                                             ref Taxation_Name,
                                                             ref RetailPriceWithDiscount,
                                                             ref Tax,
-                                                            ref PriceWithoutTax
+                                                            ref PriceWithoutTax,
+                                                            transaction
                                                           ))
                                 {
                                     continue;
@@ -1133,7 +1134,7 @@ namespace TangentaDB
                         {
                             ID xDocInvoice_Atom_WorkArea = null;
                             // link DocInvoice and WorkArea
-                            f_DocInvoice_Atom_WorkArea.Get(xDoc_ID, xAtom_WorkArea_ID, ref xDocInvoice_Atom_WorkArea);
+                            f_DocInvoice_Atom_WorkArea.Get(xDoc_ID, xAtom_WorkArea_ID, ref xDocInvoice_Atom_WorkArea, transaction);
                         }
 
                         ID Journal_DocInvoice_ID = null;
@@ -1622,7 +1623,8 @@ namespace TangentaDB
                                         ID stock_ID,
                                         ref ID atom_Price_Item_ID,
                                         ref ID docInvoice_ShopC_Item_ID,
-                                        ref ID docInvoice_ShopC_Item_Source_ID)
+                                        ref ID docInvoice_ShopC_Item_Source_ID,
+                                        Transaction transaction)
         {
             ID atom_Taxation_ID = null;
             ID atom_Item_ID = null;
@@ -1653,7 +1655,8 @@ namespace TangentaDB
                 xData.Taxation_Rate_v,
                 ref atom_Taxation_ID,
                 ref atom_Item_ID,
-                ref atom_Price_Item_ID))
+                ref atom_Price_Item_ID,
+                transaction))
             {
                 return false;
             }
@@ -1689,7 +1692,8 @@ namespace TangentaDB
                 if (f_DocInvoice_ShopC_Item.Insert(this.m_CurrentDoc.Doc_ID,
                                                     atom_Price_Item_ID,
                                                     xData.ExtraDiscount,
-                                                    ref docInvoice_ShopC_Item_ID))
+                                                    ref docInvoice_ShopC_Item_ID,
+                                                    transaction))
                 {
                     if (f_DocInvoice_ShopC_Item_Source.Insert(docInvoice_ShopC_Item_ID,
                                                             xdQuantity,
@@ -1698,7 +1702,8 @@ namespace TangentaDB
                                                             taxprice,
                                                             xData.ExpiryDate_v,
                                                             stock_ID,
-                                                   ref docInvoice_ShopC_Item_Source_ID))
+                                                   ref docInvoice_ShopC_Item_Source_ID,
+                                                   transaction))
                     {
                         return true;
                     }
@@ -1724,7 +1729,8 @@ namespace TangentaDB
                                                     atom_Price_Item_ID,
                                                     xData.ExpiryDate_v,
                                                     stock_ID,
-                                                    ref docInvoice_ShopC_Item_ID))
+                                                    ref docInvoice_ShopC_Item_ID,
+                                                    transaction))
                 {
                     LogFile.Error.Show("ERROR:TangentaDB:ShopABC:Add_Doc_ShopC_Item:!f_DocInvoice_ShopC_Item.Insert");
                     return false;

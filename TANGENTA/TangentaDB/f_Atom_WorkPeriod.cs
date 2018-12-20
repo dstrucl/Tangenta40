@@ -33,7 +33,7 @@ namespace TangentaDB
         {
 
             ID Atom_WorkPeriod_Type_ID = null;
-            if (f_Atom_WorkPeriod_Type.Get(Atom_WorkPeriod_Type_Name, Atom_WorkPeriod_Type_Description, ref Atom_WorkPeriod_Type_ID))
+            if (f_Atom_WorkPeriod_Type.Get(Atom_WorkPeriod_Type_Name, Atom_WorkPeriod_Type_Description, ref Atom_WorkPeriod_Type_ID, transaction))
             {
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -261,7 +261,7 @@ namespace TangentaDB
         {
 
             ID Atom_WorkPeriod_Type_ID = null;
-            if (f_Atom_WorkPeriod_Type.Get(Atom_WorkPeriod_Type_Name, Atom_WorkPeriod_Type_Description, ref Atom_WorkPeriod_Type_ID))
+            if (f_Atom_WorkPeriod_Type.Get(Atom_WorkPeriod_Type_Name, Atom_WorkPeriod_Type_Description, ref Atom_WorkPeriod_Type_ID, transaction))
             {
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                 string scond_Atom_WorkPeriod_ID = null;
@@ -435,7 +435,7 @@ namespace TangentaDB
         {
 
             ID Atom_WorkPeriod_Type_ID = null;
-            if (f_Atom_WorkPeriod_Type.Get(Atom_WorkPeriod_Type_Name, Atom_WorkPeriod_Type_Description, ref Atom_WorkPeriod_Type_ID))
+            if (f_Atom_WorkPeriod_Type.Get(Atom_WorkPeriod_Type_Name, Atom_WorkPeriod_Type_Description, ref Atom_WorkPeriod_Type_ID, transaction))
             {
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 

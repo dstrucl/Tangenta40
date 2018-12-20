@@ -801,10 +801,10 @@ namespace TangentaDB
             DocInvoice_ID_List.Add(xDocInvoiceData);
         }
 
-        internal bool Add(ID xDocInvoice_ID)
+        internal bool Add(ID xDocInvoice_ID, Transaction transaction)
         {
             ID xCashierActivity_DocInvoice_ID = null;
-            return f_CashierActivity_DocInvoice.Insert(this.ID, xDocInvoice_ID, ref xCashierActivity_DocInvoice_ID);
+            return f_CashierActivity_DocInvoice.Insert(this.ID, xDocInvoice_ID, ref xCashierActivity_DocInvoice_ID, transaction);
         }
     }
 }

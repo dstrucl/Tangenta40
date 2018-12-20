@@ -12,7 +12,7 @@ namespace TangentaDB
 {
     public static class f_Reference_Image
     {
-        public static bool Get(byte_array_v Image_Data_v, string_v Image_Hash_v,  ref ID Reference_Image_ID)
+        public static bool Get(byte_array_v Image_Data_v, string_v Image_Hash_v,  ref ID Reference_Image_ID, Transaction transaction)
         {
             string Err = null;
             if (Image_Hash_v == null)
@@ -90,7 +90,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(Image Reference_Image,ref string Image_Hash, ref ID Reference_Image_ID)
+        public static bool Get(Image Reference_Image,ref string Image_Hash, ref ID Reference_Image_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             Image_Hash = null;
@@ -103,7 +103,7 @@ namespace TangentaDB
                 Image_Hash_v = new string_v();
                 Image_Hash_v.v = StaticLib.Func.GetHash_SHA1(Image_Data_v.v);
                 Image_Hash = Image_Hash_v.v;
-                if (f_Reference_Image.Get(Image_Data_v, Image_Hash_v, ref Reference_Image_ID))
+                if (f_Reference_Image.Get(Image_Data_v, Image_Hash_v, ref Reference_Image_ID, transaction))
                 {
                     return true;
                 }

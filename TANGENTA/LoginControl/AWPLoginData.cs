@@ -131,7 +131,7 @@ namespace LoginControl
             set { m_Changed = value; }
         }
 
-        internal bool GetUserRoles()
+        internal bool GetUserRoles(Transaction transaction)
         {
             if (dt_AWP_UserRoles.Columns.Count!=1)
             {
@@ -147,7 +147,7 @@ namespace LoginControl
             }
             dt_AWP_MissingUserRoles.Rows.Clear();
 
-            if (AWP_func.AWPRoles_GetUserRoles(ID,ref m_AWP_UserRoles))
+            if (AWP_func.AWPRoles_GetUserRoles(ID,ref m_AWP_UserRoles, transaction))
             {
                 if (AWP_func.AWPRoles_GetRoles_User_Does_Not_Have(ID, ref m_AWP_MissingUserRoles))
                 {
@@ -247,9 +247,10 @@ namespace LoginControl
                     PersonData__perimg_ID = tf.set_ID(dr[awpb.mcn_PersonData__perimg_ID.ColumnName]);
                     PersonData__perimg_Image_Hash = f.gstring(dr[awpb.mcn_PersonData__perimg_Image_Hash.ColumnName]);
                     PersonData__perimg_Image_Data = f.gbytearray(dr[awpb.mcn_PersonData__perimg_Image_Data.ColumnName]);
-                    
-                    if (GetUserRoles())
+                    Transaction transaction_AWP_LoginData_GetUserRoles = new Transaction("AWP_LoginData.GetUserRoles");
+                    if (GetUserRoles(transaction_AWP_LoginData_GetUserRoles))
                     {
+                        transaction_AWP_LoginData_GetUserRoles.Commit();
                         if (m_AWP_UserRoles.Count>0)
                         {
                             return eGetDateResult.OK;
@@ -258,6 +259,10 @@ namespace LoginControl
                         {
                             return eGetDateResult.USER_HAS_NO_RULES;
                         }
+                    }
+                    else
+                    {
+                        transaction_AWP_LoginData_GetUserRoles.Rollback();
                     }
                 }
                 else

@@ -59,7 +59,7 @@ namespace TangentaDB
 
         }
 
-        public static bool UpdateExtraDiscount(ID doc_ShopC_Item_ID, decimal extradiscount)
+        public static bool UpdateExtraDiscount(ID doc_ShopC_Item_ID, decimal extradiscount, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_extraDiscount = "@par_extraDiscount";
@@ -164,7 +164,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Delete(ID doc_ShopC_Item_ID)
+        public static bool Delete(ID doc_ShopC_Item_ID, Transaction transaction)
         {
             string sql = "delete from DocInvoice_ShopC_Item where ID = " + doc_ShopC_Item_ID.ToString();
             string Err = null;
@@ -269,7 +269,8 @@ namespace TangentaDB
         public static bool Insert(ID docInvoice_ID,
                                   ID atom_Price_Item_ID,
                                   decimal extraDiscount,
-                                  ref ID DocInvoice_ShopC_Item_ID)
+                                  ref ID DocInvoice_ShopC_Item_ID,
+                                  Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 

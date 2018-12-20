@@ -54,7 +54,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(ID Item_ID, ID PurchasePrice_ID, ID StockTake_ID, ref ID PurchasePrice_Item_ID)
+        public static bool Get(ID Item_ID, ID PurchasePrice_ID, ID StockTake_ID, ref ID PurchasePrice_Item_ID, Transaction transaction)
         {
             string Err = null;
             string sql = null;
@@ -93,7 +93,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(string PurchasePrice_Item_TableName,ID Item_ID, ID PurchasePrice_ID, ID StockTake_ID, ref ID PurchasePrice_Item_ID)
+        public static bool Get(string PurchasePrice_Item_TableName,ID Item_ID, ID PurchasePrice_ID, ID StockTake_ID, ref ID PurchasePrice_Item_ID, Transaction transaction)
         {
             string Err = null;
             string sql = null;

@@ -29,7 +29,8 @@ namespace TangentaDB
                                string_v Country_ISO_3166_a3_v,
                                short_v Country_ISO_3166_num_v,
                                string_v State_v,
-                               ref ID cAddress_Person_ID)
+                               ref ID cAddress_Person_ID,
+                               Transaction transaction)
         {
             if ((StreetName_v == null) || (HouseNumber_v == null) || (ZIP_v == null) || (City_v == null) || (Country_v == null))
             {
@@ -38,7 +39,7 @@ namespace TangentaDB
             }
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             ID cStreetName_Person_ID = null;
-            if (!f_cStreetName_Person.Get(StreetName_v, ref cStreetName_Person_ID))
+            if (!f_cStreetName_Person.Get(StreetName_v, ref cStreetName_Person_ID, transaction))
             {
                 return false;
             }
@@ -50,7 +51,7 @@ namespace TangentaDB
             }
 
             ID cHouseNumber_Person_ID = null;
-            if (!f_cHouseNumber_Person.Get(HouseNumber_v, ref cHouseNumber_Person_ID))
+            if (!f_cHouseNumber_Person.Get(HouseNumber_v, ref cHouseNumber_Person_ID,transaction))
             {
                 return false;
             }
@@ -62,7 +63,7 @@ namespace TangentaDB
             }
 
             ID cZIP_Person_ID = null;
-            if (!f_cZIP_Person.Get(ZIP_v, ref cZIP_Person_ID))
+            if (!f_cZIP_Person.Get(ZIP_v, ref cZIP_Person_ID,transaction))
             {
                 return false;
             }
@@ -74,7 +75,7 @@ namespace TangentaDB
             }
 
             ID cCity_Person_ID = null;
-            if (!f_cCity_Person.Get(City_v, ref cCity_Person_ID))
+            if (!f_cCity_Person.Get(City_v, ref cCity_Person_ID, transaction))
             {
                 return false;
             }
@@ -86,7 +87,7 @@ namespace TangentaDB
             }
 
             ID cCountry_Person_ID = null;
-            if (!f_cCountry_Person.Get(Country_v, Country_ISO_3166_a2_v, Country_ISO_3166_a3_v, Country_ISO_3166_num_v, ref cCountry_Person_ID))
+            if (!f_cCountry_Person.Get(Country_v, Country_ISO_3166_a2_v, Country_ISO_3166_a3_v, Country_ISO_3166_num_v, ref cCountry_Person_ID, transaction))
             {
                 return false;
             }
@@ -98,7 +99,7 @@ namespace TangentaDB
             }
 
             ID cState_Person_ID = null;
-            if (!f_cState_Person.Get(State_v, ref cState_Person_ID))
+            if (!f_cState_Person.Get(State_v, ref cState_Person_ID, transaction))
             {
                 return false;
             }
@@ -149,7 +150,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(PostAddress_v address_v, ref ID cAdress_Person_iD)
+        internal static bool Get(PostAddress_v address_v, ref ID cAdress_Person_iD, Transaction transaction)
         {
             string Err = null;
             ID xcStreetName_Person_ID = null;
@@ -159,19 +160,19 @@ namespace TangentaDB
             ID xcCountry_Person_ID = null;
             ID xcState_Person_ID = null;
 
-            if (f_cStreetName_Person.Get(address_v.StreetName_v, ref xcStreetName_Person_ID))
+            if (f_cStreetName_Person.Get(address_v.StreetName_v, ref xcStreetName_Person_ID, transaction))
             {
-                if (f_cHouseNumber_Person.Get(address_v.HouseNumber_v, ref xcHouseNumber_Person_ID))
+                if (f_cHouseNumber_Person.Get(address_v.HouseNumber_v, ref xcHouseNumber_Person_ID, transaction))
                 {
-                    if (f_cCity_Person.Get(address_v.City_v, ref xcCity_Person_ID))
+                    if (f_cCity_Person.Get(address_v.City_v, ref xcCity_Person_ID, transaction))
                     {
-                        if (f_cZIP_Person.Get(address_v.ZIP_v, ref xcZIP_Person_ID))
+                        if (f_cZIP_Person.Get(address_v.ZIP_v, ref xcZIP_Person_ID, transaction))
                         {
                             if (f_cCountry_Person.Get(address_v.Country_v,
                                                       address_v.Country_ISO_3166_a2_v,
                                                       address_v.Country_ISO_3166_a3_v,
                                                       address_v.Country_ISO_3166_num_v,
-                                                      ref xcCountry_Person_ID))
+                                                      ref xcCountry_Person_ID, transaction))
                             {
                                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 

@@ -75,13 +75,13 @@ namespace TangentaDB
             this.NetPrice = xNetPrice;
         }
 
-        private bool setQuantity(string docType,decimal xdQuantity)
+        private bool setQuantity(string docType,decimal xdQuantity, Transaction transaction)
         {
             if (xdQuantity == this.dQuantity)
             {
                 if (docType.Equals(GlobalData.const_DocInvoice))
                 {
-                    if (f_DocInvoice_ShopC_Item_Source.Delete(this.Doc_ShopC_Item_Source_ID))
+                    if (f_DocInvoice_ShopC_Item_Source.Delete(this.Doc_ShopC_Item_Source_ID, transaction))
                     {
                         this.dQuantity = 0;
                         return true;
@@ -93,7 +93,7 @@ namespace TangentaDB
                 decimal dnew_quantity_in_stock = this.dQuantity - xdQuantity;
                 if (docType.Equals(GlobalData.const_DocInvoice))
                 {
-                    if (f_DocInvoice_ShopC_Item_Source.UpdateQuantity(this.Doc_ShopC_Item_Source_ID, dnew_quantity_in_stock))
+                    if (f_DocInvoice_ShopC_Item_Source.UpdateQuantity(this.Doc_ShopC_Item_Source_ID, dnew_quantity_in_stock,transaction))
                     {
                         this.dQuantity = dnew_quantity_in_stock;
                         return true;
@@ -108,26 +108,26 @@ namespace TangentaDB
             return false;
         }
 
-        internal bool SendBackToStock(string docType,decimal xdQuantity,Item_Data xdata)
+        internal bool SendBackToStock(string docType,decimal xdQuantity,Item_Data xdata, Transaction transaction)
         {
             if (xdata != null)
             {
-                if (xdata.ReceiveBackToStock(this.Stock_ID, this.dQuantity))
+                if (xdata.ReceiveBackToStock(this.Stock_ID, this.dQuantity, transaction))
                 {
-                    return setQuantity(docType, xdQuantity);
+                    return setQuantity(docType, xdQuantity, transaction);
                 }
             }
             else
             {
                 decimal_v dQuantityInStock_v = null;
-                if (f_Stock.GetQuantity(this.Stock_ID, ref dQuantityInStock_v))
+                if (f_Stock.GetQuantity(this.Stock_ID, ref dQuantityInStock_v, transaction))
                 {
                     if (dQuantityInStock_v != null)
                     {
                         decimal dnew_quantity_in_stock = dQuantityInStock_v.v + xdQuantity;
-                        if (f_Stock.UpdateQuantity(this.Stock_ID, dnew_quantity_in_stock))
+                        if (f_Stock.UpdateQuantity(this.Stock_ID, dnew_quantity_in_stock, transaction))
                         {
-                            return setQuantity(docType, xdQuantity);
+                            return setQuantity(docType, xdQuantity, transaction);
                         }
                     }
                     else
@@ -140,13 +140,13 @@ namespace TangentaDB
             return false;
         }
 
-        internal bool RemoveFactory(string docType,decimal xdQuantity)
+        internal bool RemoveFactory(string docType,decimal xdQuantity, Transaction transaction)
         {
             if (xdQuantity == this.dQuantity)
             {
                 if (docType.Equals(GlobalData.const_DocInvoice))
                 {
-                    if (f_DocInvoice_ShopC_Item_Source.Delete(this.Doc_ShopC_Item_Source_ID))
+                    if (f_DocInvoice_ShopC_Item_Source.Delete(this.Doc_ShopC_Item_Source_ID, transaction))
                     {
                         this.dQuantity = 0;
                         return true;
@@ -158,7 +158,7 @@ namespace TangentaDB
                 decimal dnew_quantity_in_stock = this.dQuantity - xdQuantity;
                 if (docType.Equals(GlobalData.const_DocInvoice))
                 {
-                    if (f_DocInvoice_ShopC_Item_Source.UpdateQuantity(this.Doc_ShopC_Item_Source_ID, dnew_quantity_in_stock))
+                    if (f_DocInvoice_ShopC_Item_Source.UpdateQuantity(this.Doc_ShopC_Item_Source_ID, dnew_quantity_in_stock, transaction))
                     {
                         this.dQuantity = dnew_quantity_in_stock;
                         return true;

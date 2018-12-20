@@ -897,8 +897,15 @@ namespace Tangenta
                     ID xCurrent_Doc_ID = null;
                     if (ID.Validate(doc_ID))
                     {
-                        if (f_Current_Doc_ID.SetLast(sDocInvoice, doc_ID, sDataSource, xLMOUser.myOrganisation_Person_ID, myOrg.m_myOrg_Office.ElectronicDevice_ID, ref xCurrent_Doc_ID))
+                        Transaction transaction_Form_Document_m_usrc_Main_Exit_Click_SetLast = new Transaction("Form_Document.m_usrc_Main_Exit_Click.SetLast");
+
+                        if (f_Current_Doc_ID.SetLast(sDocInvoice, doc_ID, sDataSource, xLMOUser.myOrganisation_Person_ID, myOrg.m_myOrg_Office.ElectronicDevice_ID, ref xCurrent_Doc_ID, transaction_Form_Document_m_usrc_Main_Exit_Click_SetLast))
                         {
+                            transaction_Form_Document_m_usrc_Main_Exit_Click_SetLast.Commit();
+                        }
+                        else
+                        {
+                            transaction_Form_Document_m_usrc_Main_Exit_Click_SetLast.Rollback();
                         }
                     }
                 }
@@ -1086,46 +1093,55 @@ namespace Tangenta
         internal void Activate_usrc_DocumentMan_for_LMO1User(LoginControl.usrc_MultipleUsers xm_usrc_MultipleUsers)
         {
             SettingsUser user_settings = new SettingsUser();
-            if (user_settings.Load(this.LMO1User))
+            Transaction transaction_Form_Document_Activate_usrc_DocumentMan_for_LMO1User_user_settings_Load = new Transaction("Form_Document.Activate_usrc_DocumentMan_for_LMO1User.user_settings.Load");
+            if (user_settings.Load(this.LMO1User,
+                                   transaction_Form_Document_Activate_usrc_DocumentMan_for_LMO1User_user_settings_Load))
             {
-                LMO1User.oSettings = user_settings;
-
-                //xLMOUser.Form_settingsuser = new Form_SettingsUsers(xLMOUser);
-                //((Form_SettingsUsers)xLMOUser.Form_settingsuser).InitAfterLoad();
-                //xLMOUser.Form_settingsuser.Owner = this;
-                //xLMOUser.Form_settingsuser.Show();
-
-                if (Properties.Settings.Default.ControlLayout_TouchScreen)
+                if (transaction_Form_Document_Activate_usrc_DocumentMan_for_LMO1User_user_settings_Load.Commit())
                 {
-                    usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768 = new usrc_DocumentMan1366x768();
-                    xusrc_DocumentMan1366x768.DocM.DocTyp = PropertiesUser.LastDocType_Get(user_settings.mSettingsUserValues);
-                    xusrc_DocumentMan1366x768.Active = true;
-                    xusrc_DocumentMan1366x768.Dock = DockStyle.Fill;
-                    this.Controls.Add(xusrc_DocumentMan1366x768);
+                    LMO1User.oSettings = user_settings;
 
-                    xusrc_DocumentMan1366x768.Initialise(this, LMO1User);
-                    xusrc_DocumentMan1366x768.Init();
+                    //xLMOUser.Form_settingsuser = new Form_SettingsUsers(xLMOUser);
+                    //((Form_SettingsUsers)xLMOUser.Form_settingsuser).InitAfterLoad();
+                    //xLMOUser.Form_settingsuser.Owner = this;
+                    //xLMOUser.Form_settingsuser.Show();
+
+                    if (Properties.Settings.Default.ControlLayout_TouchScreen)
+                    {
+                        usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768 = new usrc_DocumentMan1366x768();
+                        xusrc_DocumentMan1366x768.DocM.DocTyp = PropertiesUser.LastDocType_Get(user_settings.mSettingsUserValues);
+                        xusrc_DocumentMan1366x768.Active = true;
+                        xusrc_DocumentMan1366x768.Dock = DockStyle.Fill;
+                        this.Controls.Add(xusrc_DocumentMan1366x768);
+
+                        xusrc_DocumentMan1366x768.Initialise(this, LMO1User);
+                        xusrc_DocumentMan1366x768.Init();
 
 
-                    LMO1User.m_usrc_DocumentMan = xusrc_DocumentMan1366x768;
-                    xusrc_DocumentMan1366x768.Exit_Click += m_usrc_Main_Exit_Click;
-                    xusrc_DocumentMan1366x768.Activate_dgvx_XInvoice_SelectionChanged();
+                        LMO1User.m_usrc_DocumentMan = xusrc_DocumentMan1366x768;
+                        xusrc_DocumentMan1366x768.Exit_Click += m_usrc_Main_Exit_Click;
+                        xusrc_DocumentMan1366x768.Activate_dgvx_XInvoice_SelectionChanged();
 
+                    }
+                    else
+                    {
+                        usrc_DocumentMan xusrc_DocumentMan = new usrc_DocumentMan();
+                        xusrc_DocumentMan.Active = true;
+                        xusrc_DocumentMan.Dock = DockStyle.Fill;
+                        this.Controls.Add(xusrc_DocumentMan);
+
+                        xusrc_DocumentMan.Initialise(this, LMO1User);
+                        xusrc_DocumentMan.Init();
+                        this.DocumentMan = xusrc_DocumentMan;
+                        LMO1User.m_usrc_DocumentMan = xusrc_DocumentMan;
+                        xusrc_DocumentMan.Exit_Click += m_usrc_Main_Exit_Click;
+                        xusrc_DocumentMan.Activate_dgvx_XInvoice_SelectionChanged();
+                    }
                 }
-                else
-                {
-                    usrc_DocumentMan xusrc_DocumentMan = new usrc_DocumentMan();
-                    xusrc_DocumentMan.Active = true;
-                    xusrc_DocumentMan.Dock = DockStyle.Fill;
-                    this.Controls.Add(xusrc_DocumentMan);
-
-                    xusrc_DocumentMan.Initialise(this, LMO1User);
-                    xusrc_DocumentMan.Init();
-                    this.DocumentMan = xusrc_DocumentMan;
-                    LMO1User.m_usrc_DocumentMan = xusrc_DocumentMan;
-                    xusrc_DocumentMan.Exit_Click += m_usrc_Main_Exit_Click;
-                    xusrc_DocumentMan.Activate_dgvx_XInvoice_SelectionChanged();
-                }
+            }
+            else
+            {
+                transaction_Form_Document_Activate_usrc_DocumentMan_for_LMO1User_user_settings_Load.Rollback();
             }
         }
 
@@ -1883,45 +1899,53 @@ namespace Tangenta
         private void loginControl1_UserLoggedIn(LoginControl.LMOUser xLMOUser)
         {
             SettingsUser user_settings = new SettingsUser();
-            if (user_settings.Load(xLMOUser))
+            Transaction transaction_Form_Document_loginControl1_UserLoggedIn_user_settings_Load = new Transaction("Form_Document.loginControl1_UserLoggedIn.user_settings.Load");
+            if (user_settings.Load(xLMOUser,
+                                    transaction_Form_Document_loginControl1_UserLoggedIn_user_settings_Load))
             {
-                xLMOUser.oSettings = user_settings;
-
-                //xLMOUser.Form_settingsuser = new Form_SettingsUsers(xLMOUser);
-                //((Form_SettingsUsers)xLMOUser.Form_settingsuser).InitAfterLoad();
-                //xLMOUser.Form_settingsuser.Owner = this;
-                //xLMOUser.Form_settingsuser.Show();
-
-                if (Properties.Settings.Default.ControlLayout_TouchScreen)
+                if (transaction_Form_Document_loginControl1_UserLoggedIn_user_settings_Load.Commit())
                 {
-                    usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768  = new usrc_DocumentMan1366x768();
-                    xusrc_DocumentMan1366x768.Visible = false;
-                    xusrc_DocumentMan1366x768.Dock = DockStyle.Fill;
-                    this.Controls.Add(xusrc_DocumentMan1366x768);
+                    xLMOUser.oSettings = user_settings;
 
-                    xusrc_DocumentMan1366x768.Initialise(this, xLMOUser);
-                    xusrc_DocumentMan1366x768.Init();
+                    //xLMOUser.Form_settingsuser = new Form_SettingsUsers(xLMOUser);
+                    //((Form_SettingsUsers)xLMOUser.Form_settingsuser).InitAfterLoad();
+                    //xLMOUser.Form_settingsuser.Owner = this;
+                    //xLMOUser.Form_settingsuser.Show();
+
+                    if (Properties.Settings.Default.ControlLayout_TouchScreen)
+                    {
+                        usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768 = new usrc_DocumentMan1366x768();
+                        xusrc_DocumentMan1366x768.Visible = false;
+                        xusrc_DocumentMan1366x768.Dock = DockStyle.Fill;
+                        this.Controls.Add(xusrc_DocumentMan1366x768);
+
+                        xusrc_DocumentMan1366x768.Initialise(this, xLMOUser);
+                        xusrc_DocumentMan1366x768.Init();
 
 
-                    xLMOUser.m_usrc_DocumentMan = xusrc_DocumentMan1366x768;
-                    xusrc_DocumentMan1366x768.Exit_Click += m_usrc_Main_Exit_Click;
+                        xLMOUser.m_usrc_DocumentMan = xusrc_DocumentMan1366x768;
+                        xusrc_DocumentMan1366x768.Exit_Click += m_usrc_Main_Exit_Click;
 
+                    }
+                    else
+                    {
+                        usrc_DocumentMan xusrc_DocumentMan = new usrc_DocumentMan();
+                        xusrc_DocumentMan.Visible = false;
+                        xusrc_DocumentMan.Dock = DockStyle.Fill;
+                        this.Controls.Add(xusrc_DocumentMan);
+
+                        xusrc_DocumentMan.Initialise(this, xLMOUser);
+                        xusrc_DocumentMan.Init();
+
+
+                        xLMOUser.m_usrc_DocumentMan = xusrc_DocumentMan;
+                        xusrc_DocumentMan.Exit_Click += m_usrc_Main_Exit_Click;
+                    }
                 }
-                else
-                {
-                    usrc_DocumentMan xusrc_DocumentMan = new usrc_DocumentMan();
-                    xusrc_DocumentMan.Visible = false;
-                    xusrc_DocumentMan.Dock = DockStyle.Fill;
-                    this.Controls.Add(xusrc_DocumentMan);
-
-                    xusrc_DocumentMan.Initialise(this, xLMOUser);
-                    xusrc_DocumentMan.Init();
-
-
-                    xLMOUser.m_usrc_DocumentMan = xusrc_DocumentMan;
-                    xusrc_DocumentMan.Exit_Click += m_usrc_Main_Exit_Click;
-                }
-
+            }
+            else
+            {
+                transaction_Form_Document_loginControl1_UserLoggedIn_user_settings_Load.Rollback();
             }
         }
 
@@ -1931,20 +1955,29 @@ namespace Tangenta
             if (user_settings != null)
             {
                 LayoutSave(user_settings.mSettingsUserValues);
-                user_settings.Save();
-
-                //((Form_SettingsUsers)xLMOUser.Form_settingsuser).InitAfterSave();
-                //((Form_SettingsUsers)xLMOUser.Form_settingsuser).Refresh();
-                if (xLMOUser.m_usrc_DocumentMan is usrc_DocumentMan)
+                Transaction transaction_Form_Document_SaveSettings_user_settings_Save = new Transaction("Form_Document.SaveSettings.user_settings.Save");
+                if (user_settings.Save(transaction_Form_Document_SaveSettings_user_settings_Save))
                 {
-                    ((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan).BeforeRemove();
-                    this.Controls.Remove((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan);
-                    ((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan).Dispose();
+                    if (transaction_Form_Document_SaveSettings_user_settings_Save.Commit())
+                    {
+                        //((Form_SettingsUsers)xLMOUser.Form_settingsuser).InitAfterSave();
+                        //((Form_SettingsUsers)xLMOUser.Form_settingsuser).Refresh();
+                        if (xLMOUser.m_usrc_DocumentMan is usrc_DocumentMan)
+                        {
+                            ((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan).BeforeRemove();
+                            this.Controls.Remove((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan);
+                            ((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan).Dispose();
+                        }
+                        else if (xLMOUser.m_usrc_DocumentMan is usrc_DocumentMan1366x768)
+                        {
+                            this.Controls.Remove((usrc_DocumentMan1366x768)xLMOUser.m_usrc_DocumentMan);
+                            ((usrc_DocumentMan1366x768)xLMOUser.m_usrc_DocumentMan).Dispose();
+                        }
+                    }
                 }
-                else if (xLMOUser.m_usrc_DocumentMan is usrc_DocumentMan1366x768)
+                else
                 {
-                    this.Controls.Remove((usrc_DocumentMan1366x768)xLMOUser.m_usrc_DocumentMan);
-                    ((usrc_DocumentMan1366x768)xLMOUser.m_usrc_DocumentMan).Dispose();
+                    transaction_Form_Document_SaveSettings_user_settings_Save.Rollback();
                 }
             }
             xLMOUser.m_usrc_DocumentMan = null;

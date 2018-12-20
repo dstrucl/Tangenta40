@@ -110,16 +110,24 @@ namespace ShopC
             {
                 decimal cost = nmUpDn_Cost.Value;
                 string description = txt_Description.Text;
-                if (TangentaDB.f_StockTake_AdditionalCost.Add(StockTake_ID, name, cost, description, ref StockTake_AdditionalCost_ID))
+                Transaction transaction_Form_StokTake_AdditionalCost_Edit_f_StockTake_AdditionalCost_Add = new Transaction("Form_StokTake_AdditionalCost_Edit.f_StockTake_AdditionalCost.Add");
+                if (TangentaDB.f_StockTake_AdditionalCost.Add(StockTake_ID, name, cost, description, ref StockTake_AdditionalCost_ID, transaction_Form_StokTake_AdditionalCost_Edit_f_StockTake_AdditionalCost_Add))
                 {
-                    m_Changed = true;
-                    Reload(StockTake_ID);
-                    DataRow[] drs = dtStockTake_AdditionalCost.Select("ID = " + StockTake_AdditionalCost_ID);
-                    if (drs.Length > 0)
+                    if (transaction_Form_StokTake_AdditionalCost_Edit_f_StockTake_AdditionalCost_Add.Commit())
                     {
-                        current_index = dtStockTake_AdditionalCost.Rows.IndexOf(drs[0]);
-                        dgvx_StockTakeAdditionalCost.Rows[current_index].Selected = true;
+                        m_Changed = true;
+                        Reload(StockTake_ID);
+                        DataRow[] drs = dtStockTake_AdditionalCost.Select("ID = " + StockTake_AdditionalCost_ID);
+                        if (drs.Length > 0)
+                        {
+                            current_index = dtStockTake_AdditionalCost.Rows.IndexOf(drs[0]);
+                            dgvx_StockTakeAdditionalCost.Rows[current_index].Selected = true;
+                        }
                     }
+                }
+                else
+                {
+                    transaction_Form_StokTake_AdditionalCost_Edit_f_StockTake_AdditionalCost_Add.Rollback();
                 }
             }
             else
@@ -135,11 +143,26 @@ namespace ShopC
             {
                 string name = cmb_StocTakeCostName.Text;
                 decimal cost = nmUpDn_Cost.Value;
-                if (TangentaDB.f_StockTake_AdditionalCost.Update(StockTake_AdditionalCost_ID, StockTake_ID, name, cost, txt_Description.Text))
+                Transaction transaction_Form_StokTake_AdditionalCost_Edit_f_StockTake_AdditionalCost_Update = new Transaction("Form_StokTake_AdditionalCost_Edit.f_StockTake_AdditionalCost.Update");
+
+                if (TangentaDB.f_StockTake_AdditionalCost.Update(StockTake_AdditionalCost_ID, 
+                                                                 StockTake_ID, 
+                                                                 name,
+                                                                 cost,
+                                                                 txt_Description.Text,
+                                                                 transaction_Form_StokTake_AdditionalCost_Edit_f_StockTake_AdditionalCost_Update))
                 {
-                    m_Changed = true;
-                    Reload(StockTake_ID);
-                    FillControls();
+                    if (transaction_Form_StokTake_AdditionalCost_Edit_f_StockTake_AdditionalCost_Update.Commit())
+                    {
+                        m_Changed = true;
+                        Reload(StockTake_ID);
+                        FillControls();
+                    }
+                }
+                else
+                {
+                    transaction_Form_StokTake_AdditionalCost_Edit_f_StockTake_AdditionalCost_Update.Rollback();
+
                 }
             }
         }
@@ -208,31 +231,39 @@ namespace ShopC
         {
             if (ID.Validate(StockTake_AdditionalCost_ID))
             {
-                if (TangentaDB.f_StockTake_AdditionalCost.Remove(StockTake_AdditionalCost_ID, StockTake_ID))
+                Transaction transaction_Form_StockTake_AdditionalCost_Edit_btn_Remove_Click_f_StockTake_AdditionalCost_Remove = new Transaction("Form_StockTake_AdditionalCost_Edit.btn_Remove_Click.f_StockTake_AdditionalCost.Remove");
+                if (TangentaDB.f_StockTake_AdditionalCost.Remove(StockTake_AdditionalCost_ID,
+                                                                 StockTake_ID,
+                                                                 transaction_Form_StockTake_AdditionalCost_Edit_btn_Remove_Click_f_StockTake_AdditionalCost_Remove))
                 {
-                    m_Changed = true;
-                    Reload(StockTake_ID);
-                    if (dtStockTake_AdditionalCost.Rows.Count == 0)
+                    if (transaction_Form_StockTake_AdditionalCost_Edit_btn_Remove_Click_f_StockTake_AdditionalCost_Remove.Commit())
                     {
-                        current_index = -1;
-                    }
-                    if (current_index >= dtStockTake_AdditionalCost.Rows.Count)
-                    {
-                        current_index = dtStockTake_AdditionalCost.Rows.Count - 1;
-                    }
-                    if (current_index >= 0)
-                    {
-                        StockTake_AdditionalCost_ID = tf.set_ID(dtStockTake_AdditionalCost.Rows[current_index]["ID"]);
-                        FillControls();
-                    }
-                    else
-                    {
-                        StockTake_AdditionalCost_ID = null;
-                        ClearControls();
+                        m_Changed = true;
+                        Reload(StockTake_ID);
+                        if (dtStockTake_AdditionalCost.Rows.Count == 0)
+                        {
+                            current_index = -1;
+                        }
+                        if (current_index >= dtStockTake_AdditionalCost.Rows.Count)
+                        {
+                            current_index = dtStockTake_AdditionalCost.Rows.Count - 1;
+                        }
+                        if (current_index >= 0)
+                        {
+                            StockTake_AdditionalCost_ID = tf.set_ID(dtStockTake_AdditionalCost.Rows[current_index]["ID"]);
+                            FillControls();
+                        }
+                        else
+                        {
+                            StockTake_AdditionalCost_ID = null;
+                            ClearControls();
+                        }
                     }
                 }
-
-                
+                else
+                {
+                    transaction_Form_StockTake_AdditionalCost_Edit_btn_Remove_Click_f_StockTake_AdditionalCost_Remove.Rollback();
+                }
             }
         }
 

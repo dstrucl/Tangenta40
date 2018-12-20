@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_Atom_WorkAreaImage
     {
-        public static bool Get(string_v WorkAreaImage_Hash_v, byte_array_v WorkAreaImage_v, string_v WorkAreaImage_Description_v, ref ID Atom_WorkAreaImage_ID)
+        public static bool Get(string_v WorkAreaImage_Hash_v, byte_array_v WorkAreaImage_v, string_v WorkAreaImage_Description_v, ref ID Atom_WorkAreaImage_ID, Transaction transaction)
         {
             string Err = null;
             if (WorkAreaImage_Hash_v == null)

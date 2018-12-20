@@ -30,7 +30,7 @@ namespace Tangenta
         public delegate void delegate_Customer_Org_Changed(ID Customer_Org_ID);
         public event delegate_Customer_Org_Changed aa_Customer_Org_Changed = null;
 
-        public delegate bool delegate_Customer_Removed(string xDocTyp);
+        public delegate bool delegate_Customer_Removed(string xDocTyp, Transaction transaction);
         public event delegate_Customer_Removed aa_Customer_Removed = null;
 
         public ID Customer_OrganisationData_ID = null;
@@ -573,13 +573,22 @@ namespace Tangenta
             {
                 if (aa_Customer_Removed!=null)
                 {
-                    if (aa_Customer_Removed(DocTyp))
+                    Transaction transaction_usrc_Customer_aa_Customer_Removed = new Transaction("usrc_Customer.aa_Customer_Removed");
+
+                    if (aa_Customer_Removed(DocTyp, transaction_usrc_Customer_aa_Customer_Removed))
                     {
-                        btn_Buyer.Enabled = false;
-                        btn_BuyerSelect.Enabled = false;
-                        btn_BuyerSelect.Visible = false;
-                        txt_Buyer.Visible = false;
-                        txt_Buyer.Text = "";
+                        if (transaction_usrc_Customer_aa_Customer_Removed.Commit())
+                        {
+                            btn_Buyer.Enabled = false;
+                            btn_BuyerSelect.Enabled = false;
+                            btn_BuyerSelect.Visible = false;
+                            txt_Buyer.Visible = false;
+                            txt_Buyer.Text = "";
+                        }
+                    }
+                    else
+                    {
+                        transaction_usrc_Customer_aa_Customer_Removed.Rollback();
                     }
                 }
             }

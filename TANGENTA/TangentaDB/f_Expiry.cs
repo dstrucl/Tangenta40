@@ -19,7 +19,7 @@ namespace TangentaDB
             public string ExpiryDescription = null;
         }
 
-        public static bool Get(Expiry_v expiry_v,ref ID Expiry_ID)
+        public static bool Get(Expiry_v expiry_v,ref ID Expiry_ID, Transaction transaction)
         {
             if (expiry_v != null)
             {

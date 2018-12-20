@@ -13,6 +13,7 @@ namespace UpgradeDB
     {
         internal static object UpgradeDB_1_25_to_1_26(object obj, ref string Err)
         {
+            Transaction transaction_UpgradeDB_1_25_to_1_26 = new Transaction("UpgradeDB_1_25_to_1_26");
             if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 //change Atom_myOrganisation_Person
@@ -23,8 +24,9 @@ namespace UpgradeDB
                     alter table PurchasePrice add column 'PriceWithoutVAT' BIT NULL;
                     alter table PurchasePrice add column 'VATCanNotBeDeducted' BIT NULL;
                          ";
-                if (!transaction.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
+                if (!transaction_UpgradeDB_1_25_to_1_26.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                 {
+                    transaction_UpgradeDB_1_25_to_1_26.Rollback();
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_25_to_1_26:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
@@ -32,17 +34,17 @@ namespace UpgradeDB
 
                 if (DBSync.DBSync.Create_VIEWs())
                 {
-                    return UpgradeDB_inThread.Set_DataBase_Version("1.26");
-                }
-                else
-                {
-                    return false;
+                    if (UpgradeDB_inThread.Set_DataBase_Version("1.26", transaction_UpgradeDB_1_25_to_1_26))
+                    {
+                        if (transaction_UpgradeDB_1_25_to_1_26.Commit())
+                        {
+                            return true;
+                        }
+                    }
                 }
             }
-            else
-            {
-                return false;
-            }
+            transaction_UpgradeDB_1_25_to_1_26.Rollback();
+            return false;
         }
     }
 }

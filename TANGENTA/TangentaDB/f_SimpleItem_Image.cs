@@ -12,7 +12,7 @@ namespace TangentaDB
 {
     public static class f_SimpleItem_Image
     {
-        public static bool Get(string Image_Hash, byte[] Image_Data, ref ID SimpleItem_Image_ID)
+        public static bool Get(string Image_Hash, byte[] Image_Data, ref ID SimpleItem_Image_ID, Transaction transaction)
         {
             DataTable dt = new DataTable();
             string Err = null;
@@ -56,11 +56,11 @@ namespace TangentaDB
                 return false;
             }
         }
-        public static bool Get(Image SimpleItem_Image, ref ID SimpleItem_Image_ID)
+        public static bool Get(Image SimpleItem_Image, ref ID SimpleItem_Image_ID, Transaction transaction)
         {
             byte[] byteArrayImage = DBtypesFunc.imageToByteArray(SimpleItem_Image, System.Drawing.Imaging.ImageFormat.Jpeg);
             string Image_Hash = DBtypesFunc.GetHash_SHA1(byteArrayImage);
-            if (Get(Image_Hash, byteArrayImage, ref SimpleItem_Image_ID))
+            if (Get(Image_Hash, byteArrayImage, ref SimpleItem_Image_ID, transaction))
             {
                 return true;
             }

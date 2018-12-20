@@ -192,13 +192,13 @@ namespace TangentaDB
             return false;
         }
 
-        internal bool RemoveSources(string docTyp, Item_Data xdata)
+        internal bool RemoveSources(string docTyp, Item_Data xdata, Transaction transaction)
         {
            foreach (Doc_ShopC_Item_Source xdsciS in dsciS_list)
            {
                 if (ID.Validate(xdsciS.Stock_ID))
                 {
-                    if (xdsciS.SendBackToStock(docTyp, xdsciS.dQuantity,xdata))
+                    if (xdsciS.SendBackToStock(docTyp, xdsciS.dQuantity,xdata, transaction))
                     {
 
                     }
@@ -210,7 +210,7 @@ namespace TangentaDB
                 else
                 {
                     //this is factory_resource
-                    if (!xdsciS.RemoveFactory(docTyp,xdsciS.dQuantity))
+                    if (!xdsciS.RemoveFactory(docTyp,xdsciS.dQuantity, transaction))
                     {
                         return false;
                     }
@@ -221,7 +221,7 @@ namespace TangentaDB
 
         }
 
-        internal bool RemoveStockSources(string docTyp, Item_Data xdata,decimal dQuantity_To_Put_back_inStock)
+        internal bool RemoveStockSources(string docTyp, Item_Data xdata,decimal dQuantity_To_Put_back_inStock, Transaction transaction)
         {
             foreach (Doc_ShopC_Item_Source xdsciS in dsciS_list)
             {
@@ -232,7 +232,7 @@ namespace TangentaDB
                         if (dQuantity_To_Put_back_inStock > xdsciS.dQuantity)
                         {
                             decimal dQuantityToPutBack2Stock = xdsciS.dQuantity;
-                            if (xdsciS.SendBackToStock(docTyp, dQuantityToPutBack2Stock, null))
+                            if (xdsciS.SendBackToStock(docTyp, dQuantityToPutBack2Stock, null, transaction))
                             {
                                 
                                 dQuantity_To_Put_back_inStock = dQuantity_To_Put_back_inStock - dQuantityToPutBack2Stock;
@@ -259,7 +259,7 @@ namespace TangentaDB
                         }
                         else
                         {
-                            if (xdsciS.SendBackToStock(docTyp, dQuantity_To_Put_back_inStock, null))
+                            if (xdsciS.SendBackToStock(docTyp, dQuantity_To_Put_back_inStock, null, transaction))
                             {
                                 Stock_Data xstd = xdata.Find_Stock_Data(xdsciS.Stock_ID);
                                 if (xstd != null)

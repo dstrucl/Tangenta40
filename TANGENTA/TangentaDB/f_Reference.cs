@@ -14,7 +14,8 @@ namespace TangentaDB
     {
         public static bool Get(string ReferenceNote,
                                Image Reference_Image,
-                               ref ID Reference_ID
+                               ref ID Reference_ID,
+                               Transaction transaction
                               )
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -45,7 +46,7 @@ namespace TangentaDB
                         {
                             string Image_Hash = null;
                             ID Reference_Image_ID_v = null;
-                            if (!f_Reference_Image.Get(Reference_Image, ref Image_Hash, ref Reference_Image_ID_v))
+                            if (!f_Reference_Image.Get(Reference_Image, ref Image_Hash, ref Reference_Image_ID_v, transaction))
                             {
                                 return false;
                             }

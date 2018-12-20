@@ -179,10 +179,23 @@ namespace ShopC
             {
                 ID JOURNAL_StockTake_ID = null;
                 splitContainer1.Panel2Collapsed = false;
-                if (TangentaDB.f_JOURNAL_StockTake.Get(m_Atom_WorkPeriod_ID,ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_New_StockTake_opened, DateTime.Now, ref JOURNAL_StockTake_ID))
+                Transaction transaction_Form_StockTake_Edit_Usrc_EditTable1_after_InsertInDataBase_f_JOURNAL_StockTake_Get = new Transaction("Form_StockTake_Edit.Usrc_EditTable1_after_InsertInDataBase.f_JOURNAL_StockTake.Get");
+                if (TangentaDB.f_JOURNAL_StockTake.Get(m_Atom_WorkPeriod_ID,
+                                                      ID,
+                                                      f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_New_StockTake_opened,
+                                                      DateTime.Now,
+                                                      ref JOURNAL_StockTake_ID,
+                                                      transaction_Form_StockTake_Edit_Usrc_EditTable1_after_InsertInDataBase_f_JOURNAL_StockTake_Get))
                 {
-                    StockTakeTable = m_tbl;
-                    Show_StockTakeItems(m_tbl);
+                    if (transaction_Form_StockTake_Edit_Usrc_EditTable1_after_InsertInDataBase_f_JOURNAL_StockTake_Get.Commit())
+                    {
+                        StockTakeTable = m_tbl;
+                        Show_StockTakeItems(m_tbl);
+                    }
+                }
+                else
+                {
+                    transaction_Form_StockTake_Edit_Usrc_EditTable1_after_InsertInDataBase_f_JOURNAL_StockTake_Get.Rollback();
                 }
             }
         }

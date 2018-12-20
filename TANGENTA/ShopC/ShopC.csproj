@@ -458,6 +458,10 @@
       <Project>{7246e94a-782c-4f4d-b3a4-09b34c9975b6}</Project>
       <Name>ColorSettings</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\Country\Country_ISO_3166.csproj">
+      <Project>{1562473F-CFCB-4DFD-81BA-153988DC2D25}</Project>
+      <Name>Country_ISO_3166</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\DataGridViewDisableButtonCell\DataGridViewDisableButtonCell.csproj">
       <Project>{3b1cf635-20c3-4781-ab41-41908282c18c}</Project>
       <Name>DataGridViewDisableButtonCell</Name>

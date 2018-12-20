@@ -20,7 +20,7 @@ namespace TangentaDB
 {
     public static class f_doc_page_type
     {
-        public static bool Get(string Name, string_v Description_v, decimal_v Width_v,decimal_v Height_v, ref ID doc_page_type_ID)
+        public static bool Get(string Name, string_v Description_v, decimal_v Width_v,decimal_v Height_v, ref ID doc_page_type_ID, Transaction transaction)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();

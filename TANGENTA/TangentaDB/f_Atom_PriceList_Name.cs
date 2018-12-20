@@ -9,7 +9,7 @@ namespace TangentaDB
 {
     public static class f_Atom_PriceList_Name
     {
-        public static bool Get(string Name, ref ID Atom_PriceList_Name_ID)
+        public static bool Get(string Name, ref ID Atom_PriceList_Name_ID, Transaction transaction)
         {
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();

@@ -507,8 +507,16 @@ namespace LoginControl
                     //Remove Role
                     m_LMOUser.awpld.RemoveRole(e.RowIndex);
                     InitRoles();
-                    m_LMOUser.awpld.GetUserRoles();
-                    SetRoles();
+                    Transaction transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_GetUserRoles = new Transaction("AWP_UserManager.Dgvx_UserRoles_CellClick.GetUserRoles");
+                    if (m_LMOUser.awpld.GetUserRoles(transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_GetUserRoles))
+                    {
+                        transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_GetUserRoles.Commit();
+                        SetRoles();
+                    }
+                    else
+                    {
+                        transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_GetUserRoles.Rollback();
+                    }
 
                 }
             }
@@ -523,8 +531,18 @@ namespace LoginControl
                     //button MoveRight clicked
                     m_LMOUser.awpld.AddRole(e.RowIndex);
                     InitRoles();
-                    m_LMOUser.awpld.GetUserRoles();
-                    SetRoles();
+                    Transaction transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_GetUserRoles = new Transaction("AWP_UserManager.Dgvx_OtherRoles_CellClick.GetUserRoles");
+                    if (m_LMOUser.awpld.GetUserRoles(transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_GetUserRoles))
+                    {
+                        if (transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_GetUserRoles.Commit())
+                        {
+                            SetRoles();
+                        }
+                    }
+                    else
+                    {
+                        transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_GetUserRoles.Rollback();
+                    }
                 }
             };
         }

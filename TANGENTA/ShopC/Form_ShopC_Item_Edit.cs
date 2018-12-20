@@ -218,7 +218,15 @@ namespace ShopC
                 {
                     if (PriseLists.usrc_PriceList.Ask_To_Update('C', dt_ShopC_Item_NotIn_PriceList, this))
                     {
-                        f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this);
+                        Transaction transaction_Form_ShopC_Item_Edit_f_PriceList_Insert_ShopC_Items_in_PriceList = new Transaction("Form_ShopC_Item_Edit.f_PriceList.Insert_ShopC_Items_in_PriceList");
+                        if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this, transaction_Form_ShopC_Item_Edit_f_PriceList_Insert_ShopC_Items_in_PriceList))
+                        {
+                            transaction_Form_ShopC_Item_Edit_f_PriceList_Insert_ShopC_Items_in_PriceList.Commit();
+                        }
+                        else
+                        {
+                            transaction_Form_ShopC_Item_Edit_f_PriceList_Insert_ShopC_Items_in_PriceList.Rollback();
+                        }
                     }
                 }
             }

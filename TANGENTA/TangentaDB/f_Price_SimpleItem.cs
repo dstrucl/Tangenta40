@@ -124,7 +124,7 @@ namespace TangentaDB
                 {
                     if (f_SimpleItem.Get(SimpleItem_Name, Abbreviation, bToOffer, SimpleItem_Image, Code_v, SimpleItem_ParentGroup1, SimpleItem_ParentGroup2, SimpleItem_ParentGroup3, ref SimpleItem_ID, transaction))
                     {
-                        if (f_PriceList.Get(sPriceListName, valid, Currency_ID, ValidFrom_v, ValidTo_v, CreationDate_v, Description, ref PriceList_ID))
+                        if (f_PriceList.Get(sPriceListName, valid, Currency_ID, ValidFrom_v, ValidTo_v, CreationDate_v, Description, ref PriceList_ID, transaction))
                         {
                             if (Get(RetailSimpleItemPrice, Discount_v, Taxation_ID, SimpleItem_ID, PriceList_ID, ref Price_SimpleItem_ID, transaction))
                             {

@@ -194,11 +194,21 @@ namespace ShopC
                 Doc_ShopC_Item dsci = null;
                 if (this.SelectItemsFromStockDialog)
                 {
-                    bRes = m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(ref dsci,m_ShopBC.DocTyp, m_ShopBC.m_CurrentDoc.Doc_ID, dQuantity2Add, xData,  Select_Items_From_Stock_Dialog);
+                    bRes = m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(ref dsci,
+                                                                     m_ShopBC.DocTyp,
+                                                                     m_ShopBC.m_CurrentDoc.Doc_ID,
+                                                                     dQuantity2Add,
+                                                                     xData,
+                                                                     Select_Items_From_Stock_Dialog);
                 }
                 else
                 {
-                    bRes = m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(ref dsci, m_ShopBC.DocTyp, m_ShopBC.m_CurrentDoc.Doc_ID, dQuantity2Add, xData, null);
+                    bRes = m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(ref dsci,
+                                                                     m_ShopBC.DocTyp,
+                                                                     m_ShopBC.m_CurrentDoc.Doc_ID,
+                                                                     dQuantity2Add,
+                                                                     xData,
+                                                                     null);
                 }
 
                 if (bRes)

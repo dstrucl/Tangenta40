@@ -14,7 +14,7 @@ namespace TangentaDB
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             ID StocTakeCostName_ID = null;
-            if (f_StockTakeCostName.Get(Name, ref StocTakeCostName_ID))
+            if (f_StockTakeCostName.Get(Name, ref StocTakeCostName_ID, transaction))
             {
                 string spar_StocTakeCostDescription_ID = "null";
                 if (Description != null)
@@ -22,7 +22,7 @@ namespace TangentaDB
                     if (Description.Length > 0)
                     {
                         ID StocTakeCostDescription_ID = null;
-                        if (f_StockTakeCostDescription.Get(Description, ref StocTakeCostDescription_ID))
+                        if (f_StockTakeCostDescription.Get(Description, ref StocTakeCostDescription_ID, transaction))
                         {
                             spar_StocTakeCostDescription_ID = "@par_StocTakeCostDescription_ID";
                             SQL_Parameter par_StocTakeCostDescription_ID = new SQL_Parameter(spar_StocTakeCostDescription_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, StocTakeCostName_ID);
@@ -62,12 +62,12 @@ namespace TangentaDB
             return false;
         }
 
-        public static bool Update(ID StockTake_AdditionalCost_ID,ID StockTake_ID, string Name, decimal Cost, string Description)
+        public static bool Update(ID StockTake_AdditionalCost_ID,ID StockTake_ID, string Name, decimal Cost, string Description, Transaction transaction)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             ID StocTakeCostName_ID = null;
-            if (f_StockTakeCostName.Get(Name, ref StocTakeCostName_ID))
+            if (f_StockTakeCostName.Get(Name, ref StocTakeCostName_ID, transaction))
             {
                 string spar_StocTakeCostDescription_ID = "null";
                 if (Description != null)
@@ -75,7 +75,7 @@ namespace TangentaDB
                     if (Description.Length > 0)
                     {
                         ID StocTakeCostDescription_ID = null;
-                        if (f_StockTakeCostDescription.Get(Description, ref StocTakeCostDescription_ID))
+                        if (f_StockTakeCostDescription.Get(Description, ref StocTakeCostDescription_ID, transaction))
                         {
                             spar_StocTakeCostDescription_ID = "@par_StocTakeCostDescription_ID";
                             SQL_Parameter par_StocTakeCostDescription_ID = new SQL_Parameter(spar_StocTakeCostDescription_ID, false, StocTakeCostName_ID);

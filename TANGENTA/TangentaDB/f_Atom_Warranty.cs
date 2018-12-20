@@ -11,7 +11,7 @@ namespace TangentaDB
 {
     public static class f_Atom_Warranty
     {
-        public static bool Get(short_v Warranty_WarrantyDurationType, int_v Warranty_WarrantyDuration, string_v Warranty_WarrantyConditions, ref ID Atom_Item_Atom_Warranty_ID, ref string Err)
+        public static bool Get(short_v Warranty_WarrantyDurationType, int_v Warranty_WarrantyDuration, string_v Warranty_WarrantyConditions, ref ID Atom_Item_Atom_Warranty_ID, ref string Err, Transaction transaction)
         {
             string scond_WarrantyDurationType = null;
             string sv_WarrantyDurationType = null;

@@ -16,7 +16,8 @@ namespace TangentaDB
                               int_v unit_DecimalPlaces_v,
                               bool_v unit_StorageOption_v,
                               string_v unit_Description_v,
-                               ref ID Atom_Unit_ID)
+                               ref ID Atom_Unit_ID,
+                               Transaction transaction)
         {
             string Err = null;
             string scond_Unit_Name = null;

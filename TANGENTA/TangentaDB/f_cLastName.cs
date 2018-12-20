@@ -11,7 +11,7 @@ namespace TangentaDB
 {
     public static class f_cLastName
     {
-        public static bool Get(string_v LastName_v, ref ID cLastName_ID)
+        public static bool Get(string_v LastName_v, ref ID cLastName_ID, Transaction transaction)
         {
             string Err = null;
             string sql = null;

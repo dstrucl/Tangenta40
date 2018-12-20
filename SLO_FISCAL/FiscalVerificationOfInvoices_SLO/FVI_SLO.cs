@@ -666,16 +666,29 @@ namespace FiscalVerificationOfInvoices_SLO
             List<InvoiceData> InvoiceData_List = null;
             Properties.Settings.Default.Reload();
             bool bTest = Properties.Settings.Default.fursTEST_Environment;
-            if (f_FVI_SLO_SalesBookInvoice.Select_SalesBookInvoice_NotSent(xShopABC, xAddOnDPI, xDocProformaInvoice_AddOn, ref InvoiceData_List, FursD_ElectronicDeviceID))
+            Transaction transaction_Select_SalesBookInvoice_NotSent = new Transaction("Select_SalesBookInvoice_NotSent");
+            if (f_FVI_SLO_SalesBookInvoice.Select_SalesBookInvoice_NotSent(xShopABC, 
+                                                                          xAddOnDPI,
+                                                                          xDocProformaInvoice_AddOn,
+                                                                          ref InvoiceData_List,
+                                                                          FursD_ElectronicDeviceID,
+                                                                          transaction_Select_SalesBookInvoice_NotSent))
             {
-                if (InvoiceData_List != null)
+                if (transaction_Select_SalesBookInvoice_NotSent.Commit())
                 {
-                    if (InvoiceData_List.Count > 0)
+                    if (InvoiceData_List != null)
                     {
-                        Form_SalesBookInvoice_Send frm_sbi_send = new Form_SalesBookInvoice_Send(this, InvoiceData_List);
-                        frm_sbi_send.ShowDialog();
+                        if (InvoiceData_List.Count > 0)
+                        {
+                            Form_SalesBookInvoice_Send frm_sbi_send = new Form_SalesBookInvoice_Send(this, InvoiceData_List);
+                            frm_sbi_send.ShowDialog();
+                        }
                     }
                 }
+            }
+            else
+            {
+                transaction_Select_SalesBookInvoice_NotSent.Rollback();
             }
         }
 
@@ -684,17 +697,31 @@ namespace FiscalVerificationOfInvoices_SLO
             Properties.Settings.Default.Reload();
             bool bTest = Properties.Settings.Default.fursTEST_Environment;
             List<InvoiceData> InvoiceData_List = null;
-            if (f_FVI_SLO_Invoice.Select_InvoiceNotConfirmed(xShopABC, xAddOnDPI, xDocProformaInvoice_AddOn, ref InvoiceData_List, FursD_ElectronicDeviceID))
+            Transaction transaction_Check_InvoiceNotConfirmedAtFURS = new Transaction("Check_InvoiceNotConfirmedAtFURS");
+            if (f_FVI_SLO_Invoice.Select_InvoiceNotConfirmed(xShopABC,
+                                                              xAddOnDPI,
+                                                              xDocProformaInvoice_AddOn,
+                                                              ref InvoiceData_List,
+                                                              FursD_ElectronicDeviceID,
+                                                              transaction_Check_InvoiceNotConfirmedAtFURS))
             {
-                if (InvoiceData_List != null)
+                if (transaction_Check_InvoiceNotConfirmedAtFURS.Commit())
                 {
-                    if (InvoiceData_List.Count > 0)
+                    if (InvoiceData_List != null)
                     {
-                        Form_InvoiceNotConfirmed_Send frm_sbi_send = new Form_InvoiceNotConfirmed_Send(this, InvoiceData_List);
-                        frm_sbi_send.ShowDialog();
-                        return true;
+                        if (InvoiceData_List.Count > 0)
+                        {
+                            Form_InvoiceNotConfirmed_Send frm_sbi_send = new Form_InvoiceNotConfirmed_Send(this, InvoiceData_List);
+                            frm_sbi_send.ShowDialog();
+                            return true;
+                        }
                     }
                 }
+
+            }
+            else
+            {
+                transaction_Check_InvoiceNotConfirmedAtFURS.Rollback();
             }
             return false;
         }

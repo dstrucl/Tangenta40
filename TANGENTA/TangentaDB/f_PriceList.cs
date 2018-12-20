@@ -21,14 +21,14 @@ namespace TangentaDB
 {
     public static class f_PriceList
     {
-        public static bool Get(string sPriceListName, bool valid, ID Currency_ID, DateTime_v ValidFrom_v, DateTime_v ValidTo_v, DateTime_v CreationDate_v, string Description, ref ID PriceList_ID)
+        public static bool Get(string sPriceListName, bool valid, ID Currency_ID, DateTime_v ValidFrom_v, DateTime_v ValidTo_v, DateTime_v CreationDate_v, string Description, ref ID PriceList_ID, Transaction transaction)
         {
             string Err = null;
             string sql = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
             ID PriceList_Name_ID = null;
-            if (f_PriceList_Name.Get(sPriceListName, ref PriceList_Name_ID))
+            if (f_PriceList_Name.Get(sPriceListName, ref PriceList_Name_ID, transaction))
             {
                 string spar_PriceListName_ID = "@par_PriceListName_ID";
                 SQL_Parameter par_PriceListName_ID = new SQL_Parameter(spar_PriceListName_ID, false, PriceList_Name_ID);
@@ -188,7 +188,7 @@ namespace TangentaDB
         }
 
 
-        public static bool Insert_ShopB_Items_in_PriceList(DataTable dt_SimpleItem, Control parent_ctrl)
+        public static bool Insert_ShopB_Items_in_PriceList(DataTable dt_SimpleItem, Control parent_ctrl, Transaction transaction)
         {
             string Err = null;
 
@@ -224,7 +224,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Insert_ShopC_Items_in_PriceList(DataTable dt_Item_NotIn_PriceList, Control parent_ctrl)
+        public static bool Insert_ShopC_Items_in_PriceList(DataTable dt_Item_NotIn_PriceList, Control parent_ctrl, Transaction transaction)
         {
             string Err = null;
             for (;;)
@@ -382,7 +382,7 @@ namespace TangentaDB
 
 
 
-        public static bool CheckAndComplete_PriceList_if_needed(char chShop, Control parent_ctrl)
+        public static bool CheckAndComplete_PriceList_if_needed(char chShop, Control parent_ctrl, Transaction transaction)
         {
             DataTable dt_Item_NotIn_PriceList = new DataTable();
             if (chShop == 'B')
@@ -391,7 +391,7 @@ namespace TangentaDB
                 {
                     if (dt_Item_NotIn_PriceList.Rows.Count > 0)
                     {
-                        return Insert_ShopB_Items_in_PriceList(dt_Item_NotIn_PriceList, parent_ctrl);
+                        return Insert_ShopB_Items_in_PriceList(dt_Item_NotIn_PriceList, parent_ctrl, transaction);
                     }
                     else
                     {
@@ -410,7 +410,7 @@ namespace TangentaDB
                 {
                     if (dt_Item_NotIn_PriceList.Rows.Count > 0)
                     {
-                        if (Insert_ShopC_Items_in_PriceList(dt_Item_NotIn_PriceList, parent_ctrl))
+                        if (Insert_ShopC_Items_in_PriceList(dt_Item_NotIn_PriceList, parent_ctrl, transaction))
                         {
                             return true;
                         }

@@ -144,7 +144,7 @@ namespace Tangenta
             delegate_control_SetMode(Mode);
         }
 
-        internal bool SetDocument(ID xCurrent_Doc_ID )
+        internal bool SetDocument(ID xCurrent_Doc_ID, Transaction transaction)
         {
 
             int iRowsCount = Delegate_control_TableOfDocuments_Init(this, false, true, this.mSettingsUserValues.FinancialYear, null);

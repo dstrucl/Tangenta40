@@ -11,7 +11,7 @@ namespace TangentaDB
 {
     public static class f_SimpleItem_ParentGroup2
     {
-        public static bool Get(string Name_ParentGroup2, string Name_ParentGroup3, ref ID SimpleItem_ParentGroup2_ID)
+        public static bool Get(string Name_ParentGroup2, string Name_ParentGroup3, ref ID SimpleItem_ParentGroup2_ID, Transaction transaction)
 
         {
             DataTable dt = new DataTable();
@@ -21,7 +21,7 @@ namespace TangentaDB
 
                 ID SimpleItem_ParentGroup3_ID = null;
 
-                if (f_SimpleItem_ParentGroup3.Get(Name_ParentGroup3, ref SimpleItem_ParentGroup3_ID))
+                if (f_SimpleItem_ParentGroup3.Get(Name_ParentGroup3, ref SimpleItem_ParentGroup3_ID, transaction))
                 {
 
                     List<SQL_Parameter> lpar = new List<SQL_Parameter>();

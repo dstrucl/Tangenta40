@@ -241,7 +241,7 @@ namespace TangentaDB
 
         }
 
-        internal bool ReceiveBackToStock(ID stock_ID, decimal xdQuantity)
+        internal bool ReceiveBackToStock(ID stock_ID, decimal xdQuantity, Transaction transaction)
         {
             if (ID.Validate(stock_ID))
             {
@@ -256,7 +256,7 @@ namespace TangentaDB
                                 std.dQuantity_v = new decimal_v();
                             }
                             decimal dnew_quantity_in_stock = std.dQuantity_v.v + xdQuantity;
-                            if (f_Stock.UpdateQuantity(stock_ID, dnew_quantity_in_stock))
+                            if (f_Stock.UpdateQuantity(stock_ID, dnew_quantity_in_stock, transaction))
                             {
                                 std.dQuantity_v.v = dnew_quantity_in_stock;
                                 return true;

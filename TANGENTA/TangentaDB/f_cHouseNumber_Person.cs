@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_cHouseNumber_Person
     {
-        public static bool Get(string HouseNumber, ref ID cHouseNumber_Person_ID)
+        public static bool Get(string HouseNumber, ref ID cHouseNumber_Person_ID, Transaction transaction)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -71,7 +71,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(string_v houseNumber_v, ref ID cHouseNumber_Person_ID)
+        internal static bool Get(string_v houseNumber_v, ref ID cHouseNumber_Person_ID, Transaction transaction)
         {
             if (houseNumber_v != null)
             {

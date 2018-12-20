@@ -514,19 +514,25 @@ namespace ShopC
             m_Item_Data.ExtraDiscount = this.ExtraDiscount;
 
             Doc_ShopC_Item dsci = null;
-
-            m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(ref dsci,m_usrc_Atom_ItemsList.m_ShopBC.DocTyp, m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID, uItemStock.Value, m_Item_Data, null);
-
-            usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromStock(dsci);
-            if (uia != null)
+            Transaction transaction_usrc_Item_uItemStock_Click_m_Basket_Add2Basket = new Transaction("usrc_Item_uItemStock_Click_m_Basket_Add2Basket");
+            if (m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(ref dsci,
+                                                                            m_usrc_Atom_ItemsList.m_ShopBC.DocTyp,
+                                                                            m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
+                                                                            uItemStock.Value,
+                                                                            m_Item_Data,
+                                                                            null))
             {
-                if (ItemAdded2Basket != null)
-                {
-                    ItemAdded2Basket();
-                }
-                this.HideStock();
+                    usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromStock(dsci);
+                    if (uia != null)
+                    {
+                        if (ItemAdded2Basket != null)
+                        {
+                            ItemAdded2Basket();
+                        }
+                        this.HideStock();
+                    }
+                    RePaint();
             }
-            RePaint();
         }
 
         private void uItemFactory_Click(object sender, EventArgs e)
@@ -537,29 +543,59 @@ namespace ShopC
                 if (EditStock_AvoidStock())
                 {
                     Doc_ShopC_Item dsci = null;
+                    Transaction transaction_usrc_Item_uItemFactory_Click_EditStock_AvoidStock_Add2BasketFromFactory = new Transaction("usrc_Item.uItemFactory_Click.EditStock_AvoidStock.Add2BasketFromFactory");
 
-                    m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add2BasketFromFactory(ref dsci,m_usrc_Atom_ItemsList.m_ShopBC.DocTyp, m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID, uItemFactory.Value, m_Item_Data);
-
-                    usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromFactory(dsci);
-                    if (uia != null)
+                    if (m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add2BasketFromFactory(ref dsci,
+                                                                                                   m_usrc_Atom_ItemsList.m_ShopBC.DocTyp,
+                                                                                                   m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
+                                                                                                   uItemFactory.Value,
+                                                                                                   m_Item_Data,
+                                                                                                   transaction_usrc_Item_uItemFactory_Click_EditStock_AvoidStock_Add2BasketFromFactory))
                     {
-                        if (ItemAdded2Basket != null)
+                        if (transaction_usrc_Item_uItemFactory_Click_EditStock_AvoidStock_Add2BasketFromFactory.Commit())
                         {
-                            ItemAdded2Basket();
+                            usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromFactory(dsci);
+                            if (uia != null)
+                            {
+                                if (ItemAdded2Basket != null)
+                                {
+                                    ItemAdded2Basket();
+                                }
+                                this.HideFactory();
+                            }
                         }
-                        this.HideFactory();
+                    }
+                    else
+                    {
+                        transaction_usrc_Item_uItemFactory_Click_EditStock_AvoidStock_Add2BasketFromFactory.Rollback();
                     }
                 }
             }
             else
             {
                 Doc_ShopC_Item dsci = null;
-                m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add2BasketFromFactory(ref dsci, m_usrc_Atom_ItemsList.m_ShopBC.DocTyp, m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID, uItemFactory.Value, m_Item_Data);
-                usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromFactory(dsci);
-                if (uia != null)
+                Transaction transaction_usrc_Item_uItemFactory_Click_Add2BasketFromFactory = new Transaction("usrc_Item.uItemFactory_Click.Add2BasketFromFactory");
+
+                if (m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add2BasketFromFactory(ref dsci,
+                                                                                               m_usrc_Atom_ItemsList.m_ShopBC.DocTyp,
+                                                                                               m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID, uItemFactory.Value,
+                                                                                               m_Item_Data,
+                                                                                               transaction_usrc_Item_uItemFactory_Click_Add2BasketFromFactory))
                 {
-                    ItemAdded2Basket();
-                    this.HideFactory();
+                    if (transaction_usrc_Item_uItemFactory_Click_Add2BasketFromFactory.Commit())
+                    {
+
+                        usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromFactory(dsci);
+                        if (uia != null)
+                        {
+                            ItemAdded2Basket();
+                            this.HideFactory();
+                        }
+                    }
+                }
+                else
+                {
+                    transaction_usrc_Item_uItemFactory_Click_Add2BasketFromFactory.Rollback();
                 }
             }
 

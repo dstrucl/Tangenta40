@@ -11,7 +11,7 @@ namespace TangentaDB
 {
     public static class f_CashierActivityOpened
     {
-        public static bool Get(ID Atom_WorkPeriod_ID, ref ID xCashierActivityOpened_ID, ref DateTime loginTime)
+        public static bool Get(ID Atom_WorkPeriod_ID, ref ID xCashierActivityOpened_ID, ref DateTime loginTime, Transaction transaction)
         {
             string Err = null;
             string sql = null;

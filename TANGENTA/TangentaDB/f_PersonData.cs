@@ -47,7 +47,7 @@ namespace TangentaDB
         }
 
 
-        public static bool InsertEmptyRow(ID person_ID, ref ID personData_ID)
+        public static bool InsertEmptyRow(ID person_ID, ref ID personData_ID, Transaction transaction)
         {
             if (ID.Validate(person_ID))
             {

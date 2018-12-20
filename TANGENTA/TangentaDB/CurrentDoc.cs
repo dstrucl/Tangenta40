@@ -246,7 +246,7 @@ namespace TangentaDB
         }
 
 
-        public bool Get_Atom_Price_Item(ref Doc_ShopC_Item xdsci)
+        public bool Get_Atom_Price_Item(ref Doc_ShopC_Item xdsci, Transaction transaction)
         {
             ID atom_Taxation_ID = null;
             return f_Atom_Price_Item.Get(xdsci.Atom_Item_UniqueName_v.v,
@@ -276,7 +276,8 @@ namespace TangentaDB
                                         xdsci.Atom_Taxation_Rate_v,
                                         ref atom_Taxation_ID,
                                         ref xdsci.Atom_Item_ID,
-                                        ref xdsci.Atom_Price_Item_ID
+                                        ref xdsci.Atom_Price_Item_ID,
+                                        transaction
                                         );
         }
 
@@ -388,7 +389,7 @@ namespace TangentaDB
                     xDocInvoice_ID = Doc_ID;
                     if (ca != null)
                     {
-                       if (ca.Add(xDocInvoice_ID))
+                       if (ca.Add(xDocInvoice_ID, transaction))
                         {
                             return true;
                         }
@@ -728,7 +729,7 @@ namespace TangentaDB
                         if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
                         {
                             ID stornoReason_ID = null;
-                            if (f_StornoReason.Get(Storno_DocInvoice_ID, sReason, ref stornoReason_ID))
+                            if (f_StornoReason.Get(Storno_DocInvoice_ID, sReason, ref stornoReason_ID, transaction))
                             {
                                 ID Journal_DocInvoice_ID = null;
                                 DateTime_v issue_time = new DateTime_v(DateTime.Now);

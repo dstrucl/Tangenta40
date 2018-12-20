@@ -402,7 +402,7 @@ namespace UpgradeDB
                                                 ID Supplier_ID = tf.set_ID(drPurchasePrice["Supplier_ID"]);
                                                 ID Reference_ID = null;
                                                 ID PurchasePrice_NEW_ID =null;
-                                                if (!f_PurchasePrice.Get_InUpdate("PurchasePrice_NEW", PurchasePricePerUnit, Taxation_ID, Currency_ID, ref PurchasePrice_NEW_ID))
+                                                if (!f_PurchasePrice.Get_InUpdate("PurchasePrice_NEW", PurchasePricePerUnit, Taxation_ID, Currency_ID, ref PurchasePrice_NEW_ID, transaction))
                                                 {
                                                     return false;
                                                 }
@@ -468,7 +468,7 @@ namespace UpgradeDB
                                                 else
                                                 {
                                                     //No reference
-                                                    if (f_Reference.Get("Brez reference v stari bazi bazi verzije 1.9", null, ref Reference_ID))
+                                                    if (f_Reference.Get("Brez reference v stari bazi bazi verzije 1.9", null, ref Reference_ID, transaction))
                                                     {
                                                         ReferenceNote = "Brez reference";
                                                     }
@@ -511,7 +511,7 @@ namespace UpgradeDB
                                                             ))
                                                 {
                                                     ID PurchasePrice_Item_NEW_ID = null;
-                                                    if (!f_PurchasePrice_Item.Get("PurchasePrice_Item_NEW", Item_ID, PurchasePrice_NEW_ID, StockTake_ID, ref PurchasePrice_Item_NEW_ID))
+                                                    if (!f_PurchasePrice_Item.Get("PurchasePrice_Item_NEW", Item_ID, PurchasePrice_NEW_ID, StockTake_ID, ref PurchasePrice_Item_NEW_ID, transaction))
                                                     {
                                                         return false;
                                                     }

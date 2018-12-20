@@ -31,7 +31,8 @@ namespace TangentaDB
                                  ref string taxName,
                                  ref decimal RetailSimpleItemPriceWithDiscount,
                                  ref decimal TaxPrice,
-                                 ref decimal PriceWithoutTax
+                                 ref decimal PriceWithoutTax,
+                                 Transaction transaction
                                  )
         {
             if (Find_DocInvoice_ShopB_Item_ID(DocInvoice,DocInvoice_ID, Price_SimpleItem_ID, ref DocInvoice_ShopB_Item_ID, ref Quantity, ref RetailSimpleItemPrice, ref Discount, ref ExtraDiscount, ref taxRate, ref taxName, ref RetailSimpleItemPriceWithDiscount, ref TaxPrice))
@@ -49,13 +50,13 @@ namespace TangentaDB
                     {
                         ID Atom_PriceList_ID = null;
 
-                        if (f_Atom_PriceList.Get(PriceList_ID, ref Atom_PriceList_ID))
+                        if (f_Atom_PriceList.Get(PriceList_ID, ref Atom_PriceList_ID, transaction))
                         {
                             ID Atom_SimpleItem_ID =null;
-                            if (f_Atom_ShopBItem.Get(SimpleItem_ID, ref Atom_SimpleItem_ID))
+                            if (f_Atom_ShopBItem.Get(SimpleItem_ID, ref Atom_SimpleItem_ID, transaction))
                             {
                                 ID Atom_Taxation_ID = null;
-                                if (f_Atom_Taxation.Get(Taxation_ID, ref Atom_Taxation_ID))
+                                if (f_Atom_Taxation.Get(Taxation_ID, ref Atom_Taxation_ID, transaction))
                                 {
                                     List<DBConnectionControl40.SQL_Parameter> lpar = new List<DBConnectionControl40.SQL_Parameter>();
                                     string sparam_RetailSimpleItemPrice = "@par_RetailSimpleItemPrice";

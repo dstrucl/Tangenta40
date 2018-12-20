@@ -337,6 +337,7 @@ namespace ShopB
                     string Taxation_Name = (string)dt_Price_ShopBItem.Rows[iShopBItemRow][DBtcn.colShopBItemTaxation_Name];
                     decimal Taxation_Rate = (decimal)dt_Price_ShopBItem.Rows[iShopBItemRow][DBtcn.colShopBItemTaxation_Rate];
                     ID PriceShopBItem_Atom_ShopBItem_ID = tf.set_ID(dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_Selected_Atom_Price_ShopBItem_ID]);
+                    Transaction transaction_usrc_ShopB_ShopBItemSelect_m_InvoiceDB_Update_SelectedSimpleItem = new Transaction("usrc_ShopB_ShopBItemSelect.m_InvoiceDB.Update_SelectedSimpleItem");
                     if (m_InvoiceDB.Update_SelectedSimpleItem(PriceShopBItem_Atom_ShopBItem_ID,
                                                            iCount,
                                                            Discount,
@@ -347,22 +348,27 @@ namespace ShopB
                                                            ref RetailShopBItemPriceWithDiscount,
                                                            ref TaxPrice,
                                                            ref PriceWithoutTax,
-                                                           ref Err))
+                                                           ref Err,
+                                                           transaction_usrc_ShopB_ShopBItemSelect_m_InvoiceDB_Update_SelectedSimpleItem))
                     {
-                        dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_Count] = iCount;
-                        dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemPriceWithoutTax] = PriceWithoutTax;
-                        dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemPriceTax] = TaxPrice;
-                        dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_TaxName] = Taxation_Name;
-                        dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_TaxRate] = Taxation_Rate;
-                        dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemPrice] = RetailShopBItemPriceWithDiscount;
-                        dgv_SelectedShopB_Items.Rows[iSelectedShopBItemRow].Cells[DBtcn.column_SelectedShopBItem_btn_discount].Value = ExtraDiscount;
-                        if (aa_ItemUpdated != null)
+                        if (transaction_usrc_ShopB_ShopBItemSelect_m_InvoiceDB_Update_SelectedSimpleItem.Commit())
                         {
-                            aa_ItemUpdated(PriceShopBItem_Atom_ShopBItem_ID,dt_SelectedShopBItem);
+                            dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_Count] = iCount;
+                            dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemPriceWithoutTax] = PriceWithoutTax;
+                            dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemPriceTax] = TaxPrice;
+                            dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_TaxName] = Taxation_Name;
+                            dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_TaxRate] = Taxation_Rate;
+                            dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemPrice] = RetailShopBItemPriceWithDiscount;
+                            dgv_SelectedShopB_Items.Rows[iSelectedShopBItemRow].Cells[DBtcn.column_SelectedShopBItem_btn_discount].Value = ExtraDiscount;
+                            if (aa_ItemUpdated != null)
+                            {
+                                aa_ItemUpdated(PriceShopBItem_Atom_ShopBItem_ID, dt_SelectedShopBItem);
+                            }
                         }
                     }
                     else
                     {
+                        transaction_usrc_ShopB_ShopBItemSelect_m_InvoiceDB_Update_SelectedSimpleItem.Rollback();
                         LogFile.Error.Show("ERROR:usrc_Invoice:ShopBItemSelect:Err=" + Err);
                     }
                 }
@@ -379,6 +385,7 @@ namespace ShopB
                     ID Atom_Price_ShopBItem_ID = null;
                     decimal PriceWithoutTax = 0;
 
+                    Transaction transaction_usrc_ShopB_ShopBItemSelect_f_Atom_Price_ShopBItem_Get = new Transaction("usrc_ShopB.ShopBItemSelect.f_Atom_Price_ShopBItem.Get");
 
                     if (f_Atom_Price_ShopBItem.Get(DocTyp,
                                                     Price_ShopBItem_ID,
@@ -392,37 +399,45 @@ namespace ShopB
                                                     ref Taxation_Name,
                                                     ref RetailPriceWithDiscount,
                                                     ref Tax,
-                                                    ref PriceWithoutTax
+                                                    ref PriceWithoutTax,
+                                                    transaction_usrc_ShopB_ShopBItemSelect_f_Atom_Price_ShopBItem_Get
                                                     ))
                     {
-                        if (this.m_InvoiceDB.Read_ShopB_Price_Item_Table(m_InvoiceDB.m_CurrentDoc.Doc_ID,ref m_InvoiceDB.m_CurrentDoc.dtCurrent_Atom_Price_ShopBItem))
+                        if (transaction_usrc_ShopB_ShopBItemSelect_f_Atom_Price_ShopBItem_Get.Commit())
                         {
-                            DataRow dr = dt_SelectedShopBItem.NewRow();
-                            dr[DBtcn.column_SelectedShopBItemPriceDiscount] = Discount;
-                            dr[DBtcn.column_SelectedShopBItem_ExtraDiscount] = ExtraDiscount;
-                            dr[DBtcn.column_Selected_Atom_Price_ShopBItem_ID] = Atom_Price_ShopBItem_ID.V;
-                            dr[DBtcn.column_SelectedShopBItem_ShopBItem_ID] = Price_ShopBItem_ID.V;
-                            dr[DBtcn.column_SelectedShopBItem_Count] = 1;
-                            dr[DBtcn.column_SelectedShopBItemName] = ShopBItem_Name;
-                            dr[DBtcn.column_SelectedShopBItemPriceWithoutTax] = PriceWithoutTax;
-                            dr[DBtcn.column_SelectedShopBItemPriceTax] = Tax;
-                            dr[DBtcn.column_SelectedShopBItem_TaxName] = Taxation_Name;
-                            dr[DBtcn.column_SelectedShopBItem_TaxRate] = Taxation_Rate;
-                            dr[DBtcn.column_SelectedShopBItemPrice] = RetailPriceWithDiscount;
-                            dr[DBtcn.column_SelectedShopBItemRetailPricePerUnit] = RetailShopBItemPrice;
-                            dt_SelectedShopBItem.Rows.Add(dr);
-                            if (Layout!=eLayout.DRAFT)
+                            if (this.m_InvoiceDB.Read_ShopB_Price_Item_Table(m_InvoiceDB.m_CurrentDoc.Doc_ID, ref m_InvoiceDB.m_CurrentDoc.dtCurrent_Atom_Price_ShopBItem))
                             {
-                                SetDraftButtons();
-                            }
-                            dgv_SelectedShopB_Items.Rows[dt_SelectedShopBItem.Rows.Count-1].Cells[DBtcn.column_SelectedShopBItem_btn_discount].Value = ExtraDiscount;
+                                DataRow dr = dt_SelectedShopBItem.NewRow();
+                                dr[DBtcn.column_SelectedShopBItemPriceDiscount] = Discount;
+                                dr[DBtcn.column_SelectedShopBItem_ExtraDiscount] = ExtraDiscount;
+                                dr[DBtcn.column_Selected_Atom_Price_ShopBItem_ID] = Atom_Price_ShopBItem_ID.V;
+                                dr[DBtcn.column_SelectedShopBItem_ShopBItem_ID] = Price_ShopBItem_ID.V;
+                                dr[DBtcn.column_SelectedShopBItem_Count] = 1;
+                                dr[DBtcn.column_SelectedShopBItemName] = ShopBItem_Name;
+                                dr[DBtcn.column_SelectedShopBItemPriceWithoutTax] = PriceWithoutTax;
+                                dr[DBtcn.column_SelectedShopBItemPriceTax] = Tax;
+                                dr[DBtcn.column_SelectedShopBItem_TaxName] = Taxation_Name;
+                                dr[DBtcn.column_SelectedShopBItem_TaxRate] = Taxation_Rate;
+                                dr[DBtcn.column_SelectedShopBItemPrice] = RetailPriceWithDiscount;
+                                dr[DBtcn.column_SelectedShopBItemRetailPricePerUnit] = RetailShopBItemPrice;
+                                dt_SelectedShopBItem.Rows.Add(dr);
+                                if (Layout != eLayout.DRAFT)
+                                {
+                                    SetDraftButtons();
+                                }
+                                dgv_SelectedShopB_Items.Rows[dt_SelectedShopBItem.Rows.Count - 1].Cells[DBtcn.column_SelectedShopBItem_btn_discount].Value = ExtraDiscount;
 
-                            if (aa_ItemAdded != null)
-                            {
-                                aa_ItemAdded(Atom_Price_ShopBItem_ID,dt_SelectedShopBItem);
-                            }
+                                if (aa_ItemAdded != null)
+                                {
+                                    aa_ItemAdded(Atom_Price_ShopBItem_ID, dt_SelectedShopBItem);
+                                }
 
+                            }
                         }
+                    }
+                    else
+                    {
+                        transaction_usrc_ShopB_ShopBItemSelect_f_Atom_Price_ShopBItem_Get.Rollback();
                     }
                 }
                 dgv_SelectedShopB_Items.Refresh();
@@ -462,6 +477,7 @@ namespace ShopB
                 decimal PriceWithoutTax = 0;
                 string Taxation_Name = (string)dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_TaxName];
                 decimal Taxation_Rate = (decimal)dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_TaxRate];
+                Transaction transaction_usrc_ShopB_SelectExtraDiscount_m_InvoiceDB_Update_SelectedSimpleItem = new Transaction("usrc_ShopB.SelectExtraDiscount.m_InvoiceDB.Update_SelectedSimpleItem");
                 if (m_InvoiceDB.Update_SelectedSimpleItem(Atom_ShopBItem_ID,
                                                         iCount,
                                                         Discount,
@@ -472,23 +488,28 @@ namespace ShopB
                                                         ref RetailShopBItemPriceWithDiscount,
                                                         ref TaxPrice,
                                                         ref PriceWithoutTax,
-                                                        ref Err))
+                                                        ref Err,
+                                                        transaction_usrc_ShopB_SelectExtraDiscount_m_InvoiceDB_Update_SelectedSimpleItem))
                 {
-                    dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_Count] = iCount;
-                    dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemPriceWithoutTax] = PriceWithoutTax;
-                    dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_ExtraDiscount] = ExtraDiscount;
-                    dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemPriceTax] = TaxPrice;
-                    dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_TaxName] = Taxation_Name;
-                    dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_TaxRate] = Taxation_Rate;
-                    dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemPrice] = RetailShopBItemPriceWithDiscount;
-                    dgv_SelectedShopB_Items.Rows[iSelectedShopBItemRow].Cells["btn_discount"].Value = ExtraDiscount;
-                    if (aa_ExtraDiscount != null)
+                    if (transaction_usrc_ShopB_SelectExtraDiscount_m_InvoiceDB_Update_SelectedSimpleItem.Commit())
                     {
-                        aa_ExtraDiscount(Atom_ShopBItem_ID, dt_SelectedShopBItem);
+                        dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_Count] = iCount;
+                        dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemPriceWithoutTax] = PriceWithoutTax;
+                        dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_ExtraDiscount] = ExtraDiscount;
+                        dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemPriceTax] = TaxPrice;
+                        dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_TaxName] = Taxation_Name;
+                        dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_TaxRate] = Taxation_Rate;
+                        dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemPrice] = RetailShopBItemPriceWithDiscount;
+                        dgv_SelectedShopB_Items.Rows[iSelectedShopBItemRow].Cells["btn_discount"].Value = ExtraDiscount;
+                        if (aa_ExtraDiscount != null)
+                        {
+                            aa_ExtraDiscount(Atom_ShopBItem_ID, dt_SelectedShopBItem);
+                        }
                     }
                 }
                 else
                 {
+                    transaction_usrc_ShopB_SelectExtraDiscount_m_InvoiceDB_Update_SelectedSimpleItem.Rollback();
                     LogFile.Error.Show("ERROR:usrc_Invoice:ShopBItemDeselect:m_InvoiceDB.Update_SelectedShopBItem:Err=" + Err);
                 }
             }
@@ -648,6 +669,7 @@ namespace ShopB
                                                 ref Taxation_Name,
                                                 ref Taxation_Rate))
                     {
+                        Transaction transaction_usrc_ShopB_ShopBItemDeselect_m_InvoiceDB_Update_SelectedSimpleItem = new Transaction("usrc_ShopB.ShopBItemDeselect.m_InvoiceDB.Update_SelectedSimpleItem");
                         if (m_InvoiceDB.Update_SelectedSimpleItem(Atom_Price_ShopBItem_ID,
                                        iCount,
                                        Discount,
@@ -658,31 +680,43 @@ namespace ShopB
                                        ref RetailShopBItemPriceWithDiscount,
                                        ref TaxPrice,
                                        ref PriceWithoutTax,
-                                       ref Err))
+                                       ref Err,
+                                       transaction_usrc_ShopB_ShopBItemDeselect_m_InvoiceDB_Update_SelectedSimpleItem))
                         {
-                            dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_Count] = iCount;
-                            dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemPriceWithoutTax] = PriceWithoutTax;
-                            dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemPriceTax] = TaxPrice;
-                            dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_TaxName] = Taxation_Name;
-                            dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_TaxRate] = Taxation_Rate;
-                            dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemPrice] = RetailShopBItemPriceWithDiscount;
-                            dgv_SelectedShopB_Items.Rows[iSelectedShopBItemRow].Cells["btn_discount"].Value = ExtraDiscount;
+                            if (transaction_usrc_ShopB_ShopBItemDeselect_m_InvoiceDB_Update_SelectedSimpleItem.Commit())
+                            {
+                                dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_Count] = iCount;
+                                dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemPriceWithoutTax] = PriceWithoutTax;
+                                dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemPriceTax] = TaxPrice;
+                                dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_TaxName] = Taxation_Name;
+                                dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_TaxRate] = Taxation_Rate;
+                                dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItemPrice] = RetailShopBItemPriceWithDiscount;
+                                dgv_SelectedShopB_Items.Rows[iSelectedShopBItemRow].Cells["btn_discount"].Value = ExtraDiscount;
+                            }
                         }
                         else
                         {
+                            transaction_usrc_ShopB_ShopBItemDeselect_m_InvoiceDB_Update_SelectedSimpleItem.Rollback();
                             LogFile.Error.Show("ERROR:usrc_Invoice:ShopBItemDeselect:m_InvoiceDB.Update_SelectedShopBItem:Err=" + Err);
                         }
                     }
                 }
                 else
                 {
+                    Transaction transaction_usrc_ShopB_ShopBItemDeselect_m_InvoiceDB_Delete_SelectedSimpleItem = new Transaction("usrc_ShopB.ShopBItemDeselect.m_InvoiceDB.Delete_SelectedSimpleItem");
+
                     if (m_InvoiceDB.Delete_SelectedSimpleItem(Atom_Price_ShopBItem_ID,
-                                                            ref Err))
+                                                            ref Err,
+                                                            transaction_usrc_ShopB_ShopBItemDeselect_m_InvoiceDB_Delete_SelectedSimpleItem))
                     {
-                        dt_SelectedShopBItem.Rows.RemoveAt(iSelectedShopBItemRow);
+                        if (transaction_usrc_ShopB_ShopBItemDeselect_m_InvoiceDB_Delete_SelectedSimpleItem.Commit())
+                        {
+                            dt_SelectedShopBItem.Rows.RemoveAt(iSelectedShopBItemRow);
+                        }
                     }
                     else
                     {
+                        transaction_usrc_ShopB_ShopBItemDeselect_m_InvoiceDB_Delete_SelectedSimpleItem.Rollback();
                         LogFile.Error.Show("ERROR:usrc_Invoice:ShopBItemDeselect:m_InvoiceDB.Update_SelectedShopBItem:Err=" + Err);
                     }
 
@@ -963,12 +997,22 @@ namespace ShopB
                 {
                     if (dt_ShopB_Items_NotIn_PriceList.Rows.Count > 0)
                     {
-                        if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Items_NotIn_PriceList, this))
+                        Transaction transaction_usrc_ShopB_EditShopBItem_f_PriceList_Insert_ShopB_Items_in_PriceList = new Transaction("usrc_ShopB.EditShopBItem.f_PriceList.Insert_ShopB_Items_in_PriceList");
+                        if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Items_NotIn_PriceList,
+                                                                        this,
+                                                                        transaction_usrc_ShopB_EditShopBItem_f_PriceList_Insert_ShopB_Items_in_PriceList))
                         {
-                            NavigationButtons.Navigation nav_PriceList_Edit = new NavigationButtons.Navigation(null);
-                            nav_PriceList_Edit.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-                            bool bPriceListChanged = false;
-                            this.usrc_PriceList1.PriceList_Edit(true,  ref bPriceListChanged);
+                            if (transaction_usrc_ShopB_EditShopBItem_f_PriceList_Insert_ShopB_Items_in_PriceList.Commit())
+                            {
+                                NavigationButtons.Navigation nav_PriceList_Edit = new NavigationButtons.Navigation(null);
+                                nav_PriceList_Edit.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+                                bool bPriceListChanged = false;
+                                this.usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
+                            }
+                        }
+                        else
+                        {
+                            transaction_usrc_ShopB_EditShopBItem_f_PriceList_Insert_ShopB_Items_in_PriceList.Rollback();
                         }
                     }
                 }

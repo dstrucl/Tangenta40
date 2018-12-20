@@ -347,8 +347,17 @@ namespace Tangenta
             //splitContainer1.Panel2Collapsed = false;
 
             LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:Init():before SetDocument()");
-
-            bool bRes = SetDocument();
+            Transaction transaction_usrcDocumentMan1366x768_InitMan_SetDocument = new Transaction("usrcDocumentMan1366x768.InitMan.SetDocument");
+            bool bRes = SetDocument(transaction_usrcDocumentMan1366x768_InitMan_SetDocument);
+            if (bRes)
+            {
+                transaction_usrcDocumentMan1366x768_InitMan_SetDocument.Commit();
+            }
+            else
+            {
+                transaction_usrcDocumentMan1366x768_InitMan_SetDocument.Rollback();
+                return false;
+            }
 
             this.cmb_DocType.SelectedIndexChanged += new System.EventHandler(this.cmb_InvoiceType_SelectedIndexChanged);
             SetColor();
@@ -468,9 +477,9 @@ namespace Tangenta
         }
 
 
-        internal bool SetDocument()
+        internal bool SetDocument(Transaction transaction)
         {
-            return DocM.SetDocument(this.m_usrc_TableOfDocuments.Current_Doc_ID);
+            return DocM.SetDocument(this.m_usrc_TableOfDocuments.Current_Doc_ID, transaction);
         }
 
       
@@ -499,8 +508,15 @@ namespace Tangenta
         {
             if (ID.Validate(DocInvoice_ID))
             {
-                if (m_usrc_DocumentEditor1366x768.DoCurrent(DocInvoice_ID))
+                Transaction transaction_usrc_DocumentEditor1366x768_m_usrc_InvoiceTable_SelectedInvoiceChanged = new Transaction("usrc_DocumentEditor1366x768.m_usrc_InvoiceTable_SelectedInvoiceChanged");
+                if (m_usrc_DocumentEditor1366x768.DoCurrent(DocInvoice_ID, transaction_usrc_DocumentEditor1366x768_m_usrc_InvoiceTable_SelectedInvoiceChanged))
                 {
+                    transaction_usrc_DocumentEditor1366x768_m_usrc_InvoiceTable_SelectedInvoiceChanged.Commit();
+                }
+                else
+                {
+                    transaction_usrc_DocumentEditor1366x768_m_usrc_InvoiceTable_SelectedInvoiceChanged.Rollback();
+
                 }
             }
             SetColor();
@@ -545,10 +561,26 @@ namespace Tangenta
                             break;
 
                         case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
-                            New_Copy_Of_SameDocType(frm_new_workarea.FinancialYear, frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID);
+                            Transaction transaction_usrc_DocumentEditor1366x768_New_Copy_Of_SameDocType = new Transaction("usrc_DocumentEditor1366x768.New_Copy_Of_SameDocType");
+                            if (New_Copy_Of_SameDocType(frm_new_workarea.FinancialYear, frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID, transaction_usrc_DocumentEditor1366x768_New_Copy_Of_SameDocType))
+                            {
+                                transaction_usrc_DocumentEditor1366x768_New_Copy_Of_SameDocType.Commit();
+                            }
+                            else
+                            {
+                                transaction_usrc_DocumentEditor1366x768_New_Copy_Of_SameDocType.Rollback();
+                            }
                             break;
                         case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
-                            New_Copy_To_Another_DocType(frm_new_workarea.FinancialYear, frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID);
+                            Transaction transaction_usrc_DocumentEditor1366x768_New_Copy_To_Another_DocType = new Transaction("usrc_DocumentEditor1366x768.New_Copy_To_Another_DocType");
+                            if (New_Copy_To_Another_DocType(frm_new_workarea.FinancialYear, frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID, transaction_usrc_DocumentEditor1366x768_New_Copy_To_Another_DocType))
+                            {
+                                transaction_usrc_DocumentEditor1366x768_New_Copy_To_Another_DocType.Commit();
+                            }
+                            else
+                            {
+                                transaction_usrc_DocumentEditor1366x768_New_Copy_To_Another_DocType.Rollback();
+                            }
                             break;
                     }
                 }
@@ -557,7 +589,6 @@ namespace Tangenta
                     Form_NewDocument frm_new = new Form_NewDocument(this, this.DocM, DocM.mSettingsUserValues);
                     frm_new.ShowDialog(this);
                     if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
-
                     switch (frm_new.eNewDocumentResult)
                     {
                         case Form_NewDocument.e_NewDocument.New_Empty:
@@ -565,10 +596,26 @@ namespace Tangenta
                             break;
 
                         case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
-                            New_Copy_Of_SameDocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID);
+                            Transaction transaction_usrc_DocumentEditor1366x768_New_Copy_Of_SameDocType = new Transaction("usrc_DocumentEditor1366x768.New_Copy_Of_SameDocType");
+                            if (New_Copy_Of_SameDocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID, transaction_usrc_DocumentEditor1366x768_New_Copy_Of_SameDocType))
+                            {
+                                transaction_usrc_DocumentEditor1366x768_New_Copy_Of_SameDocType.Commit();
+                            }
+                            else
+                            {
+                                transaction_usrc_DocumentEditor1366x768_New_Copy_Of_SameDocType.Rollback();
+                            }
                             break;
                         case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
-                            New_Copy_To_Another_DocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID);
+                            Transaction transaction_usrc_DocumentEditor1366x768_New_Copy_To_Another_DocType = new Transaction("usrc_DocumentEditor1366x768.New_Copy_To_Another_DocType");
+                            if (New_Copy_To_Another_DocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID, transaction_usrc_DocumentEditor1366x768_New_Copy_To_Another_DocType))
+                            {
+                                transaction_usrc_DocumentEditor1366x768_New_Copy_To_Another_DocType.Commit();
+                            }
+                            else
+                            {
+                                transaction_usrc_DocumentEditor1366x768_New_Copy_To_Another_DocType.Rollback();
+                            }
                             break;
                     }
                 }
@@ -640,7 +687,7 @@ namespace Tangenta
             }
         }
 
-        private bool ReadShopABC_items(ref List<Doc_ShopC_Item> xShopC_Data_Item_List, ref DataTable xdt_ShopB_Items, ref DataTable xdt_ShopA_Items)
+        private bool ReadShopABC_items(ref List<Doc_ShopC_Item> xShopC_Data_Item_List, ref DataTable xdt_ShopB_Items, ref DataTable xdt_ShopA_Items, Transaction transaction)
         {
             if (xShopC_Data_Item_List == null)
             {
@@ -650,7 +697,7 @@ namespace Tangenta
             {
                 xShopC_Data_Item_List.Clear();
             }
-            if (this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.m_Basket.Read_Doc_ShopC_Item_Table(DocM.DocTyp, this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, ref xShopC_Data_Item_List))
+            if (this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.m_Basket.Read_Doc_ShopC_Item_Table(DocM.DocTyp, this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, ref xShopC_Data_Item_List, transaction))
             {
                 if (xdt_ShopB_Items == null)
                 {
@@ -689,7 +736,7 @@ namespace Tangenta
         {
             if (ShopA_dbfunc.dbfunc.Write_ShopA_Price_Item_Table(DocM.DocTyp, this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, xdt_ShopA_Items, transaction))
             {
-                if (this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.Copy_ShopB_Price_Item_Table(DocM.DocTyp, this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, xdt_ShopB_Items))
+                if (this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.Copy_ShopB_Price_Item_Table(DocM.DocTyp, this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, xdt_ShopB_Items, transaction))
                 {
                     //switch (this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc.m_Basket.Copy_Doc_ShopC_Item(DocM.DocTyp,
                     //                                                                                                this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC.m_CurrentDoc,
@@ -726,7 +773,7 @@ namespace Tangenta
             }
         }
 
-        private void New_Copy_Of_SameDocType(int xFinancialYear, xCurrency currency, ID xAtom_Currency_ID)
+        private bool New_Copy_Of_SameDocType(int xFinancialYear, xCurrency currency, ID xAtom_Currency_ID, Transaction transaction)
         {
             if (this.Check_NumberOfMonthAfterNewYearToAllowCreateNewInvoice(xFinancialYear))
             {
@@ -740,28 +787,25 @@ namespace Tangenta
                         List<Doc_ShopC_Item> xShopC_Data_Item_List = null;
                         DataTable xdt_ShopB_Items = null;
                         DataTable xdt_ShopA_Items = null;
-                        if (ReadShopABC_items(ref xShopC_Data_Item_List, ref xdt_ShopB_Items, ref xdt_ShopA_Items))
+                        if (ReadShopABC_items(ref xShopC_Data_Item_List, ref xdt_ShopB_Items, ref xdt_ShopA_Items, transaction))
                         {
                             m_usrc_DocumentEditor1366x768.SetNewDraft(DocM.m_LMOUser,xdocType, xFinancialYear, currency, xAtom_Currency_ID,null);
                             DateTime dtStart = DateTime.Now;
                             DateTime dtEnd = DateTime.Now;
                             m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
-                            Transaction transaction_WriteShopABC_items = new Transaction("WriteShopABC_items");
                             if (WriteShopABC_items(xdocType,
                                                xShopC_Data_Item_List,
                                                xdt_ShopB_Items,
                                                xdt_ShopA_Items,
-                                               transaction_WriteShopABC_items))
+                                               transaction))
                             {
-                                if (transaction_WriteShopABC_items.Commit())
-                                {
-                                    m_usrc_TableOfDocuments.Init(DocM, true, false, DocM.mSettingsUserValues.FinancialYear, null);
-                                    DocM.m_LMOUser.ReloadAdministratorsAndUserManagers();
-                                }
+                                m_usrc_TableOfDocuments.Init(DocM, true, false, DocM.mSettingsUserValues.FinancialYear, null);
+                                DocM.m_LMOUser.ReloadAdministratorsAndUserManagers();
+
                             }
                             else
                             {
-                                transaction_WriteShopABC_items.Rollback();
+                                return false;
                             }
                         }
                     }
@@ -773,10 +817,11 @@ namespace Tangenta
                 }
                 Program.Cursor_Arrow();
             }
+            return true;
         }
 
 
-        private void New_Copy_To_Another_DocType(int xFinancialYear, xCurrency currency, ID xAtom_Currency_ID)
+        private bool New_Copy_To_Another_DocType(int xFinancialYear, xCurrency currency, ID xAtom_Currency_ID, Transaction transaction)
         {
             if (this.Check_NumberOfMonthAfterNewYearToAllowCreateNewInvoice(xFinancialYear))
             {
@@ -791,7 +836,7 @@ namespace Tangenta
                         List<Doc_ShopC_Item> xShopC_Data_Item_List = null;
                         DataTable xdt_ShopB_Items = null;
                         DataTable xdt_ShopA_Items = null;
-                        if (ReadShopABC_items(ref xShopC_Data_Item_List, ref xdt_ShopB_Items, ref xdt_ShopA_Items))
+                        if (ReadShopABC_items(ref xShopC_Data_Item_List, ref xdt_ShopB_Items, ref xdt_ShopA_Items, transaction))
                         {
                             if (xdoctyp != null)
                             {
@@ -808,13 +853,13 @@ namespace Tangenta
                                 else
                                 {
                                     LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:DocType not implemented:" + xdoctyp);
-                                    return;
+                                    return false;
                                 }
                             }
                             else
                             {
                                 LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:DocType is null !");
-                                return;
+                                return false;
                             }
                             SetDocInvoiceOrDocPoformaInvoice();
                             this.cmb_DocType.SelectedIndexChanged -= new System.EventHandler(this.cmb_InvoiceType_SelectedIndexChanged);
@@ -825,22 +870,18 @@ namespace Tangenta
                             DateTime dtStart = DateTime.Now;
                             DateTime dtEnd = DateTime.Now;
                             m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
-                            Transaction transaction_WriteShopABC_items = new Transaction("WriteShopABC_items");
                             if (WriteShopABC_items(New_xdoctyp,
                                             xShopC_Data_Item_List,
                                             xdt_ShopB_Items,
                                             xdt_ShopA_Items,
-                                            transaction_WriteShopABC_items))
+                                            transaction))
                             {
-                                if (transaction_WriteShopABC_items.Commit())
-                                {
-                                    m_usrc_TableOfDocuments.Init(DocM, true, false, DocM.mSettingsUserValues.FinancialYear, null);
-                                    DocM.m_LMOUser.ReloadAdministratorsAndUserManagers();
-                                }
+                                m_usrc_TableOfDocuments.Init(DocM, true, false, DocM.mSettingsUserValues.FinancialYear, null);
+                                DocM.m_LMOUser.ReloadAdministratorsAndUserManagers();
                             }
                             else
                             {
-                                transaction_WriteShopABC_items.Rollback();
+                                return false;
                             }
                         }
                         else
@@ -852,6 +893,7 @@ namespace Tangenta
                 }
             }
             Program.Cursor_Arrow();
+            return true;
         }
 
  
@@ -906,7 +948,17 @@ namespace Tangenta
 
             this.m_usrc_TableOfDocuments.Clear();
 
-            bool bRes = SetDocument();
+            Transaction transaction_usrc_DocumentMan_SetDocInvoiceOrDocPoformaInvoice_SetDocument = new Transaction("usrc_DocumentMan.SetDocInvoiceOrDocPoformaInvoice.SetDocument");
+            bool bRes = SetDocument(transaction_usrc_DocumentMan_SetDocInvoiceOrDocPoformaInvoice_SetDocument);
+            if (bRes)
+            {
+                transaction_usrc_DocumentMan_SetDocInvoiceOrDocPoformaInvoice_SetDocument.Commit();
+            }
+            else
+            {
+                transaction_usrc_DocumentMan_SetDocInvoiceOrDocPoformaInvoice_SetDocument.Rollback();
+                return;
+            }
             Program.Cursor_Arrow();
             if (DocM.IsDocInvoice)
             {
@@ -1032,7 +1084,19 @@ namespace Tangenta
                                         this.m_usrc_DocumentEditor1366x768.DocE.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
                                         if (Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC, this.m_usrc_DocumentEditor1366x768.DocE.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor1366x768.DocE.m_InvoiceData.AddOnDPI))
                                         {
-                                            return this.SetDocument();
+                                            Transaction transaction_usrc_DocumentMan_Init_b_FVI_SLO_SetDocument = new Transaction("usrc_DocumentMan.Init.b_FVI_SLO.SetDocument");
+                                            if (this.SetDocument(transaction_usrc_DocumentMan_Init_b_FVI_SLO_SetDocument))
+                                            {
+                                                if (!transaction_usrc_DocumentMan_Init_b_FVI_SLO_SetDocument.Commit())
+                                                {
+                                                    return false;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                transaction_usrc_DocumentMan_Init_b_FVI_SLO_SetDocument.Rollback();
+                                                return false;
+                                            }
                                         }
                                         //Program.usrc_FVI_SLO1.Check_SalesBookInvoice(this.m_usrc_DocumentMan.m_usrc_Invoice.m_ShopABC, this.m_usrc_DocumentMan.m_usrc_Invoice.m_InvoiceData.AddOnDI, this.m_usrc_DocumentMan.m_usrc_Invoice.m_InvoiceData.AddOnDPI);
                                     }
@@ -1048,8 +1112,22 @@ namespace Tangenta
                     }
                     else
                     {
-                        return this.SetDocument();
+                        Transaction transaction_usrc_DocumentMan_Init_SetDocument = new Transaction("usrc_DocumentMan.Init.SetDocument");
+                        if (this.SetDocument(transaction_usrc_DocumentMan_Init_SetDocument))
+                        {
+                            if (!transaction_usrc_DocumentMan_Init_SetDocument.Commit())
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            transaction_usrc_DocumentMan_Init_SetDocument.Rollback();
+                            return false;
+                        }
+
                     }
+                    return true;
                 }
                 else
                 {

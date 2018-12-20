@@ -10,7 +10,7 @@ namespace TangentaDB
 {
     public class f_SattingsType
     {
-        public static bool Get(string xSettingsType, ref ID SettingsType_ID)
+        public static bool Get(string xSettingsType, ref ID SettingsType_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 

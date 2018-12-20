@@ -61,7 +61,7 @@ namespace TangentaDB
                 return false;
             }
 
-            if (!f_CashierActivityOpened.Get(xAtom_WorkPeriod_ID, ref xCashierActivityOpened_ID, ref loginTime))
+            if (!f_CashierActivityOpened.Get(xAtom_WorkPeriod_ID, ref xCashierActivityOpened_ID, ref loginTime, transaction))
             {
                 return false;
             }

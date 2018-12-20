@@ -11,7 +11,7 @@ namespace TangentaDB
 {
     public static class f_DocInvoice_Atom_WorkArea
     {
-        public static bool Get(ID docInvoice_ID, ID xAtom_WorkArea_ID, ref ID docInvoice_Atom_WorkArea_ID )
+        public static bool Get(ID docInvoice_ID, ID xAtom_WorkArea_ID, ref ID docInvoice_Atom_WorkArea_ID, Transaction transaction )
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string Err = null;

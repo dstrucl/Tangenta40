@@ -1057,7 +1057,8 @@ namespace TangentaSampleDB
                                                 sample_ShopB_Item.PriceList_ValidTo_v,
                                                 sample_ShopB_Item.PriceList_CreationDate_v,
                                                 sample_ShopB_Item.PriceList_Description,
-                                                ref sample_ShopB_Item.PriceList_ID))
+                                                ref sample_ShopB_Item.PriceList_ID,
+                                                transaction))
                             {
                                 if (f_Taxation.Get(sample_ShopB_Item.TaxationName,
                                                     sample_ShopB_Item.TaxationRate,
@@ -1638,7 +1639,8 @@ namespace TangentaSampleDB
                                                     sample_ShopB_Item.PriceList_ValidTo_v,
                                                     sample_ShopB_Item.PriceList_CreationDate_v,
                                                     sample_ShopB_Item.PriceList_Description,
-                                                    ref sample_ShopB_Item.PriceList_ID))
+                                                    ref sample_ShopB_Item.PriceList_ID,
+                                                    transaction))
                                 {
                                     if (f_Taxation.Get(sample_ShopB_Item.TaxationName,
                                                        sample_ShopB_Item.TaxationRate,
@@ -2495,7 +2497,8 @@ namespace TangentaSampleDB
                                                 sample_ShopC_Item.ShopC_Price_Item_PriceList_ValidTo_v,
                                                 sample_ShopC_Item.ShopC_Price_Item_PriceList_CreationDate_v,
                                                 sample_ShopC_Item.ShopC_Price_Item_PriceList_Description,
-                                                ref sample_ShopC_Item.ShopC_Price_Item_PriceList_ID))
+                                                ref sample_ShopC_Item.ShopC_Price_Item_PriceList_ID,
+                                                transaction))
                             {
                                 if (f_Taxation.Get(sample_ShopC_Item.ShopC_Price_Item_TaxationName,
                                                     sample_ShopC_Item.ShopC_Price_Item_TaxationRate,

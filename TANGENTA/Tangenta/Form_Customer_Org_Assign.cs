@@ -142,7 +142,7 @@ namespace Tangenta
 
         }
 
-        public bool GetCustomerOrganisation()
+        public bool GetCustomerOrganisation(Transaction transaction)
         {
             DataTable dt = new DataTable();
             string sql = @"select ID from customer_org where OrganisationData_ID = "+ OrganisationData_ID.ToString();
@@ -178,13 +178,16 @@ namespace Tangenta
 
         private void btn_Yes_Click(object sender, EventArgs e)
         {
-            if (GetCustomerOrganisation())
+            Transaction transaction_Form_Customer_Org_Assign_btn_Yes_Click = new Transaction("btn_Yes_Click");
+            if (GetCustomerOrganisation(transaction_Form_Customer_Org_Assign_btn_Yes_Click))
             {
+                transaction_Form_Customer_Org_Assign_btn_Yes_Click.Commit();
                 Close();
                 DialogResult = DialogResult.Yes;
             }
             else
             {
+                transaction_Form_Customer_Org_Assign_btn_Yes_Click.Rollback();
                 Close();
                 DialogResult = DialogResult.Abort;
             }

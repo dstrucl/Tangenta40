@@ -446,7 +446,11 @@ namespace ShopC
         {
             if (Check())
             {
-                AddItemToStockTake();
+                Transaction transaction_usrc_StockEditForSelectedStockTake_AddItemToStockTake = new Transaction("usrc_StockEditForSelectedStockTake.btn_Add_Click.AddItemToStockTake");
+                if (AddItemToStockTake(transaction_usrc_StockEditForSelectedStockTake_AddItemToStockTake))
+                {
+
+                }
             }
         }
 
@@ -492,18 +496,28 @@ namespace ShopC
         }
 
 
-        private void AddItemToStockTake()
+        private bool AddItemToStockTake(Transaction transaction)
         {
 
             ID PurchasePrice_ID = null;
             ID Taxation_ID = usrc_StockTake_Item1.Taxation_ID;
             ID Currency_ID = usrc_StockTake_Item1.Selected_Currency_ID;
-            if (TangentaDB.f_PurchasePrice.Get(usrc_StockTake_Item1.PurchasePricePerUnitWithoutTax, usrc_StockTake_Item1.Discount, PriceWithoutVAT, usrc_StockTake_Item1.VATCanNotBeDeducted, Taxation_ID, Currency_ID, ref PurchasePrice_ID))
+
+            if (TangentaDB.f_PurchasePrice.Get(usrc_StockTake_Item1.PurchasePricePerUnitWithoutTax,
+                                              usrc_StockTake_Item1.Discount,
+                                              PriceWithoutVAT,
+                                              usrc_StockTake_Item1.VATCanNotBeDeducted,
+                                              Taxation_ID, Currency_ID, ref PurchasePrice_ID,
+                                              transaction))
             {
                 if ((usrc_StockTake_Item1.PPriceDefined) && (ID.Validate(CurrentItem_ID)) && (ID.Validate(StockTake_ID)))
                 {
                     ID PurchasePrice_Item_ID = null;
-                    if (TangentaDB.f_PurchasePrice_Item.Get(CurrentItem_ID, PurchasePrice_ID, StockTake_ID, ref PurchasePrice_Item_ID))
+                    if (TangentaDB.f_PurchasePrice_Item.Get(CurrentItem_ID,
+                                                            PurchasePrice_ID,
+                                                            StockTake_ID,
+                                                            ref PurchasePrice_Item_ID,
+                                                            transaction))
                     {
                         DateTime_v dtExpiry_v = null;
                         if (chk_ExpiryCheck.Checked)
@@ -514,7 +528,15 @@ namespace ShopC
                         decimal dquantity = usrc_StockTake_Item1.Quantity;
                         ID Stock_AddressLevel1_ID = null;
                         ID Stock_ID = null;
-                        if (TangentaDB.f_Stock.Add(m_Atom_WorkPeriod_ID, tImportTime, dquantity, dtExpiry_v, PurchasePrice_Item_ID, Stock_AddressLevel1_ID, this.txt_StockDescription.Text, ref Stock_ID))
+                        if (TangentaDB.f_Stock.Add(m_Atom_WorkPeriod_ID,
+                                                   tImportTime,
+                                                   dquantity,
+                                                   dtExpiry_v,
+                                                   PurchasePrice_Item_ID,
+                                                   Stock_AddressLevel1_ID,
+                                                   this.txt_StockDescription.Text,
+                                                   ref Stock_ID,
+                                                   transaction))
                         {
                             m_Changed = true;
                             if (Reload(StockTakeTable))
@@ -528,7 +550,7 @@ namespace ShopC
                                 }
 
                             }
-                            return;
+                            return true;
                         }
                     }
                 }
@@ -537,6 +559,7 @@ namespace ShopC
                     LogFile.Error.Show("ERROR:ShopC:usrc_StockEditForSelectedStockTake.cs:AddItemToStock:Err=!((bPPriceDefined)&& (CurrentItem_ID >= 0)&&(StockTake_ID>=0))");
                 }
             }
+            return false;
         }
 
         internal bool Reload(SQLTable tbl_StockTake)
@@ -843,9 +866,19 @@ namespace ShopC
                 {
                     if (XMessage.Box.Show(this, lng.s_AreYouSureToLock_StockTake, "?", MessageBoxButtons.YesNo, null, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
-                        f_StockTake.Lock(m_Atom_WorkPeriod_ID,StockTake_ID);
-                        m_Changed = true;
-                        m_Form_StockTake_Edit.Init();
+                        Transaction transaction_usrc_StockEditForSelectedStockTake_btn_CloseStockTake_Click_f_StockTake_Lock = new Transaction("usrc_StockEditForSelectedStockTake.btn_CloseStockTake_Click.f_StockTake.Lock");
+                        if (f_StockTake.Lock(m_Atom_WorkPeriod_ID, StockTake_ID, transaction_usrc_StockEditForSelectedStockTake_btn_CloseStockTake_Click_f_StockTake_Lock))
+                        {
+                            if (transaction_usrc_StockEditForSelectedStockTake_btn_CloseStockTake_Click_f_StockTake_Lock.Commit())
+                            {
+                                m_Changed = true;
+                                m_Form_StockTake_Edit.Init();
+                            }
+                        }
+                        else
+                        {
+                            transaction_usrc_StockEditForSelectedStockTake_btn_CloseStockTake_Click_f_StockTake_Lock.Rollback();
+                        }
                     }
                 }
                 else
@@ -914,29 +947,40 @@ namespace ShopC
 
         private void RemoveItemFromStockTake()
         {
-            if (f_Stock.Remove(this.CurrentStock_ID,this.StockTake_ID))
+            Transaction transaction_usrc_StockEditForSelectedStockTake_RemoveItemFromStockTake_f_Stock_Remove = new Transaction("usrc_StockEditForSelectedStockTake.RemoveItemFromStockTake.f_Stock.Remove");
+
+            if (f_Stock.Remove(this.CurrentStock_ID,
+                               this.StockTake_ID,
+                               transaction_usrc_StockEditForSelectedStockTake_RemoveItemFromStockTake_f_Stock_Remove))
             {
-                m_Changed = true;
-                Reload(StockTakeTable);
-                if (dt_Stock_Of_Current_StockTake.Rows.Count == 0)
+                if (transaction_usrc_StockEditForSelectedStockTake_RemoveItemFromStockTake_f_Stock_Remove.Commit())
                 {
-                    current_index = -1;
+                    m_Changed = true;
+                    Reload(StockTakeTable);
+                    if (dt_Stock_Of_Current_StockTake.Rows.Count == 0)
+                    {
+                        current_index = -1;
+                    }
+                    if (current_index >= dt_Stock_Of_Current_StockTake.Rows.Count)
+                    {
+                        current_index = dt_Stock_Of_Current_StockTake.Rows.Count - 1;
+                    }
+                    if (current_index >= 0)
+                    {
+                        CurrentStock_ID = tf.set_ID(dt_Stock_Of_Current_StockTake.Rows[current_index]["Stock_ID"]);
+                        CurrentItem_ID = tf.set_ID(dt_Stock_Of_Current_StockTake.Rows[current_index]["Item_ID"]);
+                    }
+                    else
+                    {
+                        CurrentStock_ID = null;
+                        CurrentItem_ID = null;
+                    }
+                    FillControls();
                 }
-                if (current_index >= dt_Stock_Of_Current_StockTake.Rows.Count)
-                {
-                    current_index = dt_Stock_Of_Current_StockTake.Rows.Count - 1;
-                }
-                if (current_index >= 0)
-                {
-                    CurrentStock_ID = tf.set_ID(dt_Stock_Of_Current_StockTake.Rows[current_index]["Stock_ID"]);
-                    CurrentItem_ID = tf.set_ID(dt_Stock_Of_Current_StockTake.Rows[current_index]["Item_ID"]);
-                }
-                else
-                {
-                    CurrentStock_ID = null;
-                    CurrentItem_ID = null;
-                }
-                FillControls();
+            }
+            else
+            {
+                transaction_usrc_StockEditForSelectedStockTake_RemoveItemFromStockTake_f_Stock_Remove.Rollback();
             }
         }
 
@@ -944,21 +988,39 @@ namespace ShopC
         {
             if (Check_dQuantity())
             {
-                UpdateStock();
+                Transaction transaction_usrc_StockEditForSelectedStockTake_btn_Update_Click_UpdateStock = new Transaction("usrc_StockEditForSelectedStockTake.btn_Update_Click.UpdateStock");
+                if (UpdateStock(transaction_usrc_StockEditForSelectedStockTake_btn_Update_Click_UpdateStock))
+                {
+                    transaction_usrc_StockEditForSelectedStockTake_btn_Update_Click_UpdateStock.Commit();
+                }
+                else
+                {
+                    transaction_usrc_StockEditForSelectedStockTake_btn_Update_Click_UpdateStock.Rollback();
+                }
             }
         }
 
-        public void UpdateStock()
+        public bool UpdateStock(Transaction transaction)
         {
             ID PurchasePrice_ID = null;
             ID Taxation_ID = usrc_StockTake_Item1.Taxation_ID;
             ID Currency_ID = usrc_StockTake_Item1.Selected_Currency_ID;
-            if (TangentaDB.f_PurchasePrice.Get(usrc_StockTake_Item1.PurchasePricePerUnitWithoutTax, usrc_StockTake_Item1.Discount, PriceWithoutVAT, usrc_StockTake_Item1.VATCanNotBeDeducted, Taxation_ID, Currency_ID, ref PurchasePrice_ID))
+            if (TangentaDB.f_PurchasePrice.Get(usrc_StockTake_Item1.PurchasePricePerUnitWithoutTax,
+                                               usrc_StockTake_Item1.Discount,
+                                               PriceWithoutVAT,
+                                               usrc_StockTake_Item1.VATCanNotBeDeducted,
+                                               Taxation_ID, Currency_ID,
+                                               ref PurchasePrice_ID,
+                                               transaction))
             {
                 if ((usrc_StockTake_Item1.PPriceDefined) && (ID.Validate(CurrentItem_ID)) && (ID.Validate(StockTake_ID)))
                 {
                     ID PurchasePrice_Item_ID = null;
-                    if (TangentaDB.f_PurchasePrice_Item.Get(CurrentItem_ID, PurchasePrice_ID, StockTake_ID, ref PurchasePrice_Item_ID))
+                    if (TangentaDB.f_PurchasePrice_Item.Get(CurrentItem_ID,
+                                                            PurchasePrice_ID,
+                                                            StockTake_ID,
+                                                            ref PurchasePrice_Item_ID,
+                                                            transaction))
                     {
                         DateTime_v dtExpiry_v = null;
                         if (chk_ExpiryCheck.Checked)
@@ -968,7 +1030,15 @@ namespace ShopC
                         DateTime tImportTime = tPick_ImportTime.Value;
                         decimal dquantity = usrc_StockTake_Item1.Quantity;
                         ID Stock_AddressLevel1_ID = null;
-                        if (TangentaDB.f_Stock.Update(m_Atom_WorkPeriod_ID, CurrentStock_ID, tImportTime, dquantity, dtExpiry_v, PurchasePrice_Item_ID, Stock_AddressLevel1_ID, this.txt_StockDescription.Text))
+                        if (TangentaDB.f_Stock.Update(m_Atom_WorkPeriod_ID,
+                                                       CurrentStock_ID,
+                                                       tImportTime,
+                                                       dquantity,
+                                                       dtExpiry_v,
+                                                       PurchasePrice_Item_ID,
+                                                       Stock_AddressLevel1_ID,
+                                                       this.txt_StockDescription.Text,
+                                                       transaction))
                         {
                             m_Changed = true;
                             if (Reload(StockTakeTable))
@@ -981,15 +1051,16 @@ namespace ShopC
                                 }
 
                             }
-                            return;
                         }
                     }
+                    return true;
                 }
                 else
                 {
                     LogFile.Error.Show("ERROR:ShopC:usrc_StockEditForSelectedStockTake.cs:AddItemToStock:Err=!((bPPriceDefined)&& (CurrentItem_ID >= 0)&&(StockTake_ID>=0))");
                 }
             }
+            return false;
         }
 
         private void Show_Documents_Where_stock_item_was_sold_or_reserved(ID Stock_ID,Doc_ShopC_Item_Data[] adata)

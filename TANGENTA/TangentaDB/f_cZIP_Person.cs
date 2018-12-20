@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_cZIP_Person
     {
-        public static bool Get(string ZIP, ref ID cZIP_Person_ID)
+        public static bool Get(string ZIP, ref ID cZIP_Person_ID, Transaction transaction)
         {
             string Err = null;
 
@@ -72,7 +72,7 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(string_v zIP_v, ref ID cZIP_Person_ID)
+        internal static bool Get(string_v zIP_v, ref ID cZIP_Person_ID, Transaction transaction)
         {
             if (zIP_v != null)
             {

@@ -161,7 +161,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Delete(ID doc_ShopC_Item_Source_ID)
+        public static bool Delete(ID doc_ShopC_Item_Source_ID, Transaction transaction)
         {
             string sql = "delete from DocInvoice_ShopC_Item_Source where ID = " + doc_ShopC_Item_Source_ID.ToString();
             string Err = null;
@@ -231,7 +231,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool UpdateQuantity(ID doc_ShopC_Item_Source_ID, decimal dquantity_new)
+        public static bool UpdateQuantity(ID doc_ShopC_Item_Source_ID, decimal dquantity_new, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -260,7 +260,8 @@ namespace TangentaDB
                                   decimal taxPrice,
                                   DateTime_v expiryDate_v,
                                   ID stock_ID,
-                                  ref ID DocInvoice_ShopC_Item_Source_ID)
+                                  ref ID DocInvoice_ShopC_Item_Source_ID,
+                                  Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -339,7 +340,7 @@ namespace TangentaDB
         }
 
        
-        internal static bool Update(ID doc_ShopC_Item_Source_ID, decimal dnewQuantity, decimal retailPriceWithDiscount, decimal taxPrice)
+        internal static bool Update(ID doc_ShopC_Item_Source_ID, decimal dnewQuantity, decimal retailPriceWithDiscount, decimal taxPrice, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 

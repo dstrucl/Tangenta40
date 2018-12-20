@@ -602,7 +602,7 @@ namespace UpgradeDB
                         {
                             CashierActivity.DocInvoiceData did = ca.DocInvoice_ID_List[k];
                             ID xCashierActivity_DocInvoice_ID = null;
-                            if (!f_CashierActivity_DocInvoice.Insert(xCashierActivity_ID, did.ID, ref xCashierActivity_DocInvoice_ID))
+                            if (!f_CashierActivity_DocInvoice.Insert(xCashierActivity_ID, did.ID, ref xCashierActivity_DocInvoice_ID, transaction))
                             {
                                 return false;
                             }

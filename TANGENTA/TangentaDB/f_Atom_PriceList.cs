@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class f_Atom_PriceList
     {
-        public static bool Get(ID PriceList_ID, ref ID Atom_PriceList_ID)
+        public static bool Get(ID PriceList_ID, ref ID Atom_PriceList_ID, Transaction transaction)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -58,12 +58,12 @@ namespace TangentaDB
                         {
                             ID Currency_ID = new ID(dt.Rows[0]["Currency_ID"]);
                             ID Atom_Currency_ID = null;
-                            if (f_Atom_Currency.Get(Currency_ID, ref Atom_Currency_ID))
+                            if (f_Atom_Currency.Get(Currency_ID, ref Atom_Currency_ID, transaction))
                             {
 
                                 string PriceList_Name = (string)dt.Rows[0]["PriceList_Name"];
                                 ID Atom_PriceList_Name_ID = null;
-                                if (f_Atom_PriceList_Name.Get(PriceList_Name, ref Atom_PriceList_Name_ID))
+                                if (f_Atom_PriceList_Name.Get(PriceList_Name, ref Atom_PriceList_Name_ID, transaction))
                                 {
 
                                     sql = "insert into Atom_PriceList (Atom_PriceList_Name_ID,Valid,ValidFrom,ValidTo,Description,Atom_Currency_ID) select "+ Atom_PriceList_Name_ID.ToString() + ",Valid,ValidFrom,ValidTo,Description," + Atom_Currency_ID.ToString() + " from PriceList where ID = " + PriceList_ID.ToString();
@@ -111,7 +111,8 @@ namespace TangentaDB
         public static bool Get(string_v priceList_Name_v,
                                string_v currency_Abbreviation_v,
                                string_v currency_Name_v,
-                               ref ID Atom_PriceList_ID)
+                               ref ID Atom_PriceList_ID,
+                               Transaction transaction)
         {
             string Err = null;
             if (priceList_Name_v != null)
@@ -171,10 +172,10 @@ namespace TangentaDB
                                     {
                                         ID Currency_ID = new ID(dt.Rows[0]["Currency_ID"]);
                                         ID Atom_Currency_ID = null;
-                                        if (f_Atom_Currency.Get(Currency_ID, ref Atom_Currency_ID))
+                                        if (f_Atom_Currency.Get(Currency_ID, ref Atom_Currency_ID, transaction))
                                         {
                                             ID Atom_PriceList_Name_ID = null;
-                                            if (f_Atom_PriceList_Name.Get(priceList_Name_v.v, ref Atom_PriceList_Name_ID))
+                                            if (f_Atom_PriceList_Name.Get(priceList_Name_v.v, ref Atom_PriceList_Name_ID, transaction))
                                             {
                                                 sql = "insert into Atom_PriceList (Atom_PriceList_Name_ID,Valid,ValidFrom,ValidTo,Description,CreationDate,Atom_Currency_ID) select "+ Atom_PriceList_Name_ID.ToString() + ",Valid,ValidFrom,ValidTo,Description,CreationDate," + Atom_Currency_ID.ToString() + " from PriceList where ID = " + PriceList_ID.ToString();
 
@@ -237,12 +238,13 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(ref Doc_ShopC_Item appisd, ref ID atom_PriceList_ID)
+        public static bool Get(ref Doc_ShopC_Item appisd, ref ID atom_PriceList_ID, Transaction transaction)
         {
             return Get(appisd.Atom_PriceList_Name_v,
                        appisd.Atom_Currency_Abbreviation_v,
                        appisd.Atom_Currency_Name_v,
-                       ref atom_PriceList_ID);
+                       ref atom_PriceList_ID,
+                       transaction);
         }
     }
 }

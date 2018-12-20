@@ -271,7 +271,9 @@ namespace TangentaPrint
                     {
                         this.m_usrc_Invoice_Preview.html_doc_template_text = this.textEditorControl1.Text;
                         m_usrc_SelectPrintTemplate.Doc_v.v = fs.ConvertToByteArray(this.m_usrc_Invoice_Preview.html_doc_template_text);
-                        f_doc.Update(Doc_ID,
+                        Transaction transaction_Form_PrintDocument_Update = new Transaction("Form_PrintDocument.Update");
+                        
+                        if (f_doc.Update(Doc_ID,
                                      m_usrc_SelectPrintTemplate.doc_TemplateName,
                                      m_usrc_SelectPrintTemplate.doc_TemplateDescription,
                                      m_usrc_SelectPrintTemplate.Doc_v.v,
@@ -280,8 +282,15 @@ namespace TangentaPrint
                                      this.m_usrc_SelectPrintTemplate.Language_ID_v,
                                      m_usrc_SelectPrintTemplate.f_doc_bCompressed,
                                      m_usrc_SelectPrintTemplate.f_doc_bActive,
-                                     m_usrc_SelectPrintTemplate.f_doc_bDefault);
-
+                                     m_usrc_SelectPrintTemplate.f_doc_bDefault,
+                                     transaction_Form_PrintDocument_Update))
+                        {
+                            transaction_Form_PrintDocument_Update.Commit();
+                        }
+                        else
+                        {
+                            transaction_Form_PrintDocument_Update.Rollback();
+                        }
                     }
                     break;
                 case f_doc.ExistsResult.NOT_FOUND:
@@ -289,6 +298,7 @@ namespace TangentaPrint
                     {
                         this.m_usrc_Invoice_Preview.html_doc_template_text = this.textEditorControl1.Text;
                         m_usrc_SelectPrintTemplate.Doc_v.v = fs.ConvertToByteArray(this.m_usrc_Invoice_Preview.html_doc_template_text);
+                        Transaction transaction_Form_PrintDocument_SaveTemplate_f_doc_ExistsResult_NOT_FOUND_f_doc_Get = new Transaction("Form_PrintDocument_SaveTemplate.f_doc.ExistsResult_NOT_FOUND.f_doc.Get");
                         if (f_doc.Get(m_usrc_SelectPrintTemplate.doc_TemplateName,
                                         m_usrc_SelectPrintTemplate.doc_TemplateDescription,
                                         m_usrc_SelectPrintTemplate.Doc_v.v,
@@ -299,17 +309,32 @@ namespace TangentaPrint
                                         m_usrc_SelectPrintTemplate.f_doc_bActive,
                                         m_usrc_SelectPrintTemplate.f_doc_bDefault,
                                         true,
-                                        ref Doc_ID))
+                                        ref Doc_ID,
+                                        transaction_Form_PrintDocument_SaveTemplate_f_doc_ExistsResult_NOT_FOUND_f_doc_Get))
                         {
-                            switch (m_usrc_SelectPrintTemplate.Init())
+                            if (transaction_Form_PrintDocument_SaveTemplate_f_doc_ExistsResult_NOT_FOUND_f_doc_Get.Commit())
                             {
-                                case f_doc.eGetPrintDocumentTemplateResult.ERROR:
-                                case f_doc.eGetPrintDocumentTemplateResult.PRINTER_NOT_SELECTED:
-                                    this.Close();
-                                    DialogResult = DialogResult.Cancel;
-                                    return;
+                                switch (m_usrc_SelectPrintTemplate.Init())
+                                {
+                                    case f_doc.eGetPrintDocumentTemplateResult.ERROR:
+                                    case f_doc.eGetPrintDocumentTemplateResult.PRINTER_NOT_SELECTED:
+                                        this.Close();
+                                        DialogResult = DialogResult.Cancel;
+                                        return;
+                                }
                             }
                         }
+                        else
+                        {
+                            transaction_Form_PrintDocument_SaveTemplate_f_doc_ExistsResult_NOT_FOUND_f_doc_Get.Rollback();
+                            this.Close();
+                            DialogResult = DialogResult.Abort;
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        
                     }
                     break;
             
