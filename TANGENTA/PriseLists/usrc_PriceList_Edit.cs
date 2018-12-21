@@ -646,7 +646,15 @@ namespace PriseLists
                             nav.eExitResult = evt;
                             if (usrc_EditTable_PriceList.Changed)
                             {
-                                usrc_EditTable_PriceList.Save();
+                                Transaction transaction_usrc_EditTable_PriceList_Save = new Transaction("usrc_EditTablePriceList.Save");
+                                if (usrc_EditTable_PriceList.Save(transaction_usrc_EditTable_PriceList_Save))
+                                {
+                                    transaction_usrc_EditTable_PriceList_Save.Commit();
+                                }
+                                else
+                                {
+                                    transaction_usrc_EditTable_PriceList_Save.Rollback();
+                                }
                             }
                             if (Button_OK_Click != null)
                             {

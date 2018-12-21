@@ -118,7 +118,15 @@ namespace ShopC
             {
                 if (XMessage.Box.Show(this, lng.s_YouHaveEnteredOrChangedDataButNotSavedThem_Save_YesNo, "", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-                    m_usrc_EditTable.Save();
+                    Transaction transaction_Form_ItemStock_Edit_FormClosing_m_usrc_EditTable_Save = new Transaction("Form_ItemStock_Edit_FormClosing.m_usrc_EditTable.Save");
+                    if (m_usrc_EditTable.Save(transaction_Form_ItemStock_Edit_FormClosing_m_usrc_EditTable_Save))
+                    {
+                        transaction_Form_ItemStock_Edit_FormClosing_m_usrc_EditTable_Save.Commit();
+                    }
+                    else
+                    {
+                        transaction_Form_ItemStock_Edit_FormClosing_m_usrc_EditTable_Save.Rollback();
+                    }
                 }
             }
         }

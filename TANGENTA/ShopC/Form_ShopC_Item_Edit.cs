@@ -152,7 +152,18 @@ namespace ShopC
             {
                 if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    usrc_EditTable.Save();
+                    Transaction transaction_Form_ShopC_Item_Edit_do_OK_usrc_EditTable_Save = new Transaction("Form_ShopC_Item_Edit.do_OK.usrc_EditTable.Save");
+                    if (usrc_EditTable.Save(transaction_Form_ShopC_Item_Edit_do_OK_usrc_EditTable_Save))
+                    {
+                        transaction_Form_ShopC_Item_Edit_do_OK_usrc_EditTable_Save.Commit();
+                    }
+                    else
+                    {
+                        transaction_Form_ShopC_Item_Edit_do_OK_usrc_EditTable_Save.Rollback();
+                        this.Close();
+                        DialogResult = DialogResult.Abort;
+                        return;
+                    }
                 }
             }
             SetUnderlayingItem();

@@ -90,7 +90,7 @@ namespace CodeTables
             //                                                            "\nSET " + col.ownerTable + "_ID = " + newID.ToString() +
             //                                                            "\nWHERE ID = " + col.ownerTable.pParentTable.tag_ID.ToString() + ";";
 
-            //                                        if (dbTables.m_con.ExecuteNonQuerySQL(sUpdate, sqlParamList, ref csError, " Select Uniqueue values in SQLcmd_Update"))
+            //                                        if (transaction.ExecuteNonQuerySQL(dbTables.m_con,sUpdate, sqlParamList, ref csError, " Select Uniqueue values in SQLcmd_Update"))
             //                                        {
             //                                        }
             //                                        else
@@ -138,7 +138,7 @@ namespace CodeTables
             //                                                                "\nSET " + sParentfKeyColumnName + " = " + sVar +
             //                                                                "\nWHERE ID = " + sParID_Parent + ";";
 
-            //                                            if (dbTables.m_con.ExecuteNonQuerySQL(sUpdate, sqlParamList, ref csError, " Select Uniqueue values in SQLcmd_Update"))
+            //                                            if (transaction.ExecuteNonQuerySQL(dbTables.m_con,sUpdate, sqlParamList, ref csError, " Select Uniqueue values in SQLcmd_Update"))
             //                                            {
             //                                            }
             //                                            else
@@ -161,7 +161,7 @@ namespace CodeTables
             //                                                                "\nSET " + col.ownerTable.TableName + "_ID" + " = " + lnewID.ToString() +
             //                                                                "\nWHERE ID = " + col.ownerTable.tag_ID.ToString() + ";";
 
-            //                                            if (dbTables.m_con.ExecuteNonQuerySQL(sUpdate, sqlParamList, ref csError, " Select Uniqueue values in SQLcmd_Update"))
+            //                                            if (transaction.ExecuteNonQuerySQL(dbTables.m_con,sUpdate, sqlParamList, ref csError, " Select Uniqueue values in SQLcmd_Update"))
             //                                            {
             //                                            }
             //                                            else
@@ -190,7 +190,7 @@ namespace CodeTables
             //                                                "\nSET " + col.Name + " = " + sPar +
             //                                                "\nWHERE " + id_column.Name + " = " + sParID + ";";
 
-            //                            if (dbTables.m_con.ExecuteNonQuerySQL(sUpdate, sqlParamList, ref csError, " Select Uniqueue values in SQLcmd_Update"))
+            //                            if (transaction.ExecuteNonQuerySQL(dbTables.m_con,sUpdate, sqlParamList, ref csError, " Select Uniqueue values in SQLcmd_Update"))
             //                            {
             //                            }
             //                            else
@@ -301,7 +301,7 @@ namespace CodeTables
             //                        }
 
             //                        string csErrorMsg = "";
-            //                        if (dbTables.m_con.ExecuteNonQuerySQL(sqlUpdate, sqlParamList, ref csErrorMsg, "Update inputcontrol"))
+            //                        if (transaction.ExecuteNonQuerySQL(dbTables.m_con,sqlUpdate, sqlParamList, ref csErrorMsg, "Update inputcontrol"))
             //                        {
             //                            return true;
             //                        }
@@ -326,7 +326,7 @@ namespace CodeTables
             //                            return false;
             //                        }
 
-            //                        if (dbTables.m_con.ExecuteNonQuerySQL(sqlUpdate, sqlParamList, ref csError, "Update inputcontrol"))
+            //                        if (transaction.ExecuteNonQuerySQL(dbTables.m_con,sqlUpdate, sqlParamList, ref csError, "Update inputcontrol"))
             //                        {
             //                            return true;
             //                        }

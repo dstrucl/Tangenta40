@@ -769,7 +769,7 @@ namespace CodeTables
             }
         }
 
-        public bool DbTableExists(SQLTable tbl, ref string csError)
+        public bool DbTableExists(SQLTable tbl, ref string csError, Transaction transaction)
         {
             //string strTableNameAndSchema = " SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '"+tbl.TableName+"'";
             //string strCheckTable =   m_strSQLUseDatabase + String.Format(
@@ -823,7 +823,7 @@ namespace CodeTables
                                 string sql_DBm = "";
                                 string sql_create = tbl.SQLcmd_CreateTable(this, UniqueConstraintNameList, ref sql_DBm, null);
                                 string sql_create_All = sql_DBm + sql_create;
-                                if (m_con.ExecuteNonQuerySQL(sql_create_All, null, ref csError))
+                                if (transaction.ExecuteNonQuerySQL(m_con,sql_create_All, null, ref csError))
                                 {
                                     return true;
                                 }
@@ -849,7 +849,7 @@ namespace CodeTables
             }
         }
 
-        public enumDataBaseCheckResult DataBaseCheck(ref string csError)
+        public enumDataBaseCheckResult DataBaseCheck(ref string csError, Transaction transaction)
         {
                     
             enumDataBaseCheckResult eRes;
@@ -866,7 +866,7 @@ namespace CodeTables
                             continue;
                         }
                     }
-                    if (DbTableExists(tbl, ref csError))
+                    if (DbTableExists(tbl, ref csError, transaction))
                     {
                         if (ColumnExists(tbl, ref csError))
                         {
@@ -1026,7 +1026,7 @@ namespace CodeTables
             }
         }
 
-        public bool SQLcmd_ImportFile(Form mMainForm, string FileName, ref List<SQLTable> lTable)
+        public bool SQLcmd_ImportFile(Form mMainForm, string FileName, ref List<SQLTable> lTable, Transaction transaction)
         {
 
             List<SQL_Parameter> lsqlPar = new List<SQL_Parameter>();
@@ -1062,7 +1062,7 @@ namespace CodeTables
                                     sPrevVar = Globals.sVar;
                                     string ErrorMsg = "";
                                     ID newID = null;
-                                    if (sqlTbl.SQLcmd_InsertInto(m_con,lTable, ref ErrorMsg, m_strSQLUseDatabase, ref newID))
+                                    if (sqlTbl.SQLcmd_InsertInto(m_con,lTable, ref ErrorMsg, m_strSQLUseDatabase, ref newID, transaction))
                                     {
                                         sqlTbl = null;
                                     }
@@ -1160,7 +1160,7 @@ namespace CodeTables
             }
         }
 
-        public bool CreateDatabaseTables(bool bAsk, ref bool bCancel, string dbVersion)
+        public bool CreateDatabaseTables(bool bAsk, ref bool bCancel, string dbVersion, Transaction transaction)
         {
             bCancel = false;
             if (bAsk)
@@ -1182,15 +1182,12 @@ namespace CodeTables
 
             StringBuilder m_strSQLCreate = SQLcmd_CreateAllTables(m_con, dbVersion);
 
-            string transaction__CreateDatabaseTables_id = null;
-            if (m_con.BeginTransaction(TRANSACTION_CreateDatabaseTables, ref transaction__CreateDatabaseTables_id))
-            {
                 switch (m_con.DBType)
                 {
                     case DBConnection.eDBType.MYSQL:
                         {
                             string sql = "USE `" + m_con.DataBase + "`;" + m_strSQLCreate.ToString();
-                            bRes = this.m_con.ExecuteNonQuerySQL(sql, null, ref csErrorMsg);
+                            bRes = transaction.ExecuteNonQuerySQL(m_con,sql, null, ref csErrorMsg);
                         }
                         break;
                     case DBConnection.eDBType.MSSQL:
@@ -1202,12 +1199,12 @@ namespace CodeTables
 
                                       SET ANSI_PADDING ON;
                                       " + m_strSQLCreate.ToString();
-                            bRes = this.m_con.ExecuteNonQuerySQL(sql, null, ref csErrorMsg);
+                            bRes = transaction.ExecuteNonQuerySQL(m_con,sql, null, ref csErrorMsg);
                         }
                         break;
 
                     case DBConnection.eDBType.SQLITE:
-                        bRes = this.m_con.ExecuteNonQuerySQL(m_strSQLCreate.ToString(), null, ref csErrorMsg);
+                        bRes = transaction.ExecuteNonQuerySQL(m_con,m_strSQLCreate.ToString(), null, ref csErrorMsg);
                         break;
                     default:
                         LogFile.Error.Show("Error m_con.DBType in function:public bool CreateDatabaseTables()");
@@ -1223,16 +1220,13 @@ namespace CodeTables
                         {
                             File.WriteAllText("C:\\TangentaDB\\JOURNAL_myOrganisation_Person_AccessR_VIEW.txt", dbv.SQLCommand, Encoding.UTF8);
                         }
-                        if (this.m_con.ExecuteNonQuerySQL(dbv.SQLCommand, null, ref csErrorMsg))
+                        if (transaction.ExecuteNonQuerySQL(m_con,dbv.SQLCommand, null, ref csErrorMsg))
                         {
                         }
                         else
                         {
                             xCreateTables_WindowsForm_Thread.End();
                             Error.Show(m_ParentForm, lng.s_ErrorView.s + " " + dbv.ViewName + "\n\nException = " + csErrorMsg, lng.s_Error.s);
-                            if (!this.m_con.RollbackTransaction(transaction__CreateDatabaseTables_id))
-                            {
-                            }
                             return false;
                         }
                     }
@@ -1240,32 +1234,18 @@ namespace CodeTables
                     xCreateTables_WindowsForm_Thread.End();
                     //MessageBox.Show(m_ParentForm, lng.s_AllTablesCreatedOK.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     string err = null;
-                    if (!this.m_con.CommitTransaction(transaction__CreateDatabaseTables_id))
-                    {
-                        LogFile.Error.Show("ERROR:CodeTables:SQLTableControl:CreateDataBaseTables:" + err);
-                    }
                     return true;
                 }
                 else
                 {
                     xCreateTables_WindowsForm_Thread.End();
                     string err = null;
-                    if (!this.m_con.RollbackTransaction(transaction__CreateDatabaseTables_id))
-                    {
-                        LogFile.Error.Show("ERROR:CodeTables:SQLTableControl:CreateDataBaseTables:" + err);
-                    }
-
                     Error.Show(m_ParentForm, lng.s_err_AllTablesCreated.s + "\n\nException = " + csErrorMsg, lng.s_Error.s);
                     return false;
                 }
-            }
-            else
-            {
-                return false;
-            }
         }
 
-        private bool DropAllViewsInSQLiteDataBase(Form pParentForm, ref bool bCancel, ref string serror)
+        private bool DropAllViewsInSQLiteDataBase(Form pParentForm, ref bool bCancel, ref string serror, Transaction transaction)
         {
             try
             {
@@ -1293,7 +1273,7 @@ namespace CodeTables
                         foreach (string sTblName in sTableList)
                         {
                             string s_SQLite_Drop_table = @"DROP View '" + sTblName + "';";
-                            if (!this.m_con.ExecuteNonQuerySQL(s_SQLite_Drop_table, null, ref serror))
+                            if (!transaction.ExecuteNonQuerySQL(m_con,s_SQLite_Drop_table, null, ref serror))
                             {
                                 return false;
                             }
@@ -1319,9 +1299,9 @@ namespace CodeTables
             }
         }
 
-        public bool DropAllTablesInSQLiteDataBase(Form pParentForm,ref bool bCancel, ref string serror)
+        public bool DropAllTablesInSQLiteDataBase(Form pParentForm,ref bool bCancel, ref string serror, Transaction transaction)
          {
-             if (DropAllViewsInSQLiteDataBase(pParentForm, ref bCancel, ref serror))
+             if (DropAllViewsInSQLiteDataBase(pParentForm, ref bCancel, ref serror, transaction))
              {
                  try
                  {
@@ -1351,7 +1331,7 @@ namespace CodeTables
                                  string s_SQLite_Drop_table = @"delete from '" + sTblName + @"';    
                                                                delete from sqlite_sequence where name='" + sTblName + @"';
                                                                DROP TABLE '" + sTblName + "';";
-                                 if (!this.m_con.ExecuteNonQuerySQL(s_SQLite_Drop_table, null, ref serror))
+                                 if (!transaction.ExecuteNonQuerySQL(m_con,s_SQLite_Drop_table, null, ref serror))
                                  {
                                      return false;
                                  }
@@ -1386,7 +1366,7 @@ namespace CodeTables
              }
          }
 
-        public bool DropAllTablesInDataBase(Form pParentForm,ref bool bCancel)
+        public bool DropAllTablesInDataBase(Form pParentForm,ref bool bCancel, Transaction transaction)
         {
 
             bCancel = false;
@@ -1490,7 +1470,7 @@ namespace CodeTables
                     {
                         //m_con.Disconnect();
                         string serr = null;
-                        if (DropAllTablesInSQLiteDataBase(pParentForm,ref bCancel,ref serr))
+                        if (DropAllTablesInSQLiteDataBase(pParentForm,ref bCancel,ref serr, transaction))
                         {
                                 return true;
                             //if (m_con.Connect(ref serr))
@@ -1522,7 +1502,7 @@ namespace CodeTables
             if (sql_DropAllTables!=null)
             {
                 string csErrorMsg=null;
-                if (this.m_con.ExecuteNonQuerySQL(sql_DropAllTables, null, ref csErrorMsg))
+                if (transaction.ExecuteNonQuerySQL(m_con,sql_DropAllTables, null, ref csErrorMsg))
                 {
                     MessageBox.Show(m_ParentForm, lng.s_AllTablesDropedOK.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return true;
@@ -1541,7 +1521,7 @@ namespace CodeTables
 
         }
 
-        public bool Create_VIEWs()
+        public bool Create_VIEWs(Transaction transaction)
         {
             string sql = "";
             foreach (DataBaseView xDataBaseView in SQL_DataBase_VIEW_List)
@@ -1549,7 +1529,7 @@ namespace CodeTables
                 sql = xDataBaseView.SQLCommand + "\r\n";
                 String csErrorMsg = "";
                // object oResult = null;
-                if (this.m_con.ExecuteNonQuerySQL(sql, null, ref csErrorMsg))
+                if (transaction.ExecuteNonQuerySQL(m_con,sql, null, ref csErrorMsg))
                 {
                     continue;
                 }
@@ -1562,7 +1542,7 @@ namespace CodeTables
             return true;
         }
 
-        public bool DropVIEWs(ref string Err)
+        public bool DropVIEWs(ref string Err, Transaction transaction)
         {
             Err = null;
             StringBuilder m_strSQLDrop =  this.SQLcmd_DropAll_Views(m_con);
@@ -1581,7 +1561,7 @@ namespace CodeTables
             }
 
             String csErrorMsg = "";
-            if (this.m_con.ExecuteNonQuerySQL(sql, null, ref csErrorMsg))
+            if (transaction.ExecuteNonQuerySQL(m_con,sql, null, ref csErrorMsg))
             {
                 return true;
             }
@@ -1593,7 +1573,7 @@ namespace CodeTables
             }
         }
 
-        public bool DropTables()
+        public bool DropTables(Transaction transaction)
         {
             DialogResult dRes = MessageBox.Show(m_ParentForm, lng.s_DropTablesInDataBaseQuestion.s + this.m_con.DataBase + " ?", lng.s_Warning.s, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if ((dRes == DialogResult.No) || (dRes == DialogResult.Cancel))
@@ -1603,7 +1583,7 @@ namespace CodeTables
             StringBuilder m_strSQLDrop = SQLcmd_DropAllTables(m_con);
 
             String csErrorMsg = "";
-            if (this.m_con.ExecuteNonQuerySQL(m_strSQLDrop.ToString(), null, ref csErrorMsg))
+            if (transaction.ExecuteNonQuerySQL(m_con,m_strSQLDrop.ToString(), null, ref csErrorMsg))
             {
                 MessageBox.Show(m_ParentForm, lng.s_AllTablesDropedOK.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return true;
@@ -1660,7 +1640,7 @@ namespace CodeTables
             return m_con.CheckConnection(DB_Param);
         }
 
-        public bool CreateNewDataBaseConnection( Object DB_Param, bool bNoDataBaseCheck, NavigationButtons.Navigation xnav, ref bool bCanceled, string dbVersion)
+        public bool CreateNewDataBaseConnection( Object DB_Param, bool bNoDataBaseCheck, NavigationButtons.Navigation xnav, ref bool bCanceled, string dbVersion, Transaction transaction)
         {
             while (true)
             {
@@ -1672,7 +1652,7 @@ namespace CodeTables
                         if (local_DB_Data.bNewDatabase)
                         {
                             bool bxCancel = false;
-                            if (CreateDatabaseTables(true,ref bxCancel, dbVersion))
+                            if (CreateDatabaseTables(true,ref bxCancel, dbVersion, transaction))
                             {
                                 return true;
                             }
@@ -1691,7 +1671,7 @@ namespace CodeTables
                         if (remote_DB_Data.bNewDatabase)
                         {
                             bool bxCancel = false;
-                            if (CreateDatabaseTables(true, ref bxCancel, dbVersion))
+                            if (CreateDatabaseTables(true, ref bxCancel, dbVersion, transaction))
                             {
                                 return true;
                             }
@@ -1709,7 +1689,7 @@ namespace CodeTables
                         return true;
                     }
                     string csError = null;
-                    enumDataBaseCheckResult eRes = DataBaseCheck(ref csError);
+                    enumDataBaseCheckResult eRes = DataBaseCheck(ref csError, transaction);
                     switch (eRes)
                     {
                         case enumDataBaseCheckResult.OK:
@@ -1734,10 +1714,10 @@ namespace CodeTables
                                     break;
                                 case DialogResult.Yes:
                                     bool bCancel = false;
-                                    if (DropAllTablesInDataBase(xnav.parentForm, ref bCancel))
+                                    if (DropAllTablesInDataBase(xnav.parentForm, ref bCancel, transaction))
                                     {
                                         bool bxCancel = false;
-                                        return CreateDatabaseTables(true, ref bxCancel, dbVersion);
+                                        return CreateDatabaseTables(true, ref bxCancel, dbVersion, transaction);
                                     }
                                     else
                                     {
@@ -1769,7 +1749,12 @@ namespace CodeTables
             }
         }
 
-        public bool MakeDataBaseConnection(Form pParentForm, Object DB_Param, ref bool bNewDataBaseCreated,NavigationButtons.Navigation nav, ref bool bCanceled,string dbVersion)
+        public bool MakeDataBaseConnection(Form pParentForm,
+                                           Object DB_Param,
+                                           ref bool bNewDataBaseCreated,NavigationButtons.Navigation nav,
+                                           ref bool bCanceled,
+                                           string dbVersion,
+                                           Transaction transaction)
         {
             while (true)
             {
@@ -1781,7 +1766,7 @@ namespace CodeTables
                         if (local_DB_Data.bNewDatabase)
                         {
                             bool bxCancel = false;
-                            bNewDataBaseCreated = CreateDatabaseTables(false, ref bxCancel, dbVersion);
+                            bNewDataBaseCreated = CreateDatabaseTables(false, ref bxCancel, dbVersion, transaction);
                             if (bNewDataBaseCreated)
                             {
                                 return true;
@@ -1801,7 +1786,7 @@ namespace CodeTables
                         if (remote_DB_Data.bNewDatabase)
                         {
                             bool bxCancel = false;
-                            bNewDataBaseCreated = CreateDatabaseTables(true, ref bxCancel, dbVersion);
+                            bNewDataBaseCreated = CreateDatabaseTables(true, ref bxCancel, dbVersion, transaction);
                             if (bNewDataBaseCreated)
                             {
                                 return bNewDataBaseCreated;
@@ -1820,7 +1805,7 @@ namespace CodeTables
                         return true;
                     }
                     string csError = null;
-                    enumDataBaseCheckResult eRes = DataBaseCheck(ref csError);
+                    enumDataBaseCheckResult eRes = DataBaseCheck(ref csError, transaction);
                     switch (eRes)
                     {
                         case enumDataBaseCheckResult.OK:
@@ -1845,10 +1830,10 @@ namespace CodeTables
                                     break;
                                 case DialogResult.Yes:
                                     bool bCancel = false;
-                                    if (DropAllTablesInDataBase(pParentForm, ref bCancel))
+                                    if (DropAllTablesInDataBase(pParentForm, ref bCancel, transaction))
                                     {
                                         bool bxCancel = false;
-                                        bNewDataBaseCreated = CreateDatabaseTables(true, ref bxCancel, dbVersion);
+                                        bNewDataBaseCreated = CreateDatabaseTables(true, ref bxCancel, dbVersion, transaction);
                                         return bNewDataBaseCreated;
                                     }
                                     else
@@ -1868,7 +1853,13 @@ namespace CodeTables
             }
         }
 
-        public bool Evaluate_DataBaseConnection(Form parentForm, object DB_Param, ref bool bNewDataBaseCreated, Navigation xnav, ref bool bCanceled, string dbVersion)
+        public bool Evaluate_DataBaseConnection(Form parentForm,
+                                                object DB_Param,
+                                                ref bool bNewDataBaseCreated,
+                                                Navigation xnav,
+                                                ref bool bCanceled,
+                                                string dbVersion,
+                                                Transaction transaction)
         {
             if (m_con.Evaluate_MakeDataBaseConnection(xnav.parentForm, DB_Param, xnav, ref bCanceled))
             {
@@ -1878,7 +1869,7 @@ namespace CodeTables
                     if (local_DB_Data.bNewDatabase)
                     {
                         bool bxCancel = false;
-                        bNewDataBaseCreated = CreateDatabaseTables(false, ref bxCancel, dbVersion);
+                        bNewDataBaseCreated = CreateDatabaseTables(false, ref bxCancel, dbVersion, transaction);
                         if (bNewDataBaseCreated)
                         {
                             return true;
@@ -1898,7 +1889,7 @@ namespace CodeTables
                     if (remote_DB_Data.bNewDatabase)
                     {
                         bool bxCancel = false;
-                        bNewDataBaseCreated = CreateDatabaseTables(true, ref bxCancel, dbVersion);
+                        bNewDataBaseCreated = CreateDatabaseTables(true, ref bxCancel, dbVersion, transaction);
                         if (bNewDataBaseCreated)
                         {
                             return bNewDataBaseCreated;
@@ -1917,7 +1908,7 @@ namespace CodeTables
                     return true;
                 }
                 string csError = null;
-                enumDataBaseCheckResult eRes = DataBaseCheck(ref csError);
+                enumDataBaseCheckResult eRes = DataBaseCheck(ref csError, transaction);
                 switch (eRes)
                 {
                     case enumDataBaseCheckResult.OK:
@@ -1942,10 +1933,10 @@ namespace CodeTables
                                 break;
                             case DialogResult.Yes:
                                 bool bCancel = false;
-                                if (DropAllTablesInDataBase(xnav.parentForm, ref bCancel))
+                                if (DropAllTablesInDataBase(xnav.parentForm, ref bCancel, transaction))
                                 {
                                     bool bxCancel = false;
-                                    bNewDataBaseCreated = CreateDatabaseTables(true, ref bxCancel, dbVersion);
+                                    bNewDataBaseCreated = CreateDatabaseTables(true, ref bxCancel, dbVersion, transaction);
                                     return bNewDataBaseCreated;
                                 }
                                 else
@@ -2059,9 +2050,9 @@ namespace CodeTables
             return this.m_con.DataBase_Delete();
         }
 
-        public bool DataBase_Create()
+        public bool DataBase_Create(Transaction transaction)
         {
-            return this.m_con.DataBase_Create();
+            return this.m_con.DataBase_Create(transaction);
         }
     }
 }

@@ -157,5 +157,23 @@ namespace DBConnectionControl40
                 return false;
             }
         }
+
+        public bool ExecuteScalaraReturnID(DBConnection m_con,
+                                           StringBuilder sbsqlUpdate,
+                                           List<SQL_Parameter> sqlParamList,
+                                           ref ID newID,
+                                           ref string csError,
+                                           string tableName)
+        {
+            if (GetTransaction(m_con))
+            {
+                return m_con.ExecuteScalarReturnID(sbsqlUpdate, sqlParamList, ref newID, ref csError, tableName);
+            }
+            else
+            {
+                return false;
+            }
+
+        }
     }
 }

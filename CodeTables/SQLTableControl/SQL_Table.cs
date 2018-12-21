@@ -915,7 +915,12 @@ namespace CodeTables
         }
 
 
-        private bool InsertIntoSQLITE(DBConnection xcon, List<Col_class> lColVar,ref List<SQL_Parameter> lsqlPar, ref ID ID_returned,ref  string csError)
+        private bool InsertIntoSQLITE(DBConnection xcon,
+                                      List<Col_class> lColVar,
+                                      ref List<SQL_Parameter> lsqlPar,
+                                      ref ID ID_returned,
+                                      ref  string csError,
+                                      Transaction transaction)
         {
             // simply insert
             string sqlinsert = "";
@@ -954,7 +959,7 @@ namespace CodeTables
             sqlinsert += sInsertTo;
             sqlinsert += "\n);";
             ID newID = null;
-            if (xcon.ExecuteNonQuerySQLReturnID(sqlinsert, lsqlPar, ref newID, ref csError, TableName))
+            if (transaction.ExecuteNonQuerySQLReturnID(xcon,sqlinsert, lsqlPar, ref newID, ref csError, TableName))
             {
                 if (ID.Validate(newID))
                 {
@@ -972,7 +977,14 @@ namespace CodeTables
             }
 
         }
-        public bool SQLcmd_InsertInto_SQLITE(DBConnection xcon,string PrevVar, ref string sVarID, /*ref List<SQL_Parameter> lsqlPar,*/ List<SQLTable> lTable,ref bool bSomethingDefined, ref ID ID_returned, ref string csError)
+        public bool SQLcmd_InsertInto_SQLITE(DBConnection xcon,
+                                             string PrevVar,
+                                             ref string sVarID,
+                                             /*ref List<SQL_Parameter> lsqlPar,*/ List<SQLTable> lTable,
+                                             ref bool bSomethingDefined,
+                                             ref ID ID_returned,
+                                             ref string csError,
+                                             Transaction transaction)
         {
             int i = 0;
 
@@ -1001,7 +1013,14 @@ namespace CodeTables
                         ID IDfKey = null;
                         string sVarfKeyID = "";
                         bool bSomethingDefinedInChildTable = false;
-                        if (col.fKey.fTable.SQLcmd_InsertInto_SQLITE(xcon, sThisVar, ref sVarfKeyID, /*ref lsqlPar,*/ lTable,ref bSomethingDefinedInChildTable, ref IDfKey, ref csError))
+                        if (col.fKey.fTable.SQLcmd_InsertInto_SQLITE(xcon,
+                                                                    sThisVar,
+                                                                    ref sVarfKeyID,
+                                                                    /*ref lsqlPar,*/ lTable,
+                                                                    ref bSomethingDefinedInChildTable,
+                                                                    ref IDfKey,
+                                                                    ref csError,
+                                                                    transaction))
                         {
                             if (bSomethingDefinedInChildTable)
                             {
@@ -1071,7 +1090,7 @@ namespace CodeTables
                 StringBuilder sqlinsert = new StringBuilder(sqlSelect);
                 sqlinsert.Append(sWhere + "\n");
                 ID newID = null;
-                if (xcon.ExecuteNonQuerySQLReturnID(sqlinsert.ToString(), lsqlPar, ref newID,  ref csError,TableName))
+                if (transaction.ExecuteNonQuerySQLReturnID(xcon,sqlinsert.ToString(), lsqlPar, ref newID,  ref csError,TableName))
                 {
                     if (ID.Validate(newID))
                     {
@@ -1080,7 +1099,12 @@ namespace CodeTables
                     }
                     else
                     {
-                        return InsertIntoSQLITE(xcon, lColVar, ref  lsqlPar, ref ID_returned, ref  csError);
+                        return InsertIntoSQLITE(xcon,
+                                                lColVar,
+                                                ref  lsqlPar,
+                                                ref ID_returned,
+                                                ref  csError,
+                                                transaction);
                     }
                 }
                 else
@@ -1090,7 +1114,7 @@ namespace CodeTables
             }
             else
             {
-                return InsertIntoSQLITE(xcon, lColVar, ref  lsqlPar, ref ID_returned, ref  csError);
+                return InsertIntoSQLITE(xcon, lColVar, ref  lsqlPar, ref ID_returned, ref  csError, transaction);
             }
         }
 
@@ -1639,7 +1663,7 @@ namespace CodeTables
             return Line;
         }
 
-        public bool SQLcmd_InsertInto(DBConnection xcon, List<SQLTable> lTable, ref string csError, StringBuilder m_strSQLUseDatabase, ref ID ID)
+        public bool SQLcmd_InsertInto(DBConnection xcon, List<SQLTable> lTable, ref string csError, StringBuilder m_strSQLUseDatabase, ref ID ID, Transaction transaction)
         {
             List<SQL_Parameter> lsqlPar = new List<SQL_Parameter>();
             if (xcon.DBType == DBConnection.eDBType.SQLITE)
@@ -1648,7 +1672,7 @@ namespace CodeTables
                 string sVarID = "";
                 ID = null;
                 bool bSomethingDefined = false;
-                if (SQLcmd_InsertInto_SQLITE(xcon, PrevVar, ref sVarID,/* ref  lsqlPar,*/ lTable,ref bSomethingDefined, ref ID, ref csError))
+                if (SQLcmd_InsertInto_SQLITE(xcon, PrevVar, ref sVarID,/* ref  lsqlPar,*/ lTable,ref bSomethingDefined, ref ID, ref csError, transaction))
                 {
                     if (ID.Validate(ID))
                     {

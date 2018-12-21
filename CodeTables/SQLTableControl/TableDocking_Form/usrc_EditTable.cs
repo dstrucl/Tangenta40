@@ -548,9 +548,9 @@ namespace CodeTables.TableDocking_Form
             }
         }
 
-        public bool Save()
+        public bool Save(Transaction transaction)
         {
-            return this.usrc_EditRow.Save();
+            return this.usrc_EditRow.Save(transaction);
         }
 
         private void dgvx_Table_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

@@ -1143,7 +1143,7 @@ namespace LoginControl
             //                // No amb_user_ID found in amb_queue , so we can delete it without compromising foreign key constraint
             //                string sql_delete = "DELETE FROM " + m_tbl_amb_user.TableName + " WHERE id = " + id.ToString();
             //                object oResult = null;
-            //                if (m_DB_Local.m_DBTables.m_con.ExecuteNonQuerySQL(sql_delete, null, ref oResult, ref csError, "DELETE User from user table"))
+            //                if (m_DB_Local.m_DBTables.transaction.ExecuteNonQuerySQL(m_con,sql_delete, null, ref oResult, ref csError, "DELETE User from user table"))
             //                {
             //                    bDeleted = true;
             //                    return true;

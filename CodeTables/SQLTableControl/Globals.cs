@@ -278,7 +278,7 @@ namespace CodeTables
             }
         }
 
-        public static bool SQLcmd_InsertLines(List<string> Line, DBTableControl dbTables, StringBuilder m_strSQLUseDatabase, ref string ErrorMsg)
+        public static bool SQLcmd_InsertLines(List<string> Line, DBTableControl dbTables, StringBuilder m_strSQLUseDatabase, ref string ErrorMsg, Transaction transaction)
         {
             List<SQL_Parameter> lsqlPar = new List<SQL_Parameter>();
 
@@ -319,7 +319,7 @@ namespace CodeTables
                                     ID ID = null;
                                     string csError = null;
                                     bool bSomethingDefined = false;
-                                    if (sqlTbl.SQLcmd_InsertInto_SQLITE(dbTables.m_con, PrevVar, ref sVarID, /*ref  lsqlPar,*/ dbTables.items,ref bSomethingDefined, ref ID, ref csError))
+                                    if (sqlTbl.SQLcmd_InsertInto_SQLITE(dbTables.m_con, PrevVar, ref sVarID, /*ref  lsqlPar,*/ dbTables.items,ref bSomethingDefined, ref ID, ref csError, transaction))
                                     {
                                         if (ID.Validate(ID))
                                         {
@@ -338,7 +338,7 @@ namespace CodeTables
                                 else
                                 {
                                     sqlTbl.SQLcmd_Insert_MSSQL(ref sbSQLInsert, sPrevVar, ref sVarID, ref lsqlPar, dbTables.items,0);
-                                    if (dbTables.m_con.ExecuteNonQuerySQL(sbSQLInsert.ToString(), lsqlPar, ref ErrorMsg))
+                                    if (transaction.ExecuteNonQuerySQL(dbTables.m_con,sbSQLInsert.ToString(), lsqlPar, ref ErrorMsg))
                                     {
                                         lsqlPar.Clear();
                                         sbSQLInsert.Remove(0, sbSQLInsert.Length);
@@ -474,7 +474,7 @@ namespace CodeTables
             }
         }
 
-        public static bool InsertInDataBase_WithImportText(Globals.delegate_SetControls SetControls, SQLTable m_tbl,DBTableControl dbTables, StringBuilder sDataBaseUsed, bool bRefresh_m_DataTable_Form)
+        public static bool InsertInDataBase_WithImportText(Globals.delegate_SetControls SetControls, SQLTable m_tbl,DBTableControl dbTables, StringBuilder sDataBaseUsed, bool bRefresh_m_DataTable_Form, Transaction transaction)
         {
             bool bRet = false;
             List<string> Lines = m_tbl.GetInputControlsData();
@@ -483,7 +483,7 @@ namespace CodeTables
                 if (Lines.Count > 0)
                 {
                     string ErrorMsg = "";
-                    if (SQLcmd_InsertLines(Lines, dbTables, sDataBaseUsed, ref ErrorMsg))
+                    if (SQLcmd_InsertLines(Lines, dbTables, sDataBaseUsed, ref ErrorMsg,transaction))
                     {
                         bRet = true;
                         //System.Data.OleDb.OleDbDataAdapter adp=new System.Data.OleDb.OleDbDataAdapter();

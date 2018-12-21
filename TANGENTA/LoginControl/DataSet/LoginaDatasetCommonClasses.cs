@@ -3,6 +3,7 @@ using System;
 using System.Data;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using DBConnectionControl40;
 
 namespace LoginaDatasetCommonClasses
 {
@@ -814,7 +815,7 @@ WHERE id = " + GetIDValue(Columns);
         return sqlInsert;
     }
 
-    public bool update(ref string csError)
+    public bool update(ref string csError, Transaction transaction)
     {
         this.m_sql_UpdateAll = "";
         foreach (Command cmd in Commands)
@@ -843,7 +844,7 @@ WHERE id = " + GetIDValue(Columns);
                     break;
             }
         }
-        bool bRes = m_con.ExecuteNonQuerySQL(m_sql_UpdateAll, m_UpdateAllPar, ref csError);
+        bool bRes = transaction.ExecuteNonQuerySQL(m_con,m_sql_UpdateAll, m_UpdateAllPar, ref csError);
         if (bRes)
         {
             bModified = false;

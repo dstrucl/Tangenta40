@@ -93,7 +93,19 @@ namespace Tangenta
             {
                 if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    usrc_EditTable.Save();
+                    Transaction transaction_PersonAccount_EditForm_btn_OK_Click_usrc_EditTable_Save = new Transaction("PersonAccount_EditForm.btn_OK_Click.usrc_EditTable.Save");
+                    if (usrc_EditTable.Save(transaction_PersonAccount_EditForm_btn_OK_Click_usrc_EditTable_Save))
+                    {
+                        if (!transaction_PersonAccount_EditForm_btn_OK_Click_usrc_EditTable_Save.Commit())
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        transaction_PersonAccount_EditForm_btn_OK_Click_usrc_EditTable_Save.Rollback();
+                        return;
+                    }
                 }
             }
             this.Close();
@@ -106,7 +118,19 @@ namespace Tangenta
             {
                 if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-                    usrc_EditTable.Save();
+                    Transaction transaction_PersonAccount_EditForm_btn_Cancel_Click_usrc_EditTable_Save = new Transaction("PersonAccount_EditForm.btn_Cancel_Click.usrc_EditTable.Save");
+                    if (usrc_EditTable.Save(transaction_PersonAccount_EditForm_btn_Cancel_Click_usrc_EditTable_Save))
+                    {
+                        if (!transaction_PersonAccount_EditForm_btn_Cancel_Click_usrc_EditTable_Save.Commit())
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        transaction_PersonAccount_EditForm_btn_Cancel_Click_usrc_EditTable_Save.Rollback();
+                        return;
+                    }
                 }
             }
             this.Close();

@@ -296,7 +296,15 @@ namespace CodeTables.TableDocking_Form
                     if ((this.btn_Update.Visible) & (this.btn_Update.Enabled))
                     {
                         this.Cursor = Cursors.WaitCursor;
-                        UpdateDataBase();
+                        Transaction transaction_usrc_EditRow_KeyPressed_UpdateDataBase = new Transaction("usrc_EditRow.KeyPressed.UpdateDataBase");
+                        if (UpdateDataBase(transaction_usrc_EditRow_KeyPressed_UpdateDataBase))
+                        {
+                            transaction_usrc_EditRow_KeyPressed_UpdateDataBase.Commit();
+                        }
+                        else
+                        {
+                            transaction_usrc_EditRow_KeyPressed_UpdateDataBase.Rollback();
+                        }
                         this.Cursor = Cursors.Arrow;
                     }
                     break;
@@ -403,13 +411,29 @@ namespace CodeTables.TableDocking_Form
             {
                 InsertRandomData();
                 StringBuilder sDataBaseused = new StringBuilder("USE " + m_DBTables.m_con.DataBase);
-                Globals.InsertInDataBase_WithImportText(SetControls, m_tbl, m_DBTables, sDataBaseused, false);
-                m_tbl.ClearInputControls_bManualyChanged();
-                //string csError = "";
-                //m_DB.SQLcmd_InsertTable(this, this.m_tbl, ref csError);
-                System.IntPtr wparam = new IntPtr(this.Handle.ToInt32());
-                //System.IntPtr lparam = new IntPtr(0);
-                PostMessage(m.WParam.ToInt32(), Func.WM_USER_GENERATE_RANDOM_INPUT_OK, wparam, m.LParam);
+                Transaction transaction_usrc_EditRow_WndProc_WM_USER_GENERATE_RANDOM_INPUT_InsertInDataBase_WithImportText = new Transaction("usrc_EditRow.WndProc.WM_USER_GENERATE_RANDOM_INPUT.InsertInDataBase_WithImportText");
+                if (Globals.InsertInDataBase_WithImportText(SetControls,
+                                                            m_tbl,
+                                                            m_DBTables,
+                                                            sDataBaseused,
+                                                            false,
+                                                            transaction_usrc_EditRow_WndProc_WM_USER_GENERATE_RANDOM_INPUT_InsertInDataBase_WithImportText))
+                {
+
+                    if (transaction_usrc_EditRow_WndProc_WM_USER_GENERATE_RANDOM_INPUT_InsertInDataBase_WithImportText.Commit())
+                    {
+                        m_tbl.ClearInputControls_bManualyChanged();
+                        //string csError = "";
+                        //m_DB.SQLcmd_InsertTable(this, this.m_tbl, ref csError);
+                        System.IntPtr wparam = new IntPtr(this.Handle.ToInt32());
+                        //System.IntPtr lparam = new IntPtr(0);
+                        PostMessage(m.WParam.ToInt32(), Func.WM_USER_GENERATE_RANDOM_INPUT_OK, wparam, m.LParam);
+                    }
+                }
+                else
+                {
+                    transaction_usrc_EditRow_WndProc_WM_USER_GENERATE_RANDOM_INPUT_InsertInDataBase_WithImportText.Rollback();
+                }
             }
             else if (m.Msg == (int)Func.WM_DO_RANDOM_PARAM_SETTINGS_DIALOG)
             {
@@ -506,10 +530,19 @@ namespace CodeTables.TableDocking_Form
         {
             this.Cursor = Cursors.WaitCursor;
             ID insertedRow_ID = null;
-            InsertInDataBase(ref insertedRow_ID);
+            Transaction transaction_usrc_EditRow_btnInsertInDataBase_Click_InsertInDataBase = new Transaction("usrc.EditRow_btnInsertInDataBase_Click.InsertInDataBase");
+            if (InsertInDataBase(ref insertedRow_ID,
+                                transaction_usrc_EditRow_btnInsertInDataBase_Click_InsertInDataBase))
+            {
+                transaction_usrc_EditRow_btnInsertInDataBase_Click_InsertInDataBase.Commit();
+            }
+            else
+            {
+                transaction_usrc_EditRow_btnInsertInDataBase_Click_InsertInDataBase.Rollback();
+            }
             this.Cursor = Cursors.Arrow;
         }
-        private bool InsertInDataBase(ref ID insertedRow_ID)
+        private bool InsertInDataBase(ref ID insertedRow_ID, Transaction transaction)
         {
            string mymsg = null;
             m_tbl.Check_Null_Values(ref mymsg);
@@ -574,11 +607,19 @@ namespace CodeTables.TableDocking_Form
         private void btn_Update_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
-            UpdateDataBase();
+            Transaction transaction_usrc_EditRow_btn_Update_Click_UpdateDataBase = new Transaction("usrc_EditRow.btn_Update_Click.UpdateDataBase");
+            if (UpdateDataBase(transaction_usrc_EditRow_btn_Update_Click_UpdateDataBase))
+            {
+                transaction_usrc_EditRow_btn_Update_Click_UpdateDataBase.Commit();
+            }
+            else
+            {
+                transaction_usrc_EditRow_btn_Update_Click_UpdateDataBase.Rollback();
+            }
             this.Cursor = Cursors.Arrow;
         }
 
-        private bool UpdateDataBase()
+        private bool UpdateDataBase(Transaction transaction)
         {
             string mymsg = null;
             m_tbl.Check_Null_Values(ref mymsg);
@@ -597,7 +638,10 @@ namespace CodeTables.TableDocking_Form
                 {
                     string Err = null;
                     ID ID = null;
-                    bool bRes = m_tbl.UpdateInputControls(m_DBTables, ref ID, ref Err);
+                    bool bRes = m_tbl.UpdateInputControls(m_DBTables,
+                                                          ref ID,
+                                                          ref Err,
+                                                          transaction);
                     if (Update != null)
                     {
                         Update(bRes, ID, Err);
@@ -676,16 +720,16 @@ namespace CodeTables.TableDocking_Form
             }
         }
 
-        public bool Save()
+        public bool Save(Transaction transaction)
         {
             if (btn_Insert.Visible && btn_Insert.Enabled)
             {
                 ID insertedRow_ID = null;
-                return InsertInDataBase(ref insertedRow_ID);
+                return InsertInDataBase(ref insertedRow_ID, transaction);
             }
             else if (btn_Update.Visible && btn_Update.Enabled)
             {
-                return UpdateDataBase();
+                return UpdateDataBase(transaction);
             }
             else
             {

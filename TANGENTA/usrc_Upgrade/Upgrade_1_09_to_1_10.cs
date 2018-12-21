@@ -11,7 +11,7 @@ namespace UpgradeDB
         internal static object UpgradeDB_1_09_to_1_10(object obj, ref string Err)
         {
             Transaction transaction_UpgradeDB_1_09_to_1_10 = new Transaction("UpgradeDB_1_09_to_1_10");
-            if (DBSync.DBSync.Drop_VIEWs(ref Err))
+            if (DBSync.DBSync.Drop_VIEWs(ref Err, transaction_UpgradeDB_1_09_to_1_10))
             {
                 string sql = null;
                 string stbl = "Atom_myOrganisation_Person";
@@ -54,9 +54,9 @@ namespace UpgradeDB
                 if (transaction_UpgradeDB_1_09_to_1_10.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                 {
                     string[] new_tables = new string[] { "FVI_SLO_RealEstateBP", "FVI_SLO_Response", "Atom_FVI_SLO_RealEstateBP" };
-                    if (DBSync.DBSync.CreateTables(new_tables, ref Err))
+                    if (DBSync.DBSync.CreateTables(new_tables, ref Err, transaction_UpgradeDB_1_09_to_1_10))
                     {
-                        if (DBSync.DBSync.Create_VIEWs())
+                        if (DBSync.DBSync.Create_VIEWs(transaction_UpgradeDB_1_09_to_1_10))
                         {
                             if (UpgradeDB_inThread.Set_DataBase_Version("1.10", transaction_UpgradeDB_1_09_to_1_10))
                             {

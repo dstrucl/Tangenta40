@@ -39,14 +39,14 @@ namespace DBSync
 
         public static string m_BackupFolder;
 
-        public static bool Drop_VIEWs(ref string Err)
+        public static bool Drop_VIEWs(ref string Err, Transaction transaction)
         {
-            return DB_for_Tangenta.DropViews(ref Err);
+            return DB_for_Tangenta.DropViews(ref Err, transaction);
         }
 
-        public static bool Create_VIEWs()
+        public static bool Create_VIEWs(Transaction transaction)
         {
-            return DB_for_Tangenta.Create_VIEWs();
+            return DB_for_Tangenta.Create_VIEWs(transaction);
         }
 
         public static bool Startup_02_Get_eDBType_and_DB_for_Tangenta(string DataBaseType, ref DBConnection.eDBType eDBType,Form parentForm,string IniFileFolder,string m_XmlFileName)
@@ -210,12 +210,21 @@ namespace DBSync
                 {
                     if (iTablesCount == 0)
                     {
-                        if (DB_for_Tangenta.m_DBTables.CreateDatabaseTables(false, ref bCancel, MyDataBase_Tangenta.VERSION))
+                        Transaction transaction_Startup_03_CheckDataBaseTables = new Transaction("Startup_03_CheckDataBaseTables");
+                        if (DB_for_Tangenta.m_DBTables.CreateDatabaseTables(false, ref bCancel, MyDataBase_Tangenta.VERSION, transaction_Startup_03_CheckDataBaseTables))
                         {
-                            return true;
+                            if (transaction_Startup_03_CheckDataBaseTables.Commit())
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
                         }
                         else
                         {
+                            transaction_Startup_03_CheckDataBaseTables.Rollback();
                             return false;
                         }
                     }
@@ -241,13 +250,13 @@ namespace DBSync
             return Con.Startup_03_CreateNewDataBaseConnection(pParentForm, ref bNewDatabase, ref bCancel);
         }
 
-        public static bool Evaluate_InitDBType(bool bReset, string IniFileFolder, ref string DataBaseType, bool bChangeConnection, ref bool bNewDatabaseCreated, NavigationButtons.Navigation xnav, ref bool bCanceled,string dbVersion)
+        public static bool Evaluate_InitDBType(bool bReset, string IniFileFolder, ref string DataBaseType, bool bChangeConnection, ref bool bNewDatabaseCreated, NavigationButtons.Navigation xnav, ref bool bCanceled,string dbVersion, Transaction transaction)
         {
             string Err = null;           
             if (DBSync.m_DBType == DBConnection.eDBType.SQLITE)
             {
                 my_StartupWindowThread.Message(lng.s_CheckLocalDatabase.s + m_SQLite_Support.sGetLocalDB());
-                bool bGet = m_SQLite_Support.Evaluate_Connection(xnav, ref bNewDatabaseCreated, ref bCanceled, dbVersion);
+                bool bGet = m_SQLite_Support.Evaluate_Connection(xnav, ref bNewDatabaseCreated, ref bCanceled, dbVersion, transaction);
                 if (xnav.bDoModal)
                 {
                     if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
@@ -449,7 +458,7 @@ namespace DBSync
             return Con.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref Err, sTableName);
         }
 
-        public static bool CreateTables(string[] new_tables,ref string Err)
+        public static bool CreateTables(string[] new_tables,ref string Err, Transaction transaction)
         {
             Err = null;
             foreach (string stbl in new_tables)
@@ -458,7 +467,7 @@ namespace DBSync
                 SQLTable tbl = DB_for_Tangenta.m_DBTables.GetTable(stbl);
                 if (tbl != null)
                 {
-                    if (Con.ExecuteNonQuerySQL(tbl.sql_CreateTable,null, ref err))
+                    if (transaction.ExecuteNonQuerySQL(Con,tbl.sql_CreateTable,null, ref err))
                     {
                         continue;
                     }
@@ -505,13 +514,22 @@ namespace DBSync
             }
 
 
-            if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(parent, DBSync.RemoteDB_data, ref bNewDataBaseCreated, nav, ref bCanceled, MyDataBase_Tangenta.VERSION))
+            Transaction transaction_MakeDataBaseConnection = new Transaction("MakeDataBaseConnection");
+            if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(parent, DBSync.RemoteDB_data, ref bNewDataBaseCreated, nav, ref bCanceled, MyDataBase_Tangenta.VERSION, transaction_MakeDataBaseConnection))
             {
-                if (!DBSync.RemoteDB_data.Save(inifile_prefix, ref Err))
+                if (transaction_MakeDataBaseConnection.Commit())
                 {
-                    LogFile.Error.Show(Err);
+                    if (!DBSync.RemoteDB_data.Save(inifile_prefix, ref Err))
+                    {
+                        LogFile.Error.Show(Err);
+                    }
+
+                    return true;
                 }
-                return true;
+                else
+                {
+                    return false;
+                }
             }
             else
             {

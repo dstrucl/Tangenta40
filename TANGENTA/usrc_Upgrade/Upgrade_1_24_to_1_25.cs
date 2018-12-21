@@ -17,7 +17,7 @@ namespace UpgradeDB
         internal static object UpgradeDB_1_24_to_1_25(object obj, ref string Err)
         {
             Transaction transaction_UpgradeDB_1_24_to_1_25  = new Transaction("UpgradeDB_1_24_to_1_25");
-            if (DBSync.DBSync.Drop_VIEWs(ref Err))
+            if (DBSync.DBSync.Drop_VIEWs(ref Err, transaction_UpgradeDB_1_24_to_1_25))
             {
                 //change Atom_myOrganisation_Person
                 //change myOrganisation_Person
@@ -133,7 +133,7 @@ namespace UpgradeDB
                                         "DocInvoice_ShopC_Item_AdditionalData_TYPE"
                                     };
 
-                if (!DBSync.DBSync.CreateTables(new_tables, ref Err))
+                if (!DBSync.DBSync.CreateTables(new_tables, ref Err, transaction_UpgradeDB_1_24_to_1_25))
                 {
                     return false;
                 }
@@ -238,7 +238,7 @@ namespace UpgradeDB
                     return false;
                 }
 
-                if (DBSync.DBSync.Create_VIEWs())
+                if (DBSync.DBSync.Create_VIEWs(transaction_UpgradeDB_1_24_to_1_25))
                 {
                     if (UpgradeDB_inThread.Set_DataBase_Version("1.25", transaction_UpgradeDB_1_24_to_1_25))
                     {

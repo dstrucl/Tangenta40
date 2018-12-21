@@ -61,7 +61,7 @@ namespace UpgradeDB
                                                 "Comment1"
                                                 };
 
-            if (DBSync.DBSync.CreateTables(new_tables, ref Err))
+            if (DBSync.DBSync.CreateTables(new_tables, ref Err, transaction_Upgrade_1_19_to_1_20))
             {
                 PaymentType_definitions xpaymentType_definitions = new PaymentType_definitions();
                 if (!xpaymentType_definitions.Get(transaction_Upgrade_1_19_to_1_20))
@@ -381,7 +381,7 @@ namespace UpgradeDB
 
                 if (transaction_Upgrade_1_19_to_1_20.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                 {
-                    if (DBSync.DBSync.Drop_VIEWs(ref Err))
+                    if (DBSync.DBSync.Drop_VIEWs(ref Err, transaction_Upgrade_1_19_to_1_20))
                     {
 
                         sql = @"Drop Table Atom_ProformaInvoice_Price_Item_Stock;
@@ -797,9 +797,9 @@ namespace UpgradeDB
                                                 "JOURNAL_Delivery_Type",
                                                 "JOURNAL_Delivery"
                                                 };
-                                if (DBSync.DBSync.CreateTables(new_tables, ref Err))
+                                if (DBSync.DBSync.CreateTables(new_tables, ref Err, transaction_Upgrade_1_19_to_1_20))
                                 {
-                                    if (DBSync.DBSync.Create_VIEWs())
+                                    if (DBSync.DBSync.Create_VIEWs(transaction_Upgrade_1_19_to_1_20))
                                     {
                                         if (UpgradeDB_inThread.Set_DataBase_Version("1.20", transaction_Upgrade_1_19_to_1_20))
                                         {

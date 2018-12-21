@@ -72,10 +72,31 @@ namespace Tangenta
         {
             if (usrc_EditTable1.Changed)
             {
-                usrc_EditTable1.Save();
+                Transaction transaction_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP_do_OK_usrc_EditTable1_Save = new Transaction("Form_myOrg_Office_Data_FVI_SLO_RealEstateBP.do_OK.usrc_EditTable1.Save");
+                if (usrc_EditTable1.Save(transaction_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP_do_OK_usrc_EditTable1_Save))
+                {
+                    if (transaction_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP_do_OK_usrc_EditTable1_Save.Commit())
+                    {
+                        this.Close();
+                        DialogResult = DialogResult.OK;
+                        return true;
+                    }
+                    else
+                    {
+                        this.Close();
+                        DialogResult = DialogResult.Abort;
+                        return false;
+                    }
+                }
+                else
+                {
+                    transaction_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP_do_OK_usrc_EditTable1_Save.Rollback();
+                    this.Close();
+                    DialogResult = DialogResult.Abort;
+                    return false;
+
+                }
             }
-            this.Close();
-            DialogResult = DialogResult.OK;
             return true;
         }
         private void do_Cancel()

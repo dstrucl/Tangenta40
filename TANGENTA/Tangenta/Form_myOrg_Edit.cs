@@ -125,14 +125,23 @@ namespace Tangenta
             {
                 if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1)== DialogResult.Yes)
                 {
-                    if (usrc_EditRow.Save())
+                    Transaction transaction_Form_myOrg_Edit_do_OK_usrc_EditRow_Save = new Transaction("Form_myOrg_Edit.do_OK.usrc_EditRow.Save");
+                    if (usrc_EditRow.Save(transaction_Form_myOrg_Edit_do_OK_usrc_EditRow_Save))
                     {
-                        Close();
-                        DialogResult = DialogResult.OK;
-                        return true;
+                        if (transaction_Form_myOrg_Edit_do_OK_usrc_EditRow_Save.Commit())
+                        {
+                            Close();
+                            DialogResult = DialogResult.OK;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                     else
                     {
+                        transaction_Form_myOrg_Edit_do_OK_usrc_EditRow_Save.Rollback();
                         if (XMessage.Box.Show(this, lng.s_DataNotSavedEndYesNo, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                         {
                             this.Close();

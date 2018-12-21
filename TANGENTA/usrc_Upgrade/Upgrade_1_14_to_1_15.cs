@@ -12,7 +12,7 @@ namespace UpgradeDB
         {
             Transaction transaction_UpgradeDB_1_14_to_1_15 = new Transaction("UpgradeDB_1_14_to_1_15");
 
-            if (DBSync.DBSync.Drop_VIEWs(ref Err))
+            if (DBSync.DBSync.Drop_VIEWs(ref Err, transaction_UpgradeDB_1_14_to_1_15))
             {
                 string sql = null;
                 sql = @"
@@ -52,9 +52,9 @@ namespace UpgradeDB
                         if (transaction_UpgradeDB_1_14_to_1_15.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
                         {
                             string[] new_tables = new string[] { "FVI_SLO_SalesBookInvoice" };
-                            if (DBSync.DBSync.CreateTables(new_tables, ref Err))
+                            if (DBSync.DBSync.CreateTables(new_tables, ref Err, transaction_UpgradeDB_1_14_to_1_15))
                             {
-                                if (DBSync.DBSync.Create_VIEWs())
+                                if (DBSync.DBSync.Create_VIEWs(transaction_UpgradeDB_1_14_to_1_15))
                                 {
                                     if (UpgradeDB_inThread.Set_DataBase_Version("1.15", transaction_UpgradeDB_1_14_to_1_15))
                                     {

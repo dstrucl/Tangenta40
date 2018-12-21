@@ -4092,7 +4092,7 @@ namespace DBConnectionControl40
             }
         }
 
-        public bool DataBase_Create()
+        public bool DataBase_Create(Transaction transaction)
         {
             try
             {
@@ -4115,19 +4115,7 @@ namespace DBConnectionControl40
                         {
                             if (m_DBType == eDBType.SQLITE)
                             {
-                                try
-                                {
-                                    SQLiteCommand cmd = m_con_SQLite.Con.CreateCommand();
-                                    cmd.CommandText = "PRAGMA foreign_keys = ON;";
-                                    cmd.ExecuteNonQuery();
-                                    //Disconnect();
-                                    return true;
-                                }
-                                catch (Exception ex)
-                                {
-                                    LogFile.Error.Show("ERROR:DBConnection:DataBase_Create:Execption=" + ex.Message);
-                                    return false;
-                                }
+                                    transaction.ExecuteNonQuerySQL(this, "PRAGMA foreign_keys = ON;", null,ref sErr);
                             }
                             //Disconnect();
                         }

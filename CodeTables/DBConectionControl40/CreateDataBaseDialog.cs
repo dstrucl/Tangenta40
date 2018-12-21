@@ -728,7 +728,7 @@ namespace DBConnectionControl40
 
 
 
-		private bool CreateDatabase(DatabaseParam DBParam)
+		private bool CreateDatabase(DatabaseParam DBParam, Transaction transaction)
 		{
 			string sqlCreateDBQuery;
             // DBParam.DatabaseName
@@ -760,7 +760,7 @@ namespace DBConnectionControl40
             m_con.DataBase = "";
             //m_con.conData.SetConnectionString();
 
-            if (this.m_con.ExecuteNonQuerySQL(sqlCreateDBQuery, null, ref csError))
+            if (transaction.ExecuteNonQuerySQL(m_con,sqlCreateDBQuery, null, ref csError))
             {
                 // Data Base Created OK
                 m_con.DataBase = DBParam.DatabaseName;
@@ -1000,11 +1000,18 @@ namespace DBConnectionControl40
 
 
 
-
-                if (CreateDatabase(DBParam))
+                Transaction transaction_CreateDataBaseDialog_btn_CreateDatabase_Click_CreateDatabase = new Transaction("CreateDataBaseDialog.btn_CreateDatabase_Click.CreateDatabase");
+                if (CreateDatabase(DBParam, transaction_CreateDataBaseDialog_btn_CreateDatabase_Click_CreateDatabase))
                 {
-                    this.Close();
-                    DialogResult = DialogResult.OK;
+                    if (transaction_CreateDataBaseDialog_btn_CreateDatabase_Click_CreateDatabase.Commit())
+                    {
+                        this.Close();
+                        DialogResult = DialogResult.OK;
+                    }
+                }
+                else
+                {
+                    transaction_CreateDataBaseDialog_btn_CreateDatabase_Click_CreateDatabase.Rollback();
                 }
             }
             else

@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using LogFile;
 using LanguageControl;
+using DBConnectionControl40;
+
 namespace LoginControl
 {
     public partial class STDRoleManager : Form
@@ -51,10 +53,19 @@ namespace LoginControl
                 if (MessageBox.Show(this, lng.s_RolesDataTableIsChanged_Question_SAVE.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     string Err = null;
-                    if (LoginRoles.update(ref Err))
+                    Transaction transaction_STDRoleManager_btn_OK_Click_LoginRoles_update = new Transaction("STDRoleManager.btn_OK_Click.LoginRoles.update");
+                    if (LoginRoles.update(ref Err, transaction_STDRoleManager_btn_OK_Click_LoginRoles_update))
                     {
-                        DialogResult = DialogResult.Yes;
-                        this.Close();
+                        if (transaction_STDRoleManager_btn_OK_Click_LoginRoles_update.Commit())
+                        {
+                            DialogResult = DialogResult.Yes;
+                            this.Close();
+                        }
+                    }
+                    else
+                    {
+                        transaction_STDRoleManager_btn_OK_Click_LoginRoles_update.Rollback();
+                        return;
                     }
                 }
                 else

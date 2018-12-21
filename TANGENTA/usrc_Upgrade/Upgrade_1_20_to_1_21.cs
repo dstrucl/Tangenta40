@@ -16,7 +16,7 @@ namespace UpgradeDB
         internal static object UpgradeDB_1_20_to_1_21(object obj, ref string Err)
         {
             Transaction transaction_UpgradeDB_1_20_to_1_21 = new Transaction("UpgradeDB_1_20_to_1_21");
-            if (DBSync.DBSync.Drop_VIEWs(ref Err))
+            if (DBSync.DBSync.Drop_VIEWs(ref Err, transaction_UpgradeDB_1_20_to_1_21))
             {
                 string[] new_tables = new string[] {"Contact",
                                                 "Trucking",
@@ -28,7 +28,7 @@ namespace UpgradeDB
                                                 "JOURNAL_StockTake_Type",
                                                 "JOURNAL_StockTake",
                                                 "ElectronicDevice"};
-                if (DBSync.DBSync.CreateTables(new_tables, ref Err))
+                if (DBSync.DBSync.CreateTables(new_tables, ref Err, transaction_UpgradeDB_1_20_to_1_21))
                 {
                     ID Atom_ElectronicDevice_ID =null;
                     if (f_Atom_ElectronicDevice.Get(new ID(1),"ED1", null, ref Atom_ElectronicDevice_ID, transaction_UpgradeDB_1_20_to_1_21))
@@ -280,9 +280,9 @@ namespace UpgradeDB
                                                     "doc_page_type",
                                                     "doc" };
 
-                        if (DBSync.DBSync.CreateTables(new_tables, ref Err))
+                        if (DBSync.DBSync.CreateTables(new_tables, ref Err, transaction_UpgradeDB_1_20_to_1_21))
                         {
-                            if (DBSync.DBSync.Create_VIEWs())
+                            if (DBSync.DBSync.Create_VIEWs(transaction_UpgradeDB_1_20_to_1_21))
                             {
                                 if (UpgradeDB_inThread.Set_DataBase_Version("1.21", transaction_UpgradeDB_1_20_to_1_21))
                                 {

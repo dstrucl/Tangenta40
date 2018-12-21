@@ -54,7 +54,18 @@ namespace TangentaDataBaseDef
 
         public DBTableControl.enumDataBaseCheckResult CheckDatabase(Form pParentForm, ref string csError)
         {
-            return m_DBTables.DataBaseCheck(ref csError);
+            Transaction transaction_CheckDatabase = new Transaction("CheckDatabase");
+            DBTableControl.enumDataBaseCheckResult eres = m_DBTables.DataBaseCheck(ref csError, transaction_CheckDatabase);
+            switch (eres)
+            {
+                case DBTableControl.enumDataBaseCheckResult.OK:
+                    transaction_CheckDatabase.Commit();
+                    break;
+                default:
+                    transaction_CheckDatabase.Rollback();
+                    break;
+            }
+            return eres;
         }
 
         public bool CheckConnection(Form pParentForm, Object DB_Param)
@@ -108,14 +119,14 @@ namespace TangentaDataBaseDef
             this.m_DBTables.Init(eDBType,VERSION);
         }
 
-        public bool DropViews(ref string Err)
+        public bool DropViews(ref string Err, Transaction transaction)
         {
-            return this.m_DBTables.DropVIEWs(ref Err);
+            return this.m_DBTables.DropVIEWs(ref Err, transaction);
         }
 
-        public bool Create_VIEWs()
+        public bool Create_VIEWs(Transaction transaction)
         {
-            return this.m_DBTables.Create_VIEWs();
+            return this.m_DBTables.Create_VIEWs(transaction);
         }
 
         public bool BeginTransaction(string transaction_name, ref string transaction_id)
@@ -266,12 +277,12 @@ namespace TangentaDataBaseDef
             return this.m_DBTables.DataBase_Delete();
         }
 
-        public bool DataBase_Create()
+        public bool DataBase_Create(Transaction transaction)
         {
-            if (this.m_DBTables.DataBase_Create())
+            if (this.m_DBTables.DataBase_Create(transaction))
             {
                 bool bxCancel = false;
-                return this.m_DBTables.CreateDatabaseTables(false, ref bxCancel, MyDataBase_Tangenta.VERSION);
+                return this.m_DBTables.CreateDatabaseTables(false, ref bxCancel, MyDataBase_Tangenta.VERSION,transaction);
             }
             else
             {

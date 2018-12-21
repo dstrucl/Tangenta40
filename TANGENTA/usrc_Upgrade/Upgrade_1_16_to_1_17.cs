@@ -12,7 +12,7 @@ namespace UpgradeDB
         {
             Transaction transaction_UpgradeDB_1_16_to_1_17 = new Transaction("UpgradeDB_1_16_to_1_17");
             string sql = null;
-            if (DBSync.DBSync.Drop_VIEWs(ref Err))
+            if (DBSync.DBSync.Drop_VIEWs(ref Err, transaction_UpgradeDB_1_16_to_1_17))
             {
                 sql = @"
                         PRAGMA foreign_keys = OFF;
@@ -308,7 +308,7 @@ namespace UpgradeDB
                                                                                                                 {
 
 
-                                                                                                                    if (DBSync.DBSync.Create_VIEWs())
+                                                                                                                    if (DBSync.DBSync.Create_VIEWs(transaction_UpgradeDB_1_16_to_1_17))
                                                                                                                     {
                                                                                                                         if (UpgradeDB_inThread.Set_DataBase_Version("1.17", transaction_UpgradeDB_1_16_to_1_17))
                                                                                                                         {

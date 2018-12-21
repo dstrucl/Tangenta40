@@ -191,7 +191,7 @@ namespace UpgradeDB
                 {
                     if (DBSync.DBSync.DB_for_Tangenta.DataBase_Delete())
                     {
-                        if (DBSync.DBSync.DB_for_Tangenta.DataBase_Create())
+                        if (DBSync.DBSync.DB_for_Tangenta.DataBase_Create(transaction_UpgradeDB_1_04_to_1_05))
                         {
                             wfp_ui_thread.Message(lng.s_ImportData.s);
                             if (Write_TableDataItem_List(m_eUpgrade, m_Old_tables_1_04_to_1_05))

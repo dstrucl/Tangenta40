@@ -44,17 +44,25 @@ namespace DBSync
                 DBSync.LocalDB_data_SQLite = new LocalDB_data(bReset, inifile_prefix, 1, DataBaseName, false);
             }
             string Err = null;
-            if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(nav.parentForm, DBSync.LocalDB_data_SQLite, ref bNewDataBaseCreated, nav, ref bCanceled, dbVersion))
+            Transaction transaction_Check_DataBaseConnection_MakeDataBaseConnection = new Transaction("Check_DataBaseConnection.MakeDataBaseConnection");
+            if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(nav.parentForm, DBSync.LocalDB_data_SQLite, ref bNewDataBaseCreated, nav, ref bCanceled, dbVersion, transaction_Check_DataBaseConnection_MakeDataBaseConnection))
             {
-                
-                if (!DBSync.LocalDB_data_SQLite.Save(inifile_prefix, ref Err))
+                if (transaction_Check_DataBaseConnection_MakeDataBaseConnection.Commit())
                 {
-                    LogFile.Error.Show(Err);
+                    if (!DBSync.LocalDB_data_SQLite.Save(inifile_prefix, ref Err))
+                    {
+                        LogFile.Error.Show(Err);
+                    }
+                    return true;
                 }
-                return true;
+                else
+                {
+                    return false;
+                }
             }
             else
             {
+                transaction_Check_DataBaseConnection_MakeDataBaseConnection.Rollback();
                 if (bCanceled)
                 {
                     Err = null;
@@ -67,9 +75,13 @@ namespace DBSync
             }
         }
 
-        public bool Evaluate_Connection(NavigationButtons.Navigation nav,ref bool bNewDataBaseCreated, ref bool bCanceled,string dbVersion)
+        public bool Evaluate_Connection(NavigationButtons.Navigation nav,
+                                        ref bool bNewDataBaseCreated,
+                                        ref bool bCanceled,
+                                        string dbVersion,
+                                        Transaction transaction)
         {
-            return DBSync.DB_for_Tangenta.m_DBTables.Evaluate_DataBaseConnection(nav.parentForm, DBSync.LocalDB_data_SQLite, ref bNewDataBaseCreated, nav, ref bCanceled, dbVersion);
+            return DBSync.DB_for_Tangenta.m_DBTables.Evaluate_DataBaseConnection(nav.parentForm, DBSync.LocalDB_data_SQLite, ref bNewDataBaseCreated, nav, ref bCanceled, dbVersion, transaction);
         }
 
         public bool Startup_03_Check_DBConnection_Is_LocalDB_data_SQLite_DataBaseFileName_Defined(bool bReset,ref string IniFileFolder,string inifile_prefix,string Connection_Name)
@@ -138,17 +150,26 @@ namespace DBSync
 
             if (bChangeConnection)
             {
-                if (DBSync.DB_for_Tangenta.m_DBTables.CreateNewDataBaseConnection(DBSync.LocalDB_data_SQLite,true, nav, ref bCanceled, dbVersion))
+                Transaction transaction_CreateNewDataBaseConnection = new Transaction("CreateNewDataBaseConnection");
+                if (DBSync.DB_for_Tangenta.m_DBTables.CreateNewDataBaseConnection(DBSync.LocalDB_data_SQLite,true, nav, ref bCanceled, dbVersion, transaction_CreateNewDataBaseConnection))
                 {
-                    bNewDataBaseCreated = true;
-                    if (!DBSync.LocalDB_data_SQLite.Save(inifile_prefix, ref Err))
+                    if (transaction_CreateNewDataBaseConnection.Commit())
                     {
-                        LogFile.Error.Show(Err);
+                        bNewDataBaseCreated = true;
+                        if (!DBSync.LocalDB_data_SQLite.Save(inifile_prefix, ref Err))
+                        {
+                            LogFile.Error.Show(Err);
+                        }
+                        return true;
                     }
-                    return true;
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
+                    transaction_CreateNewDataBaseConnection.Rollback();
                     if (bCanceled)
                     {
                         Err = null;
@@ -161,17 +182,26 @@ namespace DBSync
                 }
             }
             else
-            { 
-                if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(nav.parentForm, DBSync.LocalDB_data_SQLite, ref bNewDataBaseCreated, nav, ref bCanceled, dbVersion))
+            {
+                Transaction transaction_MakeDataBaseConnection = new Transaction("MakeDataBaseConnection");
+                if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(nav.parentForm, DBSync.LocalDB_data_SQLite, ref bNewDataBaseCreated, nav, ref bCanceled, dbVersion, transaction_MakeDataBaseConnection))
                 {
-                    if (!DBSync.LocalDB_data_SQLite.Save(inifile_prefix, ref Err))
+                    if (transaction_MakeDataBaseConnection.Commit())
                     {
-                        LogFile.Error.Show(Err);
+                        if (!DBSync.LocalDB_data_SQLite.Save(inifile_prefix, ref Err))
+                        {
+                            LogFile.Error.Show(Err);
+                        }
+                        return true;
                     }
-                    return true;
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
+                    transaction_MakeDataBaseConnection.Rollback();
                     if (bCanceled)
                     {
                         Err = null;

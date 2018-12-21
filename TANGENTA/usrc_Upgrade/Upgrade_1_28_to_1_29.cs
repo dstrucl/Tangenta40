@@ -16,7 +16,7 @@ namespace UpgradeDB
         {
             Transaction transaction_UpgradeDB_1_28_to_1_29 = new Transaction("UpgradeDB_1_28_to_1_29");
             cashierActivityList.Clear();
-            if (DBSync.DBSync.Drop_VIEWs(ref Err))
+            if (DBSync.DBSync.Drop_VIEWs(ref Err, transaction_UpgradeDB_1_28_to_1_29))
             {
                 //change Atom_myOrganisation_Person
                 //change myOrganisation_Person
@@ -105,7 +105,7 @@ namespace UpgradeDB
                     return false;
                 }
 
-                if (DBSync.DBSync.Create_VIEWs())
+                if (DBSync.DBSync.Create_VIEWs(transaction_UpgradeDB_1_28_to_1_29))
                 {
                     if (UpgradeDB_inThread.Set_DataBase_Version("1.29", transaction_UpgradeDB_1_28_to_1_29))
                     {
