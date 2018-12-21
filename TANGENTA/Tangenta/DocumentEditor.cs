@@ -1159,7 +1159,6 @@ namespace Tangenta
         {
             ID DocInvoice_ID = null;
             string Err = null;
-            Transaction transaction_SetNewInvoiceDraft = new Transaction("SetNewInvoiceDraft");
             if (Program.OperationMode.MultiUser)
             {
                 myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(xLMOUser.myOrganisation_Person_ID);
@@ -1171,6 +1170,7 @@ namespace Tangenta
                 return false;
             }
 
+            Transaction transaction_SetNewInvoiceDraft = new Transaction("SetNewInvoiceDraft");
             ID xAtom_WorkArea_ID = null;
             if (workArea != null)
             {
@@ -1183,16 +1183,24 @@ namespace Tangenta
 
             if (m_ShopABC.SetNewDraft_DocInvoice(m_LMOUser.Atom_WorkPeriod_ID, FinancialYear, xcurrency, xAtom_Currency_ID, pform, ref DocInvoice_ID, myOrg.m_myOrg_Office.m_myOrg_Person.ID, xAtom_WorkArea_ID, DocTyp, GlobalData.ElectronicDevice_Name, ref Err, transaction_SetNewInvoiceDraft))
             {
-                if (ID.Validate(m_ShopABC.m_CurrentDoc.Doc_ID))
+                if (transaction_SetNewInvoiceDraft.Commit())
                 {
-                    xdelegate_control_InvoiceNumber_Text(m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "/" + m_ShopABC.m_CurrentDoc.DraftNumber.ToString()); // this.txt_Number.Text = DocE.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "/" + DocE.m_ShopABC.m_CurrentDoc.DraftNumber.ToString();
-                    xdelegate_control_SetMode(DocumentEditor.emode.edit_eDocumentType);// SetMode(DocumentEditor.emode.edit_eDocumentType);
-                }
+                    if (ID.Validate(m_ShopABC.m_CurrentDoc.Doc_ID))
+                    {
+                        xdelegate_control_InvoiceNumber_Text(m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "/" + m_ShopABC.m_CurrentDoc.DraftNumber.ToString()); // this.txt_Number.Text = DocE.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "/" + DocE.m_ShopABC.m_CurrentDoc.DraftNumber.ToString();
+                        xdelegate_control_SetMode(DocumentEditor.emode.edit_eDocumentType);// SetMode(DocumentEditor.emode.edit_eDocumentType);
+                    }
 
-                return true;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
+                transaction_SetNewInvoiceDraft.Rollback();
                 LogFile.Error.Show("ERROR:SetInvoiceDraft:Err=" + Err);
                 return false;
             }

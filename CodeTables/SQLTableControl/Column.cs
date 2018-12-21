@@ -670,7 +670,11 @@ namespace CodeTables
           }
         }
 
-        internal bool get_SQL_Parameter(ref SQL_Parameter par, ref string Insert_Into_Paramater, DBTableControl dbTables,int iSQLFormatedTabsWithLineBreaks)
+        internal bool get_SQL_Parameter(ref SQL_Parameter par,
+                                        ref string Insert_Into_Paramater,
+                                        DBTableControl dbTables,
+                                        int iSQLFormatedTabsWithLineBreaks,
+                                        Transaction transaction)
         {
             string parname = "@par_" + Name;
             if (IsNull())
@@ -684,7 +688,10 @@ namespace CodeTables
                 if (fKey != null)
                 {
                     ID id = null;
-                    if (fKey.fTable.Insert_SQL_Get_ID(ref id, dbTables, iSQLFormatedTabsWithLineBreaks))
+                    if (fKey.fTable.Insert_SQL_Get_ID(ref id,
+                                                      dbTables,
+                                                      iSQLFormatedTabsWithLineBreaks,
+                                                      transaction))
                     {
                         par = new SQL_Parameter(parname,SQL_Parameter.eSQL_Parameter.Bigint, false, id.V);
                         Insert_Into_Paramater = parname;

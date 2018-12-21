@@ -1854,25 +1854,7 @@ namespace DBConnectionControl40
                         return true;
 
                     case eDBType.SQLITE:
-                        {
-                            SQLiteDataAdapter adapter = new SQLiteDataAdapter();
-
-                            if (Connect_Batch(ref csError))
-                            {
-                                SQLiteCommand SqlCommandcommandGetColumnsNamesAndTypes = new SQLiteCommand(sqlGetColumnsNamesAndTypes, m_con_SQLite.Con);
-                                adapter.SelectCommand = SqlCommandcommandGetColumnsNamesAndTypes;
-                                adapter.Fill(dt);
-                                adapter.Dispose();
-                                SqlCommandcommandGetColumnsNamesAndTypes.Dispose();
-                                Disconnect_Batch();
-                            }
-                            else
-                            {
-                                MessageBox.Show(csError, "ERROR", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-                            }
-                        }
-                        ProgramDiagnostic.Diagnostic.Meassure("ReadDataTable END", null);
-                        return true;
+                        return m_con_SQLite.ReadDataTable(ref dt, sqlGetColumnsNamesAndTypes, ref csError);
 
                     default:
                         MessageBox.Show("Error eSQLType in function: public bool ReadDataTable( ..)");
@@ -1983,26 +1965,7 @@ namespace DBConnectionControl40
                         return true;
 
                     case eDBType.SQLITE:
-                        {
-                            SQLiteDataAdapter adapter = new SQLiteDataAdapter();
-                            string sError = "";
-                            if (Connect_Batch(ref sError))
-                            {
-                                SQLiteCommand SqlCommandcommandGetColumnsNamesAndTypes = new SQLiteCommand(sqlGetColumnsNamesAndTypes, m_con_SQLite.Con);
-                                adapter.SelectCommand = SqlCommandcommandGetColumnsNamesAndTypes;
-                                adapter.Fill(ds);
-                                adapter.Dispose();
-                                SqlCommandcommandGetColumnsNamesAndTypes.Dispose();
-                                Disconnect_Batch();
-                            }
-                            else
-                            {
-                                MessageBox.Show(sError, "ERROR", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-                            }
-                        }
-                        ProgramDiagnostic.Diagnostic.Meassure("ReadDataSet END", null);
-                        return true;
-
+                        return m_con_SQLite.ReadDataSet(ref ds, sqlGetColumnsNamesAndTypes, ref csError);
 
                     default:
                         MessageBox.Show("ERROR eSQLType in function:public bool ReadDataSet(..)");
@@ -3720,9 +3683,6 @@ namespace DBConnectionControl40
 
         public bool ReadDataTable(ref DataTable dt, string sqlGetColumnsNamesAndTypes, List<SQL_Parameter> lSQL_Parameter, ref string csError)
         {
-            ProgramDiagnostic.Diagnostic.Meassure("ReadDataTable(2) START", sqlGetColumnsNamesAndTypes);
-
-            //SqlConnection Conn = new SqlConnection("Data Source=razvoj1;Initial Catalog=NOS_BIH;Persist Security Info=True;User ID=sa;Password=sa;");
             if (DynSettings.bPreviewSQLBeforeExecution)
             {
                 string new_sql = "";
@@ -3809,44 +3769,7 @@ namespace DBConnectionControl40
                         return true;
 
                     case eDBType.SQLITE:
-                        {
-                            SQLiteDataAdapter adapter = new SQLiteDataAdapter();
-
-                            if (Connect_Batch(ref csError))
-                            {
-                                SQLiteCommand SqlCommandcommandGetColumnsNamesAndTypes = new SQLiteCommand(sqlGetColumnsNamesAndTypes, m_con_SQLite.Con);
-                                if (lSQL_Parameter != null)
-                                {
-                                    foreach (SQL_Parameter sqlPar in lSQL_Parameter)
-                                    {
-                                        if (sqlPar.size > 0)
-                                        {
-                                            SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
-                                            mySQLiteParameter.Value = sqlPar.Value;
-                                            SqlCommandcommandGetColumnsNamesAndTypes.Parameters.Add(mySQLiteParameter);
-
-                                        }
-                                        else
-                                        {
-                                            SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
-                                            mySQLiteParameter.Value = sqlPar.Value;
-                                            SqlCommandcommandGetColumnsNamesAndTypes.Parameters.Add(mySQLiteParameter);
-                                        }
-                                    }
-                                }
-                                adapter.SelectCommand = SqlCommandcommandGetColumnsNamesAndTypes;
-                                adapter.Fill(dt);
-                                adapter.Dispose();
-                                SqlCommandcommandGetColumnsNamesAndTypes.Dispose();
-                                Disconnect_Batch();
-                            }
-                            else
-                            {
-                                MessageBox.Show(csError, "ERROR", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-                            }
-                        }
-                        ProgramDiagnostic.Diagnostic.Meassure("ReadDataTable(2)  END", null);
-                        return true;
+                        return m_con_SQLite.ReadDataTable(ref dt,sqlGetColumnsNamesAndTypes, lSQL_Parameter,ref csError);
 
                     default:
                         MessageBox.Show("Error eSQLType in function: public bool ReadDataTable( ..)");
@@ -3866,7 +3789,7 @@ namespace DBConnectionControl40
             }
         }
 
-        public bool DeleteDataBase()
+        public bool DeleteDataBase(Transaction transaction)
         {
             string sqlDropDBQuery;
             // DBParam.DatabaseName
@@ -3892,7 +3815,7 @@ namespace DBConnectionControl40
 
             if (MessageBox.Show(sLastQuestion, lng.s_Question.s, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
-                if (this.ExecuteNonQuerySQL(sqlDropDBQuery, null, ref csError))
+                if (transaction.ExecuteNonQuerySQL(this,sqlDropDBQuery, null, ref csError))
                 {
                     // Data Base Created OK
                     string msg = "Database \"" + DataBase + "\" deleted OK on server:" + this.DataSource;

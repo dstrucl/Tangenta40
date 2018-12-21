@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DBConnectionControl40;
 using LanguageControl;
 
 
@@ -280,29 +281,40 @@ namespace LoginControl
                 {
                     List<STDRole> roles = new List<STDRole>();
                     MakeListOfSTDRoles(ref roles);
-                    if (!Write_LoginUsersAndLoginSTDRoles(New_LoginUsers_id, roles, ref Err))
+                    Transaction transaction_STD_UserManager_Write_LoginUsersAndLoginSTDRoles = new Transaction("STD_UserManager.Write_LoginUsersAndLoginSTDRoles");
+                    if (Write_LoginUsersAndLoginSTDRoles(New_LoginUsers_id, roles, ref Err, transaction_STD_UserManager_Write_LoginUsersAndLoginSTDRoles))
                     {
-                        LogFile.Error.Show("Error:UserManager:AddUser:Write_LoginUsersAndLoginRoles:Err=" + Err);
-                    }
-
-                    if (LoginUsers_Read(-1, ref Err))
-                    {
-                        LoginUsers.m_bs_dt.Position = LoginUsers.dt.Rows.Count-1;
-
-                        if (!LoginRolesReload(LoginUsers.m_bs_dt.Position, ref Err))
+                        if (transaction_STD_UserManager_Write_LoginUsersAndLoginSTDRoles.Commit())
                         {
-                            LogFile.Error.Show("Error:UserManager_Load:LoginUsers.Read: Err = " + Err);
+                            if (LoginUsers_Read(-1, ref Err))
+                            {
+                                LoginUsers.m_bs_dt.Position = LoginUsers.dt.Rows.Count - 1;
+
+                                if (!LoginRolesReload(LoginUsers.m_bs_dt.Position, ref Err))
+                                {
+                                    LogFile.Error.Show("Error:UserManager_Load:LoginUsers.Read: Err = " + Err);
+                                    return false;
+                                }
+
+                                return true;
+                            }
+                            else
+                            {
+                                LogFile.Error.Show(Err);
+                                return false;
+                            }
+                        }
+                        else
+                        {
                             return false;
                         }
-
-                        return true;
                     }
                     else
                     {
-                        LogFile.Error.Show(Err);
+                        transaction_STD_UserManager_Write_LoginUsersAndLoginSTDRoles.Rollback();
+                        LogFile.Error.Show("Error:UserManager:AddUser:Write_LoginUsersAndLoginRoles:Err=" + Err);
                         return false;
                     }
-                    
                 }
                 else
                 {
@@ -627,21 +639,29 @@ namespace LoginControl
                     bool bActive = chk_Active.Checked;
 
                     string Err = null;
-                    if (Write_LoginUsersAndLoginSTDRoles(LoginUsers.o_id.id_, userdata.m_Roles, ref Err))
+                    Transaction transaction_STD_UserManager_DoChangeData_Write_LoginUsersAndLoginSTDRoles = new Transaction("STD_UserManager.DoChangeData.Write_LoginUsersAndLoginSTDRoles");
+                    if (Write_LoginUsersAndLoginSTDRoles(LoginUsers.o_id.id_, userdata.m_Roles, ref Err, transaction_STD_UserManager_DoChangeData_Write_LoginUsersAndLoginSTDRoles))
                     {
-                        if (Func_ChangeData(userdata, bActive,  ref csError))
+                        if (transaction_STD_UserManager_DoChangeData_Write_LoginUsersAndLoginSTDRoles.Commit())
                         {
-                            MessageBox.Show(lng.sUserDataAreChanged.s);
-                            return true;
+                            if (Func_ChangeData(userdata, bActive, ref csError))
+                            {
+                                MessageBox.Show(lng.sUserDataAreChanged.s);
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
                         }
                         else
                         {
                             return false;
                         }
-
                     }
                     else
                     {
+                        transaction_STD_UserManager_DoChangeData_Write_LoginUsersAndLoginSTDRoles.Rollback();
                         LogFile.Error.Show("Error:UserManager:DoChangeData:Write_LoginUsersAndLoginRoles:" + Err);
                         return false;
                     }
@@ -677,14 +697,14 @@ namespace LoginControl
             }
         }
 
-        private bool Write_LoginUsersAndLoginSTDRoles(int usr_id,List<STDRole> roles,ref string Err)
+        private bool Write_LoginUsersAndLoginSTDRoles(int usr_id,List<STDRole> roles,ref string Err, Transaction transaction)
         {
             string sql_change_roles = " delete " + LoginDB_DataSet.LoginUsersAndLoginRoles.tablename_const + " where " + LoginDB_DataSet.LoginUsersAndLoginRoles.LoginUsers_id.name + " = " + usr_id.ToString();
             foreach (STDRole role in roles)
             {
                     sql_change_roles += "\r\n insert into " +LoginDB_DataSet.LoginUsersAndLoginRoles.tablename_const + " ( " + LoginDB_DataSet.LoginUsersAndLoginRoles.LoginUsers_id.name + "," + LoginDB_DataSet.LoginUsersAndLoginRoles.LoginRoles_id.name + ") values ("+ usr_id.ToString()+"," + role.id.ToString()+")";
             }
-            if (Login_con.ExecuteNonQuerySQL(sql_change_roles,null,ref Err))
+            if (transaction.ExecuteNonQuerySQL(Login_con,sql_change_roles, null,ref Err))
             {
                 return true;
             }

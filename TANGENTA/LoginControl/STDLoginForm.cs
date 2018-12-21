@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
 using System.Runtime.InteropServices;
+using DBConnectionControl40;
 
 namespace LoginControl
 {
@@ -67,15 +68,20 @@ namespace LoginControl
                                     STDChangePasswordForm change_pass_form = new STDChangePasswordForm(std, LoginUsers, lng.s_AdministratorRequestForNewPassword.s);
                                     if (change_pass_form.ShowDialog() == DialogResult.OK)
                                     {
+                                        Transaction transaction_STDLoginForm_DoLogin = new Transaction("STDLoginForm.DoLogin");
                                         string sql_change_enabled = "UPDATE " + LoginDB_DataSet.LoginUsers.tablename_const + " SET " + LoginDB_DataSet.LoginUsers.ChangePasswordOnFirstLogin.name + " = 0 where " + LoginDB_DataSet.LoginUsers.id.name + " = " + LoginUsers.o_id.id_.ToString();
-                                        if (std.Login_con.ExecuteNonQuerySQL(sql_change_enabled, null,  ref Err))
+                                        if (transaction_STDLoginForm_DoLogin.ExecuteNonQuerySQL(std.Login_con,sql_change_enabled, null,  ref Err))
                                         {
-                                            DialogResult = DialogResult.OK;
-                                            Close();
-                                            return;
+                                            if (transaction_STDLoginForm_DoLogin.Commit())
+                                            {
+                                                DialogResult = DialogResult.OK;
+                                                Close();
+                                                return;
+                                            }
                                         }
                                         else
                                         {
+                                            transaction_STDLoginForm_DoLogin.Rollback();
                                             LogFile.Error.Show("Error:LoginForm:" + sql_change_enabled + ":Err=" + Err);
                                         }
                                     }
@@ -88,12 +94,21 @@ namespace LoginControl
                                 {
                                     if (LoginUsers.o_NotActiveAfterPasswordExpires.NotActiveAfterPasswordExpires_)
                                     {
+                                        Transaction transaction_STDLoginForm_DoLogin = new Transaction("STDLoginForm.DoLogin");
                                         string sql_change_enabled = "UPDATE " + LoginDB_DataSet.LoginUsers.tablename_const + " SET " + LoginDB_DataSet.LoginUsers.enabled.name + " = 0 where " + LoginDB_DataSet.LoginUsers.id.name + " = " + LoginUsers.o_id.id_.ToString();
-                                        if (!std.Login_con.ExecuteNonQuerySQL(sql_change_enabled, null,ref Err))
+                                        if (transaction_STDLoginForm_DoLogin.ExecuteNonQuerySQL(std.Login_con,sql_change_enabled, null,ref Err))
                                         {
+                                            if (transaction_STDLoginForm_DoLogin.Commit())
+                                            {
+                                                MessageBox.Show(lng.s_YourUsernameHasExpired.s);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            transaction_STDLoginForm_DoLogin.Rollback();
                                             LogFile.Error.Show("Error:LoginForm:" + sql_change_enabled + ":Err=" + Err);
                                         }
-                                        MessageBox.Show(lng.s_YourUsernameHasExpired.s);
+                                        
 
                                     }
                                     else

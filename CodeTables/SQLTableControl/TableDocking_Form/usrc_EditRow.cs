@@ -569,7 +569,7 @@ namespace CodeTables.TableDocking_Form
                     //    MessageBox.Show(this, lng.s_DataInsertedIntoDataBaseOK.s, lng.s_Info.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     //}
                     ID ID = null;
-                    bRes = m_tbl.Insert(ref ID, m_DBTables);
+                    bRes = m_tbl.Insert(ref ID, m_DBTables, transaction);
                     if (bRes)
                     {
                         this.Changed = false;

@@ -8,7 +8,22 @@ namespace DBConnectionControl40
 {
     public class Transaction
     {
-        private DBConnection con = null;
+        private DBConnection mcon = null;
+
+        public DBConnection con
+        {
+            get
+            {
+                return mcon;
+            }
+            set
+            {
+                mcon = value;
+            }
+        }
+
+        private bool m_Active = false;
+        
 
         private string name = null;
         public string Name
@@ -59,52 +74,79 @@ namespace DBConnectionControl40
                     return false;
                 }
             }
+            else
+            {
+                if (con==null)
+                {
+                    con = m_con;
+                }
+            }
+            m_Active = true;
             return true;
         }
 
         public bool Commit()
         {
-            if (con!=null)
+            if (m_Active)
             {
                 if (id != null)
                 {
-                    if (con.CommitTransaction(id))
+                    if (con != null)
                     {
-                        id = null;
-                        return true;
+                        if (con.CommitTransaction(id))
+                        {
+                            id = null;
+                            m_Active = false;
+                            return true;
+                        }
+                        else
+                        {
+                            id = null;
+                            return false;
+                        }
                     }
                     else
                     {
-                        id = null;
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:Transaction:Commit():con==null!");
                         return false;
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:DBConnectionControl40:Transaction:Commit():id==null!");
+                    LogFile.Error.Show("ERROR:DBConnectionControl40:Transaction:Commit():con==null!");
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:DBConnectionControl40:Transaction:Commit():con==null!");
-                return false;
+                // transaction not active
+                return true;
             }
         }
+
         public bool Rollback()
         {
-            if (con != null)
+            if (m_Active)
             {
                 if (id != null)
                 {
-                    if (con.RollbackTransaction(id))
+                    if (con != null)
                     {
-                        id = null;
-                        return true;
+                        if (con.RollbackTransaction(id))
+                        {
+                            m_Active = false;
+                            id = null;
+                            return true;
+                        }
+                        else
+                        {
+                            id = null;
+                            return false;
+                        }
                     }
                     else
                     {
-                        id = null;
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:Transaction:Rollback():con==null!");
                         return false;
                     }
                 }
@@ -116,8 +158,8 @@ namespace DBConnectionControl40
             }
             else
             {
-                LogFile.Error.Show("ERROR:DBConnectionControl40:Transaction:Rollback():con==null!");
-                return false;
+                // transaction not started
+                return true;
             }
         }
 

@@ -61,7 +61,7 @@ namespace TangentaDB
                                                             + Office_ID.ToString() + ","
                                                             + sval_Description +
                                                             ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Office_Data_ID, ref Err, "Office_Data"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Office_Data_ID, ref Err, "Office_Data"))
                     {
                         return true;
                     }

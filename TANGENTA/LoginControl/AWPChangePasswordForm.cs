@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DBConnectionControl40;
 using LanguageControl;
 
 namespace LoginControl
@@ -31,14 +32,22 @@ namespace LoginControl
             {
                 if (txtPassword.Text.Equals(txtConfirmPassword.Text))
                 {
-
-                    if (AWP_func.LoginUsers_UserChangeItsOwnPassword(m_LMOUser.awpld, LoginCtrl.CalculateSHA256(txtConfirmPassword.Text)))
+                    Transaction transaction_AWPChangePasswordForm_btn_OK_Click_AWP_func_LoginUsers_UserChangeItsOwnPassword = new Transaction("AWPChangePasswordForm.btn_OK_Click.AWP_func.LoginUsers_UserChangeItsOwnPassword");
+                    if (AWP_func.LoginUsers_UserChangeItsOwnPassword(m_LMOUser.awpld, LoginCtrl.CalculateSHA256(txtConfirmPassword.Text), transaction_AWPChangePasswordForm_btn_OK_Click_AWP_func_LoginUsers_UserChangeItsOwnPassword))
                     {
-                        DialogResult = DialogResult.OK;
-                        this.Close();
+                        if (transaction_AWPChangePasswordForm_btn_OK_Click_AWP_func_LoginUsers_UserChangeItsOwnPassword.Commit())
+                        {
+                            DialogResult = DialogResult.OK;
+                            this.Close();
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
                     else
-                    {                       
+                    {
+                        transaction_AWPChangePasswordForm_btn_OK_Click_AWP_func_LoginUsers_UserChangeItsOwnPassword.Rollback();
                         DialogResult = DialogResult.Abort;
                         this.Close();
                     }

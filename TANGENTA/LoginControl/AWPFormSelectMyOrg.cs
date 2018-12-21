@@ -126,32 +126,48 @@ namespace LoginControl
                 drs[i] = dt_myOrgPerNotInLoginUsers.Rows[dgvxr.Index];
                 i++;
             }
-            int iCount = i;
-            for (i=0;i<iCount;i++)
+            Transaction transaction_AWPFormSelectMyOrg_btn_Select_Click_InsertNewDefaultLoginUsersRows = new Transaction("AWPFormSelectMyOrg.btn_Select_Click.InsertNewDefaultLoginUsersRows");
+            if (InsertNewDefaultLoginUsersRows(drs, transaction_AWPFormSelectMyOrg_btn_Select_Click_InsertNewDefaultLoginUsersRows))
+            {
+                if (transaction_AWPFormSelectMyOrg_btn_Select_Click_InsertNewDefaultLoginUsersRows.Commit())
+                {
+                    DialogResult = DialogResult.OK;
+                    Close();
+                    return;
+                }
+            }
+            else
+            {
+                transaction_AWPFormSelectMyOrg_btn_Select_Click_InsertNewDefaultLoginUsersRows.Rollback();
+                DialogResult = DialogResult.Abort;
+                Close();
+                return;
+            }
+        }
+
+        private bool InsertNewDefaultLoginUsersRows(DataRow[] drs, Transaction transaction)
+        {
+            int iCount = drs.Count();
+            for (int i = 0; i < iCount; i++)
             {
                 ID myOrganisation_Person_ID = tf.set_ID(drs[i]["ID"]);
                 string FirstName = (string)drs[i]["FirstName"];
                 UniqueUserName = AWP_func.GetUniqueUserName(FirstName);
                 if (UniqueUserName != null)
                 {
-                    if (AWP_func.InsertNewDefaultLoginUsersRow(myOrganisation_Person_ID, UniqueUserName, ref LoginUsers_ID))
+                    if (AWP_func.InsertNewDefaultLoginUsersRow(myOrganisation_Person_ID, UniqueUserName, ref LoginUsers_ID, transaction))
                     {
                         continue;
                     }
                     else
                     {
                         // Error
-                        DialogResult = DialogResult.Abort;
-                        Close();
-                        return;
+                        return false;
                     }
                 }
             }
-            DialogResult = DialogResult.OK;
-            Close();
-            return;
+            return true;
         }
-
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;

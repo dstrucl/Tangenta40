@@ -70,7 +70,19 @@ namespace LoginControl
             pParentForm = xpParentForm;
             lctrl = xlctrl;
             AWP_func.con = xcon;
-            AWP_func.UpdateRoles(awpd.AllRoles);
+            Transaction transaction_AWP_AWP_func_UpdateRoles = new Transaction("AWP.AWP_func.UpdateRoles");
+            if (AWP_func.UpdateRoles(awpd.AllRoles, transaction_AWP_AWP_func_UpdateRoles))
+            {
+                if (!transaction_AWP_AWP_func_UpdateRoles.Commit())
+                {
+                    return;
+                }
+            }
+            else
+            {
+                transaction_AWP_AWP_func_UpdateRoles.Rollback();
+                return;
+            }
             TemplatesLoader.Init();
             if (bSingleUser)
             {
@@ -198,78 +210,90 @@ eres_check:
                         }
                         if (dlgRes == DialogResult.OK)
                         {
-                            if (AWP_func.Import_myOrganisationPerson(awpd, frm_awp_mopt.drsImportAdministrator, frm_awp_mopt.drsImportOthers))
+                            Transaction transaction_AWP_AWP_func_Import_myOrganisationPerson = new Transaction("AWP.AWP_func.Import_myOrganisationPerson");
+                            if (AWP_func.Import_myOrganisationPerson(awpd, 
+                                                                     frm_awp_mopt.drsImportAdministrator, 
+                                                                     frm_awp_mopt.drsImportOthers,
+                                                                     transaction_AWP_AWP_func_Import_myOrganisationPerson))
                             {
-                                AWP_UserManager awp_usrmgt_frm = new AWP_UserManager(lctrl,xnav, parent_form,LMO1User);
-                                if (parent_form != null)
+                                if (transaction_AWP_AWP_func_Import_myOrganisationPerson.Commit())
                                 {
-                                    awp_usrmgt_frm.TopMost = parent_form.TopMost;
-                                    dlgRes = awp_usrmgt_frm.ShowDialog(parent_form);
-                                }
-                                else
-                                {
-                                    dlgRes = awp_usrmgt_frm.ShowDialog();
-                                }
-                                switch (dlgRes)
-                                {
-                                    case DialogResult.OK:
-                                        if (LMO1User.IsUserManager)
-                                        {
-                                            if (lctrl.m_usrc_LoginCtrl != null)
+                                    AWP_UserManager awp_usrmgt_frm = new AWP_UserManager(lctrl, xnav, parent_form, LMO1User);
+                                    if (parent_form != null)
+                                    {
+                                        awp_usrmgt_frm.TopMost = parent_form.TopMost;
+                                        dlgRes = awp_usrmgt_frm.ShowDialog(parent_form);
+                                    }
+                                    else
+                                    {
+                                        dlgRes = awp_usrmgt_frm.ShowDialog();
+                                    }
+                                    switch (dlgRes)
+                                    {
+                                        case DialogResult.OK:
+                                            if (LMO1User.IsUserManager)
                                             {
-                                                lctrl.m_usrc_LoginCtrl.btn_UserManager.Visible = true;
-                                            }
-                                        }
-
-                                        if (lctrl.LMUsers)
-                                        {
-                                            if (AWP_func.Read_Login_VIEW(ref AWP_dtLoginView, null, null))
-                                            {
-                                                eres = AWP_dtLogin_Vaild();
-                                                if (eres != eAWP_dtLogin_Vaild_result.OK)
+                                                if (lctrl.m_usrc_LoginCtrl != null)
                                                 {
-                                                    goto eres_check;
+                                                    lctrl.m_usrc_LoginCtrl.btn_UserManager.Visible = true;
                                                 }
                                             }
 
-                                        }
-                                        else
-                                        {
-                                            ID Atom_WorkPeriod_ID = null;
-                                            Transaction transaction_GetWorkPeriodEx_LMO1User = new Transaction("GetWorkPeriodEx_LMO1User");
-                                            if (LoginCtrl.GetWorkPeriodEx(LMO1User,
-                                                          ref LMO1User.Atom_myOrganisation_Person_ID,
-                                                          transaction_GetWorkPeriodEx_LMO1User
-                                                          ))
+                                            if (lctrl.LMUsers)
                                             {
-                                                ID LoginSession_ID = null;
-                                                if (AWP_func.WriteLoginSession(LMO1User.awpld.ID, Atom_WorkPeriod_ID, ref LoginSession_ID, transaction_GetWorkPeriodEx_LMO1User))
+                                                if (AWP_func.Read_Login_VIEW(ref AWP_dtLoginView, null, null))
                                                 {
-                                                    if (lctrl.m_usrc_LoginCtrl != null)
+                                                    eres = AWP_dtLogin_Vaild();
+                                                    if (eres != eAWP_dtLogin_Vaild_result.OK)
                                                     {
-                                                        lctrl.m_usrc_LoginCtrl.lbl_username.Text = LMO1User.UserName + ": " + LMO1User.FirstName + " " + LMO1User.LastName;
-                                                    }
-                                                    if (transaction_GetWorkPeriodEx_LMO1User.Commit())
-                                                    {
-                                                        return eAWP_dtLogin_Vaild_result.OK;
-                                                    }
-                                                    else
-                                                    {
-                                                        return eAWP_dtLogin_Vaild_result.ERROR;
+                                                        goto eres_check;
                                                     }
                                                 }
+
                                             }
                                             else
                                             {
-                                                transaction_GetWorkPeriodEx_LMO1User.Rollback();
-                                                return eAWP_dtLogin_Vaild_result.ERROR;
+                                                ID Atom_WorkPeriod_ID = null;
+                                                Transaction transaction_GetWorkPeriodEx_LMO1User = new Transaction("GetWorkPeriodEx_LMO1User");
+                                                if (LoginCtrl.GetWorkPeriodEx(LMO1User,
+                                                              ref LMO1User.Atom_myOrganisation_Person_ID,
+                                                              transaction_GetWorkPeriodEx_LMO1User
+                                                              ))
+                                                {
+                                                    ID LoginSession_ID = null;
+                                                    if (AWP_func.WriteLoginSession(LMO1User.awpld.ID, Atom_WorkPeriod_ID, ref LoginSession_ID, transaction_GetWorkPeriodEx_LMO1User))
+                                                    {
+                                                        if (lctrl.m_usrc_LoginCtrl != null)
+                                                        {
+                                                            lctrl.m_usrc_LoginCtrl.lbl_username.Text = LMO1User.UserName + ": " + LMO1User.FirstName + " " + LMO1User.LastName;
+                                                        }
+                                                        if (transaction_GetWorkPeriodEx_LMO1User.Commit())
+                                                        {
+                                                            return eAWP_dtLogin_Vaild_result.OK;
+                                                        }
+                                                        else
+                                                        {
+                                                            return eAWP_dtLogin_Vaild_result.ERROR;
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    transaction_GetWorkPeriodEx_LMO1User.Rollback();
+                                                    return eAWP_dtLogin_Vaild_result.ERROR;
+                                                }
                                             }
-                                        }
-                                        return eres;
+                                            return eres;
+                                    }
+                                }
+                                else
+                                {
+                                    return eAWP_dtLogin_Vaild_result.ERROR;
                                 }
                             }
                             else
                             {
+                                transaction_AWP_AWP_func_Import_myOrganisationPerson.Rollback();
                                 return eres;
                             }
                         }

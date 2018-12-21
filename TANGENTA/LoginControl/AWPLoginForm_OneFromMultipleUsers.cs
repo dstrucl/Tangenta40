@@ -89,7 +89,6 @@ namespace LoginControl
 
         private void DoLogin()
         {
-            Transaction transaction_MultipleUsers_LoginStart = new Transaction("MultipleUsers_LoginStart");
             switch (m_LMOUser.awpld.GetData(ref dtLoginUsers, txt_UserName.Text, AWP.awpd))
             {
                 case AWPLoginData.eGetDateResult.OK:
@@ -101,7 +100,8 @@ namespace LoginControl
                             AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(m_LMOUser,  lng.s_AdministratorRequestForNewPassword.s);
                             if (change_pass_form.ShowDialog() == DialogResult.OK)
                             {
-                                
+
+                                Transaction transaction_MultipleUsers_LoginStart = new Transaction("MultipleUsers_LoginStart");
                                 if (Login_Start(transaction_MultipleUsers_LoginStart))
                                 {
                                     if (transaction_MultipleUsers_LoginStart.Commit())
@@ -134,35 +134,54 @@ namespace LoginControl
                             {
                                 if (m_LMOUser.NotActiveAfterPasswordExpires)
                                 {
-                                    AWP_func.DeactivateUserName(m_LMOUser.awpld.ID);
-                                    XMessage.Box.Show(this,lng.s_YourUsernameHasExpired,MessageBoxIcon.Information);
+                                    Transaction transaction_AWPLoginForm_OneFromMultipleUsers_AWP_func_DeactivateUserName = new Transaction("AWPLoginForm.OneFromMultipleUsers.AWP_func.DeactivateUserName");
+                                    if (AWP_func.DeactivateUserName(m_LMOUser.awpld.ID, transaction_AWPLoginForm_OneFromMultipleUsers_AWP_func_DeactivateUserName))
+                                    {
+                                        if (transaction_AWPLoginForm_OneFromMultipleUsers_AWP_func_DeactivateUserName.Commit())
+                                        {
+                                            XMessage.Box.Show(this, lng.s_YourUsernameHasExpired, MessageBoxIcon.Information);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        transaction_AWPLoginForm_OneFromMultipleUsers_AWP_func_DeactivateUserName.Rollback();
+                                    }
                                 }
                                 else
                                 {
                                     AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(m_LMOUser, lng.s_PasswordExpiredSetNewPassword.s);
                                     if (change_pass_form.ShowDialog() == DialogResult.OK)
                                     {
-                                        if (AWP_func.Remove_ChangePasswordOnFirstLogin(m_LMOUser.awpld))
+                                        Transaction transaction_AWPLoginForm_OneFromMultipleUsers_AWP_func_Remove_ChangePasswordOnFirstLogin = new Transaction("AWPLoginForm.OneFromMultipleUsers.AWP_func.Remove_ChangePasswordOnFirstLogin");
+                                        if (AWP_func.Remove_ChangePasswordOnFirstLogin(m_LMOUser.awpld, transaction_AWPLoginForm_OneFromMultipleUsers_AWP_func_Remove_ChangePasswordOnFirstLogin))
                                         {
                                             // change password dialog
-                                            if (Login_Start(transaction_MultipleUsers_LoginStart))
+                                            if (transaction_AWPLoginForm_OneFromMultipleUsers_AWP_func_Remove_ChangePasswordOnFirstLogin.Commit())
                                             {
-
-                                                if (transaction_MultipleUsers_LoginStart.Commit())
+                                                Transaction transaction_MultipleUsers_LoginStart = new Transaction("MultipleUsers_LoginStart");
+                                                if (Login_Start(transaction_MultipleUsers_LoginStart))
                                                 {
-                                                    DialogResult = DialogResult.OK;
-                                                    Close();
-                                                    return;
+
+                                                    if (transaction_MultipleUsers_LoginStart.Commit())
+                                                    {
+                                                        DialogResult = DialogResult.OK;
+                                                        Close();
+                                                        return;
+                                                    }
+                                                    else
+                                                    {
+                                                        return;
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    return;
+                                                    transaction_MultipleUsers_LoginStart.Rollback();
                                                 }
                                             }
-                                            else
-                                            {
-                                                transaction_MultipleUsers_LoginStart.Rollback();
-                                            }
+                                        }
+                                        else
+                                        {
+                                            transaction_AWPLoginForm_OneFromMultipleUsers_AWP_func_Remove_ChangePasswordOnFirstLogin.Rollback();
                                         }
                                     }
                                 }
@@ -171,6 +190,7 @@ namespace LoginControl
                             {
                                 if (m_loginType == AWPLoginForm_OneFromMultipleUsers.LoginType.LOGIN)
                                 {
+                                    Transaction transaction_MultipleUsers_LoginStart = new Transaction("MultipleUsers_LoginStart");
                                     if (Login_Start(transaction_MultipleUsers_LoginStart))
                                     {
                                         if (transaction_MultipleUsers_LoginStart.Commit())
@@ -276,7 +296,7 @@ namespace LoginControl
                                         transaction))
             {
 
-                if (AWP_func.GetLoginSession(m_LMOUser.awpld.ID,Atom_WorkPeriod_ID, ref LoginSession_id))
+                if (AWP_func.GetLoginSession(m_LMOUser.awpld.ID,Atom_WorkPeriod_ID, ref LoginSession_id, transaction))
                 {
                     if (m_LMOUser.IsUserManager)
                     {

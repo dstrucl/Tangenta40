@@ -377,17 +377,16 @@ namespace LoginControl
             }
         }
 
-        internal void RemoveRole(int Index)
+        internal bool RemoveRole(int Index,Transaction transaction)
         {
-            AWP_func.RemoveRole(ID, m_AWP_UserRoles[Index].ID);
-
+            return AWP_func.RemoveRole(ID, m_AWP_UserRoles[Index].ID, transaction);
         }
 
-        internal void AddRole(int Index)
+        internal bool AddRole(int Index, Transaction transaction)
         {
             ID LoginUsersAndLoginRoles_ID = null;
 
-            AWP_func.AddRole(ID, m_AWP_MissingUserRoles[Index].ID,ref LoginUsersAndLoginRoles_ID);
+            return AWP_func.AddRole(ID, m_AWP_MissingUserRoles[Index].ID,ref LoginUsersAndLoginRoles_ID, transaction);
         }
     }
 }

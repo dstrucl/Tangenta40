@@ -559,7 +559,11 @@ namespace CodeTables
         }
 
 
-        private bool UpdateInputControls_SQL(DBTableControl dbTables, SQLTable pParentTable, ref ID ID, ref string Err, Transaction transaction)
+        private bool UpdateInputControls_SQL(DBTableControl dbTables,
+                                             SQLTable pParentTable,
+                                             ref ID ID,
+                                             ref string Err,
+                                             Transaction transaction)
         {
             List<SQL_Parameter> sqlParamList = new List<SQL_Parameter>();
             if (pParentTable == null)
@@ -732,7 +736,7 @@ namespace CodeTables
                                 if (RowReferenceFromTable_Check_NoChangeToOther_Ex(usrc_RowReferencedFromTable_List, id1))
                                 {
                                     ID id2 = null;
-                                    if (Insert_SQL_Get_Select_ID(ref id2, dbTables, -1))
+                                    if (Insert_SQL_Get_Select_ID(ref id2, dbTables, -1, transaction))
                                     {
                                         if (id2 != null)
                                         {
@@ -741,7 +745,7 @@ namespace CodeTables
                                         }
                                         else
                                         {
-                                            if (Insert_SQL(ref ID, dbTables, -1))
+                                            if (Insert_SQL(ref ID, dbTables, -1, transaction))
                                             {
                                                 return true;
                                             }
@@ -879,7 +883,7 @@ namespace CodeTables
                     else
                     {
                         ID id2 = null;
-                        if (Insert_SQL_Get_ID(ref id2, dbTables, -1))
+                        if (Insert_SQL_Get_ID(ref id2, dbTables, -1, transaction))
                         {
                             ID = id2;
                             return true;

@@ -684,15 +684,15 @@ namespace TangentaDB
             }
         }
 
-        public static bool SetDefault(ID id)
+        public static bool SetDefault(ID id, Transaction transaction)
         {
             string Err = null;
             string sql = "update doc set bDefault = 0";
-            if (DBSync.DBSync.Con.ExecuteNonQuerySQL(sql, null,  ref Err))
+            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null,  ref Err))
             {
                 sql = "update doc set bDefault = 1 where id = " + id.ToString();
  
-                if (DBSync.DBSync.Con.ExecuteNonQuerySQL(sql, null,  ref Err))
+                if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null,  ref Err))
                 {
                     return true;
                 }

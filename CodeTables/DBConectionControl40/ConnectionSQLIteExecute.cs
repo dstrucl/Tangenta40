@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SQLite;
+using System.Windows.Forms;
 
 namespace DBConnectionControl40
 {
@@ -33,9 +34,22 @@ namespace DBConnectionControl40
 
         }
 
+        private bool CanDoRead(string func_name, ref string ErrorMsg)
+        {
+            if (cmd != null)
+            {
+                return true;
+            }
+            else
+            {
+                ErrorMsg = "Error " + func_name + ":CanDoRead : SQLite Command is not created!";
+                return false;
+            }
+        }
+
+
         public bool ExecuteNonQuerySQL(string sql, List<SQL_Parameter> lSQL_Parameter,  ref string ErrorMsg)
         {
-            //SqlConnection Conn = new SqlConnection(xString);
             if (TransactionsOnly)
             {
                 if (CanDoTransaction("ExecuteNonQuerySQL", ref ErrorMsg))
@@ -68,10 +82,7 @@ namespace DBConnectionControl40
                     }
                     catch (System.Exception ex)
                     {
-                        ErrorMsg = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteQuerySQL:\r\n", sql, cmd.Parameters);
-                        DBConnection.ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuery");
-                        DBConnection.WriteLogTable(ex);
-                        ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
+                        ErrorMsg = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteNonQuerySQL:Exception=" + ex.Message+"\r\n", sql, cmd.Parameters);
                         return false;
                     }
                 }
@@ -117,24 +128,17 @@ namespace DBConnectionControl40
                         cmd.CommandTimeout = 20000;
                         cmd.ExecuteNonQuery();
                         Disconnect_Batch();
-                        ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END", null);
                         return true;
                     }
                     else
                     {
                         LogFile.Error.Show(sError);
-                        ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END ERROR", null);
                         return false;
                     }
                 }
                 catch (System.Exception ex)
                 {
-                    //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
-                    ErrorMsg = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteQuerySQL:\r\n", sql, cmd.Parameters);
-                    DBConnection.ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuery");
-                    DBConnection.WriteLogTable(ex);
-
-                    ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
+                    ErrorMsg = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteNonQuerySQL:Exception=" + ex.Message+"\r\n", sql, cmd.Parameters);
                     return false;
                 }
             }
@@ -143,7 +147,6 @@ namespace DBConnectionControl40
 
         public bool ExecuteNonQueryReturnID(string sql, List<SQL_Parameter> lSQL_Parameter, ref ID newID, ref string ErrorMsg, string SQlite_table_name)
         {
-            //SqlConnection Conn = new SqlConnection(xString);
             if (TransactionsOnly)
             {
                 if (CanDoTransaction("ExecuteNonQuerySQL", ref ErrorMsg))
@@ -175,16 +178,11 @@ namespace DBConnectionControl40
                         cmd.ExecuteNonQuery();
                         cmd.CommandText = "SELECT last_insert_rowid() from " + SQlite_table_name;
                         newID = new ID(cmd.ExecuteScalar());
-                        ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQLReturnID END", null);
                         return true;
                     }
                     catch (Exception ex)
                     {
-                        //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
-                        ErrorMsg = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteQuerySQL:\r\n", sql, cmd.Parameters);
-                        DBConnection.ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuery");
-                        DBConnection.WriteLogTable(ex);
-                        ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
+                        ErrorMsg = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteNonQueryReturnID:Exception=" + ex.Message+ "\r\n", sql, cmd.Parameters);
                         return false;
                     }
                 }
@@ -225,22 +223,16 @@ namespace DBConnectionControl40
                         SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() from " + SQlite_table_name, Con);
                         newID = new ID(cmd.ExecuteScalar());
                         Disconnect_Batch();
-                        ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQLReturnID END", null);
                         return true;
                     }
                     catch (Exception ex)
                     {
-                        ErrorMsg = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteQuerySQL:\r\n", sql, cmd.Parameters);
-                        DBConnection.ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuery");
-                        DBConnection.WriteLogTable(ex);
-                        ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
+                        ErrorMsg = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteNonQueryReturnID:Exception=" + ex.Message+"\r\n", sql, cmd.Parameters);
                         return false;
                     }
                 }
                 else
-                {
-                    //               MessageBox.Show(csError, "ERROR", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-                    ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQLReturnID END false", null);
+                {                  
                     return false;
                 }
             }
@@ -255,76 +247,83 @@ namespace DBConnectionControl40
             {
                 if (CanDoTransaction("ExecuteNonQuerySQL", ref csError))
                 {
-                    cmd.CommandText = sql;
-                    cmd.CommandTimeout = 200000;
-                    cmd.Parameters.Clear();
-                    if (lSQL_Parameter != null)
+                    try
                     {
-                        foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+                        cmd.CommandText = sql;
+                        cmd.CommandTimeout = 200000;
+                        cmd.Parameters.Clear();
+                        if (lSQL_Parameter != null)
                         {
-                            if (sqlPar.size > 0)
+                            foreach (SQL_Parameter sqlPar in lSQL_Parameter)
                             {
-                                SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
-                                mySQLiteParameter.Value = sqlPar.Value;
-                                cmd.Parameters.Add(mySQLiteParameter);
+                                if (sqlPar.size > 0)
+                                {
+                                    SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
+                                    mySQLiteParameter.Value = sqlPar.Value;
+                                    cmd.Parameters.Add(mySQLiteParameter);
+                                }
+                                else
+                                {
+                                    SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
+                                    cmd.Parameters.Add(mySQLiteParameter);
+                                }
+                            }
+                        }
+
+                        Object ReturnObject = cmd.ExecuteScalar();
+                        cmd.CommandText = "SELECT last_insert_rowid() from " + SQlite_table_name;
+                        id_new = new ID(cmd.ExecuteScalar());
+                        if (ReturnObject == null)
+                        {
+                            //SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() AS ID" , m_con_SQLite);
+                            // On different Sqlite.dll runs different !
+                            //                                    SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() from " + SQlite_table_name, m_con_SQLite);
+                            cmd = new SQLiteCommand("SELECT last_insert_rowid()", Con);
+                            // Bepaal de nieuwe ID en sla deze op in het juiste veld
+                            if (Connect_Batch(ref csError))
+                            {
+                                object nieuweID = cmd.ExecuteScalar();
+                                id_new = new ID(nieuweID);
+                                Disconnect_Batch();
                             }
                             else
                             {
-                                SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
-                                cmd.Parameters.Add(mySQLiteParameter);
+                                LogFile.Error.Show(csError);
+                                ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
+                                return false;
                             }
-                        }
-                    }
-
-                    Object ReturnObject = cmd.ExecuteScalar();
-                    cmd.CommandText = "SELECT last_insert_rowid() from " + SQlite_table_name;
-                    id_new = new ID(cmd.ExecuteScalar());
-                    if (ReturnObject == null)
-                    {
-                        //SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() AS ID" , m_con_SQLite);
-                        // On different Sqlite.dll runs different !
-                        //                                    SQLiteCommand cmd = new SQLiteCommand("SELECT last_insert_rowid() from " + SQlite_table_name, m_con_SQLite);
-                        cmd = new SQLiteCommand("SELECT last_insert_rowid()", Con);
-                        // Bepaal de nieuwe ID en sla deze op in het juiste veld
-                        if (Connect_Batch(ref csError))
-                        {
-                            object nieuweID = cmd.ExecuteScalar();
-                            id_new = new ID(nieuweID);
-                            Disconnect_Batch();
                         }
                         else
                         {
-                            LogFile.Error.Show(csError);
-                            ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        if (ReturnObject.GetType() == typeof(string))
-                        {
-                            string s;
-                            s = (string)ReturnObject;
-                            if (DBConnection.IsNumber(s))
+                            if (ReturnObject.GetType() == typeof(string))
+                            {
+                                string s;
+                                s = (string)ReturnObject;
+                                if (DBConnection.IsNumber(s))
+                                {
+                                    id_new = new ID(ReturnObject);
+                                }
+                            }
+                            else if (ReturnObject.GetType() == typeof(long))
+                            {
+                                id_new = new ID(ReturnObject);
+                            }
+                            else if (ReturnObject.GetType() == typeof(Int32))
+                            {
+                                id_new = new ID(ReturnObject);
+                            }
+                            else if (ReturnObject.GetType() == typeof(Int64))
                             {
                                 id_new = new ID(ReturnObject);
                             }
                         }
-                        else if (ReturnObject.GetType() == typeof(long))
-                        {
-                            id_new = new ID(ReturnObject);
-                        }
-                        else if (ReturnObject.GetType() == typeof(Int32))
-                        {
-                            id_new = new ID(ReturnObject);
-                        }
-                        else if (ReturnObject.GetType() == typeof(Int64))
-                        {
-                            id_new = new ID(ReturnObject);
-                        }
+                        return true;
                     }
-                    ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END", null);
-                    return true;
+                    catch (Exception ex)
+                    {
+                        csError = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteScalarReturnID:Exception=" + ex.Message + "\r\n", sql, cmd.Parameters);
+                        return false;
+                    }
 
                 }
                 else
@@ -416,11 +415,205 @@ namespace DBConnectionControl40
                 }
                 catch (System.Exception ex)
                 {
-                    //System.Windows.Forms.MessageBox.Show("SQL ERROR:" + ex.Message);
-                    csError = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteQuerySQL:\r\n", sql, cmd.Parameters);
-                    DBConnection.ShowDBErrorMessage(ex.Message, lSQL_Parameter, "ExecuteNonQuery");
-                    DBConnection.WriteLogTable(ex);
-                    ProgramDiagnostic.Diagnostic.Meassure("ExecuteQuerySQL END ERROR", null);
+                    csError = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ExecuteNonQueryReturnID:Exception="+ex.Message+"\r\n", sql, cmd.Parameters);
+                    return false;
+                }
+            }
+        }
+
+        public bool ReadDataTable(ref DataTable dt, string sqlGetColumnsNamesAndTypes, ref string csError)
+        {
+            if (TransactionsOnly)
+            {
+                try
+                {
+                    if (Connect_Batch(ref csError))
+                    {
+                        if (cmd==null)
+                        {
+                            cmd = Con.CreateCommand();
+                        }
+                        cmd.CommandText = sqlGetColumnsNamesAndTypes;
+                        if (this.adapter == null)
+                        {
+                            adapter = new SQLiteDataAdapter(cmd);
+                        }
+                        adapter.Fill(dt);
+                    }
+                    else
+                    {
+                        MessageBox.Show(csError, "ERROR", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    csError = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ReadDataTable:Exception="+ex.Message+"\r\n", sqlGetColumnsNamesAndTypes, cmd.Parameters);
+                    return false;
+                }
+            }
+            else
+            {
+                SQLiteDataAdapter adapterx = new SQLiteDataAdapter();
+
+                if (Connect_Batch(ref csError))
+                {
+                    try
+                    {
+                        SQLiteCommand SqlCommandcommandGetColumnsNamesAndTypes = new SQLiteCommand(sqlGetColumnsNamesAndTypes, Con);
+                        adapterx.SelectCommand = SqlCommandcommandGetColumnsNamesAndTypes;
+                        adapterx.Fill(dt);
+                        adapterx.Dispose();
+                        SqlCommandcommandGetColumnsNamesAndTypes.Dispose();
+                        Disconnect_Batch();
+                    }
+                    catch (Exception ex)
+                    {
+                        csError = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ReadDataTable:Exception=" + ex.Message + "\r\n", sqlGetColumnsNamesAndTypes, cmd.Parameters);
+                        return false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(csError, "ERROR", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                }
+            }
+            return true;
+        }
+
+        public bool ReadDataTable(ref DataTable dt, string sqlGetColumnsNamesAndTypes, List<SQL_Parameter> lSQL_Parameter, ref string csError)
+        {
+            ProgramDiagnostic.Diagnostic.Meassure("ReadDataTable START", sqlGetColumnsNamesAndTypes);
+            if (TransactionsOnly)
+            {
+                try
+                {
+                    if (Connect_Batch(ref csError))
+                    {
+                        if (cmd == null)
+                        {
+                            cmd = Con.CreateCommand();
+                        }
+                        cmd.CommandText = sqlGetColumnsNamesAndTypes;
+                        if (lSQL_Parameter != null)
+                        {
+                            foreach (SQL_Parameter sqlPar in lSQL_Parameter)
+                            {
+                                if (sqlPar.size > 0)
+                                {
+                                    SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.SQLiteDbType, sqlPar.size);
+                                    mySQLiteParameter.Value = sqlPar.Value;
+                                    cmd.Parameters.Add(mySQLiteParameter);
+                                }
+                                else
+                                {
+                                    SQLiteParameter mySQLiteParameter = new SQLiteParameter(sqlPar.Name, sqlPar.Value);
+                                    cmd.Parameters.Add(mySQLiteParameter);
+                                }
+                            }
+                        }
+                        if (this.adapter == null)
+                        {
+                            this.adapter = new SQLiteDataAdapter(cmd);
+                        }
+                        adapter.SelectCommand = cmd;
+                        adapter.Fill(dt);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    csError = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ReadDataTable with lpar:Exception=" + ex.Message + "\r\n", sqlGetColumnsNamesAndTypes, cmd.Parameters);
+                    return false;
+                }
+            }
+            else
+            {
+                SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+
+                if (Connect_Batch(ref csError))
+                {
+                    try
+                    {
+                        SQLiteCommand SqlCommandcommandGetColumnsNamesAndTypes = new SQLiteCommand(sqlGetColumnsNamesAndTypes, Con);
+                        adapter.SelectCommand = SqlCommandcommandGetColumnsNamesAndTypes;
+                        adapter.Fill(dt);
+                        adapter.Dispose();
+                        SqlCommandcommandGetColumnsNamesAndTypes.Dispose();
+                        Disconnect_Batch();
+                    }
+                    catch (Exception ex)
+                    {
+                        csError = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ReadDataTable with lpar:Exception=" + ex.Message + "\r\n", sqlGetColumnsNamesAndTypes, cmd.Parameters);
+                        return false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(csError, "ERROR", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                }
+            }
+            return true;
+        }
+
+        public bool ReadDataSet(ref DataSet ds, string sqlGetColumnsNamesAndTypes, ref string csError)
+        {
+
+            //SqlConnection Conn = new SqlConnection("Data Source=razvoj1;Initial Catalog=NOS_BIH;Persist Security Info=True;User ID=sa;Password=sa;");
+            if (TransactionsOnly)
+            {
+                try
+                {
+                    SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+                    string sError = "";
+                    if (Connect_Batch(ref sError))
+                    {
+                        if (cmd == null)
+                        {
+                            cmd = Con.CreateCommand();
+                        }
+                        cmd.CommandText = sqlGetColumnsNamesAndTypes;
+                        adapter.SelectCommand = cmd;
+                        adapter.Fill(ds);
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    csError = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ReadDataSet:Exception=" + ex.Message + "\r\n", sqlGetColumnsNamesAndTypes, cmd.Parameters);
+                    return false;
+                }
+            }
+            else
+            {
+                try
+                {
+                    SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+                    string sError = "";
+                    if (Connect_Batch(ref sError))
+                    {
+                        SQLiteCommand SqlCommandcommandGetColumnsNamesAndTypes = new SQLiteCommand(sqlGetColumnsNamesAndTypes, Con);
+                        adapter.SelectCommand = SqlCommandcommandGetColumnsNamesAndTypes;
+                        adapter.Fill(ds);
+                        adapter.Dispose();
+                        SqlCommandcommandGetColumnsNamesAndTypes.Dispose();
+                        Disconnect_Batch();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    csError = SetError("ERROR:DBConnectionControl40:ConnectionSQLIte:ReadDataSet:Exception=" + ex.Message + "\r\n", sqlGetColumnsNamesAndTypes, cmd.Parameters);
                     return false;
                 }
             }

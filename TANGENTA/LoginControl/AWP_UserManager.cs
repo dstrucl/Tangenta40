@@ -345,7 +345,7 @@ namespace LoginControl
 
 
  
-        private bool UpdateAWPLoginData()
+        private bool UpdateAWPLoginData(Transaction transaction)
         {
             bool bRes = false;
             m_LMOUser.awpld.UserName = txtUserName.Text;
@@ -356,7 +356,7 @@ namespace LoginControl
                 m_LMOUser.awpld.PasswordNeverExpires = rdb_PaswordExpires_Never.Checked;
                 m_LMOUser.awpld.NotActiveAfterPasswordExpires = rdb_DeactivateAfterNumberOfDays.Checked;
                 m_LMOUser.awpld.Maximum_password_age_in_days = Convert.ToInt32(nmUpDn_MaxPasswordAge.Value);
-                bRes = AWP_func.Update_LoginUsers_ID(m_LMOUser.awpld, usrc_PasswordBytes1.Changed);
+                bRes = AWP_func.Update_LoginUsers_ID(m_LMOUser.awpld, usrc_PasswordBytes1.Changed, transaction);
                 if (bRes)
                 {
                     LoadData(null);
@@ -382,7 +382,23 @@ namespace LoginControl
                     ID LoginUsers_ID = null;
                     if (m_LMOUser.awpld.UserName.Equals(txtUserName.Text))
                     {
-                        return UpdateAWPLoginData();
+                        Transaction transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData = new Transaction("AWP_UserManager.SaveIfChanged.UpdateAWPLoginData");
+                        if (UpdateAWPLoginData(transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData))
+                        {
+                            if (transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData.Commit())
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData.Rollback();
+                            return false;
+                        }
                     }
                     else
                     {
@@ -395,12 +411,44 @@ namespace LoginControl
                             }
                             else
                             {
-                                return UpdateAWPLoginData();
+                                Transaction transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData = new Transaction("AWP_UserManager.SaveIfChanged.UpdateAWPLoginData");
+                                if (UpdateAWPLoginData(transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData))
+                                {
+                                    if (transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData.Commit())
+                                    {
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        return false;
+                                    }
+                                }
+                                else
+                                {
+                                    transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData.Rollback();
+                                    return false;
+                                }
                             }
                         }
                         else
                         {
-                            return UpdateAWPLoginData();
+                            Transaction transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData = new Transaction("AWP_UserManager.SaveIfChanged.UpdateAWPLoginData");
+                            if (UpdateAWPLoginData(transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData))
+                            {
+                                if (transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData.Commit())
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData.Rollback();
+                                return false;
+                            }
                         }
                     }
                 }
@@ -505,17 +553,27 @@ namespace LoginControl
                 {
                     //button MoveRight clicked
                     //Remove Role
-                    m_LMOUser.awpld.RemoveRole(e.RowIndex);
-                    InitRoles();
-                    Transaction transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_GetUserRoles = new Transaction("AWP_UserManager.Dgvx_UserRoles_CellClick.GetUserRoles");
-                    if (m_LMOUser.awpld.GetUserRoles(transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_GetUserRoles))
+                    Transaction transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_m_LMOUser_awpld_RemoveRole = new Transaction("AWP_UserManager.Dgvx_UserRoles_CellClick.m_LMOUser.awpld.RemoveRole");
+                    if (m_LMOUser.awpld.RemoveRole(e.RowIndex, transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_m_LMOUser_awpld_RemoveRole))
                     {
-                        transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_GetUserRoles.Commit();
-                        SetRoles();
+                        if (transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_m_LMOUser_awpld_RemoveRole.Commit())
+                        {
+                            InitRoles();
+                            Transaction transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_GetUserRoles = new Transaction("AWP_UserManager.Dgvx_UserRoles_CellClick.GetUserRoles");
+                            if (m_LMOUser.awpld.GetUserRoles(transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_GetUserRoles))
+                            {
+                                transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_GetUserRoles.Commit();
+                                SetRoles();
+                            }
+                            else
+                            {
+                                transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_GetUserRoles.Rollback();
+                            }
+                        }
                     }
                     else
                     {
-                        transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_GetUserRoles.Rollback();
+                        transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_m_LMOUser_awpld_RemoveRole.Rollback();
                     }
 
                 }
@@ -529,19 +587,29 @@ namespace LoginControl
                 if (e.ColumnIndex == 0)
                 {
                     //button MoveRight clicked
-                    m_LMOUser.awpld.AddRole(e.RowIndex);
-                    InitRoles();
-                    Transaction transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_GetUserRoles = new Transaction("AWP_UserManager.Dgvx_OtherRoles_CellClick.GetUserRoles");
-                    if (m_LMOUser.awpld.GetUserRoles(transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_GetUserRoles))
+                    Transaction transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_m_LMOUser_awpld_AddRole = new Transaction("AWP_UserManager._Dgvx_OtherRoles_CellClick.m_LMOUser.awpld.AddRole");
+                    if (m_LMOUser.awpld.AddRole(e.RowIndex, transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_m_LMOUser_awpld_AddRole))
                     {
-                        if (transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_GetUserRoles.Commit())
+                        if (transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_m_LMOUser_awpld_AddRole.Commit())
                         {
-                            SetRoles();
+                            InitRoles();
+                            Transaction transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_GetUserRoles = new Transaction("AWP_UserManager.Dgvx_OtherRoles_CellClick.GetUserRoles");
+                            if (m_LMOUser.awpld.GetUserRoles(transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_GetUserRoles))
+                            {
+                                if (transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_GetUserRoles.Commit())
+                                {
+                                    SetRoles();
+                                }
+                            }
+                            else
+                            {
+                                transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_GetUserRoles.Rollback();
+                            }
                         }
                     }
                     else
                     {
-                        transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_GetUserRoles.Rollback();
+                        transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_m_LMOUser_awpld_AddRole.Rollback();
                     }
                 }
             };

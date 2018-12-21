@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Check;
+using DBConnectionControl40;
 
 namespace LoginControl
 {
@@ -182,11 +183,19 @@ namespace LoginControl
             awpld.UserName = txtUserName.Text;
             if (usrc_PasswordBytes1.GetPassword(ref awpld.Password))
             {
-                bRes = AWP_func.Update_LoginUsers_ID(awpld, usrc_PasswordBytes1.Changed);
+                Transaction transaction_AWP_UserInfo_Form_UpdateAWPLoginData_AWP_func_Update_LoginUsers_ID = new Transaction("AWP_UserInfo_Form.UpdateAWPLoginData.AWP_func.Update_LoginUsers_ID");
+                bRes = AWP_func.Update_LoginUsers_ID(awpld, usrc_PasswordBytes1.Changed, transaction_AWP_UserInfo_Form_UpdateAWPLoginData_AWP_func_Update_LoginUsers_ID);
                 if (bRes)
                 {
-                    awpld.Changed = false;
-                    btn_ChangePassword.Visible = false;
+                    if (transaction_AWP_UserInfo_Form_UpdateAWPLoginData_AWP_func_Update_LoginUsers_ID.Commit())
+                    {
+                        awpld.Changed = false;
+                        btn_ChangePassword.Visible = false;
+                    }
+                }
+                else
+                {
+                    transaction_AWP_UserInfo_Form_UpdateAWPLoginData_AWP_func_Update_LoginUsers_ID.Rollback();
                 }
             }
             return bRes;

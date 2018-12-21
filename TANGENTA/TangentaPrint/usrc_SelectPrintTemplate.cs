@@ -704,10 +704,20 @@ namespace TangentaPrint
             {
                 ID id = edt_doc_dlg.ID;
                 string doc_name = null;
-                f_doc.SetDefault(id);
-                if (f_doc.GetTemplate(id, ref doc_name, ref Doc_v.v, ref m_bCompressed))
+                Transaction transaction_usrc_SelectPrintTemplate_btn_EditTemplates_Click_f_doc_SetDefault = new Transaction("usrc_SelectPrintTemplate.btn_EditTemplates_Click.f_doc.SetDefault");
+                if (f_doc.SetDefault(id, transaction_usrc_SelectPrintTemplate_btn_EditTemplates_Click_f_doc_SetDefault))
                 {
-                    this.doc_TemplateName = doc_name;
+                    if (transaction_usrc_SelectPrintTemplate_btn_EditTemplates_Click_f_doc_SetDefault.Commit())
+                    {
+                        if (f_doc.GetTemplate(id, ref doc_name, ref Doc_v.v, ref m_bCompressed))
+                        {
+                            this.doc_TemplateName = doc_name;
+                        }
+                    }
+                }
+                else
+                {
+                    transaction_usrc_SelectPrintTemplate_btn_EditTemplates_Click_f_doc_SetDefault.Rollback();
                 }
             }
         }

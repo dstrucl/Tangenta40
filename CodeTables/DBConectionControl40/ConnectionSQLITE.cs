@@ -23,6 +23,7 @@ namespace DBConnectionControl40
 
         public SQLiteConnection Con = null;
         public SQLiteCommand cmd = null;
+        private SQLiteDataAdapter adapter = null;
 
         private SQLiteTransaction m_Tran = null;
         public SQLiteTransaction Tran
@@ -303,12 +304,10 @@ namespace DBConnectionControl40
                     m_TransactionNumber++;
                     transaction_id = TransactionName;
                     Tran = Con.BeginTransaction();
-                    if (cmd!=null)
+                    if (cmd==null)
                     {
-                        cmd.Dispose();
-                        cmd = null;
+                        cmd = Con.CreateCommand();
                     }
-                    cmd = Con.CreateCommand();
                     return true;
                 }
                 else
@@ -336,11 +335,6 @@ namespace DBConnectionControl40
                         {
                             Tran.Commit();
                             m_TransactionName = "";
-                            if (cmd != null)
-                            {
-                                cmd.Dispose();
-                                cmd = null;
-                            }
                             Tran.Dispose();
                             Tran = null;
                             return true;
@@ -535,6 +529,22 @@ namespace DBConnectionControl40
                 if (Con != null)
                 {
                     Con.Close();
+                    if (adapter!=null)
+                    {
+                        adapter.Dispose();
+                        adapter = null;
+                    }
+                    if (cmd != null)
+                    {
+                        cmd.Dispose();
+                        cmd = null;
+                    }
+
+                    if (m_Tran != null)
+                    {
+                        m_Tran.Dispose();
+                        m_Tran = null;
+                    }
                     Con.Dispose();
                     Con = null;
                     ProgramDiagnostic.Diagnostic.Meassure("Disconnect END", null);

@@ -80,34 +80,52 @@ namespace LoginControl
                             {
                                 if (m_LMOUser.awpld.NotActiveAfterPasswordExpires)
                                 {
-                                    AWP_func.DeactivateUserName(m_LMOUser.awpld.ID);
-                                    XMessage.Box.Show(this,lng.s_YourUsernameHasExpired,MessageBoxIcon.Information);
+                                    Transaction transaction_AWPLogiForm_AWP_func_DeactivateUserName = new Transaction("AWPLogiForm.AWP_func.DeactivateUserName");
+                                    if (AWP_func.DeactivateUserName(m_LMOUser.awpld.ID, transaction_AWPLogiForm_AWP_func_DeactivateUserName))
+                                    {
+                                        if (transaction_AWPLogiForm_AWP_func_DeactivateUserName.Commit())
+                                        {
+                                            XMessage.Box.Show(this, lng.s_YourUsernameHasExpired, MessageBoxIcon.Information);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        transaction_AWPLogiForm_AWP_func_DeactivateUserName.Rollback();
+                                    }
                                 }
                                 else
                                 {
                                     AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(m_LMOUser, lng.s_PasswordExpiredSetNewPassword.s);
                                     if (change_pass_form.ShowDialog() == DialogResult.OK)
                                     {
-                                        if (AWP_func.Remove_ChangePasswordOnFirstLogin(m_LMOUser.awpld))
+                                        Transaction transaction_AWPLoginForm_AWP_func_Remove_ChangePasswordOnFirstLogin = new Transaction("AWPLoginForm.AWP_func.Remove_ChangePasswordOnFirstLogin");
+                                        if (AWP_func.Remove_ChangePasswordOnFirstLogin(m_LMOUser.awpld, transaction_AWPLoginForm_AWP_func_Remove_ChangePasswordOnFirstLogin))
                                         {
-                                            // change password dialog
-                                            if (Login_Start(transaction_DoLogin_Login_Start))
+                                            if (transaction_AWPLoginForm_AWP_func_Remove_ChangePasswordOnFirstLogin.Commit())
                                             {
-                                                if (transaction_DoLogin_Login_Start.Commit())
+                                                // change password dialog
+                                                if (Login_Start(transaction_DoLogin_Login_Start))
                                                 {
-                                                    DialogResult = DialogResult.OK;
-                                                    Close();
-                                                    return;
+                                                    if (transaction_DoLogin_Login_Start.Commit())
+                                                    {
+                                                        DialogResult = DialogResult.OK;
+                                                        Close();
+                                                        return;
+                                                    }
+                                                    else
+                                                    {
+                                                        return;
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    return;
+                                                    transaction_DoLogin_Login_Start.Rollback();
                                                 }
                                             }
-                                            else
-                                            {
-                                                transaction_DoLogin_Login_Start.Rollback();
-                                            }
+                                        }
+                                        else
+                                        {
+                                            transaction_AWPLoginForm_AWP_func_Remove_ChangePasswordOnFirstLogin.Rollback();
                                         }
                                     }
                                 }
@@ -197,7 +215,7 @@ namespace LoginControl
             if (LoginCtrl.GetWorkPeriodEx(m_LMOUser,ref Atom_WorkPeriod_ID, transaction))
             {
                     ID LoginSession_id = null;
-                    if (AWP_func.GetLoginSession(m_LMOUser.awpld.ID,Atom_WorkPeriod_ID, ref LoginSession_id))
+                    if (AWP_func.GetLoginSession(m_LMOUser.awpld.ID,Atom_WorkPeriod_ID, ref LoginSession_id, transaction))
                     {
                             return true;
                     }

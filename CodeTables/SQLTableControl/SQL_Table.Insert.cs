@@ -17,16 +17,16 @@ namespace CodeTables
 {
     partial class SQLTable
     {
-        public bool Insert(ref ID ID, DBTableControl dbTables)
+        public bool Insert(ref ID ID, DBTableControl dbTables, Transaction transaction)
         {
             switch (dbTables.m_con.DBType)
             {
                 case DBConnectionControl40.DBConnection.eDBType.SQLITE:
-                    return Insert_SQL(ref ID, dbTables,-1);
+                    return Insert_SQL(ref ID, dbTables,-1, transaction);
                 case DBConnectionControl40.DBConnection.eDBType.MSSQL:
-                    return Insert_SQL(ref ID, dbTables,-1);
+                    return Insert_SQL(ref ID, dbTables,-1, transaction);
                 case DBConnectionControl40.DBConnection.eDBType.MYSQL:
-                    return Insert_SQL(ref ID, dbTables,-1);
+                    return Insert_SQL(ref ID, dbTables,-1, transaction);
             }
             return false;
         }
@@ -36,7 +36,7 @@ namespace CodeTables
             throw new NotImplementedException();
         }
 
-        private bool Insert_MSSQL(ref ID ID, DBTableControl dbTables, int iSQLFormatedTabsWithLineBreaks)
+        private bool Insert_MSSQL(ref ID ID, DBTableControl dbTables, int iSQLFormatedTabsWithLineBreaks, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string sql_insert = " insert into " + this.TableName;
@@ -63,7 +63,7 @@ namespace CodeTables
                 {
                     SQL_Parameter par = null;
                     string Insert_into_value_parameter = null;
-                    if (col.get_SQL_Parameter(ref par, ref Insert_into_value_parameter, dbTables, iSQLFormatedTabsWithLineBreaks))
+                    if (col.get_SQL_Parameter(ref par, ref Insert_into_value_parameter, dbTables, iSQLFormatedTabsWithLineBreaks, transaction))
                     {
                         if (par != null)
                         {
@@ -104,7 +104,7 @@ namespace CodeTables
                 sql_insert += sql_insert_columns + ")values(" + sql_insert_values + ")";
             }
             string Err = null;
-            if (dbTables.m_con.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref ID,  ref Err, this.TableName))
+            if (transaction.ExecuteNonQuerySQLReturnID(dbTables.m_con,sql_insert, lpar, ref ID,  ref Err, this.TableName))
             {
                 return true;
             }
@@ -115,7 +115,7 @@ namespace CodeTables
             }
         }
 
-        internal bool Insert_SQL(ref ID ID, DBTableControl dbTables, int iSQLFormatedTabsWithLineBreaks)
+        internal bool Insert_SQL(ref ID ID, DBTableControl dbTables, int iSQLFormatedTabsWithLineBreaks, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string sql_insert = " insert into " + this.TableName;
@@ -142,7 +142,7 @@ namespace CodeTables
                 {
                     SQL_Parameter par = null;
                     string Insert_into_value_parameter = null;
-                    if (col.get_SQL_Parameter(ref par, ref Insert_into_value_parameter,dbTables, iSQLFormatedTabsWithLineBreaks))
+                    if (col.get_SQL_Parameter(ref par, ref Insert_into_value_parameter,dbTables, iSQLFormatedTabsWithLineBreaks, transaction))
                     {
                         if (par != null)
                         {
@@ -183,7 +183,7 @@ namespace CodeTables
                 sql_insert += sql_insert_columns + ")values(" + sql_insert_values + ")";
             }
             string Err = null;
-            if (dbTables.m_con.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref ID,  ref Err, this.TableName))
+            if (transaction.ExecuteNonQuerySQLReturnID(dbTables.m_con,sql_insert, lpar, ref ID,  ref Err, this.TableName))
             {
                 foreach (Column col in Column)
                 {
@@ -202,7 +202,10 @@ namespace CodeTables
             }
         }
 
-        internal bool Insert_SQLite_Get_Select_Unique_ID(ref ID id,DBTableControl dbTables, int iSQLFormatedTabsWithLineBreaks)
+        internal bool Insert_SQLite_Get_Select_Unique_ID(ref ID id,
+                                                         DBTableControl dbTables,
+                                                         int iSQLFormatedTabsWithLineBreaks,
+                                                         Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string sql_select = " select id from " + this.TableName + " where ";
@@ -218,7 +221,7 @@ namespace CodeTables
                     {
                         string compare_value_parameter = null;
                         SQL_Parameter par = null;
-                        if (col.get_SQL_Parameter(ref par, ref compare_value_parameter,dbTables, iSQLFormatedTabsWithLineBreaks))
+                        if (col.get_SQL_Parameter(ref par, ref compare_value_parameter,dbTables, iSQLFormatedTabsWithLineBreaks, transaction))
                         {
                             if (i == 0)
                             {
@@ -299,7 +302,7 @@ namespace CodeTables
                     {
                         string compare_value_parameter = null;
                         SQL_Parameter par = null;
-                        if (col.get_SQL_Parameter(ref par, ref compare_value_parameter, dbTables, iSQLFormatedTabsWithLineBreaks))
+                        if (col.get_SQL_Parameter(ref par, ref compare_value_parameter, dbTables, iSQLFormatedTabsWithLineBreaks, transaction))
                         {
                             if (i == 0)
                             {
@@ -399,7 +402,7 @@ namespace CodeTables
                     else
                     {
                         string sql_Insert = " insert into " + this.TableName + "(" + sql_InsertColumns + ")values(" + sql_InsertValues + ")";
-                        if (dbTables.m_con.ExecuteNonQuerySQLReturnID(sql_Insert, lpar, ref id,  ref Err, this.TableName))
+                        if (transaction.ExecuteNonQuerySQLReturnID(dbTables.m_con,sql_Insert, lpar, ref id,  ref Err, this.TableName))
                         {
                             return true;
                         }
@@ -419,9 +422,15 @@ namespace CodeTables
             return true;
         }
 
-        internal bool Insert_SQL_Get_Select_ID(ref ID xID, DBTableControl dbTables, int iSQLFormatedTabsWithLineBreaks)
+        internal bool Insert_SQL_Get_Select_ID(ref ID xID,
+                                               DBTableControl dbTables,
+                                               int iSQLFormatedTabsWithLineBreaks,
+                                               Transaction transaction)
         {
-            if (Insert_SQLite_Get_Select_Unique_ID(ref xID, dbTables, iSQLFormatedTabsWithLineBreaks))
+            if (Insert_SQLite_Get_Select_Unique_ID(ref xID,
+                                                   dbTables,
+                                                   iSQLFormatedTabsWithLineBreaks,
+                                                   transaction))
             {
                 if (xID != null)
                 {
@@ -441,7 +450,7 @@ namespace CodeTables
                         {
                             string compare_value_parameter = null;
                             SQL_Parameter par = null;
-                            if (col.get_SQL_Parameter(ref par, ref compare_value_parameter, dbTables, iSQLFormatedTabsWithLineBreaks))
+                            if (col.get_SQL_Parameter(ref par, ref compare_value_parameter, dbTables, iSQLFormatedTabsWithLineBreaks, transaction))
                             {
                                 if (i == 0)
                                 {
@@ -536,7 +545,7 @@ namespace CodeTables
                             else
                             {
                                 string sql_insert = "insert into " + this.TableName + "(" + sql_InsertColumns+")Values("+sql_InsertValues+")";            // row not found
-                                if (dbTables.m_con.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref xID,  ref Err, this.TableName))
+                                if (transaction.ExecuteNonQuerySQLReturnID(dbTables.m_con,sql_insert, lpar, ref xID,  ref Err, this.TableName))
                                 {
                                     return true;
                                 }
@@ -564,7 +573,10 @@ namespace CodeTables
 
 
 
-        internal bool Insert_SQL_Get_ID(ref ID id,DBTableControl dbTables, int iSQLFormatedTabsWithLineBreaks)
+        internal bool Insert_SQL_Get_ID(ref ID id,
+                                        DBTableControl dbTables,
+                                        int iSQLFormatedTabsWithLineBreaks,
+                                        Transaction transaction)
         {
             if (myGroupBox != null)
             {
@@ -575,7 +587,10 @@ namespace CodeTables
                 }
                 else
                 {
-                    if (Insert_SQL_Get_Select_ID(ref id, dbTables, iSQLFormatedTabsWithLineBreaks))
+                    if (Insert_SQL_Get_Select_ID(ref id,
+                                                dbTables,
+                                                iSQLFormatedTabsWithLineBreaks,
+                                                transaction))
                     {
                         if (id != null)
                         {
@@ -608,7 +623,7 @@ namespace CodeTables
                                 {
                                     SQL_Parameter par = null;
                                     string Insert_into_value_parameter = null;
-                                    if (col.get_SQL_Parameter(ref par, ref Insert_into_value_parameter, dbTables, iSQLFormatedTabsWithLineBreaks))
+                                    if (col.get_SQL_Parameter(ref par, ref Insert_into_value_parameter, dbTables, iSQLFormatedTabsWithLineBreaks, transaction))
                                     {
                                         if (par != null)
                                         {
@@ -649,7 +664,7 @@ namespace CodeTables
                                 sql_insert += sql_insert_columns + ")values(" + sql_insert_values + ")";
                             }
                             string Err = null;
-                            if (dbTables.m_con.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref id,  ref Err, this.TableName))
+                            if (transaction.ExecuteNonQuerySQLReturnID(dbTables.m_con,sql_insert, lpar, ref id,  ref Err, this.TableName))
                             {
                                 return true;
                             }

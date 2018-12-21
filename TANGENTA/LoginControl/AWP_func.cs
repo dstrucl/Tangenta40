@@ -521,7 +521,7 @@ SELECT
             }
         }
 
-        internal static bool InsertNewDefaultLoginUsersRow(ID myOrganisation_Person_ID, string uniqueUserName, ref ID LoginUsers_ID)
+        internal static bool InsertNewDefaultLoginUsersRow(ID myOrganisation_Person_ID, string uniqueUserName, ref ID LoginUsers_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_myOrganisation_Person_ID = "@par_myOrganisation_Person_ID";
@@ -547,7 +547,7 @@ SELECT
                                                          ,0
                                                          )";
             string Err = null;
-            if (con.ExecuteNonQuerySQLReturnID(sql,lpar,ref LoginUsers_ID,ref Err, "LoginUsers"))
+            if (transaction.ExecuteNonQuerySQLReturnID(con,sql,lpar,ref LoginUsers_ID,ref Err, "LoginUsers"))
             {
                 return true;
             }
@@ -598,7 +598,7 @@ SELECT
             string sql = "insert into LoginSession (LoginUsers_ID,Atom_WorkPeriod_ID)values(" + spar_LoginUsers_ID + "," + spar_Atom_WorkPeriod_ID + ")";
             string Err = null;
 
-            if (con.ExecuteNonQuerySQLReturnID(sql,lpar,ref loginSession_ID, ref Err, "LoginSession"))
+            if (transaction.ExecuteNonQuerySQLReturnID(con,sql,lpar,ref loginSession_ID, ref Err, "LoginSession"))
             {
                 return true;
             }
@@ -647,7 +647,7 @@ SELECT
             }
         }
 
-        internal static bool Remove_ChangePasswordOnFirstLogin(AWPLoginData awpld)
+        internal static bool Remove_ChangePasswordOnFirstLogin(AWPLoginData awpld, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_LoginUsers_ID = "@par_LoginUsers_ID";
@@ -655,7 +655,7 @@ SELECT
             lpar.Add(par_LoginUsers_ID);
             string sql = "UPDATE LoginUsers SET  ChangePasswordOnFirstLogin  = 0  where id = " + spar_LoginUsers_ID;
             string Err = null;
-            if (con.ExecuteNonQuerySQL(sql,lpar,ref Err))
+            if (transaction.ExecuteNonQuerySQL(con,sql,lpar,ref Err))
             {
                 return true;
             }
@@ -666,7 +666,7 @@ SELECT
             }
         }
 
-        internal static bool LoginUsers_UserChangeItsOwnPassword(AWPLoginData awpld, byte[] xpsw)
+        internal static bool LoginUsers_UserChangeItsOwnPassword(AWPLoginData awpld, byte[] xpsw, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_LoginUsers_ID = "@par_LoginUsers_ID";
@@ -687,7 +687,7 @@ SELECT
                                                  ",Password = " + spar_Pssword + " where id = " + spar_LoginUsers_ID;
             string Err = null;
 
-            if (con.ExecuteNonQuerySQL(sql, lpar,  ref Err))
+            if (transaction.ExecuteNonQuerySQL(con,sql, lpar,  ref Err))
             {
                 awpld.Time_When_UserSetsItsOwnPassword_LastTime = xTime_When_UserSetsItsOwnPassword_LastTime;
                 return true;
@@ -699,11 +699,11 @@ SELECT
             }
         }
 
-        internal static bool DeactivateUserName(ID iD)
+        internal static bool DeactivateUserName(ID iD, Transaction transaction)
         {
             string sql_change_enabled = "UPDATE LoginUsers SET enabled = 0 where id = " + iD.ToString();
             string Err = null;
-            if (con.ExecuteNonQuerySQL(sql_change_enabled, null, ref Err))
+            if (transaction.ExecuteNonQuerySQL(con,sql_change_enabled, null, ref Err))
             {
                 return true;
             }
@@ -714,7 +714,10 @@ SELECT
             }
         }
 
-        internal static bool GetLoginSession(ID LoginUsers_ID, ID Atom_WorkPeriod_ID, ref ID loginSession_id)
+        internal static bool GetLoginSession(ID LoginUsers_ID,
+                                             ID Atom_WorkPeriod_ID,
+                                             ref ID loginSession_id,
+                                             Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_LoginUsers_ID = "@par_LoginUsers_ID";
@@ -728,7 +731,7 @@ SELECT
 
             string sql = @"insert into LoginSession (LoginUsers_ID,Atom_WorkPeriod_ID) values (" + spar_LoginUsers_ID + "," + spar_Atom_WorkPeriod_ID + ")";
             string err = null;
-            if (con.ExecuteNonQuerySQLReturnID(sql, lpar, ref loginSession_id,  ref err, "LoginSession"))
+            if (transaction.ExecuteNonQuerySQLReturnID(con,sql, lpar, ref loginSession_id,  ref err, "LoginSession"))
             {
                 return true;
             }
@@ -828,7 +831,7 @@ SELECT
 
         }
 
-        internal static bool RemoveRole(ID LoginUsers_ID, ID LoginRoles_ID)
+        internal static bool RemoveRole(ID LoginUsers_ID, ID LoginRoles_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_LoginUsers_ID = "@par_LoginUsers_ID";
@@ -841,7 +844,7 @@ SELECT
 
             string sql = "DELETE FROM LoginUsersAndLoginRoles where LoginUsers_ID = " + spar_LoginUsers_ID + " and LoginRoles_ID = " + spar_LoginRoles_ID;
             string err = null;
-            if (con.ExecuteNonQuerySQL(sql, lpar, ref err))
+            if (transaction.ExecuteNonQuerySQL(con,sql, lpar, ref err))
             {
                 return true;
             }
@@ -852,7 +855,7 @@ SELECT
             }
         }
 
-        internal static bool AddRole(ID LoginUsers_ID, ID LoginRoles_ID, ref ID LoginUsersAndLoginRoles_ID)
+        internal static bool AddRole(ID LoginUsers_ID, ID LoginRoles_ID, ref ID LoginUsersAndLoginRoles_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_LoginUsers_ID = "@par_LoginUsers_ID";
@@ -866,7 +869,7 @@ SELECT
             string sql = "Insert into LoginUsersAndLoginRoles (LoginUsers_ID,LoginRoles_ID) values (" + spar_LoginUsers_ID + "," + spar_LoginRoles_ID+")";
             string err = null;
 
-            if (con.ExecuteNonQuerySQLReturnID(sql, lpar, ref LoginUsersAndLoginRoles_ID, ref err, "LoginUsersAndLoginRoles"))
+            if (transaction.ExecuteNonQuerySQLReturnID(con,sql, lpar, ref LoginUsersAndLoginRoles_ID, ref err, "LoginUsersAndLoginRoles"))
             {
                 return true;
             }
@@ -877,11 +880,11 @@ SELECT
             }
         }
 
-        internal static bool UpdateRoles(List<AWPRole> allRoles)
+        internal static bool UpdateRoles(List<AWPRole> allRoles, Transaction transaction)
         {
             foreach (AWPRole r in allRoles)
             {
-                if (!UpdateRole(r))
+                if (!UpdateRole(r, transaction))
                 {
                     return false;
                 }
@@ -889,7 +892,7 @@ SELECT
             return true;
         }
 
-        private static bool UpdateRole(AWPRole r)
+        private static bool UpdateRole(AWPRole r, Transaction transaction)
         {
             string sql = "select id from LoginRoles where role = '" + r.Role + "'";
             DataTable dt = new DataTable();
@@ -905,7 +908,7 @@ SELECT
                 {
                     sql = "insert into LoginRoles (role) values ('" + r.Role + "')";
                     ID LoginRoles_ID = null;
-                    if (con.ExecuteNonQuerySQLReturnID(sql, null, ref LoginRoles_ID,  ref err, "LoginRoles"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(con,sql, null, ref LoginRoles_ID,  ref err, "LoginRoles"))
                     {
                         r.ID = LoginRoles_ID;
                         return true;
@@ -1064,7 +1067,7 @@ SELECT
             }
         }
 
-        internal static bool Update_LoginUsers_ID(AWPLoginData m_AWPLoginData, bool PasswordChanged)
+        internal static bool Update_LoginUsers_ID(AWPLoginData m_AWPLoginData, bool PasswordChanged, Transaction transaction)
         {
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -1215,7 +1218,7 @@ SELECT
                 return false; 
             }
 
-            if (con.ExecuteNonQuerySQL(sql, lpar, ref Err))
+            if (transaction.ExecuteNonQuerySQL(con,sql, lpar, ref Err))
             {
                 return true;
             }
@@ -1314,7 +1317,10 @@ SELECT
         }
 
 
-        internal static bool Import_myOrganisationPerson(AWPBindingData awpd, DataRow[] drsImportAdministrator, DataRow[] drsImportOthers)
+        internal static bool Import_myOrganisationPerson(AWPBindingData awpd,
+                                                         DataRow[] drsImportAdministrator,
+                                                         DataRow[] drsImportOthers,
+                                                         Transaction transaction)
         {
             int iAdminNr = 1;
             foreach (DataRow dr in drsImportAdministrator)
@@ -1396,7 +1402,7 @@ SELECT
                                                    ")";
                     ID LoginUsers_ID =null;
 
-                    if (con.ExecuteNonQuerySQLReturnID(sql, lpar, ref LoginUsers_ID,  ref Err, "LoginUsers"))
+                    if (transaction.ExecuteNonQuerySQLReturnID(con,sql, lpar, ref LoginUsers_ID,  ref Err, "LoginUsers"))
                     {
                         ID LoginRoles_ID = null;
                         if (AWP_func.Get_LoginRoles_ID(AWP.ROLE_Administrator, ref LoginRoles_ID))
@@ -1421,7 +1427,7 @@ SELECT
                                                                "," + spar_LoginRoles_ID +
                                                            ")";
                                 ID LoginUsersAndLoginRoles_ID = null;
-                                if (con.ExecuteNonQuerySQLReturnID(sql, lpar1, ref LoginUsersAndLoginRoles_ID, ref Err, "LoginUsersAndLoginRoles"))
+                                if (transaction.ExecuteNonQuerySQLReturnID(con,sql, lpar1, ref LoginUsersAndLoginRoles_ID, ref Err, "LoginUsersAndLoginRoles"))
                                 {
                                     continue;
                                 }
