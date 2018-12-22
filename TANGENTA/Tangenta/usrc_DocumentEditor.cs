@@ -401,6 +401,11 @@ namespace Tangenta
             this.Refresh();
         }
 
+        private string returnDocTyp()
+        {
+            return DocE.DocTyp;
+        }
+
         private void New_ShopB()
 
         {
@@ -409,9 +414,7 @@ namespace Tangenta
 
             {
 
-                m_usrc_ShopB = new usrc_ShopB();
-
-                m_usrc_ShopB.DocTyp = DocE.DocTyp;
+                m_usrc_ShopB = new usrc_ShopB(returnDocTyp);
 
                 m_usrc_ShopB.CheckAccessPriceList += M_usrcCheckPriceListAccess;
 

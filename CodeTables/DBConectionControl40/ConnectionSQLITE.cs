@@ -682,12 +682,7 @@ namespace DBConnectionControl40
             SQLiteConnectionDialog = new SQLiteConnectionDialog(m_conData_SQLITE, recentItemsFolder, backupFolder, nav, myConnectionName);
         }
 
-
-
-
-
-
-
+                              
         private string SetError(string errheader, StringBuilder sql, SQLiteParameterCollection parameters)
         {
             return SetError(errheader, sql.ToString(), parameters);
@@ -703,7 +698,7 @@ namespace DBConnectionControl40
             string slines = "";
             foreach(SQLiteParameter par in parameters)
             {
-                slines += "\r\n"+DbValueToString(par);
+                slines += "\r\n"+ par.ParameterName+":"+DbValueToString(par);
             }
             return slines;
         }
@@ -803,91 +798,94 @@ namespace DBConnectionControl40
 
         private string SetValueString(SQLiteParameter par)
         {
-            string s = null;
+            string s = "??";
             try
             {
                 switch (par.DbType)
                 {
                     case DbType.AnsiString:
-                        s = "AnsiString:='" + Convert.ToString(par.Value)+"'";
+                        s = Convert.ToString(par.Value)+"'";
                         break;
                     case DbType.AnsiStringFixedLength:
-                        s = "AnsiStringFixedLength:='" + Convert.ToString(par.Value)+"'";
+                        s = Convert.ToString(par.Value)+"'";
                         break;
                     case DbType.Binary:
-                        s = "Binary:=" + ConvertBinaryToString(par.Value);
+                        s = ConvertBinaryToString(par.Value);
                         break;
                     case DbType.Boolean:
-                        s = "Boolean:=" + SetValueString(par);
+                        if (par.Value is bool)
+                        {
+                            s = Convert.ToString(par.Value);
+                        }
                         break;
                     case DbType.Byte:
-                        s = "Byte:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value); 
                         break;
                     case DbType.Currency:
-                        s = "Currency:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value);
                         break;
                     case DbType.Date:
-                        s = "Date:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value);
                         break;
                     case DbType.DateTime:
-                        s = "DateTime:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value); 
                         break;
                     case DbType.DateTime2:
-                        s = "DateTime2:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value); 
                         break;
                     case DbType.DateTimeOffset:
-                        s = "DateTimeOffset:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value); 
                         break;
                     case DbType.Decimal:
-                        s = "Decimal:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value); 
                         break;
                     case DbType.Double:
-                        s = "Double:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value);
                         break;
                     case DbType.Guid:
-                        s = "Guid:=" + SetValueString(par);
+                        s = par.Value.ToString();
                         break;
                     case DbType.Int16:
-                        s = "Int16:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value);
                         break;
                     case DbType.Int32:
-                        s = "Int32:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value); 
                         break;
                     case DbType.Int64:
-                        s = "Int64:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value); 
                         break;
                     case DbType.Object:
-                        s = "Object:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value); 
                         break;
                     case DbType.SByte:
-                        s = "SByte:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value); 
                         break;
                     case DbType.Single:
-                        s = "Single:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value); 
                         break;
                     case DbType.String:
-                        s = "String:=" + SetValueString(par);
+                        s = (string)par.Value;
                         break;
                     case DbType.StringFixedLength:
-                        s = "StringFixedLength:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value);
                         break;
                     case DbType.Time:
-                        s = "Time:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value);
                         break;
                     case DbType.UInt16:
-                        s = "UInt16:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value);
                         break;
                     case DbType.UInt32:
-                        s = "UInt32:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value);
                         break;
                     case DbType.UInt64:
-                        s = "UInt64:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value);
                         break;
                     case DbType.VarNumeric:
-                        s = "VarNumeric:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value); 
                         break;
                     case DbType.Xml:
-                        s = "Xml:=" + SetValueString(par);
+                        s = Convert.ToString(par.Value); 
                         break;
                     default:
                         s = "par.DbType not defined!:=";

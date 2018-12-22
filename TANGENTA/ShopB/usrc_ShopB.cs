@@ -27,6 +27,9 @@ namespace ShopB
 {
     public partial class usrc_ShopB : UserControl
     {
+        public delegate string delegate_Get_DocType();
+        private delegate_Get_DocType m_delegate_Get_DocType = null;
+
         public enum eMode { VIEW,EDIT};
 
         public int SplitContainer1_spd
@@ -84,16 +87,21 @@ namespace ShopB
         DBTablesAndColumnNames DBtcn = null;
 
 
-        private string m_DocTyp = "";
-
         public string DocTyp
         {
-            get { return m_DocTyp; }
-            set
+            get
             {
-                m_DocTyp = value;
+                if (m_delegate_Get_DocType != null)
+                {
+                    return m_delegate_Get_DocType();
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
+
         public bool IsDocInvoice
         {
             get
@@ -121,11 +129,12 @@ namespace ShopB
             }
         }
 
-        public usrc_ShopB()
+        public usrc_ShopB(delegate_Get_DocType xdelegate_Get_DocType)
         {
             InitializeComponent();
             idgv_ShopB_Items_Width_default = this.dgv_ShopB_Items.Width;
             lng.s_lbl_SimpleItems.Text(lbl_ShopB_Items);
+            this.m_delegate_Get_DocType = xdelegate_Get_DocType;
         }
 
         public delegate void delegate_ItemUpdated(ID ID,DataTable dt_SelectedShopBItem);
