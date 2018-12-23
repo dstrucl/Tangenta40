@@ -410,7 +410,7 @@ namespace CodeTables.TableDocking_Form
             else if (m.Msg == (int)Func.WM_USER_GENERATE_RANDOM_INPUT)
             {
                 InsertRandomData();
-                StringBuilder sDataBaseused = new StringBuilder("USE " + m_DBTables.m_con.DataBase);
+                StringBuilder sDataBaseused = new StringBuilder("USE " + m_DBTables.Con.DataBase);
                 Transaction transaction_usrc_EditRow_WndProc_WM_USER_GENERATE_RANDOM_INPUT_InsertInDataBase_WithImportText = new Transaction("usrc_EditRow.WndProc.WM_USER_GENERATE_RANDOM_INPUT.InsertInDataBase_WithImportText");
                 if (Globals.InsertInDataBase_WithImportText(SetControls,
                                                             m_tbl,
@@ -507,7 +507,7 @@ namespace CodeTables.TableDocking_Form
         {
             string csError = "";
             bNewDataEntry = false;
-            if (this.m_tbl.FillDataInputControl(m_DBTables.m_con, uctrln, Identity, true,ref csError))
+            if (this.m_tbl.FillDataInputControl(m_DBTables.Con, uctrln, Identity, true,ref csError))
             {
                 if (this.m_tbl.myGroupBox != null)
                 {
@@ -581,7 +581,7 @@ namespace CodeTables.TableDocking_Form
                         }
                         insertedRow_ID = ID;
                         //Bug fix for recognising new editing immediately after inserting in database
-                        this.m_tbl.FillDataInputControl(m_DBTables.m_con, uctrln, ID, false, ref Err); 
+                        this.m_tbl.FillDataInputControl(m_DBTables.Con, uctrln, ID, false, ref Err); 
                     }
                     else
                     {

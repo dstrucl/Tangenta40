@@ -50,7 +50,7 @@ namespace ShopC
         {
             string sql_ItemGroups = "select * from ItemGroups";
             DataTable dt = new DataTable();
-            if (dbTables.m_con.ReadDataTable(ref dt, sql_ItemGroups, ref Err))
+            if (dbTables.Con.ReadDataTable(ref dt, sql_ItemGroups, ref Err))
             {
                 int Count;
                 Count = dt.Rows.Count;

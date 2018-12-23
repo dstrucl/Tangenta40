@@ -312,14 +312,14 @@ namespace CodeTables
                             {
                                 string sVarID = Globals.sVar + "_" + sqlTbl.TableName;
                                 sPrevVar = Globals.sVar;
-                                if (dbTables.m_con.DBType == DBConnection.eDBType.SQLITE)
+                                if (dbTables.Con.DBType == DBConnection.eDBType.SQLITE)
                                 {
                                     string PrevVar = sqlTbl.TableName;
                                     sVarID = "";
                                     ID ID = null;
                                     string csError = null;
                                     bool bSomethingDefined = false;
-                                    if (sqlTbl.SQLcmd_InsertInto_SQLITE(dbTables.m_con, PrevVar, ref sVarID, /*ref  lsqlPar,*/ dbTables.items,ref bSomethingDefined, ref ID, ref csError, transaction))
+                                    if (sqlTbl.SQLcmd_InsertInto_SQLITE(dbTables.Con, PrevVar, ref sVarID, /*ref  lsqlPar,*/ dbTables.items,ref bSomethingDefined, ref ID, ref csError, transaction))
                                     {
                                         if (ID.Validate(ID))
                                         {
@@ -338,7 +338,7 @@ namespace CodeTables
                                 else
                                 {
                                     sqlTbl.SQLcmd_Insert_MSSQL(ref sbSQLInsert, sPrevVar, ref sVarID, ref lsqlPar, dbTables.items,0);
-                                    if (transaction.ExecuteNonQuerySQL(dbTables.m_con,sbSQLInsert.ToString(), lsqlPar, ref ErrorMsg))
+                                    if (transaction.ExecuteNonQuerySQL(dbTables.Con,sbSQLInsert.ToString(), lsqlPar, ref ErrorMsg))
                                     {
                                         lsqlPar.Clear();
                                         sbSQLInsert.Remove(0, sbSQLInsert.Length);

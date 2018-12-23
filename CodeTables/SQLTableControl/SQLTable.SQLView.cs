@@ -20,13 +20,13 @@ namespace CodeTables
         internal StringBuilder SQLCreateView(ref ViewXml xViewXml, DBTableControl m_DBTables, bool bLimit, int limit_number, bool b_order_by_id_desc)
         {
             StringBuilder SQL_View = null;
-            if (m_DBTables.m_con.DBType == DBConnection.eDBType.SQLITE)
+            if (m_DBTables.Con.DBType == DBConnection.eDBType.SQLITE)
             {
                 SQL_View = new StringBuilder("");
             }
             else
             {
-                SQL_View = new StringBuilder("USE " + m_DBTables.m_con.DataBase + "\n");
+                SQL_View = new StringBuilder("USE " + m_DBTables.Con.DataBase + "\n");
             }
 
             string sLimit = "";
@@ -39,7 +39,7 @@ namespace CodeTables
 
             if (bLimit)
             {
-                switch (m_DBTables.m_con.DBType) 
+                switch (m_DBTables.Con.DBType) 
                 {
                     case DBConnection.eDBType.MSSQL:
                         sLimit = " TOP " + limit_number.ToString() + " ";
@@ -128,7 +128,7 @@ namespace CodeTables
 
             if (bLimit)
             {
-                switch (m_DBTables.m_con.DBType)
+                switch (m_DBTables.Con.DBType)
                 {
                     case DBConnection.eDBType.MSSQL:
                         break;

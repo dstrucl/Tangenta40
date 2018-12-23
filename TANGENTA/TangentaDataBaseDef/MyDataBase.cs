@@ -13,6 +13,7 @@ using TangentaTableClass;
 using DBTypes;
 using Country_ISO_3166;
 using System.Drawing;
+using System.IO;
 
 namespace TangentaDataBaseDef
 {
@@ -28,6 +29,8 @@ namespace TangentaDataBaseDef
 
         public DBTableControl m_DBTables = null;
 
+        public TransactionLogDataBaseDef.MyDataBase_TransactionsLog DB_TransactionsLog = null;
+
         public MyDataBase_Tangenta(Form pForm, string XmlRootName, string xmlIniFileFolder)
         {
             // TODO: Complete member initialization
@@ -41,13 +44,20 @@ namespace TangentaDataBaseDef
 
             Define_SQL_Database_Tables();
 
+            string XmlRootName_FileNameWihoutExtension = Path.GetFileNameWithoutExtension(XmlRootName);
+            string XmlRootName_Extension = Path.GetExtension(XmlRootName);
+
+            string XmlRootName4Log = XmlRootName_FileNameWihoutExtension + "Log." + XmlRootName_Extension;
+
+            DB_TransactionsLog = new TransactionLogDataBaseDef.MyDataBase_TransactionsLog(pForm, XmlRootName4Log, xmlIniFileFolder);
+
         }
 
         public DBConnection.eDBType DBType
         {
 
-            get { return m_DBTables.m_con.DBType; }
-            set { m_DBTables.m_con.DBType = value; }
+            get { return m_DBTables.Con.DBType; }
+            set { m_DBTables.Con.DBType = value; }
 
         }
 
@@ -70,15 +80,15 @@ namespace TangentaDataBaseDef
 
         public bool CheckConnection(Form pParentForm, Object DB_Param)
         {
-            return m_DBTables.m_con.CheckConnection(DB_Param);
+            return m_DBTables.Con.CheckConnection(DB_Param);
         }
 
         public bool CreateNewConnection(Form pParentForm, Object DB_Param, ref string BackupFolder, NavigationButtons.Navigation xnav, ref bool bCanceled)
         {
-            m_DBTables.m_con.BackupFolder = BackupFolder;
-            if (m_DBTables.m_con.CreateNewDataBaseConnection(DB_Param, xnav, ref bCanceled))
+            m_DBTables.Con.BackupFolder = BackupFolder;
+            if (m_DBTables.Con.CreateNewDataBaseConnection(DB_Param, xnav, ref bCanceled))
             {
-                BackupFolder = m_DBTables.m_con.BackupFolder;
+                BackupFolder = m_DBTables.Con.BackupFolder;
                 return true;
             }
             return false;
@@ -99,49 +109,81 @@ namespace TangentaDataBaseDef
 
         public bool Backup(string full_backup_filename)
         {
-            return m_DBTables.m_con.DataBase_Backup(full_backup_filename);
+            return m_DBTables.Con.DataBase_Backup(full_backup_filename);
         }
 
         public bool Restore(string full_backup_filename)
         {
-            return m_DBTables.m_con.DataBase_Restore(full_backup_filename);
+            return m_DBTables.Con.DataBase_Restore(full_backup_filename);
+
         }
 
 
         public bool MakeConnection(Form pParentForm, Object DB_Param, NavigationButtons.Navigation nav, ref bool bCanceled)
         {
 
-             return m_DBTables.m_con.MakeDataBaseConnection(pParentForm,DB_Param, nav, ref bCanceled);
+             return m_DBTables.Con.MakeDataBaseConnection(pParentForm,DB_Param, nav, ref bCanceled);
         }
 
         public void Init(DBConnection.eDBType eDBType)
         {
-            this.m_DBTables.Init(eDBType,VERSION);
+            this.m_DBTables.Init(eDBType,"",VERSION);
+            this.DB_TransactionsLog.Init(DBConnection.eDBType.SQLITE);
         }
 
         public bool DropViews(ref string Err, Transaction transaction)
         {
-            return this.m_DBTables.DropVIEWs(ref Err, transaction);
+            if (this.m_DBTables.DropVIEWs(ref Err, transaction))
+            {
+                Transaction transaction_DB_TransactionsLog_DropViews = new Transaction("DB_TransactionsLog.DropViews");
+                if ( this.DB_TransactionsLog.DropViews(ref Err, transaction_DB_TransactionsLog_DropViews))
+                {
+                    if (transaction_DB_TransactionsLog_DropViews.Commit())
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    transaction_DB_TransactionsLog_DropViews.Rollback();
+                }
+            }
+            return false;
         }
 
         public bool Create_VIEWs(Transaction transaction)
         {
-            return this.m_DBTables.Create_VIEWs(transaction);
+            if (this.m_DBTables.Create_VIEWs(transaction))
+            {
+                Transaction transaction_DB_TransactionsLog_Create_VIEWs = new Transaction("DB_TransactionsLog.Create_VIEWs");
+                if (this.DB_TransactionsLog.Create_VIEWs(transaction_DB_TransactionsLog_Create_VIEWs))
+                {
+                    if (transaction_DB_TransactionsLog_Create_VIEWs.Commit())
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    transaction_DB_TransactionsLog_Create_VIEWs.Rollback();
+                }
+            }
+            return false;
         }
 
         public bool BeginTransaction(string transaction_name, ref string transaction_id)
         {
-            return m_DBTables.m_con.BeginTransaction(transaction_name, ref transaction_id);
+            return m_DBTables.Con.BeginTransaction(transaction_name, ref transaction_id);
         }
 
         public bool CommitTransaction(string transaction_id)
         {
-            return m_DBTables.m_con.CommitTransaction(transaction_id);
+            return m_DBTables.Con.CommitTransaction(transaction_id);
         }
 
         public bool RollbackTransaction(string transaction_id)
         {
-            return m_DBTables.m_con.RollbackTransaction(transaction_id);
+            return m_DBTables.Con.RollbackTransaction(transaction_id);
         }
         
         //private void Define_Image_SQL_Database_Tables()
@@ -282,7 +324,7 @@ namespace TangentaDataBaseDef
             if (this.m_DBTables.DataBase_Create(transaction))
             {
                 bool bxCancel = false;
-                return this.m_DBTables.CreateDatabaseTables(false, ref bxCancel, MyDataBase_Tangenta.VERSION,transaction);
+                return this.m_DBTables.CreateDatabaseTables(false,"", ref bxCancel, MyDataBase_Tangenta.VERSION,transaction);
             }
             else
             {

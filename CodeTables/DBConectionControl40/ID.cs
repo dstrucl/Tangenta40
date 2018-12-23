@@ -39,9 +39,13 @@ namespace DBConnectionControl40
             m_Type = IDType.INT64;
         }
 
+        public ID(IDType xtype)
+        {
+            m_Type = xtype;
+        }
+
         public ID(object xv)
         {
-            m_Type = IDType.INT64;
             if (xv is null)
             {
                 MakeInvalid();

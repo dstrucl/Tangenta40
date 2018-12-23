@@ -63,7 +63,7 @@ namespace Tangenta
         {
             string sql_TermsOfPayment = "select Description,ID from TermsOfPayment";
             DataTable dt = new DataTable();
-            if (dbTables.m_con.ReadDataTable(ref dt, sql_TermsOfPayment, ref Err))
+            if (dbTables.Con.ReadDataTable(ref dt, sql_TermsOfPayment, ref Err))
             {
                 int Count;
                 Count = dt.Rows.Count;

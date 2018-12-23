@@ -211,11 +211,29 @@ namespace DBSync
                     if (iTablesCount == 0)
                     {
                         Transaction transaction_Startup_03_CheckDataBaseTables = new Transaction("Startup_03_CheckDataBaseTables");
-                        if (DB_for_Tangenta.m_DBTables.CreateDatabaseTables(false, ref bCancel, MyDataBase_Tangenta.VERSION, transaction_Startup_03_CheckDataBaseTables))
+                        if (DB_for_Tangenta.m_DBTables.CreateDatabaseTables(false,"", ref bCancel, MyDataBase_Tangenta.VERSION, transaction_Startup_03_CheckDataBaseTables))
                         {
                             if (transaction_Startup_03_CheckDataBaseTables.Commit())
                             {
-                                return true;
+                                Transaction transaction_Startup_03_CheckDataBaseTables_DB_TransactionsLog = new Transaction("Startup_03_CheckDataBaseTables.DB_TransactionsLog");
+                                if (DB_for_Tangenta.DB_TransactionsLog.m_DBTables.CreateDatabaseTables(false, "Log", ref bCancel, MyDataBase_Tangenta.VERSION, transaction_Startup_03_CheckDataBaseTables))
+                                {
+                                    if (transaction_Startup_03_CheckDataBaseTables_DB_TransactionsLog.Commit())
+                                    {
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        transaction_Startup_03_CheckDataBaseTables.Rollback();
+                                        return false;
+                                    }
+                                }
+                                else
+                                {
+                                    transaction_Startup_03_CheckDataBaseTables_DB_TransactionsLog.Rollback();
+                                    transaction_Startup_03_CheckDataBaseTables.Rollback();
+                                    return false;
+                                }
                             }
                             else
                             {
@@ -343,9 +361,9 @@ namespace DBSync
                     {
                         if (DB_for_Tangenta.m_DBTables!=null)
                         {
-                            if (DB_for_Tangenta.m_DBTables.m_con!=null)
+                            if (DB_for_Tangenta.m_DBTables.Con!=null)
                             {
-                                return DB_for_Tangenta.m_DBTables.m_con.DataBase;
+                                return DB_for_Tangenta.m_DBTables.Con.DataBase;
                             }
                         }
                     }
@@ -386,9 +404,9 @@ namespace DBSync
                 {
                     if (DB_for_Tangenta.m_DBTables != null)
                     {
-                        if (DB_for_Tangenta.m_DBTables.m_con != null)
+                        if (DB_for_Tangenta.m_DBTables.Con != null)
                         {
-                            return DB_for_Tangenta.m_DBTables.m_con;
+                            return DB_for_Tangenta.m_DBTables.Con;
                         }
                         else
                         {
@@ -427,9 +445,9 @@ namespace DBSync
             {
                 if (DB_for_Tangenta.m_DBTables!=null)
                 {
-                    if (DB_for_Tangenta.m_DBTables.m_con!=null)
+                    if (DB_for_Tangenta.m_DBTables.Con!=null)
                     {
-                        return DB_for_Tangenta.m_DBTables.m_con.SessionDisconnect();
+                        return DB_for_Tangenta.m_DBTables.Con.SessionDisconnect();
                     }
                 }
             }

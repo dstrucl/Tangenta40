@@ -51,7 +51,7 @@ namespace Tangenta
         {
             string sql_Currency = "select * from Currency";
             DataTable dt = new DataTable();
-            if (dbTables.m_con.ReadDataTable(ref dt, sql_Currency, ref Err))
+            if (dbTables.Con.ReadDataTable(ref dt, sql_Currency, ref Err))
             {
                 int Count;
                 Count = dt.Rows.Count;

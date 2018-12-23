@@ -60,7 +60,7 @@ namespace ShopC
         {
             string sql_StockAddress = "select * from Stock_AddressLevel1";
             DataTable dt = new DataTable();
-            if (dbTables.m_con.ReadDataTable(ref dt, sql_StockAddress, ref Err))
+            if (dbTables.Con.ReadDataTable(ref dt, sql_StockAddress, ref Err))
             {
                 int Count;
                 Count = dt.Rows.Count;

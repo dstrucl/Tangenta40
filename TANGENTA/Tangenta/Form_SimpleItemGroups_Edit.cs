@@ -52,7 +52,7 @@ namespace Tangenta
         {
             string sql_SimpleItemGroups = "select * from SimpleItemGroups";
             DataTable dt = new DataTable();
-            if (dbTables.m_con.ReadDataTable(ref dt, sql_SimpleItemGroups, ref Err))
+            if (dbTables.Con.ReadDataTable(ref dt, sql_SimpleItemGroups, ref Err))
             {
                 int Count;
                 Count = dt.Rows.Count;

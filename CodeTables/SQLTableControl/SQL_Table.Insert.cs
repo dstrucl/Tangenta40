@@ -19,7 +19,7 @@ namespace CodeTables
     {
         public bool Insert(ref ID ID, DBTableControl dbTables, Transaction transaction)
         {
-            switch (dbTables.m_con.DBType)
+            switch (dbTables.Con.DBType)
             {
                 case DBConnectionControl40.DBConnection.eDBType.SQLITE:
                     return Insert_SQL(ref ID, dbTables,-1, transaction);
@@ -104,7 +104,7 @@ namespace CodeTables
                 sql_insert += sql_insert_columns + ")values(" + sql_insert_values + ")";
             }
             string Err = null;
-            if (transaction.ExecuteNonQuerySQLReturnID(dbTables.m_con,sql_insert, lpar, ref ID,  ref Err, this.TableName))
+            if (transaction.ExecuteNonQuerySQLReturnID(dbTables.Con,sql_insert, lpar, ref ID,  ref Err, this.TableName))
             {
                 return true;
             }
@@ -183,7 +183,7 @@ namespace CodeTables
                 sql_insert += sql_insert_columns + ")values(" + sql_insert_values + ")";
             }
             string Err = null;
-            if (transaction.ExecuteNonQuerySQLReturnID(dbTables.m_con,sql_insert, lpar, ref ID,  ref Err, this.TableName))
+            if (transaction.ExecuteNonQuerySQLReturnID(dbTables.Con,sql_insert, lpar, ref ID,  ref Err, this.TableName))
             {
                 foreach (Column col in Column)
                 {
@@ -386,7 +386,7 @@ namespace CodeTables
                 sql_select += sql_compare_values;
                 DataTable dt = new DataTable();
                 string Err = null;
-                if (dbTables.m_con.ReadDataTable(ref dt, sql_select, lpar, ref Err))
+                if (dbTables.Con.ReadDataTable(ref dt, sql_select, lpar, ref Err))
                 {
                     if (dt.Rows.Count > 0)
                     {
@@ -402,7 +402,7 @@ namespace CodeTables
                     else
                     {
                         string sql_Insert = " insert into " + this.TableName + "(" + sql_InsertColumns + ")values(" + sql_InsertValues + ")";
-                        if (transaction.ExecuteNonQuerySQLReturnID(dbTables.m_con,sql_Insert, lpar, ref id,  ref Err, this.TableName))
+                        if (transaction.ExecuteNonQuerySQLReturnID(dbTables.Con,sql_Insert, lpar, ref id,  ref Err, this.TableName))
                         {
                             return true;
                         }
@@ -531,7 +531,7 @@ namespace CodeTables
                         sql_select += sql_compare_values;
                         DataTable dt = new DataTable();
                         string Err = null;
-                        if (dbTables.m_con.ReadDataTable(ref dt, sql_select, lpar, ref Err))
+                        if (dbTables.Con.ReadDataTable(ref dt, sql_select, lpar, ref Err))
                         {
                             if (dt.Rows.Count > 0)
                             {
@@ -545,7 +545,7 @@ namespace CodeTables
                             else
                             {
                                 string sql_insert = "insert into " + this.TableName + "(" + sql_InsertColumns+")Values("+sql_InsertValues+")";            // row not found
-                                if (transaction.ExecuteNonQuerySQLReturnID(dbTables.m_con,sql_insert, lpar, ref xID,  ref Err, this.TableName))
+                                if (transaction.ExecuteNonQuerySQLReturnID(dbTables.Con,sql_insert, lpar, ref xID,  ref Err, this.TableName))
                                 {
                                     return true;
                                 }
@@ -664,7 +664,7 @@ namespace CodeTables
                                 sql_insert += sql_insert_columns + ")values(" + sql_insert_values + ")";
                             }
                             string Err = null;
-                            if (transaction.ExecuteNonQuerySQLReturnID(dbTables.m_con,sql_insert, lpar, ref id,  ref Err, this.TableName))
+                            if (transaction.ExecuteNonQuerySQLReturnID(dbTables.Con,sql_insert, lpar, ref id,  ref Err, this.TableName))
                             {
                                 return true;
                             }

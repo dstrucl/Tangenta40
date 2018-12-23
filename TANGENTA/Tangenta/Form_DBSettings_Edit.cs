@@ -52,7 +52,7 @@ namespace Tangenta
         {
             string sql_DBSettings = "select * from DBSettings";
             DataTable dt = new DataTable();
-            if (dbTables.m_con.ReadDataTable(ref dt, sql_DBSettings, ref Err))
+            if (dbTables.Con.ReadDataTable(ref dt, sql_DBSettings, ref Err))
             {
                 int Count;
                 Count = dt.Rows.Count;

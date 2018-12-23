@@ -51,7 +51,7 @@ namespace Tangenta
         {
             string sql_Unit = "select * from Unit";
             DataTable dt = new DataTable();
-            if (dbTables.m_con.ReadDataTable(ref dt, sql_Unit, ref Err))
+            if (dbTables.Con.ReadDataTable(ref dt, sql_Unit, ref Err))
             {
                 int Count;
                 Count = dt.Rows.Count;

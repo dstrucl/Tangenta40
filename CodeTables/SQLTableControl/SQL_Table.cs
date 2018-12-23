@@ -800,7 +800,7 @@ namespace CodeTables
             //this.DefineView_inpCtrlList.Clear();
             //this.m_Fkey.Clear();
 
-            switch (dbTables.m_con.DBType)
+            switch (dbTables.Con.DBType)
             {
                 case DBConnection.eDBType.MYSQL:
                 return MySQLcmd_CreateTable(dbTables, UniqueConstraintNameList, ref sql_DBm, DBm_owner_Table);

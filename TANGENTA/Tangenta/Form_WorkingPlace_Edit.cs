@@ -51,7 +51,7 @@ namespace Tangenta
         {
             string sql_Atom_WorkArea = "select * from Atom_WorkArea";
             DataTable dt = new DataTable();
-            if (dbTables.m_con.ReadDataTable(ref dt, sql_Atom_WorkArea, ref Err))
+            if (dbTables.Con.ReadDataTable(ref dt, sql_Atom_WorkArea, ref Err))
             {
                 int Count;
                 Count = dt.Rows.Count;

@@ -74,7 +74,7 @@ namespace CodeTables.TableDocking_Form
                     m_dt = null;
                 }
                 m_dt = new DataTable();
-                if (m_tbl.GetTableView(m_DBTables.m_con, m_ViewXml, ref m_dt, ref csError))
+                if (m_tbl.GetTableView(m_DBTables.Con, m_ViewXml, ref m_dt, ref csError))
                 {
                     dataGridView_Table.DataSource = m_dt;
                     for (int i = 0; i < dataGridView_Table.Columns.Count; i++)

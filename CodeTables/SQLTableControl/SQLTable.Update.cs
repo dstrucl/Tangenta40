@@ -24,7 +24,7 @@ namespace CodeTables
         {
             string sqlUpdate;
             List<SQL_Parameter> sqlParamList = new List<SQL_Parameter>();
-            if (dbTables.m_con.DBType == DBConnection.eDBType.SQLITE)
+            if (dbTables.Con.DBType == DBConnection.eDBType.SQLITE)
             {
                 foreach (Column col in this.Column)
                 {
@@ -45,7 +45,7 @@ namespace CodeTables
                             if (DBtypesFunc.IsValueDefined(col.obj))
                             {
                                 ID lID = null;
-                                if (col.ownerTable.GetID(dbTables.m_con, col.ownerTable.TableName + "_ID", ref lID, ref csError))
+                                if (col.ownerTable.GetID(dbTables.Con, col.ownerTable.TableName + "_ID", ref lID, ref csError))
                                 {
 
                                     Column id_column = col.ownerTable.IdentityColumn();
@@ -63,7 +63,7 @@ namespace CodeTables
                                             sqlUpdate = "\nSELECT ID FROM " + col.ownerTable.TableName +
                                                         "\nWHERE " + col.Name + " =  " + sPar + ";";
                                             DataTable dt = new DataTable();
-                                            if (dbTables.m_con.ReadDataTable(ref dt, sqlUpdate, sqlParamList, ref csError))
+                                            if (dbTables.Con.ReadDataTable(ref dt, sqlUpdate, sqlParamList, ref csError))
                                             {
                                                 if (dt.Rows.Count == 0)
                                                 {
@@ -71,7 +71,7 @@ namespace CodeTables
                                                         "\nSET " + col.Name + " = " + sPar +
                                                         "\nWHERE " + id_column.Name + " = " + sParID + ";");
                                                     ID newID = null;
-                                                    if (transaction.ExecuteScalaraReturnID(dbTables.m_con,sbsqlUpdate, sqlParamList, ref newID,  ref csError, this.TableName))
+                                                    if (transaction.ExecuteScalaraReturnID(dbTables.Con,sbsqlUpdate, sqlParamList, ref newID,  ref csError, this.TableName))
                                                     {
                                                         return true;
                                                     }
@@ -89,7 +89,7 @@ namespace CodeTables
                                                         string sUpdate = "\nUPDATE " + col.ownerTable.pParentTable.TableName +
                                                                             "\nSET " + col.ownerTable + "_ID = " + newID.ToString() +
                                                                             "\nWHERE ID = " + col.ownerTable.pParentTable.tag_ID.ToString() + ";";
-                                                        if (transaction.ExecuteNonQuerySQL(dbTables.m_con,sUpdate, sqlParamList,  ref csError))
+                                                        if (transaction.ExecuteNonQuerySQL(dbTables.Con,sUpdate, sqlParamList,  ref csError))
                                                         {
                                                         }
                                                         else
@@ -116,7 +116,7 @@ namespace CodeTables
                                             sqlUpdate = "\nSELECT ID FROM " + col.ownerTable.TableName +
                                                         "\nWHERE " + col.Name + " =  " + sPar + ";";
                                             DataTable dt = new DataTable();
-                                            if (dbTables.m_con.ReadDataTable(ref dt, sqlUpdate, sqlParamList, ref csError))
+                                            if (dbTables.Con.ReadDataTable(ref dt, sqlUpdate, sqlParamList, ref csError))
                                             {
                                                 if (dt.Rows.Count == 0)
                                                 {
@@ -129,14 +129,14 @@ namespace CodeTables
                                                             "\n  " + sPar +
                                                             "\n);");
                                                     ID newID = null;
-                                                    if (transaction.ExecuteScalaraReturnID(dbTables.m_con,sbsqlUpdate, sqlParamList, ref newID, ref csError, TableName))
+                                                    if (transaction.ExecuteScalaraReturnID(dbTables.Con,sbsqlUpdate, sqlParamList, ref newID, ref csError, TableName))
                                                     {
                                                         string sVar = newID.ToString();
                                                         string sParID_Parent = newID.ToString();
                                                         string sUpdate = "\nUPDATE " + col.ownerTable.pParentTable.TableName +
                                                                             "\nSET " + sParentfKeyColumnName + " = " + sVar +
                                                                             "\nWHERE ID = " + sParID_Parent + ";";
-                                                        if (transaction.ExecuteNonQuerySQL(dbTables.m_con,sUpdate, sqlParamList, ref csError))
+                                                        if (transaction.ExecuteNonQuerySQL(dbTables.Con,sUpdate, sqlParamList, ref csError))
                                                         {
                                                         }
                                                         else
@@ -159,7 +159,7 @@ namespace CodeTables
                                                                             "\nSET " + col.ownerTable.TableName + "_ID" + " = " + lnewID.ToString() +
                                                                             "\nWHERE ID = " + col.ownerTable.pParentTable.tag_ID.ToString() + ";";
 
-                                                        if (transaction.ExecuteNonQuerySQL(dbTables.m_con,sUpdate, sqlParamList, ref csError))
+                                                        if (transaction.ExecuteNonQuerySQL(dbTables.Con,sUpdate, sqlParamList, ref csError))
                                                         {
                                                         }
                                                         else
@@ -187,7 +187,7 @@ namespace CodeTables
                                         string sUpdate = "\nUPDATE " + col.ownerTable.TableName +
                                                             "\nSET " + col.Name + " = " + sPar +
                                                             "\nWHERE " + id_column.Name + " = " + sParID + ";";
-                                        if (transaction.ExecuteNonQuerySQL(dbTables.m_con,sUpdate, sqlParamList,ref csError))
+                                        if (transaction.ExecuteNonQuerySQL(dbTables.Con,sUpdate, sqlParamList,ref csError))
                                         {
                                         }
                                         else
@@ -298,7 +298,7 @@ namespace CodeTables
                                     }
 
                                     string csErrorMsg = "";
-                                    if (transaction.ExecuteNonQuerySQL(dbTables.m_con,sqlUpdate, sqlParamList,ref csErrorMsg))
+                                    if (transaction.ExecuteNonQuerySQL(dbTables.Con,sqlUpdate, sqlParamList,ref csErrorMsg))
                                     {
                                         return true;
                                     }
@@ -322,7 +322,7 @@ namespace CodeTables
                                         Error.Show(lng.s_Error_Table_DoesNotHavePrimary_ID.s);
                                         return false;
                                     }
-                                    if (transaction.ExecuteNonQuerySQL(dbTables.m_con,sqlUpdate, sqlParamList, ref csError))
+                                    if (transaction.ExecuteNonQuerySQL(dbTables.Con,sqlUpdate, sqlParamList, ref csError))
                                     {
                                         return true;
                                     }
@@ -680,7 +680,7 @@ namespace CodeTables
                             if (sqlite_update.Length > 0)
                             {
                                 sqlite_update += " where ID = " + id1.ToString();
-                                if (transaction.ExecuteNonQuerySQL(dbTables.m_con,sqlite_update,sqlParamList,ref Err))
+                                if (transaction.ExecuteNonQuerySQL(dbTables.Con,sqlite_update,sqlParamList,ref Err))
                                 {
                                     ID = id1;
                                     return true;
@@ -858,7 +858,7 @@ namespace CodeTables
                             if (sqlite_update.Length > 0)
                             {
                                 sqlite_update += " where ID = " + id1.ToString();
-                                if (transaction.ExecuteNonQuerySQL(dbTables.m_con,sqlite_update, sqlParamList, ref Err))
+                                if (transaction.ExecuteNonQuerySQL(dbTables.Con,sqlite_update, sqlParamList, ref Err))
                                 {
                                     ID = id1;
                                     return true;
@@ -909,7 +909,7 @@ namespace CodeTables
                 // check if not unique parameter
                 DataTable dt = new DataTable();
                 string sql_check = "select ID," + col.Name + " from " + this.TableName + " where " + sqlite_set;
-                if (dbTables.m_con.ReadDataTable(ref dt, sql_check, sqlParamList, ref Err))
+                if (dbTables.Con.ReadDataTable(ref dt, sql_check, sqlParamList, ref Err))
                 {
                     if (dt.Rows.Count > 0)
                     {
@@ -1023,7 +1023,7 @@ namespace CodeTables
                         total_count = 0;
                         DataTable dt = new DataTable();
                         string sql_select = "select * from " + rtf.TableName + " where " + rtf.ColumnName + " = " + id.ToString();
-                        if (dbTables.m_con.ReadDataTable(ref dt, sql_select, ref Err))
+                        if (dbTables.Con.ReadDataTable(ref dt, sql_select, ref Err))
                         {
                             if (dt.Rows.Count > 0)
                             {

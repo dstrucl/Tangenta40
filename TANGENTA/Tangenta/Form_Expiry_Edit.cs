@@ -51,7 +51,7 @@ namespace Tangenta
         {
             string sql_Expiry = "select * from Expiry";
             DataTable dt = new DataTable();
-            if (dbTables.m_con.ReadDataTable(ref dt, sql_Expiry, ref Err))
+            if (dbTables.Con.ReadDataTable(ref dt, sql_Expiry, ref Err))
             {
                 int Count;
                 Count = dt.Rows.Count;

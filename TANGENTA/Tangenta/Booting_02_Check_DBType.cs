@@ -89,9 +89,9 @@ namespace Tangenta
             {
                 if (DBSync.DBSync.DB_for_Tangenta.m_DBTables != null)
                 {
-                    if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con != null)
+                    if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.Con != null)
                     {
-                        DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con = null;
+                        DBSync.DBSync.DB_for_Tangenta.m_DBTables.Con = null;
                     }
                     DBSync.DBSync.DB_for_Tangenta.m_DBTables = null;
                 }

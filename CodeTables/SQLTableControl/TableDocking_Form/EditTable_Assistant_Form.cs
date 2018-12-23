@@ -54,7 +54,7 @@ namespace CodeTables
                 m_dt = null;
             }
             m_dt = new DataTable();
-            if (m_tbl.GetTableView(m_DBTables.m_con, ref m_dt, ref csError,1000))
+            if (m_tbl.GetTableView(m_DBTables.Con, ref m_dt, ref csError,1000))
             {
                 dataGridView.DataSource = m_dt;
                 m_tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dataGridView, m_DBTables);

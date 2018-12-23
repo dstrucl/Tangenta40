@@ -55,7 +55,7 @@ namespace CodeTables
             }
             dt = new DataTable();
 
-            if (m_tbl.GetTableData(m_DBTables.m_con, ref m_dt, ref csError,100,null))
+            if (m_tbl.GetTableData(m_DBTables.Con, ref m_dt, ref csError,100,null))
             {
                 dataGridView_Table.DataSource = m_dt;
                 dataGridView_Table.Visible = true;

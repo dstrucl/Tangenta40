@@ -51,7 +51,7 @@ namespace Tangenta
         {
             string sql_Warranty = "select * from Warranty";
             DataTable dt = new DataTable();
-            if (dbTables.m_con.ReadDataTable(ref dt, sql_Warranty, ref Err))
+            if (dbTables.Con.ReadDataTable(ref dt, sql_Warranty, ref Err))
             {
                 int Count;
                 Count = dt.Rows.Count;

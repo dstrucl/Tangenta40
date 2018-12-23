@@ -70,7 +70,7 @@ namespace CodeTables
             if (m_sql != null)
             {
                 string Err = null;
-                if (m_DBTables.m_con.ReadDataTable(ref m_dt, m_sql,ref Err))
+                if (m_DBTables.Con.ReadDataTable(ref m_dt, m_sql,ref Err))
                 {
                     dataGridView.DataSource = m_dt;
                     string[] table_names = new string[]{"cGsmNumber_Person",
@@ -97,7 +97,7 @@ namespace CodeTables
             }
             else
             {
-                if (m_tbl.GetTableView(m_DBTables.m_con, ref m_dt, ref csError, 1000))
+                if (m_tbl.GetTableView(m_DBTables.Con, ref m_dt, ref csError, 1000))
                 {
                     dataGridView.DataSource = m_dt;
                     m_tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dataGridView, m_DBTables);

@@ -120,6 +120,10 @@
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
       <Name>CodeTables</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\TransactionLogDataBaseDef\TransactionLogDataBaseDef.csproj">
+      <Project>{53483e69-6de9-4bb6-8734-5d5f1ade0fbb}</Project>
+      <Name>TransactionLogDataBaseDef</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\UTIL\LanguageControl\LanguageControl.csproj">
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>

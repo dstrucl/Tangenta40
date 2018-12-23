@@ -470,7 +470,7 @@ namespace CodeTables
         internal void FillInputControls(ID Identity, bool bSetInitialValues,UniqueControlName xuctrln)
         {
             string csError = "";
-            if (!this.pSQL_Table.FillDataInputControl(m_DBTables.m_con, xuctrln, Identity,bSetInitialValues, ref csError))
+            if (!this.pSQL_Table.FillDataInputControl(m_DBTables.Con, xuctrln, Identity,bSetInitialValues, ref csError))
             {
                 LogFile.Error.Show(csError);
             }

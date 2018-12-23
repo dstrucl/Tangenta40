@@ -333,7 +333,7 @@ namespace CodeTables.TableDocking_Form
 
             string Err = null;
             dt_Data.Clear();
-            if (dbTables.m_con.ReadDataTable(ref dt_Data, sql, ref Err))
+            if (dbTables.Con.ReadDataTable(ref dt_Data, sql, ref Err))
             {
                 dgvx_Table.DataSource = dt_Data;
                 if (tbl.ViewName != null)

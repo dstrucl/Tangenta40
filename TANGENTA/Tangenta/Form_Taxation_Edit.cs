@@ -51,7 +51,7 @@ namespace Tangenta
         {
             string sql_Taxation = "select * from Taxation";
             DataTable dt = new DataTable();
-            if (dbTables.m_con.ReadDataTable(ref dt, sql_Taxation, ref Err))
+            if (dbTables.Con.ReadDataTable(ref dt, sql_Taxation, ref Err))
             {
                 int Count;
                 Count = dt.Rows.Count;
