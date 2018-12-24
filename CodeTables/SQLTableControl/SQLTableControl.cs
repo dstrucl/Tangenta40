@@ -104,7 +104,7 @@ namespace CodeTables
         public void Init(DBConnection.eDBType eDBType,string slog,string dbVersion)
         {
             Con.DBType = eDBType;
-            m_strSQLUseDatabase = new StringBuilder("\nUSE " + this.Con.DataBase + "\n SET DATEFORMAT dmy\n\n");
+            //m_strSQLUseDatabase = new StringBuilder("\nUSE " + this.Con.DataBase + "\n SET DATEFORMAT dmy\n\n");
 
             StringBuilder sbAll = SQLcmd_CreateAllTables(this.Con, slog, dbVersion); // this fuction creates all fkey links !
             string sAll = sbAll.ToString();
@@ -193,9 +193,8 @@ namespace CodeTables
             StringBuilder strSqlAll = new StringBuilder(30000);
             StringBuilder strSqlTables = new StringBuilder(30000);
 
-            if ((!File.Exists(SQLdbFile))||SQLTable.resetSettings)
+            if ((!File.Exists(SQLdbFile))||SQLTable.ResetSettings)
             {
-                SQLTable.resetSettings = false;
                 DataColumn dcol_TableName = new DataColumn(col_TABLE_NAME, typeof(string));
                 DataColumn dcol_ViewName = new DataColumn(col_VIEW_NAME, typeof(string));
                 DataColumn dcol_SQL_CreateTable = new DataColumn(col_SQL_CreateTABLE, typeof(string));

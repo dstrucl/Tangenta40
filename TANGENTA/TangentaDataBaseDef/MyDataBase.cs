@@ -129,6 +129,10 @@ namespace TangentaDataBaseDef
         {
             this.m_DBTables.Init(eDBType,"",VERSION);
             this.DB_TransactionsLog.Init(DBConnection.eDBType.SQLITE);
+            if (SQLTable.ResetSettings)
+            {
+                SQLTable.ResetSettings = false;
+            }
         }
 
         public bool DropViews(ref string Err, Transaction transaction)

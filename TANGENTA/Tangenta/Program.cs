@@ -916,7 +916,7 @@ namespace Tangenta
 
             if (Reset2FactorySettings.CodeTables_DLL)
             {
-                CodeTables.SQLTable.ResetSettings();
+                CodeTables.SQLTable.DoResetSettings();
             }
 
             if (Reset2FactorySettings.ColorSettings_DLL)

@@ -224,7 +224,8 @@ namespace StaticLib
         public static string GetNameFromObjectType(Object obj)
         {
             string str;
-            str = obj.GetType().ToString();
+            //str = obj.GetType().ToString();
+            str = obj.GetType().Name;
             int i = str.LastIndexOf('.');
             str = str.Substring(i + 1);
             return str;
