@@ -41,7 +41,9 @@ namespace Tangenta
                 this.usrc_EditTable1.Title = lng.s_Edit_Offices.s;
                 string selection = "Office_$$Name,Office_$$ShortName,Office_$_mo_$_orgd_$_org_$$Name,Office_$_mo_$_orgd_$_orgt_$$OrganisationTYPE,Office_$_mo_$_orgd_$_org_$$Tax_ID,ID";
                 string where_condition = " where Office_$_mo_$$ID = " + myOrganisation_ID.ToString() + " ";
-                if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Office, selection, ColumnToOrderBy, false, null, null, false, nav))
+                if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
+                                         DBSync.DBSync.MyTransactionLog_delegates,
+                                         tbl_Office, selection, ColumnToOrderBy, false, null, null, false, nav))
                 {
                     usrc_EditTable1.FillInitialData();
                 }
@@ -142,7 +144,7 @@ namespace Tangenta
             {
                 if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    Transaction transaction_Form_myOrg_Office_do_OK_usrc_EditTable1_Save = new Transaction("Form_myOrg_Office.do_OK.usrc_EditTable1.Save");
+                    Transaction transaction_Form_myOrg_Office_do_OK_usrc_EditTable1_Save = new Transaction("Form_myOrg_Office.do_OK.usrc_EditTable1.Save", DBSync.DBSync.MyTransactionLog_delegates);
                     if (usrc_EditTable1.Save(transaction_Form_myOrg_Office_do_OK_usrc_EditTable1_Save))
                     {
                         if (transaction_Form_myOrg_Office_do_OK_usrc_EditTable1_Save.Commit())

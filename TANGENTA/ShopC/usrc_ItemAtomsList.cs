@@ -122,7 +122,7 @@ namespace ShopC
         {
             if (bFactory)
             {
-                Transaction transaction_usrc_ItemAtomList_usrc_Atom_Item_RemoveClick_RemoveFactory = new Transaction("usrc_ItemAtomList.usrc_Atom_Item_RemoveClick.RemoveFactory");
+                Transaction transaction_usrc_ItemAtomList_usrc_Atom_Item_RemoveClick_RemoveFactory = new Transaction("usrc_ItemAtomList.usrc_Atom_Item_RemoveClick.RemoveFactory", DBSync.DBSync.MyTransactionLog_delegates);
                 if (this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveFactory(DocTyp,x_usrc_Atom_Item.m_dsci, transaction_usrc_ItemAtomList_usrc_Atom_Item_RemoveClick_RemoveFactory))
                 {
                     if (transaction_usrc_ItemAtomList_usrc_Atom_Item_RemoveClick_RemoveFactory.Commit())
@@ -156,7 +156,7 @@ namespace ShopC
                     Item_Data xData = this.m_ShopBC.m_CurrentDoc.m_ShopShelf.Get_Item_Data(x_usrc_Atom_Item.m_dsci);
                     if (xData != null)
                     {
-                        Transaction transaction_usrc_ItemAtomList_usrc_Atom_Item_RemoveClick_RemoveFromBasket_And_put_back_to_Stock = new Transaction("usrc_ItemAtomList.usrc_Atom_Item_RemoveClick.RemoveFromBasket_And_put_back_to_Stock");
+                        Transaction transaction_usrc_ItemAtomList_usrc_Atom_Item_RemoveClick_RemoveFromBasket_And_put_back_to_Stock = new Transaction("usrc_ItemAtomList.usrc_Atom_Item_RemoveClick.RemoveFromBasket_And_put_back_to_Stock", DBSync.DBSync.MyTransactionLog_delegates);
                         if (this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveFromBasket_And_put_back_to_Stock(DocTyp,
                                                                                                        m_ShopBC.m_CurrentDoc.Doc_ID,
                                                                                                        x_usrc_Atom_Item.m_dsci.dQuantity_FromStock,
@@ -264,7 +264,7 @@ namespace ShopC
             if (XMessage.Box.Show(this, lng.s_Are_Sure_To_Remove_All_From_Basket, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 this.Cursor = Cursors.WaitCursor;
-                Transaction transaction_usrc_ItemAtomsList_btn_ClearAll_Click_Empty = new Transaction("usrc_ItemAtomsList.btn_ClearAll_Click.Empty");
+                Transaction transaction_usrc_ItemAtomsList_btn_ClearAll_Click_Empty = new Transaction("usrc_ItemAtomsList.btn_ClearAll_Click.Empty", DBSync.DBSync.MyTransactionLog_delegates);
                 if (m_ShopBC.m_CurrentDoc.m_Basket.Empty(m_Atom_WorkPeriod_ID,
                                                          DocTyp,
                                                          m_ShopBC.m_CurrentDoc.m_ShopShelf,

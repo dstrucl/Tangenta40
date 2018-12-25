@@ -53,7 +53,7 @@ namespace LoginControl
                 if (MessageBox.Show(this, lng.s_RolesDataTableIsChanged_Question_SAVE.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     string Err = null;
-                    Transaction transaction_STDRoleManager_btn_OK_Click_LoginRoles_update = new Transaction("STDRoleManager.btn_OK_Click.LoginRoles.update");
+                    Transaction transaction_STDRoleManager_btn_OK_Click_LoginRoles_update = new Transaction("STDRoleManager.btn_OK_Click.LoginRoles.update", DBSync.DBSync.MyTransactionLog_delegates);
                     if (LoginRoles.update(ref Err, transaction_STDRoleManager_btn_OK_Click_LoginRoles_update))
                     {
                         if (transaction_STDRoleManager_btn_OK_Click_LoginRoles_update.Commit())

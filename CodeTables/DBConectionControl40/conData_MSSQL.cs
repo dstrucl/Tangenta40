@@ -20,7 +20,6 @@ namespace DBConnectionControl40
 
         int[] encrypt_num = new int[32] { 1, 2, -3, 4, 5, -6, 7, -8, 9, -10, 11, 12, 13, 14, 15, 16, 7, 8, 9, 2, 1, 2, 3, 4, 5, 6, 7, 8, 9, -1, 1, -2 };
 
-        //public String ConnectionString = null;
         internal bool m_bWindowsAuthentication = true;
 
         public string m_DataSource = "";
@@ -75,7 +74,6 @@ namespace DBConnectionControl40
             if (m_bWindowsAuthentication)
                 return "Data Source=" + m_DataSource + ";Initial Catalog=" + m_DataBase + ";Integrated Security=True;Connect Timeout=" + m_TryToConnectTimeout_in_seconds.ToString();
             else
-                //    ConnectionString = "Data Source=" + strServerName + ";Persist Security Info=True;User ID=" + strLoginID + ";Password=" + strPassword;
                 return "Data Source=" + m_DataSource + ";Initial Catalog=" + m_DataBase + ";Persist Security Info=True;User ID=" + m_UserName + ";Password=" + m_Crypt.DecryptString(m_crypted_Password) + ";Connect Timeout=" + m_TryToConnectTimeout_in_seconds.ToString();; 
 
         }
@@ -86,7 +84,6 @@ namespace DBConnectionControl40
             if (m_bWindowsAuthentication)
                 return "Data Source=" + m_DataSource + ";Initial Catalog=\"\";Integrated Security=True";
             else
-                //    ConnectionString = "Data Source=" + strServerName + ";Persist Security Info=True;User ID=" + strLoginID + ";Password=" + strPassword;
                 return "Data Source=" + m_DataSource + ";Initial Catalog=\"\";Persist Security Info=True;User ID=" + m_UserName + ";Password=" + m_Crypt.DecryptString(m_crypted_Password);
         }
 

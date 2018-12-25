@@ -617,7 +617,7 @@ namespace Tangenta
                                 LogFile.Error.Show("ERROR:Tangenta:uscr_Invoice:btn_Issue_Click:Unknown doc type.");
                             }
 
-                            Transaction transaction_DocumentEditor_IssueDocument = new Transaction("DocumentEditor_IssueDocument");
+                            Transaction transaction_DocumentEditor_IssueDocument = new Transaction("DocumentEditor_IssueDocument", DBSync.DBSync.MyTransactionLog_delegates);
                             if (IssueDocument(pform,xdelegate_control_Printing_DocInvoice,xdelegate_DocInvoiceSaved, xdelegate_DocProformaInvoiceSaved, transaction_DocumentEditor_IssueDocument))
                             {
                                 if (xdelegate_control_DoCurrent(m_ShopABC.m_CurrentDoc.Doc_ID, transaction_DocumentEditor_IssueDocument))// DoCurrent(m_ShopABC.m_CurrentDoc.Doc_ID);
@@ -638,7 +638,7 @@ namespace Tangenta
                         {
                             //Print existing invoice
                             m_InvoiceData.DocInvoice_ID = m_ShopABC.m_CurrentDoc.Doc_ID;
-                            Transaction transaction_m_InvoiceData_Read_DocInvoice = new Transaction("m_InvoiceData.Read_DocInvoice");
+                            Transaction transaction_m_InvoiceData_Read_DocInvoice = new Transaction("m_InvoiceData.Read_DocInvoice", DBSync.DBSync.MyTransactionLog_delegates);
                             if (DocM.IsDocInvoice)
                             {
                                 m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
@@ -1170,7 +1170,7 @@ namespace Tangenta
                 return false;
             }
 
-            Transaction transaction_SetNewInvoiceDraft = new Transaction("SetNewInvoiceDraft");
+            Transaction transaction_SetNewInvoiceDraft = new Transaction("SetNewInvoiceDraft", DBSync.DBSync.MyTransactionLog_delegates);
             ID xAtom_WorkArea_ID = null;
             if (workArea != null)
             {
@@ -1213,7 +1213,7 @@ namespace Tangenta
                                             )
         {
             ID Atom_Customer_Person_ID = null;
-            Transaction transaction_Customer_Person_Changed = new Transaction("Customer_Person_Changed");
+            Transaction transaction_Customer_Person_Changed = new Transaction("Customer_Person_Changed", DBSync.DBSync.MyTransactionLog_delegates);
             if (m_ShopABC.m_CurrentDoc.Update_Customer_Person(DocTyp, Customer_Person_ID, ref Atom_Customer_Person_ID, transaction_Customer_Person_Changed))
             {
                 if (ID.Validate(Atom_Customer_Person_ID))
@@ -1277,7 +1277,7 @@ namespace Tangenta
 
                                     ID Storno_DocInvoice_ID = null;
                                     DateTime stornoInvoiceIssueDateTime = new DateTime();
-                                    Transaction transaction_Storno = new Transaction("Storno");
+                                    Transaction transaction_Storno = new Transaction("Storno", DBSync.DBSync.MyTransactionLog_delegates);
                                     if (m_ShopABC.m_CurrentDoc.Storno(m_LMOUser.Atom_WorkPeriod_ID, ref Storno_DocInvoice_ID, true, GlobalData.ElectronicDevice_Name, frm_storno_dlg.m_Reason, ref stornoInvoiceIssueDateTime, transaction_Storno))
                                     {
 
@@ -1358,7 +1358,7 @@ namespace Tangenta
                                                         )
         {
             ID Atom_Customer_Org_ID = null;
-            Transaction transaction_Customer_Org_Changed = new Transaction("Customer_Org_Changed");
+            Transaction transaction_Customer_Org_Changed = new Transaction("Customer_Org_Changed", DBSync.DBSync.MyTransactionLog_delegates);
             if (m_ShopABC.m_CurrentDoc.Update_Customer_Org(DocTyp, Customer_Org_ID, ref Atom_Customer_Org_ID, transaction_Customer_Org_Changed))
             {
                 m_ShopABC.m_CurrentDoc.Atom_Customer_Org_ID = Atom_Customer_Org_ID;

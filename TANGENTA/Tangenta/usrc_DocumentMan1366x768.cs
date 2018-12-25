@@ -347,7 +347,7 @@ namespace Tangenta
             //splitContainer1.Panel2Collapsed = false;
 
             LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:Init():before SetDocument()");
-            Transaction transaction_usrcDocumentMan1366x768_InitMan_SetDocument = new Transaction("usrcDocumentMan1366x768.InitMan.SetDocument");
+            Transaction transaction_usrcDocumentMan1366x768_InitMan_SetDocument = new Transaction("usrcDocumentMan1366x768.InitMan.SetDocument", DBSync.DBSync.MyTransactionLog_delegates);
             bool bRes = SetDocument(transaction_usrcDocumentMan1366x768_InitMan_SetDocument);
             if (bRes)
             {
@@ -508,7 +508,7 @@ namespace Tangenta
         {
             if (ID.Validate(DocInvoice_ID))
             {
-                Transaction transaction_usrc_DocumentEditor1366x768_m_usrc_InvoiceTable_SelectedInvoiceChanged = new Transaction("usrc_DocumentEditor1366x768.m_usrc_InvoiceTable_SelectedInvoiceChanged");
+                Transaction transaction_usrc_DocumentEditor1366x768_m_usrc_InvoiceTable_SelectedInvoiceChanged = new Transaction("usrc_DocumentEditor1366x768.m_usrc_InvoiceTable_SelectedInvoiceChanged", DBSync.DBSync.MyTransactionLog_delegates);
                 if (m_usrc_DocumentEditor1366x768.DoCurrent(DocInvoice_ID, transaction_usrc_DocumentEditor1366x768_m_usrc_InvoiceTable_SelectedInvoiceChanged))
                 {
                     transaction_usrc_DocumentEditor1366x768_m_usrc_InvoiceTable_SelectedInvoiceChanged.Commit();
@@ -561,7 +561,7 @@ namespace Tangenta
                             break;
 
                         case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
-                            Transaction transaction_usrc_DocumentEditor1366x768_New_Copy_Of_SameDocType = new Transaction("usrc_DocumentEditor1366x768.New_Copy_Of_SameDocType");
+                            Transaction transaction_usrc_DocumentEditor1366x768_New_Copy_Of_SameDocType = new Transaction("usrc_DocumentEditor1366x768.New_Copy_Of_SameDocType", DBSync.DBSync.MyTransactionLog_delegates);
                             if (New_Copy_Of_SameDocType(frm_new_workarea.FinancialYear, frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID, transaction_usrc_DocumentEditor1366x768_New_Copy_Of_SameDocType))
                             {
                                 transaction_usrc_DocumentEditor1366x768_New_Copy_Of_SameDocType.Commit();
@@ -572,7 +572,7 @@ namespace Tangenta
                             }
                             break;
                         case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
-                            Transaction transaction_usrc_DocumentEditor1366x768_New_Copy_To_Another_DocType = new Transaction("usrc_DocumentEditor1366x768.New_Copy_To_Another_DocType");
+                            Transaction transaction_usrc_DocumentEditor1366x768_New_Copy_To_Another_DocType = new Transaction("usrc_DocumentEditor1366x768.New_Copy_To_Another_DocType", DBSync.DBSync.MyTransactionLog_delegates);
                             if (New_Copy_To_Another_DocType(frm_new_workarea.FinancialYear, frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID, transaction_usrc_DocumentEditor1366x768_New_Copy_To_Another_DocType))
                             {
                                 transaction_usrc_DocumentEditor1366x768_New_Copy_To_Another_DocType.Commit();
@@ -596,7 +596,7 @@ namespace Tangenta
                             break;
 
                         case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
-                            Transaction transaction_usrc_DocumentEditor1366x768_New_Copy_Of_SameDocType = new Transaction("usrc_DocumentEditor1366x768.New_Copy_Of_SameDocType");
+                            Transaction transaction_usrc_DocumentEditor1366x768_New_Copy_Of_SameDocType = new Transaction("usrc_DocumentEditor1366x768.New_Copy_Of_SameDocType", DBSync.DBSync.MyTransactionLog_delegates);
                             if (New_Copy_Of_SameDocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID, transaction_usrc_DocumentEditor1366x768_New_Copy_Of_SameDocType))
                             {
                                 transaction_usrc_DocumentEditor1366x768_New_Copy_Of_SameDocType.Commit();
@@ -607,7 +607,7 @@ namespace Tangenta
                             }
                             break;
                         case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
-                            Transaction transaction_usrc_DocumentEditor1366x768_New_Copy_To_Another_DocType = new Transaction("usrc_DocumentEditor1366x768.New_Copy_To_Another_DocType");
+                            Transaction transaction_usrc_DocumentEditor1366x768_New_Copy_To_Another_DocType = new Transaction("usrc_DocumentEditor1366x768.New_Copy_To_Another_DocType", DBSync.DBSync.MyTransactionLog_delegates);
                             if (New_Copy_To_Another_DocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID, transaction_usrc_DocumentEditor1366x768_New_Copy_To_Another_DocType))
                             {
                                 transaction_usrc_DocumentEditor1366x768_New_Copy_To_Another_DocType.Commit();
@@ -948,7 +948,7 @@ namespace Tangenta
 
             this.m_usrc_TableOfDocuments.Clear();
 
-            Transaction transaction_usrc_DocumentMan_SetDocInvoiceOrDocPoformaInvoice_SetDocument = new Transaction("usrc_DocumentMan.SetDocInvoiceOrDocPoformaInvoice.SetDocument");
+            Transaction transaction_usrc_DocumentMan_SetDocInvoiceOrDocPoformaInvoice_SetDocument = new Transaction("usrc_DocumentMan.SetDocInvoiceOrDocPoformaInvoice.SetDocument", DBSync.DBSync.MyTransactionLog_delegates);
             bool bRes = SetDocument(transaction_usrc_DocumentMan_SetDocInvoiceOrDocPoformaInvoice_SetDocument);
             if (bRes)
             {
@@ -969,7 +969,7 @@ namespace Tangenta
                         this.m_usrc_DocumentEditor1366x768.DocE.m_InvoiceData.AddOnDI = new DocInvoice_AddOn();
                     }
                     this.m_usrc_DocumentEditor1366x768.DocE.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                    Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC, this.m_usrc_DocumentEditor1366x768.DocE.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor1366x768.DocE.m_InvoiceData.AddOnDPI);
+                    Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(DBSync.DBSync.MyTransactionLog_delegates, this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC, this.m_usrc_DocumentEditor1366x768.DocE.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor1366x768.DocE.m_InvoiceData.AddOnDPI);
                 }
             }
         }
@@ -1048,7 +1048,7 @@ namespace Tangenta
 
             if (Program.b_FVI_SLO)
             {
-                Transaction transaction_Atom_FVI_SLO_RealEstate_ID_1 = new Transaction("Atom_FVI_SLO_RealEstate_ID_1");
+                Transaction transaction_Atom_FVI_SLO_RealEstate_ID_1 = new Transaction("Atom_FVI_SLO_RealEstate_ID_1", DBSync.DBSync.MyTransactionLog_delegates);
                 if (f_Atom_FVI_SLO_RealEstateBP.Get_Atom_FVI_SLO_RealEstateBP_ID(m_Form_Document, ref myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.Atom_FVI_SLO_RealEstate_ID, 1, transaction_Atom_FVI_SLO_RealEstate_ID_1))
                 {
                     if (!transaction_Atom_FVI_SLO_RealEstate_ID_1.Commit())
@@ -1082,9 +1082,9 @@ namespace Tangenta
                                     if (Program.b_FVI_SLO)
                                     {
                                         this.m_usrc_DocumentEditor1366x768.DocE.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                                        if (Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC, this.m_usrc_DocumentEditor1366x768.DocE.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor1366x768.DocE.m_InvoiceData.AddOnDPI))
+                                        if (Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(DBSync.DBSync.MyTransactionLog_delegates, this.m_usrc_DocumentEditor1366x768.DocE.m_ShopABC, this.m_usrc_DocumentEditor1366x768.DocE.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor1366x768.DocE.m_InvoiceData.AddOnDPI))
                                         {
-                                            Transaction transaction_usrc_DocumentMan_Init_b_FVI_SLO_SetDocument = new Transaction("usrc_DocumentMan.Init.b_FVI_SLO.SetDocument");
+                                            Transaction transaction_usrc_DocumentMan_Init_b_FVI_SLO_SetDocument = new Transaction("usrc_DocumentMan.Init.b_FVI_SLO.SetDocument",DBSync.DBSync.MyTransactionLog_delegates);
                                             if (this.SetDocument(transaction_usrc_DocumentMan_Init_b_FVI_SLO_SetDocument))
                                             {
                                                 if (!transaction_usrc_DocumentMan_Init_b_FVI_SLO_SetDocument.Commit())
@@ -1112,7 +1112,7 @@ namespace Tangenta
                     }
                     else
                     {
-                        Transaction transaction_usrc_DocumentMan_Init_SetDocument = new Transaction("usrc_DocumentMan.Init.SetDocument");
+                        Transaction transaction_usrc_DocumentMan_Init_SetDocument = new Transaction("usrc_DocumentMan.Init.SetDocument", DBSync.DBSync.MyTransactionLog_delegates);
                         if (this.SetDocument(transaction_usrc_DocumentMan_Init_SetDocument))
                         {
                             if (!transaction_usrc_DocumentMan_Init_SetDocument.Commit())

@@ -411,15 +411,12 @@ namespace DBConnectionControl40
         {
             try
             {
-                //conData.SetConnectionString();
                 Con.Open();
                 return true;
             }
             catch (Exception ex)
             {
                 sError = SetConnectionError() + "\n" + ex.Message;
-                //if (dbg.bON) dbg.Print(sError);
-                //Log.Write(1, sError);
                 return false;
             }
         }
@@ -556,22 +553,23 @@ namespace DBConnectionControl40
 
 
 
-        public bool Startup_03_Show_ConnectionDialog(DBConnection dbconnection, NavigationButtons.Navigation nav)
+        public bool Startup_03_Show_ConnectionDialog(DBConnection dbconnection,TransactionLog_delegates xTransactionLog_delegates, NavigationButtons.Navigation nav)
         {
             string sTitle = lng.s_Connection_to_Database.s + this.DataBase;
             if ((m_conData_MYSQL.m_DataSource.Length > 0) && (m_conData_MYSQL.m_DataBase.Length > 0))
             {
-                ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, dbconnection, sTitle, nav);
+                ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, dbconnection, xTransactionLog_delegates, sTitle, nav);
             }
             else
             {
-                ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditAll, dbconnection, sTitle, nav);
+                ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditAll, dbconnection, xTransactionLog_delegates, sTitle, nav);
             }
             return true;
         }
 
 
-        public void do_ConnectionDialog(DBConnection dbconnection, 
+        public void do_ConnectionDialog(DBConnection dbconnection,
+                                        TransactionLog_delegates xTransactionLog_delegates,
                                         string sTitle, 
                                         ref bool bNewDatabase, 
                                         NavigationButtons.Navigation nav, 
@@ -581,11 +579,11 @@ namespace DBConnectionControl40
             bNewDatabase = false;
             if ((m_conData_MYSQL.m_DataSource.Length > 0) && (m_conData_MYSQL.m_DataBase.Length > 0))
             {
-                ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, dbconnection, sTitle, nav);
+                ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, dbconnection, xTransactionLog_delegates, sTitle, nav);
             }
             else
             {
-                ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditAll, dbconnection, sTitle, nav);
+                ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditAll, dbconnection, xTransactionLog_delegates,sTitle, nav);
             }
         }
 

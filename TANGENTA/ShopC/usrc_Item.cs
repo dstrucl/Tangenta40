@@ -514,7 +514,7 @@ namespace ShopC
             m_Item_Data.ExtraDiscount = this.ExtraDiscount;
 
             Doc_ShopC_Item dsci = null;
-            Transaction transaction_usrc_Item_uItemStock_Click_m_Basket_Add2Basket = new Transaction("usrc_Item_uItemStock_Click_m_Basket_Add2Basket");
+            Transaction transaction_usrc_Item_uItemStock_Click_m_Basket_Add2Basket = new Transaction("usrc_Item_uItemStock_Click_m_Basket_Add2Basket", DBSync.DBSync.MyTransactionLog_delegates);
             if (m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(ref dsci,
                                                                             m_usrc_Atom_ItemsList.m_ShopBC.DocTyp,
                                                                             m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
@@ -543,7 +543,7 @@ namespace ShopC
                 if (EditStock_AvoidStock())
                 {
                     Doc_ShopC_Item dsci = null;
-                    Transaction transaction_usrc_Item_uItemFactory_Click_EditStock_AvoidStock_Add2BasketFromFactory = new Transaction("usrc_Item.uItemFactory_Click.EditStock_AvoidStock.Add2BasketFromFactory");
+                    Transaction transaction_usrc_Item_uItemFactory_Click_EditStock_AvoidStock_Add2BasketFromFactory = new Transaction("usrc_Item.uItemFactory_Click.EditStock_AvoidStock.Add2BasketFromFactory", DBSync.DBSync.MyTransactionLog_delegates);
 
                     if (m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add2BasketFromFactory(ref dsci,
                                                                                                    m_usrc_Atom_ItemsList.m_ShopBC.DocTyp,
@@ -574,7 +574,7 @@ namespace ShopC
             else
             {
                 Doc_ShopC_Item dsci = null;
-                Transaction transaction_usrc_Item_uItemFactory_Click_Add2BasketFromFactory = new Transaction("usrc_Item.uItemFactory_Click.Add2BasketFromFactory");
+                Transaction transaction_usrc_Item_uItemFactory_Click_Add2BasketFromFactory = new Transaction("usrc_Item.uItemFactory_Click.Add2BasketFromFactory", DBSync.DBSync.MyTransactionLog_delegates);
 
                 if (m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add2BasketFromFactory(ref dsci,
                                                                                                m_usrc_Atom_ItemsList.m_ShopBC.DocTyp,

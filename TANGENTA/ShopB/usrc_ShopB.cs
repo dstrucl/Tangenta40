@@ -346,7 +346,7 @@ namespace ShopB
                     string Taxation_Name = (string)dt_Price_ShopBItem.Rows[iShopBItemRow][DBtcn.colShopBItemTaxation_Name];
                     decimal Taxation_Rate = (decimal)dt_Price_ShopBItem.Rows[iShopBItemRow][DBtcn.colShopBItemTaxation_Rate];
                     ID PriceShopBItem_Atom_ShopBItem_ID = tf.set_ID(dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_Selected_Atom_Price_ShopBItem_ID]);
-                    Transaction transaction_usrc_ShopB_ShopBItemSelect_m_InvoiceDB_Update_SelectedSimpleItem = new Transaction("usrc_ShopB_ShopBItemSelect.m_InvoiceDB.Update_SelectedSimpleItem");
+                    Transaction transaction_usrc_ShopB_ShopBItemSelect_m_InvoiceDB_Update_SelectedSimpleItem = new Transaction("usrc_ShopB_ShopBItemSelect.m_InvoiceDB.Update_SelectedSimpleItem", DBSync.DBSync.MyTransactionLog_delegates);
                     if (m_InvoiceDB.Update_SelectedSimpleItem(PriceShopBItem_Atom_ShopBItem_ID,
                                                            iCount,
                                                            Discount,
@@ -394,7 +394,7 @@ namespace ShopB
                     ID Atom_Price_ShopBItem_ID = null;
                     decimal PriceWithoutTax = 0;
 
-                    Transaction transaction_usrc_ShopB_ShopBItemSelect_f_Atom_Price_ShopBItem_Get = new Transaction("usrc_ShopB.ShopBItemSelect.f_Atom_Price_ShopBItem.Get");
+                    Transaction transaction_usrc_ShopB_ShopBItemSelect_f_Atom_Price_ShopBItem_Get = new Transaction("usrc_ShopB.ShopBItemSelect.f_Atom_Price_ShopBItem.Get",DBSync.DBSync.MyTransactionLog_delegates);
 
                     if (f_Atom_Price_ShopBItem.Get(DocTyp,
                                                     Price_ShopBItem_ID,
@@ -486,7 +486,7 @@ namespace ShopB
                 decimal PriceWithoutTax = 0;
                 string Taxation_Name = (string)dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_TaxName];
                 decimal Taxation_Rate = (decimal)dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_TaxRate];
-                Transaction transaction_usrc_ShopB_SelectExtraDiscount_m_InvoiceDB_Update_SelectedSimpleItem = new Transaction("usrc_ShopB.SelectExtraDiscount.m_InvoiceDB.Update_SelectedSimpleItem");
+                Transaction transaction_usrc_ShopB_SelectExtraDiscount_m_InvoiceDB_Update_SelectedSimpleItem = new Transaction("usrc_ShopB.SelectExtraDiscount.m_InvoiceDB.Update_SelectedSimpleItem", DBSync.DBSync.MyTransactionLog_delegates);
                 if (m_InvoiceDB.Update_SelectedSimpleItem(Atom_ShopBItem_ID,
                                                         iCount,
                                                         Discount,
@@ -678,7 +678,7 @@ namespace ShopB
                                                 ref Taxation_Name,
                                                 ref Taxation_Rate))
                     {
-                        Transaction transaction_usrc_ShopB_ShopBItemDeselect_m_InvoiceDB_Update_SelectedSimpleItem = new Transaction("usrc_ShopB.ShopBItemDeselect.m_InvoiceDB.Update_SelectedSimpleItem");
+                        Transaction transaction_usrc_ShopB_ShopBItemDeselect_m_InvoiceDB_Update_SelectedSimpleItem = new Transaction("usrc_ShopB.ShopBItemDeselect.m_InvoiceDB.Update_SelectedSimpleItem", DBSync.DBSync.MyTransactionLog_delegates);
                         if (m_InvoiceDB.Update_SelectedSimpleItem(Atom_Price_ShopBItem_ID,
                                        iCount,
                                        Discount,
@@ -712,7 +712,7 @@ namespace ShopB
                 }
                 else
                 {
-                    Transaction transaction_usrc_ShopB_ShopBItemDeselect_m_InvoiceDB_Delete_SelectedSimpleItem = new Transaction("usrc_ShopB.ShopBItemDeselect.m_InvoiceDB.Delete_SelectedSimpleItem");
+                    Transaction transaction_usrc_ShopB_ShopBItemDeselect_m_InvoiceDB_Delete_SelectedSimpleItem = new Transaction("usrc_ShopB.ShopBItemDeselect.m_InvoiceDB.Delete_SelectedSimpleItem", DBSync.DBSync.MyTransactionLog_delegates);
 
                     if (m_InvoiceDB.Delete_SelectedSimpleItem(Atom_Price_ShopBItem_ID,
                                                             ref Err,
@@ -1006,7 +1006,7 @@ namespace ShopB
                 {
                     if (dt_ShopB_Items_NotIn_PriceList.Rows.Count > 0)
                     {
-                        Transaction transaction_usrc_ShopB_EditShopBItem_f_PriceList_Insert_ShopB_Items_in_PriceList = new Transaction("usrc_ShopB.EditShopBItem.f_PriceList.Insert_ShopB_Items_in_PriceList");
+                        Transaction transaction_usrc_ShopB_EditShopBItem_f_PriceList_Insert_ShopB_Items_in_PriceList = new Transaction("usrc_ShopB.EditShopBItem.f_PriceList.Insert_ShopB_Items_in_PriceList", DBSync.DBSync.MyTransactionLog_delegates);
                         if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Items_NotIn_PriceList,
                                                                         this,
                                                                         transaction_usrc_ShopB_EditShopBItem_f_PriceList_Insert_ShopB_Items_in_PriceList))

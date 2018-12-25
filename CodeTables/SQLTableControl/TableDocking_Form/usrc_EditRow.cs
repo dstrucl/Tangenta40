@@ -58,7 +58,9 @@ namespace CodeTables.TableDocking_Form
         public enum eMode { NEW, VIEW, EDIT };
 
         private eMode m_eMode = eMode.NEW;
-        DBTableControl m_DBTables;
+        DBTableControl m_DBTables = null;
+        TransactionLog_delegates m_TransactionLog_delegates = null;
+
         public SQLTable m_tbl;
 
         public MyTabControl m_TabControl;
@@ -240,7 +242,7 @@ namespace CodeTables.TableDocking_Form
             get { return m_eMode; }
         }
 
-        public void Init(DBTableControl dbTables, SQLTable tbl, Globals.delegate_SetControls xSetControls, bool bReadOnly,NavigationButtons.Navigation xnav)
+        public void Init(DBTableControl dbTables,TransactionLog_delegates xTransactionLog_delegates, SQLTable tbl, Globals.delegate_SetControls xSetControls, bool bReadOnly,NavigationButtons.Navigation xnav)
         {
             nav = xnav;
             rand = new Random();
@@ -254,6 +256,7 @@ namespace CodeTables.TableDocking_Form
             this.btn_Update.Visible = false;
             this.btn_New.Text = lng.sNew.s;
             m_DBTables = dbTables;
+            m_TransactionLog_delegates = xTransactionLog_delegates;
             m_tbl = tbl;
             m_tbl.SelectionButtonVisible = m_SelectionButtonVisible;
             CreateInputControls(bReadOnly, uctrln, xnav);
@@ -296,7 +299,7 @@ namespace CodeTables.TableDocking_Form
                     if ((this.btn_Update.Visible) & (this.btn_Update.Enabled))
                     {
                         this.Cursor = Cursors.WaitCursor;
-                        Transaction transaction_usrc_EditRow_KeyPressed_UpdateDataBase = new Transaction("usrc_EditRow.KeyPressed.UpdateDataBase");
+                        Transaction transaction_usrc_EditRow_KeyPressed_UpdateDataBase = new Transaction("usrc_EditRow.KeyPressed.UpdateDataBase",m_TransactionLog_delegates);
                         if (UpdateDataBase(transaction_usrc_EditRow_KeyPressed_UpdateDataBase))
                         {
                             transaction_usrc_EditRow_KeyPressed_UpdateDataBase.Commit();
@@ -411,7 +414,7 @@ namespace CodeTables.TableDocking_Form
             {
                 InsertRandomData();
                 StringBuilder sDataBaseused = new StringBuilder("USE " + m_DBTables.Con.DataBase);
-                Transaction transaction_usrc_EditRow_WndProc_WM_USER_GENERATE_RANDOM_INPUT_InsertInDataBase_WithImportText = new Transaction("usrc_EditRow.WndProc.WM_USER_GENERATE_RANDOM_INPUT.InsertInDataBase_WithImportText");
+                Transaction transaction_usrc_EditRow_WndProc_WM_USER_GENERATE_RANDOM_INPUT_InsertInDataBase_WithImportText = new Transaction("usrc_EditRow.WndProc.WM_USER_GENERATE_RANDOM_INPUT.InsertInDataBase_WithImportText",m_TransactionLog_delegates);
                 if (Globals.InsertInDataBase_WithImportText(SetControls,
                                                             m_tbl,
                                                             m_DBTables,
@@ -530,7 +533,7 @@ namespace CodeTables.TableDocking_Form
         {
             this.Cursor = Cursors.WaitCursor;
             ID insertedRow_ID = null;
-            Transaction transaction_usrc_EditRow_btnInsertInDataBase_Click_InsertInDataBase = new Transaction("usrc.EditRow_btnInsertInDataBase_Click.InsertInDataBase");
+            Transaction transaction_usrc_EditRow_btnInsertInDataBase_Click_InsertInDataBase = new Transaction("usrc.EditRow_btnInsertInDataBase_Click.InsertInDataBase",m_TransactionLog_delegates);
             if (InsertInDataBase(ref insertedRow_ID,
                                 transaction_usrc_EditRow_btnInsertInDataBase_Click_InsertInDataBase))
             {
@@ -607,7 +610,7 @@ namespace CodeTables.TableDocking_Form
         private void btn_Update_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
-            Transaction transaction_usrc_EditRow_btn_Update_Click_UpdateDataBase = new Transaction("usrc_EditRow.btn_Update_Click.UpdateDataBase");
+            Transaction transaction_usrc_EditRow_btn_Update_Click_UpdateDataBase = new Transaction("usrc_EditRow.btn_Update_Click.UpdateDataBase",m_TransactionLog_delegates);
             if (UpdateDataBase(transaction_usrc_EditRow_btn_Update_Click_UpdateDataBase))
             {
                 transaction_usrc_EditRow_btn_Update_Click_UpdateDataBase.Commit();

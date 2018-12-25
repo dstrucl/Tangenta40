@@ -32,7 +32,8 @@ namespace CodeTables
 
         public TableDockingForm m_TableDockingForm;
 
-        DBTableControl m_DBTables;
+        DBTableControl m_DBTables = null;
+        TransactionLog_delegates m_TransactionLog_delegates = null;
         private SQLTable m_tbl;
 
         //public MyTabControl m_TabControl;
@@ -43,13 +44,14 @@ namespace CodeTables
         public TableDockingFormXml m_pTableDockingFormXml;
         private NavigationButtons.Navigation nav = null;
 
-        public CreateView_Form(DBTableControl dbTables, SQLTable tbl, TableDockingForm dtF, NavigationButtons.Navigation xnav)
+        public CreateView_Form(DBTableControl dbTables, TransactionLog_delegates xTransactionLog_delegates, SQLTable tbl, TableDockingForm dtF, NavigationButtons.Navigation xnav)
         {
             nav = xnav;
             this.Visible = false; 
             bFormCreated = false;
             m_TableDockingForm = dtF;
             m_DBTables = dbTables;
+            m_TransactionLog_delegates = xTransactionLog_delegates;
             m_tbl = tbl;
             this.Icon=Properties.Resources.DataView_FormIcon;
             InitializeComponent();
@@ -294,7 +296,7 @@ namespace CodeTables
                 {
                     iIndexFree = 3; //Overwrite
                 }
-                m_TableDockingForm.Create_TableView_Form(iIndexFree, m_CurViewXml.m_ViewXml,nav);
+                m_TableDockingForm.Create_TableView_Form(iIndexFree, m_CurViewXml.m_ViewXml,nav, m_TransactionLog_delegates);
             }
             else
             {

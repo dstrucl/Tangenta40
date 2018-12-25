@@ -82,6 +82,7 @@ namespace CodeTables.TableDocking_Form
         string OrderByColumnName = null;
         public DataTable dt_Data = new DataTable();
         CodeTables.DBTableControl dbTables = null;
+        TransactionLog_delegates m_TransactionLog_delegates = null;
         public SQLTable tbl = null;
         bool bInitData = false;
 
@@ -171,6 +172,7 @@ namespace CodeTables.TableDocking_Form
 
 
         public bool Init(CodeTables.DBTableControl xdbTables,
+                        TransactionLog_delegates xTransactionLog_delegates,
                         SQLTable xtbl,
                         string xSelectedColumns,
                         string xOrderByColumnName,
@@ -185,6 +187,7 @@ namespace CodeTables.TableDocking_Form
             WhereConditon = xWhereConditon;
             OrderByColumnName = xOrderByColumnName;
             dbTables = xdbTables;
+            m_TransactionLog_delegates = xTransactionLog_delegates;
             if (tbl != null)
             {
                 if (!tbl.TableName.Equals(xtbl.TableName))
@@ -205,7 +208,7 @@ namespace CodeTables.TableDocking_Form
             }
             if (InitDataTable(id))
             {
-                usrc_EditRow.Init(dbTables, tbl, null, bReadOnly,nav);
+                usrc_EditRow.Init(dbTables, m_TransactionLog_delegates, tbl, null, bReadOnly,nav);
                 if (dt_Data.Rows.Count > 0)
                 {
                     if (Identity == null)

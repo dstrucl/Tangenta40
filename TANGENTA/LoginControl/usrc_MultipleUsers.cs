@@ -416,7 +416,7 @@ namespace LoginControl
                 {
                     if (o_data is DataRow)
                     {
-                        Transaction transaction_usrc_item_SetData = new Transaction("usrc_item_SetData");
+                        Transaction transaction_usrc_item_SetData = new Transaction("usrc_item_SetData", DBSync.DBSync.MyTransactionLog_delegates);
                         if (usrc_item.SetData((DataRow)o_data, transaction_usrc_item_SetData))
                         {
                             if (transaction_usrc_item_SetData.Commit())

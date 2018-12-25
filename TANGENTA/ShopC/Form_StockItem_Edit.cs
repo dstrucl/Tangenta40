@@ -64,7 +64,7 @@ namespace ShopC
         internal bool Init()
         {
             string selection = @"Stock_$_ppi_$_i_$$UniqueName,Stock_$$dQuantity,Stock_$$ExpiryDate, Stock_$_ppi_$_pp_$$PurchasePricePerUnit,Stock_$$ImportTime,Stock_$_ppi_$_i_$$Description,Stock_$_ppi_$_st_$_sup_$_c_$_orgd_$_org_$$Name,Stock_$_ppi_$_i_$$Code,Stock_$_ppi_$_i_$_u_$$Name,Stock_$_ppi_$_i_$_u_$$Symbol,Stock_$_ppi_$_i_$_u_$$DecimalPlaces,Stock_$_ppi_$_i_$_u_$$StorageOption,Stock_$_ppi_$_i_$_exp_$$ExpectedShelfLifeInDays,Stock_$_ppi_$_i_$_exp_$$SaleBeforeExpiryDateInDays,Stock_$_ppi_$_i_$_exp_$$DiscardBeforeExpiryDateInDays,Stock_$_ppi_$_i_$_wrty_$$WarrantyDuration, Stock_$_ppi_$_i_$_wrty_$$WarrantyDurationType,Stock_$_ppi_$_i_$_wrty_$$WarrantyConditions,Stock_$_ppi_$_i_$_iimg_$$Image_Data,ID";
-            if (m_usrc_EditTable.Init(dbTables, tbl, selection, ColumnToOrderBy, false, where_condition, null, false, nav))
+            if (m_usrc_EditTable.Init(dbTables, DBSync.DBSync.MyTransactionLog_delegates, tbl, selection, ColumnToOrderBy, false, where_condition, null, false, nav))
             {
                 if (m_usrc_EditTable.RowsCount == 0)
                 {
@@ -118,7 +118,7 @@ namespace ShopC
             {
                 if (XMessage.Box.Show(this, lng.s_YouHaveEnteredOrChangedDataButNotSavedThem_Save_YesNo, "", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-                    Transaction transaction_Form_ItemStock_Edit_FormClosing_m_usrc_EditTable_Save = new Transaction("Form_ItemStock_Edit_FormClosing.m_usrc_EditTable.Save");
+                    Transaction transaction_Form_ItemStock_Edit_FormClosing_m_usrc_EditTable_Save = new Transaction("Form_ItemStock_Edit_FormClosing.m_usrc_EditTable.Save",DBSync.DBSync.MyTransactionLog_delegates);
                     if (m_usrc_EditTable.Save(transaction_Form_ItemStock_Edit_FormClosing_m_usrc_EditTable_Save))
                     {
                         transaction_Form_ItemStock_Edit_FormClosing_m_usrc_EditTable_Save.Commit();
@@ -167,7 +167,7 @@ namespace ShopC
                         }
                     }
                     ID JOURNAL_Stock_id = null;
-                    Transaction transaction_f_JOURNAL_Stock_Get = new Transaction("f_JOURNAL_Stock_Get");
+                    Transaction transaction_f_JOURNAL_Stock_Get = new Transaction("f_JOURNAL_Stock_Get", DBSync.DBSync.MyTransactionLog_delegates);
                     if (f_JOURNAL_Stock.Get(m_Atom_WorkPeriod_ID,ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data, EventTime, dq, ref JOURNAL_Stock_id, transaction_f_JOURNAL_Stock_Get))
                     {
                         transaction_f_JOURNAL_Stock_Get.Commit();
@@ -203,7 +203,7 @@ namespace ShopC
                         }
                     }
                     ID JOURNAL_Stock_id = null;
-                    Transaction transaction_f_JOURNAL_Stock_Get = new Transaction("f_JOURNAL_Stock_Get");
+                    Transaction transaction_f_JOURNAL_Stock_Get = new Transaction("f_JOURNAL_Stock_Get", DBSync.DBSync.MyTransactionLog_delegates);
                     if (f_JOURNAL_Stock.Get(m_Atom_WorkPeriod_ID,ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed, EventTime, dq, ref JOURNAL_Stock_id, transaction_f_JOURNAL_Stock_Get))
                     {
                         transaction_f_JOURNAL_Stock_Get.Commit();

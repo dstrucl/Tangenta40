@@ -20,6 +20,8 @@ namespace TransactionLogDataBaseDef
 
         public DBTableControl m_DBLogTables = null;
 
+        public TransactionLog_delegates MyTransactionLog_delegates = null;
+
         public MyDataBase_TransactionsLog(Form pForm, string XmlRootName, string xmlIniFileFolder)
         {
             // TODO: Complete member initialization
@@ -33,7 +35,13 @@ namespace TransactionLogDataBaseDef
 
             Define_SQL_Database_Tables();
 
+            MyTransactionLog_delegates = new TransactionLog_delegates(WriteTransactionLog_BeginTransaction,
+                                                                      WriteTransactionLogExecute,
+                                                                      WriteTransactionLog_Commit,
+                                                                      WriteTransactionLog_Rollback);
         }
+
+
 
         public DBConnection.eDBType DBType
         {
@@ -46,7 +54,7 @@ namespace TransactionLogDataBaseDef
 
         public DBTableControl.enumDataBaseCheckResult CheckDatabase(Form pParentForm, ref string csError)
         {
-            Transaction transaction_CheckDatabase = new Transaction("CheckDatabase");
+            Transaction transaction_CheckDatabase = new Transaction("CheckDatabase",null);
             DBTableControl.enumDataBaseCheckResult eres = m_DBTables.DataBaseCheck(ref csError, transaction_CheckDatabase);
             switch (eres)
             {

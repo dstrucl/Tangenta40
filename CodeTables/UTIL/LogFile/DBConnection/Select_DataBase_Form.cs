@@ -62,7 +62,6 @@ namespace LogFile
                                 }
                             }
                         }
-                        //Console.WriteLine("Database: " + row["database_name"]);
                     }
                     return true;
                 }
@@ -293,7 +292,6 @@ namespace LogFile
             UpdateConData();
             string current_DataBaseName = m_SQL_Connection.DataBase;
             m_SQL_Connection.DataBase = "";
-            //m_SQL_Connection.conData.SetConnectionString();
             string csError = "";
             if (m_SQL_Connection.Connect(ref csError))
             {
@@ -301,12 +299,10 @@ namespace LogFile
                 View_AccessR_Form View_AccessR_Dialog = new View_AccessR_Form(m_SQL_Connection);
                 View_AccessR_Dialog.ShowDialog();
                 m_SQL_Connection.DataBase = current_DataBaseName;
-                //m_SQL_Connection.conData.SetConnectionString();
             }
             else
             {
                 m_SQL_Connection.DataBase = current_DataBaseName;
-                //m_SQL_Connection.conData.SetConnectionString();
             }
         }
 

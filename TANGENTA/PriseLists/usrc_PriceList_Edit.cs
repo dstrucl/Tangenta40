@@ -132,7 +132,9 @@ namespace PriseLists
                 case ePriceListMode.SELECT_ALL:
                     break;
             }
-            bool bRes = usrc_EditTable_PriceList.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_PriceList, selection, "ID asc", bEditUndefined, sWhereCondition, null, false,nav);
+            bool bRes = usrc_EditTable_PriceList.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
+                                                     DBSync.DBSync.MyTransactionLog_delegates,
+                                                     tbl_PriceList, selection, "ID asc", bEditUndefined, sWhereCondition, null, false,nav);
             if (bRes)
             {
                 if (usrc_EditTable_PriceList.dt_Data.Rows.Count == 0)
@@ -219,7 +221,7 @@ namespace PriseLists
 
                             sql = @" insert into Price_SimpleItem (SimpleItem_ID,PriceList_ID,Taxation_ID,RetailSimpleItemPrice,Discount) 
                                     select id," + ID.ToString() + "," + id_Taxation.ToString() + ",-1,0 from SimpleItem where ToOffer = 1";
-                            Transaction transaction_usrc_EditTable_PriceList_after_InsertInDataBase = new Transaction("usrc_EditTable_PriceList_after_InsertInDataBase");
+                            Transaction transaction_usrc_EditTable_PriceList_after_InsertInDataBase = new Transaction("usrc_EditTable_PriceList_after_InsertInDataBase", DBSync.DBSync.MyTransactionLog_delegates);
                             if (transaction_usrc_EditTable_PriceList_after_InsertInDataBase.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
                             {
                                 transaction_usrc_EditTable_PriceList_after_InsertInDataBase.Commit();
@@ -247,7 +249,9 @@ namespace PriseLists
                                                   ";
                                 if (usrc_EditTable_Shop_Prices != null)
                                 {
-                                    if (this.usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_SimpleItem, selection, "Price_SimpleItem_$_si_$$Code desc", false, where_condition, null, false,nav))
+                                    if (this.usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
+                                                                        DBSync.DBSync.MyTransactionLog_delegates,
+                                                                        tbl_Price_SimpleItem, selection, "Price_SimpleItem_$_si_$$Code desc", false, where_condition, null, false,nav))
                                     {
                                     }
                                 }
@@ -261,7 +265,7 @@ namespace PriseLists
                         }
                         else
                         {
-                            Transaction transaction_usrc_EditTable_PriceList_after_InsertInDataBase = new Transaction("usrc_EditTable_PriceList_after_InsertInDataBase");
+                            Transaction transaction_usrc_EditTable_PriceList_after_InsertInDataBase = new Transaction("usrc_EditTable_PriceList_after_InsertInDataBase", DBSync.DBSync.MyTransactionLog_delegates);
                             sql = @" insert into Price_Item (Item_ID,PriceList_ID,Taxation_ID,RetailPricePerUnit,Discount) 
                                             select id," + ID.ToString() + "," + id_Taxation.ToString() + ",-1,0 from Item where ToOffer = 1";
                             if (transaction_usrc_EditTable_PriceList_after_InsertInDataBase.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
@@ -293,7 +297,9 @@ namespace PriseLists
                                 string where_condition = " where Price_Item_$_pl_$$ID = " + ID.ToString() + " ";
                                 if (usrc_EditTable_Shop_Prices != null)
                                 {
-                                    if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_Item, selection, " Price_Item_$_i_$$Code desc ", false, where_condition, null, false,nav))
+                                    if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
+                                                                        DBSync.DBSync.MyTransactionLog_delegates,
+                                                                        tbl_Price_Item, selection, " Price_Item_$_i_$$Code desc ", false, where_condition, null, false,nav))
                                     {
                                         if (!SetPriceListName(ID, ref Err))
                                         {
@@ -433,7 +439,9 @@ namespace PriseLists
                             sOrder_by_UndefinedFirst = " Price_SimpleItem_$_si_$_sipg1_$$Name,Price_SimpleItem_$_si_$_sipg1_$_sipg2_$$Name,Price_SimpleItem_$_si_$_sipg1_$_sipg2_$_sipg3_$$Name, Price_SimpleItem_$$RetailSimpleItemPrice asc, ";
                         }
 
-                        if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_SimpleItem, selection, sOrder_by_UndefinedFirst + " Price_SimpleItem_$_si_$$Code desc", false, where_condition, null, false,nav))
+                        if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
+                                                            DBSync.DBSync.MyTransactionLog_delegates,
+                                                            tbl_Price_SimpleItem, selection, sOrder_by_UndefinedFirst + " Price_SimpleItem_$_si_$$Code desc", false, where_condition, null, false,nav))
                         {
 
                         }
@@ -479,7 +487,9 @@ namespace PriseLists
                         {
                             sOrder_by_UndefinedFirst = " Price_Item_$_i_$_ipg1_$$Name, Price_Item_$_i_$_ipg1_$_ipg2_$$Name, Price_Item_$_i_$_ipg1_$_ipg2_$_ipg3_$$Name, Price_Item_$$RetailPricePerUnit asc, ";
                         }
-                        if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_Item, selection, sOrder_by_UndefinedFirst + " Price_Item_$_i_$$Code desc", false, where_condition, null, false,nav))
+                        if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
+                                                            DBSync.DBSync.MyTransactionLog_delegates,
+                                                            tbl_Price_Item, selection, sOrder_by_UndefinedFirst + " Price_Item_$_i_$$Code desc", false, where_condition, null, false,nav))
                         {
 
                         }
@@ -646,7 +656,7 @@ namespace PriseLists
                             nav.eExitResult = evt;
                             if (usrc_EditTable_PriceList.Changed)
                             {
-                                Transaction transaction_usrc_EditTable_PriceList_Save = new Transaction("usrc_EditTablePriceList.Save");
+                                Transaction transaction_usrc_EditTable_PriceList_Save = new Transaction("usrc_EditTablePriceList.Save", DBSync.DBSync.MyTransactionLog_delegates);
                                 if (usrc_EditTable_PriceList.Save(transaction_usrc_EditTable_PriceList_Save))
                                 {
                                     transaction_usrc_EditTable_PriceList_Save.Commit();

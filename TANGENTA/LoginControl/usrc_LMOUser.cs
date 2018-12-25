@@ -130,7 +130,7 @@ namespace LoginControl
 
                     if (awpLoginForm_OneFromMultipleUsers.LogoutALL)
                     {
-                        Transaction transaction_LogoutALL = new Transaction("LogoutALL");
+                        Transaction transaction_LogoutALL = new Transaction("LogoutALL", DBSync.DBSync.MyTransactionLog_delegates);
                         if (this.m_usrc_MultipleUsers.LogoutAll(transaction_LogoutALL))
                         {
                             if (transaction_LogoutALL.Commit())
@@ -170,7 +170,7 @@ namespace LoginControl
                             {
                                 m_usrc_MultipleUsers.m_CashierActivity.Last_Atom_WorkPeriod_ID = m_LMOUser.Atom_WorkPeriod_ID;
                                 Form_CloseCashier frm_closecashier = new Form_CloseCashier(m_usrc_MultipleUsers.m_CashierActivity, m_LMOUser);
-                                Transaction transaction_m_CashierActivity_Close = new Transaction("m_CashierActivity_Close");
+                                Transaction transaction_m_CashierActivity_Close = new Transaction("m_CashierActivity_Close", DBSync.DBSync.MyTransactionLog_delegates);
                                 switch (frm_closecashier.ShowDialog(this))
                                 {
                                     case DialogResult.OK:
@@ -260,7 +260,7 @@ namespace LoginControl
                                 if (m_usrc_MultipleUsers.m_CashierActivity == null)
                                 {
                                     m_usrc_MultipleUsers.m_CashierActivity = new CashierActivity();
-                                    Transaction transaction_m_usrc_MultipleUsers_m_CashierActivity_Open = new Transaction("MultipleUsers_m_CashierActivity_Open");
+                                    Transaction transaction_m_usrc_MultipleUsers_m_CashierActivity_Open = new Transaction("MultipleUsers_m_CashierActivity_Open", DBSync.DBSync.MyTransactionLog_delegates);
                                     if (m_usrc_MultipleUsers.m_CashierActivity.Open(m_LMOUser.Atom_WorkPeriod_ID, transaction_m_usrc_MultipleUsers_m_CashierActivity_Open))
                                     {
                                         transaction_m_usrc_MultipleUsers_m_CashierActivity_Open.Commit();

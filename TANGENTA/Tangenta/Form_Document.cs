@@ -800,7 +800,7 @@ namespace Tangenta
                         ID atom_work_period_id = loginControl1.awp.LMO1User.Atom_WorkPeriod_ID;
                         if (ID.Validate(atom_work_period_id))
                         {
-                            Transaction transaction_loginControl1_awp_LMO1User = new Transaction("loginControl1_awp_LMO1User");
+                            Transaction transaction_loginControl1_awp_LMO1User = new Transaction("loginControl1_awp_LMO1User", DBSync.DBSync.MyTransactionLog_delegates);
                             if (TangentaDB.f_Atom_WorkPeriod.End(loginControl1.awp.LMO1User.Atom_WorkPeriod_ID, transaction_loginControl1_awp_LMO1User))
                             {
                                 transaction_loginControl1_awp_LMO1User.Commit();
@@ -897,7 +897,7 @@ namespace Tangenta
                     ID xCurrent_Doc_ID = null;
                     if (ID.Validate(doc_ID))
                     {
-                        Transaction transaction_Form_Document_m_usrc_Main_Exit_Click_SetLast = new Transaction("Form_Document.m_usrc_Main_Exit_Click.SetLast");
+                        Transaction transaction_Form_Document_m_usrc_Main_Exit_Click_SetLast = new Transaction("Form_Document.m_usrc_Main_Exit_Click.SetLast", DBSync.DBSync.MyTransactionLog_delegates);
 
                         if (f_Current_Doc_ID.SetLast(sDocInvoice, doc_ID, sDataSource, xLMOUser.myOrganisation_Person_ID, myOrg.m_myOrg_Office.ElectronicDevice_ID, ref xCurrent_Doc_ID, transaction_Form_Document_m_usrc_Main_Exit_Click_SetLast))
                         {
@@ -1093,7 +1093,7 @@ namespace Tangenta
         internal void Activate_usrc_DocumentMan_for_LMO1User(LoginControl.usrc_MultipleUsers xm_usrc_MultipleUsers)
         {
             SettingsUser user_settings = new SettingsUser();
-            Transaction transaction_Form_Document_Activate_usrc_DocumentMan_for_LMO1User_user_settings_Load = new Transaction("Form_Document.Activate_usrc_DocumentMan_for_LMO1User.user_settings.Load");
+            Transaction transaction_Form_Document_Activate_usrc_DocumentMan_for_LMO1User_user_settings_Load = new Transaction("Form_Document.Activate_usrc_DocumentMan_for_LMO1User.user_settings.Load", DBSync.DBSync.MyTransactionLog_delegates);
             if (user_settings.Load(this.LMO1User,
                                    transaction_Form_Document_Activate_usrc_DocumentMan_for_LMO1User_user_settings_Load))
             {
@@ -1899,7 +1899,7 @@ namespace Tangenta
         private void loginControl1_UserLoggedIn(LoginControl.LMOUser xLMOUser)
         {
             SettingsUser user_settings = new SettingsUser();
-            Transaction transaction_Form_Document_loginControl1_UserLoggedIn_user_settings_Load = new Transaction("Form_Document.loginControl1_UserLoggedIn.user_settings.Load");
+            Transaction transaction_Form_Document_loginControl1_UserLoggedIn_user_settings_Load = new Transaction("Form_Document.loginControl1_UserLoggedIn.user_settings.Load", DBSync.DBSync.MyTransactionLog_delegates);
             if (user_settings.Load(xLMOUser,
                                     transaction_Form_Document_loginControl1_UserLoggedIn_user_settings_Load))
             {
@@ -1955,7 +1955,7 @@ namespace Tangenta
             if (user_settings != null)
             {
                 LayoutSave(user_settings.mSettingsUserValues);
-                Transaction transaction_Form_Document_SaveSettings_user_settings_Save = new Transaction("Form_Document.SaveSettings.user_settings.Save");
+                Transaction transaction_Form_Document_SaveSettings_user_settings_Save = new Transaction("Form_Document.SaveSettings.user_settings.Save", DBSync.DBSync.MyTransactionLog_delegates);
                 if (user_settings.Save(transaction_Form_Document_SaveSettings_user_settings_Save))
                 {
                     if (transaction_Form_Document_SaveSettings_user_settings_Save.Commit())

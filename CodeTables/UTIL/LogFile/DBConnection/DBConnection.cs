@@ -976,7 +976,6 @@ namespace LogFile
         {
             try
             {
-                //conData.SetConnectionString();
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
@@ -1012,7 +1011,6 @@ namespace LogFile
         {
             try
             {
-                //conData.SetConnectionString();
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
@@ -1202,15 +1200,6 @@ namespace LogFile
                                     m_con_SQLite.Dispose();
                                 }
                                 m_con_SQLite = new SQLiteConnection(ConnectionString);
-                                //}
-                                //else
-                                //{
-                                //    m_con_SQLite.ConnectionString = ConnectionString;
-                                //}
-                                //if (m_con_SQLite.ConnectionString.Length == 0)
-                                //{
-                                //    m_con_SQLite.ConnectionString = ConnectionString;
-                                //}
                                 if (Connect_ToServerOnly(ref sErr))
                                 {
                                     Disconnect();

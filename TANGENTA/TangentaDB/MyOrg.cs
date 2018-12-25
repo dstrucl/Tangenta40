@@ -280,7 +280,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    Transaction transaction_Get_m_myOrg_Person_SingleUser = new Transaction("Get_m_myOrg_Person_SingleUser");
+                    Transaction transaction_Get_m_myOrg_Person_SingleUser = new Transaction("Get_m_myOrg_Person_SingleUser", DBSync.DBSync.MyTransactionLog_delegates);
                     myOrg_Office.eGet_m_myOrg_Person_SingleUser_Result res = m_myOrg_Office.Get_m_myOrg_Person_SingleUser(transaction_Get_m_myOrg_Person_SingleUser);
                     if (res == myOrg_Office.eGet_m_myOrg_Person_SingleUser_Result.ERROR)
                     {
@@ -394,7 +394,7 @@ namespace TangentaDB
                     return eGetOrganisationDataResult.NO_COUNTRY;
                 }
 
-                Transaction transaction_MyOrg_GetOrganisationData = new Transaction("MyOrg_GetOrganisationData");
+                Transaction transaction_MyOrg_GetOrganisationData = new Transaction("MyOrg_GetOrganisationData", DBSync.DBSync.MyTransactionLog_delegates);
 
                 if (!f_Currency.Get(myOrg.Address_v.Country_ISO_3166_num, ref myOrg.Default_Currency_ID, transaction_MyOrg_GetOrganisationData))
                 {

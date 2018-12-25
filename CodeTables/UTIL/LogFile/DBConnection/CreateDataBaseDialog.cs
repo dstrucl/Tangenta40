@@ -761,7 +761,6 @@ namespace LogFile
             else
             {
                 m_con.DataBase = savedDataBaseName;
-                //m_con.conData.SetConnectionString();
                 string msg = "ERROR! Database \"" + DBParam.DatabaseName + "\" not created on server:" + this.m_con.DataSource + "\n ERROR=" + csError;
                 MessageBox.Show(msg, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;

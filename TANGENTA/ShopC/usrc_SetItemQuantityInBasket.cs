@@ -71,7 +71,7 @@ namespace ShopC
             {
                 if (dsci.ExtraDiscount != extradiscount)
                 {
-                    Transaction transaction_usrc_SetItemQuantityInBasket_btn_Change_Click_UpdateExtraDiscount = new Transaction("usrc_SetItemQuantityInBasket.btn_Change_Click.UpdateExtraDiscount");
+                    Transaction transaction_usrc_SetItemQuantityInBasket_btn_Change_Click_UpdateExtraDiscount = new Transaction("usrc_SetItemQuantityInBasket.btn_Change_Click.UpdateExtraDiscount", DBSync.DBSync.MyTransactionLog_delegates);
                     if (dsci.UpdateExtraDiscount(m_ShopBC.DocTyp, extradiscount, transaction_usrc_SetItemQuantityInBasket_btn_Change_Click_UpdateExtraDiscount))
                     {
                         if (transaction_usrc_SetItemQuantityInBasket_btn_Change_Click_UpdateExtraDiscount.Commit())
@@ -136,7 +136,7 @@ namespace ShopC
                     decimal dRemoveAndPutBack2Stock = dsci.dQuantity_FromStock-dToTakeFromStock;
                     if (dToTakeFromStock <= dsci.dQuantity_FromStock)
                     {
-                        Transaction transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_RemoveFromBasket_And_put_back_to_Stock = new Transaction("usrc_SetItemQuantityInBasket.ChangeQuantitiesInDB.RemoveFromBasket_And_put_back_to_Stock");
+                        Transaction transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_RemoveFromBasket_And_put_back_to_Stock = new Transaction("usrc_SetItemQuantityInBasket.ChangeQuantitiesInDB.RemoveFromBasket_And_put_back_to_Stock", DBSync.DBSync.MyTransactionLog_delegates);
                         bresFromStock = m_ShopBC.m_CurrentDoc.m_Basket.RemoveFromBasket_And_put_back_to_Stock(m_ShopBC.DocTyp,
                                                                                                               m_ShopBC.m_CurrentDoc.m_Doc_ID,
                                                                                                               dRemoveAndPutBack2Stock,
@@ -158,7 +158,7 @@ namespace ShopC
 
                 bool bresFromFactory = true;
 
-                Transaction transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory = new Transaction("usrc_SetItemQuantityInBasket.ChangeQuantitiesInDB.SetFactory");
+                Transaction transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory = new Transaction("usrc_SetItemQuantityInBasket.ChangeQuantitiesInDB.SetFactory", DBSync.DBSync.MyTransactionLog_delegates);
                 bresFromFactory = m_ShopBC.m_CurrentDoc.m_Basket.SetFactory(m_ShopBC.DocTyp,
                                                                             m_ShopBC.m_CurrentDoc.m_Doc_ID,
                                                                             dToTakeFromFactory,

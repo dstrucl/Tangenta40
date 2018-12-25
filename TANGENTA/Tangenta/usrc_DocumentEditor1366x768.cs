@@ -584,7 +584,7 @@ namespace Tangenta
         {
             if (PriseLists.usrc_PriceList.Ask_To_Update(chShop, dt_ShopB_Item_NotIn_PriceList, this))
             {
-                Transaction transaction_usrc_DocumentEditor1366x768_usrc_PriceList_Ask_To_Update = new Transaction("usrc_DocumentEditor1366x768.usrc_PriceList_Ask_To_Update");
+                Transaction transaction_usrc_DocumentEditor1366x768_usrc_PriceList_Ask_To_Update = new Transaction("usrc_DocumentEditor1366x768.usrc_PriceList_Ask_To_Update", DBSync.DBSync.MyTransactionLog_delegates);
                 if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, this, transaction_usrc_DocumentEditor1366x768_usrc_PriceList_Ask_To_Update))
                 {
                     transaction_usrc_DocumentEditor1366x768_usrc_PriceList_Ask_To_Update.Commit();
@@ -604,7 +604,7 @@ namespace Tangenta
             ID m_usrc_ShopB1366x768_usrc_PriceList1_ID = null;
             ID m_usrc_ShopC1366x768_m_usrc_PriceList1_ID = null;
 
-            Transaction transaction_DocE_Init = new Transaction("DocE.Init");
+            Transaction transaction_DocE_Init = new Transaction("DocE.Init", DBSync.DBSync.MyTransactionLog_delegates);
             if (DocE.Init(pform,
                             Document_ID,
                             ref m_usrc_ShopB1366x768_usrc_PriceList1_ID,
@@ -1133,7 +1133,7 @@ namespace Tangenta
         private void chk_Storno_CheckedChanged(object sender, EventArgs e)
         {
             Form pform = Global.f.GetParentForm(this);
-            Transaction transaction_usrc_DocumentEditor1366x768_chk_Storno_CheckedChanged = new Transaction("transaction_usrc_DocumentEditor1366x768_chk_Storno_CheckedChanged");
+            Transaction transaction_usrc_DocumentEditor1366x768_chk_Storno_CheckedChanged = new Transaction("transaction_usrc_DocumentEditor1366x768_chk_Storno_CheckedChanged", DBSync.DBSync.MyTransactionLog_delegates);
             if (DocE.Storno_CheckedChanged(pform,
                                        chk_Storno.Checked,
                                        txt_Number.Text,
@@ -1166,7 +1166,7 @@ namespace Tangenta
         private bool usrc_Customer_aa_Customer_Removed(string xDoxTyp, Transaction transaction)
         {
             this.Cursor = Cursors.WaitCursor;
-            Transaction transaction_Update_Customer_Remove = new Transaction("Update_Customer_Remove");
+            Transaction transaction_Update_Customer_Remove = new Transaction("Update_Customer_Remove", DBSync.DBSync.MyTransactionLog_delegates);
             if (DocE.m_ShopABC.m_CurrentDoc.Update_Customer_Remove(xDoxTyp, transaction_Update_Customer_Remove))
             {
                 transaction_Update_Customer_Remove.Commit();

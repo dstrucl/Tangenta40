@@ -53,7 +53,7 @@ namespace Tangenta
         internal bool Startup_12_Get_Printer(startup myStartup, ref string Err)
         {
             //Insert default templates for Proforma Invoice and for 
-            Transaction transaction_Startup_12_Get_Printer_f_doc_InsertDefault = new Transaction("Startup_12_Get_Printer.f_doc.InsertDefault");
+            Transaction transaction_Startup_12_Get_Printer_f_doc_InsertDefault = new Transaction("Startup_12_Get_Printer.f_doc.InsertDefault", DBSync.DBSync.MyTransactionLog_delegates);
             if (f_doc.InsertDefault(transaction_Startup_12_Get_Printer_f_doc_InsertDefault))
             {
                 if (transaction_Startup_12_Get_Printer_f_doc_InsertDefault.Commit())

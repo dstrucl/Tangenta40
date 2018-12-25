@@ -62,7 +62,9 @@ namespace Tangenta
                                     myOrganisation_Person_$_per_$$ID,
                                     ID
             ";
-            if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_myOrganisation_Person, selection, ColumnToOrderBy, false, " where  myOrganisation_Person_$_office_$$ID = " + m_Office_ID.ToString() + " ", null, false, nav))
+            if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
+                                     DBSync.DBSync.MyTransactionLog_delegates,
+                                      tbl_myOrganisation_Person, selection, ColumnToOrderBy, false, " where  myOrganisation_Person_$_office_$$ID = " + m_Office_ID.ToString() + " ", null, false, nav))
             {
                 if (!ID.Validate(m_myOrganisation_Person_ID))
                 {
@@ -98,7 +100,7 @@ namespace Tangenta
             {
                 if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    Transaction transaction_Form_myOrg_Person_Edit_do_OK_usrc_EditTable1_Save = new Transaction("Form_myOrg_Person_Edit.do_OK.usrc_EditTable1.Save");
+                    Transaction transaction_Form_myOrg_Person_Edit_do_OK_usrc_EditTable1_Save = new Transaction("Form_myOrg_Person_Edit.do_OK.usrc_EditTable1.Save", DBSync.DBSync.MyTransactionLog_delegates);
                     if (usrc_EditTable1.Save(transaction_Form_myOrg_Person_Edit_do_OK_usrc_EditTable1_Save))
                     {
                         if (transaction_Form_myOrg_Person_Edit_do_OK_usrc_EditTable1_Save.Commit())
@@ -262,7 +264,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    Transaction transaction_Form_myOrg_Person_Edit_btn_PersonData_Edit_Click_f_PersonData_InsertEmptyRow = new Transaction("Form_myOrg_Person_Edit.btn_PersonData_Edit_Click.f_PersonData.InsertEmptyRow");
+                    Transaction transaction_Form_myOrg_Person_Edit_btn_PersonData_Edit_Click_f_PersonData_InsertEmptyRow = new Transaction("Form_myOrg_Person_Edit.btn_PersonData_Edit_Click.f_PersonData.InsertEmptyRow", DBSync.DBSync.MyTransactionLog_delegates);
                     if (f_PersonData.InsertEmptyRow(Person_ID,
                                                     ref  PersonData_ID,
                                                     transaction_Form_myOrg_Person_Edit_btn_PersonData_Edit_Click_f_PersonData_InsertEmptyRow))

@@ -40,12 +40,13 @@ namespace DBConnectionControl40
         public ConnectionDialog_enum my_ConnectionDialog_enum;
 
         public DBConnection m_con = null;
+        private TransactionLog_delegates m_TransactionLog_delegates = null;
 
         internal bool m_bNewDataBase = false;
 
         private bool bDataBaseConnectionChecked = false;
 
-        public ConnectionDialog(ConnectionDialog_enum ConnectionConnectionDialog_type, DBConnection con, string sTitle, NavigationButtons.Navigation xnav)
+        public ConnectionDialog(ConnectionDialog_enum ConnectionConnectionDialog_type, DBConnection con,TransactionLog_delegates xTransactionLog_delegates, string sTitle, NavigationButtons.Navigation xnav)
         {
             m_Title = sTitle;
             my_ConnectionDialog_enum = ConnectionConnectionDialog_type;
@@ -71,6 +72,7 @@ namespace DBConnectionControl40
 
 
             m_con = con;
+            m_TransactionLog_delegates = xTransactionLog_delegates;
             switch (m_con.DBType)
             {
                 case DBConnection.eDBType.MYSQL:
@@ -409,10 +411,9 @@ namespace DBConnectionControl40
                     m_con.UserName = this.cmb_UserName.Text;
                     m_con.Password = this.txt_Password.Text;
 
-                    //m_con.conData.SetConnectionString();
                     if (m_con.CheckServerConnection(nav.parentForm,m_Title))//check server only connection
                     {
-                        Select_DataBase_Form Select_Data_Base_On_Server = new Select_DataBase_Form(nav.parentForm,m_con, m_Title);
+                        Select_DataBase_Form Select_Data_Base_On_Server = new Select_DataBase_Form(nav.parentForm,m_con,m_TransactionLog_delegates, m_Title);
                         Select_Data_Base_On_Server.TopMost = this.TopMost;
                         DialogResult dRes;
                         dRes = Select_Data_Base_On_Server.ShowDialog(this);
@@ -457,10 +458,9 @@ namespace DBConnectionControl40
                         m_con.UserName = this.cmb_UserName.Text;
                         m_con.Password = this.txt_Password.Text;
                     }
-                    //m_con.conData.SetConnectionString();
                     if (m_con.CheckServerConnection(nav.parentForm, m_Title)) //check server only connection
                     {
-                        Select_DataBase_Form Select_Data_Base_On_Server = new Select_DataBase_Form(nav.parentForm,m_con, m_Title);
+                        Select_DataBase_Form Select_Data_Base_On_Server = new Select_DataBase_Form(nav.parentForm,m_con,m_TransactionLog_delegates, m_Title);
                         Select_Data_Base_On_Server.TopMost = this.TopMost;
                         DialogResult dRes;
                         dRes = Select_Data_Base_On_Server.ShowDialog(this);

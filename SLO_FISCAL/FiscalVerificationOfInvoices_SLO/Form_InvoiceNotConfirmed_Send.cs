@@ -20,10 +20,12 @@ namespace FiscalVerificationOfInvoices_SLO
         private FVI_SLO m_FVI_SLO = null;
         List<InvoiceData> m_InvoiceData_List = null;
         private DataTable dt = new DataTable();
+        TransactionLog_delegates m_TransactionLog_Delegates = null;
 
-        public Form_InvoiceNotConfirmed_Send(FVI_SLO xFVI_SLO, List<InvoiceData> xInvoiceData_List)
+        public Form_InvoiceNotConfirmed_Send(TransactionLog_delegates transactionLog_Delegates, FVI_SLO xFVI_SLO, List<InvoiceData> xInvoiceData_List)
         {
             InitializeComponent();
+            m_TransactionLog_Delegates = transactionLog_Delegates;
             m_FVI_SLO = xFVI_SLO;
             m_InvoiceData_List = xInvoiceData_List;
             lng.s_Invoice_UnsentMsg.Text(this.lbl_Invoice_UnsentMsg);
@@ -167,7 +169,7 @@ namespace FiscalVerificationOfInvoices_SLO
                             xInvData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(furs_UniqeInvID);
                             xInvData.AddOnDI.m_FURS.FURS_QR_v = new string_v(furs_BarCodeValue);
                             xInvData.AddOnDI.m_FURS.FURS_Image_QRcode = img_QR;
-                            Transaction transaction_Dgvx_Invoice_Unsent_CellContentClick = new Transaction("Dgvx_Invoice_Unsent_CellContentClick");
+                            Transaction transaction_Dgvx_Invoice_Unsent_CellContentClick = new Transaction("Dgvx_Invoice_Unsent_CellContentClick", m_TransactionLog_Delegates);
                             if (xInvData.AddOnDI.m_FURS.Update_FURS_Response_Data(xInvData.DocInvoice_ID, m_FVI_SLO.FursTESTEnvironment, transaction_Dgvx_Invoice_Unsent_CellContentClick))
                             {
                                 if (transaction_Dgvx_Invoice_Unsent_CellContentClick.Commit())

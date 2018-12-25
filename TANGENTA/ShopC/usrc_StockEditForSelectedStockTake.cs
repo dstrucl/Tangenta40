@@ -446,7 +446,7 @@ namespace ShopC
         {
             if (Check())
             {
-                Transaction transaction_usrc_StockEditForSelectedStockTake_AddItemToStockTake = new Transaction("usrc_StockEditForSelectedStockTake.btn_Add_Click.AddItemToStockTake");
+                Transaction transaction_usrc_StockEditForSelectedStockTake_AddItemToStockTake = new Transaction("usrc_StockEditForSelectedStockTake.btn_Add_Click.AddItemToStockTake", DBSync.DBSync.MyTransactionLog_delegates);
                 if (AddItemToStockTake(transaction_usrc_StockEditForSelectedStockTake_AddItemToStockTake))
                 {
 
@@ -866,7 +866,7 @@ namespace ShopC
                 {
                     if (XMessage.Box.Show(this, lng.s_AreYouSureToLock_StockTake, "?", MessageBoxButtons.YesNo, null, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
-                        Transaction transaction_usrc_StockEditForSelectedStockTake_btn_CloseStockTake_Click_f_StockTake_Lock = new Transaction("usrc_StockEditForSelectedStockTake.btn_CloseStockTake_Click.f_StockTake.Lock");
+                        Transaction transaction_usrc_StockEditForSelectedStockTake_btn_CloseStockTake_Click_f_StockTake_Lock = new Transaction("usrc_StockEditForSelectedStockTake.btn_CloseStockTake_Click.f_StockTake.Lock", DBSync.DBSync.MyTransactionLog_delegates);
                         if (f_StockTake.Lock(m_Atom_WorkPeriod_ID, StockTake_ID, transaction_usrc_StockEditForSelectedStockTake_btn_CloseStockTake_Click_f_StockTake_Lock))
                         {
                             if (transaction_usrc_StockEditForSelectedStockTake_btn_CloseStockTake_Click_f_StockTake_Lock.Commit())
@@ -947,7 +947,7 @@ namespace ShopC
 
         private void RemoveItemFromStockTake()
         {
-            Transaction transaction_usrc_StockEditForSelectedStockTake_RemoveItemFromStockTake_f_Stock_Remove = new Transaction("usrc_StockEditForSelectedStockTake.RemoveItemFromStockTake.f_Stock.Remove");
+            Transaction transaction_usrc_StockEditForSelectedStockTake_RemoveItemFromStockTake_f_Stock_Remove = new Transaction("usrc_StockEditForSelectedStockTake.RemoveItemFromStockTake.f_Stock.Remove", DBSync.DBSync.MyTransactionLog_delegates);
 
             if (f_Stock.Remove(this.CurrentStock_ID,
                                this.StockTake_ID,
@@ -988,7 +988,7 @@ namespace ShopC
         {
             if (Check_dQuantity())
             {
-                Transaction transaction_usrc_StockEditForSelectedStockTake_btn_Update_Click_UpdateStock = new Transaction("usrc_StockEditForSelectedStockTake.btn_Update_Click.UpdateStock");
+                Transaction transaction_usrc_StockEditForSelectedStockTake_btn_Update_Click_UpdateStock = new Transaction("usrc_StockEditForSelectedStockTake.btn_Update_Click.UpdateStock", DBSync.DBSync.MyTransactionLog_delegates);
                 if (UpdateStock(transaction_usrc_StockEditForSelectedStockTake_btn_Update_Click_UpdateStock))
                 {
                     transaction_usrc_StockEditForSelectedStockTake_btn_Update_Click_UpdateStock.Commit();

@@ -37,7 +37,7 @@ namespace TangentaSampleDB
             }
             else
             {
-                Transaction transaction_Init_Default_DB = new Transaction("Init_Default_DB");
+                Transaction transaction_Init_Default_DB = new Transaction("Init_Default_DB", DBSync.DBSync.MyTransactionLog_delegates);
                 if (fs.Init_Default_DB(ref Err, transaction_Init_Default_DB))
                 {
                     transaction_Init_Default_DB.Commit();

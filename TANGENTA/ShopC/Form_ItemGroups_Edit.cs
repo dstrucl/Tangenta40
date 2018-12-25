@@ -39,7 +39,7 @@ namespace ShopC
 
         private void Form_ItemGroups_Edit_Load(object sender, EventArgs e)
         {
-            if (!usrc_EditTable.Init(dbTables, tbl,null, ColumnOrderBy,false,null,null,false,nav))
+            if (!usrc_EditTable.Init(dbTables, DBSync.DBSync.MyTransactionLog_delegates, tbl,null, ColumnOrderBy,false,null,null,false,nav))
             {
                 Close();
                 DialogResult = DialogResult.Abort;

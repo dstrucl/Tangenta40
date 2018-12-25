@@ -482,7 +482,7 @@ namespace TangentaDB
                 GlobalData.Init();
             }
 
-            Transaction transaction_Type_definitions_Read = new Transaction("Type_definitions_Read");
+            Transaction transaction_Type_definitions_Read = new Transaction("Type_definitions_Read", DBSync.DBSync.MyTransactionLog_delegates);
             if (language_definitions.Get(transaction_Type_definitions_Read))
             {
                 if (JOURNAL_type_definitions_Read(transaction_Type_definitions_Read))
@@ -536,7 +536,7 @@ namespace TangentaDB
             }
             else
             {
-                Transaction transaction_termsOfPayment_definitions_InsertDefault = new Transaction("termsOfPayment_definitions_InsertDefault");
+                Transaction transaction_termsOfPayment_definitions_InsertDefault = new Transaction("termsOfPayment_definitions_InsertDefault", DBSync.DBSync.MyTransactionLog_delegates);
                 if(termsOfPayment_definitions.InsertDefault(transaction_termsOfPayment_definitions_InsertDefault))
                 {
                     if (!transaction_termsOfPayment_definitions_InsertDefault.Commit())

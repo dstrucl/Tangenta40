@@ -403,7 +403,6 @@ namespace LogFile
                     m_con.UserName = this.cmb_UserName.Text;
                     m_con.Password = this.txt_Password.Text;
 
-                    //m_con.conData.SetConnectionString();
                     if (m_con.CheckServerConnection(m_ParentForm,m_Title))//check server only connection
                     {
                         Select_DataBase_Form Select_Data_Base_On_Server = new Select_DataBase_Form(m_ParentForm,m_con, m_Title);
@@ -451,7 +450,6 @@ namespace LogFile
                         m_con.UserName = this.cmb_UserName.Text;
                         m_con.Password = this.txt_Password.Text;
                     }
-                    //m_con.conData.SetConnectionString();
                     if (m_con.CheckServerConnection(m_ParentForm, m_Title)) //check server only connection
                     {
                         Select_DataBase_Form Select_Data_Base_On_Server = new Select_DataBase_Form(m_ParentForm,m_con, m_Title);

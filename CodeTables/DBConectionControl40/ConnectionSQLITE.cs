@@ -275,16 +275,12 @@ namespace DBConnectionControl40
             }
         }
 
-        private string m_ConnectionString = null;
         public string ConnectionString
         {
             get
             {
-                return m_ConnectionString;
-            }
-            set
-            {
-                m_ConnectionString = value;
+                        return "Data Source=" + DataBaseFile + ";Version=3;foreign keys=true;";//Password=Logina2761962SQLite";            }
+                
             }
         }
 
@@ -477,6 +473,15 @@ namespace DBConnectionControl40
         {
             try
             {
+                if (Con==null)
+                {
+                    Con = new SQLiteConnection(ConnectionString);
+                }
+                switch (Con.State)
+                {
+                    case ConnectionState.Open:
+                        return true;
+                }
                 Con.Open();
                 return true;
             }
@@ -662,7 +667,7 @@ namespace DBConnectionControl40
         }
 
 
-        public bool Startup_03_Show_ConnectionDialog(NavigationButtons.Navigation nav, string recentItemsFolder, string backupFolder, string connectionName)
+        public bool Startup_03_Show_ConnectionDialog(NavigationButtons.Navigation nav, TransactionLog_delegates xTransactionLog_delegates, string recentItemsFolder, string backupFolder, string connectionName)
         {
             SQLiteConnectionDialog = new SQLiteConnectionDialog(m_conData_SQLITE, recentItemsFolder, backupFolder, nav, connectionName);
             nav.ShowForm(SQLiteConnectionDialog, SQLiteConnectionDialog.GetType().ToString());

@@ -218,7 +218,7 @@ namespace ShopC
 
             Item_Data xdata =this.m_ShopBC.m_CurrentDoc.m_ShopShelf.FindItem(dsci);
             //if usrc_ItemList1366x768 is showing different group of items to dsci then xdata=null
-            Transaction transaction_usrc_ItemAtomsList1366x768_RemoveItem = new Transaction("usrc_ItemAtomsList1366x768.RemoveItem");
+            Transaction transaction_usrc_ItemAtomsList1366x768_RemoveItem = new Transaction("usrc_ItemAtomsList1366x768.RemoveItem", DBSync.DBSync.MyTransactionLog_delegates);
             if (this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveItem(DocTyp, dsci, xdata, transaction_usrc_ItemAtomsList1366x768_RemoveItem))
             {
                 if (transaction_usrc_ItemAtomsList1366x768_RemoveItem.Commit())
@@ -377,7 +377,7 @@ namespace ShopC
             if (XMessage.Box.Show(this, lng.s_Are_Sure_To_Remove_All_From_Basket, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 this.Cursor = Cursors.WaitCursor;
-                Transaction transaction_usrc_ItemAtomsList1366x768_btn_ClearAll_Click_Empty = new Transaction("usrc_ItemAtomsList1366x768.btn_ClearAll_Click.Empty");
+                Transaction transaction_usrc_ItemAtomsList1366x768_btn_ClearAll_Click_Empty = new Transaction("usrc_ItemAtomsList1366x768.btn_ClearAll_Click.Empty", DBSync.DBSync.MyTransactionLog_delegates);
                 if (m_ShopBC.m_CurrentDoc.m_Basket.Empty(m_ShopBC.m_CurrentDoc.Doc_ID,
                                                          DocTyp, m_ShopBC.m_CurrentDoc.m_ShopShelf,
                                                          transaction_usrc_ItemAtomsList1366x768_btn_ClearAll_Click_Empty))

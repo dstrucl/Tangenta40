@@ -78,7 +78,7 @@ namespace Tangenta
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_03_onformresult_ShowDBConnnection;
-            return DBSync.DBSync.Con.Startup_03_Show_ConnectionDialog(xnav);
+            return DBSync.DBSync.Con.Startup_03_Show_ConnectionDialog(xnav, DBSync.DBSync.DB_for_Tangenta.DB_TransactionsLog.MyTransactionLog_delegates);
         }
         
         private Startup_onformresult_proc_Result Startup_03_onformresult_Show_TestConnectionForm(startup_step myStartup_step,

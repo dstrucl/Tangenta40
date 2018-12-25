@@ -122,16 +122,10 @@ namespace TransactionLogTableClass
         {
         }
 
-        public class Office
-        {
-            public ID ID = new ID(ID.IDType.INT32);
-            public OfficeName OfficeName = new OfficeName();
-        }
 
         public class TransactionLog
         {
             public ID ID = new ID(ID.IDType.INT32);
-            public Office m_Office= new Office();
             public Name Name = new Name();
             public Number Number = new Number();
             public CreationTime CreationTime = new CreationTime();
@@ -311,78 +305,75 @@ namespace TransactionLogTableClass
     {
 
         /* 1 */
-        public Office m_Office = new Office();
-
-        /* 2 */
         public TransactionLog m_TransactionLog = new TransactionLogTableClass.TransactionLog();
 
-        /* 3 */
+        /* 2 */
         public SQLCommand m_SQLCommand = new SQLCommand();
 
-        /* 4 */
+        /* 3 */
         public P_Int32 m_P_Int32 = new P_Int32();
 
-        /* 5 */
+        /* 4 */
         public P_Int64 m_P_Int64 = new P_Int64();
 
-        /* 6 */
+        /* 5 */
         public P_Money m_P_Money = new P_Money();
 
-        /* 7 */
+        /* 6 */
         public P_Decimal m_P_Decimal = new P_Decimal();
 
-        /* 8 */
+        /* 7 */
         public P_Percent m_P_Percent = new P_Percent();
 
-        /* 9 */
+        /* 8 */
         public P_smallInt m_P_smallInt = new P_smallInt();
 
-        /* 10 */
+        /* 9 */
         public P_bit m_P_bit = new P_bit();
 
-        /* 11 */
+        /* 10 */
         public P_DateTime m_P_DateTime = new P_DateTime();
 
-        /* 12 */
+        /* 11 */
         public P_varbinary_max m_P_varbinary_max = new P_varbinary_max();
 
-        /* 13 */
+        /* 12 */
         public P_varchar_264 m_P_varchar_264 = new P_varchar_264();
 
-        /* 14 */
+        /* 13 */
         public P_varchar_250 m_P_varchar_250 = new P_varchar_250();
 
-        /* 15 */
+        /* 14 */
         public P_varchar_64 m_P_varchar_64 = new P_varchar_64();
 
-        /* 16 */
+        /* 15 */
         public P_varchar_50 m_P_varchar_50 = new P_varchar_50();
 
-        /* 17 */
+        /* 16 */
         public P_varchar_45 m_P_varchar_45 = new P_varchar_45();
 
-        /* 18 */
+        /* 17 */
         public P_varchar_32 m_P_varchar_32 = new P_varchar_32();
 
-        /* 19 */
+        /* 18 */
         public P_varchar_25 m_P_varchar_25 = new P_varchar_25();
 
-        /* 20 */
+        /* 19 */
         public P_varchar_10 m_P_varchar_10 = new P_varchar_10();
 
-        /* 21 */
+        /* 20 */
         public P_varchar_5 m_P_varchar_5 = new P_varchar_5();
 
-        /* 22 */
+        /* 21 */
         public P_varchar_2000 m_P_varchar_2000 = new P_varchar_2000();
 
-        /* 23 */
+        /* 22 */
         public P_varchar_max m_P_varchar_max = new P_varchar_max();
 
-        /* 24 */
+        /* 23 */
         public P_Document m_P_Document = new P_Document();
 
-        /* 25 */
+        /* 24 */
         public P_Image m_P_Image = new P_Image();
     }
 }

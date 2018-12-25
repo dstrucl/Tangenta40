@@ -11,7 +11,7 @@ namespace UpgradeDB
     {
         internal static object UpgradeDB_1_06_to_1_07(object obj, ref string Err)
         {
-            Transaction transaction_UpgradeDB_1_06_to_1_07 = new Transaction("UpgradeDB_1_06_to_1_07");
+            Transaction transaction_UpgradeDB_1_06_to_1_07 = new Transaction("UpgradeDB_1_06_to_1_07", DBSync.DBSync.MyTransactionLog_delegates);
             if (DBSync.DBSync.Drop_VIEWs(ref Err, transaction_UpgradeDB_1_06_to_1_07))
             {
                 string[] new_tables = new string[] { "doc_page_type", "Language", "doc_type", "doc", "JOURNAL_doc_Type", "JOURNAL_doc" };

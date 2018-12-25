@@ -19,7 +19,7 @@ namespace UpgradeDB
 
         internal static object UpgradeDB_1_04_to_1_05(object obj, ref string Err)
         {
-            Transaction transaction_UpgradeDB_1_04_to_1_05 = new Transaction("UpgradeDB_1_04_to_1_05");
+            Transaction transaction_UpgradeDB_1_04_to_1_05 = new Transaction("UpgradeDB_1_04_to_1_05", DBSync.DBSync.MyTransactionLog_delegates);
 
             Check_DB_1_04(transaction_UpgradeDB_1_04_to_1_05);
             m_Old_tables_1_04_to_1_05 = new Old_tables_1_04_to_1_05();

@@ -661,12 +661,12 @@ namespace FiscalVerificationOfInvoices_SLO
             return FursD_BussinesPremiseID + "-" + FursD_ElectronicDeviceID + "-" + invoiceNumber.ToString();
         }
 
-        public void Check_SalesBookInvoice(ShopABC xShopABC, DocInvoice_AddOn xAddOnDPI, DocProformaInvoice_AddOn xDocProformaInvoice_AddOn)
+        public void Check_SalesBookInvoice(TransactionLog_delegates transactionLog_Delegates, ShopABC xShopABC, DocInvoice_AddOn xAddOnDPI, DocProformaInvoice_AddOn xDocProformaInvoice_AddOn)
         {
             List<InvoiceData> InvoiceData_List = null;
             Properties.Settings.Default.Reload();
             bool bTest = Properties.Settings.Default.fursTEST_Environment;
-            Transaction transaction_Select_SalesBookInvoice_NotSent = new Transaction("Select_SalesBookInvoice_NotSent");
+            Transaction transaction_Select_SalesBookInvoice_NotSent = new Transaction("Select_SalesBookInvoice_NotSent", transactionLog_Delegates);
             if (f_FVI_SLO_SalesBookInvoice.Select_SalesBookInvoice_NotSent(xShopABC, 
                                                                           xAddOnDPI,
                                                                           xDocProformaInvoice_AddOn,
@@ -680,7 +680,7 @@ namespace FiscalVerificationOfInvoices_SLO
                     {
                         if (InvoiceData_List.Count > 0)
                         {
-                            Form_SalesBookInvoice_Send frm_sbi_send = new Form_SalesBookInvoice_Send(this, InvoiceData_List);
+                            Form_SalesBookInvoice_Send frm_sbi_send = new Form_SalesBookInvoice_Send(transactionLog_Delegates,this, InvoiceData_List);
                             frm_sbi_send.ShowDialog();
                         }
                     }
@@ -692,12 +692,12 @@ namespace FiscalVerificationOfInvoices_SLO
             }
         }
 
-        public bool Check_InvoiceNotConfirmedAtFURS(ShopABC xShopABC, DocInvoice_AddOn xAddOnDPI, DocProformaInvoice_AddOn xDocProformaInvoice_AddOn)
+        public bool Check_InvoiceNotConfirmedAtFURS(TransactionLog_delegates transactionLog_Delegates, ShopABC xShopABC, DocInvoice_AddOn xAddOnDPI, DocProformaInvoice_AddOn xDocProformaInvoice_AddOn)
         {
             Properties.Settings.Default.Reload();
             bool bTest = Properties.Settings.Default.fursTEST_Environment;
             List<InvoiceData> InvoiceData_List = null;
-            Transaction transaction_Check_InvoiceNotConfirmedAtFURS = new Transaction("Check_InvoiceNotConfirmedAtFURS");
+            Transaction transaction_Check_InvoiceNotConfirmedAtFURS = new Transaction("Check_InvoiceNotConfirmedAtFURS", transactionLog_Delegates);
             if (f_FVI_SLO_Invoice.Select_InvoiceNotConfirmed(xShopABC,
                                                               xAddOnDPI,
                                                               xDocProformaInvoice_AddOn,
@@ -711,7 +711,7 @@ namespace FiscalVerificationOfInvoices_SLO
                     {
                         if (InvoiceData_List.Count > 0)
                         {
-                            Form_InvoiceNotConfirmed_Send frm_sbi_send = new Form_InvoiceNotConfirmed_Send(this, InvoiceData_List);
+                            Form_InvoiceNotConfirmed_Send frm_sbi_send = new Form_InvoiceNotConfirmed_Send(transactionLog_Delegates,this, InvoiceData_List);
                             frm_sbi_send.ShowDialog();
                             return true;
                         }

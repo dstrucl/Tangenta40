@@ -110,7 +110,7 @@ namespace ShopC
             {
                 decimal cost = nmUpDn_Cost.Value;
                 string description = txt_Description.Text;
-                Transaction transaction_Form_StokTake_AdditionalCost_Edit_f_StockTake_AdditionalCost_Add = new Transaction("Form_StokTake_AdditionalCost_Edit.f_StockTake_AdditionalCost.Add");
+                Transaction transaction_Form_StokTake_AdditionalCost_Edit_f_StockTake_AdditionalCost_Add = new Transaction("Form_StokTake_AdditionalCost_Edit.f_StockTake_AdditionalCost.Add", DBSync.DBSync.MyTransactionLog_delegates);
                 if (TangentaDB.f_StockTake_AdditionalCost.Add(StockTake_ID, name, cost, description, ref StockTake_AdditionalCost_ID, transaction_Form_StokTake_AdditionalCost_Edit_f_StockTake_AdditionalCost_Add))
                 {
                     if (transaction_Form_StokTake_AdditionalCost_Edit_f_StockTake_AdditionalCost_Add.Commit())
@@ -143,7 +143,7 @@ namespace ShopC
             {
                 string name = cmb_StocTakeCostName.Text;
                 decimal cost = nmUpDn_Cost.Value;
-                Transaction transaction_Form_StokTake_AdditionalCost_Edit_f_StockTake_AdditionalCost_Update = new Transaction("Form_StokTake_AdditionalCost_Edit.f_StockTake_AdditionalCost.Update");
+                Transaction transaction_Form_StokTake_AdditionalCost_Edit_f_StockTake_AdditionalCost_Update = new Transaction("Form_StokTake_AdditionalCost_Edit.f_StockTake_AdditionalCost.Update", DBSync.DBSync.MyTransactionLog_delegates);
 
                 if (TangentaDB.f_StockTake_AdditionalCost.Update(StockTake_AdditionalCost_ID, 
                                                                  StockTake_ID, 
@@ -231,7 +231,7 @@ namespace ShopC
         {
             if (ID.Validate(StockTake_AdditionalCost_ID))
             {
-                Transaction transaction_Form_StockTake_AdditionalCost_Edit_btn_Remove_Click_f_StockTake_AdditionalCost_Remove = new Transaction("Form_StockTake_AdditionalCost_Edit.btn_Remove_Click.f_StockTake_AdditionalCost.Remove");
+                Transaction transaction_Form_StockTake_AdditionalCost_Edit_btn_Remove_Click_f_StockTake_AdditionalCost_Remove = new Transaction("Form_StockTake_AdditionalCost_Edit.btn_Remove_Click.f_StockTake_AdditionalCost.Remove", DBSync.DBSync.MyTransactionLog_delegates);
                 if (TangentaDB.f_StockTake_AdditionalCost.Remove(StockTake_AdditionalCost_ID,
                                                                  StockTake_ID,
                                                                  transaction_Form_StockTake_AdditionalCost_Edit_btn_Remove_Click_f_StockTake_AdditionalCost_Remove))

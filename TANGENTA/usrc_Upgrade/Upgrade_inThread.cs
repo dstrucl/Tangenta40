@@ -113,7 +113,7 @@ namespace UpgradeDB
         private string Get_m_Full_backup_filename()
         {
             string sdbfilepath = DBSync.DBSync.Con.DataBaseFilePath;
-            string sdbfilename = DBSync.DBSync.Con.DataBaseName;
+            string sdbfilename = DBSync.DBSync.Con.DataBaseFile;
             return sdbfilepath+UPGRADEBACKUP+ sdbfilename;
 
         }
@@ -300,7 +300,7 @@ namespace UpgradeDB
             if (DBSync.DBSync.m_DBType == DBConnection.eDBType.SQLITE)
             {
                 string full_backup_folder = DBSync.DBSync.Con.DataBaseFilePath;
-                string DB_Name = DBSync.DBSync.Con.DataBaseName;
+                string DB_Name = DBSync.DBSync.Con.DataBaseFile;
                 full_backup_filename = null;
                 if (full_backup_folder != null)
                 {

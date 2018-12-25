@@ -20,13 +20,15 @@ namespace DBConnectionControl40
     public partial class Connection_Control : UserControl
     {
         private DBConnection m_con;
+        private TransactionLog_delegates m_TransactionLog_delegates = null;
 
         NavigationButtons.Navigation nav = null;
 
-        public Connection_Control(DBConnection con, NavigationButtons.Navigation xnav)
+        public Connection_Control(DBConnection con, NavigationButtons.Navigation xnav, TransactionLog_delegates xTransactionLog_delegates)
         {
             InitializeComponent();
             m_con = con;
+            m_TransactionLog_delegates = xTransactionLog_delegates;
             nav = xnav;
             this.lbl_DataSourceAndDatabase.AutoSize = true;
             switch (m_con.DBType)
@@ -53,7 +55,7 @@ namespace DBConnectionControl40
             string Err = null;
             //  bool bNewDB = false;
             bool bCanceled = false;
-            if (m_con.SetNewConnection((Form)this.Parent, m_con.DB_Param, nav, ref bCanceled))
+            if (m_con.SetNewConnection((Form)this.Parent, m_con.DB_Param, nav, m_TransactionLog_delegates, ref bCanceled))
             {
                 if (m_con.DB_Param.GetType() == typeof(LocalDB_data))
                 {

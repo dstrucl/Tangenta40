@@ -72,7 +72,7 @@ namespace Tangenta
                     //DataBaseVersion Not written !
                     ID ID_Version = null;
 
-                    Transaction transaction_MyDataBase_Tangenta_VERSION = new Transaction("MyDataBase_Tangenta_VERSION");
+                    Transaction transaction_MyDataBase_Tangenta_VERSION = new Transaction("MyDataBase_Tangenta_VERSION", DBSync.DBSync.MyTransactionLog_delegates);
 
                     if (fs.WriteDBSettings("Version", MyDataBase_Tangenta.VERSION, "1", ref ID_Version, transaction_MyDataBase_Tangenta_VERSION))
                     {
@@ -105,7 +105,7 @@ namespace Tangenta
             {
                 if (f_Currency.GetCurrencyTable(ref Err))
                 {
-                    Transaction transaction_Init_Unit_Table = new Transaction("Init_Unit_Table");
+                    Transaction transaction_Init_Unit_Table = new Transaction("Init_Unit_Table", DBSync.DBSync.MyTransactionLog_delegates);
                     if (fs.Init_Unit_Table(ref Err, transaction_Init_Unit_Table))
                     {
                         transaction_Init_Unit_Table.Commit();
@@ -302,7 +302,7 @@ namespace Tangenta
         internal Startup_eUndoProcedureResult Startup_04_Undo(startup_step xstartup_step,
                                         ref string Err)
         {
-            Transaction transaction_Startup_04_Undo = new Transaction("Startup_04_Undo");
+            Transaction transaction_Startup_04_Undo = new Transaction("Startup_04_Undo", DBSync.DBSync.MyTransactionLog_delegates);
             if (fs.DeleteAll("DBSettings", ref Err, transaction_Startup_04_Undo))
             {
                 if (transaction_Startup_04_Undo.Commit())

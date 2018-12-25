@@ -451,7 +451,7 @@ namespace DBConnectionControl40
             }
         }
 
-        public string DataBaseName
+        public string DataBaseFile
         {
             get
             {
@@ -894,7 +894,7 @@ namespace DBConnectionControl40
             return CheckDataBaseConnection(null, lng.s_TestConnection.s);
         }
 
-        public bool CreateNewDataBaseConnection(Object DB_Param, NavigationButtons.Navigation xnav, ref bool bCanceled)
+        public bool CreateNewDataBaseConnection(Object DB_Param, NavigationButtons.Navigation xnav,TransactionLog_delegates xTransactionLog_delegates, ref bool bCanceled)
         {
             string myConnectionName = null;
             if (DB_Param is RemoteDB_data)
@@ -928,7 +928,7 @@ namespace DBConnectionControl40
                     MessageBox.Show("ERROR:DBConnection:CreateNewDataBaseConnection Object DB_Param not valid !");
                     return false;
                 }
-                dRes = do_ConnectionDialog(sConnectionToDBase, ref bxNewDatabase, xnav, ref bCanceled, myConnectionName);
+                dRes = do_ConnectionDialog(sConnectionToDBase, ref bxNewDatabase, xnav, xTransactionLog_delegates, ref bCanceled, myConnectionName);
                 switch (dRes)
                 {
                     case DBConnection.ConnectResult_ENUM.OK_SAVE:
@@ -991,7 +991,7 @@ namespace DBConnectionControl40
             }
         }
 
-        public bool SetNewConnection(Form pParentForm, object xDB_Param, NavigationButtons.Navigation nav, ref bool bCanceled)
+        public bool SetNewConnection(Form pParentForm, object xDB_Param, NavigationButtons.Navigation nav, TransactionLog_delegates xTransactionLog_delegates,ref bool bCanceled)
         {
             bool bxNewDatabase = false;
             string myConnectionName = null;
@@ -1007,7 +1007,7 @@ namespace DBConnectionControl40
             {
                 DBConnection.ConnectResult_ENUM dRes;
                 nav.eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
-                dRes = do_ConnectionDialog(this.ConnectionName, ref bxNewDatabase, nav, ref bCanceled, myConnectionName);
+                dRes = do_ConnectionDialog(this.ConnectionName, ref bxNewDatabase, nav, xTransactionLog_delegates, ref bCanceled, myConnectionName);
                 switch (dRes)
                 {
                     case DBConnection.ConnectResult_ENUM.CONNECTION_DIALOGE_SHOWED:
@@ -1067,7 +1067,7 @@ namespace DBConnectionControl40
 
         }
 
-        public bool MakeDataBaseConnection(Form pParentForm, Object xDB_Param, NavigationButtons.Navigation nav, ref bool bCanceled)
+        public bool MakeDataBaseConnection(Form pParentForm, Object xDB_Param, NavigationButtons.Navigation nav, TransactionLog_delegates xTransactionLog_delegates, ref bool bCanceled)
         {
             SetConnectionData(xDB_Param);
             if (DBType == eDBType.SQLITE)
@@ -1090,7 +1090,7 @@ namespace DBConnectionControl40
             }
             else
             {
-                if (SetNewConnection(pParentForm, xDB_Param, nav, ref bCanceled))
+                if (SetNewConnection(pParentForm, xDB_Param, nav, xTransactionLog_delegates, ref bCanceled))
                 {
                     DB_Param = xDB_Param;
                     return true;
@@ -1413,7 +1413,7 @@ namespace DBConnectionControl40
             }
         }
 
-        private void SetConnectionString()
+        public void SetConnectionString()
         {
             switch (m_DBType)
             {
@@ -1426,7 +1426,7 @@ namespace DBConnectionControl40
                     break;
 
                 case eDBType.SQLITE:
-                    m_con_SQLite.ConnectionString = ConnectionString;
+                    //m_con_SQLite.ConnectionString = ConnectionString;
                     break;
 
                 default:
@@ -1465,7 +1465,7 @@ namespace DBConnectionControl40
             }
         }
 
-        public bool Startup_03_Show_ConnectionDialog(NavigationButtons.Navigation nav)
+        public bool Startup_03_Show_ConnectionDialog(NavigationButtons.Navigation nav, TransactionLog_delegates xTransactionLog_delegates)
         {
             string sTitle = lng.s_Connection_to_Database.s + this.DataBase;
             switch (m_DBType)
@@ -1482,10 +1482,10 @@ namespace DBConnectionControl40
                 //    break;
 
                 case eDBType.MSSQL:
-                    return m_con_MSSQL.Startup_03_Show_ConnectionDialog(this, nav);
+                    return m_con_MSSQL.Startup_03_Show_ConnectionDialog(this, xTransactionLog_delegates, nav );
 
                 case eDBType.SQLITE:
-                    return m_con_SQLite.Startup_03_Show_ConnectionDialog(nav, this.RecentItemsFolder, this.BackupFolder, this.ConnectionName);
+                    return m_con_SQLite.Startup_03_Show_ConnectionDialog(nav, xTransactionLog_delegates, this.RecentItemsFolder, this.BackupFolder, this.ConnectionName);
 
                 default:
                     MessageBox.Show("Error unknown eSQLType in function:  public ConnectResult_ENUM do_ConnectionDialog(string sTitle).");
@@ -1493,17 +1493,17 @@ namespace DBConnectionControl40
             }
         }
 
-        public ConnectResult_ENUM do_ConnectionDialog(string sTitle, ref bool bNewDatabase, NavigationButtons.Navigation nav, ref bool bCanceled, string myConnectionName)
+        public ConnectResult_ENUM do_ConnectionDialog(string sTitle, ref bool bNewDatabase, NavigationButtons.Navigation nav,TransactionLog_delegates xTransactionLog_delegates, ref bool bCanceled, string myConnectionName)
         {
             bNewDatabase = false;
             switch (m_DBType)
             {
                 case eDBType.MYSQL:
-                    m_con_MYSQL.do_ConnectionDialog(this, sTitle, ref bNewDatabase, nav, ref bCanceled, myConnectionName);
+                    m_con_MYSQL.do_ConnectionDialog(this, xTransactionLog_delegates, sTitle, ref bNewDatabase, nav, ref bCanceled, myConnectionName);
                     break;
 
                 case eDBType.MSSQL:
-                    m_con_MSSQL.do_ConnectionDialog(this, sTitle, ref bNewDatabase, nav, ref bCanceled, myConnectionName);
+                    m_con_MSSQL.do_ConnectionDialog(this, xTransactionLog_delegates, sTitle, ref bNewDatabase, nav, ref bCanceled, myConnectionName);
                     break;
 
                 case eDBType.SQLITE:
@@ -3416,12 +3416,36 @@ namespace DBConnectionControl40
                         return m_con_MSSQL.ConnectionString;
 
                     case eDBType.SQLITE:
-                        return "Data Source=" + m_con_SQLite.DataBaseFile + ";Version=3;foreign keys=true;";//Password=Logina2761962SQLite";
+                        return m_con_SQLite.ConnectionString;
+                                                                                                            
 
                     default:
-                        LogFile.Error.Show("Program Error in public string ConnectionString");
+                        LogFile.Error.Show("Program Error m_DBType=" + m_DBType.ToString() + "not implemented in property public string ConnectionString");
                         return "ERROE UNKNOWN";
                 }
+            }
+            set
+            {
+                string sconstring = value;
+                switch (m_DBType)
+                {
+                    case eDBType.MYSQL:
+                        m_con_MYSQL.ConnectionString = sconstring;
+                        break;
+
+                    case eDBType.MSSQL:
+                        m_con_MSSQL.ConnectionString = sconstring;
+                        break;
+
+                    case eDBType.SQLITE:
+                        //m_con_SQLite.ConnectionString = sconstring;
+                        break;
+
+                    default:
+                        LogFile.Error.Show("Program Error m_DBType="+ m_DBType .ToString()+ "not implemented in property public string ConnectionString");
+                        break;
+                }
+
             }
         }
 

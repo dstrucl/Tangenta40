@@ -247,7 +247,7 @@ namespace LoginControl
                     PersonData__perimg_ID = tf.set_ID(dr[awpb.mcn_PersonData__perimg_ID.ColumnName]);
                     PersonData__perimg_Image_Hash = f.gstring(dr[awpb.mcn_PersonData__perimg_Image_Hash.ColumnName]);
                     PersonData__perimg_Image_Data = f.gbytearray(dr[awpb.mcn_PersonData__perimg_Image_Data.ColumnName]);
-                    Transaction transaction_AWP_LoginData_GetUserRoles = new Transaction("AWP_LoginData.GetUserRoles");
+                    Transaction transaction_AWP_LoginData_GetUserRoles = new Transaction("AWP_LoginData.GetUserRoles", DBSync.DBSync.MyTransactionLog_delegates);
                     if (GetUserRoles(transaction_AWP_LoginData_GetUserRoles))
                     {
                         transaction_AWP_LoginData_GetUserRoles.Commit();

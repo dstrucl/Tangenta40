@@ -70,7 +70,7 @@ namespace Tangenta
             ";
 
             string sWhereCondition = "";
-            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, mID,false,nav);
+            return usrc_EditTable.Init(dbTables, DBSync.DBSync.MyTransactionLog_delegates, tbl, selection, ColumnOrderBy, false, sWhereCondition, mID,false,nav);
 
         }
         private void Customer_Person_EditForm_Load(object sender, EventArgs e)
@@ -93,7 +93,7 @@ namespace Tangenta
             {
                 if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    Transaction transaction_PersonAccount_EditForm_btn_OK_Click_usrc_EditTable_Save = new Transaction("PersonAccount_EditForm.btn_OK_Click.usrc_EditTable.Save");
+                    Transaction transaction_PersonAccount_EditForm_btn_OK_Click_usrc_EditTable_Save = new Transaction("PersonAccount_EditForm.btn_OK_Click.usrc_EditTable.Save", DBSync.DBSync.MyTransactionLog_delegates);
                     if (usrc_EditTable.Save(transaction_PersonAccount_EditForm_btn_OK_Click_usrc_EditTable_Save))
                     {
                         if (!transaction_PersonAccount_EditForm_btn_OK_Click_usrc_EditTable_Save.Commit())
@@ -118,7 +118,7 @@ namespace Tangenta
             {
                 if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-                    Transaction transaction_PersonAccount_EditForm_btn_Cancel_Click_usrc_EditTable_Save = new Transaction("PersonAccount_EditForm.btn_Cancel_Click.usrc_EditTable.Save");
+                    Transaction transaction_PersonAccount_EditForm_btn_Cancel_Click_usrc_EditTable_Save = new Transaction("PersonAccount_EditForm.btn_Cancel_Click.usrc_EditTable.Save", DBSync.DBSync.MyTransactionLog_delegates);
                     if (usrc_EditTable.Save(transaction_PersonAccount_EditForm_btn_Cancel_Click_usrc_EditTable_Save))
                     {
                         if (!transaction_PersonAccount_EditForm_btn_Cancel_Click_usrc_EditTable_Save.Commit())

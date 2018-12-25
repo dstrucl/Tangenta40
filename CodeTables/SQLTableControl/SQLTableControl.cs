@@ -26,6 +26,8 @@ namespace CodeTables
     [ToolboxBitmap("E:\\ManualReader\\ctlogina\\CodeTables\\Resources\\CodeTables.ico")]
     public partial class DBTableControl : Component
     {
+        public DataTable DataBaseTablesInfo = null;
+
         private static Form_dtSQLdb form_dtSQLdb = null;
 
         public static DataTable dtSQLdb = new DataTable();
@@ -96,19 +98,16 @@ namespace CodeTables
 
         public List<DataBaseView> SQL_DataBase_VIEW_List = new List<DataBaseView>();
 
-        public enum enumDataBaseCheckResult { OK, NO_DATABASE_CONNECTION, TABLE_MISSING, COLUMN_MISSING, FOREIGN_KEY_MISSING, PRIMARY_KEY_MISSING, CONNECTION_FAILED };
+        public enum enumDataBaseCheckResult { OK, NO_DATABASE_CONNECTION,NO_TABLES, TABLE_MISSING, COLUMN_MISSING, FOREIGN_KEY_MISSING, PRIMARY_KEY_MISSING, CONNECTION_FAILED, ERROR };
         public StringBuilder m_strSQLUseDatabase = null;
         StringBuilder m_strSQLCheckTables = new StringBuilder();
         public Form m_ParentForm;
 
         public void Init(DBConnection.eDBType eDBType,string slog,string dbVersion)
         {
-            Con.DBType = eDBType;
-            //m_strSQLUseDatabase = new StringBuilder("\nUSE " + this.Con.DataBase + "\n SET DATEFORMAT dmy\n\n");
-
+            Con.DBType = eDBType;           
             StringBuilder sbAll = SQLcmd_CreateAllTables(this.Con, slog, dbVersion); // this fuction creates all fkey links !
             string sAll = sbAll.ToString();
-
             SQLcmd_DropAllTables(this.Con);
 
         }
@@ -711,8 +710,13 @@ namespace CodeTables
             return -1;
         }
 
-        public bool TableCountInDatabase(ref int tablesCount)
+        public bool TablesCountInDatabase(ref int tablesCount)
         {
+            if (DataBaseTablesInfo!=null)
+            {
+                tablesCount = Convert.ToInt32(DataBaseTablesInfo.Rows.Count);
+                return true;
+            }
             string strCheckTable = null;
             string csError = null;
             tablesCount = -1;
@@ -725,7 +729,7 @@ namespace CodeTables
                     strCheckTable = "\nUSE " + this.Con.DataBase + " SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE';";
                     break;
                 case DBConnection.eDBType.SQLITE:
-                    strCheckTable = "SELECT COUNT(*) FROM sqlite_master WHERE type = 'table'";
+                    strCheckTable = "SELECT count(*) FROM sqlite_master WHERE type = 'table' AND name != 'android_metadata' AND name != 'sqlite_sequence'";
                     break;
             }
             StringBuilder strB_CheckTable = new StringBuilder(strCheckTable);
@@ -757,6 +761,18 @@ namespace CodeTables
             //string strCheckTable =   m_strSQLUseDatabase + String.Format(
             //      "IF OBJECT_ID('{0}', 'U') IS NOT NULL SELECT 'true' ELSE SELECT 'false' ",strTableNameAndSchema
             //      );
+            if (DataBaseTablesInfo!=null)
+            {
+                DataRow[] drs = DataBaseTablesInfo.Select("tbl_name = '" + tbl.TableName + "'");
+                if (drs.Count()>0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
             string strCheckTable = null;
             switch (Con.DBType)
             {
@@ -838,6 +854,21 @@ namespace CodeTables
             eRes = enumDataBaseCheckResult.OK;
             if (DataBaseExists(ref csError))
             {
+                int iCountOfTables = 0;
+                if (!GetDataBalseTablesInfo(ref DataBaseTablesInfo))
+                {
+                    return enumDataBaseCheckResult.ERROR;
+                }
+                if (!TablesCountInDatabase(ref iCountOfTables))
+                {
+                    return enumDataBaseCheckResult.ERROR;
+                }
+                
+                if (iCountOfTables==0)
+                {
+                    return enumDataBaseCheckResult.NO_TABLES;
+                }
+
                 foreach (SQLTable tbl in items)
                 {
                     if (DBtypesFunc.Is_DBm_Type(tbl.objTable))
@@ -871,6 +902,38 @@ namespace CodeTables
             else
             {
                 return enumDataBaseCheckResult.NO_DATABASE_CONNECTION;
+            }
+        }
+
+        public bool GetDataBalseTablesInfo(ref DataTable dt)
+        {
+            string err = null;
+            switch (Con.DBType)
+            {
+
+                case DBConnection.eDBType.SQLITE:
+                    string sql = "SELECT tbl_name,sql as sql_create_table FROM sqlite_master where type ='table' AND name != 'android_metadata' AND name != 'sqlite_sequence'";
+                    if (dt!=null)
+                    {
+                        dt.Dispose();
+                        dt = new DataTable();
+                    }
+                    else
+                    {
+                        dt = new DataTable();
+                    }
+                    if (Con.ReadDataTable(ref dt, sql, ref err))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:CodeTables:SQLTableControl:GetDataBalseTablesInfo:Err=" + err);
+                        return false;
+                    }
+                default:
+                    LogFile.Error.Show("ERROR:CodeTables:SQLTableControl:GetDataBalseTablesInfo:Function not implemented for Con.DBType=" + Con.DBType.ToString());
+                    return false;
             }
         }
 
@@ -1622,11 +1685,11 @@ namespace CodeTables
             return Con.CheckConnection(DB_Param);
         }
 
-        public bool CreateNewDataBaseConnection( Object DB_Param, bool bNoDataBaseCheck, NavigationButtons.Navigation xnav, ref bool bCanceled, string dbVersion, Transaction transaction)
+        public bool CreateNewDataBaseConnection( Object DB_Param, bool bNoDataBaseCheck, NavigationButtons.Navigation xnav, ref bool bCanceled, string dbVersion, Transaction transaction, TransactionLog_delegates transactionLog_Delegates)
         {
             while (true)
             {
-                if (Con.CreateNewDataBaseConnection(DB_Param, xnav, ref bCanceled))
+                if (Con.CreateNewDataBaseConnection(DB_Param, xnav, transactionLog_Delegates, ref bCanceled))
                 {
                     if (Con.DBType == DBConnection.eDBType.SQLITE)
                     {
@@ -1736,11 +1799,12 @@ namespace CodeTables
                                            ref bool bNewDataBaseCreated,NavigationButtons.Navigation nav,
                                            ref bool bCanceled,
                                            string dbVersion,
-                                           Transaction transaction)
+                                           Transaction transaction,
+                                           TransactionLog_delegates transactionLog_Delegates)
         {
             while (true)
             {
-                if (Con.MakeDataBaseConnection(pParentForm, DB_Param, nav, ref bCanceled))
+                if (Con.MakeDataBaseConnection(pParentForm, DB_Param, nav, transactionLog_Delegates, ref bCanceled))
                 {
                     if (Con.DBType == DBConnection.eDBType.SQLITE)
                     {

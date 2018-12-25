@@ -149,7 +149,7 @@ namespace ShopC
                                  StockTake_$$Draft,
                                  ID";
             this.Cursor = Cursors.WaitCursor;
-            if (usrc_EditTable1.Init(dbTables, tbl_StockTake, selection, ColumnToOrderBy, false, null, null, false, nav))
+            if (usrc_EditTable1.Init(dbTables, DBSync.DBSync.MyTransactionLog_delegates, tbl_StockTake, selection, ColumnToOrderBy, false, null, null, false, nav))
             {
                 usrc_EditTable1.after_InsertInDataBase += Usrc_EditTable1_after_InsertInDataBase;
                 if (ID.Validate(usrc_EditTable1.Identity))
@@ -179,7 +179,7 @@ namespace ShopC
             {
                 ID JOURNAL_StockTake_ID = null;
                 splitContainer1.Panel2Collapsed = false;
-                Transaction transaction_Form_StockTake_Edit_Usrc_EditTable1_after_InsertInDataBase_f_JOURNAL_StockTake_Get = new Transaction("Form_StockTake_Edit.Usrc_EditTable1_after_InsertInDataBase.f_JOURNAL_StockTake.Get");
+                Transaction transaction_Form_StockTake_Edit_Usrc_EditTable1_after_InsertInDataBase_f_JOURNAL_StockTake_Get = new Transaction("Form_StockTake_Edit.Usrc_EditTable1_after_InsertInDataBase.f_JOURNAL_StockTake.Get", DBSync.DBSync.MyTransactionLog_delegates);
                 if (TangentaDB.f_JOURNAL_StockTake.Get(m_Atom_WorkPeriod_ID,
                                                       ID,
                                                       f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_New_StockTake_opened,

@@ -81,12 +81,10 @@ namespace LogFile
 
                     string saved_DataBaseName = m_CreateDataBase_Form.m_con.DataBase;
                     m_CreateDataBase_Form.m_con.DataBase = "";
-                    //m_CreateDataBase_Form.m_con.conData.SetConnectionString();
 
                     if (m_CreateDataBase_Form.m_con.ReadDataSet(ref ds, sql_cmd, ref csError))
                     {
                         m_CreateDataBase_Form.m_con.DataBase = saved_DataBaseName;
-                        //m_CreateDataBase_Form.m_con.conData.SetConnectionString();
 
                         if (ds.Tables.Count > 0)
                         {
@@ -103,7 +101,6 @@ namespace LogFile
                     else
                     {
                         m_CreateDataBase_Form.m_con.DataBase = saved_DataBaseName;
-                        //m_CreateDataBase_Form.m_con.conData.SetConnectionString();
                     }
 
                     m_CreateDataBase_Form.btn_CreateDatabase.Visible = false;

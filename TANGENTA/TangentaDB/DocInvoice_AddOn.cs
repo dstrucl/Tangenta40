@@ -141,7 +141,7 @@ namespace TangentaDB
 
             public void GetDefault()
             {
-                Transaction transaction_GetDefault = new Transaction("GetDefault");
+                Transaction transaction_GetDefault = new Transaction("GetDefault", DBSync.DBSync.MyTransactionLog_delegates);
                 if (f_TermsOfPayment.GetDefault(ref m_ID, ref m_Description, transaction_GetDefault))
                 {
                     if (!transaction_GetDefault.Commit())

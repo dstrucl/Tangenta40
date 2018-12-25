@@ -35,7 +35,7 @@ namespace Tangenta
 
         private void Form_NewDocument_WorkArea_Load(object sender, EventArgs e)
         {
-            Transaction transaction_Form_NewDocument_WorkArea_f_Atom_Currency_Get = new Transaction("Form_NewDocument_WorkArea.f_Atom_Currency.Get");
+            Transaction transaction_Form_NewDocument_WorkArea_f_Atom_Currency_Get = new Transaction("Form_NewDocument_WorkArea.f_Atom_Currency.Get", DBSync.DBSync.MyTransactionLog_delegates);
             if (f_Atom_Currency.Get(Currency.ID, ref Atom_Currency_ID, transaction_Form_NewDocument_WorkArea_f_Atom_Currency_Get))
             {
                 if (!transaction_Form_NewDocument_WorkArea_f_Atom_Currency_Get.Commit())

@@ -146,8 +146,6 @@ namespace DBConnectionControl40
             {
                 return "Data Source=" + DataBaseFile + ";Version=3;foreign keys=true;";
             }
-
-            //return "Data Source=" + DataBaseFile + ";";
         }
 
         internal bool IsValidDataBaseFilePath()

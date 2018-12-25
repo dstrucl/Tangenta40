@@ -49,7 +49,8 @@ namespace Tangenta
                                     FVI_SLO_RealEstateBP_$$SoftwareSupplier_TaxNumber,
                                     FVI_SLO_RealEstateBP_$$PremiseType,
                                     ID";
-            if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_FVI_SLO_RealEstateBP, selection, ColumnToOrderBy, false, " where FVI_SLO_RealEstateBP_$_officed_$$ID = " + m_Office_Data_ID.ToString() + " ", null, false,nav))
+            if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
+                                     DBSync.DBSync.MyTransactionLog_delegates, tbl_FVI_SLO_RealEstateBP, selection, ColumnToOrderBy, false, " where FVI_SLO_RealEstateBP_$_officed_$$ID = " + m_Office_Data_ID.ToString() + " ", null, false,nav))
             {
                 if (usrc_EditTable1.RowsCount > 0)
                 {
@@ -72,7 +73,7 @@ namespace Tangenta
         {
             if (usrc_EditTable1.Changed)
             {
-                Transaction transaction_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP_do_OK_usrc_EditTable1_Save = new Transaction("Form_myOrg_Office_Data_FVI_SLO_RealEstateBP.do_OK.usrc_EditTable1.Save");
+                Transaction transaction_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP_do_OK_usrc_EditTable1_Save = new Transaction("Form_myOrg_Office_Data_FVI_SLO_RealEstateBP.do_OK.usrc_EditTable1.Save", DBSync.DBSync.MyTransactionLog_delegates);
                 if (usrc_EditTable1.Save(transaction_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP_do_OK_usrc_EditTable1_Save))
                 {
                     if (transaction_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP_do_OK_usrc_EditTable1_Save.Commit())

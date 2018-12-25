@@ -70,20 +70,20 @@ namespace DBConnectionControl40
         public Label lbl_Message;
         private HUDCMS.usrc_Help usrc_Help1;
         private IContainer components;
+        private TransactionLog_delegates m_TransactionLog_delegates = null;
 
-
-        public CreateDataBase_Form(ref DBConnection con)
+        public CreateDataBase_Form(ref DBConnection con, TransactionLog_delegates xTransactionLog_delegates)
 		{
 			//
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
             m_con = con;
-
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
-		}
+            m_TransactionLog_delegates = xTransactionLog_delegates;
+            //
+            // TODO: Add any constructor code after InitializeComponent call
+            //
+        }
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -758,7 +758,6 @@ namespace DBConnectionControl40
             string csError= null;
             string savedDataBaseName = m_con.DataBase;
             m_con.DataBase = "";
-            //m_con.conData.SetConnectionString();
 
             if (transaction.ExecuteNonQuerySQL(m_con,sqlCreateDBQuery, null, ref csError))
             {
@@ -771,7 +770,6 @@ namespace DBConnectionControl40
             else
             {
                 m_con.DataBase = savedDataBaseName;
-                //m_con.conData.SetConnectionString();
                 string msg = "ERROR! Database \"" + DBParam.DatabaseName + "\" not created on server:" + this.m_con.DataSource + "\n ERROR=" + csError;
                 MessageBox.Show(this,msg, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -1000,7 +998,7 @@ namespace DBConnectionControl40
 
 
 
-                Transaction transaction_CreateDataBaseDialog_btn_CreateDatabase_Click_CreateDatabase = new Transaction("CreateDataBaseDialog.btn_CreateDatabase_Click.CreateDatabase");
+                Transaction transaction_CreateDataBaseDialog_btn_CreateDatabase_Click_CreateDatabase = new Transaction("CreateDataBaseDialog.btn_CreateDatabase_Click.CreateDatabase",m_TransactionLog_delegates);
                 if (CreateDatabase(DBParam, transaction_CreateDataBaseDialog_btn_CreateDatabase_Click_CreateDatabase))
                 {
                     if (transaction_CreateDataBaseDialog_btn_CreateDatabase_Click_CreateDatabase.Commit())

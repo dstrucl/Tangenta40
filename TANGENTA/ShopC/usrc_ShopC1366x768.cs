@@ -397,7 +397,7 @@ namespace ShopC
                 {
                     if (dt_ShopC_Items_NotIn_PriceList.Rows.Count > 0)
                     {
-                        Transaction transaction_usrc_ShopC1366x768_EditItem_Insert_ShopC_Items_in_PriceList = new Transaction("usrc_ShopC1366x768.EditItem.Insert_ShopC_Items_in_PriceList");
+                        Transaction transaction_usrc_ShopC1366x768_EditItem_Insert_ShopC_Items_in_PriceList = new Transaction("usrc_ShopC1366x768.EditItem.Insert_ShopC_Items_in_PriceList", DBSync.DBSync.MyTransactionLog_delegates);
                         if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Items_NotIn_PriceList,
                                                                         this,
                                                                         transaction_usrc_ShopC1366x768_EditItem_Insert_ShopC_Items_in_PriceList))

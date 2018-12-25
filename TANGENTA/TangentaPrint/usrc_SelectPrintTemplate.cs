@@ -704,7 +704,7 @@ namespace TangentaPrint
             {
                 ID id = edt_doc_dlg.ID;
                 string doc_name = null;
-                Transaction transaction_usrc_SelectPrintTemplate_btn_EditTemplates_Click_f_doc_SetDefault = new Transaction("usrc_SelectPrintTemplate.btn_EditTemplates_Click.f_doc.SetDefault");
+                Transaction transaction_usrc_SelectPrintTemplate_btn_EditTemplates_Click_f_doc_SetDefault = new Transaction("usrc_SelectPrintTemplate.btn_EditTemplates_Click.f_doc.SetDefault", DBSync.DBSync.MyTransactionLog_delegates);
                 if (f_doc.SetDefault(id, transaction_usrc_SelectPrintTemplate_btn_EditTemplates_Click_f_doc_SetDefault))
                 {
                     if (transaction_usrc_SelectPrintTemplate_btn_EditTemplates_Click_f_doc_SetDefault.Commit())

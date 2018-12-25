@@ -313,7 +313,7 @@ namespace TangentaPrint
 
         private void btn_Print_Click(object sender, EventArgs e)
         {
-            Transaction transaction_usrc_InvoicePreview_btn_Print_Click = new Transaction("usrc_InvoicePreview_btn_Print_Click");
+            Transaction transaction_usrc_InvoicePreview_btn_Print_Click = new Transaction("usrc_InvoicePreview_btn_Print_Click", DBSync.DBSync.MyTransactionLog_delegates);
             if (bDocInvoicePrinted)
             {
                 if (m_InvoiceData.IsDocInvoice)

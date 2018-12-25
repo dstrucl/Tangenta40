@@ -19,6 +19,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using NavigationButtons;
 using static CodeTables.DBTableControl;
+using System.IO;
 
 namespace DBSync
 {
@@ -92,7 +93,27 @@ namespace DBSync
         {
             if (DBSync.m_DBType == DBConnection.eDBType.SQLITE)
             {
-                return m_SQLite_Support.Startup_03_Check_DBConnection_Is_LocalDB_data_SQLite_DataBaseFileName_Defined(bReset, ref IniFileFolder, MyDataBase_Tangenta.DataBaseFilePrefix, Connection_Name);
+                if (m_SQLite_Support.Startup_03_Check_DBConnection_Is_LocalDB_data_SQLite_DataBaseFileName_Defined(bReset, ref IniFileFolder, MyDataBase_Tangenta.DataBaseFilePrefix, Connection_Name))
+                {
+                    string dbLog_fileDirectory = Path.GetDirectoryName(Con.DataSource) + "\\";
+                    if (dbLog_fileDirectory.Length>0)
+                    {
+                        if (dbLog_fileDirectory[dbLog_fileDirectory.Length-1]!='\\')
+                        {
+                            dbLog_fileDirectory += "\\";
+                        }
+                    }
+                    string dbLog_fileName = Path.GetFileNameWithoutExtension(Con.DataSource);
+                    string dbLog_fileNam_extension = Path.GetExtension(Con.DataSource);
+                    string transaction_log_file = dbLog_fileDirectory +dbLog_fileName + "_Log" + dbLog_fileNam_extension;
+                    DBSync.DB_for_Tangenta.DB_TransactionsLog.m_DBTables.Con.DataBaseFile = transaction_log_file;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
             }
             else
             {
@@ -140,7 +161,7 @@ namespace DBSync
 
         public static bool Startup_03_Show_ConnectionDialog(NavigationButtons.Navigation nav)
         {
-            return DBSync.Con.Startup_03_Show_ConnectionDialog(nav);
+            return Con.Startup_03_Show_ConnectionDialog(nav, DBSync.DB_for_Tangenta.DB_TransactionsLog.MyTransactionLog_delegates);
         }
 
         public static bool Init_DBType(bool bReset, string IniFileFolder, ref string DataBaseType, bool bChangeConnection, ref bool bNewDatabaseCreated, NavigationButtons.Navigation xnav, ref bool bCanceled)
@@ -200,59 +221,56 @@ namespace DBSync
 
         }
 
-        public static bool Startup_03_CheckDataBaseTables(Form pParentForm, ref bool bCancel)
+        private static bool CreateTables_DB_TransactionsLog(ref string Err, ref bool bCancel)
         {
-            string Err = null;
-            int iTablesCount = -1;
-            if (DB_for_Tangenta_SessionConnect(ref Err))
+            if (DB_for_Tangenta.DB_TransactionsLog.m_DBTables.Con.SessionConnect(ref Err))
             {
-                if (DB_for_Tangenta.m_DBTables.TableCountInDatabase(ref iTablesCount))
+                Transaction transaction_Startup_03_CheckDataBaseTables_DB_TransactionsLog = new Transaction("Startup_03_CheckDataBaseTables.DB_TransactionsLog",MyTransactionLog_delegates);
+                if (DB_for_Tangenta.DB_TransactionsLog.m_DBTables.CreateDatabaseTables(false, "Log", ref bCancel, MyDataBase_Tangenta.VERSION, transaction_Startup_03_CheckDataBaseTables_DB_TransactionsLog))
                 {
-                    if (iTablesCount == 0)
+                    if (transaction_Startup_03_CheckDataBaseTables_DB_TransactionsLog.Commit())
                     {
-                        Transaction transaction_Startup_03_CheckDataBaseTables = new Transaction("Startup_03_CheckDataBaseTables");
-                        if (DB_for_Tangenta.m_DBTables.CreateDatabaseTables(false,"", ref bCancel, MyDataBase_Tangenta.VERSION, transaction_Startup_03_CheckDataBaseTables))
-                        {
-                            if (transaction_Startup_03_CheckDataBaseTables.Commit())
-                            {
-                                Transaction transaction_Startup_03_CheckDataBaseTables_DB_TransactionsLog = new Transaction("Startup_03_CheckDataBaseTables.DB_TransactionsLog");
-                                if (DB_for_Tangenta.DB_TransactionsLog.m_DBTables.CreateDatabaseTables(false, "Log", ref bCancel, MyDataBase_Tangenta.VERSION, transaction_Startup_03_CheckDataBaseTables))
-                                {
-                                    if (transaction_Startup_03_CheckDataBaseTables_DB_TransactionsLog.Commit())
-                                    {
-                                        return true;
-                                    }
-                                    else
-                                    {
-                                        transaction_Startup_03_CheckDataBaseTables.Rollback();
-                                        return false;
-                                    }
-                                }
-                                else
-                                {
-                                    transaction_Startup_03_CheckDataBaseTables_DB_TransactionsLog.Rollback();
-                                    transaction_Startup_03_CheckDataBaseTables.Rollback();
-                                    return false;
-                                }
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            transaction_Startup_03_CheckDataBaseTables.Rollback();
-                            return false;
-                        }
+                        return true;
                     }
                     else
                     {
-                        return true;
+                        transaction_Startup_03_CheckDataBaseTables_DB_TransactionsLog.Rollback();
+                        return false;
                     }
                 }
                 else
                 {
+                    transaction_Startup_03_CheckDataBaseTables_DB_TransactionsLog.Rollback();
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DBSync:DBsync:Startup_03_CheckDataBaseTables:Startup_03_CheckDataBaseTables:DB_for_Tangenta.DB_TransactionsLog.m_DBTables.Con.SessionConnect failed! Err=" + Err);
+                return false;
+            }
+        }
+
+
+        private static bool CreateTables_DB_for_Tangenta(ref string Err, ref bool bCancel)
+        {
+            if (DB_for_Tangenta_SessionConnect(ref Err))
+            {
+                Transaction transaction_Startup_03_CheckDataBaseTables = new Transaction("Startup_03_CheckDataBaseTables", MyTransactionLog_delegates);
+                if (DB_for_Tangenta.m_DBTables.CreateDatabaseTables(false, "", ref bCancel, MyDataBase_Tangenta.VERSION, transaction_Startup_03_CheckDataBaseTables))
+                {
+                    if (transaction_Startup_03_CheckDataBaseTables.Commit())
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    transaction_Startup_03_CheckDataBaseTables.Rollback();
                     return false;
                 }
             }
@@ -261,6 +279,76 @@ namespace DBSync
                 LogFile.Error.Show("ERROR:DBSync:DBsync:Startup_03_CheckDataBaseTables:Startup_03_CheckDataBaseTables:DB_for_Tangenta_SessionConnect failed! Err=" + Err);
                 return false;
             }
+        }
+
+        private static bool Check_CheckDataBaseTables_TransactionLog(Form pParentForm,  ref bool bCancel)
+        {
+            string Err = null;
+
+            if (DB_for_Tangenta.DB_TransactionsLog.m_DBTables.Con.ConnectionString == null)
+            {
+                DB_for_Tangenta.DB_TransactionsLog.m_DBTables.Con.SetConnectionString();
+            }
+
+            enumDataBaseCheckResult eres_DB_TransactionsLog = DB_for_Tangenta.DB_TransactionsLog.CheckDatabase(pParentForm, ref Err);
+            switch (eres_DB_TransactionsLog)
+            {
+                case enumDataBaseCheckResult.OK:
+                    return true;
+                case enumDataBaseCheckResult.NO_TABLES:
+                    if (CreateTables_DB_TransactionsLog(ref Err, ref bCancel))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                default:
+                    LogFile.Error.Show("ERROR:DBSync:Startup_03_CheckDataBaseTables:eres_DB_TransactionsLog=" + eres_DB_TransactionsLog.ToString() + "\r\nError:" + Err);
+                    return false;
+            }
+        }
+
+        private static bool Check_CheckDataBaseTables_DBTangenta(Form pParentForm, ref bool bCancel)
+        {
+            string Err = null;
+
+            if (DB_for_Tangenta.m_DBTables.Con.ConnectionString == null)
+            {
+                DB_for_Tangenta.m_DBTables.Con.SetConnectionString();
+            }
+
+            enumDataBaseCheckResult eres_DB_Tangenta = DB_for_Tangenta.CheckDatabase(pParentForm, MyTransactionLog_delegates, ref Err);
+            switch (eres_DB_Tangenta)
+            {
+                case enumDataBaseCheckResult.OK:
+                    return true;
+                case enumDataBaseCheckResult.NO_TABLES:
+                    if (CreateTables_DB_for_Tangenta(ref Err, ref bCancel))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                default:
+                    LogFile.Error.Show("ERROR:DBSync:Startup_03_CheckDataBaseTables:eres_DB_Tangenta=" + eres_DB_Tangenta.ToString() + "\r\nError:" + Err);
+                    return false;
+            }
+        }
+
+        public static bool Startup_03_CheckDataBaseTables(Form pParentForm, ref bool bCancel)
+        {
+            if (Check_CheckDataBaseTables_TransactionLog(pParentForm,ref bCancel))
+            {
+                if (Check_CheckDataBaseTables_DBTangenta(pParentForm, ref bCancel))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public static bool Startup_03_CreateNewDatabase(Form pParentForm,ref bool bNewDatabase, ref bool bCancel)
@@ -382,7 +470,7 @@ namespace DBSync
             {
                 if (Con.DBType == DBConnection.eDBType.SQLITE)
                 {
-                    return Con.DataBaseFilePath + "\\" + Con.DataBaseName;
+                    return Con.DataBaseFilePath + "\\" + Con.DataBaseFile;
                 }
                 else
                 {
@@ -425,6 +513,14 @@ namespace DBSync
                     LogFile.Error.Show("ERROR:DBSync:DBSync:Con():DB_for_Tangenta = null");
                     return null;
                 }
+            }
+        }
+
+        public static TransactionLog_delegates MyTransactionLog_delegates
+        {
+            get
+            {
+                return DB_for_Tangenta.DB_TransactionsLog.MyTransactionLog_delegates;
             }
         }
 
@@ -532,8 +628,8 @@ namespace DBSync
             }
 
 
-            Transaction transaction_MakeDataBaseConnection = new Transaction("MakeDataBaseConnection");
-            if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(parent, DBSync.RemoteDB_data, ref bNewDataBaseCreated, nav, ref bCanceled, MyDataBase_Tangenta.VERSION, transaction_MakeDataBaseConnection))
+            Transaction transaction_MakeDataBaseConnection = new Transaction("MakeDataBaseConnection", MyTransactionLog_delegates);
+            if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(parent, DBSync.RemoteDB_data, ref bNewDataBaseCreated, nav, ref bCanceled, MyDataBase_Tangenta.VERSION, transaction_MakeDataBaseConnection, MyTransactionLog_delegates))
             {
                 if (transaction_MakeDataBaseConnection.Commit())
                 {

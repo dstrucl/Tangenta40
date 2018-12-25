@@ -152,7 +152,7 @@ namespace Tangenta
             if (Find_myOrg_Person_SingleUser(m_my_Org_Person_ID))
             {
                 ID myOrganisation_Person_SingleUser_ID = null;
-                Transaction transaction_Form_Select_Person_SINGLE_USER_do_OK = new Transaction("Form_Select_Person_SINGLE_USER_do_OK");
+                Transaction transaction_Form_Select_Person_SINGLE_USER_do_OK = new Transaction("Form_Select_Person_SINGLE_USER_do_OK", DBSync.DBSync.MyTransactionLog_delegates);
                 if (TangentaDB.f_myOrganisation_Person_SingleUser.Get(m_Office_ID, m_my_Org_Person_ID, ref myOrganisation_Person_SingleUser_ID, transaction_Form_Select_Person_SINGLE_USER_do_OK))
                 {
                     if (transaction_Form_Select_Person_SINGLE_USER_do_OK.Commit())

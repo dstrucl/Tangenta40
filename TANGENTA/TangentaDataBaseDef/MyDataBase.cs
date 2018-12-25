@@ -31,6 +31,7 @@ namespace TangentaDataBaseDef
 
         public TransactionLogDataBaseDef.MyDataBase_TransactionsLog DB_TransactionsLog = null;
 
+
         public MyDataBase_Tangenta(Form pForm, string XmlRootName, string xmlIniFileFolder)
         {
             // TODO: Complete member initialization
@@ -62,9 +63,9 @@ namespace TangentaDataBaseDef
         }
 
 
-        public DBTableControl.enumDataBaseCheckResult CheckDatabase(Form pParentForm, ref string csError)
+        public DBTableControl.enumDataBaseCheckResult CheckDatabase(Form pParentForm, TransactionLog_delegates transactionLog_Delegates, ref string csError)
         {
-            Transaction transaction_CheckDatabase = new Transaction("CheckDatabase");
+            Transaction transaction_CheckDatabase = new Transaction("CheckDatabase", transactionLog_Delegates);
             DBTableControl.enumDataBaseCheckResult eres = m_DBTables.DataBaseCheck(ref csError, transaction_CheckDatabase);
             switch (eres)
             {
@@ -86,7 +87,7 @@ namespace TangentaDataBaseDef
         public bool CreateNewConnection(Form pParentForm, Object DB_Param, ref string BackupFolder, NavigationButtons.Navigation xnav, ref bool bCanceled)
         {
             m_DBTables.Con.BackupFolder = BackupFolder;
-            if (m_DBTables.Con.CreateNewDataBaseConnection(DB_Param, xnav, ref bCanceled))
+            if (m_DBTables.Con.CreateNewDataBaseConnection(DB_Param, xnav,DB_TransactionsLog.MyTransactionLog_delegates, ref bCanceled))
             {
                 BackupFolder = m_DBTables.Con.BackupFolder;
                 return true;
@@ -122,7 +123,7 @@ namespace TangentaDataBaseDef
         public bool MakeConnection(Form pParentForm, Object DB_Param, NavigationButtons.Navigation nav, ref bool bCanceled)
         {
 
-             return m_DBTables.Con.MakeDataBaseConnection(pParentForm,DB_Param, nav, ref bCanceled);
+             return m_DBTables.Con.MakeDataBaseConnection(pParentForm,DB_Param, nav,DB_TransactionsLog.MyTransactionLog_delegates, ref bCanceled);
         }
 
         public void Init(DBConnection.eDBType eDBType)
@@ -139,7 +140,7 @@ namespace TangentaDataBaseDef
         {
             if (this.m_DBTables.DropVIEWs(ref Err, transaction))
             {
-                Transaction transaction_DB_TransactionsLog_DropViews = new Transaction("DB_TransactionsLog.DropViews");
+                Transaction transaction_DB_TransactionsLog_DropViews = new Transaction("DB_TransactionsLog.DropViews", DB_TransactionsLog.MyTransactionLog_delegates);
                 if ( this.DB_TransactionsLog.DropViews(ref Err, transaction_DB_TransactionsLog_DropViews))
                 {
                     if (transaction_DB_TransactionsLog_DropViews.Commit())
@@ -159,7 +160,7 @@ namespace TangentaDataBaseDef
         {
             if (this.m_DBTables.Create_VIEWs(transaction))
             {
-                Transaction transaction_DB_TransactionsLog_Create_VIEWs = new Transaction("DB_TransactionsLog.Create_VIEWs");
+                Transaction transaction_DB_TransactionsLog_Create_VIEWs = new Transaction("DB_TransactionsLog.Create_VIEWs", DB_TransactionsLog.MyTransactionLog_delegates);
                 if (this.DB_TransactionsLog.Create_VIEWs(transaction_DB_TransactionsLog_Create_VIEWs))
                 {
                     if (transaction_DB_TransactionsLog_Create_VIEWs.Commit())

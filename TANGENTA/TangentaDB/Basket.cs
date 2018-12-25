@@ -461,7 +461,7 @@ namespace TangentaDB
                 {
                     AutoSelect_Items_From_Stock(xdt_ShopC_Item_In_Stock, xquantity2add, ref taken_from_Stock_List, ref dQuantitySelectedFromStock);
                 }
-                Transaction transaction_Basket_Add2Basket_WriteItemStockTransferInDataBase = new Transaction("Basket.Add2Basket.WriteItemStockTransferInDataBase");
+                Transaction transaction_Basket_Add2Basket_WriteItemStockTransferInDataBase = new Transaction("Basket.Add2Basket.WriteItemStockTransferInDataBase",DBSync.DBSync.MyTransactionLog_delegates);
 
                 if (WriteItemStockTransferInDataBase(docTyp,
                                                     doc_ID,

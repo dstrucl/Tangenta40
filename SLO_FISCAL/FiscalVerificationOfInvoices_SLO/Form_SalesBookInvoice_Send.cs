@@ -21,9 +21,12 @@ namespace FiscalVerificationOfInvoices_SLO
         private List<InvoiceData> m_InvoiceData_List = null;
         private DataTable dt = new DataTable();
 
-        public Form_SalesBookInvoice_Send(FVI_SLO xusrc_FVI_SLO, List<InvoiceData> xInvoiceData_List)
+        TransactionLog_delegates m_TransactionLog_delegates = null;
+
+        public Form_SalesBookInvoice_Send(TransactionLog_delegates transactionLog_delegates,FVI_SLO xusrc_FVI_SLO, List<InvoiceData> xInvoiceData_List)
         {
             InitializeComponent();
+            m_TransactionLog_delegates = transactionLog_delegates;
             m_usrc_FVI_SLO = xusrc_FVI_SLO;
             m_InvoiceData_List = xInvoiceData_List;
             lng.s_SalesBookInvoice_UnsentMsg.Text(this.lbl_SalesBookInvoice_UnsentMsg);
@@ -175,7 +178,7 @@ namespace FiscalVerificationOfInvoices_SLO
                         xInvData.AddOnDI.m_FURS.FURS_ZOI_v = new string_v(ZOI);
                         xInvData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(EOR);
                         xInvData.AddOnDI.m_FURS.FURS_QR_v = new string_v(BarCodeValue);
-                        Transaction transaction_Dgvx_SalesBookInvoice_Unsent_CellContentClick = new Transaction("Dgvx_SalesBookInvoice_Unsent_CellContentClick");
+                        Transaction transaction_Dgvx_SalesBookInvoice_Unsent_CellContentClick = new Transaction("Dgvx_SalesBookInvoice_Unsent_CellContentClick", m_TransactionLog_delegates);
                         if (xInvData.AddOnDI.m_FURS.Write_FURS_Response_Data(xInvData.DocInvoice_ID,this.m_usrc_FVI_SLO.FursTESTEnvironment, transaction_Dgvx_SalesBookInvoice_Unsent_CellContentClick))
                         {
                             transaction_Dgvx_SalesBookInvoice_Unsent_CellContentClick.Commit();

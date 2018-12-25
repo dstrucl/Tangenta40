@@ -32,7 +32,7 @@ namespace ShopA
             dbTables = xdbTables;
             tbl = xtbl;
             this.Text = lng.s_ShopA_Items.s;
-            if (!usrc_EditTable.Init(dbTables, tbl,null,ColumnToOrderBy,false,null,null,false,null))
+            if (!usrc_EditTable.Init(dbTables, DBSync.DBSync.MyTransactionLog_delegates, tbl,null,ColumnToOrderBy,false,null,null,false,null))
             {
                 bclose = true;
             }

@@ -382,7 +382,7 @@ namespace LoginControl
                     ID LoginUsers_ID = null;
                     if (m_LMOUser.awpld.UserName.Equals(txtUserName.Text))
                     {
-                        Transaction transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData = new Transaction("AWP_UserManager.SaveIfChanged.UpdateAWPLoginData");
+                        Transaction transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData = new Transaction("AWP_UserManager.SaveIfChanged.UpdateAWPLoginData", DBSync.DBSync.MyTransactionLog_delegates);
                         if (UpdateAWPLoginData(transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData))
                         {
                             if (transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData.Commit())
@@ -411,7 +411,7 @@ namespace LoginControl
                             }
                             else
                             {
-                                Transaction transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData = new Transaction("AWP_UserManager.SaveIfChanged.UpdateAWPLoginData");
+                                Transaction transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData = new Transaction("AWP_UserManager.SaveIfChanged.UpdateAWPLoginData", DBSync.DBSync.MyTransactionLog_delegates);
                                 if (UpdateAWPLoginData(transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData))
                                 {
                                     if (transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData.Commit())
@@ -432,7 +432,7 @@ namespace LoginControl
                         }
                         else
                         {
-                            Transaction transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData = new Transaction("AWP_UserManager.SaveIfChanged.UpdateAWPLoginData");
+                            Transaction transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData = new Transaction("AWP_UserManager.SaveIfChanged.UpdateAWPLoginData", DBSync.DBSync.MyTransactionLog_delegates);
                             if (UpdateAWPLoginData(transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData))
                             {
                                 if (transaction_AWP_UserManager_SaveIfChanged_UpdateAWPLoginData.Commit())
@@ -553,13 +553,13 @@ namespace LoginControl
                 {
                     //button MoveRight clicked
                     //Remove Role
-                    Transaction transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_m_LMOUser_awpld_RemoveRole = new Transaction("AWP_UserManager.Dgvx_UserRoles_CellClick.m_LMOUser.awpld.RemoveRole");
+                    Transaction transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_m_LMOUser_awpld_RemoveRole = new Transaction("AWP_UserManager.Dgvx_UserRoles_CellClick.m_LMOUser.awpld.RemoveRole", DBSync.DBSync.MyTransactionLog_delegates);
                     if (m_LMOUser.awpld.RemoveRole(e.RowIndex, transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_m_LMOUser_awpld_RemoveRole))
                     {
                         if (transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_m_LMOUser_awpld_RemoveRole.Commit())
                         {
                             InitRoles();
-                            Transaction transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_GetUserRoles = new Transaction("AWP_UserManager.Dgvx_UserRoles_CellClick.GetUserRoles");
+                            Transaction transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_GetUserRoles = new Transaction("AWP_UserManager.Dgvx_UserRoles_CellClick.GetUserRoles", DBSync.DBSync.MyTransactionLog_delegates);
                             if (m_LMOUser.awpld.GetUserRoles(transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_GetUserRoles))
                             {
                                 transaction_AWP_UserManager_Dgvx_UserRoles_CellClick_GetUserRoles.Commit();
@@ -587,13 +587,13 @@ namespace LoginControl
                 if (e.ColumnIndex == 0)
                 {
                     //button MoveRight clicked
-                    Transaction transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_m_LMOUser_awpld_AddRole = new Transaction("AWP_UserManager._Dgvx_OtherRoles_CellClick.m_LMOUser.awpld.AddRole");
+                    Transaction transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_m_LMOUser_awpld_AddRole = new Transaction("AWP_UserManager._Dgvx_OtherRoles_CellClick.m_LMOUser.awpld.AddRole", DBSync.DBSync.MyTransactionLog_delegates);
                     if (m_LMOUser.awpld.AddRole(e.RowIndex, transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_m_LMOUser_awpld_AddRole))
                     {
                         if (transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_m_LMOUser_awpld_AddRole.Commit())
                         {
                             InitRoles();
-                            Transaction transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_GetUserRoles = new Transaction("AWP_UserManager.Dgvx_OtherRoles_CellClick.GetUserRoles");
+                            Transaction transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_GetUserRoles = new Transaction("AWP_UserManager.Dgvx_OtherRoles_CellClick.GetUserRoles", DBSync.DBSync.MyTransactionLog_delegates);
                             if (m_LMOUser.awpld.GetUserRoles(transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_GetUserRoles))
                             {
                                 if (transaction_AWP_UserManager_Dgvx_OtherRoles_CellClick_GetUserRoles.Commit())

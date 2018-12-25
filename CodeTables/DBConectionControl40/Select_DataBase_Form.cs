@@ -24,14 +24,17 @@ namespace DBConnectionControl40
 
         private Form m_ParentForm = null;
 
-        DBConnection m_SQL_Connection;
+        DBConnection m_SQL_Connection = null;
+        TransactionLog_delegates m_TransactionLog_delegates = null;
+
         internal bool m_bNewDataBase = false;
 
-        public Select_DataBase_Form(Form pParentForm,DBConnection my_connection, string sTitle)
+        public Select_DataBase_Form(Form pParentForm,DBConnection my_connection, TransactionLog_delegates xTransactionLog_delegates, string sTitle)
         {
             m_ParentForm = pParentForm;
             m_Title = sTitle;
             m_SQL_Connection = my_connection;
+            m_TransactionLog_delegates = xTransactionLog_delegates;
             InitializeComponent();
         }
 
@@ -398,7 +401,7 @@ namespace DBConnectionControl40
                         {
                             if (m_SQL_Connection.WindowsAuthentication)
                             {
-                                CreateDataBase_Form CreateDataBaseDialog = new CreateDataBase_Form(ref m_SQL_Connection);
+                                CreateDataBase_Form CreateDataBaseDialog = new CreateDataBase_Form(ref m_SQL_Connection, m_TransactionLog_delegates);
                                 CreateDataBaseDialog.TopMost = this.TopMost;
                                 DialogResult dRes;
                                 dRes = CreateDataBaseDialog.ShowDialog();
@@ -415,7 +418,7 @@ namespace DBConnectionControl40
                                 {
                                     //Test Connection and rights to create new database
 
-                                    CreateDataBase_Form CreateDataBaseDialog = new CreateDataBase_Form(ref m_SQL_Connection);
+                                    CreateDataBase_Form CreateDataBaseDialog = new CreateDataBase_Form(ref m_SQL_Connection, m_TransactionLog_delegates);
                                     CreateDataBaseDialog.TopMost = this.TopMost;
                                     DialogResult dRes;
                                     dRes = CreateDataBaseDialog.ShowDialog();

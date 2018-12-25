@@ -8,6 +8,10 @@ namespace DBConnectionControl40
 {
     public class Transaction
     {
+        internal ID Transaction_ID = null;
+
+        private TransactionLog_delegates m_TransactionLog_delegates = null;
+
         private DBConnection mcon = null;
 
         public DBConnection con
@@ -23,10 +27,11 @@ namespace DBConnectionControl40
         }
 
         private bool m_Active = false;
-        
+
 
         private string name = null;
         public string Name
+
         {
             get
             {
@@ -38,45 +43,53 @@ namespace DBConnectionControl40
             }
         }
 
-        private string id = null;
-        public string ID
+        private string identity = null;
+        public string Idenity
         {
             get
             {
-                return id;
+                return identity;
             }
             set
             {
-                id = value;
+                identity = value;
             }
         }
 
-        public Transaction(string xname)
+        public Transaction(string xname, TransactionLog_delegates xTransactionLog_delegates)
         {
             name = xname;
+            m_TransactionLog_delegates = xTransactionLog_delegates;
         }
 
         public bool Executed
         {
             get
             {
-                return id != null;
+                return identity != null;
             }
         }
 
         public bool GetTransaction(DBConnection m_con)
         {
-            if (id == null)
+            if (identity == null)
             {
                 con = m_con;
-                if (!con.BeginTransaction(name, ref id))
+                if (con.BeginTransaction(name, ref identity))
+                {
+                    if (m_TransactionLog_delegates!=null)
+                    {
+                        m_TransactionLog_delegates.m_delegate_WriteTransactionLog_BeginTransaction(this.name, ref this.Transaction_ID);
+                    }
+                }
+                else
                 {
                     return false;
                 }
             }
             else
             {
-                if (con==null)
+                if (con == null)
                 {
                     con = m_con;
                 }
@@ -89,19 +102,23 @@ namespace DBConnectionControl40
         {
             if (m_Active)
             {
-                if (id != null)
+                if (identity != null)
                 {
                     if (con != null)
                     {
-                        if (con.CommitTransaction(id))
+                        if (con.CommitTransaction(identity))
                         {
-                            id = null;
+                            identity = null;
                             m_Active = false;
+                            if (m_TransactionLog_delegates!=null)
+                            {
+                                m_TransactionLog_delegates.m_delegate_WriteTransactionLog_Commit(Transaction_ID);
+                            }
                             return true;
                         }
                         else
                         {
-                            id = null;
+                            identity = null;
                             return false;
                         }
                     }
@@ -128,19 +145,23 @@ namespace DBConnectionControl40
         {
             if (m_Active)
             {
-                if (id != null)
+                if (identity != null)
                 {
                     if (con != null)
                     {
-                        if (con.RollbackTransaction(id))
+                        if (con.RollbackTransaction(identity))
                         {
                             m_Active = false;
-                            id = null;
+                            identity = null;
+                            if (m_TransactionLog_delegates != null)
+                            {
+                                m_TransactionLog_delegates.m_delegate_WriteTransactionLog_Rollback(Transaction_ID);
+                            }
                             return true;
                         }
                         else
                         {
-                            id = null;
+                            identity = null;
                             return false;
                         }
                     }
@@ -167,7 +188,9 @@ namespace DBConnectionControl40
         {
             if (GetTransaction(con))
             {
-                return con.ExecuteNonQuerySQL(sql, lpar, ref err);
+                bool bresult = con.ExecuteNonQuerySQL(sql, lpar, ref err);
+                writeTransactionLogExecute(sql, lpar, bresult, null, true, err);
+                return bresult;
             }
             else
             {
@@ -179,7 +202,9 @@ namespace DBConnectionControl40
         {
             if (GetTransaction(con))
             {
-                return con.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref err, table_name);
+                bool bresult = con.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref err, table_name);
+                writeTransactionLogExecute(sql, lpar, bresult, id, true, err);
+                return bresult;
             }
             else
             {
@@ -188,11 +213,25 @@ namespace DBConnectionControl40
 
         }
 
+        private void writeTransactionLogExecute(string sql, List<SQL_Parameter> lpar, bool bresult, ID id, bool v, string err)
+        {
+
+            if (m_TransactionLog_delegates != null)
+            {
+                if (ID.Validate(Transaction_ID))
+                {
+                    m_TransactionLog_delegates.m_delegate_WriteTransactionLogExecute(Transaction_ID, sql, lpar, id, bresult, err);
+                }
+            }
+        }
+
         public bool ExecuteNonQuerySQL(DBConnection con, string sql, List<SQL_Parameter> lpar, ref string err)
         {
             if (GetTransaction(con))
             {
-                return con.ExecuteNonQuerySQL(sql, lpar, ref err);
+                bool bresult = con.ExecuteNonQuerySQL(sql, lpar, ref err);
+                writeTransactionLogExecute(sql, lpar, bresult, null, true, err);
+                return bresult;
             }
             else
             {
@@ -209,7 +248,9 @@ namespace DBConnectionControl40
         {
             if (GetTransaction(m_con))
             {
-                return m_con.ExecuteScalarReturnID(sbsqlUpdate, sqlParamList, ref newID, ref csError, tableName);
+                bool bresult =  m_con.ExecuteScalarReturnID(sbsqlUpdate, sqlParamList, ref newID, ref csError, tableName);
+                writeTransactionLogExecute(sbsqlUpdate.ToString(), sqlParamList, bresult, newID, true, csError);
+                return bresult;
             }
             else
             {

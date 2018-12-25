@@ -76,7 +76,10 @@ namespace Tangenta
             Cursor = Cursors.WaitCursor;
             if (InitDataTable(null))
             {
-                usrc_EditRow.Init(dbTables, tbl, null,false,nav);
+                usrc_EditRow.Init(dbTables,
+                                  DBSync.DBSync.MyTransactionLog_delegates,
+                                  tbl, null,false,nav);
+
                 usrc_EditRow.FillInitialData();
                 if (dt_my_company.Rows.Count > 0)
                 {
@@ -125,7 +128,7 @@ namespace Tangenta
             {
                 if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1)== DialogResult.Yes)
                 {
-                    Transaction transaction_Form_myOrg_Edit_do_OK_usrc_EditRow_Save = new Transaction("Form_myOrg_Edit.do_OK.usrc_EditRow.Save");
+                    Transaction transaction_Form_myOrg_Edit_do_OK_usrc_EditRow_Save = new Transaction("Form_myOrg_Edit.do_OK.usrc_EditRow.Save", DBSync.DBSync.MyTransactionLog_delegates);
                     if (usrc_EditRow.Save(transaction_Form_myOrg_Edit_do_OK_usrc_EditRow_Save))
                     {
                         if (transaction_Form_myOrg_Edit_do_OK_usrc_EditRow_Save.Commit())

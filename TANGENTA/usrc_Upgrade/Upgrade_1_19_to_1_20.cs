@@ -13,7 +13,7 @@ namespace UpgradeDB
     {
         internal static object UpgradeDB_1_19_to_1_20(object obj, ref string Err)
         {
-            Transaction transaction_Upgrade_1_19_to_1_20 = new Transaction("Upgrade_1_19_to_1_20");
+            Transaction transaction_Upgrade_1_19_to_1_20 = new Transaction("Upgrade_1_19_to_1_20", DBSync.DBSync.MyTransactionLog_delegates);
 
 
             string sql = @"

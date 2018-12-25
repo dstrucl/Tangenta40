@@ -60,7 +60,7 @@ namespace ShopB
             lng.s_OnlyNotInOffer.Text(this.rdb_OnlyNotInOffer);
             usrc_NavigationButtons1.Init(xnav);
             string selection = " SimpleItem_$$Name,SimpleItem_$$Abbreviation,SimpleItem_$_siimg_$$Image_Data,SimpleItem_$_sipg1_$$Name,SimpleItem_$_sipg1_$_sipg2_$$Name,SimpleItem_$_sipg1_$_sipg2_$_sipg3_$$Name,SimpleItem_$$ToOffer,ID ";
-            if (!usrc_EditTable.Init(dbTables, tbl, selection, ColumnToOrderBy,false,null,null,false,nav))
+            if (!usrc_EditTable.Init(dbTables, DBSync.DBSync.MyTransactionLog_delegates, tbl, selection, ColumnToOrderBy,false,null,null,false,nav))
             {
                 bclose = true;
             }
@@ -96,7 +96,7 @@ namespace ShopB
             {
                 if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    Transaction transaction_Form_SimpleItem_Edit_do_OK_usrc_EditTable_Save = new Transaction("Form_SimpleItem_Edit.do_OK.usrc_EditTable.Save");
+                    Transaction transaction_Form_SimpleItem_Edit_do_OK_usrc_EditTable_Save = new Transaction("Form_SimpleItem_Edit.do_OK.usrc_EditTable.Save", DBSync.DBSync.MyTransactionLog_delegates);
                     if (usrc_EditTable.Save(transaction_Form_SimpleItem_Edit_do_OK_usrc_EditTable_Save))
                     {
                         transaction_Form_SimpleItem_Edit_do_OK_usrc_EditTable_Save.Commit();

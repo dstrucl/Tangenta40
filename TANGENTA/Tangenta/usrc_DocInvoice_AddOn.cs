@@ -267,7 +267,7 @@ namespace Tangenta
 
         private void btn_Issue_Click(object sender, EventArgs e)
         {
-            Transaction transaction = new Transaction("DocInvoice_AddOn_btn_Issue_Click");
+            Transaction transaction = new Transaction("DocInvoice_AddOn_btn_Issue_Click", DBSync.DBSync.MyTransactionLog_delegates);
 
             if (m_AddOnDI.m_IssueDate == null)
             {

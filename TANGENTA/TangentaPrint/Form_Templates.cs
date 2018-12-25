@@ -91,7 +91,9 @@ namespace TangentaPrint
                     sWhereCondition = " where  doc_$$Active = 0 ";
                     break;
             }
-            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID, false,nav);
+            return usrc_EditTable.Init(dbTables,
+                                       DBSync.DBSync.MyTransactionLog_delegates,
+                                       tbl, selection, ColumnOrderBy, false, sWhereCondition, ID, false,nav);
 
         }
         private void MyOrganisationData_EditForm_Load(object sender, EventArgs e)
@@ -119,7 +121,7 @@ namespace TangentaPrint
             {
                 if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    Transaction transaction_Form_Template_btn_OK_Click_usrc_EditTable_Save = new Transaction("Form_Template.btn_OK_Click.usrc_EditTable.Save");
+                    Transaction transaction_Form_Template_btn_OK_Click_usrc_EditTable_Save = new Transaction("Form_Template.btn_OK_Click.usrc_EditTable.Save", DBSync.DBSync.MyTransactionLog_delegates);
                     if (usrc_EditTable.Save(transaction_Form_Template_btn_OK_Click_usrc_EditTable_Save))
                     {
                         transaction_Form_Template_btn_OK_Click_usrc_EditTable_Save.Commit();
@@ -152,7 +154,7 @@ namespace TangentaPrint
             {
                 if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-                    Transaction transaction_Form_Template_btn_Cancel_Click_usrc_EditTable_Save = new Transaction("Form_Template.btn_Cancel_Click.usrc_EditTable.Save");
+                    Transaction transaction_Form_Template_btn_Cancel_Click_usrc_EditTable_Save = new Transaction("Form_Template.btn_Cancel_Click.usrc_EditTable.Save", DBSync.DBSync.MyTransactionLog_delegates);
                     if (usrc_EditTable.Save(transaction_Form_Template_btn_Cancel_Click_usrc_EditTable_Save))
                     {
                         transaction_Form_Template_btn_Cancel_Click_usrc_EditTable_Save.Commit();

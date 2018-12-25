@@ -56,7 +56,6 @@ namespace LogFile
 
         public string GetConnectionString()
         {
-           //    ConnectionString = "Data Source=" + strServerName + ";Persist Security Info=True;User ID=" + strLoginID + ";Password=" + strPassword;
             return "server=" + m_DataSource + ";User ID=" + m_UserName + ";password=" + m_Crypt.DecryptString(m_crypted_Password) + ";database=" + m_DataBase;
         }
 

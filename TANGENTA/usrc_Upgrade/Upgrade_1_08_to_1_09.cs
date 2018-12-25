@@ -10,7 +10,7 @@ namespace UpgradeDB
     {
         internal static object UpgradeDB_1_08_to_1_09(object obj, ref string Err)
         {
-            Transaction transaction_UpgradeDB_1_08_to_1_09 = new Transaction("UpgradeDB_1_08_to_1_09");
+            Transaction transaction_UpgradeDB_1_08_to_1_09 = new Transaction("UpgradeDB_1_08_to_1_09", DBSync.DBSync.MyTransactionLog_delegates);
             string sql = null;
             string[] stables = new string[] { "Atom_cCountry_Org", "Atom_cCountry_Person", "cCountry_Org", "cCountry_Person" };
             foreach (string stbl in stables)

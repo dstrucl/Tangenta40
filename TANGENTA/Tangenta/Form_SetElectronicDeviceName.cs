@@ -264,7 +264,7 @@ namespace Tangenta
             if (xElectronicDevice_Name.Length>0)
             {
                 ID xAtom_ElectronicDevice_ID = null;
-                Transaction transaction_Form_SetElectronicDeviceName_btn_Write_Click = new Transaction("Form_SetElectronicDeviceName_btn_Write_Click");
+                Transaction transaction_Form_SetElectronicDeviceName_btn_Write_Click = new Transaction("Form_SetElectronicDeviceName_btn_Write_Click", DBSync.DBSync.MyTransactionLog_delegates);
                 if (f_ElectronicDevice.Get(m_myOrg_Office.ID, xElectronicDevice_Name, xElectronicDevice_Description,ref xAtom_ElectronicDevice_ID, transaction_Form_SetElectronicDeviceName_btn_Write_Click))
                 {
                     if (transaction_Form_SetElectronicDeviceName_btn_Write_Click.Commit())

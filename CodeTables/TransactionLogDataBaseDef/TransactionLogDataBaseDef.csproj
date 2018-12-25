@@ -45,6 +45,7 @@
     <Compile Include="lng.cs" />
     <Compile Include="MyDataBase_TransactionsLog.cs" />
     <Compile Include="MyDataBase_TableDefinitions.cs" />
+    <Compile Include="MyDataBas_TransactionLog_delegates.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

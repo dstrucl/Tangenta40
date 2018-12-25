@@ -21,16 +21,11 @@ namespace DBConnectionControl40
 
         internal Crypt m_Crypt;
 
-        //public String ConnectionString = null;
         public string m_DataSource = "";
 
         public string m_DataBase = "";
-        //public string strDataBaseFilePath = "";
-        //public string strDataBaseLogFilePath = "";
         public string m_UserName;
         public string m_crypted_Password;
-
-        //public string m_WindowsAuthentication_UserName = SystemInformation.UserDomainName + "\\" + SystemInformation.UserName;
 
 
         public conData_MYSQL(string xDataSource,
@@ -56,7 +51,6 @@ namespace DBConnectionControl40
 
         public string GetConnectionString()
         {
-           //    ConnectionString = "Data Source=" + strServerName + ";Persist Security Info=True;User ID=" + strLoginID + ";Password=" + strPassword;
             return "server=" + m_DataSource + ";User ID=" + m_UserName + ";password=" + m_Crypt.DecryptString(m_crypted_Password) + ";database=" + m_DataBase;
         }
 

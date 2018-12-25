@@ -51,7 +51,7 @@ namespace Tangenta
             }
             else
             {
-                Transaction transaction_Startup_13_Login = new Transaction("Startup_13_Login");
+                Transaction transaction_Startup_13_Login = new Transaction("Startup_13_Login", DBSync.DBSync.MyTransactionLog_delegates);
                 if (frm.GetWorkPeriod(m_startup, null, m_startup.nav, transaction_Startup_13_Login, ref Err))
                 {
                     if (transaction_Startup_13_Login.Commit())

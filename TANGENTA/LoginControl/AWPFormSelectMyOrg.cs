@@ -126,7 +126,7 @@ namespace LoginControl
                 drs[i] = dt_myOrgPerNotInLoginUsers.Rows[dgvxr.Index];
                 i++;
             }
-            Transaction transaction_AWPFormSelectMyOrg_btn_Select_Click_InsertNewDefaultLoginUsersRows = new Transaction("AWPFormSelectMyOrg.btn_Select_Click.InsertNewDefaultLoginUsersRows");
+            Transaction transaction_AWPFormSelectMyOrg_btn_Select_Click_InsertNewDefaultLoginUsersRows = new Transaction("AWPFormSelectMyOrg.btn_Select_Click.InsertNewDefaultLoginUsersRows", DBSync.DBSync.MyTransactionLog_delegates);
             if (InsertNewDefaultLoginUsersRows(drs, transaction_AWPFormSelectMyOrg_btn_Select_Click_InsertNewDefaultLoginUsersRows))
             {
                 if (transaction_AWPFormSelectMyOrg_btn_Select_Click_InsertNewDefaultLoginUsersRows.Commit())
