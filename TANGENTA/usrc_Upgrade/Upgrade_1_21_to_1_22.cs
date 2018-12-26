@@ -12,7 +12,7 @@ namespace UpgradeDB
 
         internal static object UpgradeDB_1_21_to_1_22(object obj, ref string Err)
         {
-            Transaction transaction_UpgradeDB_1_21_to_1_22 = new Transaction("UpgradeDB_1_21_to_1_22", DBSync.DBSync.MyTransactionLog_delegates);
+            Transaction transaction_UpgradeDB_1_21_to_1_22 = DBSync.DBSync.NewTransaction("UpgradeDB_1_21_to_1_22");
             if (DBSync.DBSync.Drop_VIEWs(ref Err, transaction_UpgradeDB_1_21_to_1_22))
             {
                 //change Atom_myOrganisation_Person

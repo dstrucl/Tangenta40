@@ -153,7 +153,7 @@ namespace Tangenta
             {
                 if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    Transaction transaction_Form_myOrg_Office_Data_do_OK_usrc_EditTable1_Save = new Transaction("Form_myOrg_Office_Data.do_OK.usrc_EditTable1.Save", DBSync.DBSync.MyTransactionLog_delegates);
+                    Transaction transaction_Form_myOrg_Office_Data_do_OK_usrc_EditTable1_Save = DBSync.DBSync.NewTransaction("Form_myOrg_Office_Data.do_OK.usrc_EditTable1.Save");
                     if (usrc_EditTable1.Save(transaction_Form_myOrg_Office_Data_do_OK_usrc_EditTable1_Save))
                     {
                         transaction_Form_myOrg_Office_Data_do_OK_usrc_EditTable1_Save.Commit();

@@ -48,7 +48,7 @@ namespace TangentaDB
             }
             else
             {
-                Transaction transaction_Init_Currency_Table = new Transaction("Init_Currency_Table", DBSync.DBSync.MyTransactionLog_delegates);
+                Transaction transaction_Init_Currency_Table = DBSync.DBSync.NewTransaction("Init_Currency_Table");
                 if (fs.Init_Currency_Table(ref Err, transaction_Init_Currency_Table))
                 {
                     if (transaction_Init_Currency_Table.Commit())

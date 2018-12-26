@@ -178,7 +178,7 @@ namespace FiscalVerificationOfInvoices_SLO
                         xInvData.AddOnDI.m_FURS.FURS_ZOI_v = new string_v(ZOI);
                         xInvData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(EOR);
                         xInvData.AddOnDI.m_FURS.FURS_QR_v = new string_v(BarCodeValue);
-                        Transaction transaction_Dgvx_SalesBookInvoice_Unsent_CellContentClick = new Transaction("Dgvx_SalesBookInvoice_Unsent_CellContentClick", m_TransactionLog_delegates);
+                        Transaction transaction_Dgvx_SalesBookInvoice_Unsent_CellContentClick = new Transaction(m_TransactionLog_delegates,"Dgvx_SalesBookInvoice_Unsent_CellContentClick");
                         if (xInvData.AddOnDI.m_FURS.Write_FURS_Response_Data(xInvData.DocInvoice_ID,this.m_usrc_FVI_SLO.FursTESTEnvironment, transaction_Dgvx_SalesBookInvoice_Unsent_CellContentClick))
                         {
                             transaction_Dgvx_SalesBookInvoice_Unsent_CellContentClick.Commit();

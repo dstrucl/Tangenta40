@@ -84,7 +84,7 @@ namespace ShopC
                         }
                     }
                     ID JOURNAL_Stock_id = null;
-                    Transaction transaction_Form_StockTake_Edit_usrc_EditTable_after_InsertInDataBase_f_JOURNAL_Stock_Get = new Transaction("Form_StockTake_Edit.usrc_EditTable_after_InsertInDataBase.f_JOURNAL_Stock.Get", DBSync.DBSync.MyTransactionLog_delegates);
+                    Transaction transaction_Form_StockTake_Edit_usrc_EditTable_after_InsertInDataBase_f_JOURNAL_Stock_Get = DBSync.DBSync.NewTransaction("Form_StockTake_Edit.usrc_EditTable_after_InsertInDataBase.f_JOURNAL_Stock.Get");
                     if (f_JOURNAL_Stock.Get(m_Atom_WorkPeriod_ID,
                                         ID,
                                         f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data,
@@ -126,7 +126,7 @@ namespace ShopC
                         }
                     }
                     ID JOURNAL_Stock_id = null;
-                    Transaction transaction_Form_Stock_Edit_usrc_EditTable_after_UpdateDataBase_f_JOURNAL_Stock_Get = new Transaction("Form_Stock_Edit.usrc_EditTable_after_UpdateDataBase.f_JOURNAL_Stock.Get", DBSync.DBSync.MyTransactionLog_delegates);
+                    Transaction transaction_Form_Stock_Edit_usrc_EditTable_after_UpdateDataBase_f_JOURNAL_Stock_Get = DBSync.DBSync.NewTransaction("Form_Stock_Edit.usrc_EditTable_after_UpdateDataBase.f_JOURNAL_Stock.Get");
                     if (f_JOURNAL_Stock.Get(m_Atom_WorkPeriod_ID,
                                         ID,
                                         f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed,

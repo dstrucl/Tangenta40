@@ -573,7 +573,7 @@ namespace Tangenta
             {
                 if (aa_Customer_Removed!=null)
                 {
-                    Transaction transaction_usrc_Customer_aa_Customer_Removed = new Transaction("usrc_Customer.aa_Customer_Removed", DBSync.DBSync.MyTransactionLog_delegates);
+                    Transaction transaction_usrc_Customer_aa_Customer_Removed = DBSync.DBSync.NewTransaction("usrc_Customer.aa_Customer_Removed");
 
                     if (aa_Customer_Removed(DocTyp, transaction_usrc_Customer_aa_Customer_Removed))
                     {

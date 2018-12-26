@@ -15,7 +15,7 @@ namespace UpgradeDB
         internal static object UpgradeDB_1_02_to_1_03(object obj, ref string Err)
         {
             // correct taxation
-            Transaction transaction_UpgradeDB_1_02_to_1_03 = new Transaction("UpgradeDB_1_02_to_1_03", DBSync.DBSync.MyTransactionLog_delegates);
+            Transaction transaction_UpgradeDB_1_02_to_1_03 = DBSync.DBSync.NewTransaction("UpgradeDB_1_02_to_1_03");
 
             string sql = @"select apsi.ID,RetailSimpleItemPrice,Discount,iQuantity,RetailSimpleItemPriceWithDiscount,ExtraDiscount,Rate from atom_price_simpleitem apsi 
                             inner join atom_taxation at on apsi.atom_taxation_ID = at.ID";

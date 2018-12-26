@@ -65,7 +65,7 @@ namespace TangentaDataBaseDef
 
         public DBTableControl.enumDataBaseCheckResult CheckDatabase(Form pParentForm, TransactionLog_delegates transactionLog_Delegates, ref string csError)
         {
-            Transaction transaction_CheckDatabase = new Transaction("CheckDatabase", transactionLog_Delegates);
+            Transaction transaction_CheckDatabase = new Transaction(transactionLog_Delegates,"CheckDatabase");
             DBTableControl.enumDataBaseCheckResult eres = m_DBTables.DataBaseCheck(ref csError, transaction_CheckDatabase);
             switch (eres)
             {
@@ -140,7 +140,7 @@ namespace TangentaDataBaseDef
         {
             if (this.m_DBTables.DropVIEWs(ref Err, transaction))
             {
-                Transaction transaction_DB_TransactionsLog_DropViews = new Transaction("DB_TransactionsLog.DropViews", DB_TransactionsLog.MyTransactionLog_delegates);
+                Transaction transaction_DB_TransactionsLog_DropViews = new Transaction(DB_TransactionsLog.MyTransactionLog_delegates,"DB_TransactionsLog.DropViews");
                 if ( this.DB_TransactionsLog.DropViews(ref Err, transaction_DB_TransactionsLog_DropViews))
                 {
                     if (transaction_DB_TransactionsLog_DropViews.Commit())
@@ -160,7 +160,7 @@ namespace TangentaDataBaseDef
         {
             if (this.m_DBTables.Create_VIEWs(transaction))
             {
-                Transaction transaction_DB_TransactionsLog_Create_VIEWs = new Transaction("DB_TransactionsLog.Create_VIEWs", DB_TransactionsLog.MyTransactionLog_delegates);
+                Transaction transaction_DB_TransactionsLog_Create_VIEWs = new Transaction(DB_TransactionsLog.MyTransactionLog_delegates,"DB_TransactionsLog.Create_VIEWs");
                 if (this.DB_TransactionsLog.Create_VIEWs(transaction_DB_TransactionsLog_Create_VIEWs))
                 {
                     if (transaction_DB_TransactionsLog_Create_VIEWs.Commit())

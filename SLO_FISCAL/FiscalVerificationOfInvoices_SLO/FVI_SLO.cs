@@ -666,7 +666,7 @@ namespace FiscalVerificationOfInvoices_SLO
             List<InvoiceData> InvoiceData_List = null;
             Properties.Settings.Default.Reload();
             bool bTest = Properties.Settings.Default.fursTEST_Environment;
-            Transaction transaction_Select_SalesBookInvoice_NotSent = new Transaction("Select_SalesBookInvoice_NotSent", transactionLog_Delegates);
+            Transaction transaction_Select_SalesBookInvoice_NotSent = new Transaction(transactionLog_Delegates,"Select_SalesBookInvoice_NotSent");
             if (f_FVI_SLO_SalesBookInvoice.Select_SalesBookInvoice_NotSent(xShopABC, 
                                                                           xAddOnDPI,
                                                                           xDocProformaInvoice_AddOn,
@@ -697,7 +697,7 @@ namespace FiscalVerificationOfInvoices_SLO
             Properties.Settings.Default.Reload();
             bool bTest = Properties.Settings.Default.fursTEST_Environment;
             List<InvoiceData> InvoiceData_List = null;
-            Transaction transaction_Check_InvoiceNotConfirmedAtFURS = new Transaction("Check_InvoiceNotConfirmedAtFURS", transactionLog_Delegates);
+            Transaction transaction_Check_InvoiceNotConfirmedAtFURS = new Transaction(transactionLog_Delegates,"Check_InvoiceNotConfirmedAtFURS");
             if (f_FVI_SLO_Invoice.Select_InvoiceNotConfirmed(xShopABC,
                                                               xAddOnDPI,
                                                               xDocProformaInvoice_AddOn,

@@ -77,7 +77,7 @@ namespace Tangenta
         {
             Program.b_FVI_SLO = false;
             ID DBSettings_ID = null;
-            Transaction transaction_WriteDBSettings_FiscalVerificationOfInvoices = new Transaction("WriteDBSettings_FiscalVerificationOfInvoices", DBSync.DBSync.MyTransactionLog_delegates);
+            Transaction transaction_WriteDBSettings_FiscalVerificationOfInvoices = DBSync.DBSync.NewTransaction("WriteDBSettings_FiscalVerificationOfInvoices");
             if (chk_FVI.Checked)
             {
                 string sFiscalVerificationOfInvoices = "1";

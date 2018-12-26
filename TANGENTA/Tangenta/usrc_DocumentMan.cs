@@ -588,7 +588,7 @@ namespace Tangenta
         {
             if (ID.Validate(DocInvoice_ID))
             {
-                Transaction transaction_usrc_DocumentMan_m_usrc_DocumentEditor_DoCurrent = new Transaction("usrc_DocumentMan.m_usrc_DocumentEditor.DoCurrent", DBSync.DBSync.MyTransactionLog_delegates);
+                Transaction transaction_usrc_DocumentMan_m_usrc_DocumentEditor_DoCurrent = DBSync.DBSync.NewTransaction("usrc_DocumentMan.m_usrc_DocumentEditor.DoCurrent");
                 if (m_usrc_DocumentEditor.DoCurrent(DocInvoice_ID, transaction_usrc_DocumentMan_m_usrc_DocumentEditor_DoCurrent))
                 {
                     transaction_usrc_DocumentMan_m_usrc_DocumentEditor_DoCurrent.Commit();
@@ -640,7 +640,7 @@ namespace Tangenta
                                 break;
 
                             case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
-                                Transaction transaction_usrc_DocumentMan_New_Copy_Of_SameDocType = new Transaction("usrc_DocumentMan.New_Copy_Of_SameDocType", DBSync.DBSync.MyTransactionLog_delegates);
+                                Transaction transaction_usrc_DocumentMan_New_Copy_Of_SameDocType = DBSync.DBSync.NewTransaction("usrc_DocumentMan.New_Copy_Of_SameDocType");
                                 if (New_Copy_Of_SameDocType(frm_new_workarea.FinancialYear, frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID, transaction_usrc_DocumentMan_New_Copy_Of_SameDocType))
                                 {
                                     transaction_usrc_DocumentMan_New_Copy_Of_SameDocType.Commit();
@@ -651,7 +651,7 @@ namespace Tangenta
                                 }
                                 break;
                             case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
-                                Transaction transaction_usrc_DocumentMan_New_Copy_To_Another_DocType = new Transaction("usrc_DocumentMan.New_Copy_To_Another_DocType", DBSync.DBSync.MyTransactionLog_delegates);
+                                Transaction transaction_usrc_DocumentMan_New_Copy_To_Another_DocType = DBSync.DBSync.NewTransaction("usrc_DocumentMan.New_Copy_To_Another_DocType");
                                 if (New_Copy_To_Another_DocType(frm_new_workarea.FinancialYear, frm_new_workarea.Currency, frm_new_workarea.Atom_Currency_ID, transaction_usrc_DocumentMan_New_Copy_To_Another_DocType))
                                 {
                                     transaction_usrc_DocumentMan_New_Copy_To_Another_DocType.Commit();
@@ -676,7 +676,7 @@ namespace Tangenta
                                 break;
 
                             case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
-                                Transaction transaction_usrc_DocumentMan_New_Copy_Of_SameDocType = new Transaction("_usrc_DocumentMan.New_Copy_Of_SameDocType", DBSync.DBSync.MyTransactionLog_delegates);
+                                Transaction transaction_usrc_DocumentMan_New_Copy_Of_SameDocType = DBSync.DBSync.NewTransaction("usrc_DocumentMan.New_Copy_Of_SameDocType");
                                 if (New_Copy_Of_SameDocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID, transaction_usrc_DocumentMan_New_Copy_Of_SameDocType))
                                 {
                                     transaction_usrc_DocumentMan_New_Copy_Of_SameDocType.Commit();
@@ -687,7 +687,7 @@ namespace Tangenta
                                 }
                                 break;
                             case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
-                                Transaction transaction_usrc_DocumentMan_New_Copy_To_Another_DocType = new Transaction("usrc_DocumentMan.New_Copy_To_Another_DocType", DBSync.DBSync.MyTransactionLog_delegates);
+                                Transaction transaction_usrc_DocumentMan_New_Copy_To_Another_DocType = DBSync.DBSync.NewTransaction("usrc_DocumentMan.New_Copy_To_Another_DocType");
                                 if (New_Copy_To_Another_DocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID, transaction_usrc_DocumentMan_New_Copy_To_Another_DocType))
                                 {
                                     transaction_usrc_DocumentMan_New_Copy_To_Another_DocType.Commit();
@@ -973,7 +973,7 @@ namespace Tangenta
                             DateTime dtStart = DateTime.Now;
                             DateTime dtEnd = DateTime.Now;
                             m_usrc_TableOfDocuments.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
-                            Transaction transaction_WriteShopABC_items = new Transaction("WriteShopABC_items", DBSync.DBSync.MyTransactionLog_delegates);
+                            Transaction transaction_WriteShopABC_items = DBSync.DBSync.NewTransaction("WriteShopABC_items");
                             if (WriteShopABC_items(New_xdoctyp,
                                             xShopC_Data_Item_List,
                                             xdt_ShopB_Items,
@@ -1065,7 +1065,7 @@ namespace Tangenta
             Program.RunAs = DocTyp;
 
             this.m_usrc_TableOfDocuments.Clear();
-            Transaction transaction_usrc_DocumentMan_SetDocInvoiceOrDocPoformaInvoice_SetDocument = new Transaction("usrc_DocumentMan.SetDocInvoiceOrDocPoformaInvoice.SetDocument", DBSync.DBSync.MyTransactionLog_delegates);
+            Transaction transaction_usrc_DocumentMan_SetDocInvoiceOrDocPoformaInvoice_SetDocument = DBSync.DBSync.NewTransaction("usrc_DocumentMan.SetDocInvoiceOrDocPoformaInvoice.SetDocument");
             bool bRes = SetDocument(transaction_usrc_DocumentMan_SetDocInvoiceOrDocPoformaInvoice_SetDocument);
             if (bRes)
             {
@@ -1168,7 +1168,7 @@ namespace Tangenta
 
             if (Program.b_FVI_SLO)
             {
-                Transaction transaction_Get_Atom_FVI_SLO_RealEstateBP_ID_1 = new Transaction("Get_Atom_FVI_SLO_RealEstateBP_ID_1", DBSync.DBSync.MyTransactionLog_delegates);
+                Transaction transaction_Get_Atom_FVI_SLO_RealEstateBP_ID_1 = DBSync.DBSync.NewTransaction("Get_Atom_FVI_SLO_RealEstateBP_ID_1");
 
                 if (f_Atom_FVI_SLO_RealEstateBP.Get_Atom_FVI_SLO_RealEstateBP_ID(m_Form_Document, ref myOrg.m_myOrg_Office.myOrg_Office_FVI_SLO_RealEstate.Atom_FVI_SLO_RealEstate_ID, 1, transaction_Get_Atom_FVI_SLO_RealEstateBP_ID_1))
                 {
@@ -1187,7 +1187,7 @@ namespace Tangenta
 
             LogFile.LogFile.WriteDEBUG("usrc_Document.cs:Init():before this.m_usrc_DocumentMan.Init(xnav)!");
 
-            Transaction transaction_usrc_DocumentMan_InitMan = new Transaction("usrc_DocumentMan.InitMan", DBSync.DBSync.MyTransactionLog_delegates);
+            Transaction transaction_usrc_DocumentMan_InitMan = DBSync.DBSync.NewTransaction("usrc_DocumentMan.InitMan");
             if (this.InitMan(transaction_usrc_DocumentMan_InitMan))
             {
                 if (transaction_usrc_DocumentMan_InitMan.Commit())
@@ -1206,7 +1206,7 @@ namespace Tangenta
                                         this.m_usrc_DocumentEditor.DocE.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
                                         if (Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(DBSync.DBSync.MyTransactionLog_delegates, this.m_usrc_DocumentEditor.DocE.m_ShopABC, this.m_usrc_DocumentEditor.DocE.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.DocE.m_InvoiceData.AddOnDPI))
                                         {
-                                            Transaction transaction_usrc_DocumentMan_b_FVI_SLO_SetDocument = new Transaction("usrc_DocumentMan.b_FVI_SLO.SetDocument",DBSync.DBSync.MyTransactionLog_delegates);
+                                            Transaction transaction_usrc_DocumentMan_b_FVI_SLO_SetDocument = DBSync.DBSync.NewTransaction("usrc_DocumentMan.b_FVI_SLO.SetDocument");
                                             if (this.SetDocument(transaction_usrc_DocumentMan_b_FVI_SLO_SetDocument))
                                             {
                                                 if (!transaction_usrc_DocumentMan_b_FVI_SLO_SetDocument.Commit())
@@ -1234,7 +1234,7 @@ namespace Tangenta
                     }
                     else
                     {
-                        Transaction transaction_usrc_DocumentMan_SetDocument = new Transaction("usrc_DocumentMan.SetDocument", DBSync.DBSync.MyTransactionLog_delegates);
+                        Transaction transaction_usrc_DocumentMan_SetDocument = DBSync.DBSync.NewTransaction("usrc_DocumentMan.SetDocument");
                         if (this.SetDocument(transaction_usrc_DocumentMan_SetDocument))
                         {
                             if (!transaction_usrc_DocumentMan_SetDocument.Commit())

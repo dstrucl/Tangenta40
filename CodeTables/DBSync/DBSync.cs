@@ -225,7 +225,7 @@ namespace DBSync
         {
             if (DB_for_Tangenta.DB_TransactionsLog.m_DBTables.Con.SessionConnect(ref Err))
             {
-                Transaction transaction_Startup_03_CheckDataBaseTables_DB_TransactionsLog = new Transaction("Startup_03_CheckDataBaseTables.DB_TransactionsLog",MyTransactionLog_delegates);
+                Transaction transaction_Startup_03_CheckDataBaseTables_DB_TransactionsLog = NewTransaction("Startup_03_CheckDataBaseTables.DB_TransactionsLog");
                 if (DB_for_Tangenta.DB_TransactionsLog.m_DBTables.CreateDatabaseTables(false, "Log", ref bCancel, MyDataBase_Tangenta.VERSION, transaction_Startup_03_CheckDataBaseTables_DB_TransactionsLog))
                 {
                     if (transaction_Startup_03_CheckDataBaseTables_DB_TransactionsLog.Commit())
@@ -256,7 +256,7 @@ namespace DBSync
         {
             if (DB_for_Tangenta_SessionConnect(ref Err))
             {
-                Transaction transaction_Startup_03_CheckDataBaseTables = new Transaction("Startup_03_CheckDataBaseTables", MyTransactionLog_delegates);
+                Transaction transaction_Startup_03_CheckDataBaseTables = NewTransaction("Startup_03_CheckDataBaseTables");
                 if (DB_for_Tangenta.m_DBTables.CreateDatabaseTables(false, "", ref bCancel, MyDataBase_Tangenta.VERSION, transaction_Startup_03_CheckDataBaseTables))
                 {
                     if (transaction_Startup_03_CheckDataBaseTables.Commit())
@@ -556,6 +556,11 @@ namespace DBSync
             return Con.ReadDataTable(ref dt, sql,lpar, ref Err);
         }
 
+        public static Transaction NewTransaction(string transaction_name)
+        {
+            return new Transaction(MyTransactionLog_delegates, transaction_name);
+        }
+
         public static bool ExecuteNonQuerySQL(string sql, List<SQL_Parameter> lpar,ref string Err)
         {
             return Con.ExecuteNonQuerySQL(sql, lpar, ref Err);
@@ -628,7 +633,7 @@ namespace DBSync
             }
 
 
-            Transaction transaction_MakeDataBaseConnection = new Transaction("MakeDataBaseConnection", MyTransactionLog_delegates);
+            Transaction transaction_MakeDataBaseConnection = NewTransaction("MakeDataBaseConnection");
             if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(parent, DBSync.RemoteDB_data, ref bNewDataBaseCreated, nav, ref bCanceled, MyDataBase_Tangenta.VERSION, transaction_MakeDataBaseConnection, MyTransactionLog_delegates))
             {
                 if (transaction_MakeDataBaseConnection.Commit())

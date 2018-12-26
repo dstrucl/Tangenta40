@@ -838,7 +838,7 @@ namespace Tangenta
             Form pform = Global.f.GetParentForm(this);
             ID m_usrc_ShopB_usrc_PriceList1_ID = null;
             ID m_usrc_ShopC_usrc_PriceList1_ID = null;
-            Transaction transaction_usrc_DocumentEditor_DocE_Init = new Transaction("usrc_DocumentEditor.DocE.Init", DBSync.DBSync.MyTransactionLog_delegates);
+            Transaction transaction_usrc_DocumentEditor_DocE_Init = DBSync.DBSync.NewTransaction("usrc_DocumentEditor.DocE.Init");
             if (DocE.Init(pform,
                             Document_ID,
                             ref m_usrc_ShopB_usrc_PriceList1_ID,
@@ -1008,7 +1008,7 @@ namespace Tangenta
         {
             if (PriseLists.usrc_PriceList.Ask_To_Update(chShop, dt_ShopB_Item_NotIn_PriceList, this))
             {
-                Transaction transaction_usrc_DocumentEditor_Insert_ShopB_Items_in_PriceList = new Transaction("usrc_DocumentEditor.Insert_ShopB_Items_in_PriceList", DBSync.DBSync.MyTransactionLog_delegates);
+                Transaction transaction_usrc_DocumentEditor_Insert_ShopB_Items_in_PriceList = DBSync.DBSync.NewTransaction("usrc_DocumentEditor.Insert_ShopB_Items_in_PriceList");
                 if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, this, transaction_usrc_DocumentEditor_Insert_ShopB_Items_in_PriceList))
                 {
                     if (transaction_usrc_DocumentEditor_Insert_ShopB_Items_in_PriceList.Commit())
@@ -1106,7 +1106,7 @@ namespace Tangenta
         private void btn_Issue_Click(object sender, EventArgs e)
         {
             Form pform = Global.f.GetParentForm(this);
-            Transaction transaction_usrc_DocumentEditor_btn_Issue_Click = new Transaction("usrc_DocumentEditor.btn_Issue_Click", DBSync.DBSync.MyTransactionLog_delegates);
+            Transaction transaction_usrc_DocumentEditor_btn_Issue_Click = DBSync.DBSync.NewTransaction("usrc_DocumentEditor.btn_Issue_Click");
             DocE.btn_Issue_Click(pform,
                                 usrc_AddOn1.Check_DocInvoice_AddOn,
                                 usrc_AddOn1.Get_Doc_AddOn,
@@ -1160,7 +1160,7 @@ namespace Tangenta
         private void chk_Storno_CheckedChanged(object sender, EventArgs e)
         {
             Form pform = Global.f.GetParentForm(this);
-            Transaction transaction_usrc_DocumentEditor_chk_Storno_CheckedChanged = new Transaction("usrc_DocumentEditor.chk_Storno_CheckedChanged", DBSync.DBSync.MyTransactionLog_delegates);
+            Transaction transaction_usrc_DocumentEditor_chk_Storno_CheckedChanged = DBSync.DBSync.NewTransaction("usrc_DocumentEditor.chk_Storno_CheckedChanged");
             DocE.Storno_CheckedChanged(pform,
                                        chk_Storno.Checked,
                                        txt_Number.Text,

@@ -169,7 +169,7 @@ namespace FiscalVerificationOfInvoices_SLO
                             xInvData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(furs_UniqeInvID);
                             xInvData.AddOnDI.m_FURS.FURS_QR_v = new string_v(furs_BarCodeValue);
                             xInvData.AddOnDI.m_FURS.FURS_Image_QRcode = img_QR;
-                            Transaction transaction_Dgvx_Invoice_Unsent_CellContentClick = new Transaction("Dgvx_Invoice_Unsent_CellContentClick", m_TransactionLog_Delegates);
+                            Transaction transaction_Dgvx_Invoice_Unsent_CellContentClick = new Transaction(m_TransactionLog_Delegates,"Dgvx_Invoice_Unsent_CellContentClick");
                             if (xInvData.AddOnDI.m_FURS.Update_FURS_Response_Data(xInvData.DocInvoice_ID, m_FVI_SLO.FursTESTEnvironment, transaction_Dgvx_Invoice_Unsent_CellContentClick))
                             {
                                 if (transaction_Dgvx_Invoice_Unsent_CellContentClick.Commit())

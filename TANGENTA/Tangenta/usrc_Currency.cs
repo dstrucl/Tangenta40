@@ -37,7 +37,7 @@ namespace Tangenta
                 Currency.Symbol = xcurrency.Symbol;
                 Currency.CurrencyCode = xcurrency.CurrencyCode;
                 Currency.DecimalPlaces = xcurrency.DecimalPlaces;
-                Transaction transaction_usrc_Currency_Init_f_Atom_Currency_Get = new Transaction("usrc_Currency.Init.f_Atom_Currency.Get", DBSync.DBSync.MyTransactionLog_delegates);
+                Transaction transaction_usrc_Currency_Init_f_Atom_Currency_Get = DBSync.DBSync.NewTransaction("usrc_Currency.Init.f_Atom_Currency.Get");
                 if (f_Atom_Currency.Get(Currency.ID, ref Atom_Currency_ID, transaction_usrc_Currency_Init_f_Atom_Currency_Get))
                 {
                     transaction_usrc_Currency_Init_f_Atom_Currency_Get.Commit();
@@ -96,7 +96,7 @@ namespace Tangenta
                 if (f_Currency.Get(Currency.ID,ref Currency.Abbreviation, ref Currency.Name,ref Currency.Symbol,ref xCurrencyCode,ref Currency.DecimalPlaces))
                 {
                     txt_Currency.Text = Currency.Abbreviation;
-                    Transaction transaction_usrc_Currency_Select_Currency_f_Atom_Currency_Get = new Transaction("usrc_Currency.Select_Currency.f_Atom_Currency.Get", DBSync.DBSync.MyTransactionLog_delegates);
+                    Transaction transaction_usrc_Currency_Select_Currency_f_Atom_Currency_Get = DBSync.DBSync.NewTransaction("usrc_Currency.Select_Currency.f_Atom_Currency.Get");
                     if (f_Atom_Currency.Get(Currency.ID,
                                             ref Atom_Currency_ID,
                                             transaction_usrc_Currency_Select_Currency_f_Atom_Currency_Get))

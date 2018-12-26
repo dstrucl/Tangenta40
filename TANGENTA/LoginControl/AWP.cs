@@ -70,7 +70,7 @@ namespace LoginControl
             pParentForm = xpParentForm;
             lctrl = xlctrl;
             AWP_func.con = xcon;
-            Transaction transaction_AWP_AWP_func_UpdateRoles = new Transaction("AWP.AWP_func.UpdateRoles", DBSync.DBSync.MyTransactionLog_delegates);
+            Transaction transaction_AWP_AWP_func_UpdateRoles = DBSync.DBSync.NewTransaction("AWP.AWP_func.UpdateRoles");
             if (AWP_func.UpdateRoles(awpd.AllRoles, transaction_AWP_AWP_func_UpdateRoles))
             {
                 if (!transaction_AWP_AWP_func_UpdateRoles.Commit())
@@ -210,7 +210,7 @@ eres_check:
                         }
                         if (dlgRes == DialogResult.OK)
                         {
-                            Transaction transaction_AWP_AWP_func_Import_myOrganisationPerson = new Transaction("AWP.AWP_func.Import_myOrganisationPerson", DBSync.DBSync.MyTransactionLog_delegates);
+                            Transaction transaction_AWP_AWP_func_Import_myOrganisationPerson = DBSync.DBSync.NewTransaction("AWP.AWP_func.Import_myOrganisationPerson");
                             if (AWP_func.Import_myOrganisationPerson(awpd, 
                                                                      frm_awp_mopt.drsImportAdministrator, 
                                                                      frm_awp_mopt.drsImportOthers,
@@ -254,7 +254,7 @@ eres_check:
                                             else
                                             {
                                                 ID Atom_WorkPeriod_ID = null;
-                                                Transaction transaction_GetWorkPeriodEx_LMO1User = new Transaction("GetWorkPeriodEx_LMO1User", DBSync.DBSync.MyTransactionLog_delegates);
+                                                Transaction transaction_GetWorkPeriodEx_LMO1User = DBSync.DBSync.NewTransaction("GetWorkPeriodEx_LMO1User");
                                                 if (LoginCtrl.GetWorkPeriodEx(LMO1User,
                                                               ref LMO1User.Atom_myOrganisation_Person_ID,
                                                               transaction_GetWorkPeriodEx_LMO1User
@@ -321,7 +321,7 @@ eres_check:
                                     }
                                 }
                                 ID xAtom_WorkPeriod_ID = null;
-                                Transaction transaction_GetWorkPeriodEx_LMO1User = new Transaction("GetWorkPeriodEx_LMO1User", DBSync.DBSync.MyTransactionLog_delegates);
+                                Transaction transaction_GetWorkPeriodEx_LMO1User = DBSync.DBSync.NewTransaction("GetWorkPeriodEx_LMO1User");
                                 if (LoginCtrl.GetWorkPeriodEx(LMO1User,
                                                             ref xAtom_WorkPeriod_ID,
                                                             transaction_GetWorkPeriodEx_LMO1User))

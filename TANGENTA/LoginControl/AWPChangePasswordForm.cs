@@ -32,7 +32,7 @@ namespace LoginControl
             {
                 if (txtPassword.Text.Equals(txtConfirmPassword.Text))
                 {
-                    Transaction transaction_AWPChangePasswordForm_btn_OK_Click_AWP_func_LoginUsers_UserChangeItsOwnPassword = new Transaction("AWPChangePasswordForm.btn_OK_Click.AWP_func.LoginUsers_UserChangeItsOwnPassword",DBSync.DBSync.MyTransactionLog_delegates);
+                    Transaction transaction_AWPChangePasswordForm_btn_OK_Click_AWP_func_LoginUsers_UserChangeItsOwnPassword = DBSync.DBSync.NewTransaction("AWPChangePasswordForm.btn_OK_Click.AWP_func.LoginUsers_UserChangeItsOwnPassword");
                     if (AWP_func.LoginUsers_UserChangeItsOwnPassword(m_LMOUser.awpld, LoginCtrl.CalculateSHA256(txtConfirmPassword.Text), transaction_AWPChangePasswordForm_btn_OK_Click_AWP_func_LoginUsers_UserChangeItsOwnPassword))
                     {
                         if (transaction_AWPChangePasswordForm_btn_OK_Click_AWP_func_LoginUsers_UserChangeItsOwnPassword.Commit())

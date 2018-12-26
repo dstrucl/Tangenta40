@@ -369,7 +369,7 @@ namespace ShopA
                 SetGridButtonCountry(this.dgvx_ShopA, e.RowIndex, e.ColumnIndex, PushButtonState.Normal);
                 if (dgvx_ShopA.Columns[e.ColumnIndex].Name.Equals(column_deselect))
                 {
-                    Transaction transaction_ShopA_ItemDeselect = new Transaction("ShopA_ItemDeselect", DBSync.DBSync.MyTransactionLog_delegates);
+                    Transaction transaction_ShopA_ItemDeselect = DBSync.DBSync.NewTransaction("ShopA_ItemDeselect");
                     if (ItemDeselect(e.RowIndex, transaction_ShopA_ItemDeselect))
                     {
                         transaction_ShopA_ItemDeselect.Commit();

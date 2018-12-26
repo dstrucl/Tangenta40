@@ -221,7 +221,7 @@ namespace PriseLists
 
                             sql = @" insert into Price_SimpleItem (SimpleItem_ID,PriceList_ID,Taxation_ID,RetailSimpleItemPrice,Discount) 
                                     select id," + ID.ToString() + "," + id_Taxation.ToString() + ",-1,0 from SimpleItem where ToOffer = 1";
-                            Transaction transaction_usrc_EditTable_PriceList_after_InsertInDataBase = new Transaction("usrc_EditTable_PriceList_after_InsertInDataBase", DBSync.DBSync.MyTransactionLog_delegates);
+                            Transaction transaction_usrc_EditTable_PriceList_after_InsertInDataBase = DBSync.DBSync.NewTransaction("usrc_EditTable_PriceList_after_InsertInDataBase");
                             if (transaction_usrc_EditTable_PriceList_after_InsertInDataBase.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
                             {
                                 transaction_usrc_EditTable_PriceList_after_InsertInDataBase.Commit();
@@ -265,7 +265,7 @@ namespace PriseLists
                         }
                         else
                         {
-                            Transaction transaction_usrc_EditTable_PriceList_after_InsertInDataBase = new Transaction("usrc_EditTable_PriceList_after_InsertInDataBase", DBSync.DBSync.MyTransactionLog_delegates);
+                            Transaction transaction_usrc_EditTable_PriceList_after_InsertInDataBase = DBSync.DBSync.NewTransaction("usrc_EditTable_PriceList_after_InsertInDataBase");
                             sql = @" insert into Price_Item (Item_ID,PriceList_ID,Taxation_ID,RetailPricePerUnit,Discount) 
                                             select id," + ID.ToString() + "," + id_Taxation.ToString() + ",-1,0 from Item where ToOffer = 1";
                             if (transaction_usrc_EditTable_PriceList_after_InsertInDataBase.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
@@ -656,7 +656,7 @@ namespace PriseLists
                             nav.eExitResult = evt;
                             if (usrc_EditTable_PriceList.Changed)
                             {
-                                Transaction transaction_usrc_EditTable_PriceList_Save = new Transaction("usrc_EditTablePriceList.Save", DBSync.DBSync.MyTransactionLog_delegates);
+                                Transaction transaction_usrc_EditTable_PriceList_Save = DBSync.DBSync.NewTransaction("usrc_EditTablePriceList.Save");
                                 if (usrc_EditTable_PriceList.Save(transaction_usrc_EditTable_PriceList_Save))
                                 {
                                     transaction_usrc_EditTable_PriceList_Save.Commit();

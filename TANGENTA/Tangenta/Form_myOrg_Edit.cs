@@ -128,7 +128,7 @@ namespace Tangenta
             {
                 if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1)== DialogResult.Yes)
                 {
-                    Transaction transaction_Form_myOrg_Edit_do_OK_usrc_EditRow_Save = new Transaction("Form_myOrg_Edit.do_OK.usrc_EditRow.Save", DBSync.DBSync.MyTransactionLog_delegates);
+                    Transaction transaction_Form_myOrg_Edit_do_OK_usrc_EditRow_Save = DBSync.DBSync.NewTransaction("Form_myOrg_Edit.do_OK.usrc_EditRow.Save");
                     if (usrc_EditRow.Save(transaction_Form_myOrg_Edit_do_OK_usrc_EditRow_Save))
                     {
                         if (transaction_Form_myOrg_Edit_do_OK_usrc_EditRow_Save.Commit())

@@ -414,7 +414,7 @@ namespace TangentaSampleDB
 
         public bool WriteMyOrg()
         {
-            Transaction transaction_WriteMyOrg = new Transaction("SampleDB_WriteMyOrg", DBSync.DBSync.MyTransactionLog_delegates);
+            Transaction transaction_WriteMyOrg = DBSync.DBSync.NewTransaction("SampleDB_WriteMyOrg");
             if (myOrgSample.Write(transaction_WriteMyOrg))
             {
                 if (transaction_WriteMyOrg.Commit())

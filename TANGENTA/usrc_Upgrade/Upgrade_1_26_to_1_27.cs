@@ -246,7 +246,7 @@ namespace UpgradeDB
         internal static object UpgradeDB_1_26_to_1_27(object obj, ref string Err)
         {
 
-            Transaction transaction_UpgradeDB_1_26_to_1_27 = new Transaction("UpgradeDB_1_26_to_1_27", DBSync.DBSync.MyTransactionLog_delegates);
+            Transaction transaction_UpgradeDB_1_26_to_1_27 = DBSync.DBSync.NewTransaction("UpgradeDB_1_26_to_1_27");
             cashierActivityList.Clear();
             if (DBSync.DBSync.Drop_VIEWs(ref Err, transaction_UpgradeDB_1_26_to_1_27))
             {

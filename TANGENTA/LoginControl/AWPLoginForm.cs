@@ -37,7 +37,7 @@ namespace LoginControl
         private void DoLogin()
         {
             this.cmbR_UserName.Set(this.cmbR_UserName.Text);
-            Transaction transaction_DoLogin_Login_Start = new Transaction("DoLogin_Login_Start", DBSync.DBSync.MyTransactionLog_delegates);
+            Transaction transaction_DoLogin_Login_Start = DBSync.DBSync.NewTransaction("DoLogin_Login_Start");
             switch (m_LMOUser.awpld.GetData(ref dtLoginUsers,cmbR_UserName.Text, AWP.awpd))
             {
                 case AWPLoginData.eGetDateResult.OK:
@@ -80,7 +80,7 @@ namespace LoginControl
                             {
                                 if (m_LMOUser.awpld.NotActiveAfterPasswordExpires)
                                 {
-                                    Transaction transaction_AWPLogiForm_AWP_func_DeactivateUserName = new Transaction("AWPLogiForm.AWP_func.DeactivateUserName", DBSync.DBSync.MyTransactionLog_delegates);
+                                    Transaction transaction_AWPLogiForm_AWP_func_DeactivateUserName = DBSync.DBSync.NewTransaction("AWPLogiForm.AWP_func.DeactivateUserName");
                                     if (AWP_func.DeactivateUserName(m_LMOUser.awpld.ID, transaction_AWPLogiForm_AWP_func_DeactivateUserName))
                                     {
                                         if (transaction_AWPLogiForm_AWP_func_DeactivateUserName.Commit())
@@ -98,7 +98,7 @@ namespace LoginControl
                                     AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(m_LMOUser, lng.s_PasswordExpiredSetNewPassword.s);
                                     if (change_pass_form.ShowDialog() == DialogResult.OK)
                                     {
-                                        Transaction transaction_AWPLoginForm_AWP_func_Remove_ChangePasswordOnFirstLogin = new Transaction("AWPLoginForm.AWP_func.Remove_ChangePasswordOnFirstLogin", DBSync.DBSync.MyTransactionLog_delegates);
+                                        Transaction transaction_AWPLoginForm_AWP_func_Remove_ChangePasswordOnFirstLogin = DBSync.DBSync.NewTransaction("AWPLoginForm.AWP_func.Remove_ChangePasswordOnFirstLogin");
                                         if (AWP_func.Remove_ChangePasswordOnFirstLogin(m_LMOUser.awpld, transaction_AWPLoginForm_AWP_func_Remove_ChangePasswordOnFirstLogin))
                                         {
                                             if (transaction_AWPLoginForm_AWP_func_Remove_ChangePasswordOnFirstLogin.Commit())

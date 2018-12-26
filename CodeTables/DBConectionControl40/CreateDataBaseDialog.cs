@@ -998,7 +998,7 @@ namespace DBConnectionControl40
 
 
 
-                Transaction transaction_CreateDataBaseDialog_btn_CreateDatabase_Click_CreateDatabase = new Transaction("CreateDataBaseDialog.btn_CreateDatabase_Click.CreateDatabase",m_TransactionLog_delegates);
+                Transaction transaction_CreateDataBaseDialog_btn_CreateDatabase_Click_CreateDatabase = new Transaction(m_TransactionLog_delegates,"CreateDataBaseDialog.btn_CreateDatabase_Click.CreateDatabase");
                 if (CreateDatabase(DBParam, transaction_CreateDataBaseDialog_btn_CreateDatabase_Click_CreateDatabase))
                 {
                     if (transaction_CreateDataBaseDialog_btn_CreateDatabase_Click_CreateDatabase.Commit())

@@ -299,7 +299,7 @@ namespace CodeTables.TableDocking_Form
                     if ((this.btn_Update.Visible) & (this.btn_Update.Enabled))
                     {
                         this.Cursor = Cursors.WaitCursor;
-                        Transaction transaction_usrc_EditRow_KeyPressed_UpdateDataBase = new Transaction("usrc_EditRow.KeyPressed.UpdateDataBase",m_TransactionLog_delegates);
+                        Transaction transaction_usrc_EditRow_KeyPressed_UpdateDataBase = new Transaction(m_TransactionLog_delegates,"usrc_EditRow.KeyPressed.UpdateDataBase");
                         if (UpdateDataBase(transaction_usrc_EditRow_KeyPressed_UpdateDataBase))
                         {
                             transaction_usrc_EditRow_KeyPressed_UpdateDataBase.Commit();
@@ -414,7 +414,7 @@ namespace CodeTables.TableDocking_Form
             {
                 InsertRandomData();
                 StringBuilder sDataBaseused = new StringBuilder("USE " + m_DBTables.Con.DataBase);
-                Transaction transaction_usrc_EditRow_WndProc_WM_USER_GENERATE_RANDOM_INPUT_InsertInDataBase_WithImportText = new Transaction("usrc_EditRow.WndProc.WM_USER_GENERATE_RANDOM_INPUT.InsertInDataBase_WithImportText",m_TransactionLog_delegates);
+                Transaction transaction_usrc_EditRow_WndProc_WM_USER_GENERATE_RANDOM_INPUT_InsertInDataBase_WithImportText = new Transaction(m_TransactionLog_delegates,"usrc_EditRow.WndProc.WM_USER_GENERATE_RANDOM_INPUT.InsertInDataBase_WithImportText");
                 if (Globals.InsertInDataBase_WithImportText(SetControls,
                                                             m_tbl,
                                                             m_DBTables,
@@ -533,7 +533,7 @@ namespace CodeTables.TableDocking_Form
         {
             this.Cursor = Cursors.WaitCursor;
             ID insertedRow_ID = null;
-            Transaction transaction_usrc_EditRow_btnInsertInDataBase_Click_InsertInDataBase = new Transaction("usrc.EditRow_btnInsertInDataBase_Click.InsertInDataBase",m_TransactionLog_delegates);
+            Transaction transaction_usrc_EditRow_btnInsertInDataBase_Click_InsertInDataBase = new Transaction( m_TransactionLog_delegates,"usrc.EditRow_btnInsertInDataBase_Click.InsertInDataBase");
             if (InsertInDataBase(ref insertedRow_ID,
                                 transaction_usrc_EditRow_btnInsertInDataBase_Click_InsertInDataBase))
             {
@@ -610,7 +610,7 @@ namespace CodeTables.TableDocking_Form
         private void btn_Update_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
-            Transaction transaction_usrc_EditRow_btn_Update_Click_UpdateDataBase = new Transaction("usrc_EditRow.btn_Update_Click.UpdateDataBase",m_TransactionLog_delegates);
+            Transaction transaction_usrc_EditRow_btn_Update_Click_UpdateDataBase = new Transaction(m_TransactionLog_delegates,"usrc_EditRow.btn_Update_Click.UpdateDataBase");
             if (UpdateDataBase(transaction_usrc_EditRow_btn_Update_Click_UpdateDataBase))
             {
                 transaction_usrc_EditRow_btn_Update_Click_UpdateDataBase.Commit();

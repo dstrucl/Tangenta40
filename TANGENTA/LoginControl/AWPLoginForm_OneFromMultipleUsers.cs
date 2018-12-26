@@ -101,7 +101,7 @@ namespace LoginControl
                             if (change_pass_form.ShowDialog() == DialogResult.OK)
                             {
 
-                                Transaction transaction_MultipleUsers_LoginStart = new Transaction("MultipleUsers_LoginStart", DBSync.DBSync.MyTransactionLog_delegates);
+                                Transaction transaction_MultipleUsers_LoginStart = DBSync.DBSync.NewTransaction("MultipleUsers_LoginStart");
                                 if (Login_Start(transaction_MultipleUsers_LoginStart))
                                 {
                                     if (transaction_MultipleUsers_LoginStart.Commit())
@@ -134,7 +134,7 @@ namespace LoginControl
                             {
                                 if (m_LMOUser.NotActiveAfterPasswordExpires)
                                 {
-                                    Transaction transaction_AWPLoginForm_OneFromMultipleUsers_AWP_func_DeactivateUserName = new Transaction("AWPLoginForm.OneFromMultipleUsers.AWP_func.DeactivateUserName", DBSync.DBSync.MyTransactionLog_delegates);
+                                    Transaction transaction_AWPLoginForm_OneFromMultipleUsers_AWP_func_DeactivateUserName = DBSync.DBSync.NewTransaction("AWPLoginForm.OneFromMultipleUsers.AWP_func.DeactivateUserName");
                                     if (AWP_func.DeactivateUserName(m_LMOUser.awpld.ID, transaction_AWPLoginForm_OneFromMultipleUsers_AWP_func_DeactivateUserName))
                                     {
                                         if (transaction_AWPLoginForm_OneFromMultipleUsers_AWP_func_DeactivateUserName.Commit())
@@ -152,13 +152,13 @@ namespace LoginControl
                                     AWPChangePasswordForm change_pass_form = new AWPChangePasswordForm(m_LMOUser, lng.s_PasswordExpiredSetNewPassword.s);
                                     if (change_pass_form.ShowDialog() == DialogResult.OK)
                                     {
-                                        Transaction transaction_AWPLoginForm_OneFromMultipleUsers_AWP_func_Remove_ChangePasswordOnFirstLogin = new Transaction("AWPLoginForm.OneFromMultipleUsers.AWP_func.Remove_ChangePasswordOnFirstLogin", DBSync.DBSync.MyTransactionLog_delegates);
+                                        Transaction transaction_AWPLoginForm_OneFromMultipleUsers_AWP_func_Remove_ChangePasswordOnFirstLogin = DBSync.DBSync.NewTransaction("AWPLoginForm.OneFromMultipleUsers.AWP_func.Remove_ChangePasswordOnFirstLogin");
                                         if (AWP_func.Remove_ChangePasswordOnFirstLogin(m_LMOUser.awpld, transaction_AWPLoginForm_OneFromMultipleUsers_AWP_func_Remove_ChangePasswordOnFirstLogin))
                                         {
                                             // change password dialog
                                             if (transaction_AWPLoginForm_OneFromMultipleUsers_AWP_func_Remove_ChangePasswordOnFirstLogin.Commit())
                                             {
-                                                Transaction transaction_MultipleUsers_LoginStart = new Transaction("MultipleUsers_LoginStart", DBSync.DBSync.MyTransactionLog_delegates);
+                                                Transaction transaction_MultipleUsers_LoginStart = DBSync.DBSync.NewTransaction("MultipleUsers_LoginStart");
                                                 if (Login_Start(transaction_MultipleUsers_LoginStart))
                                                 {
 
@@ -190,7 +190,7 @@ namespace LoginControl
                             {
                                 if (m_loginType == AWPLoginForm_OneFromMultipleUsers.LoginType.LOGIN)
                                 {
-                                    Transaction transaction_MultipleUsers_LoginStart = new Transaction("MultipleUsers_LoginStart", DBSync.DBSync.MyTransactionLog_delegates);
+                                    Transaction transaction_MultipleUsers_LoginStart = DBSync.DBSync.NewTransaction("MultipleUsers_LoginStart");
                                     if (Login_Start(transaction_MultipleUsers_LoginStart))
                                     {
                                         if (transaction_MultipleUsers_LoginStart.Commit())
@@ -212,7 +212,7 @@ namespace LoginControl
                                 }
                                 else
                                 {
-                                    Transaction transaction_MultipleUsers_Logout = new Transaction("MultipleUsers_Logout", DBSync.DBSync.MyTransactionLog_delegates);
+                                    Transaction transaction_MultipleUsers_Logout = DBSync.DBSync.NewTransaction("MultipleUsers_Logout");
                                     if (LoginControl.LoginCtrl.Logout(this.Atom_WorkPeriod_ID, transaction_MultipleUsers_Logout))
                                     {
                                         if (transaction_MultipleUsers_Logout.Commit())

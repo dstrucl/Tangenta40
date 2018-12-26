@@ -10,7 +10,7 @@ namespace UpgradeDB
     {
         internal static object UpgradeDB_1_14_to_1_15(object obj, ref string Err)
         {
-            Transaction transaction_UpgradeDB_1_14_to_1_15 = new Transaction("UpgradeDB_1_14_to_1_15", DBSync.DBSync.MyTransactionLog_delegates);
+            Transaction transaction_UpgradeDB_1_14_to_1_15 = DBSync.DBSync.NewTransaction("UpgradeDB_1_14_to_1_15");
 
             if (DBSync.DBSync.Drop_VIEWs(ref Err, transaction_UpgradeDB_1_14_to_1_15))
             {

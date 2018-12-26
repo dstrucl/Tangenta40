@@ -118,7 +118,7 @@ namespace ShopC
             {
                 if (XMessage.Box.Show(this, lng.s_YouHaveEnteredOrChangedDataButNotSavedThem_Save_YesNo, "", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-                    Transaction transaction_Form_ItemStock_Edit_FormClosing_m_usrc_EditTable_Save = new Transaction("Form_ItemStock_Edit_FormClosing.m_usrc_EditTable.Save",DBSync.DBSync.MyTransactionLog_delegates);
+                    Transaction transaction_Form_ItemStock_Edit_FormClosing_m_usrc_EditTable_Save = DBSync.DBSync.NewTransaction("Form_ItemStock_Edit_FormClosing.m_usrc_EditTable.Save");
                     if (m_usrc_EditTable.Save(transaction_Form_ItemStock_Edit_FormClosing_m_usrc_EditTable_Save))
                     {
                         transaction_Form_ItemStock_Edit_FormClosing_m_usrc_EditTable_Save.Commit();
@@ -167,7 +167,7 @@ namespace ShopC
                         }
                     }
                     ID JOURNAL_Stock_id = null;
-                    Transaction transaction_f_JOURNAL_Stock_Get = new Transaction("f_JOURNAL_Stock_Get", DBSync.DBSync.MyTransactionLog_delegates);
+                    Transaction transaction_f_JOURNAL_Stock_Get = DBSync.DBSync.NewTransaction("f_JOURNAL_Stock_Get");
                     if (f_JOURNAL_Stock.Get(m_Atom_WorkPeriod_ID,ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data, EventTime, dq, ref JOURNAL_Stock_id, transaction_f_JOURNAL_Stock_Get))
                     {
                         transaction_f_JOURNAL_Stock_Get.Commit();
@@ -203,7 +203,7 @@ namespace ShopC
                         }
                     }
                     ID JOURNAL_Stock_id = null;
-                    Transaction transaction_f_JOURNAL_Stock_Get = new Transaction("f_JOURNAL_Stock_Get", DBSync.DBSync.MyTransactionLog_delegates);
+                    Transaction transaction_f_JOURNAL_Stock_Get = DBSync.DBSync.NewTransaction("f_JOURNAL_Stock_Get");
                     if (f_JOURNAL_Stock.Get(m_Atom_WorkPeriod_ID,ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed, EventTime, dq, ref JOURNAL_Stock_id, transaction_f_JOURNAL_Stock_Get))
                     {
                         transaction_f_JOURNAL_Stock_Get.Commit();

@@ -18,7 +18,7 @@ namespace UpgradeDB
         private static Database_Upgrade_WindowsForm_Thread wfp_ui_thread = null;
         internal static object UpgradeDB_1_01_to_1_02(object obj, ref string Err)
         {
-            Transaction transaction_UpgradeDB_1_01_to_1_02 = new Transaction("UpgradeDB_1_01_to_1_02", DBSync.DBSync.MyTransactionLog_delegates);
+            Transaction transaction_UpgradeDB_1_01_to_1_02 = DBSync.DBSync.NewTransaction("UpgradeDB_1_01_to_1_02");
             wfp_ui_thread = new Database_Upgrade_WindowsForm_Thread();
             wfp_ui_thread.Start();
 

@@ -13,7 +13,7 @@ namespace UpgradeDB
     {
         internal static object UpgradeDB_1_00_to_1_01(object o, ref string Err)
         {
-            Transaction transaction_UpgradeDB_1_00_to_1_01 = new Transaction("UpgradeDB_1_00_to_1_01", DBSync.DBSync.MyTransactionLog_delegates);
+            Transaction transaction_UpgradeDB_1_00_to_1_01 = DBSync.DBSync.NewTransaction("UpgradeDB_1_00_to_1_01");
             SQLTable tbl_Logo = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Logo));
             if (transaction_UpgradeDB_1_00_to_1_01.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,tbl_Logo.sql_CreateTable, null, ref Err))
             {

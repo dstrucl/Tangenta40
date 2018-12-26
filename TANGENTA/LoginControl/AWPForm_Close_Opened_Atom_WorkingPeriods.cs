@@ -28,7 +28,7 @@ namespace LoginControl
 
         private void btn_Close_Opened_Atom_WorkingPeriods_Click(object sender, EventArgs e)
         {
-            Transaction transaction_btn_Close_Opened_Atom_WorkingPeriods_Click = new Transaction("btn_Close_Opened_Atom_WorkingPeriods_Click", DBSync.DBSync.MyTransactionLog_delegates);
+            Transaction transaction_btn_Close_Opened_Atom_WorkingPeriods_Click = DBSync.DBSync.NewTransaction("btn_Close_Opened_Atom_WorkingPeriods_Click");
             if (f_JOURNAL_Atom_WorkPeriod_TYPE.JOURNAL_Atom_WorkPeriod_TYPE_ID_WorkPeriodNotClosedInPreviousSession == null)
             {
                 if (f_JOURNAL_Atom_WorkPeriod_TYPE.Get_JOURNAL_Atom_WorkPeriod_TYPE_ID(transaction_btn_Close_Opened_Atom_WorkingPeriods_Click))

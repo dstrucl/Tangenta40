@@ -56,7 +56,7 @@ namespace DBConnectionControl40
             }
         }
 
-        public Transaction(string xname, TransactionLog_delegates xTransactionLog_delegates)
+        public Transaction(TransactionLog_delegates xTransactionLog_delegates,string xname)
         {
             name = xname;
             m_TransactionLog_delegates = xTransactionLog_delegates;

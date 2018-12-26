@@ -116,7 +116,7 @@ namespace ShopA
                 }
                 m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.Set(ID.Invalid);
                 ID DocInvoice_ShopA_Item_ID = null;
-                Transaction transaction_usrc_Editor1366x768_btn_AddNewLine_Click = new Transaction("usrc_Editor1366x768_btn_AddNewLine_Click", DBSync.DBSync.MyTransactionLog_delegates);
+                Transaction transaction_usrc_Editor1366x768_btn_AddNewLine_Click = DBSync.DBSync.NewTransaction("usrc_Editor1366x768_btn_AddNewLine_Click");
                 if (ShopA_dbfunc.dbfunc.insert(DocTyp,m_DocInvoice_ShopA_Item, ref DocInvoice_ShopA_Item_ID, transaction_usrc_Editor1366x768_btn_AddNewLine_Click))
                 {
                     // Add Row

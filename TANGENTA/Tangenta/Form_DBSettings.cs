@@ -142,7 +142,7 @@ namespace Tangenta
             if (usrc_Password1.Match())
             {
                 ID DBSettings_ID = null;
-                Transaction transaction_Form_DBSettings_do_OK = new Transaction("Form_DBSettings_do_OK", DBSync.DBSync.MyTransactionLog_delegates);
+                Transaction transaction_Form_DBSettings_do_OK = DBSync.DBSync.NewTransaction("Form_DBSettings_do_OK");
 
                 if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.AdminPassword.Name, usrc_Password1.Text, "0", ref DBSettings_ID, transaction_Form_DBSettings_do_OK))
                 {

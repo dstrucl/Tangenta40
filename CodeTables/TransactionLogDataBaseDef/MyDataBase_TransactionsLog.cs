@@ -54,7 +54,7 @@ namespace TransactionLogDataBaseDef
 
         public DBTableControl.enumDataBaseCheckResult CheckDatabase(Form pParentForm, ref string csError)
         {
-            Transaction transaction_CheckDatabase = new Transaction("CheckDatabase",null);
+            Transaction transaction_CheckDatabase = new Transaction(null,"CheckDatabase");
             DBTableControl.enumDataBaseCheckResult eres = m_DBTables.DataBaseCheck(ref csError, transaction_CheckDatabase);
             switch (eres)
             {

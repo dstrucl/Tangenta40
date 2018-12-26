@@ -271,7 +271,7 @@ namespace TangentaPrint
                     {
                         this.m_usrc_Invoice_Preview.html_doc_template_text = this.textEditorControl1.Text;
                         m_usrc_SelectPrintTemplate.Doc_v.v = fs.ConvertToByteArray(this.m_usrc_Invoice_Preview.html_doc_template_text);
-                        Transaction transaction_Form_PrintDocument_Update = new Transaction("Form_PrintDocument.Update", DBSync.DBSync.MyTransactionLog_delegates);
+                        Transaction transaction_Form_PrintDocument_Update = DBSync.DBSync.NewTransaction("Form_PrintDocument.Update");
                         
                         if (f_doc.Update(Doc_ID,
                                      m_usrc_SelectPrintTemplate.doc_TemplateName,
@@ -298,7 +298,7 @@ namespace TangentaPrint
                     {
                         this.m_usrc_Invoice_Preview.html_doc_template_text = this.textEditorControl1.Text;
                         m_usrc_SelectPrintTemplate.Doc_v.v = fs.ConvertToByteArray(this.m_usrc_Invoice_Preview.html_doc_template_text);
-                        Transaction transaction_Form_PrintDocument_SaveTemplate_f_doc_ExistsResult_NOT_FOUND_f_doc_Get = new Transaction("Form_PrintDocument_SaveTemplate.f_doc.ExistsResult_NOT_FOUND.f_doc.Get", DBSync.DBSync.MyTransactionLog_delegates);
+                        Transaction transaction_Form_PrintDocument_SaveTemplate_f_doc_ExistsResult_NOT_FOUND_f_doc_Get = DBSync.DBSync.NewTransaction("Form_PrintDocument_SaveTemplate.f_doc.ExistsResult_NOT_FOUND.f_doc.Get");
                         if (f_doc.Get(m_usrc_SelectPrintTemplate.doc_TemplateName,
                                         m_usrc_SelectPrintTemplate.doc_TemplateDescription,
                                         m_usrc_SelectPrintTemplate.Doc_v.v,

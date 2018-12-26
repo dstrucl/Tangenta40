@@ -125,7 +125,7 @@ namespace Tangenta
             {
                 if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    Transaction transaction_Form_OrganisationAccount_Edit_btn_OK_Click_usrc_EditTable_Save = new Transaction("Form_OrganisationAccount_Edit.btn_OK_Click.usrc_EditTable.Save", DBSync.DBSync.MyTransactionLog_delegates);
+                    Transaction transaction_Form_OrganisationAccount_Edit_btn_OK_Click_usrc_EditTable_Save = DBSync.DBSync.NewTransaction("Form_OrganisationAccount_Edit.btn_OK_Click.usrc_EditTable.Save");
                     if (usrc_EditTable.Save(transaction_Form_OrganisationAccount_Edit_btn_OK_Click_usrc_EditTable_Save))
                     {
                         if (!transaction_Form_OrganisationAccount_Edit_btn_OK_Click_usrc_EditTable_Save.Commit())
@@ -150,7 +150,7 @@ namespace Tangenta
             {
                 if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-                    Transaction transaction_Form_OrganisationAccount_Edit_btn_Cancel_Click_usrc_EditTable_Save = new Transaction("Form_OrganisationAccount_Edit.btn_Cancel_Click.usrc_EditTable.Save", DBSync.DBSync.MyTransactionLog_delegates);
+                    Transaction transaction_Form_OrganisationAccount_Edit_btn_Cancel_Click_usrc_EditTable_Save = DBSync.DBSync.NewTransaction("Form_OrganisationAccount_Edit.btn_Cancel_Click.usrc_EditTable.Save");
                     if (usrc_EditTable.Save(transaction_Form_OrganisationAccount_Edit_btn_Cancel_Click_usrc_EditTable_Save))
                     {
                         if (!transaction_Form_OrganisationAccount_Edit_btn_Cancel_Click_usrc_EditTable_Save.Commit())

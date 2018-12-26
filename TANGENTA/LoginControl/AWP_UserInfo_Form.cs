@@ -183,7 +183,7 @@ namespace LoginControl
             awpld.UserName = txtUserName.Text;
             if (usrc_PasswordBytes1.GetPassword(ref awpld.Password))
             {
-                Transaction transaction_AWP_UserInfo_Form_UpdateAWPLoginData_AWP_func_Update_LoginUsers_ID = new Transaction("AWP_UserInfo_Form.UpdateAWPLoginData.AWP_func.Update_LoginUsers_ID", DBSync.DBSync.MyTransactionLog_delegates);
+                Transaction transaction_AWP_UserInfo_Form_UpdateAWPLoginData_AWP_func_Update_LoginUsers_ID = DBSync.DBSync.NewTransaction("AWP_UserInfo_Form.UpdateAWPLoginData.AWP_func.Update_LoginUsers_ID");
                 bRes = AWP_func.Update_LoginUsers_ID(awpld, usrc_PasswordBytes1.Changed, transaction_AWP_UserInfo_Form_UpdateAWPLoginData_AWP_func_Update_LoginUsers_ID);
                 if (bRes)
                 {

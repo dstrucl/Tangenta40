@@ -227,7 +227,7 @@ namespace Tangenta
 
         private void btn_Yes_Click(object sender, EventArgs e)
         {
-            Transaction transaction_Form_Customer_Person_Assign_GetCustomerPerson = new Transaction("Form_Customer_Person_Assign.GetCustomerPerson", DBSync.DBSync.MyTransactionLog_delegates);
+            Transaction transaction_Form_Customer_Person_Assign_GetCustomerPerson = DBSync.DBSync.NewTransaction("Form_Customer_Person_Assign.GetCustomerPerson");
             if (GetCustomerPerson(transaction_Form_Customer_Person_Assign_GetCustomerPerson))
             {
                 transaction_Form_Customer_Person_Assign_GetCustomerPerson.Commit();

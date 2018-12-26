@@ -44,7 +44,7 @@ namespace DBSync
                 DBSync.LocalDB_data_SQLite = new LocalDB_data(bReset, inifile_prefix, 1, DataBaseName, false);
             }
             string Err = null;
-            Transaction transaction_Check_DataBaseConnection_MakeDataBaseConnection = new Transaction("Check_DataBaseConnection.MakeDataBaseConnection", DBSync.MyTransactionLog_delegates);
+            Transaction transaction_Check_DataBaseConnection_MakeDataBaseConnection = DBSync.NewTransaction("Check_DataBaseConnection.MakeDataBaseConnection");
             if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(nav.parentForm,
                                                                          DBSync.LocalDB_data_SQLite,
                                                                          ref bNewDataBaseCreated,
@@ -157,7 +157,7 @@ namespace DBSync
 
             if (bChangeConnection)
             {
-                Transaction transaction_CreateNewDataBaseConnection = new Transaction("CreateNewDataBaseConnection", DBSync.MyTransactionLog_delegates);
+                Transaction transaction_CreateNewDataBaseConnection = DBSync.NewTransaction("CreateNewDataBaseConnection");
                 if (DBSync.DB_for_Tangenta.m_DBTables.CreateNewDataBaseConnection(DBSync.LocalDB_data_SQLite,true, nav, ref bCanceled, dbVersion, transaction_CreateNewDataBaseConnection, DBSync.MyTransactionLog_delegates))
                 {
                     if (transaction_CreateNewDataBaseConnection.Commit())
@@ -190,7 +190,7 @@ namespace DBSync
             }
             else
             {
-                Transaction transaction_MakeDataBaseConnection = new Transaction("MakeDataBaseConnection", DBSync.MyTransactionLog_delegates);
+                Transaction transaction_MakeDataBaseConnection = DBSync.NewTransaction("MakeDataBaseConnection");
                 if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(nav.parentForm, DBSync.LocalDB_data_SQLite, ref bNewDataBaseCreated, nav, ref bCanceled, dbVersion, transaction_MakeDataBaseConnection, DBSync.MyTransactionLog_delegates))
                 {
                     if (transaction_MakeDataBaseConnection.Commit())

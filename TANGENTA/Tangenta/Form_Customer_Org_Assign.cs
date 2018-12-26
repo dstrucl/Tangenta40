@@ -178,7 +178,7 @@ namespace Tangenta
 
         private void btn_Yes_Click(object sender, EventArgs e)
         {
-            Transaction transaction_Form_Customer_Org_Assign_btn_Yes_Click = new Transaction("btn_Yes_Click", DBSync.DBSync.MyTransactionLog_delegates);
+            Transaction transaction_Form_Customer_Org_Assign_btn_Yes_Click = DBSync.DBSync.NewTransaction("btn_Yes_Click");
             if (GetCustomerOrganisation(transaction_Form_Customer_Org_Assign_btn_Yes_Click))
             {
                 transaction_Form_Customer_Org_Assign_btn_Yes_Click.Commit();

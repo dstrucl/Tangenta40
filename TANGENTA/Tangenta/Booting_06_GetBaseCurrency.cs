@@ -75,7 +75,7 @@ namespace Tangenta
 
         internal bool Startup_06_set_DefaultCurrency(Form_Select_DefaultCurrency sel_basecurrency_dlg, ref string Err)
         {
-            Transaction transaction_Startup_06_set_DefaultCurrency = new Transaction("Startup_06_set_DefaultCurrency", DBSync.DBSync.MyTransactionLog_delegates);
+            Transaction transaction_Startup_06_set_DefaultCurrency = DBSync.DBSync.NewTransaction("Startup_06_set_DefaultCurrency");
             if (GlobalData.InsertIntoBaseCurrency(sel_basecurrency_dlg.Currency_ID, ref Err, transaction_Startup_06_set_DefaultCurrency))
             {
                 if (transaction_Startup_06_set_DefaultCurrency.Commit())

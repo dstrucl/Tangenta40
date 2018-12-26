@@ -281,7 +281,7 @@ namespace LoginControl
                 {
                     List<STDRole> roles = new List<STDRole>();
                     MakeListOfSTDRoles(ref roles);
-                    Transaction transaction_STD_UserManager_Write_LoginUsersAndLoginSTDRoles = new Transaction("STD_UserManager.Write_LoginUsersAndLoginSTDRoles", DBSync.DBSync.MyTransactionLog_delegates);
+                    Transaction transaction_STD_UserManager_Write_LoginUsersAndLoginSTDRoles = DBSync.DBSync.NewTransaction("STD_UserManager.Write_LoginUsersAndLoginSTDRoles");
                     if (Write_LoginUsersAndLoginSTDRoles(New_LoginUsers_id, roles, ref Err, transaction_STD_UserManager_Write_LoginUsersAndLoginSTDRoles))
                     {
                         if (transaction_STD_UserManager_Write_LoginUsersAndLoginSTDRoles.Commit())
@@ -639,7 +639,7 @@ namespace LoginControl
                     bool bActive = chk_Active.Checked;
 
                     string Err = null;
-                    Transaction transaction_STD_UserManager_DoChangeData_Write_LoginUsersAndLoginSTDRoles = new Transaction("STD_UserManager.DoChangeData.Write_LoginUsersAndLoginSTDRoles", DBSync.DBSync.MyTransactionLog_delegates);
+                    Transaction transaction_STD_UserManager_DoChangeData_Write_LoginUsersAndLoginSTDRoles = DBSync.DBSync.NewTransaction("STD_UserManager.DoChangeData.Write_LoginUsersAndLoginSTDRoles");
                     if (Write_LoginUsersAndLoginSTDRoles(LoginUsers.o_id.id_, userdata.m_Roles, ref Err, transaction_STD_UserManager_DoChangeData_Write_LoginUsersAndLoginSTDRoles))
                     {
                         if (transaction_STD_UserManager_DoChangeData_Write_LoginUsersAndLoginSTDRoles.Commit())

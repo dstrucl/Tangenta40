@@ -88,7 +88,7 @@ namespace Tangenta
                     string Err = null;
                     string sql = @" insert into PurchasePrice_Item (Item_ID,PurchasePrice_ID,Taxation_ID,PurchasePricePerUnit,Discount) 
                                 select id," + xID.ToString() + "," + id_Taxation.ToString() + ",-1,0 from Item where ToOffer = 1";
-                    Transaction transaction_usrc_EditTable_PurchasePrice_after_InsertInDataBase = new Transaction("usrc_EditTable_PurchasePrice_after_InsertInDataBase", DBSync.DBSync.MyTransactionLog_delegates);
+                    Transaction transaction_usrc_EditTable_PurchasePrice_after_InsertInDataBase = DBSync.DBSync.NewTransaction("usrc_EditTable_PurchasePrice_after_InsertInDataBase");
                     if (transaction_usrc_EditTable_PurchasePrice_after_InsertInDataBase.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
                     {
                         if (transaction_usrc_EditTable_PurchasePrice_after_InsertInDataBase.Commit())
@@ -172,7 +172,7 @@ namespace Tangenta
 
                             sql = @" insert into PurchasePrice_Item (Item_ID,PriceList_ID,Taxation_ID,PurchasePricePerUnit) 
                                                         select id," + PriceList_ID.ToString() + "," + id_Taxation.ToString() + ",-1 from Item where ToOffer = 1";
-                            Transaction transaction_Edit_PurchasePrice_Item = new Transaction("Edit_PurchasePrice_Item", DBSync.DBSync.MyTransactionLog_delegates);
+                            Transaction transaction_Edit_PurchasePrice_Item = DBSync.DBSync.NewTransaction("Edit_PurchasePrice_Item");
                             if (transaction_Edit_PurchasePrice_Item.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
                             {
                                 if (transaction_Edit_PurchasePrice_Item.Commit())

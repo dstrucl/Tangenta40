@@ -152,7 +152,7 @@ namespace ShopC
             {
                 if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    Transaction transaction_Form_ShopC_Item_Edit_do_OK_usrc_EditTable_Save = new Transaction("Form_ShopC_Item_Edit.do_OK.usrc_EditTable.Save", DBSync.DBSync.MyTransactionLog_delegates);
+                    Transaction transaction_Form_ShopC_Item_Edit_do_OK_usrc_EditTable_Save = DBSync.DBSync.NewTransaction("Form_ShopC_Item_Edit.do_OK.usrc_EditTable.Save");
                     if (usrc_EditTable.Save(transaction_Form_ShopC_Item_Edit_do_OK_usrc_EditTable_Save))
                     {
                         transaction_Form_ShopC_Item_Edit_do_OK_usrc_EditTable_Save.Commit();
@@ -229,7 +229,7 @@ namespace ShopC
                 {
                     if (PriseLists.usrc_PriceList.Ask_To_Update('C', dt_ShopC_Item_NotIn_PriceList, this))
                     {
-                        Transaction transaction_Form_ShopC_Item_Edit_f_PriceList_Insert_ShopC_Items_in_PriceList = new Transaction("Form_ShopC_Item_Edit.f_PriceList.Insert_ShopC_Items_in_PriceList", DBSync.DBSync.MyTransactionLog_delegates);
+                        Transaction transaction_Form_ShopC_Item_Edit_f_PriceList_Insert_ShopC_Items_in_PriceList = DBSync.DBSync.NewTransaction("Form_ShopC_Item_Edit.f_PriceList.Insert_ShopC_Items_in_PriceList");
                         if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this, transaction_Form_ShopC_Item_Edit_f_PriceList_Insert_ShopC_Items_in_PriceList))
                         {
                             transaction_Form_ShopC_Item_Edit_f_PriceList_Insert_ShopC_Items_in_PriceList.Commit();
