@@ -108,9 +108,43 @@ namespace TransactionLogDataBaseDef
                         {
                             foreach (TransactionSQLCommand tsql in transaction.TransactionSQLCommandList)
                             {
-                                lpar.Clear();
+                                ID commandText_ID = null;
+                                if (GetCommandTextID(transaction_commit,tsql.SQLtext,ref commandText_ID))
                                 {
-                                    tsql
+                                    tsql.IDnew = commandText_ID;
+                                    lpar.Clear();
+                                    string spar_transactionLog_ID = "@par_transactionLog_ID";
+                                    SQL_Parameter par_transactionLog_ID = new SQL_Parameter(spar_transactionLog_ID, false, transactionLog_ID);
+                                    lpar.Add(par_transactionLog_ID);
+
+
+                                    string spar_CommandText_ID = "@par_CommandText_ID";
+                                    SQL_Parameter par_CommandText_ID = new SQL_Parameter(spar_CommandText_ID, false, commandText_ID);
+                                    lpar.Add(par_CommandText_ID);
+
+                                    string spar_ExecutionStart = "@par_ExecutionStart";
+                                    SQL_Parameter par_ExecutionStart = new SQL_Parameter(spar_ExecutionStart, SQL_Parameter.eSQL_Parameter.Datetime, false, tsql.ExecutionStart);
+                                    lpar.Add(par_ExecutionStart);
+
+                                    string spar_ExecutionEnd = "@par_ExecutionEnd";
+                                    SQL_Parameter par_ExecutionEnd = new SQL_Parameter(spar_ExecutionEnd, SQL_Parameter.eSQL_Parameter.Datetime, false, tsql.ExecutionEnd);
+                                    lpar.Add(par_ExecutionEnd);
+                                    ID sQLCommand_ID = null;
+                                    sql = "insert into SQLCommand (TransactionLog_ID,CommandText_ID,ExecutionStart,ExecutionEnd,Error)values(" + spar_transactionLog_ID + ","
+                                        + spar_CommandText_ID + ","
+                                        + spar_ExecutionStart + ","
+                                        + par_ExecutionEnd + ",null)";
+                                    if (transaction_commit.ExecuteNonQuerySQLReturnID(m_DBTables.Con, sql, lpar, ref sQLCommand_ID, ref err, "SQLCommand"))
+                                    {
+
+
+                                    }
+                                    else
+                                    {
+                                        transaction_commit.Rollback();
+                                        LogFile.Error.Show("ERROR:TransactionLogDataBaseDef:MyDataBase_TransactionsLog:WriteTransactionLog_Commit:Error=" + err + "\r\nSql=" + sql);
+                                        return false;
+                                    }
                                 }
                             }
                         }
@@ -121,12 +155,11 @@ namespace TransactionLogDataBaseDef
                         LogFile.Error.Show("ERROR:TransactionLogDataBaseDef:MyDataBase_TransactionsLog:WriteTransactionLog_Commit:Error=" + err + "\r\nSql=" + sql);
                         return false;
                     }
-                    {
-                        transaction_commit.Rollback();
-                    }
                 }
                 else
                 {
+                    transaction_commit.Rollback();
+                    LogFile.Error.Show("ERROR:TransactionLogDataBaseDef:MyDataBase_TransactionsLog:WriteTransactionLog_Commit:Error=" + err + "\r\nSql=" + sql);
                     return false;
                 }
             }
@@ -136,10 +169,44 @@ namespace TransactionLogDataBaseDef
                 LogFile.Error.Show("ERROR:TransactionLogDataBaseDef:MyDataBase_TransactionsLog:WriteTransactionLog_Commit:Error=" + err + "\r\nSql=" + sql);
                 return false;
             }
-
-
         }
 
+        private bool GetCommandTextID(Transaction transaction,string sQLtext,ref ID commandText_ID)
+        {
+            string err = null;
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_SQLText = "@par_SQLText";
+            SQL_Parameter par_SQLText = new SQL_Parameter(spar_SQLText, SQL_Parameter.eSQL_Parameter.Varchar, false, sQLtext);
+            lpar.Add(par_SQLText);
+            string sql = "select ID form CommandText where SQLText = " + spar_SQLText;
+            DataTable dt = new DataTable();
+            if (m_DBTables.Con.ReadDataTable(ref dt, sql,lpar, ref err))
+            {
+                if (dt.Rows.Count>0)
+                {
+                    commandText_ID = DBTypes.tf.set_ID(dt.Rows[0]["ID"]);
+                    return true;
+                }
+                else
+                {
+                    sql = "insert into CommandText (SQLText)values(" + spar_SQLText + ")";
+                    if (transaction.ExecuteNonQuerySQLReturnID(m_DBTables.Con,sql,lpar,ref commandText_ID,ref err, "CommandText"))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:TransactionLogDataBaseDef:MyDataBase_TransactionsLog:GetCommandTextID: err=" + err + "\r\nsql=" + sql);
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TransactionLogDataBaseDef:MyDataBase_TransactionsLog:GetCommandTextID: err=" + err + "\r\nsql=" + sql);
+                return false;
+            }
+        }
 
         public bool WriteTransactionLog_Rollback(Transaction transaction)
         {

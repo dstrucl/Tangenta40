@@ -29,6 +29,10 @@ namespace DBConnectionControl40
             {
                 return m_idnew;
             }
+            set
+            {
+                m_idnew = value;
+            }
         }
 
         private bool m_result = false;
@@ -49,6 +53,25 @@ namespace DBConnectionControl40
             }
         }
 
+        private DateTime m_ExecutionStart = DateTime.MinValue;
+
+        public DateTime ExecutionStart
+        {
+            get
+            {
+                return m_ExecutionStart;
+            }
+        }
+
+        private DateTime m_ExecutionEnd = DateTime.MinValue;
+
+        public DateTime ExecutionEnd
+        {
+            get
+            {
+                return m_ExecutionEnd;
+            }
+        }
 
         public List<p_Int> p_Int_list = null;
         public List<p_Decimal> p_Decimal_list = null;
@@ -63,10 +86,12 @@ namespace DBConnectionControl40
         public List<p_VarBinary> p_VarBinary_list = null;
 
 
-        public TransactionSQLCommand(string xSQLtext, List<SQL_Parameter> lpar, ID xidnew, bool bResult, string xerr)
+        public TransactionSQLCommand(string xSQLtext, List<SQL_Parameter> lpar, ID xidnew,DateTime executionStart,DateTime executionEnd, bool bResult, string xerr)
         {
             m_SQLtext = xSQLtext;
             m_idnew = xidnew;
+            m_ExecutionStart = executionStart;
+            m_ExecutionEnd = executionEnd;
             m_result = bResult;
             m_Error = xerr;
             if (lpar!=null)

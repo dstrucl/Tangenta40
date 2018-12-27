@@ -233,8 +233,10 @@ namespace DBConnectionControl40
         {
             if (GetTransaction(con))
             {
+                DateTime executionStart = DateTime.Now;
                 bool bresult = con.ExecuteNonQuerySQL(sql, lpar, ref err);
-                writeTransactionLogExecute(sql, lpar, bresult, null, true, err);
+                DateTime executionEnd = DateTime.Now;
+                writeTransactionLogExecute(sql, lpar, bresult, null, executionStart, executionEnd, true, err);
                 return bresult;
             }
             else
@@ -247,8 +249,10 @@ namespace DBConnectionControl40
         {
             if (GetTransaction(con))
             {
+                DateTime executionStart = DateTime.Now;
                 bool bresult = con.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref err, table_name);
-                writeTransactionLogExecute(sql, lpar, bresult, id, true, err);
+                DateTime executionEnd = DateTime.Now;
+                writeTransactionLogExecute(sql, lpar, bresult, id, executionStart, executionEnd, true, err);
 
                 return bresult;
             }
@@ -259,9 +263,9 @@ namespace DBConnectionControl40
 
         }
 
-        private void writeTransactionLogExecute(string sql, List<SQL_Parameter> lpar, bool bresult, ID id, bool result, string err)
+        private void writeTransactionLogExecute(string sql, List<SQL_Parameter> lpar, bool bresult, ID id,DateTime executionStart,DateTime executionEnd, bool result, string err)
         {
-            TransactionSQLCommand xTransactionSQLCommand = new TransactionSQLCommand(sql, lpar, id, result, err);
+            TransactionSQLCommand xTransactionSQLCommand = new TransactionSQLCommand(sql, lpar, id, executionStart, executionEnd, result, err);
             if (TransactionSQLCommandList==null)
             {
                 TransactionSQLCommandList = new List<TransactionSQLCommand>();
@@ -282,8 +286,10 @@ namespace DBConnectionControl40
         {
             if (GetTransaction(con))
             {
+                DateTime executionStart = DateTime.Now;
                 bool bresult = con.ExecuteNonQuerySQL(sql, lpar, ref err);
-                writeTransactionLogExecute(sql, lpar, bresult, null, true, err);
+                DateTime executionEnd = DateTime.Now;
+                writeTransactionLogExecute(sql, lpar, bresult, null, executionStart, executionEnd, true, err);
                 return bresult;
             }
             else
@@ -301,8 +307,10 @@ namespace DBConnectionControl40
         {
             if (GetTransaction(m_con))
             {
+                DateTime ExecutionStart = DateTime.Now;
                 bool bresult =  m_con.ExecuteScalarReturnID(sbsqlUpdate, sqlParamList, ref newID, ref csError, tableName);
-                writeTransactionLogExecute(sbsqlUpdate.ToString(), sqlParamList, bresult, newID, true, csError);
+                DateTime ExecutionEnd = DateTime.Now;
+                writeTransactionLogExecute(sbsqlUpdate.ToString(), sqlParamList, bresult, newID, ExecutionStart, ExecutionEnd, true, csError);
                 return bresult;
             }
             else

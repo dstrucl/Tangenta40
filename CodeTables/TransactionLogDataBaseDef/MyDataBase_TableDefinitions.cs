@@ -132,7 +132,7 @@ namespace TransactionLogDataBaseDef
             t_SQLCommand.AddColumn((Object)mt.m_SQLCommand.m_CommandText, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SQL ID", "SQL ID"));
             t_SQLCommand.AddColumn((Object)mt.m_SQLCommand.ExecutionStart, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Execution start", "Začetek"));
             t_SQLCommand.AddColumn((Object)mt.m_SQLCommand.ExecutionEnd, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Execution end", "Konec"));
-            t_SQLCommand.AddColumn((Object)mt.m_SQLCommand.Error, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Error", "Napaka"));
+            t_SQLCommand.AddColumn((Object)mt.m_SQLCommand.Error, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Error", "Napaka"));
             m_DBTables.items.Add(t_SQLCommand);
 
             /* 5 */

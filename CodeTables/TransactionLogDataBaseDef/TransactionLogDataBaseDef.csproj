@@ -53,6 +53,10 @@
       <Project>{322af3bf-b609-477d-9d2b-39a9bbbbc721}</Project>
       <Name>DBConnectionControl40</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DBTypes\DBTypes.csproj">
+      <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
+      <Name>DBTypes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SQLTableControl\CodeTables.csproj">
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
       <Name>CodeTables</Name>
