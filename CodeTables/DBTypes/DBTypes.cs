@@ -818,6 +818,44 @@ namespace DBTypes
 
     }
 
+    public class DB_float : ValSet
+    {
+        private float m_val = new float();
+        public float val
+        {
+            get { return m_val; }
+
+            set
+            {
+                m_val = value;
+                this.defined = true;
+            }
+        }
+        public decimal_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
+        public void set(object o)
+        {
+            this.type_v = null;
+            if (o == null) return;
+            if (o is decimal)
+            {
+                this.type_v = new decimal_v((decimal)o);
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
+            }
+        }
+
+    }
     public class DB_decimal : ValSet
     {
         private decimal m_val = new decimal();
@@ -857,6 +895,7 @@ namespace DBTypes
 
     }
 
+    
     public class DB_Percent : ValSet
     {
         private decimal m_val = new decimal();

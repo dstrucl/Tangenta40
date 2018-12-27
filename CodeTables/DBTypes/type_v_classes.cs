@@ -538,6 +538,81 @@ namespace DBTypes
         }
     }
 
+    public class float_v
+    {
+        public float v;
+
+        public float_v()
+        {
+        }
+
+        public float_v(float d)
+        {
+            v = d;
+        }
+
+
+        public static float_v Copy(float_v o_v)
+        {
+            if (o_v != null)
+            {
+                return o_v.Clone();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
+        public float_v Clone()
+        {
+            float_v o_v = new float_v();
+            o_v.v = this.v;
+            return o_v;
+        }
+    }
+
+    public class dfloat_v : float_v
+    {
+        private bool m_defined = false;
+        public bool defined
+        {
+            get { return m_defined; }
+            set { m_defined = value; }
+        }
+
+        public dfloat_v()
+        {
+        }
+
+        public dfloat_v(float d)
+        {
+            v = d;
+            m_defined = true;
+        }
+
+        public static dfloat_v Copy(dfloat_v o_v)
+        {
+            if (o_v != null)
+            {
+                return o_v.Clone();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public new dfloat_v Clone()
+        {
+            dfloat_v o_v = new dfloat_v();
+            o_v.v = this.v;
+            o_v.defined = this.m_defined;
+            return o_v;
+        }
+    }
+
     public class string_v
     {
         public string v;

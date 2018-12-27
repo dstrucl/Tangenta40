@@ -234,6 +234,7 @@
     </Compile>
     <Compile Include="transaction.cs" />
     <Compile Include="TransactionLog_delegates.cs" />
+    <Compile Include="TransactionSQLCommand.cs" />
     <Compile Include="View_AccessRights_Form.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -65,6 +65,10 @@
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UTIL\LogFile\LogFile.csproj">
+      <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
+      <Name>LogFile</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

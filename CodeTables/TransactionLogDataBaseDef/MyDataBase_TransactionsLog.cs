@@ -18,7 +18,6 @@ namespace TransactionLogDataBaseDef
 
         public DBTableControl m_DBTables = null;
 
-        public DBTableControl m_DBLogTables = null;
 
         public TransactionLog_delegates MyTransactionLog_delegates = null;
 
@@ -35,8 +34,8 @@ namespace TransactionLogDataBaseDef
 
             Define_SQL_Database_Tables();
 
-            MyTransactionLog_delegates = new TransactionLog_delegates(WriteTransactionLog_BeginTransaction,
-                                                                      WriteTransactionLogExecute,
+            MyTransactionLog_delegates = new TransactionLog_delegates(/*WriteTransactionLog_BeginTransaction,
+                                                                      WriteTransactionLogExecute,*/
                                                                       WriteTransactionLog_Commit,
                                                                       WriteTransactionLog_Rollback);
         }

@@ -10,6 +10,8 @@ namespace DBConnectionControl40
     {
         internal ID Transaction_ID = null;
 
+        public List<TransactionSQLCommand> TransactionSQLCommandList = null;
+
         private TransactionLog_delegates m_TransactionLog_delegates = null;
 
         private DBConnection mcon = null;
@@ -40,6 +42,46 @@ namespace DBConnectionControl40
             set
             {
                 name = value;
+            }
+        }
+
+        private DateTime m_CreationTime = DateTime.Now;
+
+        public DateTime CreationTime
+        {
+            get
+            {
+                return m_CreationTime;
+            }
+        }
+
+        private DateTime m_ActivationTime = DateTime.MinValue;
+
+        public DateTime ActivationTime
+        {
+            get
+            {
+                return m_ActivationTime;
+            }
+        }
+
+        private DateTime m_CommitTime = DateTime.MinValue;
+
+        public DateTime CommitTime
+        {
+            get
+            {
+                return m_CommitTime;
+            }
+        }
+
+        private DateTime m_RollBackTime = DateTime.MinValue;
+
+        public DateTime RollBackTime
+        {
+            get
+            {
+                return m_RollBackTime;
             }
         }
 
@@ -77,10 +119,11 @@ namespace DBConnectionControl40
                 con = m_con;
                 if (con.BeginTransaction(name, ref identity))
                 {
-                    if (m_TransactionLog_delegates!=null)
-                    {
-                        m_TransactionLog_delegates.m_delegate_WriteTransactionLog_BeginTransaction(this.name, ref this.Transaction_ID);
-                    }
+                    m_ActivationTime = DateTime.Now;
+                    //if (m_TransactionLog_delegates!=null)
+                    //{
+                    //    m_TransactionLog_delegates.m_delegate_WriteTransactionLog_BeginTransaction(this);
+                    //}
                 }
                 else
                 {
@@ -108,11 +151,12 @@ namespace DBConnectionControl40
                     {
                         if (con.CommitTransaction(identity))
                         {
+                            m_CommitTime = DateTime.Now;
                             identity = null;
                             m_Active = false;
                             if (m_TransactionLog_delegates!=null)
                             {
-                                m_TransactionLog_delegates.m_delegate_WriteTransactionLog_Commit(Transaction_ID);
+                                m_TransactionLog_delegates.m_delegate_WriteTransactionLog_Commit(this);
                             }
                             return true;
                         }
@@ -151,11 +195,12 @@ namespace DBConnectionControl40
                     {
                         if (con.RollbackTransaction(identity))
                         {
+                            m_RollBackTime = DateTime.Now;
                             m_Active = false;
                             identity = null;
                             if (m_TransactionLog_delegates != null)
                             {
-                                m_TransactionLog_delegates.m_delegate_WriteTransactionLog_Rollback(Transaction_ID);
+                                m_TransactionLog_delegates.m_delegate_WriteTransactionLog_Rollback(this);
                             }
                             return true;
                         }
@@ -204,6 +249,7 @@ namespace DBConnectionControl40
             {
                 bool bresult = con.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref err, table_name);
                 writeTransactionLogExecute(sql, lpar, bresult, id, true, err);
+
                 return bresult;
             }
             else
@@ -213,16 +259,23 @@ namespace DBConnectionControl40
 
         }
 
-        private void writeTransactionLogExecute(string sql, List<SQL_Parameter> lpar, bool bresult, ID id, bool v, string err)
+        private void writeTransactionLogExecute(string sql, List<SQL_Parameter> lpar, bool bresult, ID id, bool result, string err)
         {
-
-            if (m_TransactionLog_delegates != null)
+            TransactionSQLCommand xTransactionSQLCommand = new TransactionSQLCommand(sql, lpar, id, result, err);
+            if (TransactionSQLCommandList==null)
             {
-                if (ID.Validate(Transaction_ID))
-                {
-                    m_TransactionLog_delegates.m_delegate_WriteTransactionLogExecute(Transaction_ID, sql, lpar, id, bresult, err);
-                }
+                TransactionSQLCommandList = new List<TransactionSQLCommand>();
             }
+            TransactionSQLCommandList.Add(xTransactionSQLCommand);
+
+            //if (m_TransactionLog_delegates != null)
+            //{
+                
+            //    if (ID.Validate(Transaction_ID))
+            //    {
+            //        m_TransactionLog_delegates.m_delegate_WriteTransactionLogExecute(this, sql, lpar, id, bresult, err);
+            //    }
+            //}
         }
 
         public bool ExecuteNonQuerySQL(DBConnection con, string sql, List<SQL_Parameter> lpar, ref string err)
