@@ -131,85 +131,90 @@ namespace TransactionLogTableClass
             public Error Error = new Error();
         }
 
+        public class ParameterName
+        {
+            public ID ID = new ID(ID.IDType.INT32);
+            public Name Name = new Name();
+        }
 
         public class P_Int
         {
             public ID ID = new ID(ID.IDType.INT32);
             public SQLCommand m_SQLCommand = new SQLCommand();
+            public ParameterName m_ParameterName = new ParameterName();
             public V_Int V_Int = new V_Int();
-            public Name Name = new Name();
         }
 
          public class P_Decimal
         {
             public ID ID = new ID(ID.IDType.INT32);
             public SQLCommand m_SQLCommand = new SQLCommand();
+            public ParameterName m_ParameterName = new ParameterName();
             public V_Decimal V_Decimal = new V_Decimal();
-            public Name Name = new Name();
         }
 
         public class P_Float
         {
             public ID ID = new ID(ID.IDType.INT32);
             public SQLCommand m_SQLCommand = new SQLCommand();
+            public ParameterName m_ParameterName = new ParameterName();
             public V_Float V_Float = new V_Float();
-            public Name Name = new Name();
         }
 
         public class P_bit
         {
             public ID ID = new ID(ID.IDType.INT32);
             public SQLCommand m_SQLCommand = new SQLCommand();
+            public ParameterName m_ParameterName = new ParameterName();
             public V_bit V_bit = new V_bit();
-            public Name Name = new Name();
         }
 
         public class P_DateTime
         {
             public ID ID = new ID(ID.IDType.INT32);
             public SQLCommand m_SQLCommand = new SQLCommand();
+            public ParameterName m_ParameterName = new ParameterName();
             public V_DateTime V_DateTime = new V_DateTime();
-            public Name Name = new Name();
         }
 
         public class P_Nvarchar
         {
             public ID ID = new ID(ID.IDType.INT32);
             public SQLCommand m_SQLCommand = new SQLCommand();
+            public ParameterName m_ParameterName = new ParameterName();
             public V_varchar_max V_varchar_max = new V_varchar_max();
-            public Name Name = new Name();
         }
 
         public class P_Varchar
         {
             public ID ID = new ID(ID.IDType.INT32);
             public SQLCommand m_SQLCommand = new SQLCommand();
+            public ParameterName m_ParameterName = new ParameterName();
             public V_varchar_max V_varchar_max = new V_varchar_max();
-            public Name Name = new Name();
         }
 
         public class P_Nchar
         {
             public ID ID = new ID(ID.IDType.INT32);
             public SQLCommand m_SQLCommand = new SQLCommand();
+            public ParameterName m_ParameterName = new ParameterName();
             public V_varchar_max V_varchar_max = new V_varchar_max();
-            public Name Name = new Name();
         }
 
         public class P_Bigint
         {
             public ID ID = new ID(ID.IDType.INT32);
             public SQLCommand m_SQLCommand = new SQLCommand();
+            public ParameterName m_ParameterName = new ParameterName();
             public V_Bigint V_Bigint = new V_Bigint();
-            public Name Name = new Name();
         }
 
         public class P_smallInt
         {
             public ID ID = new ID(ID.IDType.INT32);
             public SQLCommand m_SQLCommand = new SQLCommand();
+            public ParameterName m_ParameterName = new ParameterName();
             public V_smallInt V_smallInt = new V_smallInt();
-            public Name Name = new Name();
         }
 
 
@@ -217,8 +222,8 @@ namespace TransactionLogTableClass
         {
             public ID ID = new ID(ID.IDType.INT32);
             public SQLCommand m_SQLCommand = new SQLCommand();
+            public ParameterName m_ParameterName = new ParameterName();
             public V_varbinary_max V_varbinary_max = new V_varbinary_max();
-            public Name Name = new Name();
         }
     }
 
@@ -238,36 +243,39 @@ namespace TransactionLogTableClass
         public SQLCommand m_SQLCommand = new SQLCommand();
 
         /* 5 */
-        public P_Int m_P_Int = new P_Int();
+        public ParameterName m_ParameterName = new ParameterName();
 
         /* 6 */
-        public P_Decimal m_P_Decimal = new P_Decimal();
+        public P_Int m_P_Int = new P_Int();
 
         /* 7 */
-        public P_Float m_P_Float = new P_Float();
+        public P_Decimal m_P_Decimal = new P_Decimal();
 
         /* 8 */
-        public P_bit m_P_bit = new P_bit();
+        public P_Float m_P_Float = new P_Float();
 
         /* 9 */
-        public P_DateTime m_P_DateTime = new P_DateTime();
+        public P_bit m_P_bit = new P_bit();
 
         /* 10 */
-        public P_Nvarchar m_P_Nvarchar = new P_Nvarchar();
+        public P_DateTime m_P_DateTime = new P_DateTime();
 
         /* 11 */
-        public P_Varchar m_P_Varchar = new P_Varchar();
+        public P_Nvarchar m_P_Nvarchar = new P_Nvarchar();
 
         /* 12 */
-        public P_Nchar m_P_Nchar = new P_Nchar();
+        public P_Varchar m_P_Varchar = new P_Varchar();
 
         /* 13 */
-        public P_Bigint m_P_Bigint = new P_Bigint();
+        public P_Nchar m_P_Nchar = new P_Nchar();
 
         /* 14 */
-        public P_smallInt m_P_smallInt = new P_smallInt();
+        public P_Bigint m_P_Bigint = new P_Bigint();
 
         /* 15 */
+        public P_smallInt m_P_smallInt = new P_smallInt();
+
+        /* 16 */
         public P_Varbinary m_P_Varbinary = new P_Varbinary();
 
     }

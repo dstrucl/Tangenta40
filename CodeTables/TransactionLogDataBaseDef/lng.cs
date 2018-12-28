@@ -24,6 +24,9 @@ namespace TransactionLogDataBaseDef
 
         public static ltext lngt_SQLCommand = new ltext(new string[] { "SQL Command", "SQL stavek" });
 
+        public static ltext lngt_ParameterName = new ltext(new string[] { "Parameter Name", "Ime parametra" });
+
+
         public static ltext lngt_P_Int = new ltext(new string[] { "P_Int", "P_Int" });
 
         public static ltext lngt_P_Decimal = new ltext(new string[] { "P_Decimal", "lngt_P_Decimal" });

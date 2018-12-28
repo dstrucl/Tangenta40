@@ -36,7 +36,7 @@ namespace TransactionLogDataBaseDef
             {
                 if (dt.Rows.Count > 0)
                 {
-                    long num = (long)dt.Rows[]["Number"];
+                    long num = (long)dt.Rows[0]["Number"];
                     number = num + 1;
                 }
                 else
@@ -137,7 +137,7 @@ namespace TransactionLogDataBaseDef
                                     if (transaction_commit.ExecuteNonQuerySQLReturnID(m_DBTables.Con, sql, lpar, ref sQLCommand_ID, ref err, "SQLCommand"))
                                     {
 
-
+                                        return false;
                                     }
                                     else
                                     {
@@ -169,6 +169,7 @@ namespace TransactionLogDataBaseDef
                 LogFile.Error.Show("ERROR:TransactionLogDataBaseDef:MyDataBase_TransactionsLog:WriteTransactionLog_Commit:Error=" + err + "\r\nSql=" + sql);
                 return false;
             }
+            return false;
         }
 
         private bool GetCommandTextID(Transaction transaction,string sQLtext,ref ID commandText_ID)
