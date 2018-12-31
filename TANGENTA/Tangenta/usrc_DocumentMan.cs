@@ -239,6 +239,7 @@ namespace Tangenta
         public usrc_DocumentMan()
         {
             InitializeComponent();
+            this.usrc_TransactionControl1.DataBase_TransactionsLog = DBSync.DBSync.DB_for_Tangenta.DB_TransactionsLog;
             lng.s_btn_New.Text(btn_New);
             lng.s_Year.Text(lbl_FinancialYear);
             lng.s_Cashier.Text(lbl_Cashier);

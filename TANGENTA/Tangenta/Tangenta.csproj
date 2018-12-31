@@ -1093,6 +1093,10 @@
       <Project>{53483E69-6DE9-4BB6-8734-5D5F1ADE0FBB}</Project>
       <Name>TransactionLogDataBaseDef</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\TransactionLog\TransactionLog.csproj">
+      <Project>{28cfd914-0d1d-49ac-a55b-12287d80aa55}</Project>
+      <Name>TransactionLog</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\UTIL\Global\Global.csproj">
       <Project>{b95b4df8-a651-4193-9393-0fb33cc566d3}</Project>
       <Name>Global</Name>

@@ -41,6 +41,7 @@
             this.timer_Login_MultiUser = new System.Windows.Forms.Timer(this.components);
             this.m_usrc_TableOfDocuments = new Tangenta.usrc_TableOfDocuments();
             this.m_usrc_DocumentEditor1366x768 = new Tangenta.usrc_DocumentEditor1366x768();
+            this.usrc_TransactionControl1 = new TransactionLog.usrc_TransactionControl();
             this.SuspendLayout();
             // 
             // cmb_DocType
@@ -106,7 +107,7 @@
             // 
             // usrc_loginControl1
             // 
-            this.usrc_loginControl1.Location = new System.Drawing.Point(3, 38);
+            this.usrc_loginControl1.Location = new System.Drawing.Point(34, 41);
             this.usrc_loginControl1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_loginControl1.Name = "usrc_loginControl1";
             this.usrc_loginControl1.Size = new System.Drawing.Size(320, 33);
@@ -142,6 +143,7 @@
             // m_usrc_TableOfDocuments
             // 
             this.m_usrc_TableOfDocuments.BackColor = System.Drawing.Color.Linen;
+            this.m_usrc_TableOfDocuments.DocM = null;
             this.m_usrc_TableOfDocuments.Location = new System.Drawing.Point(0, 72);
             this.m_usrc_TableOfDocuments.Name = "m_usrc_TableOfDocuments";
             this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(357, 622);
@@ -158,10 +160,19 @@
             this.m_usrc_DocumentEditor1366x768.TabIndex = 40;
             this.m_usrc_DocumentEditor1366x768.New_Click += new Tangenta.usrc_DocumentEditor1366x768.delegate_New_Click(this.btn_New_Click);
             // 
+            // usrc_TransactionControl1
+            // 
+            this.usrc_TransactionControl1.Location = new System.Drawing.Point(4, 41);
+            this.usrc_TransactionControl1.Name = "usrc_TransactionControl1";
+            this.usrc_TransactionControl1.Size = new System.Drawing.Size(23, 25);
+            this.usrc_TransactionControl1.State = DBConnectionControl40.Transaction.eConnectionState.DICSONNECTED;
+            this.usrc_TransactionControl1.TabIndex = 41;
+            // 
             // usrc_DocumentMan1366x768
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.SystemColors.Control;
+            this.Controls.Add(this.usrc_TransactionControl1);
             this.Controls.Add(this.cmb_DocType);
             this.Controls.Add(this.lbl_FinancialYear);
             this.Controls.Add(this.usrc_loginControl1);
@@ -193,5 +204,6 @@
         private System.Windows.Forms.Timer timer_Login_MultiUser;
         public usrc_TableOfDocuments m_usrc_TableOfDocuments;
         public usrc_DocumentEditor1366x768 m_usrc_DocumentEditor1366x768;
+        private TransactionLog.usrc_TransactionControl usrc_TransactionControl1;
     }
 }

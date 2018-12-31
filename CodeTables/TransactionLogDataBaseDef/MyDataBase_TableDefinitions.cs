@@ -149,7 +149,7 @@ namespace TransactionLogDataBaseDef
             t_P_Int.AddColumn((Object)mt.m_P_Int.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_P_Int.AddColumn((Object)mt.m_P_Int.m_SQLCommand, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SQL command ID", "SQL ukaz ID"));
             t_P_Int.AddColumn((Object)mt.m_P_Int.m_ParameterName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Parameter Name ID", "Ime pramatra ID"));
-            t_P_Int.AddColumn((Object)mt.m_P_Int.V_Int, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
+            t_P_Int.AddColumn((Object)mt.m_P_Int.V_Int, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
             m_DBTables.items.Add(t_P_Int);
 
             /* 7 */
@@ -157,7 +157,7 @@ namespace TransactionLogDataBaseDef
             t_P_Decimal.AddColumn((Object)mt.m_P_Decimal.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_P_Decimal.AddColumn((Object)mt.m_P_Decimal.m_SQLCommand, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SQL command ID", "SQL ukaz ID"));
             t_P_Decimal.AddColumn((Object)mt.m_P_Decimal.m_ParameterName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Parameter Name ID", "Ime parametra ID"));
-            t_P_Decimal.AddColumn((Object)mt.m_P_Decimal.V_Decimal, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
+            t_P_Decimal.AddColumn((Object)mt.m_P_Decimal.V_Decimal, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
             m_DBTables.items.Add(t_P_Decimal);
 
             /* 8 */
@@ -165,7 +165,7 @@ namespace TransactionLogDataBaseDef
             t_P_Float.AddColumn((Object)mt.m_P_Float.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_P_Float.AddColumn((Object)mt.m_P_Float.m_SQLCommand, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SQL command ID", "SQL ukaz ID"));
             t_P_Float.AddColumn((Object)mt.m_P_Float.m_ParameterName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Parameter Name ID", "Ime parametra ID"));
-            t_P_Float.AddColumn((Object)mt.m_P_Float.V_Float, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
+            t_P_Float.AddColumn((Object)mt.m_P_Float.V_Float, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
             m_DBTables.items.Add(t_P_Float);
 
             /* 9 */
@@ -173,7 +173,7 @@ namespace TransactionLogDataBaseDef
             t_P_bit.AddColumn((Object)mt.m_P_bit.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_P_bit.AddColumn((Object)mt.m_P_bit.m_SQLCommand, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SQL command ID", "SQL ukaz ID"));
             t_P_bit.AddColumn((Object)mt.m_P_bit.m_ParameterName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Parameter Name ID", "Ime parametra ID"));
-            t_P_bit.AddColumn((Object)mt.m_P_bit.V_bit, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
+            t_P_bit.AddColumn((Object)mt.m_P_bit.V_bit, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
             m_DBTables.items.Add(t_P_bit);
 
             /* 10 */
@@ -181,7 +181,7 @@ namespace TransactionLogDataBaseDef
             t_P_DateTime.AddColumn((Object)mt.m_P_DateTime.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_P_DateTime.AddColumn((Object)mt.m_P_DateTime.m_SQLCommand, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SQL command ID", "SQL ukaz ID"));
             t_P_DateTime.AddColumn((Object)mt.m_P_DateTime.m_ParameterName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Parameter Name ID", "Ime parametra ID"));
-            t_P_DateTime.AddColumn((Object)mt.m_P_DateTime.V_DateTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
+            t_P_DateTime.AddColumn((Object)mt.m_P_DateTime.V_DateTime, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
             m_DBTables.items.Add(t_P_DateTime);
 
             /* 11 */
@@ -189,7 +189,7 @@ namespace TransactionLogDataBaseDef
             t_P_Nvarchar.AddColumn((Object)mt.m_P_Nvarchar.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_P_Nvarchar.AddColumn((Object)mt.m_P_Nvarchar.m_SQLCommand, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SQL command ID", "SQL ukaz ID"));
             t_P_Nvarchar.AddColumn((Object)mt.m_P_Nvarchar.m_ParameterName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Parameter Name ID", "Ime parametra ID"));
-            t_P_Nvarchar.AddColumn((Object)mt.m_P_Nvarchar.V_varchar_max, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
+            t_P_Nvarchar.AddColumn((Object)mt.m_P_Nvarchar.V_varchar_max, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
             m_DBTables.items.Add(t_P_Nvarchar);
 
             /* 12 */
@@ -197,7 +197,7 @@ namespace TransactionLogDataBaseDef
             t_P_Varchar.AddColumn((Object)mt.m_P_Varchar.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_P_Varchar.AddColumn((Object)mt.m_P_Varchar.m_SQLCommand, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SQL command ID", "SQL ukaz ID"));
             t_P_Varchar.AddColumn((Object)mt.m_P_Varchar.m_ParameterName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Parameter Name ID", "Ime parametra ID"));
-            t_P_Varchar.AddColumn((Object)mt.m_P_Varchar.V_varchar_max, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
+            t_P_Varchar.AddColumn((Object)mt.m_P_Varchar.V_varchar_max, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
             m_DBTables.items.Add(t_P_Varchar);
 
             /* 13 */
@@ -205,7 +205,7 @@ namespace TransactionLogDataBaseDef
             t_P_Nchar.AddColumn((Object)mt.m_P_Nchar.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_P_Nchar.AddColumn((Object)mt.m_P_Nchar.m_SQLCommand, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SQL command ID", "SQL ukaz ID"));
             t_P_Nchar.AddColumn((Object)mt.m_P_Nchar.m_ParameterName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Parameter Name ID", "Ime parametra ID"));
-            t_P_Nchar.AddColumn((Object)mt.m_P_Nchar.V_varchar_max, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
+            t_P_Nchar.AddColumn((Object)mt.m_P_Nchar.V_varchar_max, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
             m_DBTables.items.Add(t_P_Nchar);
 
 
@@ -214,7 +214,7 @@ namespace TransactionLogDataBaseDef
             t_P_Bigint.AddColumn((Object)mt.m_P_Bigint.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_P_Bigint.AddColumn((Object)mt.m_P_Bigint.m_SQLCommand, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SQL command ID", "SQL ukaz ID"));
             t_P_Bigint.AddColumn((Object)mt.m_P_Bigint.m_ParameterName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Parameter Name ID", "Ime parametra ID"));
-            t_P_Bigint.AddColumn((Object)mt.m_P_Bigint.V_Bigint, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
+            t_P_Bigint.AddColumn((Object)mt.m_P_Bigint.V_Bigint, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
             m_DBTables.items.Add(t_P_Bigint);
 
 
@@ -223,7 +223,7 @@ namespace TransactionLogDataBaseDef
             t_P_smallInt.AddColumn((Object)mt.m_P_smallInt.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_P_smallInt.AddColumn((Object)mt.m_P_smallInt.m_SQLCommand, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SQL command ID", "SQL ukaz ID"));
             t_P_smallInt.AddColumn((Object)mt.m_P_smallInt.m_ParameterName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Parameter Name ID", "Ime parametra ID"));
-            t_P_smallInt.AddColumn((Object)mt.m_P_smallInt.V_smallInt, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
+            t_P_smallInt.AddColumn((Object)mt.m_P_smallInt.V_smallInt, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
             m_DBTables.items.Add(t_P_smallInt);
 
             /* 16 */
@@ -231,7 +231,7 @@ namespace TransactionLogDataBaseDef
             t_P_Varbinary.AddColumn((Object)mt.m_P_Varbinary.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_P_Varbinary.AddColumn((Object)mt.m_P_Varbinary.m_SQLCommand, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SQL command ID", "SQL ukaz ID"));
             t_P_Varbinary.AddColumn((Object)mt.m_P_Varbinary.m_ParameterName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Parameter Name ID", "Ime parametra ID"));
-            t_P_Varbinary.AddColumn((Object)mt.m_P_Varbinary.V_varbinary_max, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
+            t_P_Varbinary.AddColumn((Object)mt.m_P_Varbinary.V_varbinary_max, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
             m_DBTables.items.Add(t_P_Varbinary);
 
         }

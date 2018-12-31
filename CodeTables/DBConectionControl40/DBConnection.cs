@@ -41,6 +41,20 @@ namespace DBConnectionControl40
     [ToolboxBitmap("E:\\ManualReader\\ctlogina\\DBConectionControl4\\Resources\\DBConnection.ico")]
     public partial class DBConnection : Component
     {
+
+        private static Transaction.delegate_SetState m_Delegate_SetState = null;
+        public static Transaction.delegate_SetState Delegate_SetState
+        {
+            get
+            {
+                return m_Delegate_SetState;
+            }
+            set
+            {
+                m_Delegate_SetState = value;
+            }
+        }
+
         private bool m_DBTransactionsLogConnection = false;
 
         public bool DBTransactionsLogConnection
@@ -1401,21 +1415,38 @@ namespace DBConnectionControl40
             try
             {
                 SetConnectionString();
+                bool bconnected = false;
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                        return m_con_MYSQL.Connect(ref sError);
+                        bconnected = m_con_MYSQL.Connect(ref sError);
+                        break;
                     case eDBType.MSSQL:
-                        return m_con_MSSQL.Connect(ref sError);
+                        bconnected = m_con_MSSQL.Connect(ref sError);
+                        break;
 
                     case eDBType.SQLITE:
-                        return m_con_SQLite.Connect(ref sError); ;
+                        bconnected = m_con_SQLite.Connect(ref sError); ;
+                        break;
 
                     default:
                         ProgramDiagnostic.Diagnostic.Meassure("Connect END with ERROR", null);
                         MessageBox.Show("Error unknown eSQLType in function: public bool Connect(ref string sError)");
                         return false;
                 }
+
+                if (DBConnection.Delegate_SetState != null)
+                {
+                    if (bconnected)
+                    {
+                        DBConnection.Delegate_SetState(Transaction.eConnectionState.CONNECTED);
+                    }
+                    else
+                    {
+                        DBConnection.Delegate_SetState(Transaction.eConnectionState.DICSONNECTED);
+                    }
+                }
+                return bconnected;
             }
             catch (Exception ex)
             {
@@ -1423,6 +1454,10 @@ namespace DBConnectionControl40
                 if (dbg.bON) dbg.Print(sError);
                 Log.Write(1, sError);
                 ProgramDiagnostic.Diagnostic.Meassure("Connect END with ERROR", null);
+                if (DBConnection.Delegate_SetState != null)
+                {
+                   DBConnection.Delegate_SetState(Transaction.eConnectionState.DICSONNECTED);
+                }
                 return false;
             }
         }
@@ -1454,22 +1489,37 @@ namespace DBConnectionControl40
             ProgramDiagnostic.Diagnostic.Meassure("Disconnect START", null);
             try
             {
+                bool bdisconnected = false;
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
-                        return m_con_MYSQL.Disconnect();
+                        bdisconnected =  m_con_MYSQL.Disconnect();
+                        break;
 
                     case eDBType.MSSQL:
-                        return m_con_MSSQL.Disconnect();
+                        bdisconnected = m_con_MSSQL.Disconnect();
+                        break;
 
                     case eDBType.SQLITE:
-                        return m_con_SQLite.Disconnect();
+                        bdisconnected = m_con_SQLite.Disconnect();
+                        break;
 
                     default:
                         ProgramDiagnostic.Diagnostic.Meassure("Disconnect END Error", null);
                         MessageBox.Show("Error unknown eSQLType in function:  public bool Disconnect().");
                         return false;
                 }
+
+                if (DBConnection.Delegate_SetState != null)
+                {
+                    if (bdisconnected)
+                    {
+                        DBConnection.Delegate_SetState(Transaction.eConnectionState.DICSONNECTED);
+                        
+                    }
+                }
+
+                return bdisconnected;
             }
             catch (Exception ex)
             {

@@ -43,9 +43,10 @@
             this.usrc_FVI_SLO1 = new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO();
             this.btn_Settings = new System.Windows.Forms.Button();
             this.pnl_MainMenu = new System.Windows.Forms.Panel();
-            this.timer_Login_MultiUser = new System.Windows.Forms.Timer(this.components);
             this.lbl_OpenedClosed = new System.Windows.Forms.Label();
             this.lbl_Cashier = new System.Windows.Forms.Label();
+            this.timer_Login_MultiUser = new System.Windows.Forms.Timer(this.components);
+            this.usrc_TransactionControl1 = new TransactionLog.usrc_TransactionControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -94,6 +95,7 @@
             // m_usrc_TableOfDocuments
             // 
             this.m_usrc_TableOfDocuments.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_usrc_TableOfDocuments.DocM = null;
             this.m_usrc_TableOfDocuments.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_TableOfDocuments.Name = "m_usrc_TableOfDocuments";
             this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(527, 702);
@@ -182,10 +184,10 @@
             // 
             this.usrc_loginControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_loginControl1.Location = new System.Drawing.Point(498, 3);
+            this.usrc_loginControl1.Location = new System.Drawing.Point(524, 4);
             this.usrc_loginControl1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_loginControl1.Name = "usrc_loginControl1";
-            this.usrc_loginControl1.Size = new System.Drawing.Size(607, 49);
+            this.usrc_loginControl1.Size = new System.Drawing.Size(572, 49);
             this.usrc_loginControl1.TabIndex = 37;
             // 
             // usrc_FVI_SLO1
@@ -217,6 +219,7 @@
             this.pnl_MainMenu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnl_MainMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.pnl_MainMenu.Controls.Add(this.usrc_TransactionControl1);
             this.pnl_MainMenu.Controls.Add(this.lbl_OpenedClosed);
             this.pnl_MainMenu.Controls.Add(this.lbl_Cashier);
             this.pnl_MainMenu.Controls.Add(this.usrc_loginControl1);
@@ -233,11 +236,6 @@
             this.pnl_MainMenu.Name = "pnl_MainMenu";
             this.pnl_MainMenu.Size = new System.Drawing.Size(1363, 55);
             this.pnl_MainMenu.TabIndex = 38;
-            // 
-            // timer_Login_MultiUser
-            // 
-            this.timer_Login_MultiUser.Interval = 1000;
-            this.timer_Login_MultiUser.Tick += new System.EventHandler(this.timer_Login_MultiUser_Tick);
             // 
             // lbl_OpenedClosed
             // 
@@ -258,6 +256,19 @@
             this.lbl_Cashier.TabIndex = 38;
             this.lbl_Cashier.Text = "Cashier:";
             this.lbl_Cashier.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // timer_Login_MultiUser
+            // 
+            this.timer_Login_MultiUser.Interval = 1000;
+            this.timer_Login_MultiUser.Tick += new System.EventHandler(this.timer_Login_MultiUser_Tick);
+            // 
+            // usrc_TransactionControl1
+            // 
+            this.usrc_TransactionControl1.Location = new System.Drawing.Point(497, 4);
+            this.usrc_TransactionControl1.Name = "usrc_TransactionControl1";
+            this.usrc_TransactionControl1.Size = new System.Drawing.Size(25, 23);
+            this.usrc_TransactionControl1.State = DBConnectionControl40.Transaction.eConnectionState.DICSONNECTED;
+            this.usrc_TransactionControl1.TabIndex = 40;
             // 
             // usrc_DocumentMan
             // 
@@ -297,5 +308,6 @@
         private System.Windows.Forms.Timer timer_Login_MultiUser;
         private System.Windows.Forms.Label lbl_OpenedClosed;
         private System.Windows.Forms.Label lbl_Cashier;
+        private TransactionLog.usrc_TransactionControl usrc_TransactionControl1;
     }
 }

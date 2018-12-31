@@ -406,10 +406,20 @@ namespace CodeTables
                 }
 
 
-                if (obj.GetType() == typeof(ID))
+                if (obj is ID)
                 {
                     ID ID = (ID)obj;
-                    return Globals.LeftMargin + "'" + columnName + "' INTEGER PRIMARY KEY AUTOINCREMENT";
+
+                    switch (((ID)obj).IDtype)
+                    {
+                        case ID.IDType.INT64:
+                            return Globals.LeftMargin + "'" + columnName + "' INTEGER PRIMARY KEY AUTOINCREMENT";
+                        case ID.IDType.INT32:
+                            return Globals.LeftMargin + "'" + columnName + "' INTEGER PRIMARY KEY AUTOINCREMENT";
+                        default:
+                            LogFile.Error.Show("ERROR:CodeTables:Column:GetColumnSQLiteDefinitionLine:((ID)obj).IDtype = " + ((ID)obj).IDtype.ToString() + " not implemented!");
+                            return "";
+                    }
                 }
                 else if (dbTables.IsMyTable(out refTable, obj.GetType()))
                 {

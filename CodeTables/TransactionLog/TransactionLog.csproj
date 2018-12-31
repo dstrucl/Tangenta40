@@ -31,8 +31,30 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataGridView_2xls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DataGridView_2xls.dll</HintPath>
+    </Reference>
+    <Reference Include="DataGridView_2xls_base, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CONTROLS\DataGridView_2xls_base\bin\AnyCPU\Debug\DataGridView_2xls_base.dll</HintPath>
+    </Reference>
+    <Reference Include="Excell_Export, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Excell_Export\bin\AnyCPU\Debug\Excell_Export.dll</HintPath>
+    </Reference>
+    <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DLL\FastColoredTextBox.dll</HintPath>
+    </Reference>
+    <Reference Include="LanguageControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\UTIL\LanguageControl\bin\AnyCPU\Debug\LanguageControl.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,7 +63,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form_TransactionLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_TransactionLog.Designer.cs">
+      <DependentUpon>Form_TransactionLog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="TransactionLog.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -56,8 +89,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="usrc_TransactionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_TransactionControl.Designer.cs">
+      <DependentUpon>usrc_TransactionControl.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\DBConnectedTransactionActive.bmp" />
+    <None Include="Resources\DBConnection.bmp" />
     <None Include="Transaction_DataSet.xsc">
       <DependentUpon>Transaction_DataSet.xsd</DependentUpon>
     </None>
@@ -75,6 +116,10 @@
       <Project>{322af3bf-b609-477d-9d2b-39a9bbbbc721}</Project>
       <Name>DBConnectionControl40</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DBTypes\DBTypes.csproj">
+      <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
+      <Name>DBTypes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SQLTableControl\CodeTables.csproj">
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
       <Name>CodeTables</Name>
@@ -87,6 +132,31 @@
       <Project>{444c83db-66fd-4958-bb20-6be963732fc1}</Project>
       <Name>TransactionLogTableClass</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UTIL\LogFile\LogFile.csproj">
+      <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
+      <Name>LogFile</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Form_TransactionLog.resx">
+      <DependentUpon>Form_TransactionLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_TransactionControl.resx">
+      <DependentUpon>usrc_TransactionControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DBDisconnected.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DBConnectedTransactionFailed.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DBConnectedTransactionCommited.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

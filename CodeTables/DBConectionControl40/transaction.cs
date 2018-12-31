@@ -8,6 +8,12 @@ namespace DBConnectionControl40
 {
     public class Transaction
     {
+
+        public delegate void delegate_SetState(eConnectionState eConnectionState);
+
+        public enum eConnectionState { CONNECTED, CONNECTED_TRANSACTION_ACTIVE, CONNECTED_TRANSACTION_COMMITED, CONNECTED_TRANSACTION_ROLLBACKED, DICSONNECTED };
+
+
         internal ID Transaction_ID = null;
 
         public List<TransactionSQLCommand> TransactionSQLCommandList = null;
@@ -122,6 +128,10 @@ namespace DBConnectionControl40
                     if (!con.DBTransactionsLogConnection)
                     {
                         m_ActivationTime = DateTime.Now;
+                        if (DBConnection.Delegate_SetState !=null)
+                        {
+                            DBConnection.Delegate_SetState(eConnectionState.CONNECTED_TRANSACTION_ACTIVE);
+                        }
                     }
                 }
                 else
@@ -163,6 +173,10 @@ namespace DBConnectionControl40
                                 if (m_TransactionLog_delegates != null)
                                 {
                                     m_TransactionLog_delegates.m_delegate_WriteTransactionLog_Commit(this);
+                                }
+                                if (DBConnection.Delegate_SetState != null)
+                                {
+                                    DBConnection.Delegate_SetState(eConnectionState.CONNECTED_TRANSACTION_COMMITED);
                                 }
                             }
                             return true;
@@ -215,6 +229,10 @@ namespace DBConnectionControl40
                                 if (m_TransactionLog_delegates != null)
                                 {
                                     m_TransactionLog_delegates.m_delegate_WriteTransactionLog_Rollback(this);
+                                }
+                                if (DBConnection.Delegate_SetState != null)
+                                {
+                                    DBConnection.Delegate_SetState(eConnectionState.CONNECTED_TRANSACTION_ROLLBACKED);
                                 }
                             }
                             return true;

@@ -102,12 +102,27 @@ namespace DBConnectionControl40
                     switch (par.dbType)
                     {
                         case System.Data.SqlDbType.Int:
-                            p_Int xp_Int = new p_Int((int)par.Value, par.Name);
-                            if (p_Int_list == null)
+                            if (par.Value is int)
                             {
-                                p_Int_list = new List<p_Int>();
+                                p_Int xp_Int = new p_Int((int)par.Value, par.Name);
+                                if (p_Int_list == null)
+                                {
+                                    p_Int_list = new List<p_Int>();
+                                }
+                                p_Int_list.Add(xp_Int);
                             }
-                            p_Int_list.Add(xp_Int);
+                            else if (par.Value is ID)
+                            {
+                                if (((ID)par.Value).V is int)
+                                {
+                                    p_Int xp_Int = new p_Int((int)((ID)par.Value).V, par.Name);
+                                    if (p_Int_list == null)
+                                    {
+                                        p_Int_list = new List<p_Int>();
+                                    }
+                                    p_Int_list.Add(xp_Int);
+                                }
+                            }
                             break;
 
                         case System.Data.SqlDbType.Decimal:
@@ -138,7 +153,7 @@ namespace DBConnectionControl40
                             break;
 
                         case System.Data.SqlDbType.DateTime:
-                            p_DateTime xp_DateTime = new p_DateTime((DateTime)par.Value, par.Name);
+                            p_DateTime xp_DateTime = new p_DateTime(par.Value, par.Name);
                             if (p_DateTime_list == null)
                             {
                                 p_DateTime_list = new List<p_DateTime>();
@@ -174,12 +189,27 @@ namespace DBConnectionControl40
                             break;
 
                         case System.Data.SqlDbType.BigInt:
-                            p_BigInt xp_BigInt = new p_BigInt((long)par.Value, par.Name);
-                            if (p_BigInt_list == null)
+                            if (par.Value is long)
                             {
-                                p_BigInt_list = new List<p_BigInt>();
+                                p_BigInt xp_BigInt = new p_BigInt((long)par.Value, par.Name);
+                                if (p_BigInt_list == null)
+                                {
+                                    p_BigInt_list = new List<p_BigInt>();
+                                }
+                                p_BigInt_list.Add(xp_BigInt);
                             }
-                            p_BigInt_list.Add(xp_BigInt);
+                            else if (par.Value is ID)
+                            {
+                                if (((ID)par.Value).V is long)
+                                {
+                                    p_BigInt xp_BigInt = new p_BigInt((long)((ID)par.Value).V, par.Name);
+                                    if (p_BigInt_list == null)
+                                    {
+                                        p_BigInt_list = new List<p_BigInt>();
+                                    }
+                                    p_BigInt_list.Add(xp_BigInt);
+                                }
+                            }
                             break;
 
                         case System.Data.SqlDbType.SmallInt:
@@ -512,9 +542,20 @@ namespace DBConnectionControl40
                     return m_Name;
                 }
             }
-            public p_DateTime(DateTime xdatetime, string xname)
+            public p_DateTime(object xdatetime, string xname)
             {
-                m_V_DateTime = xdatetime;
+                if (xdatetime == null)
+                {
+                    m_V_DateTime = DateTime.MinValue;
+                }
+                else if (xdatetime is DateTime)
+                {
+                    m_V_DateTime = (DateTime)xdatetime;
+                }
+                else
+                {
+                    m_V_DateTime = DateTime.MinValue;
+                }
                 m_Name = xname;
 
             }
@@ -534,10 +575,15 @@ namespace DBConnectionControl40
                     SQL_Parameter par_paramterName_ID = new SQL_Parameter(spar_paramterName_ID, false, paramterName_ID);
                     lpar.Add(par_paramterName_ID);
 
-                    string spar_V_DateTime = "@par_V_DateTime";
-                    SQL_Parameter par_V_DateTime = new SQL_Parameter(spar_V_DateTime, SQL_Parameter.eSQL_Parameter.Datetime, false, this.V_DateTime);
-                    lpar.Add(par_V_DateTime);
-                    string sql = "insert into P_DateTime (SQLCommand_ID,ParameterName_ID,V_DateTime) values (" + spar_sQLCommand_ID + "," + spar_paramterName_ID + "," + spar_V_DateTime + ")";
+                    string sval_V_DateTime = "null";
+                    if (this.V_DateTime != DateTime.MinValue)
+                    {
+                        string spar_V_DateTime = "@par_V_DateTime";
+                        SQL_Parameter par_V_DateTime = new SQL_Parameter(spar_V_DateTime, SQL_Parameter.eSQL_Parameter.Datetime, false, this.V_DateTime);
+                        lpar.Add(par_V_DateTime);
+                        sval_V_DateTime = spar_V_DateTime;
+                    }
+                    string sql = "insert into P_DateTime (SQLCommand_ID,ParameterName_ID,V_DateTime) values (" + spar_sQLCommand_ID + "," + spar_paramterName_ID + "," + sval_V_DateTime + ")";
                     ID p_DateTime_ID = null;
                     string err = null;
                     if (transaction.ExecuteNonQuerySQLReturnID(transaction.con, sql, lpar, ref p_DateTime_ID, ref err, "P_DateTime"))
