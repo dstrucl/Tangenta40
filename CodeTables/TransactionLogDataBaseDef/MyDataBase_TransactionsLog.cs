@@ -26,7 +26,7 @@ namespace TransactionLogDataBaseDef
             // TODO: Complete member initialization
             mt = new TransactionLogTableClass.SQL_Database_Tables_Definition();
 
-            m_DBTables = new DBTableControl(pForm, XmlRootName, xmlIniFileFolder);
+            m_DBTables = new DBTableControl(pForm, XmlRootName, xmlIniFileFolder, true);
 
             //            Define_Image_SQL_Database_Tables();
 

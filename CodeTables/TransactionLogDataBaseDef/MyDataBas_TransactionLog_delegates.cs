@@ -53,23 +53,58 @@ namespace TransactionLogDataBaseDef
 
         }
 
+        private bool GetTransactionName(Transaction logtransaction, string name,ref ID transactionName_ID)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_Name = "@par_Name";
+            SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, name);
+            lpar.Add(par_Name);
+
+            string sql = "select ID from TransactionName where Name = " + spar_Name;
+            DataTable dt = new DataTable();
+            string err = null;
+            if (m_DBTables.Con.ReadDataTable(ref dt, sql, lpar, ref err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    transactionName_ID = DBTypes.tf.set_ID(dt.Rows[0]["ID"]);
+                    return true;
+                }
+                else
+                {
+                    sql = "insert into TransactionName (Name)values(" + spar_Name + ")";
+                    if (logtransaction.ExecuteNonQuerySQLReturnID(m_DBTables.Con, sql, lpar, ref transactionName_ID, ref err, "TransactionName"))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:TransactionLogDataBaseDef:MyDataBase_TransactionsLog_delegates:GetTransactionName:Error=" + err + "\r\nSql=" + sql);
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TransactionLogDataBaseDef:MyDataBase_TransactionsLog_delegates:GetTransactionName:Error=" + err + "\r\nSql=" + sql);
+                return false;
+            }
+        }
+
         public bool WriteTransactionLog_Commit(Transaction transaction)
         {
             string err = null;
             Transaction transaction_commit = new Transaction(null, "WriteTransactionLog_Commit");
 
-            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            string spar_Name = "@par_Name";
-            SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, transaction.Name);
-            lpar.Add(par_Name);
-            string sql = "insert into TransactionName (Name)values("+ spar_Name + ")";
             ID transactionName_ID = null;
 
-            if (transaction_commit.ExecuteNonQuerySQLReturnID(m_DBTables.Con, sql, lpar, ref transactionName_ID, ref err, "TransactionName"))
+            if (GetTransactionName(transaction_commit, transaction.Name,ref transactionName_ID))
             {
+                string sql = null;
                 long Number = 0;
                 if (GetNextTransactionLogNumber(ref Number))
                 {
+                    List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                     lpar.Clear();
                     string spar_transactionName_ID = "@par_transactionName_ID";
                     SQL_Parameter par_transactionName_ID = new SQL_Parameter(spar_transactionName_ID, false, transactionName_ID);
@@ -83,24 +118,39 @@ namespace TransactionLogDataBaseDef
                     SQL_Parameter par_CreationTime = new SQL_Parameter(spar_CreationTime, SQL_Parameter.eSQL_Parameter.Datetime, false, transaction.CreationTime);
                     lpar.Add(par_CreationTime);
 
-                    string spar_ActivationTime = "@par_ActivationTime";
-                    SQL_Parameter par_ActivationTime = new SQL_Parameter(spar_ActivationTime, SQL_Parameter.eSQL_Parameter.Datetime, false, transaction.ActivationTime);
-                    lpar.Add(par_ActivationTime);
+                    string sval_ActivationTime = "null";
+                    if (transaction.ActivationTime != DateTime.MinValue)
+                    {
+                        string spar_ActivationTime = "@par_ActivationTime";
+                        SQL_Parameter par_ActivationTime = new SQL_Parameter(spar_ActivationTime, SQL_Parameter.eSQL_Parameter.Datetime, false, transaction.ActivationTime);
+                        lpar.Add(par_ActivationTime);
+                        sval_ActivationTime = spar_ActivationTime;
+                    }
 
-                    string spar_CommitTime = "@par_CommitTime";
-                    SQL_Parameter par_CommitTime = new SQL_Parameter(spar_CommitTime, SQL_Parameter.eSQL_Parameter.Datetime, false, transaction.CommitTime);
-                    lpar.Add(par_CommitTime);
+                    string sval_CommitTime = "null";
+                    if (transaction.CommitTime != DateTime.MinValue)
+                    {
+                        string spar_CommitTime = "@par_CommitTime";
+                        SQL_Parameter par_CommitTime = new SQL_Parameter(spar_CommitTime, SQL_Parameter.eSQL_Parameter.Datetime, false, transaction.CommitTime);
+                        lpar.Add(par_CommitTime);
+                        sval_CommitTime = spar_CommitTime;
+                    }
 
-                    string spar_RollBackTime = "@par_RollBackTime";
-                    SQL_Parameter par_RollBackTime = new SQL_Parameter(spar_RollBackTime, SQL_Parameter.eSQL_Parameter.Datetime, false, transaction.RollBackTime);
-                    lpar.Add(par_RollBackTime);
+                    string sval_RollBackTime = "null";
+                    if (transaction.RollBackTime != DateTime.MinValue)
+                    {
+                        string spar_RollBackTime = "@par_RollBackTime";
+                        SQL_Parameter par_RollBackTime = new SQL_Parameter(spar_RollBackTime, SQL_Parameter.eSQL_Parameter.Datetime, false, transaction.RollBackTime);
+                        lpar.Add(par_RollBackTime);
+                        sval_RollBackTime = spar_RollBackTime;
+                    }
 
-                    sql = "insert into TransactionLog (transactionName_ID,Number,CreationTime,ActivationTim,CommitTime,RollBackTime)values(" + spar_transactionName_ID + ","
+                    sql = "insert into TransactionLog (transactionName_ID,Number,CreationTime,ActivationTime,CommitTime,RollBackTime)values(" + spar_transactionName_ID + ","
                         + spar_Number + ","
                         + spar_CreationTime + ","
-                        + spar_ActivationTime + ","
-                        + spar_CommitTime + ","
-                        + spar_RollBackTime + ")";
+                        + sval_ActivationTime + ","
+                        + sval_CommitTime + ","
+                        + sval_RollBackTime + ")";
                     ID transactionLog_ID = null;
                     if (transaction_commit.ExecuteNonQuerySQLReturnID(m_DBTables.Con, sql, lpar, ref transactionLog_ID, ref err, "TransactionLog"))
                     {
@@ -133,11 +183,18 @@ namespace TransactionLogDataBaseDef
                                     sql = "insert into SQLCommand (TransactionLog_ID,CommandText_ID,ExecutionStart,ExecutionEnd,Error)values(" + spar_transactionLog_ID + ","
                                         + spar_CommandText_ID + ","
                                         + spar_ExecutionStart + ","
-                                        + par_ExecutionEnd + ",null)";
+                                        + spar_ExecutionEnd + ",null)";
                                     if (transaction_commit.ExecuteNonQuerySQLReturnID(m_DBTables.Con, sql, lpar, ref sQLCommand_ID, ref err, "SQLCommand"))
                                     {
-
-                                        return false;
+                                        if (tsql.Get(transaction_commit, sQLCommand_ID))
+                                        {
+                                            continue;
+                                        }
+                                        else
+                                        {
+                                            transaction_commit.Rollback();
+                                            return false;
+                                        }
                                     }
                                     else
                                     {
@@ -147,6 +204,8 @@ namespace TransactionLogDataBaseDef
                                     }
                                 }
                             }
+                            transaction_commit.Commit();
+                            return true;
                         }
                     }
                     else
@@ -159,14 +218,12 @@ namespace TransactionLogDataBaseDef
                 else
                 {
                     transaction_commit.Rollback();
-                    LogFile.Error.Show("ERROR:TransactionLogDataBaseDef:MyDataBase_TransactionsLog:WriteTransactionLog_Commit:Error=" + err + "\r\nSql=" + sql);
                     return false;
                 }
             }
             else
             {
                 transaction_commit.Rollback();
-                LogFile.Error.Show("ERROR:TransactionLogDataBaseDef:MyDataBase_TransactionsLog:WriteTransactionLog_Commit:Error=" + err + "\r\nSql=" + sql);
                 return false;
             }
             return false;
@@ -179,7 +236,8 @@ namespace TransactionLogDataBaseDef
             string spar_SQLText = "@par_SQLText";
             SQL_Parameter par_SQLText = new SQL_Parameter(spar_SQLText, SQL_Parameter.eSQL_Parameter.Varchar, false, sQLtext);
             lpar.Add(par_SQLText);
-            string sql = "select ID form CommandText where SQLText = " + spar_SQLText;
+
+            string sql = "select ID from CommandText where SQLText = " + spar_SQLText;
             DataTable dt = new DataTable();
             if (m_DBTables.Con.ReadDataTable(ref dt, sql,lpar, ref err))
             {

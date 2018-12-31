@@ -1657,10 +1657,10 @@ namespace CodeTables
         }
 
      /*********************************************************/
-        public DBTableControl(Form pForm, string XmlRootName,string xmlFolder)
+        public DBTableControl(Form pForm, string XmlRootName,string xmlFolder, bool bTransactionsLog)
         {
             InitializeComponent();
-            Con = new DBConnection();
+            Con = new DBConnection(bTransactionsLog);
             if (XmlRootName != null)
             {
                 m_xml = new xml(xmlFolder, XmlRootName, pForm);

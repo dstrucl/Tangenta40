@@ -116,10 +116,10 @@ namespace TransactionLogDataBaseDef
             t_TransactionLog.AddColumn((Object)mt.m_TransactionLog.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_TransactionLog.AddColumn((Object)mt.m_TransactionLog.m_TransactionName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox_ReadOnly, new ltext("Name ID", "Ime ID"));
             t_TransactionLog.AddColumn((Object)mt.m_TransactionLog.Number, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.NumericUpDown, new ltext("Name", "Ime"));
-            t_TransactionLog.AddColumn((Object)mt.m_TransactionLog.CreationTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.DateTimePicker, new ltext("Name", "Ime"));
-            t_TransactionLog.AddColumn((Object)mt.m_TransactionLog.ActivationTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.DateTimePicker, new ltext("Name", "Ime"));
-            t_TransactionLog.AddColumn((Object)mt.m_TransactionLog.CommitTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.DateTimePicker, new ltext("Name", "Ime"));
-            t_TransactionLog.AddColumn((Object)mt.m_TransactionLog.RollBackTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.DateTimePicker, new ltext("Name", "Ime"));
+            t_TransactionLog.AddColumn((Object)mt.m_TransactionLog.CreationTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.DateTimePicker, new ltext("Creation Time", "Čas nastanka"));
+            t_TransactionLog.AddColumn((Object)mt.m_TransactionLog.ActivationTime, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.DateTimePicker, new ltext("Activation Time", "Čas aktivacije"));
+            t_TransactionLog.AddColumn((Object)mt.m_TransactionLog.CommitTime, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.DateTimePicker, new ltext("Commit Time", "Čas potrditve"));
+            t_TransactionLog.AddColumn((Object)mt.m_TransactionLog.RollBackTime, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.DateTimePicker, new ltext("Rollback Time", "Čas razveljavitve"));
             m_DBTables.items.Add(t_TransactionLog);
 
             /* 3 */
@@ -211,11 +211,11 @@ namespace TransactionLogDataBaseDef
 
             /* 14 */
             t_P_Bigint = new SQLTable((Object)new P_Bigint(), "P_Bigint", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_P_Bigint);
-            t_P_Bigint.AddColumn((Object)mt.m_P_smallInt.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_P_Bigint.AddColumn((Object)mt.m_P_smallInt.m_SQLCommand, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SQL command ID", "SQL ukaz ID"));
-            t_P_Bigint.AddColumn((Object)mt.m_P_smallInt.m_ParameterName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Parameter Name ID", "Ime parametra ID"));
-            t_P_Bigint.AddColumn((Object)mt.m_P_smallInt.V_smallInt, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
-            m_DBTables.items.Add(t_P_smallInt);
+            t_P_Bigint.AddColumn((Object)mt.m_P_Bigint.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_P_Bigint.AddColumn((Object)mt.m_P_Bigint.m_SQLCommand, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SQL command ID", "SQL ukaz ID"));
+            t_P_Bigint.AddColumn((Object)mt.m_P_Bigint.m_ParameterName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Parameter Name ID", "Ime parametra ID"));
+            t_P_Bigint.AddColumn((Object)mt.m_P_Bigint.V_Bigint, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Value", "Vrednost"));
+            m_DBTables.items.Add(t_P_Bigint);
 
 
             /* 15 */

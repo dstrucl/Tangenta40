@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -213,6 +214,44 @@ namespace DBConnectionControl40
                     return m_V_Int32;
                 }
             }
+
+            public bool Get(Transaction transaction,ID sQLCommand_ID)
+            {
+                ID paramterName_ID = null;
+                if (TransactionSQLCommand.GetParamterName_ID(transaction,this.m_Name,ref paramterName_ID))
+                {
+                    List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+                    string spar_sQLCommand_ID = "@par_sQLCommand_ID";
+                    SQL_Parameter par_sQLCommand_ID = new SQL_Parameter(spar_sQLCommand_ID, false, sQLCommand_ID);
+                    lpar.Add(par_sQLCommand_ID);
+
+                    string spar_paramterName_ID = "@paramterName_ID";
+                    SQL_Parameter par_paramterName_ID = new SQL_Parameter(spar_paramterName_ID, false, paramterName_ID);
+                    lpar.Add(par_paramterName_ID);
+
+                    string spar_V_Int= "@par_V_Int";
+                    SQL_Parameter par_V_Int = new SQL_Parameter(spar_V_Int,SQL_Parameter.eSQL_Parameter.Int,false, this.V_Int32);
+                    lpar.Add(par_V_Int);
+                    string sql = "insert into P_Int (SQLCommand_ID,ParameterName_ID,V_Int) values (" + spar_sQLCommand_ID + "," + spar_paramterName_ID + "," + spar_V_Int + ")";
+                    ID p_Int_ID = null;
+                    string err = null;
+                    if (transaction.ExecuteNonQuerySQLReturnID(transaction.con,sql,lpar,ref p_Int_ID, ref err, "P_Int"))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:TransactionSQLCommand:p_Int:Get:Error=" + err + "\r\nsql=" + sql);
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
             private string m_Name = null;
             public string Name
             {
@@ -226,6 +265,43 @@ namespace DBConnectionControl40
                 m_V_Int32 = xi;
                 m_Name = xname;
 
+            }
+        }
+
+        private static bool GetParamterName_ID(Transaction transaction, string m_Name, ref ID paramterName_ID)
+        {
+            string err = null;
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_Name = "@par_Name";
+            SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Varchar, false, m_Name);
+            lpar.Add(par_Name);
+            string sql = "select ID from ParameterName where Name = " + spar_Name;
+            DataTable dt = new DataTable();
+            if (transaction.con.ReadDataTable(ref dt,sql, lpar,ref err))
+            {
+                if (dt.Rows.Count>0)
+                {
+                    paramterName_ID = new ID(dt.Rows[0]["ID"]);
+                    return true;
+                }
+                else
+                {
+                    sql = "insert into ParameterName (Name) values (" + spar_Name+")";
+                    if (transaction.ExecuteNonQuerySQLReturnID(transaction.con, sql, lpar, ref paramterName_ID, ref err, "ParameterName"))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:TransactionSQLCommand:GetParamterName_ID:Error=" + err + "\r\nsql=" + sql);
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DBConnectionControl40:TransactionSQLCommand:GetParamterName_ID:Error=" + err + "\r\nsql=" + sql);
+                return false;
             }
         }
 
@@ -253,6 +329,43 @@ namespace DBConnectionControl40
                 m_Name = xname;
 
             }
+
+            internal bool Get(Transaction transaction, ID sQLCommand_ID)
+            {
+                ID paramterName_ID = null;
+                if (TransactionSQLCommand.GetParamterName_ID(transaction, this.m_Name, ref paramterName_ID))
+                {
+                    List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+                    string spar_sQLCommand_ID = "@par_sQLCommand_ID";
+                    SQL_Parameter par_sQLCommand_ID = new SQL_Parameter(spar_sQLCommand_ID, false, sQLCommand_ID);
+                    lpar.Add(par_sQLCommand_ID);
+
+                    string spar_paramterName_ID = "@paramterName_ID";
+                    SQL_Parameter par_paramterName_ID = new SQL_Parameter(spar_paramterName_ID, false, paramterName_ID);
+                    lpar.Add(par_paramterName_ID);
+
+                    string spar_V_Decimal = "@par_V_Decimal";
+                    SQL_Parameter par_V_Decimal = new SQL_Parameter(spar_V_Decimal, SQL_Parameter.eSQL_Parameter.Decimal, false, this.V_Decimal);
+                    lpar.Add(par_V_Decimal);
+                    string sql = "insert into P_Decimal (SQLCommand_ID,ParameterName_ID,V_Decimal) values (" + spar_sQLCommand_ID + "," + spar_paramterName_ID + "," + spar_V_Decimal + ")";
+                    ID p_Decimal_ID = null;
+                    string err = null;
+                    if (transaction.ExecuteNonQuerySQLReturnID(transaction.con, sql, lpar, ref p_Decimal_ID, ref err, "P_Decimal"))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:TransactionSQLCommand:p_Decimal:Get:Error=" + err + "\r\nsql=" + sql);
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
 
         public class p_Float
@@ -278,6 +391,43 @@ namespace DBConnectionControl40
                 m_V_Float = xFloat;
                 m_Name = xname;
 
+            }
+
+            internal bool Get(Transaction transaction, ID sQLCommand_ID)
+            {
+                ID paramterName_ID = null;
+                if (TransactionSQLCommand.GetParamterName_ID(transaction, this.m_Name, ref paramterName_ID))
+                {
+                    List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+                    string spar_sQLCommand_ID = "@par_sQLCommand_ID";
+                    SQL_Parameter par_sQLCommand_ID = new SQL_Parameter(spar_sQLCommand_ID, false, sQLCommand_ID);
+                    lpar.Add(par_sQLCommand_ID);
+
+                    string spar_paramterName_ID = "@paramterName_ID";
+                    SQL_Parameter par_paramterName_ID = new SQL_Parameter(spar_paramterName_ID, false, paramterName_ID);
+                    lpar.Add(par_paramterName_ID);
+
+                    string spar_V_Float = "@par_V_Float";
+                    SQL_Parameter par_V_Float = new SQL_Parameter(spar_V_Float, SQL_Parameter.eSQL_Parameter.Float, false, this.V_Float);
+                    lpar.Add(par_V_Float);
+                    string sql = "insert into P_Float (SQLCommand_ID,ParameterName_ID,V_Float) values (" + spar_sQLCommand_ID + "," + spar_paramterName_ID + "," + spar_V_Float + ")";
+                    ID p_Float_ID = null;
+                    string err = null;
+                    if (transaction.ExecuteNonQuerySQLReturnID(transaction.con, sql, lpar, ref p_Float_ID, ref err, "P_Float"))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:TransactionSQLCommand:p_Float:Get:Error=" + err + "\r\nsql=" + sql);
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
@@ -305,6 +455,43 @@ namespace DBConnectionControl40
                 m_Name = xname;
 
             }
+
+            internal bool Get(Transaction transaction, ID sQLCommand_ID)
+            {
+                ID paramterName_ID = null;
+                if (TransactionSQLCommand.GetParamterName_ID(transaction, this.m_Name, ref paramterName_ID))
+                {
+                    List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+                    string spar_sQLCommand_ID = "@par_sQLCommand_ID";
+                    SQL_Parameter par_sQLCommand_ID = new SQL_Parameter(spar_sQLCommand_ID, false, sQLCommand_ID);
+                    lpar.Add(par_sQLCommand_ID);
+
+                    string spar_paramterName_ID = "@paramterName_ID";
+                    SQL_Parameter par_paramterName_ID = new SQL_Parameter(spar_paramterName_ID, false, paramterName_ID);
+                    lpar.Add(par_paramterName_ID);
+
+                    string spar_V_Bit = "@par_V_Bit";
+                    SQL_Parameter par_V_Bit = new SQL_Parameter(spar_V_Bit, SQL_Parameter.eSQL_Parameter.Bit, false, this.V_bool);
+                    lpar.Add(par_V_Bit);
+                    string sql = "insert into P_Bit (SQLCommand_ID,ParameterName_ID,V_Bit) values (" + spar_sQLCommand_ID + "," + spar_paramterName_ID + "," + spar_V_Bit + ")";
+                    ID p_Bit_ID = null;
+                    string err = null;
+                    if (transaction.ExecuteNonQuerySQLReturnID(transaction.con, sql, lpar, ref p_Bit_ID, ref err, "P_Bit"))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:TransactionSQLCommand:p_Bit:Get:Error=" + err + "\r\nsql=" + sql);
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
 
         public class p_DateTime
@@ -330,6 +517,43 @@ namespace DBConnectionControl40
                 m_V_DateTime = xdatetime;
                 m_Name = xname;
 
+            }
+
+            internal bool Get(Transaction transaction, ID sQLCommand_ID)
+            {
+                ID paramterName_ID = null;
+                if (TransactionSQLCommand.GetParamterName_ID(transaction, this.m_Name, ref paramterName_ID))
+                {
+                    List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+                    string spar_sQLCommand_ID = "@par_sQLCommand_ID";
+                    SQL_Parameter par_sQLCommand_ID = new SQL_Parameter(spar_sQLCommand_ID, false, sQLCommand_ID);
+                    lpar.Add(par_sQLCommand_ID);
+
+                    string spar_paramterName_ID = "@paramterName_ID";
+                    SQL_Parameter par_paramterName_ID = new SQL_Parameter(spar_paramterName_ID, false, paramterName_ID);
+                    lpar.Add(par_paramterName_ID);
+
+                    string spar_V_DateTime = "@par_V_DateTime";
+                    SQL_Parameter par_V_DateTime = new SQL_Parameter(spar_V_DateTime, SQL_Parameter.eSQL_Parameter.Datetime, false, this.V_DateTime);
+                    lpar.Add(par_V_DateTime);
+                    string sql = "insert into P_DateTime (SQLCommand_ID,ParameterName_ID,V_DateTime) values (" + spar_sQLCommand_ID + "," + spar_paramterName_ID + "," + spar_V_DateTime + ")";
+                    ID p_DateTime_ID = null;
+                    string err = null;
+                    if (transaction.ExecuteNonQuerySQLReturnID(transaction.con, sql, lpar, ref p_DateTime_ID, ref err, "P_DateTime"))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:TransactionSQLCommand:p_DateTime:Get:Error=" + err + "\r\nsql=" + sql);
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
@@ -357,6 +581,43 @@ namespace DBConnectionControl40
                 m_Name = xname;
 
             }
+
+            internal bool Get(Transaction transaction, ID sQLCommand_ID)
+            {
+                ID paramterName_ID = null;
+                if (TransactionSQLCommand.GetParamterName_ID(transaction, this.m_Name, ref paramterName_ID))
+                {
+                    List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+                    string spar_sQLCommand_ID = "@par_sQLCommand_ID";
+                    SQL_Parameter par_sQLCommand_ID = new SQL_Parameter(spar_sQLCommand_ID, false, sQLCommand_ID);
+                    lpar.Add(par_sQLCommand_ID);
+
+                    string spar_paramterName_ID = "@paramterName_ID";
+                    SQL_Parameter par_paramterName_ID = new SQL_Parameter(spar_paramterName_ID, false, paramterName_ID);
+                    lpar.Add(par_paramterName_ID);
+
+                    string spar_V_NVarChar = "@par_V_NVarChar";
+                    SQL_Parameter par_V_NVarChar = new SQL_Parameter(spar_V_NVarChar, SQL_Parameter.eSQL_Parameter.Nvarchar, false, this.V_NVarChar);
+                    lpar.Add(par_V_NVarChar);
+                    string sql = "insert into P_NVarChar (SQLCommand_ID,ParameterName_ID,V_varchar_max) values (" + spar_sQLCommand_ID + "," + spar_paramterName_ID + "," + spar_V_NVarChar + ")";
+                    ID p_NVarChar_ID = null;
+                    string err = null;
+                    if (transaction.ExecuteNonQuerySQLReturnID(transaction.con, sql, lpar, ref p_NVarChar_ID, ref err, "P_NVarChar"))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:TransactionSQLCommand:p_NVarChar:Get:Error=" + err + "\r\nsql=" + sql);
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
 
         public class p_VarChar
@@ -382,6 +643,43 @@ namespace DBConnectionControl40
                 m_V_VarChar = xVarChar;
                 m_Name = xname;
 
+            }
+
+            internal bool Get(Transaction transaction, ID sQLCommand_ID)
+            {
+                ID paramterName_ID = null;
+                if (TransactionSQLCommand.GetParamterName_ID(transaction, this.m_Name, ref paramterName_ID))
+                {
+                    List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+                    string spar_sQLCommand_ID = "@par_sQLCommand_ID";
+                    SQL_Parameter par_sQLCommand_ID = new SQL_Parameter(spar_sQLCommand_ID, false, sQLCommand_ID);
+                    lpar.Add(par_sQLCommand_ID);
+
+                    string spar_paramterName_ID = "@paramterName_ID";
+                    SQL_Parameter par_paramterName_ID = new SQL_Parameter(spar_paramterName_ID, false, paramterName_ID);
+                    lpar.Add(par_paramterName_ID);
+
+                    string spar_V_VarChar = "@par_V_VarChar";
+                    SQL_Parameter par_V_VarChar = new SQL_Parameter(spar_V_VarChar, SQL_Parameter.eSQL_Parameter.Varchar, false, this.V_VarChar);
+                    lpar.Add(par_V_VarChar);
+                    string sql = "insert into P_VarChar (SQLCommand_ID,ParameterName_ID,V_varchar_max) values (" + spar_sQLCommand_ID + "," + spar_paramterName_ID + "," + spar_V_VarChar + ")";
+                    ID p_VarChar_ID = null;
+                    string err = null;
+                    if (transaction.ExecuteNonQuerySQLReturnID(transaction.con, sql, lpar, ref p_VarChar_ID, ref err, "P_VarChar"))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:TransactionSQLCommand:p_VarChar:Get:Error=" + err + "\r\nsql=" + sql);
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
@@ -409,6 +707,43 @@ namespace DBConnectionControl40
                 m_Name = xname;
 
             }
+
+            internal bool Get(Transaction transaction, ID sQLCommand_ID)
+            {
+                ID paramterName_ID = null;
+                if (TransactionSQLCommand.GetParamterName_ID(transaction, this.m_Name, ref paramterName_ID))
+                {
+                    List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+                    string spar_sQLCommand_ID = "@par_sQLCommand_ID";
+                    SQL_Parameter par_sQLCommand_ID = new SQL_Parameter(spar_sQLCommand_ID, false, sQLCommand_ID);
+                    lpar.Add(par_sQLCommand_ID);
+
+                    string spar_paramterName_ID = "@paramterName_ID";
+                    SQL_Parameter par_paramterName_ID = new SQL_Parameter(spar_paramterName_ID, false, paramterName_ID);
+                    lpar.Add(par_paramterName_ID);
+
+                    string spar_V_NChar = "@par_V_NChar";
+                    SQL_Parameter par_V_NChar = new SQL_Parameter(spar_V_NChar, SQL_Parameter.eSQL_Parameter.Nchar, false, this.V_NChar);
+                    lpar.Add(par_V_NChar);
+                    string sql = "insert into P_NChar (SQLCommand_ID,ParameterName_ID,V_varchar_max) values (" + spar_sQLCommand_ID + "," + spar_paramterName_ID + "," + spar_V_NChar + ")";
+                    ID p_NChar_ID = null;
+                    string err = null;
+                    if (transaction.ExecuteNonQuerySQLReturnID(transaction.con, sql, lpar, ref p_NChar_ID, ref err, "P_NChar"))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:TransactionSQLCommand:p_NChar:Get:Error=" + err + "\r\nsql=" + sql);
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
 
         public class p_BigInt
@@ -435,16 +770,54 @@ namespace DBConnectionControl40
                 m_Name = xname;
 
             }
+
+
+            internal bool Get(Transaction transaction, ID sQLCommand_ID)
+            {
+                ID paramterName_ID = null;
+                if (TransactionSQLCommand.GetParamterName_ID(transaction, this.m_Name, ref paramterName_ID))
+                {
+                    List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+                    string spar_sQLCommand_ID = "@par_sQLCommand_ID";
+                    SQL_Parameter par_sQLCommand_ID = new SQL_Parameter(spar_sQLCommand_ID, false, sQLCommand_ID);
+                    lpar.Add(par_sQLCommand_ID);
+
+                    string spar_paramterName_ID = "@paramterName_ID";
+                    SQL_Parameter par_paramterName_ID = new SQL_Parameter(spar_paramterName_ID, false, paramterName_ID);
+                    lpar.Add(par_paramterName_ID);
+
+                    string spar_V_BigInt = "@par_V_BigInt";
+                    SQL_Parameter par_V_BigInt = new SQL_Parameter(spar_V_BigInt, SQL_Parameter.eSQL_Parameter.Bigint, false, this.V_BigInt);
+                    lpar.Add(par_V_BigInt);
+                    string sql = "insert into P_BigInt (SQLCommand_ID,ParameterName_ID,V_BigInt) values (" + spar_sQLCommand_ID + "," + spar_paramterName_ID + "," + spar_V_BigInt + ")";
+                    ID p_BigInt_ID = null;
+                    string err = null;
+                    if (transaction.ExecuteNonQuerySQLReturnID(transaction.con, sql, lpar, ref p_BigInt_ID, ref err, "P_BigInt"))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:TransactionSQLCommand:p_BigInt:Get:Error=" + err + "\r\nsql=" + sql);
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
 
         public class p_SmallInt
         {
-            private short m_V_Int16 = 0;
-            public short V_Int16
+            private short m_V_SmallInt = 0;
+            public short V_SmallInt
             {
                 get
                 {
-                    return m_V_Int16;
+                    return m_V_SmallInt;
                 }
             }
             private string m_Name = null;
@@ -457,21 +830,58 @@ namespace DBConnectionControl40
             }
             public p_SmallInt(short xi, string xname)
             {
-                m_V_Int16 = xi;
+                m_V_SmallInt = xi;
                 m_Name = xname;
 
+            }
+
+            internal bool Get(Transaction transaction, ID sQLCommand_ID)
+            {
+                ID paramterName_ID = null;
+                if (TransactionSQLCommand.GetParamterName_ID(transaction, this.m_Name, ref paramterName_ID))
+                {
+                    List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+                    string spar_sQLCommand_ID = "@par_sQLCommand_ID";
+                    SQL_Parameter par_sQLCommand_ID = new SQL_Parameter(spar_sQLCommand_ID, false, sQLCommand_ID);
+                    lpar.Add(par_sQLCommand_ID);
+
+                    string spar_paramterName_ID = "@paramterName_ID";
+                    SQL_Parameter par_paramterName_ID = new SQL_Parameter(spar_paramterName_ID, false, paramterName_ID);
+                    lpar.Add(par_paramterName_ID);
+
+                    string spar_V_SmallInt = "@par_V_SmallInt";
+                    SQL_Parameter par_V_SmallInt = new SQL_Parameter(spar_V_SmallInt, SQL_Parameter.eSQL_Parameter.Smallint, false, this.V_SmallInt);
+                    lpar.Add(par_V_SmallInt);
+                    string sql = "insert into P_SmallInt (SQLCommand_ID,ParameterName_ID,V_SmallInt) values (" + spar_sQLCommand_ID + "," + spar_paramterName_ID + "," + spar_V_SmallInt + ")";
+                    ID p_SmallInt_ID = null;
+                    string err = null;
+                    if (transaction.ExecuteNonQuerySQLReturnID(transaction.con, sql, lpar, ref p_SmallInt_ID, ref err, "P_SmallInt"))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:TransactionSQLCommand:p_SmallInt:Get:Error=" + err + "\r\nsql=" + sql);
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
 
         public class p_VarBinary
         {
-            private byte[] m_V_varbinary_max;
-            public byte[] V_varbinary_max
+            private byte[] m_V_VarBinary;
+            public byte[] V_VarBinary
             {
                 get
                 {
-                    return m_V_varbinary_max;
+                    return m_V_VarBinary;
                 }
             }
             private string m_Name = null;
@@ -484,9 +894,213 @@ namespace DBConnectionControl40
             }
             public p_VarBinary(byte[] xbytearray, string xname)
             {
-                m_V_varbinary_max = xbytearray;
+                m_V_VarBinary = xbytearray;
                 m_Name = xname;
             }
+
+            internal bool Get(Transaction transaction, ID sQLCommand_ID)
+            {
+                ID paramterName_ID = null;
+                if (TransactionSQLCommand.GetParamterName_ID(transaction, this.m_Name, ref paramterName_ID))
+                {
+                    List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+                    string spar_sQLCommand_ID = "@par_sQLCommand_ID";
+                    SQL_Parameter par_sQLCommand_ID = new SQL_Parameter(spar_sQLCommand_ID, false, sQLCommand_ID);
+                    lpar.Add(par_sQLCommand_ID);
+
+                    string spar_paramterName_ID = "@paramterName_ID";
+                    SQL_Parameter par_paramterName_ID = new SQL_Parameter(spar_paramterName_ID, false, paramterName_ID);
+                    lpar.Add(par_paramterName_ID);
+
+                    string spar_V_VarBinary = "@par_V_VarBinary";
+                    SQL_Parameter par_V_VarBinary = new SQL_Parameter(spar_V_VarBinary, SQL_Parameter.eSQL_Parameter.Varbinary, false, this.V_VarBinary);
+                    lpar.Add(par_V_VarBinary);
+                    string sql = "insert into P_VarBinary (SQLCommand_ID,ParameterName_ID,V_varbinary_max) values (" + spar_sQLCommand_ID + "," + spar_paramterName_ID + "," + spar_V_VarBinary + ")";
+                    ID p_VarBinary_ID = null;
+                    string err = null;
+                    if (transaction.ExecuteNonQuerySQLReturnID(transaction.con, sql, lpar, ref p_VarBinary_ID, ref err, "P_VarBinary"))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:DBConnectionControl40:TransactionSQLCommand:p_VarBinary:Get:Error=" + err + "\r\nsql=" + sql);
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool Get(Transaction transaction,ID sQLCommand_ID)
+        {
+            if (p_Int_list != null)
+            {
+                foreach (TransactionSQLCommand.p_Int xp_Int in p_Int_list)
+                {
+                    if (xp_Int.Get(transaction,sQLCommand_ID))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+            }
+            if (p_VarBinary_list != null)
+            {
+                foreach (p_VarBinary xp_VarBinary in p_VarBinary_list)
+                {
+                    if (xp_VarBinary.Get(transaction,sQLCommand_ID))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            if (p_Float_list != null)
+            {
+                foreach (p_Float xp_Float in p_Float_list)
+                {
+                    if (xp_Float.Get(transaction,sQLCommand_ID))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+            }
+            if (p_Bit_list != null)
+            {
+                foreach (p_Bit xp_Bit in p_Bit_list)
+                {
+                    if (xp_Bit.Get(transaction,sQLCommand_ID))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            if (p_DateTime_list != null)
+            {
+                foreach (p_DateTime xp_DateTime in p_DateTime_list)
+                {
+                    if (xp_DateTime.Get(transaction,sQLCommand_ID))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+            }
+            if (p_NvarChar_list != null)
+            {
+                foreach (p_NVarChar xp_NvarChar in p_NvarChar_list)
+                {
+                    if (xp_NvarChar.Get(transaction,sQLCommand_ID))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+            }
+            if (p_VarChar_list != null)
+            {
+                foreach (p_VarChar xp_VarChar in p_VarChar_list)
+                {
+                    if (xp_VarChar.Get(transaction,sQLCommand_ID))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+            }
+            if (p_NChar_list != null)
+            {
+                foreach (p_NChar xp_NChar in p_NChar_list)
+                {
+                    if (xp_NChar.Get(transaction,sQLCommand_ID))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+            }
+            if (p_BigInt_list != null)
+            {
+                foreach (p_BigInt xp_BigInt in p_BigInt_list)
+                {
+                    if (xp_BigInt.Get(transaction,sQLCommand_ID))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+            }
+            if (p_SmallInt_list != null)
+            {
+                foreach (p_SmallInt xp_SmallInt in p_SmallInt_list)
+                {
+                    if (xp_SmallInt.Get(transaction,sQLCommand_ID))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            if (p_VarBinary_list != null)
+            {
+                foreach (p_VarBinary xp_VarBinary in p_VarBinary_list)
+                {
+                    if (xp_VarBinary.Get(transaction,sQLCommand_ID))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+            }
+            return true;
         }
     }
 }

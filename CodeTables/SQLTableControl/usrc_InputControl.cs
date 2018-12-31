@@ -1759,6 +1759,12 @@ namespace CodeTables
                 nmUpDown.Value = xDB_decimal.val;
                 return true;
             }
+            else if (basetype == typeof(DB_float))
+            {
+                DB_float xDB_float = (DB_float)Obj;
+                nmUpDown.Value = Convert.ToDecimal(xDB_float.val);
+                return true;
+            }
             else if (basetype == typeof(DB_Percent))
             {
                 DB_Percent xDB_Percent = (DB_Percent)Obj;
@@ -2344,6 +2350,13 @@ namespace CodeTables
                 objret = xDB_decimal.val;
                 eSQL_Parameter_TYPE = SQL_Parameter.eSQL_Parameter.Decimal;
             }
+            else if (basetype == typeof(DB_float))
+            {
+                DB_float xDB_float = (DB_float)Obj;
+                xDB_float.val = (float)nmUpDown.Value;
+                objret = xDB_float.val;
+                eSQL_Parameter_TYPE = SQL_Parameter.eSQL_Parameter.Float;
+            }
             else if (basetype == typeof(DB_Percent))
             {
                 DB_Percent xDB_Percent = (DB_Percent)Obj;
@@ -2584,6 +2597,11 @@ namespace CodeTables
                 DB_decimal xDB_decimal = (DB_decimal)Obj;
                 Lines.Add(this.sImportExportVector + DecimalSeparator(nmUpDown.Value.ToString()));
             }
+            else if (basetype == typeof(DB_float))
+            {
+                DB_float xDB_float = (DB_float)Obj;
+                Lines.Add(this.sImportExportVector + DecimalSeparator(nmUpDown.Value.ToString()));
+            }
             else if (basetype == typeof(DB_Percent))
             {
                 DB_Percent xDB_decimal = (DB_Percent)Obj;
@@ -2775,6 +2793,11 @@ namespace CodeTables
             {
                 DB_decimal xDB_decimal2 = (DB_decimal)Obj;
                 xDB_decimal2.val = nmUpDown.Value;
+            }
+            else if (basetype == typeof(DB_float))
+            {
+                DB_float xDB_float = (DB_float)Obj;
+                xDB_float.val = (float)nmUpDown.Value;
             }
             else if (basetype == typeof(DB_Percent))
             {

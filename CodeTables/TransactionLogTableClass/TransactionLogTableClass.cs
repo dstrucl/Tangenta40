@@ -70,6 +70,7 @@ namespace TransactionLogTableClass
         public class V_Float: DB_float
         {
         }
+
         public class V_smallInt: DB_smallInt
         {
         }

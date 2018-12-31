@@ -41,6 +41,19 @@ namespace DBConnectionControl40
     [ToolboxBitmap("E:\\ManualReader\\ctlogina\\DBConectionControl4\\Resources\\DBConnection.ico")]
     public partial class DBConnection : Component
     {
+        private bool m_DBTransactionsLogConnection = false;
+
+        public bool DBTransactionsLogConnection
+        {
+            get
+            {
+                return m_DBTransactionsLogConnection;
+            }
+            set
+            {
+                m_DBTransactionsLogConnection = value;
+            }
+        }
         public const string BACKUPTEMP = "backuptemp";
         public string m_inifile_prefix = null;
 
@@ -138,8 +151,9 @@ namespace DBConnectionControl40
             }
         }
 
-        public DBConnection()
+        public DBConnection(bool bTransactionLog)
         {
+            DBTransactionsLogConnection = bTransactionLog;
             m_con_SQLite = new ConnectionSQLITE();
             m_con_MYSQL = new ConnectionMYSQL();
             m_con_MSSQL = new ConnectionMSSQL();

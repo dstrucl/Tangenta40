@@ -1037,6 +1037,7 @@ namespace DBTypes
         public DB_varbinary_max DB_varbinary_max = new DB_varbinary_max();
         public DB_Money DB_Money = new DB_Money();
         public DB_decimal DB_decimal = new DB_decimal();
+        public DB_float DB_float = new DB_float();
         public DB_Percent DB_Percent = new DB_Percent();
         public DB_Document DB_Document = new DB_Document();
         public DB_Image DB_Image = new DB_Image();
@@ -1107,6 +1108,10 @@ namespace DBTypes
                         else if (baseType == typeof(DB_decimal))
                         {
                             return "[decimal](18,5)";
+                        }
+                        else if (baseType == typeof(DB_float))
+                        {
+                            return "[float](8)";
                         }
                         else if (baseType == typeof(DB_Percent))
                         {
@@ -1233,6 +1238,10 @@ namespace DBTypes
                             return true;
                         }
                         else if (baseType == typeof(DB_decimal))
+                        {
+                            return true;
+                        }
+                        else if (baseType == typeof(DB_float))
                         {
                             return true;
                         }
@@ -1367,6 +1376,10 @@ namespace DBTypes
                         {
                             return -1;
                         }
+                        else if (baseType == typeof(DB_float))
+                        {
+                            return -1;
+                        }
                         else if (baseType == typeof(DB_Percent))
                         {
                             return -1;
@@ -1486,6 +1499,10 @@ namespace DBTypes
                         else if (baseType == typeof(DB_decimal))
                         {
                             return "DECIMAL(18,5)";
+                        }
+                        else if (baseType == typeof(DB_float))
+                        {
+                            return "FLOAT(18,5)";
                         }
                         else if (baseType == typeof(DB_Percent))
                         {
@@ -1618,6 +1635,10 @@ namespace DBTypes
                         else if (baseType == typeof(DB_decimal))
                         {
                             return "DECIMAL(18,5)";
+                        }
+                        else if (baseType == typeof(DB_float))
+                        {
+                            return "DOUBLE";
                         }
                         else if (baseType == typeof(DB_Percent))
                         {
@@ -1799,6 +1820,10 @@ namespace DBTypes
                     else if (baseType == typeof(DB_decimal))
                     {
                         return typeof(DB_decimal);
+                    }
+                    else if (baseType == typeof(DB_float))
+                    {
+                        return typeof(DB_float);
                     }
                     else if (baseType == typeof(DB_Percent))
                     {
@@ -1994,6 +2019,13 @@ namespace DBTypes
                     sAction = "DB_decimal";
                     DB_decimal xDB_decimal = (DB_decimal)obj;
                     xDB_decimal.val = Convert.ToDecimal(Value, new CultureInfo("en-US"));
+                    return true;
+                }
+                else if (type == typeof(DB_float))
+                {
+                    sAction = "DB_float";
+                    DB_float xDB_float = (DB_float)obj;
+                    xDB_float.val = (float) Convert.ToDecimal(Value, new CultureInfo("en-US"));
                     return true;
                 }
                 else if (type == typeof(DB_Percent))
@@ -2370,6 +2402,11 @@ namespace DBTypes
                         ((DB_decimal)col_obj).val = Convert.ToDecimal(Value);
                         return true;
                     }
+                    else if (type == typeof(DB_float))
+                    {
+                        ((DB_float)col_obj).val = (float)Convert.ToDecimal(Value);
+                        return true;
+                    }
                     else if (type == typeof(DB_Percent))
                     {
                         ((DB_Percent)col_obj).val = Convert.ToDecimal(Value);
@@ -2540,6 +2577,11 @@ namespace DBTypes
             {
                 DB_decimal xDB_decimal = (DB_decimal)obj;
                 return xDB_decimal.val.ToString(new CultureInfo("en-US"));
+            }
+            else if (baseType == typeof(DB_float))
+            {
+                DB_float xDB_float = (DB_float)obj;
+                return xDB_float.val.ToString(new CultureInfo("en-US"));
             }
             else if (baseType == typeof(DB_Percent))
             {
@@ -2776,6 +2818,7 @@ namespace DBTypes
                     (baseType == typeof(DB_Int64)) ||
                     (baseType == typeof(DB_Money)) ||
                     (baseType == typeof(DB_decimal)) ||
+                    (baseType == typeof(DB_float)) ||
                     (baseType == typeof(DB_Percent)) ||
                     (baseType == typeof(DB_smallInt)) ||
                     (baseType == typeof(DB_bit)) ||

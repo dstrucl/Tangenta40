@@ -119,11 +119,10 @@ namespace DBConnectionControl40
                 con = m_con;
                 if (con.BeginTransaction(name, ref identity))
                 {
-                    m_ActivationTime = DateTime.Now;
-                    //if (m_TransactionLog_delegates!=null)
-                    //{
-                    //    m_TransactionLog_delegates.m_delegate_WriteTransactionLog_BeginTransaction(this);
-                    //}
+                    if (!con.DBTransactionsLogConnection)
+                    {
+                        m_ActivationTime = DateTime.Now;
+                    }
                 }
                 else
                 {
@@ -151,12 +150,20 @@ namespace DBConnectionControl40
                     {
                         if (con.CommitTransaction(identity))
                         {
-                            m_CommitTime = DateTime.Now;
-                            identity = null;
-                            m_Active = false;
-                            if (m_TransactionLog_delegates!=null)
+                            if (con.DBTransactionsLogConnection)
                             {
-                                m_TransactionLog_delegates.m_delegate_WriteTransactionLog_Commit(this);
+                                identity = null;
+                                m_Active = false;
+                            }
+                            else
+                            {
+                                m_CommitTime = DateTime.Now;
+                                identity = null;
+                                m_Active = false;
+                                if (m_TransactionLog_delegates != null)
+                                {
+                                    m_TransactionLog_delegates.m_delegate_WriteTransactionLog_Commit(this);
+                                }
                             }
                             return true;
                         }
@@ -195,12 +202,20 @@ namespace DBConnectionControl40
                     {
                         if (con.RollbackTransaction(identity))
                         {
-                            m_RollBackTime = DateTime.Now;
-                            m_Active = false;
-                            identity = null;
-                            if (m_TransactionLog_delegates != null)
+                            if (con.DBTransactionsLogConnection)
                             {
-                                m_TransactionLog_delegates.m_delegate_WriteTransactionLog_Rollback(this);
+                                m_Active = false;
+                                identity = null;
+                            }
+                            else
+                            {
+                                m_RollBackTime = DateTime.Now;
+                                m_Active = false;
+                                identity = null;
+                                if (m_TransactionLog_delegates != null)
+                                {
+                                    m_TransactionLog_delegates.m_delegate_WriteTransactionLog_Rollback(this);
+                                }
                             }
                             return true;
                         }
@@ -233,11 +248,18 @@ namespace DBConnectionControl40
         {
             if (GetTransaction(con))
             {
-                DateTime executionStart = DateTime.Now;
-                bool bresult = con.ExecuteNonQuerySQL(sql, lpar, ref err);
-                DateTime executionEnd = DateTime.Now;
-                writeTransactionLogExecute(sql, lpar, bresult, null, executionStart, executionEnd, true, err);
-                return bresult;
+                if (con.DBTransactionsLogConnection)
+                {
+                    return con.ExecuteNonQuerySQL(sql, lpar, ref err);
+                }
+                else
+                {
+                    DateTime executionStart = DateTime.Now;
+                    bool bresult = con.ExecuteNonQuerySQL(sql, lpar, ref err);
+                    DateTime executionEnd = DateTime.Now;
+                    writeTransactionLogExecute(sql, lpar, bresult, null, executionStart, executionEnd, true, err);
+                    return bresult;
+                }
             }
             else
             {
@@ -249,12 +271,19 @@ namespace DBConnectionControl40
         {
             if (GetTransaction(con))
             {
-                DateTime executionStart = DateTime.Now;
-                bool bresult = con.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref err, table_name);
-                DateTime executionEnd = DateTime.Now;
-                writeTransactionLogExecute(sql, lpar, bresult, id, executionStart, executionEnd, true, err);
+                if (con.DBTransactionsLogConnection)
+                {
+                    return con.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref err, table_name);
+                }
+                else
+                {
+                    DateTime executionStart = DateTime.Now;
+                    bool bresult = con.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref err, table_name);
+                    DateTime executionEnd = DateTime.Now;
+                    writeTransactionLogExecute(sql, lpar, bresult, id, executionStart, executionEnd, true, err);
 
-                return bresult;
+                    return bresult;
+                }
             }
             else
             {
@@ -286,11 +315,18 @@ namespace DBConnectionControl40
         {
             if (GetTransaction(con))
             {
-                DateTime executionStart = DateTime.Now;
-                bool bresult = con.ExecuteNonQuerySQL(sql, lpar, ref err);
-                DateTime executionEnd = DateTime.Now;
-                writeTransactionLogExecute(sql, lpar, bresult, null, executionStart, executionEnd, true, err);
-                return bresult;
+                if (con.DBTransactionsLogConnection)
+                {
+                    return con.ExecuteNonQuerySQL(sql, lpar, ref err);
+                }
+                else
+                {
+                    DateTime executionStart = DateTime.Now;
+                    bool bresult = con.ExecuteNonQuerySQL(sql, lpar, ref err);
+                    DateTime executionEnd = DateTime.Now;
+                    writeTransactionLogExecute(sql, lpar, bresult, null, executionStart, executionEnd, true, err);
+                    return bresult;
+                }
             }
             else
             {
@@ -307,11 +343,18 @@ namespace DBConnectionControl40
         {
             if (GetTransaction(m_con))
             {
-                DateTime ExecutionStart = DateTime.Now;
-                bool bresult =  m_con.ExecuteScalarReturnID(sbsqlUpdate, sqlParamList, ref newID, ref csError, tableName);
-                DateTime ExecutionEnd = DateTime.Now;
-                writeTransactionLogExecute(sbsqlUpdate.ToString(), sqlParamList, bresult, newID, ExecutionStart, ExecutionEnd, true, csError);
-                return bresult;
+                if (con.DBTransactionsLogConnection)
+                {
+                    return m_con.ExecuteScalarReturnID(sbsqlUpdate, sqlParamList, ref newID, ref csError, tableName);
+                }
+                else
+                {
+                    DateTime ExecutionStart = DateTime.Now;
+                    bool bresult = m_con.ExecuteScalarReturnID(sbsqlUpdate, sqlParamList, ref newID, ref csError, tableName);
+                    DateTime ExecutionEnd = DateTime.Now;
+                    writeTransactionLogExecute(sbsqlUpdate.ToString(), sqlParamList, bresult, newID, ExecutionStart, ExecutionEnd, true, csError);
+                    return bresult;
+                }
             }
             else
             {

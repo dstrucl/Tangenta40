@@ -37,7 +37,7 @@ namespace TangentaDataBaseDef
             // TODO: Complete member initialization
             mt = new TangentaTableClass.SQL_Database_Tables_Definition();
 
-            m_DBTables = new DBTableControl(pForm, XmlRootName, xmlIniFileFolder);
+            m_DBTables = new DBTableControl(pForm, XmlRootName, xmlIniFileFolder, false);
 
             //            Define_Image_SQL_Database_Tables();
 

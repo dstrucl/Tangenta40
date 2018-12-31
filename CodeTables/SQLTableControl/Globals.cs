@@ -32,6 +32,7 @@ namespace CodeTables
             DB_Int64,
             DB_Money,
             DB_decimal,
+            DB_float,
             DB_Percent,
             DB_smallInt,
             DB_bit,
@@ -199,6 +200,10 @@ namespace CodeTables
             else if (basetype == typeof(DB_decimal))
             {
                 return eDBType.DB_decimal;
+            }
+            else if (basetype == typeof(DB_float))
+            {
+                return eDBType.DB_float;
             }
             else if (basetype == typeof(DB_Percent))
             {
