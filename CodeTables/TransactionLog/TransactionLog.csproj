@@ -95,6 +95,12 @@
     <Compile Include="usrc_TransactionControl.Designer.cs">
       <DependentUpon>usrc_TransactionControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_TransactionLog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_TransactionLog.Designer.cs">
+      <DependentUpon>usrc_TransactionLog.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\DBConnectedTransactionActive.bmp" />
@@ -147,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_TransactionControl.resx">
       <DependentUpon>usrc_TransactionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_TransactionLog.resx">
+      <DependentUpon>usrc_TransactionLog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -82,6 +82,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\AnyCPU\Debug\FastColoredTextBox.dll</HintPath>
+    </Reference>
     <Reference Include="GongShell">
       <HintPath>..\..\DLL\GongShell.dll</HintPath>
     </Reference>
@@ -147,6 +151,18 @@
     </Compile>
     <Compile Include="Form_Backup_SQLite.Designer.cs">
       <DependentUpon>Form_Backup_SQLite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_TransactionBreakDialog_Commit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_TransactionBreakDialog_Commit.Designer.cs">
+      <DependentUpon>Form_TransactionBreakDialog_Commit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_TransactionBreakDialog_Activate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_TransactionBreakDialog_Activate.Designer.cs">
+      <DependentUpon>Form_TransactionBreakDialog_Activate.cs</DependentUpon>
     </Compile>
     <Compile Include="ID.cs" />
     <Compile Include="lng.cs" />
@@ -258,6 +274,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Backup_SQLite.resx">
       <DependentUpon>Form_Backup_SQLite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_TransactionBreakDialog_Commit.resx">
+      <DependentUpon>Form_TransactionBreakDialog_Commit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_TransactionBreakDialog_Activate.resx">
+      <DependentUpon>Form_TransactionBreakDialog_Activate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Process_CreateDatabase_Timer.resx">
       <DependentUpon>Process_CreateDatabase_Timer.cs</DependentUpon>

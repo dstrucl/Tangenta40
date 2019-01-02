@@ -3,11 +3,67 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace DBConnectionControl40
 {
     public class Transaction
     {
+        public delegate UserControl delegate_AddTransactionLogUserControl(Panel ownepnl);
+        public delegate bool delegate_InitTransactionLogUserControl(object oursc_TransactionLog);
+
+        private static object myDataBase_TransactionsLog = null;
+        public static object MyDataBase_TransactionsLog
+        {
+            get
+            {
+                return myDataBase_TransactionsLog;
+            }
+            set
+            {
+                myDataBase_TransactionsLog = value;
+            }
+        }
+
+        private static delegate_AddTransactionLogUserControl m_delegate_AddTransactionLogUserControl = null;
+        public static delegate_AddTransactionLogUserControl Delegate_AddTransactionLogUserControl
+        {
+            get
+            {
+                return m_delegate_AddTransactionLogUserControl;
+            }
+            set
+            {
+                m_delegate_AddTransactionLogUserControl = value;
+            }
+        }
+
+        private static delegate_InitTransactionLogUserControl m_delegate_InitTransactionLogUserControl = null;
+        public static delegate_InitTransactionLogUserControl Delegate_InitTransactionLogUserControl
+        {
+            get
+            {
+                return m_delegate_InitTransactionLogUserControl;
+            }
+            set
+            {
+                m_delegate_InitTransactionLogUserControl = value;
+            }
+        }
+        private static bool bBreakOnTransactionDialog = false;
+
+        public static bool BreakOnTransactionDialog
+        {
+            get
+            {
+                return bBreakOnTransactionDialog;
+            }
+            set
+            {
+                bBreakOnTransactionDialog = value;
+            }
+
+        }
 
         public delegate void delegate_SetState(eConnectionState eConnectionState);
 
@@ -128,10 +184,12 @@ namespace DBConnectionControl40
                     if (!con.DBTransactionsLogConnection)
                     {
                         m_ActivationTime = DateTime.Now;
+                      
                         if (DBConnection.Delegate_SetState !=null)
                         {
                             DBConnection.Delegate_SetState(eConnectionState.CONNECTED_TRANSACTION_ACTIVE);
                         }
+                       
                     }
                 }
                 else
@@ -148,6 +206,24 @@ namespace DBConnectionControl40
             }
             m_Active = true;
             return true;
+        }
+
+        private void Show_TransactionActivateDialog(Transaction transaction)
+        {
+            Form_TransactionBreakDialog_Activate frm_TransactionBreakDialog_Activate = new Form_TransactionBreakDialog_Activate(transaction);
+            FormCollection frm_collection = Application.OpenForms;
+            Form frm_parent = null;
+            if (frm_collection.Count>0)
+            {
+                frm_parent = frm_collection[0];
+                frm_TransactionBreakDialog_Activate.TopMost = false;
+            }
+            else
+            {
+                frm_TransactionBreakDialog_Activate.TopMost = true;
+            }
+        
+            frm_TransactionBreakDialog_Activate.ShowDialog(frm_parent);
         }
 
         public bool Commit()
@@ -178,6 +254,10 @@ namespace DBConnectionControl40
                                 {
                                     DBConnection.Delegate_SetState(eConnectionState.CONNECTED_TRANSACTION_COMMITED);
                                 }
+                                if (bBreakOnTransactionDialog)
+                                {
+                                    Show_TransactionCommitDialog(this);
+                                }
                             }
                             return true;
                         }
@@ -206,6 +286,24 @@ namespace DBConnectionControl40
             }
         }
 
+
+        private void Show_TransactionCommitDialog(Transaction transaction)
+        {
+            Form_TransactionBreakDialog_Commit frm_TransactionBreakDialog_Commit = new Form_TransactionBreakDialog_Commit(transaction);
+            FormCollection frm_collection = Application.OpenForms;
+            Form frm_parent = null;
+            if (frm_collection.Count > 0)
+            {
+                frm_parent = frm_collection[0];
+                frm_TransactionBreakDialog_Commit.TopMost = false;
+            }
+            else
+            {
+                frm_TransactionBreakDialog_Commit.TopMost = true;
+            }
+
+            frm_TransactionBreakDialog_Commit.ShowDialog(frm_parent);
+        }
         public bool Rollback()
         {
             if (m_Active)
@@ -318,6 +416,13 @@ namespace DBConnectionControl40
                 TransactionSQLCommandList = new List<TransactionSQLCommand>();
             }
             TransactionSQLCommandList.Add(xTransactionSQLCommand);
+            if (TransactionSQLCommandList.Count==1)
+            {
+                if (bBreakOnTransactionDialog)
+                {
+                    Show_TransactionActivateDialog(this);
+                }
+            }
 
             //if (m_TransactionLog_delegates != null)
             //{

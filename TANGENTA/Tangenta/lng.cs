@@ -732,6 +732,11 @@ namespace Tangenta
 
         public static ltext s_commandline_CHANGE_CONNECTION = new ltext(new string[] { "Shows connection dialogs.\r\nThis command in command line enables you to change database connection at program startup.", "Prikaže dialoge za ustvarjanje povezav na strežnike.\r\nTo vam omogoči, da ob zagonu programa nastavite nove povezave na strežnike." });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
 
+        public static ltext s_commandline_TRANSACTION_MONITOR = new ltext(new string[] { "Shows transaction monitor dialogs.\r\nThis command in command line enables you to see history of changes in your databse.", "Prikaže dialog zgodovine transakcij podatkovne baze.\r\nTo vam omogoča,sprotno in zgodovinsko analizo zaporednih sprememb v podatkovni bazi." });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
+
+        public static ltext s_commandline_TRANSACTION_BREAK_DIALOG = new ltext(new string[] { "Shows transaction break dialog when new transaction is activated; commited or rollbacked.\r\nThis command in command line enables you to track changes in your databse.", "Ob začetku vsake transakcije, njeni potrditvi ali razveljavitvi  prikaže dialog za prikaz stanja  trenutne podatkovne transakcije  baze.\r\nTo vam omogoča,sprotno analizo delovanja transakcij v podatkovni bazi." });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
+
+
         public static ltext s_commandline_RESETNEW = new ltext(new string[] { "Starts program without saved settings!", "Zažene program kot novo instalacijo brez vseh nastavitev!" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
 
         public static ltext s_commandline_AUTONEXT = new ltext(new string[] { "Starts program with automatic predefined setup! It works only with RESETNEW command.\r\nExample = /AUTNEXT=1000", "Avtomastki zagon tako da program sam pritiska na gumb naprej, deluje samo če s zažene program kot novo instalacijo brez vseh nastavitev oziroma z /RESETNEW parametrom.\r\nPrimer:/AUTONEXT=1000" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs

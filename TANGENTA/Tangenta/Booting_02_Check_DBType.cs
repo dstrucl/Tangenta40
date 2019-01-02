@@ -63,6 +63,10 @@ namespace Tangenta
                     //Do Real Check
                     if (DBSync.DBSync.Startup_02_Get_eDBType_and_DB_for_Tangenta(sDBType, ref DBSync.DBSync.m_DBType,frm, frm.CodeTables_IniFileFolder, frm.xmlCodeTables))
                     {
+                        if (Transaction.BreakOnTransactionDialog)
+                        {
+                            SetBreakOnTransactionLog();
+                        }
                         return Startup_check_proc_Result.CHECK_OK;
                     }
                     else
@@ -110,6 +114,13 @@ namespace Tangenta
             return true;
         }
 
+        private void SetBreakOnTransactionLog()
+        {
+            Transaction.MyDataBase_TransactionsLog = DBSync.DBSync.DB_for_Tangenta.DB_TransactionsLog;
+            Transaction.Delegate_AddTransactionLogUserControl = TransactionLog.TransactionLog.AddTransactionLogUserControl;
+            Transaction.Delegate_InitTransactionLogUserControl = TransactionLog.TransactionLog.InitTransactionLogUserControl;
+        }
+
         private Startup_onformresult_proc_Result Startup_02_onformresult_ShowDataBaseTypeSelectionForm(startup_step myStartup_step,
                                                                                             Form form,
                                                                                             NavigationButtons.Navigation.eEvent eExitResult,
@@ -131,6 +142,10 @@ namespace Tangenta
                                 Properties.Settings.Default.Save();
                                 if (DBSync.DBSync.Startup_02_Get_eDBType_and_DB_for_Tangenta(sDBType, ref eDBType, frm, frm.CodeTables_IniFileFolder, frm.xmlCodeTables))
                                 {
+                                    if (Transaction.BreakOnTransactionDialog)
+                                    {
+                                        SetBreakOnTransactionLog();
+                                    }
                                     return Startup_onformresult_proc_Result.NEXT;
                                 }
                                 else
@@ -143,6 +158,10 @@ namespace Tangenta
                                 Properties.Settings.Default.Save();
                                 if (DBSync.DBSync.Startup_02_Get_eDBType_and_DB_for_Tangenta(sDBType, ref eDBType, frm, frm.CodeTables_IniFileFolder, frm.xmlCodeTables))
                                 {
+                                    if (Transaction.BreakOnTransactionDialog)
+                                    {
+                                        SetBreakOnTransactionLog();
+                                    }
                                     return Startup_onformresult_proc_Result.NEXT;
                                 }
                                 else

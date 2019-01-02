@@ -187,7 +187,17 @@ namespace Tangenta
         public usrc_DocumentMan1366x768()
         {
             InitializeComponent();
-            this.usrc_TransactionControl1.DataBase_TransactionsLog = DBSync.DBSync.DB_for_Tangenta.DB_TransactionsLog;
+            if (Program.bTransactionMonitor)
+            {
+                this.usrc_TransactionControl1.DataBase_TransactionsLog = DBSync.DBSync.DB_for_Tangenta.DB_TransactionsLog;
+                this.usrc_TransactionControl1.Visible = true;
+            }
+            else
+            {
+                this.usrc_TransactionControl1.DataBase_TransactionsLog = null;
+                this.usrc_TransactionControl1.Visible = false;
+            }
+   
             lng.s_Year.Text(lbl_FinancialYear);
             m_usrc_DocumentEditor1366x768.LayoutChanged += M_usrc_Invoice_LayoutChanged;
             DocM = new DocumentMan(SetMode, TableOfDocuments_Init, Control_DocumentEditor_Init,SetInitialMode);
