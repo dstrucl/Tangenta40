@@ -26,6 +26,20 @@ namespace CodeTables
     [ToolboxBitmap("E:\\ManualReader\\ctlogina\\CodeTables\\Resources\\CodeTables.ico")]
     public partial class DBTableControl : Component
     {
+        private static bool bStrartupCheckColumns = false;
+        public static bool StrartupCheckColumns
+        {
+            get
+            {
+                return bStrartupCheckColumns;
+            }
+            set
+            {
+                bStrartupCheckColumns = value;
+            }
+        }
+
+        
         public DataTable DataBaseTablesInfo = null;
 
         private static Form_dtSQLdb form_dtSQLdb = null;
@@ -881,14 +895,17 @@ namespace CodeTables
                     }
                     if (DbTableExists(tbl, ref csError, transaction))
                     {
-                        if (ColumnExists(tbl, ref csError))
+                        if (DBTableControl.StrartupCheckColumns)
                         {
+                            if (ColumnExists(tbl, ref csError))
+                            {
 
-                        }
-                        else
-                        {
-                            eRes = enumDataBaseCheckResult.COLUMN_MISSING;
-                            return eRes;
+                            }
+                            else
+                            {
+                                eRes = enumDataBaseCheckResult.COLUMN_MISSING;
+                                return eRes;
+                            }
                         }
                     }
                     else

@@ -736,13 +736,15 @@ namespace Tangenta
 
         public static ltext s_commandline_TRANSACTION_BREAK_DIALOG = new ltext(new string[] { "Shows transaction break dialog when new transaction is activated; commited or rollbacked.\r\nThis command in command line enables you to track changes in your databse.", "Ob začetku vsake transakcije, njeni potrditvi ali razveljavitvi  prikaže dialog za prikaz stanja  trenutne podatkovne transakcije  baze.\r\nTo vam omogoča,sprotno analizo delovanja transakcij v podatkovni bazi." });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
 
+        public static ltext s_commandline__STARTUP_CHECK_COLUMNS = new ltext(new string[] { "Check each column of each table in database at program startup.\r\nStartup of program will take longer.", "Preverjanje stolpcev tabel ob zagonu programa.\r\nV kolikor odkljukate to opcijo, bo zagon programa trajal dlje časa." });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
+
 
         public static ltext s_commandline_RESETNEW = new ltext(new string[] { "Starts program without saved settings!", "Zažene program kot novo instalacijo brez vseh nastavitev!" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
 
         public static ltext s_commandline_AUTONEXT = new ltext(new string[] { "Starts program with automatic predefined setup! It works only with RESETNEW command.\r\nExample = /AUTNEXT=1000", "Avtomastki zagon tako da program sam pritiska na gumb naprej, deluje samo če s zažene program kot novo instalacijo brez vseh nastavitev oziroma z /RESETNEW parametrom.\r\nPrimer:/AUTONEXT=1000" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
 
-        public static ltext s_const_command_DIAGNOSTIC = new ltext(new string[] { "Enables Diagnostics of program speed.\r\n You can press F10 on main form to view speed results", "Omogoči diagnosticiranje hitrosti izvajanja programa. \r\n S pritsikom na F10 se prikaže okno z rezultati meritev." });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
-
+        public static ltext s_const_command_DIAGNOSTIC = new ltext(new string[] { "Enables Diagnostics of program speed.\r\n You can press F10 on main form to view speed results", "Omogoči diagnosticiranje hitrosti izvajanja programa. \r\n S pritsikom na F10 se prikaže okno z rezultati meritv." });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
+        
         public static ltext s_Another_instance_is_running = new ltext(new string[] { "Another instance is running", "Program je bil že zagnan in ravnokar teče!" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
 
         public static ltext s_Cancel = new ltext(new string[]{"Cancel",

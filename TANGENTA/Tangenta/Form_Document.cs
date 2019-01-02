@@ -619,6 +619,11 @@ namespace Tangenta
             {
                 m_startup.StartExecution();//when Startup has finished event M_usrc_Startup_Finished is triggered
             }
+            else
+            {
+                // no document not completed there is error to locql or remote connection
+                m_startup.StartExecution();
+            }
         }
 
         private void M_usrc_Startup_ExitPrev()

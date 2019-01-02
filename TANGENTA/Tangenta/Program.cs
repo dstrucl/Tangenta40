@@ -25,6 +25,7 @@ using System.Reflection;
 using TangentaPrint;
 using LoginControl;
 using static TangentaDB.CashierActivity;
+using CodeTables;
 
 namespace Tangenta
 {
@@ -45,6 +46,7 @@ namespace Tangenta
         private const string const_command_RS232MONITOR = "RS232MONITOR";
         private const string const_command_TRANSACTION_MONITOR = "TRANSACTION-MONITOR";
         private const string const_command_TRANSACTION_BREAK_DIALOG = "TRANSACTION-BREAK-DIALOG";
+        private const string const_command_STARTUP_CHECK_COLUMNS = "STARTUP-CHECK-COLUMNS";
 
 
         #endregion
@@ -132,6 +134,7 @@ namespace Tangenta
         internal static bool bRS232Monitor = false;
         internal static bool bTransactionMonitor = false;
         internal static bool bBreakOnTransactionDialog = false;
+        internal static bool bStartupCheckColumns = false;
 
         internal static ID ProgramModule_ID = null;
 
@@ -392,9 +395,13 @@ namespace Tangenta
                             bBreakOnTransactionDialog = true;
                             Transaction.BreakOnTransactionDialog = bBreakOnTransactionDialog;
                         }
-                        
-                       
-                        
+
+                        if (s.Contains(const_command_STARTUP_CHECK_COLUMNS))
+                        {
+                            bStartupCheckColumns = true;
+                            DBTableControl.StrartupCheckColumns = bStartupCheckColumns = true;
+
+                        }
 
                         if (s.Contains(const_command_SYMULATOR))
                         {
@@ -471,7 +478,10 @@ namespace Tangenta
             command_line_help.Add(new CommandLineHelp.CommandLineHelp("/" + const_command_RESETNEW, lng.s_commandline_RESETNEW.s));
             command_line_help.Add(new CommandLineHelp.CommandLineHelp("/" + const_command_TRANSACTION_MONITOR, lng.s_commandline_TRANSACTION_MONITOR.s));
             command_line_help.Add(new CommandLineHelp.CommandLineHelp("/" + const_command_TRANSACTION_BREAK_DIALOG, lng.s_commandline_TRANSACTION_BREAK_DIALOG.s));
-            //            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DIAGNOSTIC, lng.s_const_command_DIAGNOSTIC.s));
+            command_line_help.Add(new CommandLineHelp.CommandLineHelp("/" + const_command_STARTUP_CHECK_COLUMNS, lng.s_commandline__STARTUP_CHECK_COLUMNS.s));
+
+            //            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DIAGNOSTIC, lng.s_const_command_DIAGNOSTIC.s));, lng.s_commandline_TRANSACTION_BREAK_DIALOG.s));
+
             //            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_AUTONEXT, lng.s_commandline_AUTONEXT.s));
 
             NavigationButtons.Navigation CommandLineHelpNav = new NavigationButtons.Navigation(null);
