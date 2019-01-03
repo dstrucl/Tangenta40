@@ -12,6 +12,19 @@ namespace DBConnectionControl40
         public delegate UserControl delegate_AddTransactionLogUserControl(Panel ownepnl);
         public delegate bool delegate_InitTransactionLogUserControl(object oursc_TransactionLog);
 
+        private bool m_FirstExecutionDone = false;
+        public bool FirstExecutionDone
+        {
+            get
+            {
+                return m_FirstExecutionDone;
+            }
+            set
+            {
+                m_FirstExecutionDone = value;
+            }
+        }
+
         private static object myDataBase_TransactionsLog = null;
         public static object MyDataBase_TransactionsLog
         {
@@ -183,7 +196,6 @@ namespace DBConnectionControl40
                 {
                     if (!con.DBTransactionsLogConnection)
                     {
-                        m_ActivationTime = DateTime.Now;
                       
                         if (DBConnection.Delegate_SetState !=null)
                         {
@@ -416,22 +428,23 @@ namespace DBConnectionControl40
                 TransactionSQLCommandList = new List<TransactionSQLCommand>();
             }
             TransactionSQLCommandList.Add(xTransactionSQLCommand);
-            if (TransactionSQLCommandList.Count==1)
+            if (bBreakOnTransactionDialog)
             {
-                if (bBreakOnTransactionDialog)
+                if (!FirstExecutionDone)
                 {
+                    FirstExecutionDone = true;
                     Show_TransactionActivateDialog(this);
+                    m_ActivationTime = DateTime.Now;
                 }
             }
-
-            //if (m_TransactionLog_delegates != null)
-            //{
-                
-            //    if (ID.Validate(Transaction_ID))
-            //    {
-            //        m_TransactionLog_delegates.m_delegate_WriteTransactionLogExecute(this, sql, lpar, id, bresult, err);
-            //    }
-            //}
+            else
+            {
+                if (!FirstExecutionDone)
+                {
+                    FirstExecutionDone = true;
+                    m_ActivationTime = DateTime.Now;
+                }
+            }
         }
 
         public bool ExecuteNonQuerySQL(DBConnection con, string sql, List<SQL_Parameter> lpar, ref string err)

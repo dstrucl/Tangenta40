@@ -89,6 +89,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="usrc_SQL_Parameter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_SQL_Parameter.Designer.cs">
+      <DependentUpon>usrc_SQL_Parameter.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_TransactionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -151,6 +157,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_SQL_Parameter.resx">
+      <DependentUpon>usrc_SQL_Parameter.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_TransactionControl.resx">
       <DependentUpon>usrc_TransactionControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -166,6 +175,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\DBConnectedTransactionCommited.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DBConnectionTransactinActive.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

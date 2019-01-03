@@ -190,6 +190,24 @@ namespace DBTypes
 
         }
 
+        public static float_v set_float(object p)
+        {
+            float_v x = null;
+            if (p == null) return null;
+            if (p is float)
+            {
+                x = new float_v((float)p);
+            }
+            else if (!(p is System.DBNull))
+            {
+                tf.ShowTypeError(p.GetType().ToString(), x.GetType().ToString());
+            }
+
+            return x;
+
+        }
+
+
         public static DateTime_v set_DateTime(object p)
         {
             DateTime_v x = null;
@@ -447,6 +465,58 @@ namespace DBTypes
                 {
                     LogFile.Error.Show("ERROR:func:Copy:Not supported object type = " + o.GetType().ToString());
                     return null;
+                }
+            }
+        }
+
+        public static string ConvertToString(object v_object_v)
+        {
+            if (v_object_v == null)
+            {
+                return "null";
+            }
+            else
+            {
+                if (v_object_v is long_v)
+                {
+                    return Convert.ToString(((long_v)v_object_v).v);
+                }
+                else if (v_object_v is int_v)
+                {
+                    return Convert.ToString(((int_v)v_object_v).v);
+                }
+                else if (v_object_v is short_v)
+                {
+                    return Convert.ToString(((short_v)v_object_v).v);
+                }
+                else if (v_object_v is bool_v)
+                {
+                    return Convert.ToString(((bool_v)v_object_v).v);
+                }
+                else if (v_object_v is decimal_v)
+                {
+                    return Convert.ToString(((decimal_v)v_object_v).v);
+                }
+                else if (v_object_v is float_v)
+                {
+                    return Convert.ToString(((float_v)v_object_v).v);
+                }
+                else if (v_object_v is DateTime_v)
+                {
+                    return Convert.ToString(((DateTime_v)v_object_v).v);
+                }
+                else if (v_object_v is byte_array_v)
+                {
+                    return Convert.ToBase64String(((byte_array_v)v_object_v).v);
+                }
+                else if (v_object_v is string_v)
+                {
+                    return ((string_v)v_object_v).v;
+                }
+                else
+                {
+                    LogFile.Error.Show("DBTypes:tf:ConvertToString:functzion not implemented for object type= " + v_object_v.GetType().ToString());
+                    return "???";
                 }
             }
         }

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_TransactionBreakDialog_Activate));
             this.txt_TransactionName = new System.Windows.Forms.TextBox();
             this.lbl_TransactionName = new System.Windows.Forms.Label();
@@ -79,7 +78,6 @@
             this.fsttxt_SQLCommand.CommentPrefix = "--";
             this.fsttxt_SQLCommand.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fsttxt_SQLCommand.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.fsttxt_SQLCommand.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fsttxt_SQLCommand.IsReplaceMode = false;
             this.fsttxt_SQLCommand.Language = FastColoredTextBoxNS.Language.SQL;
             this.fsttxt_SQLCommand.LeftBracket = '(';
@@ -124,6 +122,7 @@
             this.Controls.Add(this.fsttxt_SQLCommand);
             this.Controls.Add(this.lbl_TransactionName);
             this.Controls.Add(this.txt_TransactionName);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_TransactionBreakDialog_Activate";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Transaction Activated";

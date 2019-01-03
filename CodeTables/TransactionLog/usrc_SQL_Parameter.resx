@@ -117,29 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="DBConnectedOnly" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DBConnectedOnly.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DBConnectedTransactionActive" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DBConnectedTransactionActive.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DBConnectedTransactionActive1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DBConnectedTransactionActive.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DBConnectedTransactionCommited" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DBConnectedTransactionCommited.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DBConnectedTransactionFailed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DBConnectedTransactionFailed.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DBConnection" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DBConnection.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DBConnectionTransactinActive" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DBConnectionTransactinActive.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DBDisconnected" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DBDisconnected.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
 </root>

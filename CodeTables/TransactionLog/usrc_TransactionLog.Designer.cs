@@ -39,6 +39,7 @@
             this.lbl_SQL_Command = new System.Windows.Forms.Label();
             this.tstxt_SQLCommand = new FastColoredTextBoxNS.FastColoredTextBox();
             this.dgvx_SQLCommand = new DataGridView_2xls.DataGridView2xls();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_TransactionLog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -46,6 +47,7 @@
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
@@ -134,6 +136,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.splitContainer2.Panel2.Controls.Add(this.panel1);
             this.splitContainer2.Size = new System.Drawing.Size(382, 516);
             this.splitContainer2.SplitterDistance = 235;
             this.splitContainer2.SplitterWidth = 6;
@@ -195,12 +198,14 @@
             this.tstxt_SQLCommand.CommentPrefix = "--";
             this.tstxt_SQLCommand.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.tstxt_SQLCommand.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.tstxt_SQLCommand.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.tstxt_SQLCommand.IsReplaceMode = false;
             this.tstxt_SQLCommand.Language = FastColoredTextBoxNS.Language.SQL;
             this.tstxt_SQLCommand.LeftBracket = '(';
             this.tstxt_SQLCommand.Location = new System.Drawing.Point(0, 35);
             this.tstxt_SQLCommand.Name = "tstxt_SQLCommand";
             this.tstxt_SQLCommand.Paddings = new System.Windows.Forms.Padding(0);
+            this.tstxt_SQLCommand.ReadOnly = true;
             this.tstxt_SQLCommand.RightBracket = ')';
             this.tstxt_SQLCommand.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.tstxt_SQLCommand.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("tstxt_SQLCommand.ServiceColors")));
@@ -225,9 +230,19 @@
             this.dgvx_SQLCommand.Name = "dgvx_SQLCommand";
             this.dgvx_SQLCommand.ReadOnly = true;
             this.dgvx_SQLCommand.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_SQLCommand.Size = new System.Drawing.Size(229, 319);
+            this.dgvx_SQLCommand.Size = new System.Drawing.Size(229, 317);
             this.dgvx_SQLCommand.TabIndex = 4;
             this.dgvx_SQLCommand.SelectionChanged += new System.EventHandler(this.dgvx_SQLCommand_SelectionChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(141, 516);
+            this.panel1.TabIndex = 0;
             // 
             // usrc_TransactionLog
             // 
@@ -243,6 +258,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
@@ -267,5 +283,6 @@
         private System.Windows.Forms.Label lbl_SQL_Command;
         private FastColoredTextBoxNS.FastColoredTextBox tstxt_SQLCommand;
         private DataGridView_2xls.DataGridView2xls dgvx_SQLCommand;
+        private System.Windows.Forms.Panel panel1;
     }
 }

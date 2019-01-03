@@ -498,6 +498,7 @@ namespace DBTypes
         }
     }
 
+  
     public class ddecimal_v:decimal_v
     {
         private bool m_defined = false;
