@@ -25,6 +25,20 @@ namespace Startup
 
         public startup_step.eStep eStep = startup_step.eStep.NoStep;
 
+        private bool bStarted = false;
+        public bool Started
+        {
+            get
+            {
+                return bStarted;
+            }
+            set
+            {
+                bStarted = value;
+            }
+        }
+
+
         public bool bNewDatabaseCreated = false;
         public bool bInsertSampleData = false;
         public bool bUpgradeDone = false;
@@ -161,7 +175,7 @@ namespace Startup
 
         public void StartExecution()
         {
-
+             Started = true;
              m_Step[0].StartExecution();
         }
 

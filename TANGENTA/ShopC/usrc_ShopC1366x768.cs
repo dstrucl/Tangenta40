@@ -79,25 +79,7 @@ namespace ShopC
 
         public string DocTyp
         {
-            get { return m_DocTyp; }
-            set
-            {
-                string s = value;
-                if (s.Equals(GlobalData.const_DocInvoice) || s.Equals(GlobalData.const_DocProformaInvoice))
-                {
-                    m_DocTyp = s;
-                }
-                
-                if (this.m_usrc_Atom_ItemsList1366x768 != null)
-                {
-                    this.m_usrc_Atom_ItemsList1366x768.DocTyp = m_DocTyp;
-                }
-                if (this.m_usrc_ItemList1366x768 != null)
-                {
-                    this.m_usrc_ItemList1366x768.DocTyp = m_DocTyp;
-                }
-
-            }
+            get { return m_ShopBC.DocTyp; }
         }
         public bool IsDocInvoice
         {

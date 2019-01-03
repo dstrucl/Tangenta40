@@ -29,6 +29,7 @@ using HUDCMS;
 using LoginControl;
 using static TangentaDB.CashierActivity;
 using DBTypes;
+using System.Net.NetworkInformation;
 
 namespace Tangenta
 {
@@ -622,7 +623,13 @@ namespace Tangenta
             else
             {
                 // no document not completed there is error to locql or remote connection
-                m_startup.StartExecution();
+                if (!NetworkInterface.GetIsNetworkAvailable())
+                {
+                    if (!m_startup.Started)
+                    {
+                        m_startup.StartExecution();
+                    }
+                }
             }
         }
 

@@ -81,11 +81,11 @@ namespace Tangenta
         {
             if (IsDocInvoice)
             {
-                return Get_DocInvoice_AddOn(docM.DocE.m_InvoiceData.AddOnDI, xbPrint);
+                return Get_DocInvoice_AddOn(docM.DocE.InvoiceData.AddOnDI, xbPrint);
             }
             else if (IsDocProformaInvoice)
             {
-                return Get_DocProformaInvoice_AddOn(docM.DocE.m_InvoiceData.AddOnDPI, xbPrint);
+                return Get_DocProformaInvoice_AddOn(docM.DocE.InvoiceData.AddOnDPI, xbPrint);
             }
             else
             {
@@ -120,14 +120,14 @@ namespace Tangenta
         {
             if (IsDocInvoice)
             {
-                if (docM.DocE.m_InvoiceData.AddOnDI.Get(ID))
+                if (docM.DocE.InvoiceData.AddOnDI.Get(ID))
                 {
                     DisplayAddOn();
                 }
             }
             else if (IsDocProformaInvoice)
             {
-                if (docM.DocE.m_InvoiceData.AddOnDPI.Get(ID))
+                if (docM.DocE.InvoiceData.AddOnDPI.Get(ID))
                 {
                     DisplayAddOn();
                 }
@@ -139,61 +139,61 @@ namespace Tangenta
             string txt = "";
             if (IsDocInvoice)
             {
-                if (docM.DocE.m_InvoiceData.AddOnDI.m_IssueDate != null)
+                if (docM.DocE.InvoiceData.AddOnDI.MyIssueDate != null)
                 {
-                    txt += lng.s_Invoice_IssueDate.s + ":" + docM.DocE.m_InvoiceData.AddOnDI.m_IssueDate.Date.ToShortDateString() + "\r\n";
+                    txt += lng.s_Invoice_IssueDate.s + ":" + docM.DocE.InvoiceData.AddOnDI.MyIssueDate.Date.ToShortDateString() + "\r\n";
                 }
-                if (docM.DocE.m_InvoiceData.AddOnDI.m_MethodOfPayment_DI != null)
+                if (docM.DocE.InvoiceData.AddOnDI.MyMethodOfPayment_DI != null)
                 {
-                    string txtMethodOfPayment = lng.s_MethodOfPayment.s + ":" + GlobalData.Get_sPaymentType_ltext(docM.DocE.m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.eType).s;
-                    switch (docM.DocE.m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.eType)
+                    string txtMethodOfPayment = lng.s_MethodOfPayment.s + ":" + GlobalData.Get_sPaymentType_ltext(docM.DocE.InvoiceData.AddOnDI.MyMethodOfPayment_DI.eType).s;
+                    switch (docM.DocE.InvoiceData.AddOnDI.MyMethodOfPayment_DI.eType)
                     {
                         case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
-                            txtMethodOfPayment += " [" + docM.DocE.m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment.BankAccount + "] " + docM.DocE.m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment.BankName;
+                            txtMethodOfPayment += " [" + docM.DocE.InvoiceData.AddOnDI.MyMethodOfPayment_DI.m_MyOrgBankAccountPayment.BankAccount + "] " + docM.DocE.InvoiceData.AddOnDI.MyMethodOfPayment_DI.m_MyOrgBankAccountPayment.BankName;
                             break;
 
                     }
                     txt += txtMethodOfPayment + "\r\n";
                 }
-                if (docM.DocE.m_InvoiceData.AddOnDI.m_TermsOfPayment != null)
+                if (docM.DocE.InvoiceData.AddOnDI.MyTermsOfPayment != null)
                 {
-                    string txtTermsOfPayment = lng.s_TermsOfPayment.s + ":" + docM.DocE.m_InvoiceData.AddOnDI.m_TermsOfPayment.Description;
+                    string txtTermsOfPayment = lng.s_TermsOfPayment.s + ":" + docM.DocE.InvoiceData.AddOnDI.MyTermsOfPayment.Description;
                     txt += txtTermsOfPayment + "\r\n";
                 }
-                if (docM.DocE.m_InvoiceData.AddOnDI.m_PaymentDeadline != null)
+                if (docM.DocE.InvoiceData.AddOnDI.MyPaymentDeadline != null)
                 {
-                    string txtTermsOfPayment = lng.s_Payment_Deadline.s + ":" + docM.DocE.m_InvoiceData.AddOnDI.m_PaymentDeadline.Date.ToShortDateString();
+                    string txtTermsOfPayment = lng.s_Payment_Deadline.s + ":" + docM.DocE.InvoiceData.AddOnDI.MyPaymentDeadline.Date.ToShortDateString();
                     txt += txtTermsOfPayment + "\r\n";
                 }
 
-                if (docM.DocE.m_InvoiceData.AddOnDI.m_NoticeText != null)
+                if (docM.DocE.InvoiceData.AddOnDI.m_NoticeText != null)
                 {
-                    txt += docM.DocE.m_InvoiceData.AddOnDI.m_NoticeText + "\r\n";
+                    txt += docM.DocE.InvoiceData.AddOnDI.m_NoticeText + "\r\n";
                 }
 
                 this.txt_Notice.Text = txt;
             }
             else if (IsDocProformaInvoice)
             {
-                if (docM.DocE.m_InvoiceData.AddOnDPI.m_IssueDate != null)
+                if (docM.DocE.InvoiceData.AddOnDPI.m_IssueDate != null)
                 {
-                    txt += lng.s_ProformaInvoice_IssueDate.s + ":" + docM.DocE.m_InvoiceData.AddOnDPI.m_IssueDate.Date.Date.ToShortDateString() + "\r\n";
+                    txt += lng.s_ProformaInvoice_IssueDate.s + ":" + docM.DocE.InvoiceData.AddOnDPI.m_IssueDate.Date.Date.ToShortDateString() + "\r\n";
                 }
-                if (docM.DocE.m_InvoiceData.AddOnDPI.m_Duration != null)
+                if (docM.DocE.InvoiceData.AddOnDPI.m_Duration != null)
                 {
                     string txtValidity = lng.s_ProformaInvoice_Validity.s + ":";
-                    switch (docM.DocE.m_InvoiceData.AddOnDPI.m_Duration.type)
+                    switch (docM.DocE.InvoiceData.AddOnDPI.m_Duration.type)
                     {
                         case 0:
-                            txtValidity += lng.s_Number_Of_Months.s + " = " + docM.DocE.m_InvoiceData.AddOnDPI.m_Duration.length.ToString();
+                            txtValidity += lng.s_Number_Of_Months.s + " = " + docM.DocE.InvoiceData.AddOnDPI.m_Duration.length.ToString();
                             break;
                         case 1:
-                            txtValidity += lng.s_Number_Of_Days + " = " + docM.DocE.m_InvoiceData.AddOnDPI.m_Duration.length.ToString();
+                            txtValidity += lng.s_Number_Of_Days + " = " + docM.DocE.InvoiceData.AddOnDPI.m_Duration.length.ToString();
                             break;
                         case 2:
-                            if (docM.DocE.m_InvoiceData.AddOnDPI.m_IssueDate != null)
+                            if (docM.DocE.InvoiceData.AddOnDPI.m_IssueDate != null)
                             {
-                                DateTime dtValidUntil = docM.DocE.m_InvoiceData.AddOnDPI.m_IssueDate.Date.AddDays(Convert.ToInt32(docM.DocE.m_InvoiceData.AddOnDPI.m_Duration.length));
+                                DateTime dtValidUntil = docM.DocE.InvoiceData.AddOnDPI.m_IssueDate.Date.AddDays(Convert.ToInt32(docM.DocE.InvoiceData.AddOnDPI.m_Duration.length));
                                 txtValidity += lng.s_Valid_Until.s + dtValidUntil.ToShortDateString();
                             }
                             break;
@@ -201,27 +201,27 @@ namespace Tangenta
                     }
                     txt += txtValidity + "\r\n";
                 }
-                if (docM.DocE.m_InvoiceData.AddOnDPI.m_MethodOfPayment_DPI != null)
+                if (docM.DocE.InvoiceData.AddOnDPI.m_MethodOfPayment_DPI != null)
                 {
-                    string txtMethodOfPayment = lng.s_MethodOfPayment.s + ":" + GlobalData.Get_sPaymentType_ltext(docM.DocE.m_InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.eType).s;
-                    switch (docM.DocE.m_InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.eType)
+                    string txtMethodOfPayment = lng.s_MethodOfPayment.s + ":" + GlobalData.Get_sPaymentType_ltext(docM.DocE.InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.eType).s;
+                    switch (docM.DocE.InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.eType)
                     {
                         case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
-                            txtMethodOfPayment += " [" + docM.DocE.m_InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment.BankAccount + "] " + docM.DocE.m_InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment.BankName;
+                            txtMethodOfPayment += " [" + docM.DocE.InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment.BankAccount + "] " + docM.DocE.InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment.BankName;
                             break;
 
                     }
                     txt += txtMethodOfPayment + "\r\n";
                 }
-                if (docM.DocE.m_InvoiceData.AddOnDPI.m_TermsOfPayment != null)
+                if (docM.DocE.InvoiceData.AddOnDPI.m_TermsOfPayment != null)
                 {
-                    string txtTermsOfPayment = lng.s_TermsOfPayment.s + ":" + docM.DocE.m_InvoiceData.AddOnDPI.m_TermsOfPayment.Description;
+                    string txtTermsOfPayment = lng.s_TermsOfPayment.s + ":" + docM.DocE.InvoiceData.AddOnDPI.m_TermsOfPayment.Description;
                     txt += txtTermsOfPayment + "\r\n";
                 }
 
-                if (docM.DocE.m_InvoiceData.AddOnDPI.m_NoticeText != null)
+                if (docM.DocE.InvoiceData.AddOnDPI.m_NoticeText != null)
                 {
-                    txt += docM.DocE.m_InvoiceData.AddOnDPI.m_NoticeText + "\r\n";
+                    txt += docM.DocE.InvoiceData.AddOnDPI.m_NoticeText + "\r\n";
                 }
                 this.txt_Notice.Text = txt;
             }

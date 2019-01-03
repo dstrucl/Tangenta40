@@ -23,7 +23,6 @@ namespace ShopC
     public partial class usrc_ItemList : UserControl
     {
         private ID m_Atom_WorkPeriod_ID = null;
-        private string m_DocTyp = "";
 
         public new bool Visible
         {
@@ -39,15 +38,7 @@ namespace ShopC
 
         public string DocTyp
         {
-            get { return m_DocTyp; }
-            set
-            {
-                string s = value;
-                if (s.Equals(GlobalData.const_DocInvoice) || s.Equals(GlobalData.const_DocProformaInvoice))
-                {
-                    m_DocTyp = s;
-                }
-            }
+            get { return m_ShopBC.DocTyp; }
         }
 
         public int SplitContainer1_spd

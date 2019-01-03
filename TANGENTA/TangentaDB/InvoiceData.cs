@@ -42,8 +42,32 @@ namespace TangentaDB
     public class InvoiceData
     {
 
-        public DocInvoice_AddOn AddOnDI = null;
-        public DocProformaInvoice_AddOn AddOnDPI = null;
+        private DocInvoice_AddOn m_AddOnDI = null;
+        public DocInvoice_AddOn AddOnDI
+        {
+            get
+            {
+                return m_AddOnDI;
+            }
+            set
+            {
+                m_AddOnDI = value;
+            }
+        }
+
+        private DocProformaInvoice_AddOn m_AddOnDPI = null;
+        public DocProformaInvoice_AddOn AddOnDPI
+        {
+            get
+            {
+                return m_AddOnDPI;
+            }
+            set
+            {
+                m_AddOnDPI = value;
+            }
+        }
+
 
         public enum eType { DRAFT_INVOICE, INVOICE, PROFORMA_INVOICE, STORNO, UNKNOWN };
 
@@ -191,9 +215,9 @@ namespace TangentaDB
                 {
                     if (AddOnDI != null)
                     {
-                        if (AddOnDI.m_MethodOfPayment_DI != null)
+                        if (AddOnDI.MyMethodOfPayment_DI != null)
                         {
-                            return AddOnDI.m_MethodOfPayment_DI.eType;
+                            return AddOnDI.MyMethodOfPayment_DI.eType;
                         }
                     }
                     
@@ -671,7 +695,7 @@ namespace TangentaDB
             {
                 docinvoice_ID = DocInvoice_ID;
                 this.Set_NumberInFinancialYear(xNumberInFinancialYear);
-                DateTime_v InvoiceTime_v = new DateTime_v(AddOnDI.m_IssueDate.Date);
+                DateTime_v InvoiceTime_v = new DateTime_v(AddOnDI.MyIssueDate.Date);
                 this.SetInvoiceTime(InvoiceTime_v, xAtom_WorkPeriod_ID, transaction);
             }
             return bRet;
@@ -706,10 +730,10 @@ namespace TangentaDB
                             InvoiceToken.tDateOfMaturity = new TemplateToken(lng.st_Invoice, lng.st_DateOfMaturity, null, null);
                         }
 
-                        if (AddOnDI.m_PaymentDeadline != null)
+                        if (AddOnDI.MyPaymentDeadline != null)
                         {
                          
-                            stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnDI.m_PaymentDeadline.Date);
+                            stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnDI.MyPaymentDeadline.Date);
                             InvoiceToken.tDateOfMaturity.Set(stime);
                         }
                         else
@@ -1390,13 +1414,13 @@ namespace TangentaDB
                                 if (!Draft)
                                 {
 
-                                    if (AddOnDI.m_MethodOfPayment_DI == null)
+                                    if (AddOnDI.MyMethodOfPayment_DI == null)
                                     {
-                                        AddOnDI.m_MethodOfPayment_DI = new DocInvoice_AddOn.MethodOfPayment_DI();
+                                        AddOnDI.MyMethodOfPayment_DI = new DocInvoice_AddOn.MethodOfPayment_DI();
                                     }
-                                    if (AddOnDI.m_IssueDate==null)
+                                    if (AddOnDI.MyIssueDate==null)
                                     {
-                                        AddOnDI.m_IssueDate = new DocInvoice_AddOn.IssueDate();
+                                        AddOnDI.MyIssueDate = new DocInvoice_AddOn.IssueDate();
                                     }
                                     AddOnDI.m_FURS.FURS_ZOI_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisres_$$MessageID"]);
                                     AddOnDI.m_FURS.FURS_EOR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisres_$$UniqueInvoiceID"]);
@@ -1550,9 +1574,9 @@ namespace TangentaDB
                                     InvoiceToken.tDateOfIssue.Set(stime);
                                     if (IsDocInvoice)
                                     {
-                                        if (AddOnDI.m_PaymentDeadline != null)
+                                        if (AddOnDI.MyPaymentDeadline != null)
                                         {
-                                            stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnDI.m_PaymentDeadline.Date);
+                                            stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnDI.MyPaymentDeadline.Date);
                                             InvoiceToken.tDateOfMaturity.Set(stime);
                                         }
                                         else
@@ -1770,9 +1794,9 @@ namespace TangentaDB
 
             if (IsDocInvoice)
             {
-                if (AddOnDI.m_PaymentDeadline != null)
+                if (AddOnDI.MyPaymentDeadline != null)
                 {
-                    stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnDI.m_PaymentDeadline.Date);
+                    stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnDI.MyPaymentDeadline.Date);
                     InvoiceToken.tDateOfMaturity.Set(stime);
                 }
                 else
@@ -1809,11 +1833,11 @@ namespace TangentaDB
             sBankName = "";
             if (IsDocInvoice)
             {
-                sMethodOfPayment = this.AddOnDI.m_MethodOfPayment_DI.PaymentType;
-                if (this.AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment != null)
+                sMethodOfPayment = this.AddOnDI.MyMethodOfPayment_DI.PaymentType;
+                if (this.AddOnDI.MyMethodOfPayment_DI.m_MyOrgBankAccountPayment != null)
                 {
-                    sBankAccount = this.AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment.BankAccount;
-                    sBankName = this.AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment.BankName;
+                    sBankAccount = this.AddOnDI.MyMethodOfPayment_DI.m_MyOrgBankAccountPayment.BankAccount;
+                    sBankName = this.AddOnDI.MyMethodOfPayment_DI.m_MyOrgBankAccountPayment.BankName;
                 }
 
             }

@@ -59,7 +59,6 @@ namespace ShopC
         private TangentaDB.ShopABC m_ShopBC = null;
         private DBTablesAndColumnNames DBtcn = null;
         public NavigationButtons.Navigation nav = null;
-        private string m_DocTyp = "";
 
         public int SplitContainer2_spd
         {
@@ -92,26 +91,9 @@ namespace ShopC
 
         public string DocTyp
         {
-            get { return m_DocTyp; }
-            set
-            {
-                string s = value;
-                if (s.Equals(GlobalData.const_DocInvoice) || s.Equals(GlobalData.const_DocProformaInvoice))
-                {
-                    m_DocTyp = s;
-                }
-
-                if (this.usrc_Atom_ItemsList != null)
-                {
-                    this.usrc_Atom_ItemsList.DocTyp = m_DocTyp;
-                }
-                if (this.usrc_ItemList != null)
-                {
-                    this.usrc_ItemList.DocTyp = m_DocTyp;
-                }
-
-            }
+            get { return m_ShopBC.DocTyp; }
         }
+
         public bool IsDocInvoice
         {
             get

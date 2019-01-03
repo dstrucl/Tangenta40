@@ -25,7 +25,6 @@ namespace ShopC
     public partial class usrc_ItemList1366x768 : UserControl
     {
         private ID m_Atom_WorkPeriod_ID = null;
-        private string m_DocTyp = "";
         //private Form_plus frmplus = null;
 
         public delegate void delegate_Stock_Click();
@@ -48,15 +47,7 @@ namespace ShopC
 
         public string DocTyp
         {
-            get { return m_DocTyp; }
-            set
-            {
-                string s = value;
-                if (s.Equals(GlobalData.const_DocInvoice) || s.Equals(GlobalData.const_DocProformaInvoice))
-                {
-                    m_DocTyp = s;
-                }
-            }
+            get { return m_ShopBC.DocTyp; }
         }
 
 

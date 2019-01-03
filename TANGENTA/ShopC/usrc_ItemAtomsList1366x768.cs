@@ -51,15 +51,10 @@ namespace ShopC
 
         public long Item_ID = -1;
 
-        private string m_DocTyp = "";
 
         public string DocTyp
         {
-            get { return m_DocTyp; }
-            set
-            {
-                m_DocTyp = value;
-            }
+            get { return m_ShopBC.DocTyp; }
         }
 
         public bool IsDocInvoice

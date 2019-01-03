@@ -48,7 +48,6 @@
             this.m_usrc_ItemList1366x768.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.m_usrc_ItemList1366x768.BackColor = System.Drawing.Color.YellowGreen;
-            this.m_usrc_ItemList1366x768.DocTyp = "";
             this.m_usrc_ItemList1366x768.ExclusivelySellFromStock = false;
             this.m_usrc_ItemList1366x768.Location = new System.Drawing.Point(360, 0);
             this.m_usrc_ItemList1366x768.Margin = new System.Windows.Forms.Padding(4);
@@ -64,7 +63,6 @@
             this.m_usrc_Atom_ItemsList1366x768.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_usrc_Atom_ItemsList1366x768.DocTyp = "";
             this.m_usrc_Atom_ItemsList1366x768.Location = new System.Drawing.Point(0, 32);
             this.m_usrc_Atom_ItemsList1366x768.Margin = new System.Windows.Forms.Padding(5);
             this.m_usrc_Atom_ItemsList1366x768.Name = "m_usrc_Atom_ItemsList1366x768";

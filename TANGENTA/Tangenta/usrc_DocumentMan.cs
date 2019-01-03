@@ -1093,12 +1093,12 @@ namespace Tangenta
             {
                 if (Program.b_FVI_SLO)
                 {
-                    if (this.m_usrc_DocumentEditor.DocE.m_InvoiceData.AddOnDI == null)
+                    if (this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI == null)
                     {
-                        this.m_usrc_DocumentEditor.DocE.m_InvoiceData.AddOnDI = new DocInvoice_AddOn();
+                        this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI = new DocInvoice_AddOn();
                     }
-                    this.m_usrc_DocumentEditor.DocE.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                    Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(DBSync.DBSync.MyTransactionLog_delegates,this.m_usrc_DocumentEditor.DocE.m_ShopABC, this.m_usrc_DocumentEditor.DocE.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.DocE.m_InvoiceData.AddOnDPI);
+                    this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                    Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(DBSync.DBSync.MyTransactionLog_delegates,this.m_usrc_DocumentEditor.DocE.m_ShopABC, this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDPI);
                 }
             }
         }
@@ -1214,8 +1214,8 @@ namespace Tangenta
                                 {
                                     if (Program.b_FVI_SLO)
                                     {
-                                        this.m_usrc_DocumentEditor.DocE.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                                        if (Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(DBSync.DBSync.MyTransactionLog_delegates, this.m_usrc_DocumentEditor.DocE.m_ShopABC, this.m_usrc_DocumentEditor.DocE.m_InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.DocE.m_InvoiceData.AddOnDPI))
+                                        this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                                        if (Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(DBSync.DBSync.MyTransactionLog_delegates, this.m_usrc_DocumentEditor.DocE.m_ShopABC, this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDPI))
                                         {
                                             Transaction transaction_usrc_DocumentMan_b_FVI_SLO_SetDocument = DBSync.DBSync.NewTransaction("usrc_DocumentMan.b_FVI_SLO.SetDocument");
                                             if (this.SetDocument(transaction_usrc_DocumentMan_b_FVI_SLO_SetDocument))

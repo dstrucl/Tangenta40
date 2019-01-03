@@ -368,15 +368,15 @@ namespace TangentaDB
 
         public bool Completed(ref ltext ltMsg)
         {
-            if (m_IssueDate != null)
+            if (MyIssueDate != null)
             {
-                if (m_MethodOfPayment_DI != null)
+                if (MyMethodOfPayment_DI != null)
                 {
-                    if (m_MethodOfPayment_DI.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
+                    if (MyMethodOfPayment_DI.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
                     {
-                        if (m_MethodOfPayment_DI.m_MyOrgBankAccountPayment != null)
+                        if (MyMethodOfPayment_DI.m_MyOrgBankAccountPayment != null)
                         {
-                            if (m_PaymentDeadline != null)
+                            if (MyPaymentDeadline != null)
                             {
                                 return true;
                             }
@@ -389,29 +389,29 @@ namespace TangentaDB
                 }
             }
             List<object> Complex_ltMsg = new List<object>();
-            if (m_IssueDate == null)
+            if (MyIssueDate == null)
             {
                 Complex_ltMsg.Add(lng.s_IssueDate_not_defined);
             }
-            if (m_MethodOfPayment_DI == null)
+            if (MyMethodOfPayment_DI == null)
             {
                 Complex_ltMsg.Add(lng.s_MethodOfPayment_DI_not_defined);
             }
             else
             {
-                if (m_MethodOfPayment_DI.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
+                if (MyMethodOfPayment_DI.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
                 {
-                    if (m_MethodOfPayment_DI.m_MyOrgBankAccountPayment == null)
+                    if (MyMethodOfPayment_DI.m_MyOrgBankAccountPayment == null)
                     {
                         Complex_ltMsg.Add(lng.s_MethodOfPayment_DI_BankAccount_not_defined);
                     }
-                    if (m_PaymentDeadline == null)
+                    if (MyPaymentDeadline == null)
                     {
                         Complex_ltMsg.Add(lng.s_MethodOfPayment_DI_PaymentDeadline_not_defined);
                     }
                 }
             }
-            if (m_TermsOfPayment == null)
+            if (MyTermsOfPayment == null)
             {
                 Complex_ltMsg.Add(lng.s_TermsOfPayment_are_not_defined);
             }
@@ -423,18 +423,66 @@ namespace TangentaDB
             return false;
         }
 
-        public IssueDate m_IssueDate = null;
-        public TermsOfPayment m_TermsOfPayment = null;
-        public MethodOfPayment_DI m_MethodOfPayment_DI = null;
-        public PaymentDeadline m_PaymentDeadline = null;
+        private IssueDate m_IssueDate = null;
+
+        public IssueDate MyIssueDate
+        {
+            get
+            {
+                return m_IssueDate;
+            }
+            set
+            {
+                m_IssueDate = value;
+            }
+        }
+
+        private TermsOfPayment m_TermsOfPayment = null;
+        public TermsOfPayment MyTermsOfPayment
+        {
+            get
+            {
+                return m_TermsOfPayment;
+            }
+            set
+            {
+                m_TermsOfPayment = value;
+            }
+        }
+
+        private MethodOfPayment_DI m_MethodOfPayment_DI = null;
+        public MethodOfPayment_DI MyMethodOfPayment_DI
+        {
+            get
+            {
+                return m_MethodOfPayment_DI;
+            }
+            set
+            {
+                m_MethodOfPayment_DI = value;
+            }
+        }
+
+        private PaymentDeadline m_PaymentDeadline = null;
+        public PaymentDeadline MyPaymentDeadline
+        {
+            get
+            {
+                return m_PaymentDeadline;
+            }
+            set
+            {
+                m_PaymentDeadline = value;
+            }
+        }
 
 
         private void Clear()
         {
-            m_IssueDate = null;
-            m_TermsOfPayment = null;
-            m_MethodOfPayment_DI = null;
-            m_PaymentDeadline = null;
+            MyIssueDate = null;
+            MyTermsOfPayment = null;
+            MyMethodOfPayment_DI = null;
+            MyPaymentDeadline = null;
         }
 
         public bool Get(ID DocInvoice_ID)
@@ -473,12 +521,12 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    m_IssueDate = DocInvoice_AddOn.IssueDate.Set(dt.Rows[0]["IssueDate"]);
+                    MyIssueDate = DocInvoice_AddOn.IssueDate.Set(dt.Rows[0]["IssueDate"]);
 
-                    m_TermsOfPayment = DocInvoice_AddOn.TermsOfPayment.Set(tf.set_ID(dt.Rows[0]["TermsOfPayment_ID"]),
+                    MyTermsOfPayment = DocInvoice_AddOn.TermsOfPayment.Set(tf.set_ID(dt.Rows[0]["TermsOfPayment_ID"]),
                                                                                    dt.Rows[0]["TermsOfPayment_Description"]);
 
-                    m_MethodOfPayment_DI = DocInvoice_AddOn.MethodOfPayment_DI.Set(tf.set_ID(dt.Rows[0]["MethodOfPayment_DI_ID"]),
+                    MyMethodOfPayment_DI = DocInvoice_AddOn.MethodOfPayment_DI.Set(tf.set_ID(dt.Rows[0]["MethodOfPayment_DI_ID"]),
                                                                                      dt.Rows[0]["PaymentType_Identification"],
                                                                                      dt.Rows[0]["Name"],
                                                                                      dt.Rows[0]["Tax_ID"],
@@ -487,7 +535,7 @@ namespace TangentaDB
                                                                                      dt.Rows[0]["Comment1"],
                                                                                      dt.Rows[0]["TRR"],
                                                                                      tf.set_ID(dt.Rows[0]["Atom_BankAccount_ID"]));
-                    m_PaymentDeadline = DocInvoice_AddOn.PaymentDeadline.Set(dt.Rows[0]["PaymentDeadline"]);
+                    MyPaymentDeadline = DocInvoice_AddOn.PaymentDeadline.Set(dt.Rows[0]["PaymentDeadline"]);
                     object oNoticeText = dt.Rows[0]["NoticeText"];
                     m_NoticeText = null;
                     if (oNoticeText is string)
@@ -504,7 +552,7 @@ namespace TangentaDB
             }
         }
 
-        public bool Set(ID DocInvoice_ID, ref ltext ltMsg, Transaction transaction)
+        public bool Set(ID DocInvoice_ID, Transaction transaction)
         {
            
                 if (this.DocInvoice_ID == null)
@@ -543,12 +591,12 @@ namespace TangentaDB
             }
             ltext ltMsg = null;
             ID MethodOfPayment_DI_ID = null;
-            if (m_MethodOfPayment_DI.Get(ref MethodOfPayment_DI_ID, transaction))
+            if (MyMethodOfPayment_DI.Get(ref MethodOfPayment_DI_ID, transaction))
             {
-                if (m_TermsOfPayment != null)
+                if (MyTermsOfPayment != null)
                 {
                     ID TermsOfPayment_ID = null;
-                    if (m_TermsOfPayment.Get(ref TermsOfPayment_ID, transaction))
+                    if (MyTermsOfPayment.Get(ref TermsOfPayment_ID, transaction))
                     {
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -582,14 +630,14 @@ namespace TangentaDB
                         lpar.Add(par_MethodOfPayment_DI_ID);
 
                         string spar_TermsOfPayment_ID = "@par_TermsOfPayment_ID";
-                        SQL_Parameter par_TermsOfPayment_ID = new SQL_Parameter(spar_TermsOfPayment_ID, false, m_TermsOfPayment.ID);
+                        SQL_Parameter par_TermsOfPayment_ID = new SQL_Parameter(spar_TermsOfPayment_ID, false, MyTermsOfPayment.ID);
                         lpar.Add(par_TermsOfPayment_ID);
 
                         string sval_PaymentDeadline = "null";
-                        if (m_PaymentDeadline != null)
+                        if (MyPaymentDeadline != null)
                         {
                             string spar_PaymentDeadline = "@par_PaymentDeadline";
-                            SQL_Parameter par_PaymentDeadline = new SQL_Parameter(spar_PaymentDeadline, SQL_Parameter.eSQL_Parameter.Datetime, false, m_PaymentDeadline.Date);
+                            SQL_Parameter par_PaymentDeadline = new SQL_Parameter(spar_PaymentDeadline, SQL_Parameter.eSQL_Parameter.Datetime, false, MyPaymentDeadline.Date);
                             lpar.Add(par_PaymentDeadline);
                             sval_PaymentDeadline = spar_PaymentDeadline;
                         }
@@ -597,7 +645,7 @@ namespace TangentaDB
 
 
                         string spar_IssueDate = "@par_IssueDate";
-                        SQL_Parameter par_IssueDate = new SQL_Parameter(spar_IssueDate, SQL_Parameter.eSQL_Parameter.Datetime, false, m_IssueDate.Date);
+                        SQL_Parameter par_IssueDate = new SQL_Parameter(spar_IssueDate, SQL_Parameter.eSQL_Parameter.Datetime, false, MyIssueDate.Date);
                         lpar.Add(par_IssueDate);
 
                         
@@ -648,12 +696,12 @@ namespace TangentaDB
         {
             ltext ltMsg = null;   
             ID MethodOfPayment_DI_ID = null;
-            if (m_MethodOfPayment_DI.Get(ref MethodOfPayment_DI_ID,transaction))
+            if (MyMethodOfPayment_DI.Get(ref MethodOfPayment_DI_ID,transaction))
             {
-                if (m_TermsOfPayment != null)
+                if (MyTermsOfPayment != null)
                 {
                     ID TermsOfPayment_ID = null;
-                    if (m_TermsOfPayment.Get(ref TermsOfPayment_ID, transaction))
+                    if (MyTermsOfPayment.Get(ref TermsOfPayment_ID, transaction))
                     {
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -683,14 +731,14 @@ namespace TangentaDB
                         lpar.Add(par_MethodOfPayment_ID);
 
                         string spar_TermsOfPayment_ID = "@par_TermsOfPayment_ID";
-                        SQL_Parameter par_TermsOfPayment_ID = new SQL_Parameter(spar_TermsOfPayment_ID,  false, m_TermsOfPayment.ID);
+                        SQL_Parameter par_TermsOfPayment_ID = new SQL_Parameter(spar_TermsOfPayment_ID,  false, MyTermsOfPayment.ID);
                         lpar.Add(par_TermsOfPayment_ID);
 
                         string sval_PaymentDeadline = " PaymentDeadline = null ";
-                        if (m_PaymentDeadline != null)
+                        if (MyPaymentDeadline != null)
                         {
                             string spar_PaymentDeadline = "@par_PaymentDeadline";
-                            SQL_Parameter par_PaymentDeadline = new SQL_Parameter(spar_PaymentDeadline, SQL_Parameter.eSQL_Parameter.Datetime, false, m_PaymentDeadline.Date);
+                            SQL_Parameter par_PaymentDeadline = new SQL_Parameter(spar_PaymentDeadline, SQL_Parameter.eSQL_Parameter.Datetime, false, MyPaymentDeadline.Date);
                             lpar.Add(par_PaymentDeadline);
                             sval_PaymentDeadline = "PaymentDeadline = " + spar_PaymentDeadline;
                         }
@@ -699,7 +747,7 @@ namespace TangentaDB
 
 
                         string spar_IssueDate = "@par_IssueDate";
-                        SQL_Parameter par_IssueDate = new SQL_Parameter(spar_IssueDate, SQL_Parameter.eSQL_Parameter.Datetime, false, m_IssueDate.Date);
+                        SQL_Parameter par_IssueDate = new SQL_Parameter(spar_IssueDate, SQL_Parameter.eSQL_Parameter.Datetime, false, MyIssueDate.Date);
                         lpar.Add(par_IssueDate);
 
 
@@ -1232,9 +1280,9 @@ namespace TangentaDB
         {
             get
             {
-                if (m_MethodOfPayment_DI != null)
+                if (MyMethodOfPayment_DI != null)
                 {
-                    return ((m_MethodOfPayment_DI.eType == GlobalData.ePaymentType.CASH) || (m_MethodOfPayment_DI.eType == GlobalData.ePaymentType.CASH_OR_CARD));
+                    return ((MyMethodOfPayment_DI.eType == GlobalData.ePaymentType.CASH) || (MyMethodOfPayment_DI.eType == GlobalData.ePaymentType.CASH_OR_CARD));
                 }
                 else
                 {
@@ -1247,9 +1295,9 @@ namespace TangentaDB
         {
             get
             {
-                if (m_MethodOfPayment_DI != null)
+                if (MyMethodOfPayment_DI != null)
                 {
-                    return ((m_MethodOfPayment_DI.eType == GlobalData.ePaymentType.CARD) || (m_MethodOfPayment_DI.eType == GlobalData.ePaymentType.CASH_OR_CARD));
+                    return ((MyMethodOfPayment_DI.eType == GlobalData.ePaymentType.CARD) || (MyMethodOfPayment_DI.eType == GlobalData.ePaymentType.CASH_OR_CARD));
                 }
                 else
                 {
@@ -1262,9 +1310,9 @@ namespace TangentaDB
         {
             get
             {
-                if (m_MethodOfPayment_DI != null)
+                if (MyMethodOfPayment_DI != null)
                 {
-                    return (m_MethodOfPayment_DI.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER);
+                    return (MyMethodOfPayment_DI.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER);
                 }
                 else
                 {

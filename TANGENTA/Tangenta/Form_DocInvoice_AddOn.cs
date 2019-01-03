@@ -26,14 +26,25 @@ namespace Tangenta
         public string m_sPaymentMethod = null;
         public string m_sAmountReceived = null;
         public string m_sToReturn = null;
-        private DocInvoice_AddOn m_AddOnDI;
+        private DocInvoice_AddOn m_AddOnDI = null;
+        internal DocInvoice_AddOn AddOnDI
+        {
+            get
+            {
+                return m_AddOnDI;
+            }
+            set
+            {
+                m_AddOnDI = value;
+            }
+        }
         private usrc_AddOn m_usrc_AddOn = null;
         private bool m_bPrint = false;
 
         public Form_DocInvoice_AddOn(DocInvoice_AddOn x_DocInvoice_AddOn,bool x_bPrint, usrc_AddOn x_usrc_AddOn)
         {
             InitializeComponent();
-            this.m_AddOnDI = x_DocInvoice_AddOn;
+            this.AddOnDI = x_DocInvoice_AddOn;
             m_usrc_AddOn = x_usrc_AddOn;
             m_bPrint = x_bPrint;
             this.Text = lng.s_PaymentOfInvoiceAndPrint.s;
@@ -48,7 +59,7 @@ namespace Tangenta
 
         private void Form_Payment_Load(object sender, EventArgs e)
         {
-            if (this.m_usrc_DocInvoice_AddOn.Init(m_AddOnDI, m_bPrint, m_usrc_AddOn))
+            if (this.m_usrc_DocInvoice_AddOn.Init(AddOnDI, m_bPrint, m_usrc_AddOn))
             {
                 return;
             }

@@ -33,8 +33,18 @@ namespace Tangenta
         public delegate_Control_SetInitialMode Delegate_Control_SetInitialMode = null;
 
 
-
-        internal DocumentEditor DocE = null;
+        private DocumentEditor m_DocE = null;
+        internal DocumentEditor DocE
+        {
+            get
+            {
+                return m_DocE;
+            }
+            set
+            {
+                m_DocE = value;
+            }
+        }
 
         internal SettingsUserValues mSettingsUserValues = null;
 
@@ -77,13 +87,6 @@ namespace Tangenta
                 if (s.Equals(GlobalData.const_DocInvoice) || s.Equals(GlobalData.const_DocProformaInvoice))
                 {
                     m_DocTyp = s;
-                    if (DocE!=null)
-                    {
-                        if (DocE.m_ShopABC!=null)
-                        {
-                            DocE.m_ShopABC.DocTyp = s;
-                        }
-                    }
                 }
                 else
                 {
@@ -95,7 +98,6 @@ namespace Tangenta
                     {
                         LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:property string DocTyp: DocTyp  value ==  null");
                     }
-
                 }
             }
         }

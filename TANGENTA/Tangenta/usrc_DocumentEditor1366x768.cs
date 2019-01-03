@@ -637,7 +637,6 @@ namespace Tangenta
                     m_usrc_ShopB1366x768.aa_ItemRemoved += usrc_ShopB_ItemRemoved;
                     m_usrc_ShopB1366x768.aa_ItemUpdated += usrc_ShopB_ItemUpdated;
 
-                    m_usrc_ShopC1366x768.DocTyp = DocE.DocTyp;
                     m_usrc_ShopC1366x768.CheckAccessPriceList += M_usrcCheckPriceListAccess;
                     m_usrc_ShopC1366x768.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
                     m_usrc_ShopC1366x768.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
@@ -878,11 +877,11 @@ namespace Tangenta
             {
                 if (IsDocInvoice)
                 {
-                    DocE.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                    DocE.InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
                   
                     ID DocInvoice_ID = null;
                     // save doc Invoice 
-                    if (DocE.m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID,Program.CashierActivity,GlobalData.ElectronicDevice_Name, DocE.m_LMOUser.Atom_WorkPeriod_ID, transaction))
+                    if (DocE.InvoiceData.SaveDocInvoice(ref DocInvoice_ID,Program.CashierActivity,GlobalData.ElectronicDevice_Name, DocE.m_LMOUser.Atom_WorkPeriod_ID, transaction))
                     {
 
                         DocE.m_ShopABC.m_CurrentDoc.Doc_ID = DocInvoice_ID;
@@ -890,9 +889,9 @@ namespace Tangenta
                         if (Program.b_FVI_SLO)
                         {
 
-                            if ((DocE.m_InvoiceData.AddOnDI.IsCashPayment && Program.FVI_SLO1.FVI_for_cash_payment)
-                                || (DocE.m_InvoiceData.AddOnDI.IsCardPayment && Program.FVI_SLO1.FVI_for_card_payment)
-                                || (DocE.m_InvoiceData.AddOnDI.IsPaymentOnBankAccount && Program.FVI_SLO1.FVI_for_payment_on_bank_account)
+                            if ((DocE.InvoiceData.AddOnDI.IsCashPayment && Program.FVI_SLO1.FVI_for_cash_payment)
+                                || (DocE.InvoiceData.AddOnDI.IsCardPayment && Program.FVI_SLO1.FVI_for_card_payment)
+                                || (DocE.InvoiceData.AddOnDI.IsPaymentOnBankAccount && Program.FVI_SLO1.FVI_for_payment_on_bank_account)
                                 )
                             {
                                 UniversalInvoice.Person xInvoiceAuthor = fs.GetInvoiceAuthor(DocE.m_LMOUser.Atom_myOrganisation_Person_ID);
@@ -901,7 +900,7 @@ namespace Tangenta
                         }
 
                         // read saved doc Invoice again !
-                        if (DocE.m_InvoiceData.Read_DocInvoice(transaction))
+                        if (DocE.InvoiceData.Read_DocInvoice(transaction))
                         {
 
                             if (aa_DocInvoiceSaved != null)
@@ -925,11 +924,11 @@ namespace Tangenta
                 {
                     ID DocInvoice_ID = null;
                     // save doc Invoice 
-                    if (DocE.m_InvoiceData.SaveDocProformaInvoice(ref DocInvoice_ID,GlobalData.ElectronicDevice_Name, DocE.m_LMOUser.Atom_WorkPeriod_ID, transaction))
+                    if (DocE.InvoiceData.SaveDocProformaInvoice(ref DocInvoice_ID,GlobalData.ElectronicDevice_Name, DocE.m_LMOUser.Atom_WorkPeriod_ID, transaction))
                     {
                         DocE.m_ShopABC.m_CurrentDoc.Doc_ID = DocInvoice_ID;
                         // read saved doc Invoice again !
-                        if (DocE.m_InvoiceData.Read_DocInvoice(transaction))
+                        if (DocE.InvoiceData.Read_DocInvoice(transaction))
                         {
 
                             if (aa_DocProformaInvoiceSaved != null)
@@ -978,8 +977,8 @@ namespace Tangenta
                                        GlobalData.ElectronicDevice_Name,
                                        Program.FVI_SLO1.FursD_InvoiceAuthorTaxID,
                                        "", "",
-                                       DocE.m_InvoiceData.IssueDate_v,
-                                       DocE.m_InvoiceData.NumberInFinancialYear,
+                                       DocE.InvoiceData.IssueDate_v,
+                                       DocE.InvoiceData.NumberInFinancialYear,
                                        dGrossSum,
                                        xTaxSum,
                                        xInvoiceAuthor //ToDo : Get real Invoice Autor here!
@@ -995,11 +994,11 @@ namespace Tangenta
 
                 case FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK:
                 case FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.TIMEOUT:
-                    DocE.m_InvoiceData.AddOnDI.m_FURS.FURS_ZOI_v = new string_v(furs_UniqeMsgID);
-                    DocE.m_InvoiceData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(furs_UniqeInvID);
-                    DocE.m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v = new string_v(furs_BarCodeValue);
-                    DocE.m_InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = img_QR;
-                    DocE.m_InvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(DocE.m_InvoiceData.DocInvoice_ID,Program.FVI_SLO1.FursTESTEnvironment, transaction);
+                    DocE.InvoiceData.AddOnDI.m_FURS.FURS_ZOI_v = new string_v(furs_UniqeMsgID);
+                    DocE.InvoiceData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(furs_UniqeInvID);
+                    DocE.InvoiceData.AddOnDI.m_FURS.FURS_QR_v = new string_v(furs_BarCodeValue);
+                    DocE.InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = img_QR;
+                    DocE.InvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(DocE.InvoiceData.DocInvoice_ID,Program.FVI_SLO1.FursTESTEnvironment, transaction);
                     break;
 
                 case FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.ERROR:
@@ -1007,9 +1006,9 @@ namespace Tangenta
                     string xSerialNumber = null;
                     string xSetNumber = null;
                     string xInvoiceNumber = null;
-                    Program.FVI_SLO1.Write_SalesBookInvoice(DocE.m_InvoiceData.DocInvoice_ID, DocE.m_InvoiceData.FinancialYear, DocE.m_InvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
+                    Program.FVI_SLO1.Write_SalesBookInvoice(DocE.InvoiceData.DocInvoice_ID, DocE.InvoiceData.FinancialYear, DocE.InvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
                     ID FVI_SLO_SalesBookInvoice_ID = null;
-                    if (TangentaDB.f_FVI_SLO_SalesBookInvoice.Get(DocE.m_InvoiceData.DocInvoice_ID, xSerialNumber, xSetNumber, xInvoiceNumber, ref FVI_SLO_SalesBookInvoice_ID, transaction))
+                    if (TangentaDB.f_FVI_SLO_SalesBookInvoice.Get(DocE.InvoiceData.DocInvoice_ID, xSerialNumber, xSetNumber, xInvoiceNumber, ref FVI_SLO_SalesBookInvoice_ID, transaction))
                     {
                         MessageBox.Show("Račun je zabeležen v tabeli za pošiljanje računov iz vezane knjige računov! ");
 
@@ -1026,7 +1025,7 @@ namespace Tangenta
 
 
             }
-            DocE.m_InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
+            DocE.InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
             //}
         }
 
@@ -1088,7 +1087,7 @@ namespace Tangenta
 
         private bool Printing_DocInvoice()
         {
-            TangentaPrint.Form_PrintDocument template_dlg = new TangentaPrint.Form_PrintDocument(DocE.m_LMOUser.Atom_WorkPeriod_ID, DocE.m_InvoiceData,Properties.Resources.Exit, DocE.door.OpenIfUserIsAdministrator);
+            TangentaPrint.Form_PrintDocument template_dlg = new TangentaPrint.Form_PrintDocument(DocE.m_LMOUser.Atom_WorkPeriod_ID, DocE.InvoiceData,Properties.Resources.Exit, DocE.door.OpenIfUserIsAdministrator);
             template_dlg.Owner = Global.f.GetParentForm(this);
             if (template_dlg.ShowDialog(this)==DialogResult.OK)
             {

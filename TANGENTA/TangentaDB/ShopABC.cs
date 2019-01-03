@@ -23,6 +23,21 @@ namespace TangentaDB
 {
     public class ShopABC
     {
+        public delegate string delegate_GetDocType();
+
+        private delegate_GetDocType m_delegate_GetDocType = null;
+        public delegate_GetDocType DelegateGetDocType
+        {
+            get
+            {
+                return m_delegate_GetDocType;
+            }
+            set
+            {
+                m_delegate_GetDocType = value;
+            }
+        }
+
         TangentaTableClass.SQL_Database_Tables_Definition td = null;
         DBTablesAndColumnNames DBtcn = null;
         internal ID m_Atom_WorkPeriod_ID = null;
@@ -45,9 +60,9 @@ namespace TangentaDB
         }
 
 
-        public ShopABC(string xDocTyp, DBTablesAndColumnNames xDBtcn, ID xAtom_WorkPeriod_ID)
+        public ShopABC(delegate_GetDocType xdelegate_GetDocType, DBTablesAndColumnNames xDBtcn, ID xAtom_WorkPeriod_ID)
         {
-            DocTyp = xDocTyp;
+            DelegateGetDocType = xdelegate_GetDocType;
             m_xTaxationList=Get_TaxationList();
             m_CurrentDoc = new CurrentDoc(this, xDBtcn);
             m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
@@ -78,21 +93,20 @@ namespace TangentaDB
             return null;
         }
 
-        private string m_DocTyp = null;
 
         public string DocTyp
         {
             get {
-                  if (m_DocTyp==null)
-                  {
-                        LogFile.Error.Show("ERROR:TangentaDB:ShopABC:property DocTyp: DocTyp is not defined (m_DocTyp = null)!");
-                  }
-                  return m_DocTyp;
+                      if (m_delegate_GetDocType != null)
+                      {
+                            return m_delegate_GetDocType();
+                      }
+                      else
+                      {
+                            LogFile.Error.Show("ERROR:TangentaDB:ShopABC:delegate_GetDocType == null)!");
+                            return null;
+                      }
                 }
-            set
-            {
-                m_DocTyp = value;
-            }
         }
 
         public bool IsDocInvoice

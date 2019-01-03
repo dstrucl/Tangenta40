@@ -153,7 +153,6 @@
             // 
             this.m_usrc_ShopC1366x768.AutomaticSelectionOfItemsFromStock = true;
             this.m_usrc_ShopC1366x768.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.m_usrc_ShopC1366x768.DocTyp = "";
             this.m_usrc_ShopC1366x768.ExclusivelySellFromStock = false;
             this.m_usrc_ShopC1366x768.Location = new System.Drawing.Point(0, 360);
             this.m_usrc_ShopC1366x768.Margin = new System.Windows.Forms.Padding(4);

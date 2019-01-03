@@ -51,11 +51,11 @@ namespace TangentaPrint
             this.m_InvoiceData = xInvoiceData;
             if (m_InvoiceData.IsDocInvoice)
             {
-                this.paymentType = m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.eType;
-                this.sPaymentMethod = m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.PaymentType;
+                this.paymentType = m_InvoiceData.AddOnDI.MyMethodOfPayment_DI.eType;
+                this.sPaymentMethod = m_InvoiceData.AddOnDI.MyMethodOfPayment_DI.PaymentType;
                 this.sAmountReceived = m_InvoiceData.AddOnDI.sCash_AmountReceived;
                 this.sToReturn = m_InvoiceData.AddOnDI.sCash_ToReturn;
-                this.issue_time = new DateTime_v(m_InvoiceData.AddOnDI.m_IssueDate.Date);
+                this.issue_time = new DateTime_v(m_InvoiceData.AddOnDI.MyIssueDate.Date);
                 lng.s_Print_DocInvoice.Text(this);
             }
             else if (m_InvoiceData.IsDocProformaInvoice)

@@ -72,7 +72,6 @@
             this.usrc_Atom_ItemsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Atom_ItemsList.DocTyp = "";
             this.usrc_Atom_ItemsList.Location = new System.Drawing.Point(5, 3);
             this.usrc_Atom_ItemsList.Margin = new System.Windows.Forms.Padding(5);
             this.usrc_Atom_ItemsList.Name = "usrc_Atom_ItemsList";
@@ -85,7 +84,6 @@
             this.usrc_ItemList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_ItemList.DocTyp = "";
             this.usrc_ItemList.ExclusivelySellFromStock = false;
             this.usrc_ItemList.Location = new System.Drawing.Point(1, 3);
             this.usrc_ItemList.Margin = new System.Windows.Forms.Padding(5);
