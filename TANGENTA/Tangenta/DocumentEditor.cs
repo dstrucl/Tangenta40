@@ -700,6 +700,19 @@ namespace Tangenta
             }
         }
 
+        internal bool Printing_DocInvoice(Control parentControl)
+        {
+            Form parentform = Global.f.GetParentForm(parentControl);
+            TangentaPrint.Form_PrintDocument template_dlg = new TangentaPrint.Form_PrintDocument(m_LMOUser.Atom_WorkPeriod_ID, InvoiceData, Properties.Resources.Exit, door.OpenIfUserIsAdministrator);
+            template_dlg.Owner = Global.f.GetParentForm(parentform);
+            if (template_dlg.ShowDialog(parentform) == DialogResult.OK)
+            {
+                return true;
+            }
+            return false;
+
+        }
+
         public bool GetUnits()
         {
             if (m_ShopABC.m_xUnitList == null)

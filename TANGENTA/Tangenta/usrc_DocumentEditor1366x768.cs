@@ -936,7 +936,7 @@ namespace Tangenta
                                 aa_DocProformaInvoiceSaved(DocE.m_ShopABC.m_CurrentDoc.Doc_ID);
                             }
 
-                            Printing_DocInvoice();
+                            DocE.Printing_DocInvoice(this);
                             return true;
                         }
                         else
@@ -1085,16 +1085,6 @@ namespace Tangenta
         //    return invoiceData;
         //}
 
-        private bool Printing_DocInvoice()
-        {
-            TangentaPrint.Form_PrintDocument template_dlg = new TangentaPrint.Form_PrintDocument(DocE.m_LMOUser.Atom_WorkPeriod_ID, DocE.InvoiceData,Properties.Resources.Exit, DocE.door.OpenIfUserIsAdministrator);
-            template_dlg.Owner = Global.f.GetParentForm(this);
-            if (template_dlg.ShowDialog(this)==DialogResult.OK)
-            {
-                return true;
-            }
-            return false;
-        }
 
         private void customer_Person_Changed(ID customer_Person_ID)
         {
