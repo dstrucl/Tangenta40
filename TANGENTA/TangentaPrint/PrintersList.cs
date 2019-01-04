@@ -1,4 +1,5 @@
-﻿using NavigationButtons;
+﻿using DBTypes;
+using NavigationButtons;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -23,6 +24,117 @@ namespace TangentaPrint
         {
             get { return PrinterSettingsFolderName + "\\" + PrinterListFileName; }
         }
+
+        public static string PrinterName(DataRow dr)
+        {
+            string_v PrinterName_v = tf.set_string(dr["PrinterName"]);
+            if (PrinterName_v != null)
+            {
+                return PrinterName_v.v;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+        public static bool InvoicePrinting(DataRow dr)
+        {
+            bool_v InvoicePrinting_v = tf.set_bool(dr["InvoicePrinting"]);
+            if (InvoicePrinting_v!=null)
+            {
+                return InvoicePrinting_v.v;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool InvoicePrinting_PaymentCash(DataRow dr)
+        {
+            bool_v InvoicePrinting_PaymentCash_v = tf.set_bool(dr["InvoicePrinting_PaymentCash"]);
+            if (InvoicePrinting_PaymentCash_v != null)
+            {
+                return InvoicePrinting_PaymentCash_v.v;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool InvoicePrinting_PaymentCard(DataRow dr)
+        {
+            bool_v InvoicePrinting_PaymentCard_v = tf.set_bool(dr["InvoicePrinting_PaymentCard"]);
+            if (InvoicePrinting_PaymentCard_v != null)
+            {
+                return InvoicePrinting_PaymentCard_v.v;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool InvoicePrinting_PaymentBankAccount(DataRow dr)
+        {
+            bool_v InvoicePrinting_PaymentBankAccount_v = tf.set_bool(dr["InvoicePrinting_PaymentBankAccount"]);
+            if (InvoicePrinting_PaymentBankAccount_v != null)
+            {
+                return InvoicePrinting_PaymentBankAccount_v.v;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool ProformaInvoicePrinting(DataRow dr)
+        {
+            bool_v ProformaInvoicePrinting_v = tf.set_bool(dr["ProformaInvoicePrinting"]);
+            if (ProformaInvoicePrinting_v != null)
+            {
+                return ProformaInvoicePrinting_v.v;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool ReportsPrinting(DataRow dr)
+        {
+            bool_v ReportsPrinting_v = tf.set_bool(dr["ReportsPrinting"]);
+            if (ReportsPrinting_v != null)
+            {
+                return ReportsPrinting_v.v;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        public static bool PrintingWithHtmlTemplates(DataRow dr)
+        {
+            bool_v PrintingWithHtmlTemplates_v = tf.set_bool(dr["PrintingWithHtmlTemplates"]);
+            if (PrintingWithHtmlTemplates_v != null)
+            {
+                return PrintingWithHtmlTemplates_v.v;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+
+
+
+
         public static DataColumn dcol_PrinterName = null;
         public static DataColumn dcol_InvoicePrinting = null;
         public static DataColumn dcol_InvoicePrinting_PaymentCash = null;
@@ -33,6 +145,7 @@ namespace TangentaPrint
 
         public static DataColumn dcol_ReportsPrinting = null;
 
+        public static DataColumn dcol_PrintingWithHtmlTemplates = null;
 
         public static DataColumn dcol_PageSettings_Landscape =  null;
         public static DataColumn dcol_PageSettings_Color = null;
@@ -97,20 +210,7 @@ namespace TangentaPrint
 
             dcol_ReportsPrinting = new DataColumn("ReportsPrinting", typeof(bool));
 
-            //dcol_PageSettings_Landscape =  new DataColumn("Landscape", typeof(bool)); 
-            //dcol_PageSettings_Color = new DataColumn("Color", typeof(bool)); 
-            //dcol_PageSettings_HardMarginX = new DataColumn("HardMarginX ", typeof(float));
-            //dcol_PageSettings_HardMarginY = new DataColumn("HardMarginY", typeof(float));
-            //dcol_PageSettings_PaperSize_Width = new DataColumn("PaperSize_Width", typeof(int));
-            //dcol_PageSettings_PaperSize_Height = new DataColumn("PaperSize_Height", typeof(int));
-            //dcol_PageSettings_PaperSize_PaperName = new DataColumn("PaperSize_PaperName", typeof(string));
-            //dcol_PageSettings_PaperSize_RawKind = new DataColumn("PaperSize_RawKind", typeof(int)); 
-            //dcol_PageSettings_PaperSource_RawKind = new DataColumn("PaperSource_RawKind", typeof(int));
-            //dcol_PageSettings_PaperSource_SourceName = new DataColumn("PaperSource_SourceName", typeof(string));
-            //dcol_PageSettings_PrinterResolution_X = new DataColumn("PrinterResolution_X", typeof(int));
-            //dcol_PageSettings_PrinterResolution_Y = new DataColumn("PrinterResolution_Y", typeof(int));
-            //dcol_PageSettings_PrinterResolution_Kind = new DataColumn("PrinterResolution_Kind", typeof(System.Drawing.Printing.PrinterResolutionKind));
-
+            dcol_PrintingWithHtmlTemplates = new DataColumn("PrintingWithHtmlTemplates", typeof(bool));
 
             dt.Rows.Clear();
             dt.Columns.Clear();
@@ -123,23 +223,9 @@ namespace TangentaPrint
             dt.Columns.Add(dcol_InvoicePrinting_PaymentBankAccount);
             dt.Columns.Add(dcol_ProformaInvoicePrinting);
 
-            //dt.Columns.Add(dcol_PageSettings_Landscape);
-            //dt.Columns.Add(dcol_PageSettings_Color);
-            //dt.Columns.Add(dcol_PageSettings_HardMarginX);
-            //dt.Columns.Add(dcol_PageSettings_HardMarginY);
-            //dt.Columns.Add(dcol_PageSettings_PaperSize_Width);
-            //dt.Columns.Add(dcol_PageSettings_PaperSize_Height);
-            //dt.Columns.Add(dcol_PageSettings_PaperSize_PaperName);
-            //dt.Columns.Add(dcol_PageSettings_PaperSize_RawKind);
-            //dt.Columns.Add(dcol_PageSettings_PaperSource_RawKind);
-            //dt.Columns.Add(dcol_PageSettings_PaperSource_SourceName);
-            //dt.Columns.Add(dcol_PageSettings_PrinterResolution_X);
-            //dt.Columns.Add(dcol_PageSettings_PrinterResolution_Y);
-            //dt.Columns.Add(dcol_PageSettings_PrinterResolution_Kind);
-
             dt.Columns.Add(dcol_ReportsPrinting);
 
-
+            dt.Columns.Add(dcol_PrintingWithHtmlTemplates);
 
         }
 
@@ -149,7 +235,8 @@ namespace TangentaPrint
                                   bool bInvoicePrinting_PaymentCard, 
                                   bool bInvoicePrinting_PaymentBankAccount, 
                                   bool bPrinting_ProformaInvoices, 
-                                  bool bPrinting_Reports)
+                                  bool bPrinting_Reports,
+                                  bool bPrintingWithHtmlTemplates)
         {
             dt.Rows[x_index][dcol_InvoicePrinting] = bInvoicePrinting;
             dt.Rows[x_index][dcol_InvoicePrinting_PaymentCash] = bInvoicePrinting_PaymentCash;
@@ -157,6 +244,7 @@ namespace TangentaPrint
             dt.Rows[x_index][dcol_InvoicePrinting_PaymentBankAccount] = bInvoicePrinting_PaymentBankAccount;
             dt.Rows[x_index][dcol_ProformaInvoicePrinting] = bPrinting_ProformaInvoices;
             dt.Rows[x_index][dcol_ReportsPrinting] = bPrinting_Reports;
+            dt.Rows[x_index][dcol_PrintingWithHtmlTemplates] = bPrintingWithHtmlTemplates;
         }
 
 
@@ -289,6 +377,32 @@ namespace TangentaPrint
                         // printer is not offline
                         //Console.WriteLine("Your Plug-N-Play printer is connected.");
                         return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public static bool PrintingWithHtmlTemplate(string doctype, ref Printer printer)
+        {
+            if (dt != null)
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        string printername = PrinterName(dr);
+
+                        if (doctype.Equals("DocInvoice"))
+                        {
+                            if (InvoicePrinting(dr))
+                            {
+                                if (IsPrinterConnected(printername))
+                                {
+
+                                }
+                            }
+                        }
                     }
                 }
             }

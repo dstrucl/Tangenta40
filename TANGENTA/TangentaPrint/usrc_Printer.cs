@@ -69,6 +69,7 @@ namespace TangentaPrint
             lng.s_Invoices.Text(grp_Invoice);
             lng.s_Remove.Text(btn_Remove);
             lng.s_Printning_Invoices.Text(chk_Printing_Invoices);
+            lng.s_Printning_Width_Templates.Text(chk_PrintingWithHtmlTemplates);
             lng.s_Printning_ProformaInvoices.Text(chk_Printing_ProformaInvoices);
             lng.s_Printning_Reports.Text(chk_Printing_Reports);
             lng.s_Printning_MothodOfPayment.Text(grp_Payment);

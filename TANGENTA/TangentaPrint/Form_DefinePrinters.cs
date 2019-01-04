@@ -135,7 +135,8 @@ namespace TangentaPrint
                                           ((usrc_Printer)ctrl).bInvoicePrinting_PaymentCard,
                                           ((usrc_Printer)ctrl).bInvoicePrinting_PaymentBankAccount,
                                           ((usrc_Printer)ctrl).bPrinting_ProformaInvoices,
-                                          ((usrc_Printer)ctrl).bPrinting_Reports
+                                          ((usrc_Printer)ctrl).bPrinting_Reports,
+                                          ((usrc_Printer)ctrl).PrintingWithHtmlTemplates
                                           );
                     }
                 }

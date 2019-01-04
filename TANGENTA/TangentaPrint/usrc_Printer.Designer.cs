@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.grp_Printer = new System.Windows.Forms.GroupBox();
+            this.chk_PrintingWithHtmlTemplates = new System.Windows.Forms.CheckBox();
             this.btn_Remove = new System.Windows.Forms.Button();
             this.grp_Invoice = new System.Windows.Forms.GroupBox();
             this.grp_Payment = new System.Windows.Forms.GroupBox();
@@ -38,7 +39,6 @@
             this.chk_Printing_Invoices = new System.Windows.Forms.CheckBox();
             this.chk_Printing_Reports = new System.Windows.Forms.CheckBox();
             this.chk_Printing_ProformaInvoices = new System.Windows.Forms.CheckBox();
-            this.chk_PrintingWithHtmlTemplates = new System.Windows.Forms.CheckBox();
             this.grp_Printer.SuspendLayout();
             this.grp_Invoice.SuspendLayout();
             this.grp_Payment.SuspendLayout();
@@ -59,6 +59,16 @@
             this.grp_Printer.TabIndex = 3;
             this.grp_Printer.TabStop = false;
             this.grp_Printer.Text = "Printer 1";
+            // 
+            // chk_PrintingWithHtmlTemplates
+            // 
+            this.chk_PrintingWithHtmlTemplates.AutoSize = true;
+            this.chk_PrintingWithHtmlTemplates.Location = new System.Drawing.Point(9, 47);
+            this.chk_PrintingWithHtmlTemplates.Name = "chk_PrintingWithHtmlTemplates";
+            this.chk_PrintingWithHtmlTemplates.Size = new System.Drawing.Size(164, 17);
+            this.chk_PrintingWithHtmlTemplates.TabIndex = 7;
+            this.chk_PrintingWithHtmlTemplates.Text = "Printing with HTML templates";
+            this.chk_PrintingWithHtmlTemplates.UseVisualStyleBackColor = true;
             // 
             // btn_Remove
             // 
@@ -161,16 +171,6 @@
             this.chk_Printing_ProformaInvoices.TabIndex = 2;
             this.chk_Printing_ProformaInvoices.Text = "Printing Proforma Invoices";
             this.chk_Printing_ProformaInvoices.UseVisualStyleBackColor = true;
-            // 
-            // chk_PrintingWithHtmlTemplates
-            // 
-            this.chk_PrintingWithHtmlTemplates.AutoSize = true;
-            this.chk_PrintingWithHtmlTemplates.Location = new System.Drawing.Point(9, 47);
-            this.chk_PrintingWithHtmlTemplates.Name = "chk_PrintingWithHtmlTemplates";
-            this.chk_PrintingWithHtmlTemplates.Size = new System.Drawing.Size(164, 17);
-            this.chk_PrintingWithHtmlTemplates.TabIndex = 7;
-            this.chk_PrintingWithHtmlTemplates.Text = "Printing with HTML templates";
-            this.chk_PrintingWithHtmlTemplates.UseVisualStyleBackColor = true;
             // 
             // usrc_Printer
             // 

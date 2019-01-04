@@ -194,6 +194,8 @@ namespace TangentaPrint
 
         public static ltext sPrinterNotFound = new ltext(new string[] { "Printer not found:", "Tiskalnik ni nameščen:" });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\usrc_Printer.cs
 
+        public static ltext s_Printning_Width_Templates = new ltext(new string[] { "Printing with HTML templates", "Tiskanje s HTML predlogo" });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\usrc_Printer.cs
+
         public static ltext s_Printning_Invoices = new ltext(new string[] { "Printing invoices", "Tiskanje računov" });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\usrc_Printer.cs
 
         public static ltext s_Printning_ProformaInvoices = new ltext(new string[] { "Printing proforma invoices", "Tiskanje pred-računov" });   // referenced in C:\Tangenta40\TANGENTA\TangentaPrint\usrc_Printer.cs
