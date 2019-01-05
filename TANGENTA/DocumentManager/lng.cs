@@ -27,6 +27,38 @@ namespace DocumentManager
 
         public static ltext s_Draft = new ltext(new string[] { "Draft", "Osnutek" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_NewDocument.cs
         public static ltext s_YouCanNotWriteInvoices_CasshierIsClosed = new ltext(new string[] { "You can not write invoices. Cashier is closed!", "Kadar je blagajna zaprta ni možno pisati in izdajati računov!" });
+        public static ltext s_No_ShopB_Items_or_no_prices_for_those_items = new ltext(new string[] { "Shop %s has no items to sell or prices for them are not defined!", "V prodajalni %s ni nobenih artiklov ali pa le ti nimajo določenih prodajnih cen v ceniku!" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
+        public static ltext s_Legend = new ltext(new string[] { "Legend", "Legenda" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Expiry_Check.cs
+        public static ltext s_ItemsToDiscart = new ltext(new string[] { "Items to discard", "Artikli, ki naj gredo v uničenje" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Expiry_Check.cs
+        public static ltext s_ItemsToSale = new ltext(new string[] { "Items to sale with discount", "Artikli, ki naj gredo v razprodajo" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Expiry_Check.cs
+        public static ltext s_ItemsWithNoExpiryData = new ltext(new string[] { "Items with no expiry data", "Artikli, ki nimajo podatka o roku uporabe" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Expiry_Check.cs
+        public static ltext s_Shop_B = new ltext(new string[] { "Shop B", "Prodajalna B" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShowShops.cs
+        public static ltext s_Invoice = new ltext(new string[]{"Invoice",
+                                                  "Račun"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Storno.cs
+        public static ltext s_AreYouSureToStornoThisInvoice = new ltext(new string[] { "Are you sure to Storno this invoice?", "Ali zares želite stornirati račun ?" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
+        public static ltext s_Storno_Instruction = new ltext(new string[] { "To reverse Invoice select or write reason and click STORNO button", "Za stornacijo računa izberite ali napišite razlog in kliknite na gumb Storno" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Storno.cs
+        public static ltext s_Storno = new ltext(new string[] { "Reverse Invoice", "Stornacija računa" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Storno.cs
+        public static ltext s_YouCanNotCancelInvoiceStorno = new ltext(new string[] { "You can not reverse reversed invoice to invoice!", "Razveljavitev stornacije računa ni možna. Napišite nov račun!" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
+        public static ltext s_YouMustHaveAdministratorRightsToEditSettings = new ltext(new string[] {"Access denied:you have no administrator rights.\r\nFor edit program settings you need administrator rights!","Dostop zavrnjen:nimate administratorskih pravic!\r\nZa urejanje nastavitev potrebujete administratorske pravice."});
+        public static ltext s_YouMustHaveOneOfThePossibleAccessRightsToEditPriceList = new ltext(new string[] { "You  have no access rights to edit price lists. Access rights to edit pricelists are:", "Imeti morate dodeljeno vsaj eno od naštetith pravic, da bi lahko urejali cenike:" });
+
+
+        public static ltext s_Warning = new ltext(new string[]{"Warning",
+                                           "Opozorilo"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_myOrg_Edit.cs
+
+        public static ltext s_YouMustHaveOneOfThePossibleAccessRightsToEditStock = new ltext(new string[] { "You have no access rights to edit stock. Access rights to edit stock are:", "Imeti morate dodeljeno vsaj eno od naštetith pravic, da bi lahko urejali zaloge:" });
+
+        public static ltext s_ExpiryStockCheck = new ltext(new string[] { "Expiry stock check", "Kontrola zalog" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Expiry_Check.cs
+
+        public static ltext s_Time = new ltext(new string[] { "Time", "Čas" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Storno.cs
+
+        public static ltext s_Price = new ltext(new string[] { "Price", "Cena" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Storno.cs
+
+        public static ltext s_SelectObligatoryWriteReasonForStorno = new ltext(new string[] { "Select existing reason to reverse invoice", "Izberite že vnešen razlog za stornacijo računa" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Storno.cs
+
+        public static ltext s_WriteReasonForStorno = new ltext(new string[] { "Write reason text to reverse invoice!", "Napisati morate razlog za stornacijo računa!" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Storno.cs
+
+        public static ltext s_ObligatoryWriteReasonForStorno = new ltext(new string[] { "Write new reason to reverse invoice", "Spodaj vpišite nov razlog za stornacijo računa" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Storno.cs
 
         //public static ltext s_Form_TableInspection = new ltext(new string[] { "Table Inspection", "Pregled tabel" });
         //public static ltext s_SaveAsTextFile = new ltext(new string[] { "Save as text file", "Shrani v tekstovno datoteko" });
@@ -123,11 +155,8 @@ namespace DocumentManager
         //public static ltext s_ColorSettings_ControlColorDic_sIsUsedOnTheseControls = new ltext(new string[] { " is used on following controls:", " uporabljajo sledeče kontrole:" });
 
 
-        //public static ltext s_YouMustHaveOneOfThePossibleAccessRightsToEditStock = new ltext(new string[] { "You have no access rights to edit stock. Access rights to edit stock are:", "Imeti morate dodeljeno vsaj eno od naštetith pravic, da bi lahko urejali zaloge:" });
 
-        //public static ltext s_YouMustHaveOneOfThePossibleAccessRightsToEditPriceList = new ltext(new string[] { "You  have no access rights to edit price lists. Access rights to edit pricelists are:", "Imeti morate dodeljeno vsaj eno od naštetith pravic, da bi lahko urejali cenike:" });
 
-        //public static ltext s_YouMustHaveAdministratorRightsToEditSettings = new ltext(new string[] {"Access denied:you have no administrator rights.\r\nFor edit program settings you need administrator rights!","Dostop zavrnjen:nimate administratorskih pravic!\r\nZa urejanje nastavitev potrebujete administratorske pravice."});
 
         //public static ltext slng_AndFontSize  = new ltext(new string[] { " and font size = ", " in velikostjo pisave = " });
         //public static ltext slng_BackColor = new ltext(new string[] { " Back color ", " Barva ozadja " });
@@ -203,15 +232,7 @@ namespace DocumentManager
 
         //public static ltext s_PaymentOfProformaInvoiceAndPrint = new ltext(new string[] { "Terms of payment  and print", "Način plačila in izdaja predračuna" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_DocProformaInvoice_AddOn.cs
 
-        //public static ltext s_ExpiryStockCheck = new ltext(new string[] { "Expiry stock check", "Kontrola zalog" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Expiry_Check.cs
 
-        //public static ltext s_ItemsWithNoExpiryData = new ltext(new string[] { "Items with no expiry data", "Artikli, ki nimajo podatka o roku uporabe" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Expiry_Check.cs
-
-        //public static ltext s_ItemsToSale = new ltext(new string[] { "Items to sale with discount", "Artikli, ki naj gredo v razprodajo" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Expiry_Check.cs
-
-        //public static ltext s_ItemsToDiscart = new ltext(new string[] { "Items to discard", "Artikli, ki naj gredo v uničenje" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Expiry_Check.cs
-
-        //public static ltext s_Legend = new ltext(new string[] { "Legend", "Legenda" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Expiry_Check.cs
 
         //public static ltext s_FVI_instruction = new ltext(new string[] { "Fiscal verification of invoices is obligatory in Slovenia.\r\nIf you are from any reason not obligated to do fiscal verification of invoices please uncheck the checkbox below.", "Davčno potrjevanje računov pri davčni upravi je v Sloveniji obvezno.\r\nV kolikor niste zavezanec za davčno potrjevanje računov odstranite kljukico spodaj." });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_FVI_check.cs
 
@@ -232,8 +253,6 @@ namespace DocumentManager
         //public static ltext s_MyOrganisation = new ltext(new string[]{"My organisation",
         //                                            "Moja oragnizacija"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_myOrg_Edit.cs
 
-        //public static ltext s_Warning = new ltext(new string[]{"Warning",
-        //                                   "Opozorilo"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_myOrg_Edit.cs
 
         //public static ltext s_Community1 = new ltext(new string[] { "C1", "KS1" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_myOrg_Office_Data_FVI_SLO_RealEstateBP.cs
 
@@ -274,7 +293,6 @@ namespace DocumentManager
 
         //public static ltext s_Shop_A = new ltext(new string[] { "Shop A", "Prodajalna A" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShowShops.cs
 
-        //public static ltext s_Shop_B = new ltext(new string[] { "Shop B", "Prodajalna B" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShowShops.cs
 
         //public static ltext s_Shop_C = new ltext(new string[] { "Shop C", "Prodajalna C" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ShowShops.cs
 
@@ -374,23 +392,6 @@ namespace DocumentManager
         //public static ltext s_AllData = new ltext(new string[] { "All Data", "Vsi podatki" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_TimeSpan.cs
 
         //public static ltext s_all = new ltext(new string[] { "all", "vse" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_TimeSpan.cs
-
-        //public static ltext s_SelectObligatoryWriteReasonForStorno = new ltext(new string[] { "Select existing reason to reverse invoice", "Izberite že vnešen razlog za stornacijo računa" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Storno.cs
-
-        //public static ltext s_ObligatoryWriteReasonForStorno = new ltext(new string[] { "Write new reason to reverse invoice", "Spodaj vpišite nov razlog za stornacijo računa" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Storno.cs
-
-        //public static ltext s_WriteReasonForStorno = new ltext(new string[] { "Write reason text to reverse invoice!", "Napisati morate razlog za stornacijo računa!" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Storno.cs
-
-        //public static ltext s_Price = new ltext(new string[] { "Price", "Cena" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Storno.cs
-
-        //public static ltext s_Storno_Instruction = new ltext(new string[] { "To reverse Invoice select or write reason and click STORNO button", "Za stornacijo računa izberite ali napišite razlog in kliknite na gumb Storno" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Storno.cs
-
-        //public static ltext s_Storno = new ltext(new string[] { "Reverse Invoice", "Stornacija računa" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Storno.cs
-
-        //public static ltext s_Invoice = new ltext(new string[]{"Invoice",
-        //                                          "Račun"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Storno.cs
-
-        //public static ltext s_Time = new ltext(new string[] { "Time", "Čas" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Storno.cs
 
         //public static ltext s_CurrencyTableHasNoData_YouMustEnterData_close_anyway = new ltext(new string[] { "Currency table has no data. You must have at least one currency data row!\r\nDo you realy want to cancel? ", "Tabela valut je prazna.\r\nVnesti morate vsaj eno valuto!Želite kljub temu zapustiti dialog?" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Currency_Edit.cs
 
@@ -753,9 +754,7 @@ namespace DocumentManager
 
         //public static ltext s_chk_Storno = new ltext(new string[] { "Storno", "Storno" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
 
-        //public static ltext s_YouCanNotCnacelInvoiceStorno = new ltext(new string[] { "You can not reverse reversed invoice to invoice!", "Razveljavitev stornacije računa ni možna. Napišite nov račun!" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
 
-        //public static ltext s_AreYouSureToStornoThisInvoice = new ltext(new string[] { "Are you sure to Storno this invoice?", "Ali zares želite stornirati račun ?" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
 
         //public static ltext s_Head = new ltext(new string[] { "Head", "Glava" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
 

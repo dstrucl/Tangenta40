@@ -20,7 +20,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Tangenta
+namespace DocumentManager
 {
     public partial class Form_Expiry_Check : Form
     {

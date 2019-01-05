@@ -271,12 +271,6 @@
     <Compile Include="Form_DocProformaInvoice_AddOn.Designer.cs">
       <DependentUpon>Form_DocProformaInvoice_AddOn.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Expiry_Check.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Expiry_Check.Designer.cs">
-      <DependentUpon>Form_Expiry_Check.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form_FVI_check.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -456,12 +450,6 @@
     </Compile>
     <Compile Include="Form_Select_TimeSpan.Designer.cs">
       <DependentUpon>Form_Select_TimeSpan.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_Storno.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Storno.Designer.cs">
-      <DependentUpon>Form_Storno.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_Currency_Edit.cs">
       <SubType>Form</SubType>
@@ -714,9 +702,6 @@
     <EmbeddedResource Include="Form_Document_WizzardForHelp.resx">
       <DependentUpon>Form_Document_WizzardForHelp.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Expiry_Check.resx">
-      <DependentUpon>Form_Expiry_Check.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form_FirstTimeInstallationGreeting.resx">
       <DependentUpon>Form_FirstTimeInstallationGreeting.cs</DependentUpon>
     </EmbeddedResource>
@@ -828,9 +813,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Select_TimeSpan.resx">
       <DependentUpon>Form_Select_TimeSpan.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_Storno.resx">
-      <DependentUpon>Form_Storno.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Currency_Edit.resx">
       <DependentUpon>Form_Currency_Edit.cs</DependentUpon>
@@ -1109,6 +1091,10 @@
     <ProjectReference Include="..\..\SLO_FISCAL\FiscalVerificationOfInvoices_SLO\FiscalVerificationOfInvoices_SLO.csproj">
       <Project>{61ca81c7-7f82-4744-a8de-fbe9972e7ee8}</Project>
       <Name>FiscalVerificationOfInvoices_SLO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DocumentManager\DocumentManager.csproj">
+      <Project>{4f00910d-6e8d-4a47-bcc3-526867f3e099}</Project>
+      <Name>DocumentManager</Name>
     </ProjectReference>
     <ProjectReference Include="..\Form_Discount\Form_Discount.csproj">
       <Project>{4ac81b7e-a501-40ba-9a29-ed8004430eab}</Project>

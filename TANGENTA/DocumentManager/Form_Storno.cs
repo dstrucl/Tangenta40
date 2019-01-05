@@ -19,7 +19,7 @@ using DBConnectionControl40;
 using LanguageControl;
 using TangentaDB;
 
-namespace Tangenta
+namespace DocumentManager
 {
     public partial class Form_Storno : Form
     {
@@ -59,7 +59,7 @@ namespace Tangenta
             {
                 if (dt.Rows.Count==1)
                 {
-                    string InvoiceNumber = Program.GetInvoiceNumber(false, (int)dt.Rows[0]["FinancialYear"], (int)dt.Rows[0]["NumberInFinancialYear"], 0);
+                    string InvoiceNumber = DocumentMan.GetInvoiceNumber(false, (int)dt.Rows[0]["FinancialYear"], (int)dt.Rows[0]["NumberInFinancialYear"], 0);
                     DateTime InvoiceTime = (DateTime)dt.Rows[0]["InvoiceTime"];
                     decimal GrossSum = (decimal)dt.Rows[0]["GrossSum"];
                     string s_GrossSum = fs.Decimal2String(GrossSum,2);

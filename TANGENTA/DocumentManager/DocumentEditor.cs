@@ -134,9 +134,9 @@ namespace DocumentManager
         }
 
 
-        internal decimal GrossSum = 0;
-        internal decimal NetSum = 0;
-        internal StaticLib.TaxSum TaxSum = null;
+        public decimal GrossSum = 0;
+        public decimal NetSum = 0;
+        public StaticLib.TaxSum TaxSum = null;
 
 
         internal bool chk_Storno_CanBe_ManualyChanged = true;
@@ -588,7 +588,7 @@ namespace DocumentManager
                         if (m_ShopABC.m_CurrentDoc.bDraft)
                         {
 
-                            if ((DocM.RecordCashierActivity) && (DocM.CashierState == TangentaDB.CashierActivity.eCashierState.CLOSED))
+                            if ((DocumentMan.RecordCashierActivity) && (DocumentMan.CashierState == TangentaDB.CashierActivity.eCashierState.CLOSED))
                             {
                                 XMessage.Box.Show(pform, lng.s_YouCanNotWriteInvoices_CasshierIsClosed, MessageBoxIcon.Stop);
                                 return;
@@ -763,7 +763,7 @@ namespace DocumentManager
             return DocM.DocTyp;
         }
 
-        internal bool Init(Form pform,
+        public bool Init(Form pform,
                           ID document_ID,
                           ref ID ShopB_pricelist_ID,
                           ref ID ShopC_pricelist_ID,
@@ -888,9 +888,9 @@ namespace DocumentManager
                     //if (this.m_usrc_ShopC.usrc_ItemList.Get_Price_Item_Stock_Data(this.m_usrc_ShopC.usrc_PriceList1.ID))
                     if (xdelegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data(ShopC_pricelist_ID))
                     {
-                        if (Program.bStartup)
+                        if (DocumentManager.DocumentMan.bStartup)
                         {
-                            Program.bStartup = false;
+                            DocumentManager.DocumentMan.bStartup = false;
 
                             if (DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.TextValue.Equals("1"))
                             {
@@ -1015,21 +1015,21 @@ namespace DocumentManager
             {
                 if (DocM.IsDocInvoice)
                 {
-                    InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                    InvoiceData.AddOnDI.b_FVI_SLO = DocumentManager.DocumentMan.b_FVI_SLO;
 
                     ID DocInvoice_ID = null;
                     // save doc Invoice 
-                    if (InvoiceData.SaveDocInvoice(ref DocInvoice_ID, Program.CashierActivity, GlobalData.ElectronicDevice_Name, m_LMOUser.Atom_WorkPeriod_ID, transaction))
+                    if (InvoiceData.SaveDocInvoice(ref DocInvoice_ID, DocM.CashierActivity, GlobalData.ElectronicDevice_Name, m_LMOUser.Atom_WorkPeriod_ID, transaction))
                     {
 
                         m_ShopABC.m_CurrentDoc.Doc_ID = DocInvoice_ID;
 
-                        if (Program.b_FVI_SLO)
+                        if (DocumentManager.DocumentMan.b_FVI_SLO)
                         {
 
-                            if ((InvoiceData.AddOnDI.IsCashPayment && Program.FVI_SLO1.FVI_for_cash_payment)
-                                || (InvoiceData.AddOnDI.IsCardPayment && Program.FVI_SLO1.FVI_for_card_payment)
-                                || (InvoiceData.AddOnDI.IsPaymentOnBankAccount && Program.FVI_SLO1.FVI_for_payment_on_bank_account)
+                            if ((InvoiceData.AddOnDI.IsCashPayment && DocumentManager.DocumentMan.FVI_SLO1.FVI_for_cash_payment)
+                                || (InvoiceData.AddOnDI.IsCardPayment && DocumentManager.DocumentMan.FVI_SLO1.FVI_for_card_payment)
+                                || (InvoiceData.AddOnDI.IsPaymentOnBankAccount && DocumentManager.DocumentMan.FVI_SLO1.FVI_for_payment_on_bank_account)
                                 )
                             {
                                 UniversalInvoice.Person xInvoiceAuthor = fs.GetInvoiceAuthor(m_LMOUser.Atom_myOrganisation_Person_ID);
@@ -1101,10 +1101,10 @@ namespace DocumentManager
             //{
             string furs_XML = DocInvoice_AddOn.FURS.Create_furs_InvoiceXML(false,
                                    Properties.Resources.FVI_SLO_Invoice,
-                                   Program.FVI_SLO1.FursD_MyOrgTaxID,
-                                   Program.FVI_SLO1.FursD_BussinesPremiseID,
+                                   DocumentMan.FVI_SLO1.FursD_MyOrgTaxID,
+                                   DocumentMan.FVI_SLO1.FursD_BussinesPremiseID,
                                    GlobalData.ElectronicDevice_Name,
-                                   Program.FVI_SLO1.FursD_InvoiceAuthorTaxID,
+                                   DocumentMan.FVI_SLO1.FursD_InvoiceAuthorTaxID,
                                    "", "",
                                    InvoiceData.IssueDate_v,
                                    InvoiceData.NumberInFinancialYear,
@@ -1117,7 +1117,7 @@ namespace DocumentManager
             string furs_UniqeInvID = null;
             string furs_BarCodeValue = null;
 
-            FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post eres = Program.FVI_SLO1.Send_SingleInvoice(false, furs_XML,pform, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR);
+            FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post eres = DocumentMan.FVI_SLO1.Send_SingleInvoice(false, furs_XML,pform, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR);
             switch (eres)
             {
 
@@ -1127,7 +1127,7 @@ namespace DocumentManager
                     InvoiceData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(furs_UniqeInvID);
                     InvoiceData.AddOnDI.m_FURS.FURS_QR_v = new string_v(furs_BarCodeValue);
                     InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = img_QR;
-                    InvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(InvoiceData.DocInvoice_ID, Program.FVI_SLO1.FursTESTEnvironment, transaction);
+                    InvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(InvoiceData.DocInvoice_ID, DocumentMan.FVI_SLO1.FursTESTEnvironment, transaction);
                     break;
 
                 case FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.ERROR:
@@ -1135,7 +1135,7 @@ namespace DocumentManager
                     string xSerialNumber = null;
                     string xSetNumber = null;
                     string xInvoiceNumber = null;
-                    Program.FVI_SLO1.Write_SalesBookInvoice(InvoiceData.DocInvoice_ID, InvoiceData.FinancialYear, InvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
+                    DocumentMan.FVI_SLO1.Write_SalesBookInvoice(InvoiceData.DocInvoice_ID, InvoiceData.FinancialYear, InvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
                     ID FVI_SLO_SalesBookInvoice_ID = null;
                     if (TangentaDB.f_FVI_SLO_SalesBookInvoice.Get(InvoiceData.DocInvoice_ID, xSerialNumber, xSetNumber, xInvoiceNumber, ref FVI_SLO_SalesBookInvoice_ID, transaction))
                     {
@@ -1201,7 +1201,7 @@ namespace DocumentManager
         {
             ID DocInvoice_ID = null;
             string Err = null;
-            if (Program.OperationMode.MultiUser)
+            if (DocumentManager.OperationMode.MultiUser)
             {
                 myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(xLMOUser.myOrganisation_Person_ID);
             }
@@ -1323,19 +1323,19 @@ namespace DocumentManager
                                     if (m_ShopABC.m_CurrentDoc.Storno(m_LMOUser.Atom_WorkPeriod_ID, ref Storno_DocInvoice_ID, true, GlobalData.ElectronicDevice_Name, frm_storno_dlg.m_Reason, ref stornoInvoiceIssueDateTime, transaction_Storno))
                                     {
 
-                                        if (Program.b_FVI_SLO)
+                                        if (DocumentMan.b_FVI_SLO)
                                         {
-                                            InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                                            InvoiceData.AddOnDI.b_FVI_SLO = DocumentMan.b_FVI_SLO;
                                             InvoiceData xInvoiceData = new InvoiceData(m_ShopABC, Storno_DocInvoice_ID, GlobalData.ElectronicDevice_Name);
                                             if (xInvoiceData.Read_DocInvoice(transaction)) // read Proforma Invoice again from DataBase
                                             {
 
                                                 string furs_XML = DocInvoice_AddOn.FURS.Create_furs_InvoiceXML(true,
                                                                                                               Properties.Resources.FVI_SLO_Invoice,
-                                                                                                              Program.FVI_SLO1.FursD_MyOrgTaxID,
-                                                                                                              Program.FVI_SLO1.FursD_BussinesPremiseID,
+                                                                                                              DocumentMan.FVI_SLO1.FursD_MyOrgTaxID,
+                                                                                                              DocumentMan.FVI_SLO1.FursD_BussinesPremiseID,
                                                                                                               GlobalData.ElectronicDevice_Name,
-                                                                                                              Program.FVI_SLO1.FursD_InvoiceAuthorTaxID,
+                                                                                                              DocumentMan.FVI_SLO1.FursD_InvoiceAuthorTaxID,
                                                                                                               stornoReferenceInvoiceNumber,
                                                                                                               stornoReferenceInvoiceIssueDateTime,
                                                                                                               xInvoiceData.IssueDate_v,
@@ -1348,12 +1348,12 @@ namespace DocumentManager
                                                 string furs_UniqeInvID = null;
                                                 string furs_BarCodeValue = null;
                                                 Image img_QR = null;
-                                                if (Program.FVI_SLO1.Send_SingleInvoice(false, furs_XML, pform, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
+                                                if (DocumentManager.DocumentMan.FVI_SLO1.Send_SingleInvoice(false, furs_XML, pform, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
                                                 {
                                                     xInvoiceData.AddOnDI.m_FURS.FURS_ZOI_v = new string_v(furs_UniqeMsgID);
                                                     xInvoiceData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(furs_UniqeInvID);
                                                     xInvoiceData.AddOnDI.m_FURS.FURS_QR_v = new string_v(furs_BarCodeValue);
-                                                    if (xInvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(xInvoiceData.DocInvoice_ID, Program.FVI_SLO1.FursTESTEnvironment,transaction_Storno))
+                                                    if (xInvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(xInvoiceData.DocInvoice_ID, DocumentMan.FVI_SLO1.FursTESTEnvironment,transaction_Storno))
                                                     {
 
                                                     }
@@ -1363,7 +1363,7 @@ namespace DocumentManager
                                                     string xSerialNumber = null;
                                                     string xSetNumber = null;
                                                     string xInvoiceNumber = null;
-                                                    Program.FVI_SLO1.Write_SalesBookInvoice(xInvoiceData.DocInvoice_ID, xInvoiceData.FinancialYear, xInvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
+                                                    DocumentManager.DocumentMan.FVI_SLO1.Write_SalesBookInvoice(xInvoiceData.DocInvoice_ID, xInvoiceData.FinancialYear, xInvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
                                                     ID FVI_SLO_SalesBookInvoice_ID = null;
                                                     if (TangentaDB.f_FVI_SLO_SalesBookInvoice.Get(xInvoiceData.DocInvoice_ID, xSerialNumber, xSetNumber, xInvoiceNumber, ref FVI_SLO_SalesBookInvoice_ID, transaction))
                                                     {
@@ -1384,7 +1384,7 @@ namespace DocumentManager
                     }
                     else
                     {
-                        MessageBox.Show(pform, lng.s_YouCanNotCnacelInvoiceStorno.s);
+                        MessageBox.Show(pform, lng.s_YouCanNotCancelInvoiceStorno.s);
                         chk_Storno_CanBe_ManualyChanged = false;
                         xdelegate_control_chk_Storno_Check(true);
                         chk_Storno_CanBe_ManualyChanged = true;

@@ -371,7 +371,7 @@ namespace DocumentManager
         }
 
 
-        internal void Fill_DataTable(ref DataTable dt)
+        public void Fill_DataTable(ref DataTable dt)
         {
             if (dt!=null)
             {

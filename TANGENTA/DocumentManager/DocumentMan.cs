@@ -15,6 +15,9 @@ namespace DocumentManager
 {
     public class DocumentMan
     {
+
+        public static bool bStartup = true;
+
         private UserControl usrc_DocumentMan = null;
 
         public delegate void delegate_Control_SetMode(DocumentMan.eMode mode);
@@ -38,7 +41,7 @@ namespace DocumentManager
 
 
         private DocumentEditor m_DocE = null;
-        internal DocumentEditor DocE
+        public DocumentEditor DocE
         {
             get
             {
@@ -47,6 +50,21 @@ namespace DocumentManager
             set
             {
                 m_DocE = value;
+            }
+        }
+
+        public CashierActivity CashierActivity
+        {
+            get
+            {
+                if (loginControl1 != null)
+                {
+                    return loginControl1.CashierActivity;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -65,7 +83,7 @@ namespace DocumentManager
 
         }
 
-        public bool RecordCashierActivity
+        public static bool RecordCashierActivity
         {
             get
             {
@@ -87,7 +105,7 @@ namespace DocumentManager
             }
         }
 
-        public eCashierState CashierState
+        public static eCashierState CashierState
         {
             get
             {
@@ -128,19 +146,19 @@ namespace DocumentManager
             }
         }
 
-        internal SettingsUserValues mSettingsUserValues = null;
+        public SettingsUserValues mSettingsUserValues = null;
 
-        internal LoginControl.LMOUser m_LMOUser = null;
+        public LoginControl.LMOUser m_LMOUser = null;
 
-        internal Door door = null;
+        public Door door = null;
       
-        internal int timer_Login_MultiUsers_Countdown = 100;
+        public int timer_Login_MultiUsers_Countdown = 100;
 
         internal CtrlLayout cl_btn_New = null;
         internal CtrlLayout cl_cmb_InvoiceType = null;
         internal CtrlLayout cl_lbl_FinancialYear = null;
 
-        internal bool Customer_Changed = false;
+        public bool Customer_Changed = false;
 
         public enum eMode { Shops, InvoiceTable, Shops_and_InvoiceTable };
         public eMode Mode = eMode.Shops_and_InvoiceTable;
@@ -209,7 +227,7 @@ namespace DocumentManager
             DocE = new DocumentEditor(this);
         }
 
-        internal static string GetInvoiceNumber(bool bDraft, int FinancialYear, int NumberInFinancialYear, int DraftNumber)
+        public static string GetInvoiceNumber(bool bDraft, int FinancialYear, int NumberInFinancialYear, int DraftNumber)
         {
             string sNumber = null;
             if (bDraft)
@@ -254,7 +272,7 @@ namespace DocumentManager
             }
         }
 
-        internal bool SetDocument(ID xCurrent_Doc_ID, Transaction transaction)
+        public bool SetDocument(ID xCurrent_Doc_ID, Transaction transaction)
         {
 
             int iRowsCount = Delegate_control_TableOfDocuments_Init(this, false, true, this.mSettingsUserValues.FinancialYear, null);
@@ -297,7 +315,7 @@ namespace DocumentManager
             Delegate_Control_SetInitialMode();
         }
 
-        internal void Cmb_FinancialYear_SelectedIndexChanged(ComboBox cmb_FinancialYear)
+        public void Cmb_FinancialYear_SelectedIndexChanged(ComboBox cmb_FinancialYear)
         {
             System.Data.DataRowView drv = (System.Data.DataRowView)cmb_FinancialYear.SelectedItem;
             if (drv["FinancialYear"] is int)
@@ -328,7 +346,7 @@ namespace DocumentManager
             }
         }
 
-        internal void DocInvoiceSaved(ID docInvoice_id)
+        public void DocInvoiceSaved(ID docInvoice_id)
         {
             SetMode(DocumentMan.eMode.Shops_and_InvoiceTable);
 
@@ -341,7 +359,7 @@ namespace DocumentManager
             m_LMOUser.ReloadAdministratorsAndUserManagers();
         }
 
-        internal void DocProformaInvoiceSaved(ID docProformaInvoice_id)
+        public void DocProformaInvoiceSaved(ID docProformaInvoice_id)
         {
             SetMode(DocumentMan.eMode.Shops_and_InvoiceTable);
             ID Doc_ID_to_show = null;

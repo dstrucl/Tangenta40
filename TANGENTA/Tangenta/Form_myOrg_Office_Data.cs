@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UniqueControlNames;
 using DBConnectionControl40;
+using DocumentManager;
 
 namespace Tangenta
 {
@@ -32,7 +33,7 @@ namespace Tangenta
             InitializeComponent();
             nav = xnav;
             usrc_NavigationButtons1.Init(nav);
-            if (Program.b_FVI_SLO)
+            if (DocumentMan.b_FVI_SLO)
             {
                 lng.s_Edit_Office_Data_FVI_SLO_RealEstateBP.Text(this.btn_FVI_SLO_RealEstateBP);
             }
@@ -128,7 +129,7 @@ namespace Tangenta
             if (bRes)
             {
                 //myOrg.Get(1);
-                //if (Program.b_FVI_SLO)
+                //if (DocumentMan.b_FVI_SLO)
                 //{
                 //    this.Cursor = Cursors.WaitCursor;
                 //    Form_myOrg_Office_Data_FVI_SLO_RealEstateBP frm_offd_fvislo_resbp = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(ID,nav);

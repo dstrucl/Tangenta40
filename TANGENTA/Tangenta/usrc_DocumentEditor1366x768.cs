@@ -24,6 +24,7 @@ using System.Linq;
 using Startup;
 using DBConnectionControl40;
 using LoginControl;
+using DocumentManager;
 
 namespace Tangenta
 {
@@ -168,9 +169,9 @@ namespace Tangenta
             m_usrc_ShopC1366x768.Init(DocE.m_LMOUser.Atom_WorkPeriod_ID,
                                       DocE.m_ShopABC,
                                       DocE.DBtcn,
-                                      PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),
+                                      DocumentManager.PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),
                                       Properties.Settings.Default.AutomaticSelectionOfItemFromStock,
-                                      Program.OperationMode.ShopC_ExclusivelySellFromStock,
+                                      DocumentManager.OperationMode.ShopC_ExclusivelySellFromStock,
                                       this.usrc_Item1366x768_selected1);
 
             m_usrc_ShopC1366x768.Dock = DockStyle.None;
@@ -195,7 +196,7 @@ namespace Tangenta
 
         private void Set_ShowShops_A()
         {
-            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "A");
+            DocumentManager.PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "A");
             m_usrc_ShopA1366x768.Visible = true;
             m_usrc_ShopA1366x768.Top = ShopA_default_Y;
             m_usrc_ShopA1366x768.Height = (ShopC_default_Y+ShopC_default_H)- ShopA_default_Y;
@@ -206,7 +207,7 @@ namespace Tangenta
 
         private void Set_ShowShops_B()
         {
-            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues,"B");
+            DocumentManager.PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues,"B");
             m_usrc_ShopB1366x768.Visible = true;
             m_usrc_ShopB1366x768.Top = ShopA_default_Y; 
             m_usrc_ShopB1366x768.Height = (ShopC_default_Y + ShopC_default_H)- ShopA_default_Y;
@@ -217,7 +218,7 @@ namespace Tangenta
 
         private void Set_ShowShops_C()
         {
-            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "C");
+            DocumentManager.PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "C");
             m_usrc_ShopC1366x768.Visible = true;
             m_usrc_ShopC1366x768.Top = ShopA_default_Y; 
             m_usrc_ShopC1366x768.Height = (ShopC_default_Y + ShopC_default_H)- ShopA_default_Y;
@@ -229,7 +230,7 @@ namespace Tangenta
 
         private void Set_ShowShops_AB()
         {
-            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "AB");
+            DocumentManager.PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "AB");
 
             m_usrc_ShopA1366x768.Visible = true;
             m_usrc_ShopA1366x768.Top = ShopA_default_Y;
@@ -245,7 +246,7 @@ namespace Tangenta
 
         private void Set_ShowShops_BC()
         {
-            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "BC");
+            DocumentManager.PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "BC");
             m_usrc_ShopB1366x768.Visible = true;
             m_usrc_ShopB1366x768.Top = ShopA_default_Y; 
             m_usrc_ShopB1366x768.Height = (ShopB_default_Y + ShopB_default_H / 2)- ShopA_default_Y;
@@ -259,7 +260,7 @@ namespace Tangenta
 
         private void Set_ShowShops_AC()
         {
-            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "AC");
+            DocumentManager.PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "AC");
             m_usrc_ShopA1366x768.Visible = true;
             m_usrc_ShopA1366x768.Top = ShopA_default_Y; 
             m_usrc_ShopA1366x768.Height = (ShopB_default_Y + ShopB_default_H / 2)- ShopA_default_Y; 
@@ -273,7 +274,7 @@ namespace Tangenta
 
         private void Set_ShowShops_ABC()
         {
-            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues,"ABC");
+            DocumentManager.PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues,"ABC");
             m_usrc_ShopA1366x768.Visible = true;
             m_usrc_ShopA1366x768.Top = ShopA_default_Y;
             m_usrc_ShopA1366x768.Height = ShopA_default_H;
@@ -307,7 +308,7 @@ namespace Tangenta
         private void Init_ShopB()
 
         {
-            m_usrc_ShopB1366x768.Init(DocE.m_ShopABC, DocE.DBtcn, PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues));
+            m_usrc_ShopB1366x768.Init(DocE.m_ShopABC, DocE.DBtcn, DocumentManager.PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues));
 
             m_usrc_ShopB1366x768.Dock = DockStyle.None;
 
@@ -334,7 +335,7 @@ namespace Tangenta
                                           DocE.DBtcn,
                                           PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),
                                           Properties.Settings.Default.AutomaticSelectionOfItemFromStock,
-                                          Program.OperationMode.ShopC_ExclusivelySellFromStock,
+                                          OperationMode.ShopC_ExclusivelySellFromStock,
                                           this.usrc_Item1366x768_selected1);
                 bInitShops = false;
             }
@@ -440,16 +441,16 @@ namespace Tangenta
 
         public bool ShopA_DefaultVisible
         {
-            get { return PropertiesUser.ShowShops_Get(DocE.mSettingsUserValues).Contains("A"); }
+            get { return DocumentManager.PropertiesUser.ShowShops_Get(DocE.mSettingsUserValues).Contains("A"); }
         }
         public bool ShopB_DefaultVisible
         {
-            get { return PropertiesUser.ShowShops_Get(DocE.mSettingsUserValues).Contains("B"); }
+            get { return DocumentManager.PropertiesUser.ShowShops_Get(DocE.mSettingsUserValues).Contains("B"); }
         }
 
         public bool ShopC_DefaultVisible
         {
-            get { return PropertiesUser.ShowShops_Get(DocE.mSettingsUserValues).Contains("Ç"); }
+            get { return DocumentManager.PropertiesUser.ShowShops_Get(DocE.mSettingsUserValues).Contains("Ç"); }
         }
 
         //public bool HeadVisible
@@ -567,7 +568,7 @@ namespace Tangenta
 
         private void SetOperationMode()
         {
-            //if (Program.OperationMode.MultiUser)
+            //if (OperationMode.MultiUser)
             //{
             //    txt_Issuer.Visible = false;
             //    lbl_Issuer.Visible = false;
@@ -877,7 +878,7 @@ namespace Tangenta
         //    {
         //        if (IsDocInvoice)
         //        {
-        //            DocE.InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+        //            DocE.InvoiceData.AddOnDI.b_FVI_SLO = DocumentMan.b_FVI_SLO;
                   
         //            ID DocInvoice_ID = null;
         //            // save doc Invoice 
@@ -886,7 +887,7 @@ namespace Tangenta
 
         //                DocE.m_ShopABC.m_CurrentDoc.Doc_ID = DocInvoice_ID;
 
-        //                if (Program.b_FVI_SLO)
+        //                if (DocumentMan.b_FVI_SLO)
         //                {
 
         //                    if ((DocE.InvoiceData.AddOnDI.IsCashPayment && Program.FVI_SLO1.FVI_for_cash_payment)
@@ -1065,7 +1066,7 @@ namespace Tangenta
         //    if (IsDocInvoice)
         //    {
         //        invoiceData.AddOnDI = DocE.m_InvoiceData.AddOnDI;
-        //        invoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+        //        invoiceData.AddOnDI.b_FVI_SLO = DocumentMan.b_FVI_SLO;
         //        invoiceData.AddOnDPI = null;
         //        invoiceData.AddOnDI.Get(invoiceData.DocInvoice_ID);
         //    }

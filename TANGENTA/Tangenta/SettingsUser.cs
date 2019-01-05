@@ -9,6 +9,7 @@ using TangentaDB;
 using DBConnectionControl40;
 using DBTypes;
 using System.Reflection;
+using DocumentManager;
 
 namespace Tangenta
 {

@@ -199,7 +199,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionLogDataBaseDef",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionLog", "CodeTables\TransactionLog\TransactionLog.csproj", "{28CFD914-0D1D-49AC-A55B-12287D80AA55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentManager", "DocumentManager\DocumentManager.csproj", "{4F00910D-6E8D-4A47-BCC3-526867F3E099}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentManager", "TANGENTA\DocumentManager\DocumentManager.csproj", "{4F00910D-6E8D-4A47-BCC3-526867F3E099}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

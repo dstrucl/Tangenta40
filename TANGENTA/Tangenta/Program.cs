@@ -26,6 +26,7 @@ using TangentaPrint;
 using LoginControl;
 using static TangentaDB.CashierActivity;
 using CodeTables;
+using DocumentManager;
 
 namespace Tangenta
 {
@@ -100,7 +101,6 @@ namespace Tangenta
             get { return m_bAutoNext && bFirstTimeInstallation; }
         }
 
-        internal static bool bStartup = true;
 
         internal static string IniFileName = "Tangenta.ini";
         internal static string IniFolder = "";

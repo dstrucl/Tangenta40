@@ -19,6 +19,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DBTypes;
+using DocumentManager;
 
 namespace Tangenta
 {
@@ -435,7 +436,7 @@ left join PaymentType pt on pt.ID = mofpdi.PaymentType_ID " + scond + sInvoiceCo
                                         Davcna_Stevilka = "SI" + Davcna_Stevilka;
                                     }
                                     string gl1_Davcna_stevilka_zavezanca_za_davek = Davcna_Stevilka;
-                                    string gl2_Stevilka_racuna = Program.GetInvoiceNumber(false, (int)dt_XML_Invoices.Rows[i][ic_FinancialYear], (int)dt_XML_Invoices.Rows[i][ic_NumberInFinancialYear], -1);
+                                    string gl2_Stevilka_racuna = DocumentMan.GetInvoiceNumber(false, (int)dt_XML_Invoices.Rows[i][ic_FinancialYear], (int)dt_XML_Invoices.Rows[i][ic_NumberInFinancialYear], -1);
                                     string gl3_Datum_Racuna_DDMMLL = fs.Date_DDMMYYYY((DateTime)dt_XML_Invoices.Rows[i][ic_DocInvoiceTime]);
                                     DateTime date_time_invoice = (DateTime)dt_XML_Invoices.Rows[i][ic_DocInvoiceTime];
                                     string gl4_Ura_izdaje_racuna_HH_MM = fs.Time_HH_MM(':',date_time_invoice);
@@ -683,7 +684,7 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                                             //gl18_Oznaka_razloga_spremembe_racuna = "S";
                                             gl19_Opis_razloga_spremembe_racuna = (string)dt_XML_Invoice_Storno.Rows[0]["JOURNAL_DocInvoice_$_jpinvt_$$Description"];
                                             string sUserName = null;
-                                            if (Program.OperationMode.MultiUser)
+                                            if (OperationMode.MultiUser)
                                             {
                                                 long_v Atom_WorkPeriod_ID_v = tf.set_long(dt_XML_Invoice_Storno.Rows[0]["JOURNAL_DocInvoice_$_awperiod_$$ID"]);
                                                 if (Atom_WorkPeriod_ID_v != null)

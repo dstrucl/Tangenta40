@@ -1,4 +1,6 @@
-﻿namespace Tangenta
+﻿using DocumentManager;
+
+namespace Tangenta
 {
     partial class Form_NewDocument_WorkArea
     {
@@ -29,7 +31,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_NewDocument_WorkArea));
-            this.usrc_WorkAreaAll1 = new Tangenta.usrc_WorkAreaAll();
+            this.usrc_WorkAreaAll1 = new usrc_WorkAreaAll();
             this.SuspendLayout();
             // 
             // usrc_WorkAreaAll1
@@ -41,8 +43,8 @@
             this.usrc_WorkAreaAll1.NumberOfItemsPerPage = 10;
             this.usrc_WorkAreaAll1.Size = new System.Drawing.Size(915, 553);
             this.usrc_WorkAreaAll1.TabIndex = 0;
-            this.usrc_WorkAreaAll1.Selected += new Tangenta.usrc_WorkAreaAll.delegate_Selected(this.usrc_WorkAreaAll1_Selected);
-            this.usrc_WorkAreaAll1.Exit += new Tangenta.usrc_WorkAreaAll.delegate_Exit(this.usrc_WorkAreaAll1_Exit);
+            this.usrc_WorkAreaAll1.Selected += new usrc_WorkAreaAll.delegate_Selected(this.usrc_WorkAreaAll1_Selected);
+            this.usrc_WorkAreaAll1.Exit += new usrc_WorkAreaAll.delegate_Exit(this.usrc_WorkAreaAll1_Exit);
             // 
             // Form_NewDocument_WorkArea
             // 

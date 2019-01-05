@@ -6,6 +6,7 @@
 */
 #endregion
 
+using DocumentManager;
 using LanguageControl;
 using System;
 using System.Collections.Generic;
@@ -160,7 +161,7 @@ namespace Tangenta
                                     Davcna_Stevilka = "SI" + Davcna_Stevilka;
                                 }
                                 string gl1_Davcna_stevilka_zavezanca_za_davek = Davcna_Stevilka;
-                                string gl2_Stevilka_racuna = Program.GetInvoiceNumber(false, (int)dt_DURS_Invoices.Rows[i][ic_FinancialYear], (int)dt_DURS_Invoices.Rows[i][ic_NumberInFinancialYear], -1);
+                                string gl2_Stevilka_racuna = DocumentMan.GetInvoiceNumber(false, (int)dt_DURS_Invoices.Rows[i][ic_FinancialYear], (int)dt_DURS_Invoices.Rows[i][ic_NumberInFinancialYear], -1);
                                 string gl3_Datum_Racuna_DDMMLL = fs.Date_DDMMYYYY((DateTime)dt_DURS_Invoices.Rows[i][ic_DocInvoiceTime]);
                                 string gl4_Ura_izdaje_racuna_HH_MM = fs.Time_HH_MM(':',(DateTime)dt_DURS_Invoices.Rows[i][ic_DocInvoiceTime]);
                                 string gl5_Oznaka_Poslovne_Enote = "P1";

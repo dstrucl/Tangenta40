@@ -8,12 +8,12 @@ namespace DocumentManager
 {
     public static class OperationMode
     {
-        internal static bool MultiUser = true;
-        internal static bool SingleUserLoginAsAdministrator = false;
-        internal static bool StockCheckAtStartup = true;
-        internal static bool ShopC_ExclusivelySellFromStock = false;
-        internal static bool MultiCurrency = false;
-        internal static int NumberOfMonthAfterNewYearToAllowCreateNewInvoice = 1;
-        internal static bool FiscalVerificationOfInvoices = false;
+        public static bool MultiUser = true;
+        public static bool SingleUserLoginAsAdministrator = false;
+        public static bool StockCheckAtStartup = true;
+        public static bool ShopC_ExclusivelySellFromStock = false;
+        public static bool MultiCurrency = false;
+        public static int NumberOfMonthAfterNewYearToAllowCreateNewInvoice = 1;
+        public static bool FiscalVerificationOfInvoices = false;
     }
 }

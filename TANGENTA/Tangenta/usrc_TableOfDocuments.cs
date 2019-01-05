@@ -22,6 +22,7 @@ using LanguageControl;
 using TangentaDB;
 using DBTypes;
 using LoginControl;
+using DocumentManager;
 
 namespace Tangenta
 {
@@ -437,7 +438,7 @@ namespace Tangenta
                                              LEFT JOIN Atom_WorkArea awa ON diawa.Atom_WorkArea_ID = awa.ID ";
                     sAtom_WorkArea_Name = " awa.Name as Atom_WorkArea_Name,";
                 }
-                if (Program.b_FVI_SLO)
+                if (DocumentMan.b_FVI_SLO)
                 {
                     sql = @"SELECT " +
                     sAtom_WorkArea_Name +
@@ -740,7 +741,7 @@ namespace Tangenta
                     iColIndex_DocInvoice_IssueDate = dt_XInvoice.Columns.IndexOf("IssueDate");
                     dgvx_XInvoice.Columns[iColIndex_DocInvoice_IssueDate].HeaderText = lng.s_IssueDate.s;
                     dgvx_XInvoice.Columns[iColIndex_DocInvoice_Invoice_StornoReason].HeaderText = lng.s_StornoReason.s;
-                    if (Program.b_FVI_SLO)
+                    if (DocumentMan.b_FVI_SLO)
                     {
                         iColIndex_DocInvoice_FSI_SLO_ID = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_fvisres_$$ID"); 
                         iColIndex_DocInvoice_FSI_SLO_EOR = dt_XInvoice.Columns.IndexOf("EOR");
@@ -761,7 +762,7 @@ namespace Tangenta
                     SetLabels();
                     SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice)));
                     tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_XInvoice, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
-                    if (Program.b_FVI_SLO)
+                    if (DocumentMan.b_FVI_SLO)
                     {
                         dgvx_XInvoice.Columns["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue"].HeaderText = lng.s_FURS_BarCode.s;
                     }
@@ -1228,7 +1229,7 @@ namespace Tangenta
                             row.Height = 20;
                             e.CellStyle.BackColor = Color.White;
                           
-                            if (Program.b_FVI_SLO)
+                            if (DocumentMan.b_FVI_SLO)
                             {
                                 if (dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_FSI_SLO_EOR] is string)
                                 {

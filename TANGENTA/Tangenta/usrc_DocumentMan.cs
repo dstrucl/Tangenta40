@@ -24,6 +24,7 @@ using Startup;
 using static Tangenta.Program;
 using DBConnectionControl40;
 using Global;
+using DocumentManager;
 
 namespace Tangenta
 {
@@ -196,11 +197,11 @@ namespace Tangenta
                 this.Visible = value;
                 if (this.Visible)
                 {
-                    if (Program.RecordCashierActivity)
+                    if (DocumentManager.DocumentMan.RecordCashierActivity)
                     {
                         lbl_Cashier.Visible = true;
                         lbl_OpenedClosed.Visible = true;
-                        switch (Program.CashierState)
+                        switch (DocumentMan.CashierState)
                         {
                             case TangentaDB.CashierActivity.eCashierState.CLOSED:
                                 lbl_OpenedClosed.Text = lng.s_CashierClosed.s;
@@ -219,7 +220,7 @@ namespace Tangenta
                         lbl_OpenedClosed.Visible = false;
                     }
 
-                    if (Program.OperationMode.MultiUser)
+                    if (DocumentManager.OperationMode.MultiUser)
                     {
                         if (Program.Login_MultipleUsers)
                         {
@@ -633,7 +634,7 @@ namespace Tangenta
 
         private void btn_New_Click(object sender, EventArgs e)
         {
-            if ((!Program.RecordCashierActivity)||(Program.CashierState == TangentaDB.CashierActivity.eCashierState.OPENED))
+            if ((!DocumentMan.RecordCashierActivity)||(DocumentMan.CashierState == TangentaDB.CashierActivity.eCashierState.OPENED))
             {
                 if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
                 DataTable dtWorkAreaAll = null;
@@ -779,14 +780,14 @@ namespace Tangenta
                 else
                 {
                     int current_month = t.Month;
-                    if ((current_month <= Program.OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice) && (financialYear + 1 == current_year))
+                    if ((current_month <= DocumentManager.OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice) && (financialYear + 1 == current_year))
                     {
                         return true;
                     }
                     else
                     {
                         string smsg = lng.s_YouCanNotCreateNewInvoiceForPastFinancialYear.s + " " + financialYear + ".\r\n";
-                        smsg += lng.s_NumberOfMonthAfterNewYearToAllowCreateNewInvoiceIs.s + " " + Program.OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice.ToString() + "\r\n";
+                        smsg += lng.s_NumberOfMonthAfterNewYearToAllowCreateNewInvoiceIs.s + " " + DocumentManager.OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice.ToString() + "\r\n";
                         XMessage.Box.Show(this, smsg, lng.s_Warning.s);
                         return false;
                     }
@@ -1091,14 +1092,14 @@ namespace Tangenta
             Program.Cursor_Arrow();
             if (this.IsDocInvoice)
             {
-                if (Program.b_FVI_SLO)
+                if (DocumentMan.b_FVI_SLO)
                 {
                     if (this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI == null)
                     {
                         this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI = new DocInvoice_AddOn();
                     }
-                    this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                    Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(DBSync.DBSync.MyTransactionLog_delegates,this.m_usrc_DocumentEditor.DocE.m_ShopABC, this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDPI);
+                    this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI.b_FVI_SLO = DocumentMan.b_FVI_SLO;
+                    DocumentMan.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(DBSync.DBSync.MyTransactionLog_delegates,this.m_usrc_DocumentEditor.DocE.m_ShopABC, this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDPI);
                 }
             }
         }
@@ -1171,13 +1172,13 @@ namespace Tangenta
 
             m_usrc_TableOfDocuments.DocM = this.DocM;
 
-            if (Program.b_FVI_SLO)
+            if (DocumentMan.b_FVI_SLO)
             {
 
-                Program.FVI_SLO1.FursD_ElectronicDeviceID = GlobalData.ElectronicDevice_Name;
+                DocumentMan.FVI_SLO1.FursD_ElectronicDeviceID = GlobalData.ElectronicDevice_Name;
             }
 
-            if (Program.b_FVI_SLO)
+            if (DocumentMan.b_FVI_SLO)
             {
                 Transaction transaction_Get_Atom_FVI_SLO_RealEstateBP_ID_1 = DBSync.DBSync.NewTransaction("Get_Atom_FVI_SLO_RealEstateBP_ID_1");
 
@@ -1203,7 +1204,7 @@ namespace Tangenta
             {
                 if (transaction_usrc_DocumentMan_InitMan.Commit())
                 {
-                    if (Program.b_FVI_SLO)
+                    if (DocumentMan.b_FVI_SLO)
                     {
                         switch (this.usrc_FVI_SLO1.m_FVI_SLO.Start(false, ref Err))
                         {
@@ -1212,10 +1213,10 @@ namespace Tangenta
                                 this.usrc_FVI_SLO1.Enabled = true;
                                 if (this.IsDocInvoice)
                                 {
-                                    if (Program.b_FVI_SLO)
+                                    if (DocumentMan.b_FVI_SLO)
                                     {
-                                        this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                                        if (Program.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(DBSync.DBSync.MyTransactionLog_delegates, this.m_usrc_DocumentEditor.DocE.m_ShopABC, this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDPI))
+                                        this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI.b_FVI_SLO = DocumentMan.b_FVI_SLO;
+                                        if (DocumentMan.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(DBSync.DBSync.MyTransactionLog_delegates, this.m_usrc_DocumentEditor.DocE.m_ShopABC, this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDPI))
                                         {
                                             Transaction transaction_usrc_DocumentMan_b_FVI_SLO_SetDocument = DBSync.DBSync.NewTransaction("usrc_DocumentMan.b_FVI_SLO.SetDocument");
                                             if (this.SetDocument(transaction_usrc_DocumentMan_b_FVI_SLO_SetDocument))

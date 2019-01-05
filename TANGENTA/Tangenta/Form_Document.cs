@@ -30,6 +30,7 @@ using LoginControl;
 using static TangentaDB.CashierActivity;
 using DBTypes;
 using System.Net.NetworkInformation;
+using DocumentManager;
 
 namespace Tangenta
 {
@@ -208,7 +209,7 @@ namespace Tangenta
 
 
 
-            Program.FVI_SLO1 = this.fvI_SLO1;
+            DocumentManager.DocumentMan.FVI_SLO1 = this.fvI_SLO1;
             Program.thread_fvi = this.fvI_SLO1.thread_fvi;
             Program.message_box = this.fvI_SLO1.message_box;
 
@@ -409,7 +410,7 @@ namespace Tangenta
 
         public bool GetWorkPeriod(startup myStartup, object oData, NavigationButtons.Navigation xnav,Transaction transaction, ref string Err)
         {
-            if (Program.OperationMode.MultiUser)
+            if (OperationMode.MultiUser)
             {
                 bool bCancel = false;
                 loginControl1.Init(this,
@@ -499,7 +500,7 @@ namespace Tangenta
                     }
                     else
                     {
-                        if (Program.OperationMode.SingleUserLoginAsAdministrator)
+                        if (OperationMode.SingleUserLoginAsAdministrator)
                         {
                             if (doorFor1 == null)
                             {
@@ -811,11 +812,11 @@ namespace Tangenta
                     }
                 }
             }
-            if (Program.b_FVI_SLO)
+            if (DocumentManager.DocumentMan.b_FVI_SLO)
             {
-                if (Program.FVI_SLO1 != null)
+                if (DocumentManager.DocumentMan.FVI_SLO1 != null)
                 {
-                    Program.FVI_SLO1.End();
+                    DocumentManager.DocumentMan.FVI_SLO1.End();
                 }
             }
 
@@ -825,7 +826,7 @@ namespace Tangenta
 
         private void LayoutSet(SettingsUserValues xSettingsUserValues)
         {
-            DocumentMan.usrc_FVI_SLO1.Visible = Program.b_FVI_SLO;
+            DocumentMan.usrc_FVI_SLO1.Visible = DocumentManager.DocumentMan.b_FVI_SLO;
 
             if (xSettingsUserValues.Form_Document_WindowState >= 0)
             {
@@ -961,7 +962,7 @@ namespace Tangenta
             }
             else
             {
-                if (XMessage.Box.Show(Program.bStartup,this, lng.s_RealyWantToExitProgram, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (XMessage.Box.Show(DocumentManager.DocumentMan.bStartup,this, lng.s_RealyWantToExitProgram, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     return true;
                 }
@@ -1213,7 +1214,7 @@ namespace Tangenta
             }
 
 
-            if (Program.OperationMode.MultiUser)
+            if (OperationMode.MultiUser)
             {
                 sNewTag += "m";
                 sXMLFiletag += "m";

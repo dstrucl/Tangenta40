@@ -47,6 +47,18 @@
     <Compile Include="DocumentEditor.cs" />
     <Compile Include="DocumentMan.cs" />
     <Compile Include="Door.cs" />
+    <Compile Include="Form_Expiry_Check.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Expiry_Check.Designer.cs">
+      <DependentUpon>Form_Expiry_Check.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Storno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Storno.Designer.cs">
+      <DependentUpon>Form_Storno.cs</DependentUpon>
+    </Compile>
     <Compile Include="lng.cs" />
     <Compile Include="OperationMode.cs" />
     <Compile Include="PropertiesUser.cs" />
@@ -83,72 +95,114 @@
     <Compile Include="WArea.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CodeTables\CONTROLS\usrc_Item_Group_Handler\usrc_Item_Group_Handler.csproj">
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\ColorSetings\ColorSettings.csproj">
+      <Project>{7246e94a-782c-4f4d-b3a4-09b34c9975b6}</Project>
+      <Name>ColorSettings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\DataGridView_2xls\DataGridView_2xls.csproj">
+      <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
+      <Name>DataGridView_2xls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\DataGridView_2xls_base\DataGridView_2xls_base.csproj">
+      <Project>{1f20972e-563b-495d-a881-c04db9ab0af6}</Project>
+      <Name>DataGridView_2xls_base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\HUDCMS\HUDCMS.csproj">
+      <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>
+      <Name>HUDCMS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\NavigationButtons\NavigationButtons.csproj">
+      <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
+      <Name>NavigationButtons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\Password\Password.csproj">
+      <Project>{203bc7cd-1f84-4727-b03a-5b4f695b21fc}</Project>
+      <Name>Password</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Item_Group_Handler\usrc_Item_Group_Handler.csproj">
       <Project>{ae38e7c4-ac11-4e43-9de3-364533fcc83b}</Project>
       <Name>usrc_Item_Group_Handler</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CodeTables\CONTROLS\usrc_Item_PageHandler\usrc_Item_PageHandler.csproj">
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Item_PageHandler\usrc_Item_PageHandler.csproj">
       <Project>{309c0f02-a471-4de2-844f-eee0b58a05bf}</Project>
       <Name>usrc_Item_PageHandler</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CodeTables\CONTROLS\XMessage\XMessage.csproj">
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\XMessage\XMessage.csproj">
       <Project>{e3223150-d4af-4438-acba-98be7905273f}</Project>
       <Name>XMessage</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CodeTables\DBConectionControl40\DBConnectionControl40.csproj">
+    <ProjectReference Include="..\..\CodeTables\DBConectionControl40\DBConnectionControl40.csproj">
       <Project>{322af3bf-b609-477d-9d2b-39a9bbbbc721}</Project>
       <Name>DBConnectionControl40</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CodeTables\DBSync\DBSync.csproj">
+    <ProjectReference Include="..\..\CodeTables\DBSync\DBSync.csproj">
       <Project>{3b62990e-c7e0-4748-b1ea-b977fd596021}</Project>
       <Name>DBSync</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CodeTables\DBTypes\DBTypes.csproj">
+    <ProjectReference Include="..\..\CodeTables\DBTypes\DBTypes.csproj">
       <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
       <Name>DBTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CodeTables\UTIL\Global\Global.csproj">
+    <ProjectReference Include="..\..\CodeTables\SQLTableControl\CodeTables.csproj">
+      <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
+      <Name>CodeTables</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\Global\Global.csproj">
       <Project>{b95b4df8-a651-4193-9393-0fb33cc566d3}</Project>
       <Name>Global</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CodeTables\UTIL\LanguageControl\LanguageControl.csproj">
+    <ProjectReference Include="..\..\CodeTables\UTIL\LanguageControl\LanguageControl.csproj">
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CodeTables\UTIL\LogFile\LogFile.csproj">
+    <ProjectReference Include="..\..\CodeTables\UTIL\LogFile\LogFile.csproj">
       <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
       <Name>LogFile</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CodeTables\UTIL\StaticLib\StaticLib.csproj">
+    <ProjectReference Include="..\..\CodeTables\UTIL\StaticLib\StaticLib.csproj">
       <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
       <Name>StaticLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SLO_FISCAL\FiscalVerificationOfInvoices_SLO\FiscalVerificationOfInvoices_SLO.csproj">
+    <ProjectReference Include="..\..\SLO_FISCAL\FiscalVerificationOfInvoices_SLO\FiscalVerificationOfInvoices_SLO.csproj">
       <Project>{61ca81c7-7f82-4744-a8de-fbe9972e7ee8}</Project>
       <Name>FiscalVerificationOfInvoices_SLO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TANGENTA\LoginControl\LoginControl.csproj">
+    <ProjectReference Include="..\LoginControl\LoginControl.csproj">
       <Project>{e36fd767-54a9-46c4-ae95-d0fec3fc8909}</Project>
       <Name>LoginControl</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TANGENTA\PriseLists\PriseLists.csproj">
+    <ProjectReference Include="..\PriseLists\PriseLists.csproj">
       <Project>{d3e4af57-60eb-486b-a145-5eadd0f01177}</Project>
       <Name>PriseLists</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TANGENTA\TangentaDB\TangentaDB.csproj">
+    <ProjectReference Include="..\TangentaDataBaseDef\TangentaDataBaseDef.csproj">
+      <Project>{5ACCE3B7-EB06-439E-B24D-393ECAB98980}</Project>
+      <Name>TangentaDataBaseDef</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TangentaDB\TangentaDB.csproj">
       <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
       <Name>TangentaDB</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TANGENTA\TangentaPrint\TangentaPrint.csproj">
+    <ProjectReference Include="..\TangentaPrint\TangentaPrint.csproj">
       <Project>{728368f2-ecd5-4bc7-b50b-c9581769d429}</Project>
       <Name>TangentaPrint</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TANGENTA\UniversalInvoice\UniversalInvoice.csproj">
+    <ProjectReference Include="..\TangentaTableClass\TangentaTableClass.csproj">
+      <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
+      <Name>TangentaTableClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalInvoice\UniversalInvoice.csproj">
       <Project>{1494ce99-385c-42cc-8fff-75597007da72}</Project>
       <Name>UniversalInvoice</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form_Expiry_Check.resx">
+      <DependentUpon>Form_Expiry_Check.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Storno.resx">
+      <DependentUpon>Form_Storno.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -166,6 +220,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exit.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tangenta-Logo SMALL.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,6 +1,7 @@
 ﻿using CodeTables;
 using Country_ISO_3166;
 using DBConnectionControl40;
+using DocumentManager;
 using NavigationButtons;
 using Startup;
 using System;
@@ -132,7 +133,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            if (Program.b_FVI_SLO)
+                            if (DocumentMan.b_FVI_SLO)
                             {
                                 startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP;
                                 return Startup_check_proc_Result.WAIT_USER_INTERACTION;
@@ -244,7 +245,7 @@ namespace Tangenta
                                 }
                                 else
                                 {
-                                    if (Program.b_FVI_SLO)
+                                    if (DocumentMan.b_FVI_SLO)
                                     {
                                         startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP;
                                         return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
@@ -291,7 +292,7 @@ namespace Tangenta
             switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.FiscalVerificationOfInvoices.Name, ref sFiscalVerificationOfInvoices, ref bReadOnly, ref Err))
             {
                 case fs.enum_GetDBSettings.DBSettings_OK:
-                    Program.b_FVI_SLO = sFiscalVerificationOfInvoices.Equals("1");
+                    DocumentMan.b_FVI_SLO = sFiscalVerificationOfInvoices.Equals("1");
                     return true;
 
                 case fs.enum_GetDBSettings.No_TextValue:
@@ -820,7 +821,7 @@ namespace Tangenta
                 case Navigation.eEvent.NEXT:
                     if (form is Form_SetElectronicDeviceName)
                     {
-                        if (Program.b_FVI_SLO)
+                        if (DocumentMan.b_FVI_SLO)
                         {
                             startup_ShowForm_proc = Startup_05_Show_FiscalVerificationOfInvoices_SLO_Form_Settings;
                             return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
@@ -905,8 +906,8 @@ namespace Tangenta
         internal myOrg.eGetOrganisationDataResult Startup_05_Check_myOrganisation_Data()
         {
             myOrg.eGetOrganisationDataResult eres = myOrg.GetOrganisationData(Program.bFirstTimeInstallation,
-                                                                              Program.OperationMode.MultiUser,
-                                                                              Program.b_FVI_SLO,
+                                                                              OperationMode.MultiUser,
+                                                                              DocumentMan.b_FVI_SLO,
                                                                               ref Program.m_CountryHasFVI
                                                                               );
             return eres;

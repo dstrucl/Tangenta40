@@ -58,5 +58,17 @@ namespace DocumentManager.Properties {
                 this["LastDocInvoiceType"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string eShopsInUse {
+            get {
+                return ((string)(this["eShopsInUse"]));
+            }
+            set {
+                this["eShopsInUse"] = value;
+            }
+        }
     }
 }

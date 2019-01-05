@@ -18,6 +18,7 @@ using System.Windows.Forms;
 using TangentaDB;
 using LanguageControl;
 using DBConnectionControl40;
+using DocumentManager;
 
 namespace Tangenta
 {

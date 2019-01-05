@@ -1,4 +1,5 @@
 ﻿using DBConnectionControl40;
+using DocumentManager;
 using NavigationButtons;
 using Startup;
 using System;
@@ -176,42 +177,42 @@ namespace Tangenta
                         switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiUserOperation.Name, ref MultiuserOperationWithLogin, ref bReadOnly, ref Err))
                         {
                             case fs.enum_GetDBSettings.DBSettings_OK:
-                                Program.OperationMode.MultiUser = MultiuserOperationWithLogin.Equals("1");
+                                OperationMode.MultiUser = MultiuserOperationWithLogin.Equals("1");
 
                                 string StockCheckAtStartup = null;
                                 switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name, ref StockCheckAtStartup, ref bReadOnly, ref Err))
                                 {
                                     case fs.enum_GetDBSettings.DBSettings_OK:
-                                        Program.OperationMode.StockCheckAtStartup = StockCheckAtStartup.Equals("1");
+                                        OperationMode.StockCheckAtStartup = StockCheckAtStartup.Equals("1");
 
                                         string sSingleUserLoginAsAdministrator = null;
                                         switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.SingleUserLoginAsAdministrator.Name, ref sSingleUserLoginAsAdministrator, ref bReadOnly, ref Err))
                                         {
                                             case fs.enum_GetDBSettings.DBSettings_OK:
-                                                Program.OperationMode.SingleUserLoginAsAdministrator = sSingleUserLoginAsAdministrator.Equals("1");
+                                                OperationMode.SingleUserLoginAsAdministrator = sSingleUserLoginAsAdministrator.Equals("1");
 
                                                 string sShopC_ExclusivelySellFromStock = null;
                                                 switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.ShopC_ExclusivelySellFromStock.Name, ref sShopC_ExclusivelySellFromStock, ref bReadOnly, ref Err))
                                                 {
                                                     case fs.enum_GetDBSettings.DBSettings_OK:
-                                                        Program.OperationMode.ShopC_ExclusivelySellFromStock = sShopC_ExclusivelySellFromStock.Equals("1");
+                                                        OperationMode.ShopC_ExclusivelySellFromStock = sShopC_ExclusivelySellFromStock.Equals("1");
 
                                                         string sMultiCurrencyOperation = null;
                                                         switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiCurrencyOperation.Name, ref sMultiCurrencyOperation, ref bReadOnly, ref Err))
                                                         {
                                                             case fs.enum_GetDBSettings.DBSettings_OK:
-                                                                Program.OperationMode.MultiCurrency = sMultiCurrencyOperation.Equals("1");
+                                                                OperationMode.MultiCurrency = sMultiCurrencyOperation.Equals("1");
                                                                 string sNumberOfMonthAfterNewYearToAllowCreateNewInvoice = null;
                                                                 switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.NumberOfMonthAfterNewYearToAllowCreateNewInvoice.Name, ref sNumberOfMonthAfterNewYearToAllowCreateNewInvoice, ref bReadOnly, ref Err))
                                                                 {
                                                                     case fs.enum_GetDBSettings.DBSettings_OK:
                                                                         try
                                                                         {
-                                                                            Program.OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice = Convert.ToInt32(sNumberOfMonthAfterNewYearToAllowCreateNewInvoice);
+                                                                            OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice = Convert.ToInt32(sNumberOfMonthAfterNewYearToAllowCreateNewInvoice);
                                                                         }
                                                                         catch
                                                                         {
-                                                                            Program.OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice = 1;
+                                                                            OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice = 1;
                                                                         }
                                                                         return true;
 
@@ -342,11 +343,11 @@ namespace Tangenta
                     bool bDBSettingsChanged = ((Form_DBSettings)form).Changed;
                     Program.AdministratorLockedPassword = ((Form_DBSettings)form).AdministratorLockedPassword;
 
-                    Program.OperationMode.MultiUser = ((Form_DBSettings)form).MultiuserOperationWithLogin;
-                    Program.OperationMode.SingleUserLoginAsAdministrator = ((Form_DBSettings)form).SingleUserLoginAsAdministrator;
-                    Program.OperationMode.StockCheckAtStartup = ((Form_DBSettings)form).StockCheckAtStartup;
-                    Program.OperationMode.ShopC_ExclusivelySellFromStock = ((Form_DBSettings)form).ShopC_ExclusivelySellFromStock;
-                    Program.OperationMode.MultiCurrency = ((Form_DBSettings)form).MultiCurrencyOperation;
+                    OperationMode.MultiUser = ((Form_DBSettings)form).MultiuserOperationWithLogin;
+                    OperationMode.SingleUserLoginAsAdministrator = ((Form_DBSettings)form).SingleUserLoginAsAdministrator;
+                    OperationMode.StockCheckAtStartup = ((Form_DBSettings)form).StockCheckAtStartup;
+                    OperationMode.ShopC_ExclusivelySellFromStock = ((Form_DBSettings)form).ShopC_ExclusivelySellFromStock;
+                    OperationMode.MultiCurrency = ((Form_DBSettings)form).MultiCurrencyOperation;
                     return Startup_onformresult_proc_Result.NEXT;
 
                 case Navigation.eEvent.PREV:

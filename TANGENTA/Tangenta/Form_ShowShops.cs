@@ -6,6 +6,7 @@
 */
 #endregion
 
+using DocumentManager;
 using LanguageControl;
 using System;
 using System.Collections.Generic;

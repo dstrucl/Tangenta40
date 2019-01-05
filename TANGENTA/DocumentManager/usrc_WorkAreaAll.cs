@@ -60,7 +60,7 @@ namespace DocumentManager
             ipnl_Items_Width_default = pnl_Items.Width;
         }
 
-        internal void Init()
+        public void Init()
         {
             lbl_Tangenta.ForeColor = ColorSettings.Sheme.Current().Colorpair[1].ForeColor;
             

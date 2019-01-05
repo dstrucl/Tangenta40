@@ -115,7 +115,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::Tangenta.Properties.Resources.Tangenta_Logo_SMALL;
+            this.pictureBox1.Image = Properties.Resources.Tangenta_Logo_SMALL;
             this.pictureBox1.Location = new System.Drawing.Point(0, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(46, 74);
@@ -126,7 +126,7 @@
             // btn_Exit
             // 
             this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Exit.Image = global::Tangenta.Properties.Resources.Exit;
+            this.btn_Exit.Image = Properties.Resources.Exit;
             this.btn_Exit.Location = new System.Drawing.Point(873, 0);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(137, 55);

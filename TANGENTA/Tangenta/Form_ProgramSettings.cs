@@ -19,6 +19,7 @@ using TangentaTableClass;
 using LanguageControl;
 using TangentaDB;
 using NavigationButtons;
+using DocumentManager;
 
 namespace Tangenta
 {
@@ -87,7 +88,7 @@ namespace Tangenta
                 LogFile.Error.Show("ERROR:Tangenta:ProgramSettings:Properties.Settings.Default.AccessAuthentication is not 0,1,2,3 it may not be " + Properties.Settings.Default.AccessAuthentication.ToString());
             }
 
-            if (Program.OperationMode.MultiUser)
+            if (OperationMode.MultiUser)
             {
                 chk_MultipleUserLogin.Enabled = true;
                 chk_MultipleUserLogin.Checked = Properties.Settings.Default.Login_MultipleUsers;
@@ -103,7 +104,7 @@ namespace Tangenta
 
             chk_ShowChangeDatabaseButtonAtStartup.Checked = Properties.Settings.Default.WaitToChangeDataBaseAtStartup;
 
-            chk_RecordCashierActivity.Checked = Program.RecordCashierActivity;
+            chk_RecordCashierActivity.Checked = DocumentMan.RecordCashierActivity;
 
             chk_UseWorkAreas.Checked = Program.UseWorkAreas;
 
@@ -206,7 +207,7 @@ namespace Tangenta
             if (usrc_ShopsInuse1.do_OK())
             {
 
-                if (Program.OperationMode.MultiUser)
+                if (OperationMode.MultiUser)
                 {
                     if (Properties.Settings.Default.Login_MultipleUsers != chk_MultipleUserLogin.Checked)
                     {
@@ -373,11 +374,11 @@ namespace Tangenta
                 bDBSettingsChanged = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).Changed;
                 Program.AdministratorLockedPassword = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).AdministratorLockedPassword;
 
-                Program.OperationMode.MultiUser = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).MultiuserOperationWithLogin;
-                Program.OperationMode.SingleUserLoginAsAdministrator = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).SingleUserLoginAsAdministrator;
-                Program.OperationMode.StockCheckAtStartup = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).StockCheckAtStartup;
-                Program.OperationMode.ShopC_ExclusivelySellFromStock = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).ShopC_ExclusivelySellFromStock;
-                Program.OperationMode.MultiCurrency = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).MultiCurrencyOperation;
+                OperationMode.MultiUser = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).MultiuserOperationWithLogin;
+                OperationMode.SingleUserLoginAsAdministrator = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).SingleUserLoginAsAdministrator;
+                OperationMode.StockCheckAtStartup = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).StockCheckAtStartup;
+                OperationMode.ShopC_ExclusivelySellFromStock = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).ShopC_ExclusivelySellFromStock;
+                OperationMode.MultiCurrency = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).MultiCurrencyOperation;
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using HUDCMS;
+﻿using DocumentManager;
+using HUDCMS;
 using LanguageControl;
 using System;
 using System.Collections.Generic;
@@ -107,7 +108,7 @@ namespace Tangenta
                 LogFile.Error.Show("ERROR:Tangenta:Form_NewDocument.cs:Form_NewDocument:1 Unknown DocTyp type!");
             }
 
-            if (Program.OperationMode.MultiCurrency)
+            if (OperationMode.MultiCurrency)
             {
                 usrc_Currency1.Enabled = true;
             }

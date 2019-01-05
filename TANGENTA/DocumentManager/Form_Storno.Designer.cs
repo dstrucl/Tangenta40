@@ -1,4 +1,4 @@
-﻿namespace Tangenta
+﻿namespace DocumentManager
 {
     partial class Form_Storno
     {
@@ -79,7 +79,7 @@
             // 
             this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
+            this.btn_Cancel.Image = Properties.Resources.Exit;
             this.btn_Cancel.Location = new System.Drawing.Point(164, 356);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(98, 30);

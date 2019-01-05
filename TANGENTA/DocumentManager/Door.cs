@@ -17,7 +17,7 @@ namespace DocumentManager
         {
             m_LMOUser = xLMOUser;
         }
-        internal bool DoLoginAsAdministrator(Form frm)
+        public bool DoLoginAsAdministrator(Form frm)
         {
             string AdministratorLockedPassword = null;
             if (fs.GetAdministratorPassword(ref AdministratorLockedPassword))
@@ -30,9 +30,9 @@ namespace DocumentManager
             return false;
         }
 
-        internal bool OpenIfUserIsAdministrator(Form parent_form)
+        public bool OpenIfUserIsAdministrator(Form parent_form)
         {
-            if (Program.OperationMode.MultiUser)
+            if (OperationMode.MultiUser)
             {
                 if (m_LMOUser.IsAdministrator)
                 {
@@ -50,9 +50,9 @@ namespace DocumentManager
             }
         }
 
-        internal bool OpenPriceList(Form parent_form)
+        public bool OpenPriceList(Form parent_form)
         {
-            if (Program.OperationMode.MultiUser)
+            if (OperationMode.MultiUser)
             {
                 string[] possiblerole =new string[]{LoginControl.AWP.ROLE_Administrator,
                                                      LoginControl.AWP.ROLE_PriceListManagement };
@@ -78,9 +78,9 @@ namespace DocumentManager
         }
 
 
-        internal  bool OpenStockEdit(Form parent_form)
+        public  bool OpenStockEdit(Form parent_form)
         {
-            if (Program.OperationMode.MultiUser)
+            if (DocumentManager.OperationMode.MultiUser)
             {
                 string[] possiblerole = new string[]{LoginControl.AWP.ROLE_Administrator,
                                                      LoginControl.AWP.ROLE_StockTakeManagement };
@@ -107,12 +107,7 @@ namespace DocumentManager
 
         private bool HasLoginControlRole(string[] Roles)
         {
-            if (Program.MainForm!=null)
-            {
-                return m_LMOUser.HasLoginControlRole(Roles);
-            }
-            return true;
+           return m_LMOUser.HasLoginControlRole(Roles);
         }
-
     }
 }

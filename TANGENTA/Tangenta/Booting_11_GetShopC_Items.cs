@@ -1,5 +1,6 @@
 ﻿using CodeTables;
 using DBConnectionControl40;
+using DocumentManager;
 using NavigationButtons;
 using ShopC;
 using Startup;

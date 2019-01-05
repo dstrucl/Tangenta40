@@ -1,4 +1,5 @@
 ﻿using DBConnectionControl40;
+using DocumentManager;
 using LanguageControl;
 using System;
 using System.Collections.Generic;
@@ -68,13 +69,13 @@ namespace Tangenta
             lng.s_chk_LoginAsAdministrator.Text(chk_SingleUserLoginAsAdministrator);
             lng.s_MultiCurrency.Text(chk_MultiCurrency);
 
-            rdb_MultiUserOperation.Checked = Program.OperationMode.MultiUser;
-            rdb_SingleUser.Checked = !Program.OperationMode.MultiUser;
-            chk_SingleUserLoginAsAdministrator.Checked = Program.OperationMode.SingleUserLoginAsAdministrator;
-            chk_ShopC_ExclusivelySellFromStock.Checked = Program.OperationMode.ShopC_ExclusivelySellFromStock;
-            chk_StockCheckAtStartup.Checked = Program.OperationMode.StockCheckAtStartup;
-            chk_MultiCurrency.Checked = Program.OperationMode.MultiCurrency;
-            nmUpDnOfMonthsInANewYearToAllowNewInvoice.Value = Program.OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice;
+            rdb_MultiUserOperation.Checked = OperationMode.MultiUser;
+            rdb_SingleUser.Checked = !OperationMode.MultiUser;
+            chk_SingleUserLoginAsAdministrator.Checked = OperationMode.SingleUserLoginAsAdministrator;
+            chk_ShopC_ExclusivelySellFromStock.Checked = OperationMode.ShopC_ExclusivelySellFromStock;
+            chk_StockCheckAtStartup.Checked = OperationMode.StockCheckAtStartup;
+            chk_MultiCurrency.Checked = OperationMode.MultiCurrency;
+            nmUpDnOfMonthsInANewYearToAllowNewInvoice.Value = OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice;
 
             if (rdb_SingleUser.Checked)
             {
@@ -185,12 +186,12 @@ namespace Tangenta
                     int iNumberOfMonthAfterNewYearToAllowCreateNewInvoice = Convert.ToInt32(nmUpDnOfMonthsInANewYearToAllowNewInvoice.Value);
                     string sbNumberOfMonthAfterNewYearToAllowCreateNewInvoice = iNumberOfMonthAfterNewYearToAllowCreateNewInvoice.ToString();
 
-                    if ((rdb_MultiUserOperation.Checked!= Program.OperationMode.MultiUser)
-                        ||(chk_StockCheckAtStartup.Checked!= Program.OperationMode.StockCheckAtStartup)
-                        || (chk_SingleUserLoginAsAdministrator.Checked != Program.OperationMode.SingleUserLoginAsAdministrator)
-                        || (chk_ShopC_ExclusivelySellFromStock.Checked != Program.OperationMode.ShopC_ExclusivelySellFromStock)
-                        || (chk_MultiCurrency.Checked != Program.OperationMode.MultiCurrency)
-                        || (iNumberOfMonthAfterNewYearToAllowCreateNewInvoice != Program.OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice))
+                    if ((rdb_MultiUserOperation.Checked!= OperationMode.MultiUser)
+                        ||(chk_StockCheckAtStartup.Checked!= OperationMode.StockCheckAtStartup)
+                        || (chk_SingleUserLoginAsAdministrator.Checked != OperationMode.SingleUserLoginAsAdministrator)
+                        || (chk_ShopC_ExclusivelySellFromStock.Checked != OperationMode.ShopC_ExclusivelySellFromStock)
+                        || (chk_MultiCurrency.Checked != OperationMode.MultiCurrency)
+                        || (iNumberOfMonthAfterNewYearToAllowCreateNewInvoice != OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice))
                     {
                         Changed = true;
                     }
@@ -198,27 +199,27 @@ namespace Tangenta
                    
                     if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiUserOperation.Name, sbMultiUserOperation, "0", ref DBSettings_ID, transaction_Form_DBSettings_do_OK))
                     {
-                        Program.OperationMode.MultiUser = rdb_MultiUserOperation.Checked;
+                        OperationMode.MultiUser = rdb_MultiUserOperation.Checked;
 
                         if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name, sbStockCheckAtStartup, "0", ref DBSettings_ID, transaction_Form_DBSettings_do_OK))
                         {
-                            Program.OperationMode.StockCheckAtStartup = chk_StockCheckAtStartup.Checked;
+                            OperationMode.StockCheckAtStartup = chk_StockCheckAtStartup.Checked;
 
                             if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.SingleUserLoginAsAdministrator.Name, sbSingleUserLoginAsAdministrator, "0", ref DBSettings_ID, transaction_Form_DBSettings_do_OK))
                             {
-                                Program.OperationMode.SingleUserLoginAsAdministrator = chk_SingleUserLoginAsAdministrator.Checked;
+                                OperationMode.SingleUserLoginAsAdministrator = chk_SingleUserLoginAsAdministrator.Checked;
 
                                 if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.ShopC_ExclusivelySellFromStock.Name, sbShopC_ExclusivelySellFromStock, "0", ref DBSettings_ID, transaction_Form_DBSettings_do_OK))
                                 {
-                                    Program.OperationMode.ShopC_ExclusivelySellFromStock = chk_ShopC_ExclusivelySellFromStock.Checked;
+                                    OperationMode.ShopC_ExclusivelySellFromStock = chk_ShopC_ExclusivelySellFromStock.Checked;
 
                                     if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiCurrencyOperation.Name, sbMultiCurrencyOperation, "0", ref DBSettings_ID, transaction_Form_DBSettings_do_OK))
                                     {
-                                        Program.OperationMode.MultiCurrency = chk_MultiCurrency.Checked;
+                                        OperationMode.MultiCurrency = chk_MultiCurrency.Checked;
                                         if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.NumberOfMonthAfterNewYearToAllowCreateNewInvoice.Name, sbNumberOfMonthAfterNewYearToAllowCreateNewInvoice, "0", ref DBSettings_ID, transaction_Form_DBSettings_do_OK))
                                         {
                                             transaction_Form_DBSettings_do_OK.Commit();
-                                            Program.OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice = iNumberOfMonthAfterNewYearToAllowCreateNewInvoice;
+                                            OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice = iNumberOfMonthAfterNewYearToAllowCreateNewInvoice;
                                             Close();
                                             DialogResult = DialogResult.OK;
                                             return true;
