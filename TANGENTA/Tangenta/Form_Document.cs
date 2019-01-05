@@ -163,20 +163,6 @@ namespace Tangenta
             }
         }
 
-        public eCashierState CashierState
-        {
-            get
-            {
-                if (loginControl1!=null)
-                {
-                    return loginControl1.CashierState;
-                }
-                else
-                {
-                    return eCashierState.CLOSED;
-                }
-            }
-        }
 
         
         public CashierActivity CashierActivity

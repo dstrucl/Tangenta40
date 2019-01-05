@@ -2,7 +2,7 @@
 using DBTypes;
 using LoginControl;
 using PriseLists;
-using ShopB;
+//using ShopB;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,8 +12,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TangentaDB;
+using TangentaPrint;
 
-namespace Tangenta
+namespace DocumentManager
 {
     public class DocumentEditor
     {
@@ -46,7 +47,7 @@ namespace Tangenta
         public delegate bool delegate_control_Get_DocProforma_AddOn(bool xbPrint);
 
         public delegate bool delegate_control_DoCurrent(ID xID, Transaction transaction);
-        public delegate bool delegate_control_Printing_DocInvoice();
+        public delegate bool delegate_control_Printing_DocInvoice(Control parnetcontrol);
 
         public delegate void delegate_DocInvoiceSaved(ID DocInvoice_id);
         public delegate void delegate_DocProformaInvoiceSaved(ID DocProformaInvoice_id);
@@ -206,10 +207,10 @@ namespace Tangenta
                               Transaction transaction
                               )
         {
-            if (om_usrc_ShopB is usrc_ShopB1366x768)
-            {
-                ((usrc_ShopB1366x768)om_usrc_ShopB).DocTyp = this.DocTyp;
-            }
+            //if (om_usrc_ShopB is usrc_ShopB1366x768)
+            //{
+            //    ((usrc_ShopB1366x768)om_usrc_ShopB).DocTyp = this.DocTyp;
+            //}
             if (DoGetCurrent(xID, 
                              xdelegate_control_AddHandler, 
                              xdelegate_control_RemoveHandler,
@@ -375,7 +376,7 @@ namespace Tangenta
                           ref Err,
                           transaction)) // try to get draft
             {
-                xdelegate_control_InvoiceNumber_Text(Program.GetInvoiceNumber(m_ShopABC.m_CurrentDoc.bDraft, m_ShopABC.m_CurrentDoc.FinancialYear, m_ShopABC.m_CurrentDoc.NumberInFinancialYear, m_ShopABC.m_CurrentDoc.DraftNumber));
+                xdelegate_control_InvoiceNumber_Text(DocumentManager.DocumentMan.GetInvoiceNumber(m_ShopABC.m_CurrentDoc.bDraft, m_ShopABC.m_CurrentDoc.FinancialYear, m_ShopABC.m_CurrentDoc.NumberInFinancialYear, m_ShopABC.m_CurrentDoc.DraftNumber));
                 if (m_ShopABC.m_CurrentDoc.bDraft)
                 {
                     SetMode(DocumentEditor.emode.edit_eDocumentType, xdelegate_control_SetMode);
@@ -426,7 +427,7 @@ namespace Tangenta
                                   ref Err,
                                   transaction)) // Get invoice with Invoice_ID
                 {
-                    xdelegate_control_InvoiceNumber_Text(Program.GetInvoiceNumber(m_ShopABC.m_CurrentDoc.bDraft, m_ShopABC.m_CurrentDoc.FinancialYear, m_ShopABC.m_CurrentDoc.NumberInFinancialYear, m_ShopABC.m_CurrentDoc.DraftNumber));// this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.m_CurrentDoc.bDraft, m_ShopABC.m_CurrentDoc.FinancialYear, m_ShopABC.m_CurrentDoc.NumberInFinancialYear, m_ShopABC.m_CurrentDoc.DraftNumber);//
+                    xdelegate_control_InvoiceNumber_Text(DocumentMan.GetInvoiceNumber(m_ShopABC.m_CurrentDoc.bDraft, m_ShopABC.m_CurrentDoc.FinancialYear, m_ShopABC.m_CurrentDoc.NumberInFinancialYear, m_ShopABC.m_CurrentDoc.DraftNumber));// this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.m_CurrentDoc.bDraft, m_ShopABC.m_CurrentDoc.FinancialYear, m_ShopABC.m_CurrentDoc.NumberInFinancialYear, m_ShopABC.m_CurrentDoc.DraftNumber);//
 
                     xdelegate_control_ShopC_Clear();// this.m_usrc_ShopC.Clear();
                     xdelegate_control_SetCurrentInvoice_SelectedShopC_Items(); //this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
@@ -574,7 +575,6 @@ namespace Tangenta
                                     delegate_control_Check_DocProformaInvoice_AddOn xdelegate_control_Check_DocproformaInvoice_AddOn,
                                     delegate_control_Get_DocProforma_AddOn xdelegate_control_Get_DocProforma_AddOn,
                                     delegate_control_DoCurrent xdelegate_control_DoCurrent,
-                                    delegate_control_Printing_DocInvoice xdelegate_control_Printing_DocInvoice,
                                     delegate_DocInvoiceSaved xdelegate_DocInvoiceSaved,
                                     delegate_DocProformaInvoiceSaved xdelegate_DocProformaInvoiceSaved
                                     )
@@ -588,7 +588,7 @@ namespace Tangenta
                         if (m_ShopABC.m_CurrentDoc.bDraft)
                         {
 
-                            if ((Program.RecordCashierActivity) && (Program.CashierState == TangentaDB.CashierActivity.eCashierState.CLOSED))
+                            if ((DocM.RecordCashierActivity) && (DocM.CashierState == TangentaDB.CashierActivity.eCashierState.CLOSED))
                             {
                                 XMessage.Box.Show(pform, lng.s_YouCanNotWriteInvoices_CasshierIsClosed, MessageBoxIcon.Stop);
                                 return;
@@ -631,7 +631,7 @@ namespace Tangenta
 
                             
 
-                            if (IssueDocument(pform,xdelegate_control_Printing_DocInvoice,xdelegate_DocInvoiceSaved, xdelegate_DocProformaInvoiceSaved, transaction_DocumentEditor_IssueDocument))
+                            if (IssueDocument(pform,this,xdelegate_DocInvoiceSaved, xdelegate_DocProformaInvoiceSaved, transaction_DocumentEditor_IssueDocument))
                             {
                                 if (xdelegate_control_DoCurrent(m_ShopABC.m_CurrentDoc.Doc_ID, transaction_DocumentEditor_IssueDocument))// DoCurrent(m_ShopABC.m_CurrentDoc.Doc_ID);
                                 {
@@ -658,17 +658,17 @@ namespace Tangenta
                             Transaction transaction_m_InvoiceData_Read_DocInvoice = DBSync.DBSync.NewTransaction("m_InvoiceData.Read_DocInvoice");
                             if (DocM.IsDocInvoice)
                             {
-                                InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                                InvoiceData.AddOnDI.b_FVI_SLO = DocumentManager.DocumentMan.b_FVI_SLO;
                                 if (InvoiceData.Read_DocInvoice(transaction_m_InvoiceData_Read_DocInvoice)) // read Proforma Invoice again from DataBase
                                 { // print invoice if you wish
                                     if (transaction_m_InvoiceData_Read_DocInvoice.Commit())
                                     {
                                         if (InvoiceData.AddOnDI.m_FURS.FURS_QR_v != null)
                                         {
-                                            InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = Program.FVI_SLO1.GetQRImage(InvoiceData.AddOnDI.m_FURS.FURS_QR_v.v);
+                                            InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = DocumentManager.DocumentMan.FVI_SLO1.GetQRImage(InvoiceData.AddOnDI.m_FURS.FURS_QR_v.v);
                                             InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
                                         }
-                                        xdelegate_control_Printing_DocInvoice();//Printing_DocInvoice();
+                                        Printing_DocInvoice(pform);//Printing_DocInvoice();
                                                                                 //TangentaPrint.Form_PrintJournal frm_Print_Existing_invoice = new TangentaPrint.Form_PrintJournal(m_InvoiceData,"UNKNOWN PRINETR NAME??",Program.usrc_TangentaPrint1);
                                                                                 //frm_Print_Existing_invoice.ShowDialog(this);
                                     }
@@ -684,7 +684,7 @@ namespace Tangenta
                                 {
                                     if (transaction_m_InvoiceData_Read_DocInvoice.Commit())
                                     {
-                                        xdelegate_control_Printing_DocInvoice();//Printing_DocInvoice();
+                                        Printing_DocInvoice(pform);//Printing_DocInvoice();
                                                                                 //TangentaPrint.Form_PrintJournal frm_Print_Existing_invoice = new TangentaPrint.Form_PrintJournal(m_InvoiceData,"UNKNOWN PRINETR NAME??",Program.usrc_TangentaPrint1);
                                                                                 //frm_Print_Existing_invoice.ShowDialog(this);
                                     }
@@ -702,15 +702,23 @@ namespace Tangenta
 
         internal bool Printing_DocInvoice(Control parentControl)
         {
-            Form parentform = Global.f.GetParentForm(parentControl);
-            TangentaPrint.Form_PrintDocument template_dlg = new TangentaPrint.Form_PrintDocument(m_LMOUser.Atom_WorkPeriod_ID, InvoiceData, Properties.Resources.Exit, door.OpenIfUserIsAdministrator);
-            template_dlg.Owner = Global.f.GetParentForm(parentform);
-            if (template_dlg.ShowDialog(parentform) == DialogResult.OK)
+            Printer printer = null;
+            if (PrintersList.PrintingWithHtmlTemplate(DocTyp, ref printer))
             {
-                return true;
+                Form parentform = Global.f.GetParentForm(parentControl);
+                TangentaPrint.Form_PrintDocument template_dlg = new TangentaPrint.Form_PrintDocument(m_LMOUser.Atom_WorkPeriod_ID, InvoiceData, Properties.Resources.Exit, door.OpenIfUserIsAdministrator);
+                template_dlg.Owner = Global.f.GetParentForm(parentform);
+                if (template_dlg.ShowDialog(parentform) == DialogResult.OK)
+                {
+                    return true;
+                }
+                return false;
+            }
+            if (printer != null)
+            {
+                //printer.Print()
             }
             return false;
-
         }
 
         public bool GetUnits()
@@ -993,7 +1001,7 @@ namespace Tangenta
 
 
         private bool IssueDocument(Form pform,
-                                    delegate_control_Printing_DocInvoice xdelegate_control_Printing_DocInvoice,
+                                    DocumentEditor docE,
                                     delegate_DocInvoiceSaved xdelegate_DocInvoiceSaved,
                                     delegate_DocProformaInvoiceSaved xdelegate_DocProformaInvoiceSaved,
                                     Transaction transaction)
@@ -1033,7 +1041,7 @@ namespace Tangenta
                         if (InvoiceData.Read_DocInvoice(transaction))
                         {
                             xdelegate_DocInvoiceSaved(m_ShopABC.m_CurrentDoc.Doc_ID);
-                            xdelegate_control_Printing_DocInvoice();// Printing_DocInvoice();
+                            Printing_DocInvoice(pform);// Printing_DocInvoice();
                             return true;
                         }
                         else
@@ -1057,7 +1065,7 @@ namespace Tangenta
                         if (InvoiceData.Read_DocInvoice(transaction))
                         {
                             xdelegate_DocProformaInvoiceSaved(m_ShopABC.m_CurrentDoc.Doc_ID);
-                            xdelegate_control_Printing_DocInvoice();// Printing_DocInvoice();
+                            Printing_DocInvoice(pform);// Printing_DocInvoice();
                             return true;
                         }
                         else

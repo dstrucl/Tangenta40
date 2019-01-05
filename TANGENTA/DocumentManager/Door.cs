@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TangentaDB;
 
-namespace Tangenta
+namespace DocumentManager
 {
     public class Door
     {

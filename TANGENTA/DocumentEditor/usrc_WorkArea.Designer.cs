@@ -1,4 +1,4 @@
-﻿namespace Tangenta
+﻿namespace DocumentEditor
 {
     partial class usrc_WorkArea
     {

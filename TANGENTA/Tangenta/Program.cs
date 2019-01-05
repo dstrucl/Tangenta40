@@ -55,16 +55,7 @@ namespace Tangenta
         internal static string AdministratorLockedPassword = "dhlpt"; //"dhlpt" is Locked password for "12345"
 
 
-        internal static class OperationMode
-        {
-            internal static bool MultiUser = true;
-            internal static bool SingleUserLoginAsAdministrator = false;
-            internal static bool StockCheckAtStartup = true;
-            internal static bool ShopC_ExclusivelySellFromStock = false;
-            internal static bool MultiCurrency = false;
-            internal static int NumberOfMonthAfterNewYearToAllowCreateNewInvoice = 1;
-            internal static bool FiscalVerificationOfInvoices = false;
-        }
+      
 
 
         private static string m_RunAs = null;
@@ -115,7 +106,6 @@ namespace Tangenta
         internal static string IniFolder = "";
         internal static string IniFile = "";
 
-        internal static FVI_SLO FVI_SLO1 = null;
 
         internal static FVI_SLO_MessageBox message_box = null;
 
@@ -152,15 +142,7 @@ namespace Tangenta
             }
         }
 
-        internal static bool b_FVI_SLO
-        {
-            get {
-                return OperationMode.FiscalVerificationOfInvoices;
-                }
-            set {
-                OperationMode.FiscalVerificationOfInvoices = value;
-                }
-        }
+      
 
 
         
@@ -212,20 +194,20 @@ namespace Tangenta
         #region Properties
 
      
-        public static eCashierState CashierState
-        {
-            get
-            {
-                if (MainForm != null)
-                {
-                    return MainForm.CashierState;
-                }
-                else
-                {
-                    return eCashierState.CLOSED;
-                }
-            }
-        }
+        //public static eCashierState CashierState
+        //{
+        //    get
+        //    {
+        //        if (MainForm != null)
+        //        {
+        //            return MainForm.CashierState;
+        //        }
+        //        else
+        //        {
+        //            return eCashierState.CLOSED;
+        //        }
+        //    }
+        //}
 
         
         public static CashierActivity CashierActivity
@@ -264,29 +246,7 @@ namespace Tangenta
             }
         }
 
-        public static bool RecordCashierActivity
-        {
-            get
-            {
-                if (MainForm != null)
-                {
-                    return MainForm.RecordCashierActivity;
-                }
-                else
-                {
-                    return Properties.Settings.Default.RecordCashierActivity;
-                }
-            }
-            set
-            {
-                Properties.Settings.Default.RecordCashierActivity = value;
-                Properties.Settings.Default.Save();
-                if (MainForm != null)
-                {
-                    MainForm.RecordCashierActivity = Properties.Settings.Default.RecordCashierActivity;
-                }
-            }
-        }
+       
 
 
         public static bool UseWorkAreas {
@@ -340,19 +300,7 @@ namespace Tangenta
         }
 
 
-        internal static string GetInvoiceNumber(bool bDraft, int FinancialYear, int NumberInFinancialYear, int DraftNumber)
-        {
-            string sNumber = null;
-            if (bDraft)
-            {
-                sNumber = FinancialYear.ToString() + "/" + lng.s_Draft.s + " " + DraftNumber.ToString();
-            }
-            else
-            {
-                sNumber = FinancialYear.ToString() + "/" + NumberInFinancialYear.ToString();
-            }
-            return sNumber;
-        }
+       
 
         #endregion
 

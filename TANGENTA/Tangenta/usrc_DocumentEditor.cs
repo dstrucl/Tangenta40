@@ -1113,141 +1113,140 @@ namespace Tangenta
                                 usrc_AddOn1.Check_DocProformaInvoice_AddOn,
                                 usrc_AddOn1.Get_Doc_AddOn,
                                 this.DoCurrent,
-                                Printing_DocInvoice,
                                 this.docInvoice_saved,
                                 this.docProformaInvoice_saved
                                 );
         }
 
-        private bool Printing_DocInvoice()
-        {
-            Printer printer = null;
-            if (PrintersList.PrintingWithHtmlTemplate(DocE.DocTyp,ref printer))
-            {
-                TangentaPrint.Form_PrintDocument template_dlg = new TangentaPrint.Form_PrintDocument(DocE.m_LMOUser.Atom_WorkPeriod_ID, DocE.InvoiceData, Properties.Resources.Exit, DocE.door.OpenIfUserIsAdministrator);
-                template_dlg.Owner = Global.f.GetParentForm(this);
-                if (template_dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    return true;
-                }
-                return false;
-            }
-            else
-            {
-                if (printer!=null)
-                {
-                    printer.Print()
-                }
-            }
-        }
+        //private bool Printing_DocInvoice()
+        //{
+        //    Printer printer = null;
+        //    if (PrintersList.PrintingWithHtmlTemplate(DocE.DocTyp,ref printer))
+        //    {
+        //        TangentaPrint.Form_PrintDocument template_dlg = new TangentaPrint.Form_PrintDocument(DocE.m_LMOUser.Atom_WorkPeriod_ID, DocE.InvoiceData, Properties.Resources.Exit, DocE.door.OpenIfUserIsAdministrator);
+        //        template_dlg.Owner = Global.f.GetParentForm(this);
+        //        if (template_dlg.ShowDialog(this) == DialogResult.OK)
+        //        {
+        //            return true;
+        //        }
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        if (printer!=null)
+        //        {
+        //            printer.Print()
+        //        }
+        //    }
+        //}
 
-        private void DoPrint()
-        {
-            Transaction transaction_usrc_InvoicePreview_btn_Print_Click = DBSync.DBSync.NewTransaction("usrc_InvoicePreview_btn_Print_Click");
-            if (bDocInvoicePrinted)
-            {
-                if (m_InvoiceData.IsDocInvoice)
-                {
-                    if (m_InvoiceData.AddOnDI.b_FVI_SLO)
-                    {
-                        XMessage.Box.Show(this, false, lng.s_InvoiceAllreadyPrintedToPrintCopyCloseAndOpenThisDialogAgain, MessageBoxIcon.Information);
-                        return;
-                    }
-                }
-            }
-            pd.PrinterSettings.PrinterName = m_Printer.PrinterName;
-            //config.PageSize = PageSize.A4;
-            //config.SetMargins(20);
+        //private void DoPrint()
+        //{
+        //    Transaction transaction_usrc_InvoicePreview_btn_Print_Click = DBSync.DBSync.NewTransaction("usrc_InvoicePreview_btn_Print_Click");
+        //    if (bDocInvoicePrinted)
+        //    {
+        //        if (m_InvoiceData.IsDocInvoice)
+        //        {
+        //            if (m_InvoiceData.AddOnDI.b_FVI_SLO)
+        //            {
+        //                XMessage.Box.Show(this, false, lng.s_InvoiceAllreadyPrintedToPrintCopyCloseAndOpenThisDialogAgain, MessageBoxIcon.Information);
+        //                return;
+        //            }
+        //        }
+        //    }
+        //    pd.PrinterSettings.PrinterName = m_Printer.PrinterName;
+        //    //config.PageSize = PageSize.A4;
+        //    //config.SetMargins(20);
 
-            //XSize xorgPageSize = PageSizeConverter.ToSize(config.PageSize);
-            //Size orgPageSize = new Size(Convert.ToInt32(xorgPageSize.Width), Convert.ToInt32(xorgPageSize.Height));
-            //            pageSize = new Size(Convert.ToInt32(orgPageSize.Width - config.MarginLeft - config.MarginRight), Convert.ToInt32(orgPageSize.Height - config.MarginTop - config.MarginBottom));
+        //    //XSize xorgPageSize = PageSizeConverter.ToSize(config.PageSize);
+        //    //Size orgPageSize = new Size(Convert.ToInt32(xorgPageSize.Width), Convert.ToInt32(xorgPageSize.Height));
+        //    //            pageSize = new Size(Convert.ToInt32(orgPageSize.Width - config.MarginLeft - config.MarginRight), Convert.ToInt32(orgPageSize.Height - config.MarginTop - config.MarginBottom));
 
-            pageSize = new Size(Convert.ToInt32(pd.PrinterSettings.DefaultPageSettings.PrintableArea.Size.Width), Convert.ToInt32(pd.PrinterSettings.DefaultPageSettings.PrintableArea.Size.Height));
+        //    pageSize = new Size(Convert.ToInt32(pd.PrinterSettings.DefaultPageSettings.PrintableArea.Size.Width), Convert.ToInt32(pd.PrinterSettings.DefaultPageSettings.PrintableArea.Size.Height));
 
 
-            hc.UseGdiPlusTextRendering = true;
-            hc.ScrollOffset = new Point(0, 0);
+        //    hc.UseGdiPlusTextRendering = true;
+        //    hc.ScrollOffset = new Point(0, 0);
 
-            iPage = 0;
-            bFirstPagePrinting = true;
-            pd.Print();
+        //    iPage = 0;
+        //    bFirstPagePrinting = true;
+        //    pd.Print();
 
-            if (m_InvoiceData.IsDocInvoice)
-            {
-                if (m_InvoiceData.PrintCopyInfo.Length == 0)
-                {
-                    string s_journal_invoice_type = f_Journal_DocInvoice.ORIGINALPRINT;
-                    string s_journal_invoice_description = "";
-                    if (m_Printer != null)
-                    {
-                        if (m_Printer.PrinterName != null)
-                        {
-                            s_journal_invoice_description = m_Printer.PrinterName;
-                        }
-                    }
-                    ID journal_docinvoice_id = null;
-                    if (!f_Journal_DocInvoice.Write(m_InvoiceData.DocInvoice_ID, m_Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, m_InvoiceData.PrintingTime_v, ref journal_docinvoice_id, transaction_usrc_InvoicePreview_btn_Print_Click))
-                    {
-                        transaction_usrc_InvoicePreview_btn_Print_Click.Rollback();
-                        return;
-                    }
-                }
-                else
-                {
-                    string s_journal_invoice_type = f_Journal_DocInvoice.COPYPRINT;
-                    string s_journal_invoice_description = "";
-                    if (m_Printer != null)
-                    {
-                        if (m_Printer.PrinterName != null)
-                        {
-                            s_journal_invoice_description = m_Printer.PrinterName;
-                        }
-                    }
-                    ID journal_docinvoice_id = null;
-                    if (!f_Journal_DocInvoice.Write(m_InvoiceData.DocInvoice_ID, m_Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, m_InvoiceData.PrintingTime_v, ref journal_docinvoice_id, transaction_usrc_InvoicePreview_btn_Print_Click))
-                    {
-                        transaction_usrc_InvoicePreview_btn_Print_Click.Rollback();
-                        return;
-                    }
-                }
-                bDocInvoicePrinted = true;
-            }
+        //    if (m_InvoiceData.IsDocInvoice)
+        //    {
+        //        if (m_InvoiceData.PrintCopyInfo.Length == 0)
+        //        {
+        //            string s_journal_invoice_type = f_Journal_DocInvoice.ORIGINALPRINT;
+        //            string s_journal_invoice_description = "";
+        //            if (m_Printer != null)
+        //            {
+        //                if (m_Printer.PrinterName != null)
+        //                {
+        //                    s_journal_invoice_description = m_Printer.PrinterName;
+        //                }
+        //            }
+        //            ID journal_docinvoice_id = null;
+        //            if (!f_Journal_DocInvoice.Write(m_InvoiceData.DocInvoice_ID, m_Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, m_InvoiceData.PrintingTime_v, ref journal_docinvoice_id, transaction_usrc_InvoicePreview_btn_Print_Click))
+        //            {
+        //                transaction_usrc_InvoicePreview_btn_Print_Click.Rollback();
+        //                return;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            string s_journal_invoice_type = f_Journal_DocInvoice.COPYPRINT;
+        //            string s_journal_invoice_description = "";
+        //            if (m_Printer != null)
+        //            {
+        //                if (m_Printer.PrinterName != null)
+        //                {
+        //                    s_journal_invoice_description = m_Printer.PrinterName;
+        //                }
+        //            }
+        //            ID journal_docinvoice_id = null;
+        //            if (!f_Journal_DocInvoice.Write(m_InvoiceData.DocInvoice_ID, m_Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, m_InvoiceData.PrintingTime_v, ref journal_docinvoice_id, transaction_usrc_InvoicePreview_btn_Print_Click))
+        //            {
+        //                transaction_usrc_InvoicePreview_btn_Print_Click.Rollback();
+        //                return;
+        //            }
+        //        }
+        //        bDocInvoicePrinted = true;
+        //    }
 
-            else if (m_InvoiceData.IsDocProformaInvoice)
-            {
-                string s_journal_invoice_type = f_Journal_DocProformaInvoice.PRINT;
-                string s_journal_invoice_description = "";
-                ID journal_docproformainvoice_id = null;
-                if (m_Printer != null)
-                {
-                    if (m_Printer.PrinterName != null)
-                    {
-                        s_journal_invoice_description = m_Printer.PrinterName;
-                    }
-                }
-                ID journal_docproformainvoice_type_id = null;
-                DateTime_v print_time_v = new DateTime_v(DateTime.Now);
-                if (f_Journal_DocProformaInvoice.Get_journal_DocProformaInvoice_type_id(s_journal_invoice_type, s_journal_invoice_description, ref journal_docproformainvoice_type_id, transaction_usrc_InvoicePreview_btn_Print_Click))
-                {
-                    if (ID.Validate(journal_docproformainvoice_type_id))
-                    {
-                        if (!f_Journal_DocProformaInvoice.Write(m_InvoiceData.DocInvoice_ID, m_Atom_WorkPeriod_ID, journal_docproformainvoice_type_id, print_time_v, ref journal_docproformainvoice_id, transaction_usrc_InvoicePreview_btn_Print_Click))
-                        {
-                            transaction_usrc_InvoicePreview_btn_Print_Click.Rollback();
-                            return;
-                        }
+        //    else if (m_InvoiceData.IsDocProformaInvoice)
+        //    {
+        //        string s_journal_invoice_type = f_Journal_DocProformaInvoice.PRINT;
+        //        string s_journal_invoice_description = "";
+        //        ID journal_docproformainvoice_id = null;
+        //        if (m_Printer != null)
+        //        {
+        //            if (m_Printer.PrinterName != null)
+        //            {
+        //                s_journal_invoice_description = m_Printer.PrinterName;
+        //            }
+        //        }
+        //        ID journal_docproformainvoice_type_id = null;
+        //        DateTime_v print_time_v = new DateTime_v(DateTime.Now);
+        //        if (f_Journal_DocProformaInvoice.Get_journal_DocProformaInvoice_type_id(s_journal_invoice_type, s_journal_invoice_description, ref journal_docproformainvoice_type_id, transaction_usrc_InvoicePreview_btn_Print_Click))
+        //        {
+        //            if (ID.Validate(journal_docproformainvoice_type_id))
+        //            {
+        //                if (!f_Journal_DocProformaInvoice.Write(m_InvoiceData.DocInvoice_ID, m_Atom_WorkPeriod_ID, journal_docproformainvoice_type_id, print_time_v, ref journal_docproformainvoice_id, transaction_usrc_InvoicePreview_btn_Print_Click))
+        //                {
+        //                    transaction_usrc_InvoicePreview_btn_Print_Click.Rollback();
+        //                    return;
+        //                }
 
-                    }
-                }
-                else
-                {
-                    transaction_usrc_InvoicePreview_btn_Print_Click.Rollback();
-                    return;
-                }
-            }
-            transaction_usrc_InvoicePreview_btn_Print_Click.Commit();
-        }
+        //            }
+        //        }
+        //        else
+        //        {
+        //            transaction_usrc_InvoicePreview_btn_Print_Click.Rollback();
+        //            return;
+        //        }
+        //    }
+        //    transaction_usrc_InvoicePreview_btn_Print_Click.Commit();
+        //}
 
         private void usrc_Customer_Customer_Person_Changed(ID Customer_Person_ID)
         {

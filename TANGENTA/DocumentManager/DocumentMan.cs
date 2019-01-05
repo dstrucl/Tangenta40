@@ -1,4 +1,5 @@
 ﻿using DBConnectionControl40;
+using FiscalVerificationOfInvoices_SLO;
 using Global;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TangentaDB;
+using static TangentaDB.CashierActivity;
 
-namespace Tangenta
+namespace DocumentManager
 {
     public class DocumentMan
     {
+        private UserControl usrc_DocumentMan = null;
+
         public delegate void delegate_Control_SetMode(DocumentMan.eMode mode);
         private delegate_Control_SetMode delegate_control_SetMode = null;
 
@@ -43,6 +47,84 @@ namespace Tangenta
             set
             {
                 m_DocE = value;
+            }
+        }
+
+        private static LoginControl.LoginCtrl loginControl1 = null;
+        public static LoginControl.LoginCtrl LoginControl1
+        {
+           get
+            {
+                return loginControl1;
+            }
+            set
+            {
+                loginControl1= value;
+            }
+
+
+        }
+
+        public bool RecordCashierActivity
+        {
+            get
+            {
+                if (loginControl1 != null)
+                {
+                    return loginControl1.RecordCashierActivity;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            set
+            {
+                if (loginControl1 != null)
+                {
+                    loginControl1.RecordCashierActivity = value;
+                }
+            }
+        }
+
+        public eCashierState CashierState
+        {
+            get
+            {
+                if (loginControl1 != null)
+                {
+                    return loginControl1.CashierState;
+                }
+                else
+                {
+                    return eCashierState.CLOSED;
+                }
+            }
+        }
+
+        private static FVI_SLO m_FVI_SLO1 = null;
+        public static FVI_SLO FVI_SLO1
+        {
+            get
+            {
+                return m_FVI_SLO1;
+            }
+            set
+            {
+                m_FVI_SLO1 = value;
+            }
+        }
+
+
+        public static bool b_FVI_SLO
+        {
+            get
+            {
+                return OperationMode.FiscalVerificationOfInvoices;
+            }
+            set
+            {
+                OperationMode.FiscalVerificationOfInvoices = value;
             }
         }
 
@@ -127,6 +209,20 @@ namespace Tangenta
             DocE = new DocumentEditor(this);
         }
 
+        internal static string GetInvoiceNumber(bool bDraft, int FinancialYear, int NumberInFinancialYear, int DraftNumber)
+        {
+            string sNumber = null;
+            if (bDraft)
+            {
+                sNumber = FinancialYear.ToString() + "/" + lng.s_Draft.s + " " + DraftNumber.ToString();
+            }
+            else
+            {
+                sNumber = FinancialYear.ToString() + "/" + NumberInFinancialYear.ToString();
+            }
+            return sNumber;
+        }
+
         public void SetMode(DocumentMan.eMode mode)
         {
             Mode = mode;
@@ -146,6 +242,18 @@ namespace Tangenta
             delegate_control_SetMode(Mode);
         }
 
+        internal void Cursor_Arrow()
+        {
+            if (usrc_DocumentMan != null)
+            {
+                Form parent_frm = Global.f.GetParentForm(usrc_DocumentMan);
+                if (parent_frm != null)
+                {
+                    parent_frm.Cursor = Cursors.Arrow;
+                }
+            }
+        }
+
         internal bool SetDocument(ID xCurrent_Doc_ID, Transaction transaction)
         {
 
@@ -154,7 +262,7 @@ namespace Tangenta
 
             if (!Delegate_Control_DocumentEditor_Init(xCurrent_Doc_ID))
             {
-                Program.Cursor_Arrow();
+                Cursor_Arrow();
                 return false;
             }
 

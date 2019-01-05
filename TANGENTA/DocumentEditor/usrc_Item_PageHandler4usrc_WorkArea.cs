@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using usrc_Item_PageHandler;
 
-namespace Tangenta
+namespace DocumentEditor
 {
     public partial class usrc_Item_PageHandler4usrc_WorkArea : usrcG_Item_PageHandler<usrc_WorkArea,DataRow>
     {

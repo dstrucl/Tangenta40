@@ -15,27 +15,34 @@ namespace Global
     {
         public static Form GetParentForm(Control xctrl)
         {
-            Control ctrlParent = xctrl.Parent;
-            for (int i = 0; i < 200; i++)
+            if (xctrl is Form)
             {
-                if (ctrlParent != null)
+                return (Form)xctrl;
+            }
+            else
+            {
+                Control ctrlParent = xctrl.Parent;
+                for (int i = 0; i < 200; i++)
                 {
-                    if (ctrlParent is Form)
+                    if (ctrlParent != null)
                     {
-                        return (Form)ctrlParent;
+                        if (ctrlParent is Form)
+                        {
+                            return (Form)ctrlParent;
+                        }
+                        else
+                        {
+                            ctrlParent = ctrlParent.Parent;
+                        }
                     }
                     else
                     {
-                        ctrlParent = ctrlParent.Parent;
+                        return null;
                     }
                 }
-                else
-                {
-                    return null;
-                }
+                MessageBox.Show("ERROR:More than 200 parent controls are not supported in Global:f:GetParentForm(Control xctrl) (file Global.cs)");
+                return null;
             }
-            MessageBox.Show("ERROR:More than 200 parent controls are not supported in Global:f:GetParentForm(Control xctrl) (file Global.cs)");
-            return null;
         }
 
         public static string GetAssemblyVersion(int build, int major, short majorRevision, int minor, short minorRevision)

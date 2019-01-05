@@ -148,9 +148,6 @@
     <Compile Include="Booting_00_TangentaAbout.cs" />
     <Compile Include="Colors.cs" />
     <Compile Include="ControlTagForHelp.cs" />
-    <Compile Include="DocType.cs" />
-    <Compile Include="DocumentEditor.cs" />
-    <Compile Include="DocumentMan.cs" />
     <Compile Include="Form_IdleSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -242,7 +239,6 @@
       <DependentUpon>Form_SettingsSelect.cs</DependentUpon>
     </Compile>
     <Compile Include="lng.cs" />
-    <Compile Include="Door.cs" />
     <Compile Include="DURS_Izpis_Postavka.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Form_CheckInsertSampleData.cs">
@@ -540,10 +536,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Return_to_shop_shelf_data.cs" />
-    <Compile Include="SetiingsUserValues.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="SettingsUser.cs" />
-    <Compile Include="PropertiesUser.cs" />
     <Compile Include="SumPayment.cs" />
     <Compile Include="TaxSum.cs" />
     <Compile Include="usrc_checkmark.cs">
@@ -593,24 +587,6 @@
     </Compile>
     <Compile Include="usrc_DocumentMan.Designer.cs">
       <DependentUpon>usrc_DocumentMan.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_Item_PageHandler4usrc_WorkArea.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_Item_PageHandler4usrc_WorkArea.Designer.cs">
-      <DependentUpon>usrc_Item_PageHandler4usrc_WorkArea.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_WorkArea.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_WorkArea.Designer.cs">
-      <DependentUpon>usrc_WorkArea.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_WorkAreaAll.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_WorkAreaAll.Designer.cs">
-      <DependentUpon>usrc_WorkAreaAll.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_TableOfDocuments.cs">
       <SubType>UserControl</SubType>
@@ -911,12 +887,6 @@
     <EmbeddedResource Include="usrc_DocumentMan.resx">
       <DependentUpon>usrc_DocumentMan.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_WorkArea.resx">
-      <DependentUpon>usrc_WorkArea.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_WorkAreaAll.resx">
-      <DependentUpon>usrc_WorkAreaAll.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="usrc_TableOfDocuments.resx">
       <DependentUpon>usrc_TableOfDocuments.cs</DependentUpon>
     </EmbeddedResource>
@@ -993,7 +963,6 @@
     <Compile Include="usrc_Price_ItemOrService.Designer.cs">
       <DependentUpon>usrc_Price_ItemOrService.cs</DependentUpon>
     </Compile>
-    <Compile Include="WArea.cs" />
     <Compile Include="XML_Izpis_Postavka.cs" />
     <None Include="Resources\Atom_Item_ViewForm_icon1.ico" />
     <None Include="Resources\TableInspection_ShopA.bmp" />
