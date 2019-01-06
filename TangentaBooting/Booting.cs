@@ -129,6 +129,28 @@ namespace TangentaBooting
         }
         public static void Define(Form frm_document, delegate_WebBrowserControl_DocumentCompleted xdelegate_WebBrowserControl_DocumentCompleted)
         {
+            nav = new NavigationButtons.Navigation();
+            if (Auto_NEXT)
+            {
+                nav.m_Auto_NEXT = new NavigationButtons.Auto_NEXT(Auto_NEXT_in_miliseconds);
+            }
+            nav.parentForm = frm_document;
+            nav.OwnerForm = frm_document;
+            nav.m_eButtons = NavigationButtons.Navigation.eButtons.PrevNextExit;
+            nav.btn1_Image = Properties.Resources.Prev;
+            nav.btn2_Image = Properties.Resources.Next;
+            nav.btn3_Image = Properties.Resources.Exit_Program;
+            nav.btn1_Text = lng.s_Previous.s;
+            nav.btn1_ToolTip_Text = lng.s_GoToPreviousStartupStep.s;
+            nav.btn2_Text = lng.s_Next.s; ;
+            nav.btn2_ToolTip_Text = lng.s_GoToNextStartupStep.s;
+            nav.btn3_Text = "";
+            nav.btn3_ToolTip_Text = lng.s_GoToExitProgram.s;
+            nav.btn1_Visible = true;
+            nav.btn2_Visible = true;
+            nav.btn3_Visible = true;
+            nav.ExitProgramQuestionInLanguage = lng.s_RealyWantToExitProgram.s;
+
             m_startup = new Startup.Startup(frm_document,
                                             nav,
                                             DocumentMan.Tangenta_Question_Icon,
@@ -203,27 +225,6 @@ namespace TangentaBooting
 
             m_startup.Steps = StartupStep;
 
-            Booting.nav = new NavigationButtons.Navigation();
-            if (Booting.Auto_NEXT)
-            {
-                Booting.nav.m_Auto_NEXT = new NavigationButtons.Auto_NEXT(Auto_NEXT_in_miliseconds);
-            }
-            nav.parentForm = frm_document;
-            nav.OwnerForm = frm_document;
-            nav.m_eButtons = NavigationButtons.Navigation.eButtons.PrevNextExit;
-            nav.btn1_Image = Properties.Resources.Prev;
-            nav.btn2_Image = Properties.Resources.Next;
-            nav.btn3_Image = Properties.Resources.Exit_Program;
-            nav.btn1_Text = lng.s_Previous.s;
-            nav.btn1_ToolTip_Text = lng.s_GoToPreviousStartupStep.s;
-            nav.btn2_Text = lng.s_Next.s; ;
-            nav.btn2_ToolTip_Text = lng.s_GoToNextStartupStep.s;
-            nav.btn3_Text = "";
-            nav.btn3_ToolTip_Text = lng.s_GoToExitProgram.s;
-            nav.btn1_Visible = true;
-            nav.btn2_Visible = true;
-            nav.btn3_Visible = true;
-            nav.ExitProgramQuestionInLanguage = lng.s_RealyWantToExitProgram.s;
 
         }
         public static eCommandLineHelpResult DoCommandLineHelp(ref string[] CommandLineArguments,
