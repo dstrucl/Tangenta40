@@ -10,8 +10,8 @@ using System.Text;
 using System.Windows.Forms;
 using TangentaCore;
 using TangentaDB;
+using TangentaProperties;
 using TangentaSampleDB;
-using TangentaSettings;
 using TangentaTableClass;
 using static Startup.startup_step;
 

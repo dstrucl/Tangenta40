@@ -13,7 +13,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TangentaDB;
 using TangentaPrint;
-using TangentaSettings;
+using TangentaProperties;
+using TangentaProperties;
 
 namespace TangentaCore
 {

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using TangentaCore;
 using TangentaDataBaseDef;
 using TangentaDB;
-using TangentaSettings;
+using TangentaProperties;
 using UpgradeDB;
 using static Startup.startup_step;
 

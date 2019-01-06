@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TangentaSettings")]
+[assembly: AssemblyTitle("TangentaProperties")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TangentaSettings")]
+[assembly: AssemblyProduct("TangentaProperties")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("4f00910d-6e8d-4a47-bcc3-526867f3e099")]
+[assembly: Guid("4610ad91-239e-4a98-99e1-286ca3443dad")]
 
 // Version information for an assembly consists of the following four values:
 //

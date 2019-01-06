@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TangentaDB;
-using TangentaSettings;
+using TangentaProperties;
 using static Startup.CommandLineParam;
 using static Startup.usrc_Startup;
 

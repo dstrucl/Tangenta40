@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TangentaSettings.Properties {
+namespace TangentaProperties.Properties {
     using System;
     
     

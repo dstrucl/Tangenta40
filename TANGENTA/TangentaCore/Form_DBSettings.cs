@@ -10,7 +10,7 @@ using System.Text;
 using System.Windows.Forms;
 using TangentaDataBaseDef;
 using TangentaDB;
-using TangentaSettings;
+using TangentaProperties;
 
 namespace TangentaCore
 {

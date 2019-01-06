@@ -25,7 +25,7 @@ using Startup;
 using DBConnectionControl40;
 using LoginControl;
 using TangentaCore;
-using TangentaSettings;
+using TangentaProperties;
 
 namespace Tangenta
 {
@@ -171,7 +171,7 @@ namespace Tangenta
                                       DocE.m_ShopABC,
                                       DocE.DBtcn,
                                       PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),
-                                      TangentaSettings.Properties.Settings.Default.AutomaticSelectionOfItemFromStock,
+                                      TangentaProperties.Properties.Settings.Default.AutomaticSelectionOfItemFromStock,
                                       OperationMode.ShopC_ExclusivelySellFromStock,
                                       this.usrc_Item1366x768_selected1);
 
@@ -335,7 +335,7 @@ namespace Tangenta
                                           DocE.m_ShopABC,
                                           DocE.DBtcn,
                                           PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),
-                                          TangentaSettings.Properties.Settings.Default.AutomaticSelectionOfItemFromStock,
+                                          TangentaProperties.Properties.Settings.Default.AutomaticSelectionOfItemFromStock,
                                           OperationMode.ShopC_ExclusivelySellFromStock,
                                           this.usrc_Item1366x768_selected1);
                 bInitShops = false;
@@ -755,7 +755,7 @@ namespace Tangenta
         //    }
 
         //    ((SettingsUser)DocE.m_LMOUser.oSettings).mSettingsUserValues.InvoiceHeaderChecked = chk_Head.Checked;
-        //    TangentaSettings.Properties.Settings.Default.Save();
+        //    TangentaProperties.Properties.Settings.Default.Save();
         //}
 
         private void AddHandler()

@@ -19,7 +19,7 @@ using TangentaTableClass;
 using LanguageControl;
 using TangentaDB;
 using NavigationButtons;
-using TangentaSettings;
+using TangentaProperties;
 
 namespace TangentaCore
 {

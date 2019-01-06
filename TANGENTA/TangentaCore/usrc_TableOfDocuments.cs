@@ -22,7 +22,7 @@ using LanguageControl;
 using TangentaDB;
 using DBTypes;
 using LoginControl;
-using TangentaSettings;
+using TangentaProperties;
 
 namespace TangentaCore
 {

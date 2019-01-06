@@ -5,10 +5,10 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TangentaDB;
 using DBConnectionControl40;
-using DBTypes;
 using System.Reflection;
+using TangentaDB;
+using DBTypes;
 
 namespace TangentaProperties
 {

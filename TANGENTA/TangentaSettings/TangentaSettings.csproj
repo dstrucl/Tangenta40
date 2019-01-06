@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Prop.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="TSettings.cs" />
     <Compile Include="lng.cs" />
     <Compile Include="OperationMode.cs" />
@@ -60,7 +62,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="SetiingsUserValues.cs" />
-    <Compile Include="Setting.cs" />
+    <Compile Include="XSetting.cs" />
     <Compile Include="SettingsUser.cs" />
   </ItemGroup>
   <ItemGroup>

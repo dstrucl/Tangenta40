@@ -29,7 +29,7 @@ using CodeTables;
 using Startup;
 using TangentaBooting;
 using CommandLineParam = Startup.CommandLineParam;
-using TangentaSettings;
+using TangentaProperties;
 using TangentaCore;
 
 namespace Tangenta
@@ -319,16 +319,16 @@ namespace Tangenta
                         }
                     }
 
-                    HUDCMS.HUDCMS_static.LocalHelpPath = TangentaSettings.Properties.Settings.Default.HelpLocalPath;
-                    HUDCMS.HUDCMS_static.RemoteHelpURL = TangentaSettings.Properties.Settings.Default.HelpRemoteURL;
+                    HUDCMS.HUDCMS_static.LocalHelpPath = TangentaProperties.Properties.Settings.Default.HelpLocalPath;
+                    HUDCMS.HUDCMS_static.RemoteHelpURL = TangentaProperties.Properties.Settings.Default.HelpRemoteURL;
                     if (System.Diagnostics.Debugger.IsAttached)
                     {
                         // code or timeout value when running tests in debug mode
-                        if (TangentaSettings.Properties.Settings.Default.HelpLocalPath.Length == 0)
+                        if (TangentaProperties.Properties.Settings.Default.HelpLocalPath.Length == 0)
                         {
-                            TangentaSettings.Properties.Settings.Default.HelpLocalPath = "C:\\Tangenta-Help\\";
-                            TangentaSettings.Properties.Settings.Default.Save();
-                            HUDCMS.HUDCMS_static.LocalHelpPath = TangentaSettings.Properties.Settings.Default.HelpLocalPath;
+                            TangentaProperties.Properties.Settings.Default.HelpLocalPath = "C:\\Tangenta-Help\\";
+                            TangentaProperties.Properties.Settings.Default.Save();
+                            HUDCMS.HUDCMS_static.LocalHelpPath = TangentaProperties.Properties.Settings.Default.HelpLocalPath;
                         }
                     }
 
@@ -375,7 +375,7 @@ namespace Tangenta
                     SetAllModulesLanguages();
                     
                     LanguageControl.DynSettings.LoadLanguages(Reset2FactorySettings.LangugaControl_DLL);
-                    LanguageControl.DynSettings.AllowToEditText = TangentaSettings.Properties.Settings.Default.AllowToEditLanguageText;
+                    LanguageControl.DynSettings.AllowToEditText = TangentaProperties.Properties.Settings.Default.AllowToEditLanguageText;
 
 
                     //if (System.Diagnostics.Process.GetProcessesByName(System.Diagnostics.Process.GetCurrentProcess().ProcessName).Length > 1)
@@ -402,7 +402,7 @@ namespace Tangenta
                                 if (bLanguageSelected)
                                 {
                                     bLanguageSelected = false;
-                                    TangentaSettings.Properties.Settings.Default.LanguageID = -1;
+                                    TangentaProperties.Properties.Settings.Default.LanguageID = -1;
                                     goto DoSelectLanguage;
                                 }
                             }
@@ -509,7 +509,8 @@ namespace Tangenta
 
         private static void SelectLanguage(ref bool bLanguageSelectDialogShown,ref bool bLanguageSelected,ref bool bExitBeforeLogFileInitialised)
         {
-            if (TangentaSettings.Properties.Settings.Default.LanguageID < 0)
+            TangentaProperties.Properties.Settings.Default.Reset();
+            if (TangentaProperties.Prop.LanguageID < 0)
             {
                 Startup.Startup.bFirstTimeInstallation = true;
                 NavigationButtons.Navigation LanguageNav = new NavigationButtons.Navigation(null);
@@ -530,8 +531,8 @@ namespace Tangenta
                 if (LanguageControl.DynSettings.SelectLanguage(TangentaResources.Properties.Resources.Tangenta_Icon, AssemblyName, -1, LanguageNav))
                 {
                     bLanguageSelected = true;
-                    TangentaSettings.Properties.Settings.Default.LanguageID = LanguageControl.DynSettings.LanguageID;
-                    TangentaSettings.Properties.Settings.Default.Save();
+                    TangentaProperties.Properties.Settings.Default.LanguageID = LanguageControl.DynSettings.LanguageID;
+                    TangentaProperties.Properties.Settings.Default.Save();
                 }
                 else
                 {
@@ -541,7 +542,7 @@ namespace Tangenta
                 }
             }
 
-            LogFile.Language.id = LanguageControl.DynSettings.LanguageID = TangentaSettings.Properties.Settings.Default.LanguageID;    //Settings_Tangenta.Settings.LanguageID; ;
+            LogFile.Language.id = LanguageControl.DynSettings.LanguageID = TangentaProperties.Properties.Settings.Default.LanguageID;    //Settings_Tangenta.Settings.LanguageID; ;
         }
 
         private static void DoResetNewModules()

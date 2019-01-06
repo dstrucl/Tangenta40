@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TangentaSettings
+namespace TangentaProperties
 {
-    public class Setting
+    public class XSetting
     {
         private string m_Name = null;
         private ID m_PropertiesSettings_ID = null;
@@ -55,7 +55,7 @@ namespace TangentaSettings
             }
         }
 
-        public Setting(string xname)
+        public XSetting(string xname)
         {
             m_Name = xname;
         }

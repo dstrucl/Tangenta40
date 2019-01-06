@@ -422,6 +422,10 @@
       <Project>{728368f2-ecd5-4bc7-b50b-c9581769d429}</Project>
       <Name>TangentaPrint</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TangentaProperties\TangentaProperties.csproj">
+      <Project>{4610ad91-239e-4a98-99e1-286ca3443dad}</Project>
+      <Name>TangentaProperties</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TangentaResources\TangentaResources.csproj">
       <Project>{41871e28-b52b-4393-be34-92267e350d82}</Project>
       <Name>TangentaResources</Name>
@@ -429,10 +433,6 @@
     <ProjectReference Include="..\TangentaSampleDB\TangentaSampleDB.csproj">
       <Project>{cf39a97b-c4cb-45f6-9d60-9df5638dd45a}</Project>
       <Name>TangentaSampleDB</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TangentaSettings\TangentaSettings.csproj">
-      <Project>{2297048b-1f1a-46a4-8e38-b9983eef8643}</Project>
-      <Name>TangentaSettings</Name>
     </ProjectReference>
     <ProjectReference Include="..\TangentaTableClass\TangentaTableClass.csproj">
       <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>

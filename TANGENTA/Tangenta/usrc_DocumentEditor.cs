@@ -27,7 +27,7 @@ using LoginControl;
 using PriseLists;
 using TangentaPrint;
 using TangentaCore;
-using TangentaSettings;
+using TangentaProperties;
 
 namespace Tangenta
 {

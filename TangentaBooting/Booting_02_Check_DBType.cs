@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using TangentaSettings;
+using TangentaProperties;
 using static Startup.startup_step;
 
 namespace TangentaBooting

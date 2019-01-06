@@ -15,8 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TangentaDB;
-using TangentaSettings;
-using TangentaDB;
+using TangentaProperties;
 
 namespace TangentaCore
 {

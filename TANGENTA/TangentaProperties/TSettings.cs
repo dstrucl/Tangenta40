@@ -1,6 +1,4 @@
-﻿using CodeTables;
-using DBConnectionControl40;
-using DBTypes;
+﻿using DBConnectionControl40;
 using FiscalVerificationOfInvoices_SLO;
 using Global;
 using LoginControl;

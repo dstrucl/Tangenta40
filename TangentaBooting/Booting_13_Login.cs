@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using TangentaCore;
 using TangentaDB;
 using TangentaPrint;
-using TangentaSettings;
+using TangentaProperties;
 using static Startup.startup_step;
 
 namespace TangentaBooting

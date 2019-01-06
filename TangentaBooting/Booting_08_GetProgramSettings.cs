@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using TangentaCore;
 using TangentaDB;
-using TangentaSettings;
+using TangentaProperties;
 using static Startup.startup_step;
 
 namespace TangentaBooting

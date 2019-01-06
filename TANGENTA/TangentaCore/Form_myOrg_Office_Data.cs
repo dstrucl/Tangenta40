@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UniqueControlNames;
 using DBConnectionControl40;
-using TangentaSettings;
+using TangentaProperties;
 
 namespace TangentaCore
 {

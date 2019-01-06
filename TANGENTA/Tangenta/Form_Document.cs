@@ -32,7 +32,7 @@ using DBTypes;
 using System.Net.NetworkInformation;
 using TangentaBooting;
 using TangentaCore;
-using TangentaSettings;
+using TangentaProperties;
 
 namespace Tangenta
 {
@@ -183,7 +183,7 @@ namespace Tangenta
             TSettings.thread_fvi = this.fvI_SLO1.thread_fvi;
             TSettings.message_box = this.fvI_SLO1.message_box;
 
-            this.loginControl1.RecordCashierActivity = TangentaSettings.Properties.Settings.Default.RecordCashierActivity;
+            this.loginControl1.RecordCashierActivity = TangentaProperties.Properties.Settings.Default.RecordCashierActivity;
 
             default_FormName = this.Name;
             this.Icon = TangentaResources.Properties.Resources.Tangenta_Icon;
@@ -191,7 +191,7 @@ namespace Tangenta
             Booting.Define(this, M_usrc_Startup_WebBrowserControl_DocumentCompleted);
 
 
-            if (TangentaSettings.Properties.Settings.Default.FullScreen || TangentaSettings.Properties.Settings.Default.ControlLayout_TouchScreen)
+            if (TangentaProperties.Properties.Settings.Default.FullScreen || TangentaProperties.Properties.Settings.Default.ControlLayout_TouchScreen)
             {
                 this.FormBorderStyle = FormBorderStyle.None;
             }
@@ -201,10 +201,10 @@ namespace Tangenta
             }
 
 
-            DBConnectionControl40.TestConnectionForm.WaitToChangeDatabase = TangentaSettings.Properties.Settings.Default.WaitToChangeDataBaseAtStartup;
+            DBConnectionControl40.TestConnectionForm.WaitToChangeDatabase = TangentaProperties.Properties.Settings.Default.WaitToChangeDataBaseAtStartup;
 
 
-            this.loginControl1.IdleControlFileImageUrl1 = TangentaSettings.Properties.Settings.Default.IdleControl_FileImageUrl1;
+            this.loginControl1.IdleControlFileImageUrl1 = TangentaProperties.Properties.Settings.Default.IdleControl_FileImageUrl1;
             if (this.loginControl1.IdleControlFileImageUrl1 != null)
             {
                 if (this.loginControl1.IdleControlFileImageUrl1.Length > 0)
@@ -224,7 +224,7 @@ namespace Tangenta
             }
 
 
-            this.loginControl1.IdleControlFileImageUrl2 = TangentaSettings.Properties.Settings.Default.IdleControl_FileImageUrl2;
+            this.loginControl1.IdleControlFileImageUrl2 = TangentaProperties.Properties.Settings.Default.IdleControl_FileImageUrl2;
             if (this.loginControl1.IdleControlFileImageUrl2 != null)
             {
                 if (this.loginControl1.IdleControlFileImageUrl2.Length > 0)
@@ -243,12 +243,12 @@ namespace Tangenta
                 }
             }
 
-            this.loginControl1.IdleControlActive = TangentaSettings.Properties.Settings.Default.IdleControl_Active;
-            this.loginControl1.IdleControlUseExitButton = TangentaSettings.Properties.Settings.Default.IdleControl_UseExitButton;
-            this.loginControl1.IdleControlShowURL2 = TangentaSettings.Properties.Settings.Default.IdleControl_ShowURL2;
-            this.loginControl1.IdleControlTimeInSecondsToActivate = TangentaSettings.Properties.Settings.Default.IdleControl_TimeInSecondsToActivate;
-            this.loginControl1.IdleControlURL1 = TangentaSettings.Properties.Settings.Default.IdleControl_URL1;
-            this.loginControl1.IdleControlURL2 = TangentaSettings.Properties.Settings.Default.IdleControl_URL2;
+            this.loginControl1.IdleControlActive = TangentaProperties.Properties.Settings.Default.IdleControl_Active;
+            this.loginControl1.IdleControlUseExitButton = TangentaProperties.Properties.Settings.Default.IdleControl_UseExitButton;
+            this.loginControl1.IdleControlShowURL2 = TangentaProperties.Properties.Settings.Default.IdleControl_ShowURL2;
+            this.loginControl1.IdleControlTimeInSecondsToActivate = TangentaProperties.Properties.Settings.Default.IdleControl_TimeInSecondsToActivate;
+            this.loginControl1.IdleControlURL1 = TangentaProperties.Properties.Settings.Default.IdleControl_URL1;
+            this.loginControl1.IdleControlURL2 = TangentaProperties.Properties.Settings.Default.IdleControl_URL2;
 
 
             // Properties.Settings.Default.SplitterPositions =
@@ -466,24 +466,24 @@ namespace Tangenta
             string sdb = DBSync.DBSync.DataBase;
             if (sdb != null)
             {
-                TangentaSettings.Properties.Settings.Default.Current_DataBase = DBSync.DBSync.DataBase;
+                TangentaProperties.Properties.Settings.Default.Current_DataBase = DBSync.DBSync.DataBase;
             }
 
             if (loginControl1.IdleControlFileImageUrl1 != null)
             {
-                if (!loginControl1.IdleControlFileImageUrl1.Equals(TangentaSettings.Properties.Settings.Default.IdleControl_FileImageUrl1))
+                if (!loginControl1.IdleControlFileImageUrl1.Equals(TangentaProperties.Properties.Settings.Default.IdleControl_FileImageUrl1))
                 {
-                    TangentaSettings.Properties.Settings.Default.IdleControl_FileImageUrl1 = loginControl1.IdleControlFileImageUrl1;
-                    TangentaSettings.Properties.Settings.Default.Save();
+                    TangentaProperties.Properties.Settings.Default.IdleControl_FileImageUrl1 = loginControl1.IdleControlFileImageUrl1;
+                    TangentaProperties.Properties.Settings.Default.Save();
                 }
             }
 
             if (loginControl1.IdleControlFileImageUrl2 != null)
             {
-                if (!loginControl1.IdleControlFileImageUrl2.Equals(TangentaSettings.Properties.Settings.Default.IdleControl_FileImageUrl2))
+                if (!loginControl1.IdleControlFileImageUrl2.Equals(TangentaProperties.Properties.Settings.Default.IdleControl_FileImageUrl2))
                 {
-                    TangentaSettings.Properties.Settings.Default.IdleControl_FileImageUrl2 = loginControl1.IdleControlFileImageUrl2;
-                    TangentaSettings.Properties.Settings.Default.Save();
+                    TangentaProperties.Properties.Settings.Default.IdleControl_FileImageUrl2 = loginControl1.IdleControlFileImageUrl2;
+                    TangentaProperties.Properties.Settings.Default.Save();
                 }
             }
 
@@ -635,8 +635,8 @@ namespace Tangenta
 
         internal void EndProgram(LoginControl.LoginCtrl.eExitReason eres)
         {
-            TangentaSettings.Properties.Settings.Default.ShowAdministratorsInMultiuserLogin = loginControl1.ShowAdministrators;
-            TangentaSettings.Properties.Settings.Default.Save();
+            TangentaProperties.Properties.Settings.Default.ShowAdministratorsInMultiuserLogin = loginControl1.ShowAdministrators;
+            TangentaProperties.Properties.Settings.Default.Save();
             do_exit(eres);
         }
 
@@ -819,7 +819,7 @@ namespace Tangenta
                     //xLMOUser.Form_settingsuser.Owner = this;
                     //xLMOUser.Form_settingsuser.Show();
 
-                    if (TangentaSettings.Properties.Settings.Default.ControlLayout_TouchScreen)
+                    if (TangentaProperties.Properties.Settings.Default.ControlLayout_TouchScreen)
                     {
                         usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768 = new usrc_DocumentMan1366x768();
                         xusrc_DocumentMan1366x768.DocM.DocTyp = PropertiesUser.LastDocType_Get(user_settings.mSettingsUserValues);
@@ -1529,7 +1529,7 @@ namespace Tangenta
 
             byte[] bytes = Encoding.UTF8.GetBytes(MyOrgItem);
             string MyOrgID_Hash = StaticLib.Func.GetHash_SHA1(bytes);
-            if (MyOrgID_Hash.Equals(TangentaSettings.Properties.Settings.Default.MyOrgID))
+            if (MyOrgID_Hash.Equals(TangentaProperties.Properties.Settings.Default.MyOrgID))
             {
                 return;
             }
@@ -1542,8 +1542,8 @@ namespace Tangenta
                 {
                     if (sResult.Equals("Success"))
                     {
-                        TangentaSettings.Properties.Settings.Default.MyOrgID = MyOrgID_Hash;
-                        TangentaSettings.Properties.Settings.Default.Save();
+                        TangentaProperties.Properties.Settings.Default.MyOrgID = MyOrgID_Hash;
+                        TangentaProperties.Properties.Settings.Default.Save();
                     }
                 }
             }
@@ -1833,7 +1833,7 @@ namespace Tangenta
                     //xLMOUser.Form_settingsuser.Owner = this;
                     //xLMOUser.Form_settingsuser.Show();
 
-                    if (TangentaSettings.Properties.Settings.Default.ControlLayout_TouchScreen)
+                    if (TangentaProperties.Properties.Settings.Default.ControlLayout_TouchScreen)
                     {
                         usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768 = new usrc_DocumentMan1366x768();
                         xusrc_DocumentMan1366x768.Visible = false;
