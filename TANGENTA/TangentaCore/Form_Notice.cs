@@ -16,7 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_Notice : Form
     {

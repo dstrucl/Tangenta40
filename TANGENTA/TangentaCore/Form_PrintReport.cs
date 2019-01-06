@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TangentaPrint;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_PrintReport : Form
     {

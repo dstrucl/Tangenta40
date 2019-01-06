@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TangentaDB;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_CodeTables : Form
     {

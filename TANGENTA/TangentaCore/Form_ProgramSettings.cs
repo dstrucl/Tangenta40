@@ -19,9 +19,9 @@ using TangentaTableClass;
 using LanguageControl;
 using TangentaDB;
 using NavigationButtons;
-using DocumentManager;
+using TangentaSettings;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_ProgramSettings : Form
     {
@@ -104,11 +104,11 @@ namespace DocumentManager
 
             chk_ShowChangeDatabaseButtonAtStartup.Checked = Properties.Settings.Default.WaitToChangeDataBaseAtStartup;
 
-            chk_RecordCashierActivity.Checked = DocumentMan.RecordCashierActivity;
+            chk_RecordCashierActivity.Checked = TSettings.RecordCashierActivity;
 
-            chk_UseWorkAreas.Checked = DocumentMan.UseWorkAreas;
+            chk_UseWorkAreas.Checked = TSettings.UseWorkAreas;
 
-            chk_ControlLayout_TouchScreen.Checked = DocumentMan.ControlLayout_TouchScreen;
+            chk_ControlLayout_TouchScreen.Checked = TSettings.ControlLayout_TouchScreen;
 
             default_language_ID = DynSettings.LanguageID;
             newLanguage = default_language_ID;
@@ -367,12 +367,12 @@ namespace DocumentManager
             nav_FormDBSettings.bDoModal = true;
             nav_FormDBSettings.m_eButtons = Navigation.eButtons.OkCancel;
             nav_FormDBSettings.eExitResult = Navigation.eEvent.NOTHING;
-            nav_FormDBSettings.ChildDialog = new Form_DBSettings(nav_FormDBSettings, DocumentMan.AdministratorLockedPassword);
+            nav_FormDBSettings.ChildDialog = new Form_DBSettings(nav_FormDBSettings, TSettings.AdministratorLockedPassword);
             nav_FormDBSettings.ShowDialog();
             if (nav_FormDBSettings.eExitResult == Navigation.eEvent.OK)
             {
                 bDBSettingsChanged = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).Changed;
-                DocumentMan.AdministratorLockedPassword = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).AdministratorLockedPassword;
+                TSettings.AdministratorLockedPassword = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).AdministratorLockedPassword;
 
                 OperationMode.MultiUser = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).MultiuserOperationWithLogin;
                 OperationMode.SingleUserLoginAsAdministrator = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).SingleUserLoginAsAdministrator;
@@ -427,7 +427,7 @@ namespace DocumentManager
 
             if (pParentForm != null)
             {
-                Form_IdleSettings frm_idlesettings = new Form_IdleSettings(DocumentMan.LoginControl1.IdleCtrl);
+                Form_IdleSettings frm_idlesettings = new Form_IdleSettings(TSettings.LoginControl1.IdleCtrl);
                 frm_idlesettings.ShowDialog(this);
             }
         }

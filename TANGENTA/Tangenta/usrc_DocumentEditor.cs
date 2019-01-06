@@ -26,7 +26,8 @@ using DBConnectionControl40;
 using LoginControl;
 using PriseLists;
 using TangentaPrint;
-using DocumentManager;
+using TangentaCore;
+using TangentaSettings;
 
 namespace Tangenta
 {
@@ -268,7 +269,7 @@ namespace Tangenta
                 m_usrc_ShopC.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
                 m_usrc_ShopC.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
             }
-            m_usrc_ShopC.Init(DocE.m_LMOUser.Atom_WorkPeriod_ID, DocE.m_ShopABC, DocE.DBtcn,PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),DocumentMan.AutomaticSelectionOfItemFromStock,OperationMode.ShopC_ExclusivelySellFromStock);
+            m_usrc_ShopC.Init(DocE.m_LMOUser.Atom_WorkPeriod_ID, DocE.m_ShopABC, DocE.DBtcn,PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),TSettings.AutomaticSelectionOfItemFromStock,OperationMode.ShopC_ExclusivelySellFromStock);
             m_usrc_ShopC.Dock = DockStyle.Fill;
             m_usrc_ShopC.ItemAdded += usrc_ShopC_ItemAdded;
             m_usrc_ShopC.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;

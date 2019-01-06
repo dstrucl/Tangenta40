@@ -384,10 +384,6 @@
       <Project>{82dc8548-1981-4f2c-b0ba-abd37282085a}</Project>
       <Name>UniqueControlNames</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DocumentManager\DocumentManager.csproj">
-      <Project>{4f00910d-6e8d-4a47-bcc3-526867f3e099}</Project>
-      <Name>DocumentManager</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Form_Discount\Form_Discount.csproj">
       <Project>{4ac81b7e-a501-40ba-9a29-ed8004430eab}</Project>
       <Name>Form_Discount</Name>

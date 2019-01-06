@@ -14,7 +14,7 @@ using System.Windows.Forms;
 using TangentaDB;
 using UniqueControlNames;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_SetElectronicDeviceName : Form
     {

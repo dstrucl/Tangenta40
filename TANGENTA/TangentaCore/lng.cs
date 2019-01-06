@@ -15,7 +15,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using LanguageControl;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public static class lng
     {

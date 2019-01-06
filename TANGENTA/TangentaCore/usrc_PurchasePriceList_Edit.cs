@@ -19,7 +19,7 @@ using TangentaTableClass;
 using LanguageControl;
 using DBConnectionControl40;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class usrc_PurchasePrice_Edit : UserControl
     {

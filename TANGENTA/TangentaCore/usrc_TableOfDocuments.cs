@@ -22,9 +22,9 @@ using LanguageControl;
 using TangentaDB;
 using DBTypes;
 using LoginControl;
-using DocumentManager;
+using TangentaSettings;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class usrc_TableOfDocuments : UserControl
     {
@@ -433,13 +433,13 @@ namespace DocumentManager
             {
                 string sAtom_WorkArea_Name = "";
                 string sAtom_WorkArea_Join = "";
-                if (DocumentMan.UseWorkAreas)
+                if (TSettings.UseWorkAreas)
                 {
                     sAtom_WorkArea_Join = @" LEFT JOIN DocInvoice_Atom_WorkArea diawa ON diawa.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID 
                                              LEFT JOIN Atom_WorkArea awa ON diawa.Atom_WorkArea_ID = awa.ID ";
                     sAtom_WorkArea_Name = " awa.Name as Atom_WorkArea_Name,";
                 }
-                if (DocumentMan.b_FVI_SLO)
+                if (TSettings.b_FVI_SLO)
                 {
                     sql = @"SELECT " +
                     sAtom_WorkArea_Name +
@@ -742,7 +742,7 @@ namespace DocumentManager
                     iColIndex_DocInvoice_IssueDate = dt_XInvoice.Columns.IndexOf("IssueDate");
                     dgvx_XInvoice.Columns[iColIndex_DocInvoice_IssueDate].HeaderText = lng.s_IssueDate.s;
                     dgvx_XInvoice.Columns[iColIndex_DocInvoice_Invoice_StornoReason].HeaderText = lng.s_StornoReason.s;
-                    if (DocumentMan.b_FVI_SLO)
+                    if (TSettings.b_FVI_SLO)
                     {
                         iColIndex_DocInvoice_FSI_SLO_ID = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_fvisres_$$ID"); 
                         iColIndex_DocInvoice_FSI_SLO_EOR = dt_XInvoice.Columns.IndexOf("EOR");
@@ -755,7 +755,7 @@ namespace DocumentManager
 
                     dgvx_XInvoice.Columns[iColIndex_DocInvoice_PaymentType_Identification].Visible = false;
 
-                    if (IsDocInvoice && DocumentMan.UseWorkAreas)
+                    if (IsDocInvoice && TSettings.UseWorkAreas)
                     {
                         dgvx_XInvoice.Columns["Atom_WorkArea_Name"].HeaderText = lng.s_Atom_WorkArea_Name.s;
                     }
@@ -763,7 +763,7 @@ namespace DocumentManager
                     SetLabels();
                     SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice)));
                     tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_XInvoice, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
-                    if (DocumentMan.b_FVI_SLO)
+                    if (TSettings.b_FVI_SLO)
                     {
                         dgvx_XInvoice.Columns["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue"].HeaderText = lng.s_FURS_BarCode.s;
                     }
@@ -1082,9 +1082,9 @@ namespace DocumentManager
             Form_Select_TimeSpan frm_timespan = new Form_Select_TimeSpan(this);
             if (frm_timespan.ShowDialog()== DialogResult.OK)
             {
-                DocumentMan.Cursor_Wait(this);
+                Global.g.Cursor_Wait(this);
                 Init(docM, true,false, ((SettingsUser)m_LMOUser.oSettings).mSettingsUserValues.FinancialYear,null);
-                DocumentMan.Cursor_Arrow(this);
+                Global.g.Cursor_Arrow(this);
             }
         }
 
@@ -1230,7 +1230,7 @@ namespace DocumentManager
                             row.Height = 20;
                             e.CellStyle.BackColor = Color.White;
                           
-                            if (DocumentMan.b_FVI_SLO)
+                            if (TSettings.b_FVI_SLO)
                             {
                                 if (dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_FSI_SLO_EOR] is string)
                                 {

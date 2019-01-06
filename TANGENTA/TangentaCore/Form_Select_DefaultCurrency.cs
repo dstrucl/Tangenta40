@@ -21,7 +21,7 @@ using LanguageControl;
 using DBConnectionControl40;
 using DBTypes;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_Select_DefaultCurrency : Form
     {

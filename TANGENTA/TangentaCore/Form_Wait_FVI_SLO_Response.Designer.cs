@@ -1,4 +1,4 @@
-﻿namespace DocumentManager
+﻿namespace TangentaCore
 {
     partial class Form_Wait_FVI_SLO_Response
     {

@@ -1,6 +1,5 @@
 ﻿using CodeTables;
 using DBConnectionControl40;
-using DocumentManager;
 using NavigationButtons;
 using Startup;
 using System;
@@ -9,6 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TangentaCore;
 using TangentaDB;
 using TangentaTableClass;
 using static Startup.startup_step;

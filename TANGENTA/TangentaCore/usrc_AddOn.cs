@@ -18,9 +18,8 @@ using System.Windows.Forms;
 using TangentaDB;
 using LanguageControl;
 using DBConnectionControl40;
-using DocumentManager;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class usrc_AddOn : UserControl
     {

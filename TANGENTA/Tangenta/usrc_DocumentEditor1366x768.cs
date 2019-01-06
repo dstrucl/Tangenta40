@@ -24,7 +24,8 @@ using System.Linq;
 using Startup;
 using DBConnectionControl40;
 using LoginControl;
-using DocumentManager;
+using TangentaCore;
+using TangentaSettings;
 
 namespace Tangenta
 {
@@ -169,9 +170,9 @@ namespace Tangenta
             m_usrc_ShopC1366x768.Init(DocE.m_LMOUser.Atom_WorkPeriod_ID,
                                       DocE.m_ShopABC,
                                       DocE.DBtcn,
-                                      DocumentManager.PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),
+                                      PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),
                                       Properties.Settings.Default.AutomaticSelectionOfItemFromStock,
-                                      DocumentManager.OperationMode.ShopC_ExclusivelySellFromStock,
+                                      OperationMode.ShopC_ExclusivelySellFromStock,
                                       this.usrc_Item1366x768_selected1);
 
             m_usrc_ShopC1366x768.Dock = DockStyle.None;
@@ -196,7 +197,7 @@ namespace Tangenta
 
         private void Set_ShowShops_A()
         {
-            DocumentManager.PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "A");
+            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "A");
             m_usrc_ShopA1366x768.Visible = true;
             m_usrc_ShopA1366x768.Top = ShopA_default_Y;
             m_usrc_ShopA1366x768.Height = (ShopC_default_Y+ShopC_default_H)- ShopA_default_Y;
@@ -207,7 +208,7 @@ namespace Tangenta
 
         private void Set_ShowShops_B()
         {
-            DocumentManager.PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues,"B");
+            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues,"B");
             m_usrc_ShopB1366x768.Visible = true;
             m_usrc_ShopB1366x768.Top = ShopA_default_Y; 
             m_usrc_ShopB1366x768.Height = (ShopC_default_Y + ShopC_default_H)- ShopA_default_Y;
@@ -218,7 +219,7 @@ namespace Tangenta
 
         private void Set_ShowShops_C()
         {
-            DocumentManager.PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "C");
+            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "C");
             m_usrc_ShopC1366x768.Visible = true;
             m_usrc_ShopC1366x768.Top = ShopA_default_Y; 
             m_usrc_ShopC1366x768.Height = (ShopC_default_Y + ShopC_default_H)- ShopA_default_Y;
@@ -230,7 +231,7 @@ namespace Tangenta
 
         private void Set_ShowShops_AB()
         {
-            DocumentManager.PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "AB");
+            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "AB");
 
             m_usrc_ShopA1366x768.Visible = true;
             m_usrc_ShopA1366x768.Top = ShopA_default_Y;
@@ -246,7 +247,7 @@ namespace Tangenta
 
         private void Set_ShowShops_BC()
         {
-            DocumentManager.PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "BC");
+            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "BC");
             m_usrc_ShopB1366x768.Visible = true;
             m_usrc_ShopB1366x768.Top = ShopA_default_Y; 
             m_usrc_ShopB1366x768.Height = (ShopB_default_Y + ShopB_default_H / 2)- ShopA_default_Y;
@@ -260,7 +261,7 @@ namespace Tangenta
 
         private void Set_ShowShops_AC()
         {
-            DocumentManager.PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "AC");
+            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "AC");
             m_usrc_ShopA1366x768.Visible = true;
             m_usrc_ShopA1366x768.Top = ShopA_default_Y; 
             m_usrc_ShopA1366x768.Height = (ShopB_default_Y + ShopB_default_H / 2)- ShopA_default_Y; 
@@ -274,7 +275,7 @@ namespace Tangenta
 
         private void Set_ShowShops_ABC()
         {
-            DocumentManager.PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues,"ABC");
+            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues,"ABC");
             m_usrc_ShopA1366x768.Visible = true;
             m_usrc_ShopA1366x768.Top = ShopA_default_Y;
             m_usrc_ShopA1366x768.Height = ShopA_default_H;
@@ -308,7 +309,7 @@ namespace Tangenta
         private void Init_ShopB()
 
         {
-            m_usrc_ShopB1366x768.Init(DocE.m_ShopABC, DocE.DBtcn, DocumentManager.PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues));
+            m_usrc_ShopB1366x768.Init(DocE.m_ShopABC, DocE.DBtcn, PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues));
 
             m_usrc_ShopB1366x768.Dock = DockStyle.None;
 
@@ -441,16 +442,16 @@ namespace Tangenta
 
         public bool ShopA_DefaultVisible
         {
-            get { return DocumentManager.PropertiesUser.ShowShops_Get(DocE.mSettingsUserValues).Contains("A"); }
+            get { return PropertiesUser.ShowShops_Get(DocE.mSettingsUserValues).Contains("A"); }
         }
         public bool ShopB_DefaultVisible
         {
-            get { return DocumentManager.PropertiesUser.ShowShops_Get(DocE.mSettingsUserValues).Contains("B"); }
+            get { return PropertiesUser.ShowShops_Get(DocE.mSettingsUserValues).Contains("B"); }
         }
 
         public bool ShopC_DefaultVisible
         {
-            get { return DocumentManager.PropertiesUser.ShowShops_Get(DocE.mSettingsUserValues).Contains("Ç"); }
+            get { return PropertiesUser.ShowShops_Get(DocE.mSettingsUserValues).Contains("Ç"); }
         }
 
         //public bool HeadVisible

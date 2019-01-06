@@ -1,4 +1,4 @@
-﻿namespace DocumentManager
+﻿namespace TangentaCore
 {
     partial class usrc_Item_PageHandler4usrc_WorkArea
     {

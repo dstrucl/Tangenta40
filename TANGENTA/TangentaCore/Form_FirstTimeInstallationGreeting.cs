@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using HUDCMS;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_FirstTimeInstallationGreeting : Form
     {

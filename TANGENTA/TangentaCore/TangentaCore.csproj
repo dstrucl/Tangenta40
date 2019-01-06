@@ -7,8 +7,8 @@
     <ProjectGuid>{4F00910D-6E8D-4A47-BCC3-526867F3E099}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DocumentManager</RootNamespace>
-    <AssemblyName>DocumentManager</AssemblyName>
+    <RootNamespace>TangentaCore</RootNamespace>
+    <AssemblyName>TangentaCore</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -440,9 +440,6 @@
       <DependentUpon>Form_XML_output.cs</DependentUpon>
     </Compile>
     <Compile Include="lng.cs" />
-    <Compile Include="OperationMode.cs" />
-    <Compile Include="ProgramModuleData.cs" />
-    <Compile Include="PropertiesUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -454,9 +451,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="SetiingsUserValues.cs" />
-    <Compile Include="Setting.cs" />
-    <Compile Include="SettingsUser.cs" />
     <Compile Include="SumPayment.cs" />
     <Compile Include="usrc_AddOn.cs">
       <SubType>UserControl</SubType>
@@ -709,6 +703,10 @@
     <ProjectReference Include="..\TangentaSampleDB\TangentaSampleDB.csproj">
       <Project>{cf39a97b-c4cb-45f6-9d60-9df5638dd45a}</Project>
       <Name>TangentaSampleDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TangentaSettings\TangentaSettings.csproj">
+      <Project>{2297048b-1f1a-46a4-8e38-b9983eef8643}</Project>
+      <Name>TangentaSettings</Name>
     </ProjectReference>
     <ProjectReference Include="..\TangentaTableClass\TangentaTableClass.csproj">
       <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>

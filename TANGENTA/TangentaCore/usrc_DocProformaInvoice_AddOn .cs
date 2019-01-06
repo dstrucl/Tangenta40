@@ -21,7 +21,7 @@ using TangentaDB;
 using CodeTables;
 using TangentaTableClass;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class usrc_DocProformaInvoice_AddOn : UserControl
     {

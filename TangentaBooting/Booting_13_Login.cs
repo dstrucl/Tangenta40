@@ -1,5 +1,4 @@
 ﻿using DBConnectionControl40;
-using DocumentManager;
 using NavigationButtons;
 using Startup;
 using System;
@@ -7,8 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TangentaCore;
 using TangentaDB;
 using TangentaPrint;
+using TangentaSettings;
 using static Startup.startup_step;
 
 namespace TangentaBooting
@@ -39,7 +40,7 @@ namespace TangentaBooting
                                                    ref delegate_startup_ShowForm_proc startup_ShowForm_proc,
                                                    ref string Err)
         {
-            if (DocumentMan.Login_MultipleUsers)
+            if (TSettings.Login_MultipleUsers)
             {
                 if (Login_MultipleUsers_ShowControlAtStartup(m_startup, null, m_startup.nav, ref Err))
                 {
@@ -75,17 +76,17 @@ namespace TangentaBooting
         public bool Login_MultipleUsers_ShowControlAtStartup(Startup.Startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
         {
             bool bCancel = false;
-            DocumentMan.LoginControl1.Init(frm,LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
+            TSettings.LoginControl1.Init(frm,LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
                                             DBSync.DBSync.Con,
                                             null,
                                             LanguageControl.DynSettings.LanguageID,
                                             false,
                                             ref bCancel
                                             );
-            if (DocumentMan.LoginControl1.Login_MultipleUsers_ShowControlAtStartup(xnav,  DocumentMan.ShowAdministratorsInMultiuserLogin))
+            if (TSettings.LoginControl1.Login_MultipleUsers_ShowControlAtStartup(xnav, TSettings.ShowAdministratorsInMultiuserLogin))
             {
                 //myStartup.eNextStep++;
-                if (DocumentMan.Login_MultipleUsers)
+                if (TSettings.Login_MultipleUsers)
                 {
                     return true;
                 }

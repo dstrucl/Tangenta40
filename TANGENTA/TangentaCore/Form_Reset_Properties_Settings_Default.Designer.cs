@@ -1,4 +1,4 @@
-﻿namespace DocumentManager
+﻿namespace TangentaCore
 {
     partial class Form_Reset_Properties_Settings_Default
     {

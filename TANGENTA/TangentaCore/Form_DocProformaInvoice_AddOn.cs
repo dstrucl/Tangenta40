@@ -19,7 +19,7 @@ using DBConnectionControl40;
 using DBTypes;
 using TangentaDB;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_DocProformaInvoice_AddOn : Form
     {

@@ -1,6 +1,5 @@
 ﻿using CodeTables;
 using DBConnectionControl40;
-using DocumentManager;
 using RPC;
 using Startup;
 using System;
@@ -10,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TangentaDB;
+using TangentaSettings;
 using static Startup.CommandLineParam;
 using static Startup.usrc_Startup;
 
@@ -65,11 +65,11 @@ namespace TangentaBooting
                     {
                         if (s.ToUpper().Contains(CommandLineParam.const_command_DOCINVOICE))
                         {
-                            DocumentMan.RunAs = GlobalData.const_DocInvoice;
+                            TSettings.RunAs = GlobalData.const_DocInvoice;
                         }
                         if (s.ToUpper().Contains(CommandLineParam.const_command_DOCPROFORMAINVOICE))
                         {
-                            DocumentMan.RunAs = GlobalData.const_DocProformaInvoice;
+                            TSettings.RunAs = GlobalData.const_DocProformaInvoice;
                         }
                         if (s.Contains(CommandLineParam.const_command_CHANGE_CONNECTION))
                         {
@@ -153,7 +153,7 @@ namespace TangentaBooting
 
             m_startup = new Startup.Startup(frm_document,
                                             nav,
-                                            DocumentMan.Tangenta_Question_Icon,
+                                            TSettings.Tangenta_Question_Icon,
             Startup.Startup.bFirstTimeInstallation
             );
 
@@ -273,9 +273,9 @@ namespace TangentaBooting
             CommandLineHelp.CommandLineHelp_Form hlp_frm = new CommandLineHelp.CommandLineHelp_Form(command_line_help,
                                                                                                     CommandLineHelpNav,
                                                                                                     Properties.Resources.Tangenta_Question,
-                                                                                                    DocumentMan.HelpLocalPath,
-                                                                                                    DocumentMan.HelpRemoteURL,
-                                                                                                    DocumentMan.SaveHelpSettings);
+                                                                                                    TSettings.HelpLocalPath,
+                                                                                                    TSettings.HelpRemoteURL,
+                                                                                                    TSettings.SaveHelpSettings);
             CommandLineHelpNav.ChildDialog = hlp_frm;
             CommandLineHelpNav.ShowDialog();
             if ((CommandLineHelpNav.eExitResult == NavigationButtons.Navigation.eEvent.OK) || (CommandLineHelpNav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
@@ -285,7 +285,7 @@ namespace TangentaBooting
                 {
                     if (hlp_frm.LocalHelpPath.Length > 0)
                     {
-                        DocumentMan.HelpLocalPath = hlp_frm.LocalHelpPath;
+                        TSettings.HelpLocalPath = hlp_frm.LocalHelpPath;
                         
                         bHelpSettingsChanged = true;
                     }
@@ -294,7 +294,7 @@ namespace TangentaBooting
                 {
                     if (hlp_frm.RemoteHelpURL.Length > 0)
                     {
-                        DocumentMan.HelpRemoteURL = hlp_frm.RemoteHelpURL;
+                        TSettings.HelpRemoteURL = hlp_frm.RemoteHelpURL;
                         bHelpSettingsChanged = true;
                     }
                 }
@@ -310,14 +310,14 @@ namespace TangentaBooting
             {
                 if (bLanguageSelectDialogShown)
                 {
-                    DocumentMan.LanguageID = -1;
+                    TSettings.LanguageID = -1;
                     return eCommandLineHelpResult.DO_SELECT_LANGUAGE;
                 }
             }
             else
             {
                 bExitBeforeLogFileInitialised = true;
-                DocumentMan.RPC.End();
+                TSettings.RPC.End();
                 return eCommandLineHelpResult.EXIT;
             }
             return eCommandLineHelpResult.OK;

@@ -23,7 +23,8 @@ using NavigationButtons;
 using Startup;
 using DBConnectionControl40;
 using Global;
-using DocumentManager;
+using TangentaCore;
+using TangentaSettings;
 
 namespace Tangenta
 {
@@ -196,11 +197,11 @@ namespace Tangenta
                 this.Visible = value;
                 if (this.Visible)
                 {
-                    if (DocumentManager.DocumentMan.RecordCashierActivity)
+                    if (TSettings.RecordCashierActivity)
                     {
                         lbl_Cashier.Visible = true;
                         lbl_OpenedClosed.Visible = true;
-                        switch (DocumentMan.CashierState)
+                        switch (TSettings.CashierState)
                         {
                             case TangentaDB.CashierActivity.eCashierState.CLOSED:
                                 lbl_OpenedClosed.Text = lng.s_CashierClosed.s;
@@ -219,9 +220,9 @@ namespace Tangenta
                         lbl_OpenedClosed.Visible = false;
                     }
 
-                    if (DocumentManager.OperationMode.MultiUser)
+                    if (OperationMode.MultiUser)
                     {
-                        if (DocumentMan.Login_MultipleUsers)
+                        if (TSettings.Login_MultipleUsers)
                         {
                             DocM.timer_Login_MultiUsers_Countdown = Properties.Settings.Default.timer_Login_MultiUser_Countdown;
                             this.timer_Login_MultiUser.Enabled = true;
@@ -293,7 +294,7 @@ namespace Tangenta
 
 
             m_Form_Document.loginControl1.SetAccessAuthentification(Properties.Settings.Default.AccessAuthentication);
-            if (DocumentMan.Login_MultipleUsers)
+            if (TSettings.Login_MultipleUsers)
             {
                 initControlsRecursive(this.Controls);
             }
@@ -345,22 +346,22 @@ namespace Tangenta
 
             LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:Init():before if (Program.RunAs == null)");
 
-            if (DocumentMan.RunAs == null)
+            if (TSettings.RunAs == null)
             {
                 sLastDocInvoiceType = PropertiesUser.LastDocType_Get(DocM.mSettingsUserValues);
                 if (sLastDocInvoiceType.Equals(GlobalData.const_DocInvoice) || sLastDocInvoiceType.Equals(GlobalData.const_DocProformaInvoice))
                 {
-                    DocumentMan.RunAs = sLastDocInvoiceType;
+                    TSettings.RunAs = sLastDocInvoiceType;
                 }
                 else
                 {
-                    DocumentMan.RunAs = GlobalData.const_DocInvoice;
+                    TSettings.RunAs = GlobalData.const_DocInvoice;
                 }
 
             }
             else
             {
-                sLastDocInvoiceType = DocumentMan.RunAs;
+                sLastDocInvoiceType = TSettings.RunAs;
             }
 
 
@@ -623,14 +624,14 @@ namespace Tangenta
 
         private void btn_New_Click(object sender, EventArgs e)
         {
-            if ((!DocumentMan.RecordCashierActivity)||(DocumentMan.CashierState == TangentaDB.CashierActivity.eCashierState.OPENED))
+            if ((!TSettings.RecordCashierActivity)||(TSettings.CashierState == TangentaDB.CashierActivity.eCashierState.OPENED))
             {
-                if (this.Visible && DocumentMan.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
+                if (this.Visible && TSettings.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
                 DataTable dtWorkAreaAll = null;
                 int iWorkAreasCount = 0;
                 if (f_WorkArea.GetWorkAreas(ref dtWorkAreaAll, ref iWorkAreasCount))
                 {
-                    if ((iWorkAreasCount>0)&&(DocumentMan.UseWorkAreas))
+                    if ((iWorkAreasCount>0)&&(TSettings.UseWorkAreas))
                     {
                         Form_NewDocument_WorkArea frm_new_workarea = new Form_NewDocument_WorkArea(dtWorkAreaAll);
                         frm_new_workarea.ShowDialog(this);
@@ -668,7 +669,7 @@ namespace Tangenta
                     {
                         Form_NewDocument frm_new = new Form_NewDocument(this, this.DocM, DocM.mSettingsUserValues, m_usrc_DocumentEditor.lbl_Sum.Text);
                         frm_new.ShowDialog(this);
-                        if (this.Visible && DocumentMan.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
+                        if (this.Visible && TSettings.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
 
                         switch (frm_new.eNewDocumentResult)
                         {
@@ -769,14 +770,14 @@ namespace Tangenta
                 else
                 {
                     int current_month = t.Month;
-                    if ((current_month <= DocumentManager.OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice) && (financialYear + 1 == current_year))
+                    if ((current_month <= OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice) && (financialYear + 1 == current_year))
                     {
                         return true;
                     }
                     else
                     {
                         string smsg = lng.s_YouCanNotCreateNewInvoiceForPastFinancialYear.s + " " + financialYear + ".\r\n";
-                        smsg += lng.s_NumberOfMonthAfterNewYearToAllowCreateNewInvoiceIs.s + " " + DocumentManager.OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice.ToString() + "\r\n";
+                        smsg += lng.s_NumberOfMonthAfterNewYearToAllowCreateNewInvoiceIs.s + " " + OperationMode.NumberOfMonthAfterNewYearToAllowCreateNewInvoice.ToString() + "\r\n";
                         XMessage.Box.Show(this, smsg, lng.s_Warning.s);
                         return false;
                     }
@@ -1044,7 +1045,7 @@ namespace Tangenta
 
         private void btn_SelectPanels_Click(object sender, EventArgs e)
         {
-            if (this.Visible && DocumentMan.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
+            if (this.Visible && TSettings.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
             Form_SelectPanels frm_select_panels = new Form_SelectPanels(DocM, DocM.mSettingsUserValues);
             if (frm_select_panels.ShowDialog(this)==DialogResult.OK)
             {
@@ -1053,7 +1054,7 @@ namespace Tangenta
                     LayoutChanged();
                 }
             }
-            if (this.Visible && DocumentMan.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
+            if (this.Visible && TSettings.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
         }
 
         internal void Activate_dgvx_XInvoice_SelectionChanged()
@@ -1063,7 +1064,7 @@ namespace Tangenta
 
         private void SetDocInvoiceOrDocPoformaInvoice()
         {
-            DocumentMan.RunAs = DocTyp;
+            TSettings.RunAs = DocTyp;
 
             this.m_usrc_TableOfDocuments.Clear();
             Transaction transaction_usrc_DocumentMan_SetDocInvoiceOrDocPoformaInvoice_SetDocument = DBSync.DBSync.NewTransaction("usrc_DocumentMan.SetDocInvoiceOrDocPoformaInvoice.SetDocument");
@@ -1081,14 +1082,14 @@ namespace Tangenta
             Program.Cursor_Arrow();
             if (this.IsDocInvoice)
             {
-                if (DocumentMan.b_FVI_SLO)
+                if (TSettings.b_FVI_SLO)
                 {
                     if (this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI == null)
                     {
                         this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI = new DocInvoice_AddOn();
                     }
-                    this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI.b_FVI_SLO = DocumentMan.b_FVI_SLO;
-                    DocumentMan.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(DBSync.DBSync.MyTransactionLog_delegates,this.m_usrc_DocumentEditor.DocE.m_ShopABC, this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDPI);
+                    this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI.b_FVI_SLO = TSettings.b_FVI_SLO;
+                    TSettings.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(DBSync.DBSync.MyTransactionLog_delegates,this.m_usrc_DocumentEditor.DocE.m_ShopABC, this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDPI);
                 }
             }
         }
@@ -1161,13 +1162,13 @@ namespace Tangenta
 
             m_usrc_TableOfDocuments.DocM = this.DocM;
 
-            if (DocumentMan.b_FVI_SLO)
+            if (TSettings.b_FVI_SLO)
             {
 
-                DocumentMan.FVI_SLO1.FursD_ElectronicDeviceID = GlobalData.ElectronicDevice_Name;
+                TSettings.FVI_SLO1.FursD_ElectronicDeviceID = GlobalData.ElectronicDevice_Name;
             }
 
-            if (DocumentMan.b_FVI_SLO)
+            if (TSettings.b_FVI_SLO)
             {
                 Transaction transaction_Get_Atom_FVI_SLO_RealEstateBP_ID_1 = DBSync.DBSync.NewTransaction("Get_Atom_FVI_SLO_RealEstateBP_ID_1");
 
@@ -1193,7 +1194,7 @@ namespace Tangenta
             {
                 if (transaction_usrc_DocumentMan_InitMan.Commit())
                 {
-                    if (DocumentMan.b_FVI_SLO)
+                    if (TSettings.b_FVI_SLO)
                     {
                         switch (this.usrc_FVI_SLO1.m_FVI_SLO.Start(false, ref Err))
                         {
@@ -1202,10 +1203,10 @@ namespace Tangenta
                                 this.usrc_FVI_SLO1.Enabled = true;
                                 if (this.IsDocInvoice)
                                 {
-                                    if (DocumentMan.b_FVI_SLO)
+                                    if (TSettings.b_FVI_SLO)
                                     {
-                                        this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI.b_FVI_SLO = DocumentMan.b_FVI_SLO;
-                                        if (DocumentMan.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(DBSync.DBSync.MyTransactionLog_delegates, this.m_usrc_DocumentEditor.DocE.m_ShopABC, this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDPI))
+                                        this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI.b_FVI_SLO = TSettings.b_FVI_SLO;
+                                        if (TSettings.FVI_SLO1.Check_InvoiceNotConfirmedAtFURS(DBSync.DBSync.MyTransactionLog_delegates, this.m_usrc_DocumentEditor.DocE.m_ShopABC, this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDI, this.m_usrc_DocumentEditor.DocE.InvoiceData.AddOnDPI))
                                         {
                                             Transaction transaction_usrc_DocumentMan_b_FVI_SLO_SetDocument = DBSync.DBSync.NewTransaction("usrc_DocumentMan.b_FVI_SLO.SetDocument");
                                             if (this.SetDocument(transaction_usrc_DocumentMan_b_FVI_SLO_SetDocument))
@@ -1279,10 +1280,10 @@ namespace Tangenta
         {
             if (DocM.door.OpenIfUserIsAdministrator(Global.f.GetParentForm(this)))
             {
-                if (this.Visible && DocumentMan.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
+                if (this.Visible && TSettings.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
                 Form_SettingsSelect frm_settingsselect = new Form_SettingsSelect(m_Form_Document, this, DocM.mSettingsUserValues);
                 frm_settingsselect.ShowDialog(this);
-                if (this.Visible && DocumentMan.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
+                if (this.Visible && TSettings.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
 
             }
         }

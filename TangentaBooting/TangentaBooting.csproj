@@ -133,10 +133,6 @@
       <Project>{61ca81c7-7f82-4744-a8de-fbe9972e7ee8}</Project>
       <Name>FiscalVerificationOfInvoices_SLO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TANGENTA\DocumentManager\DocumentManager.csproj">
-      <Project>{4f00910d-6e8d-4a47-bcc3-526867f3e099}</Project>
-      <Name>DocumentManager</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TANGENTA\LoginControl\LoginControl.csproj">
       <Project>{E36FD767-54A9-46C4-AE95-D0FEC3FC8909}</Project>
       <Name>LoginControl</Name>
@@ -157,6 +153,10 @@
       <Project>{c4e59cf1-d085-4636-8bb4-2bfa63e54f4d}</Project>
       <Name>Startup</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TANGENTA\TangentaCore\TangentaCore.csproj">
+      <Project>{4f00910d-6e8d-4a47-bcc3-526867f3e099}</Project>
+      <Name>TangentaCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TANGENTA\TangentaDataBaseDef\TangentaDataBaseDef.csproj">
       <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
       <Name>TangentaDataBaseDef</Name>
@@ -172,6 +172,10 @@
     <ProjectReference Include="..\TANGENTA\TangentaSampleDB\TangentaSampleDB.csproj">
       <Project>{cf39a97b-c4cb-45f6-9d60-9df5638dd45a}</Project>
       <Name>TangentaSampleDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TANGENTA\TangentaSettings\TangentaSettings.csproj">
+      <Project>{2297048b-1f1a-46a4-8e38-b9983eef8643}</Project>
+      <Name>TangentaSettings</Name>
     </ProjectReference>
     <ProjectReference Include="..\TANGENTA\TangentaTableClass\TangentaTableClass.csproj">
       <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>

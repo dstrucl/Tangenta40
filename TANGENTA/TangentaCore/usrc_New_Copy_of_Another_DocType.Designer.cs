@@ -1,4 +1,4 @@
-﻿namespace DocumentManager
+﻿namespace TangentaCore
 {
     partial class usrc_New_Copy_of_Another_DocType
     {

@@ -1,6 +1,6 @@
 ﻿using TangentaPrint;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     partial class Form_PrintReport
     {

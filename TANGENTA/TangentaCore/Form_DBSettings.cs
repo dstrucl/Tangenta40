@@ -1,5 +1,4 @@
 ﻿using DBConnectionControl40;
-using DocumentManager;
 using LanguageControl;
 using System;
 using System.Collections.Generic;
@@ -11,8 +10,9 @@ using System.Text;
 using System.Windows.Forms;
 using TangentaDataBaseDef;
 using TangentaDB;
+using TangentaSettings;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_DBSettings : Form
     {

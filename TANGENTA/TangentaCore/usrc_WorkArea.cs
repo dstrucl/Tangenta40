@@ -11,7 +11,7 @@ using DBTypes;
 using DBConnectionControl40;
 using TangentaDB;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class usrc_WorkArea : UserControl
     {

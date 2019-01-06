@@ -19,9 +19,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DBTypes;
-using DocumentManager;
+using TangentaSettings;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_VODxml_OPAL_output : Form
     {
@@ -129,7 +129,7 @@ namespace DocumentManager
             {
                 string xVodShemaFolder = null;
                 string Err = null;
-                if (Global.f.SetApplicationDataSubFolder(ref xVodShemaFolder, DocumentMan.TANGENTA_VODSHEMA_SUB_FOLDER,ref Err))
+                if (Global.f.SetApplicationDataSubFolder(ref xVodShemaFolder, TSettings.TANGENTA_VODSHEMA_SUB_FOLDER,ref Err))
                 {
                     string shema = Properties.Resources.VOD_shema;
 

@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2297048B-1F1A-46A4-8E38-B9983EEF8643}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TangentaSettings</RootNamespace>
+    <AssemblyName>TangentaSettings</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TSettings.cs" />
+    <Compile Include="lng.cs" />
+    <Compile Include="OperationMode.cs" />
+    <Compile Include="ProgramModuleData.cs" />
+    <Compile Include="PropertiesUser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="SetiingsUserValues.cs" />
+    <Compile Include="Setting.cs" />
+    <Compile Include="SettingsUser.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\ColorSetings\ColorSettings.csproj">
+      <Project>{7246e94a-782c-4f4d-b3a4-09b34c9975b6}</Project>
+      <Name>ColorSettings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\ComboBox_Recent\ComboBox_Recent.csproj">
+      <Project>{0f0afe83-5e47-49cf-888a-79a03fa71321}</Project>
+      <Name>ComboBox_Recent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\CommandLineHelp\CommandLineHelp.csproj">
+      <Project>{5c02a9ff-0e40-4f63-89c5-8afcd9d4869d}</Project>
+      <Name>CommandLineHelp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\Country\Country_ISO_3166.csproj">
+      <Project>{1562473f-cfcb-4dfd-81ba-153988dc2d25}</Project>
+      <Name>Country_ISO_3166</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\DataGridView_2xls\DataGridView_2xls.csproj">
+      <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
+      <Name>DataGridView_2xls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\DataGridView_2xls_base\DataGridView_2xls_base.csproj">
+      <Project>{1f20972e-563b-495d-a881-c04db9ab0af6}</Project>
+      <Name>DataGridView_2xls_base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\HUDCMS\HUDCMS.csproj">
+      <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>
+      <Name>HUDCMS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\NavigationButtons\NavigationButtons.csproj">
+      <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
+      <Name>NavigationButtons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\Password\Password.csproj">
+      <Project>{203bc7cd-1f84-4727-b03a-5b4f695b21fc}</Project>
+      <Name>Password</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Item_Group_Handler\usrc_Item_Group_Handler.csproj">
+      <Project>{ae38e7c4-ac11-4e43-9de3-364533fcc83b}</Project>
+      <Name>usrc_Item_Group_Handler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Item_PageHandler\usrc_Item_PageHandler.csproj">
+      <Project>{309c0f02-a471-4de2-844f-eee0b58a05bf}</Project>
+      <Name>usrc_Item_PageHandler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\XMessage\XMessage.csproj">
+      <Project>{e3223150-d4af-4438-acba-98be7905273f}</Project>
+      <Name>XMessage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\DBConectionControl40\DBConnectionControl40.csproj">
+      <Project>{322af3bf-b609-477d-9d2b-39a9bbbbc721}</Project>
+      <Name>DBConnectionControl40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\DBSync\DBSync.csproj">
+      <Project>{3b62990e-c7e0-4748-b1ea-b977fd596021}</Project>
+      <Name>DBSync</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\DBTypes\DBTypes.csproj">
+      <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
+      <Name>DBTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\SQLTableControl\CodeTables.csproj">
+      <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
+      <Name>CodeTables</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\TransactionLogDataBaseDef\TransactionLogDataBaseDef.csproj">
+      <Project>{53483E69-6DE9-4BB6-8734-5D5F1ADE0FBB}</Project>
+      <Name>TransactionLogDataBaseDef</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\TransactionLog\TransactionLog.csproj">
+      <Project>{28cfd914-0d1d-49ac-a55b-12287d80aa55}</Project>
+      <Name>TransactionLog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\Global\Global.csproj">
+      <Project>{b95b4df8-a651-4193-9393-0fb33cc566d3}</Project>
+      <Name>Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\LanguageControl\LanguageControl.csproj">
+      <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
+      <Name>LanguageControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\LogFile\LogFile.csproj">
+      <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
+      <Name>LogFile</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\RPC\RPC.csproj">
+      <Project>{57C5D942-3C95-4CC7-9F9C-731595F71E5F}</Project>
+      <Name>RPC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\StaticLib\StaticLib.csproj">
+      <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
+      <Name>StaticLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\UniqueControlNames\UniqueControlNames.csproj">
+      <Project>{82dc8548-1981-4f2c-b0ba-abd37282085a}</Project>
+      <Name>UniqueControlNames</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SLO_FISCAL\FiscalVerificationOfInvoices_SLO\FiscalVerificationOfInvoices_SLO.csproj">
+      <Project>{61ca81c7-7f82-4744-a8de-fbe9972e7ee8}</Project>
+      <Name>FiscalVerificationOfInvoices_SLO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoginControl\LoginControl.csproj">
+      <Project>{e36fd767-54a9-46c4-ae95-d0fec3fc8909}</Project>
+      <Name>LoginControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PriseLists\PriseLists.csproj">
+      <Project>{d3e4af57-60eb-486b-a145-5eadd0f01177}</Project>
+      <Name>PriseLists</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShopA_Forms\ShopA_Forms.csproj">
+      <Project>{36cb959e-364e-40f5-ad90-6a950efe44b7}</Project>
+      <Name>ShopA_Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShopB\ShopB_Forms\ShopB_Forms.csproj">
+      <Project>{b66aace6-8404-4b5c-8e35-560555419412}</Project>
+      <Name>ShopB_Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShopC_Forms\ShopC_Forms.csproj">
+      <Project>{a023d289-ea3f-4655-83bb-b28d95b7436d}</Project>
+      <Name>ShopC_Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Startup\Startup.csproj">
+      <Project>{c4e59cf1-d085-4636-8bb4-2bfa63e54f4d}</Project>
+      <Name>Startup</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TangentaDataBaseDef\TangentaDataBaseDef.csproj">
+      <Project>{5ACCE3B7-EB06-439E-B24D-393ECAB98980}</Project>
+      <Name>TangentaDataBaseDef</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TangentaDB\TangentaDB.csproj">
+      <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
+      <Name>TangentaDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TangentaPrint\TangentaPrint.csproj">
+      <Project>{728368f2-ecd5-4bc7-b50b-c9581769d429}</Project>
+      <Name>TangentaPrint</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TangentaSampleDB\TangentaSampleDB.csproj">
+      <Project>{cf39a97b-c4cb-45f6-9d60-9df5638dd45a}</Project>
+      <Name>TangentaSampleDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TangentaTableClass\TangentaTableClass.csproj">
+      <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
+      <Name>TangentaTableClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalInvoice\UniversalInvoice.csproj">
+      <Project>{1494ce99-385c-42cc-8fff-75597007da72}</Project>
+      <Name>UniversalInvoice</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\usrc_Upgrade\UpgradeDB.csproj">
+      <Project>{7eea3e02-1c5d-4451-9976-4f65f2ce1492}</Project>
+      <Name>UpgradeDB</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exit.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tangenta-Logo SMALL.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tangenta_Question.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Blagajna_Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ViewInvoice.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UpgradeDataBase.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TableInspection.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TableInspection_Shop_dtSQLdb.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TableInspection_ShopA.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TableInspection_ShopB.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TableInspection_ShopC.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DBSettings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\checkmark_No.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\checkmark_Yes.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectRow.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Print.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TimeSpan.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Settings.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EditInvoice.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Edit.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WorkAreaAsTable.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EditAndViewInvoice.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CodeTables.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

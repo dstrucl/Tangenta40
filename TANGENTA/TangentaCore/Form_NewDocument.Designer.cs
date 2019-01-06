@@ -1,4 +1,4 @@
-﻿namespace DocumentManager
+﻿namespace TangentaCore
 {
     partial class Form_NewDocument
     {
@@ -30,9 +30,9 @@
         {
             this.btn_New_Empty = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
-            this.usrc_New_Copy_of_Another_DocType1 = new DocumentManager.usrc_New_Copy_of_Another_DocType();
-            this.usrc_New_Copy_of_Same_DocType1 = new DocumentManager.usrc_New_Copy_of_Same_DocType();
-            this.usrc_Currency1 = new DocumentManager.usrc_Currency();
+            this.usrc_New_Copy_of_Another_DocType1 = new usrc_New_Copy_of_Another_DocType();
+            this.usrc_New_Copy_of_Same_DocType1 = new usrc_New_Copy_of_Same_DocType();
+            this.usrc_Currency1 = new usrc_Currency();
             this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.SuspendLayout();
             // 
@@ -54,7 +54,7 @@
             // btn_Cancel
             // 
             this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Cancel.Image = global::DocumentManager.Properties.Resources.Exit;
+            this.btn_Cancel.Image = Properties.Resources.Exit;
             this.btn_Cancel.Location = new System.Drawing.Point(169, 452);
             this.btn_Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Cancel.Name = "btn_Cancel";
@@ -70,7 +70,7 @@
             this.usrc_New_Copy_of_Another_DocType1.Name = "usrc_New_Copy_of_Another_DocType1";
             this.usrc_New_Copy_of_Another_DocType1.Size = new System.Drawing.Size(416, 146);
             this.usrc_New_Copy_of_Another_DocType1.TabIndex = 38;
-            this.usrc_New_Copy_of_Another_DocType1.Set_New_Copy_of_Another_DocType += new DocumentManager.usrc_New_Copy_of_Another_DocType.delegate_Set_New_Copy_of_Another_DocType(this.usrc_New_Copy_of_Another_DocType1_Set_New_Copy_of_Another_DocType);
+            this.usrc_New_Copy_of_Another_DocType1.Set_New_Copy_of_Another_DocType += new usrc_New_Copy_of_Another_DocType.delegate_Set_New_Copy_of_Another_DocType(this.usrc_New_Copy_of_Another_DocType1_Set_New_Copy_of_Another_DocType);
             // 
             // usrc_New_Copy_of_Same_DocType1
             // 
@@ -81,7 +81,7 @@
             this.usrc_New_Copy_of_Same_DocType1.Name = "usrc_New_Copy_of_Same_DocType1";
             this.usrc_New_Copy_of_Same_DocType1.Size = new System.Drawing.Size(416, 146);
             this.usrc_New_Copy_of_Same_DocType1.TabIndex = 37;
-            this.usrc_New_Copy_of_Same_DocType1.Set_New_Copy_of_Same_DocType += new DocumentManager.usrc_New_Copy_of_Same_DocType.delegate_Set_New_Copy_of_Same_DocType(this.usrc_New_Copy_of_Same_DocType1_Set_New_Copy_of_Same_DocType);
+            this.usrc_New_Copy_of_Same_DocType1.Set_New_Copy_of_Same_DocType += new usrc_New_Copy_of_Same_DocType.delegate_Set_New_Copy_of_Same_DocType(this.usrc_New_Copy_of_Same_DocType1_Set_New_Copy_of_Same_DocType);
             // 
             // usrc_Currency1
             // 

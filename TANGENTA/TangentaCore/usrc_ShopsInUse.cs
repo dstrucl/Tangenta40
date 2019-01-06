@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
-using DocumentManager;
+using TangentaSettings;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class usrc_ShopsInUse : UserControl
     {

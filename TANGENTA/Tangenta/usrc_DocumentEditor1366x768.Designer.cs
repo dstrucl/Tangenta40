@@ -1,4 +1,6 @@
-﻿using DocumentManager;
+﻿
+
+using TangentaCore;
 
 namespace Tangenta
 {

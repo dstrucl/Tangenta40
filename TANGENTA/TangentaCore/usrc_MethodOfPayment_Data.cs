@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using TangentaDB;
+using TangentaSettings;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class usrc_MethodOfPayment_Data : UserControl
     {
@@ -16,7 +17,7 @@ namespace DocumentManager
         {
             get
             { string s = GlobalData.const_DocInvoice;
-                return DocumentMan.RunAs.ToUpper().Equals(s.ToUpper());
+                return TSettings.RunAs.ToUpper().Equals(s.ToUpper());
             }
         }
 
@@ -25,7 +26,7 @@ namespace DocumentManager
             get
             {
                 string s = GlobalData.const_DocProformaInvoice;
-                return DocumentMan.RunAs.ToUpper().Equals(s.ToUpper());
+                return TSettings.RunAs.ToUpper().Equals(s.ToUpper());
             }
         }
 

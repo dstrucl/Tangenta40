@@ -22,7 +22,7 @@ using NavigationButtons;
 using DBConnectionControl40;
 using DBTypes;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_myOrg_Edit : Form
     {

@@ -1,6 +1,5 @@
 ﻿using CodeTables;
 using DBConnectionControl40;
-using DocumentManager;
 using NavigationButtons;
 using ShopB_Forms;
 //using ShopB;
@@ -12,6 +11,7 @@ using System.Text;
 using System.Windows.Forms;
 using TangentaDB;
 using TangentaSampleDB;
+using TangentaSettings;
 using TangentaTableClass;
 using static Startup.startup_step;
 

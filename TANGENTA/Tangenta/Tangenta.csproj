@@ -372,10 +372,6 @@
       <Project>{75060581-1F43-4F11-BA99-F9DB13CE1715}</Project>
       <Name>TangentaBooting</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DocumentManager\DocumentManager.csproj">
-      <Project>{4f00910d-6e8d-4a47-bcc3-526867f3e099}</Project>
-      <Name>DocumentManager</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Form_Discount\Form_Discount.csproj">
       <Project>{4ac81b7e-a501-40ba-9a29-ed8004430eab}</Project>
       <Name>Form_Discount</Name>
@@ -412,6 +408,10 @@
       <Project>{c4e59cf1-d085-4636-8bb4-2bfa63e54f4d}</Project>
       <Name>Startup</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TangentaCore\TangentaCore.csproj">
+      <Project>{4f00910d-6e8d-4a47-bcc3-526867f3e099}</Project>
+      <Name>TangentaCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TangentaDataBaseDef\TangentaDataBaseDef.csproj">
       <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
       <Name>TangentaDataBaseDef</Name>
@@ -427,6 +427,10 @@
     <ProjectReference Include="..\TangentaSampleDB\TangentaSampleDB.csproj">
       <Project>{cf39a97b-c4cb-45f6-9d60-9df5638dd45a}</Project>
       <Name>TangentaSampleDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TangentaSettings\TangentaSettings.csproj">
+      <Project>{2297048b-1f1a-46a4-8e38-b9983eef8643}</Project>
+      <Name>TangentaSettings</Name>
     </ProjectReference>
     <ProjectReference Include="..\TangentaTableClass\TangentaTableClass.csproj">
       <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>

@@ -19,7 +19,7 @@ using CodeTables;
 using TangentaTableClass;
 using LanguageControl;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class usrc_CodeTables : UserControl
     {

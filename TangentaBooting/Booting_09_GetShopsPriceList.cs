@@ -1,5 +1,4 @@
 ﻿using DBConnectionControl40;
-using DocumentManager;
 using NavigationButtons;
 using PriseLists;
 using Startup;
@@ -9,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using TangentaDB;
+using TangentaSettings;
 using static Startup.startup_step;
 
 namespace TangentaBooting
@@ -40,7 +40,7 @@ namespace TangentaBooting
                                                    ref string Err)
         {
 
-            if (DocumentMan.eShopsInUse.Contains("B")|| DocumentMan.eShopsInUse.Contains("C"))
+            if (TSettings.eShopsInUse.Contains("B")|| TSettings.eShopsInUse.Contains("C"))
             {
                 long PriceListRowsCount = fs.GetTableRowsCount("PriceList");
                 if (PriceListRowsCount > 0)

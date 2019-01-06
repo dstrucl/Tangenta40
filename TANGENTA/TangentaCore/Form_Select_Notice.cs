@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_Select_Notice : Form
     {

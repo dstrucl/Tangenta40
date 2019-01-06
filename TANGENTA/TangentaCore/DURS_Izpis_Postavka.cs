@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public class DURS_Izpis_Postavka
     {

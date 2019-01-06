@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_Select_Person_SINGLE_USER : Form
     {

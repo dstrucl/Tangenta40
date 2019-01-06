@@ -21,7 +21,7 @@ using TangentaDB;
 using UniqueControlNames;
 using DBConnectionControl40;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_PersonData_Edit : Form
     {

@@ -26,10 +26,11 @@ using TangentaPrint;
 using LoginControl;
 using static TangentaDB.CashierActivity;
 using CodeTables;
-using DocumentManager;
 using Startup;
 using TangentaBooting;
 using CommandLineParam = Startup.CommandLineParam;
+using TangentaSettings;
+using TangentaCore;
 
 namespace Tangenta
 {
@@ -203,10 +204,10 @@ namespace Tangenta
         {
             bool bExitBeforeLogFileInitialised = false;
             string Err = null;
-            DocumentMan.RPC = new RPC.RPC();
-            LogFile.LogFile.rpc = DocumentMan.RPC;
+            TSettings.RPC = new RPC.RPC();
+            LogFile.LogFile.rpc = TSettings.RPC;
             LogFile.LogFile.VersionControlSourceVersion = GetInformationalVersion(Assembly.GetExecutingAssembly());
-            if (DocumentMan.RPC.Start(ref Err))
+            if (TSettings.RPC.Start(ref Err))
             {
                 try
                 {
@@ -438,9 +439,9 @@ namespace Tangenta
                     {
                         LogFile.Error.Show("ERROR!!:Program:Exception=" + Ex.Message + "\r\n STACK TRACE :\r\n" + Ex.StackTrace);
                     }
-                    if (DocumentMan.thread_fvi != null)
+                    if (TSettings.thread_fvi != null)
                     {
-                        DocumentMan.thread_fvi.End(DocumentMan.message_box);
+                        TSettings.thread_fvi.End(TSettings.message_box);
                     }
                 }
                 finally
@@ -454,7 +455,7 @@ namespace Tangenta
                         }
                     }
                 }
-                DocumentMan.RPC.End();
+                TSettings.RPC.End();
             }
         }
 
@@ -535,7 +536,7 @@ namespace Tangenta
                 else
                 {
                     bExitBeforeLogFileInitialised = true;
-                    DocumentMan.RPC.End();
+                    TSettings.RPC.End();
                     return;
                 }
             }

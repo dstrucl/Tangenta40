@@ -1,5 +1,4 @@
 ﻿using DBConnectionControl40;
-using DocumentManager;
 using LanguageControl;
 using System;
 using System.Collections.Generic;
@@ -10,8 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using TangentaDB;
+using TangentaSettings;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_FVI_check : Form
     {
@@ -76,7 +76,7 @@ namespace DocumentManager
 
         private bool do_OK()
         {
-            DocumentMan.b_FVI_SLO = false;
+            TSettings.b_FVI_SLO = false;
             ID DBSettings_ID = null;
             Transaction transaction_WriteDBSettings_FiscalVerificationOfInvoices = DBSync.DBSync.NewTransaction("WriteDBSettings_FiscalVerificationOfInvoices");
             if (chk_FVI.Checked)
@@ -85,7 +85,7 @@ namespace DocumentManager
                 if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.FiscalVerificationOfInvoices.Name, sFiscalVerificationOfInvoices, "0", ref DBSettings_ID, transaction_WriteDBSettings_FiscalVerificationOfInvoices))
                 {
                     transaction_WriteDBSettings_FiscalVerificationOfInvoices.Commit();
-                    DocumentMan.b_FVI_SLO = sFiscalVerificationOfInvoices.Equals("1");
+                    TSettings.b_FVI_SLO = sFiscalVerificationOfInvoices.Equals("1");
                 }
                 else
                 {
@@ -99,7 +99,7 @@ namespace DocumentManager
                 if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.FiscalVerificationOfInvoices.Name, sFiscalVerificationOfInvoices, "0", ref DBSettings_ID, transaction_WriteDBSettings_FiscalVerificationOfInvoices))
                 {
                     transaction_WriteDBSettings_FiscalVerificationOfInvoices.Commit();
-                    DocumentMan.b_FVI_SLO = sFiscalVerificationOfInvoices.Equals("1");
+                    TSettings.b_FVI_SLO = sFiscalVerificationOfInvoices.Equals("1");
                 }
                 else
                 {

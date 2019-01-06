@@ -17,7 +17,7 @@ using System.Windows.Forms;
 using LanguageControl;
 using TangentaDB;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_DocInvoice_PaymentCash : Form
     {

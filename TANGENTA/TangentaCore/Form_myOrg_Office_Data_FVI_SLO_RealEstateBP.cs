@@ -17,7 +17,7 @@ using NavigationButtons;
 using UniqueControlNames;
 using DBConnectionControl40;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_myOrg_Office_Data_FVI_SLO_RealEstateBP : Form
     {

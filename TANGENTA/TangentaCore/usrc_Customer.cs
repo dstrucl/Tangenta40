@@ -19,8 +19,9 @@ using TangentaTableClass;
 using LanguageControl;
 using DBTypes;
 using DBConnectionControl40;
+using Global;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class usrc_Customer : UserControl
     {
@@ -97,9 +98,9 @@ namespace DocumentManager
                 Customer_Person_ID = tf.set_ID(Customer_Person_dlg.CustomerPerson_ID);
                 if (aa_Customer_Person_Changed != null)
                 {
-                    DocumentMan.Cursor_Wait(this);
+                    g.Cursor_Wait(this);
                     aa_Customer_Person_Changed(Customer_Person_ID);
-                    DocumentMan.Cursor_Arrow(this);
+                    g.Cursor_Arrow(this);
                 }
             }
             return true;
@@ -116,9 +117,9 @@ namespace DocumentManager
                 Customer_OrganisationData_ID = tf.set_ID(Customer_Org_dlg.Customer_OrganisationData_ID);
                 if (aa_Customer_Org_Changed != null)
                 {
-                    DocumentMan.Cursor_Wait(this);
+                    g.Cursor_Wait(this);
                     aa_Customer_Org_Changed(Customer_OrganisationData_ID);
-                    DocumentMan.Cursor_Arrow(this);
+                    g.Cursor_Arrow(this);
                 }
             }
 

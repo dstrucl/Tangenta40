@@ -22,7 +22,7 @@ using CodeTables.TableDocking_Form;
 using TangentaDB;
 using DBConnectionControl40;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_Customer_Person_Edit : Form
     {

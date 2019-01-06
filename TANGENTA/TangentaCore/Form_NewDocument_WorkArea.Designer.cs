@@ -1,6 +1,5 @@
-﻿using DocumentManager;
-
-namespace DocumentManager
+﻿
+namespace TangentaCore
 {
     partial class Form_NewDocument_WorkArea
     {

@@ -22,7 +22,7 @@ using CodeTables;
 using TangentaTableClass;
 using HUDCMS;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class usrc_DocInvoice_AddOn : UserControl
     {

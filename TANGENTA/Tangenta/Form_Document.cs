@@ -30,8 +30,9 @@ using LoginControl;
 using static TangentaDB.CashierActivity;
 using DBTypes;
 using System.Net.NetworkInformation;
-using DocumentManager;
 using TangentaBooting;
+using TangentaCore;
+using TangentaSettings;
 
 namespace Tangenta
 {
@@ -178,9 +179,9 @@ namespace Tangenta
 
 
 
-            DocumentMan.FVI_SLO1 = this.fvI_SLO1;
-            DocumentMan.thread_fvi = this.fvI_SLO1.thread_fvi;
-            DocumentMan.message_box = this.fvI_SLO1.message_box;
+            TSettings.FVI_SLO1 = this.fvI_SLO1;
+            TSettings.thread_fvi = this.fvI_SLO1.thread_fvi;
+            TSettings.message_box = this.fvI_SLO1.message_box;
 
             this.loginControl1.RecordCashierActivity = Properties.Settings.Default.RecordCashierActivity;
 
@@ -377,7 +378,7 @@ namespace Tangenta
         private void Main_Form_Load(object sender, EventArgs e)
         {
 
-            DocumentMan.m_XmlFileName = XML_ROOT_NAME;
+            TSettings.m_XmlFileName = XML_ROOT_NAME;
             //m_usrc_Main.Initialise(this);
         }
 
@@ -523,7 +524,7 @@ namespace Tangenta
                 }
             }
 
-            if (DocumentMan.Login_MultipleUsers)
+            if (TSettings.Login_MultipleUsers)
             {
 
             }
@@ -549,11 +550,11 @@ namespace Tangenta
                     }
                 }
             }
-            if (DocumentManager.DocumentMan.b_FVI_SLO)
+            if (TSettings.b_FVI_SLO)
             {
-                if (DocumentManager.DocumentMan.FVI_SLO1 != null)
+                if (TSettings.FVI_SLO1 != null)
                 {
-                    DocumentManager.DocumentMan.FVI_SLO1.End();
+                    TSettings.FVI_SLO1.End();
                 }
             }
 
@@ -563,7 +564,7 @@ namespace Tangenta
 
         private void LayoutSet(SettingsUserValues xSettingsUserValues)
         {
-            documentMan.usrc_FVI_SLO1.Visible = DocumentManager.DocumentMan.b_FVI_SLO;
+            documentMan.usrc_FVI_SLO1.Visible = TSettings.b_FVI_SLO;
 
             if (xSettingsUserValues.Form_WindowState >= 0)
             {
@@ -675,7 +676,7 @@ namespace Tangenta
             }
             else
             {
-                if (XMessage.Box.Show(DocumentManager.DocumentMan.bStartup,this, lng.s_RealyWantToExitProgram, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (XMessage.Box.Show(TSettings.bStartup,this, lng.s_RealyWantToExitProgram, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     return true;
                 }
@@ -697,7 +698,7 @@ namespace Tangenta
             }
             else
             {
-                if (DocumentMan.Login_MultipleUsers)
+                if (TSettings.Login_MultipleUsers)
                 {
                     if (this.eExitReason != LoginControl.LoginCtrl.eExitReason.LOGIN_CONTROL)
                     {
@@ -705,7 +706,7 @@ namespace Tangenta
                         {
                             if (this.DocumentMan1366x768 != null)
                             {
-                                DocumentMan.LayoutSave(this,((SettingsUser)this.DocumentMan1366x768.DocM.m_LMOUser.oSettings).mSettingsUserValues);
+                                TSettings.LayoutSave(this,((SettingsUser)this.DocumentMan1366x768.DocM.m_LMOUser.oSettings).mSettingsUserValues);
                                 this.DocumentMan1366x768.Active = false;
                             }
                         }
@@ -713,7 +714,7 @@ namespace Tangenta
                         {
                             if (this.documentMan != null)
                             {
-                                DocumentMan.LayoutSave(this,((SettingsUser)this.documentMan.DocM.m_LMOUser.oSettings).mSettingsUserValues);
+                                TSettings.LayoutSave(this,((SettingsUser)this.documentMan.DocM.m_LMOUser.oSettings).mSettingsUserValues);
                                 this.documentMan.Active = false;
                             }
                         }
@@ -737,7 +738,7 @@ namespace Tangenta
                 {
                     if (AskToExit())
                     {
-                        DocumentMan.SaveSettings(this, DocumentMan.LMO1User);
+                        TSettings.SaveSettings(this, TSettings.LMO1User);
                         Exit();
                         e.Cancel = false;
                     }
@@ -792,7 +793,7 @@ namespace Tangenta
 
             Booting.m_startup.RemoveControl();
 
-            if (DocumentMan.Login_MultipleUsers)
+            if (TSettings.Login_MultipleUsers)
             {
                 //stay in Login_MulitpleUsersMode !
             }
@@ -806,12 +807,12 @@ namespace Tangenta
         {
             SettingsUser user_settings = new SettingsUser();
             Transaction transaction_Form_Document_Activate_usrc_DocumentMan_for_LMO1User_user_settings_Load = DBSync.DBSync.NewTransaction("Form_Document.Activate_usrc_DocumentMan_for_LMO1User.user_settings.Load");
-            if (user_settings.Load(DocumentMan.LMO1User,
+            if (user_settings.Load(TSettings.LMO1User,
                                    transaction_Form_Document_Activate_usrc_DocumentMan_for_LMO1User_user_settings_Load))
             {
                 if (transaction_Form_Document_Activate_usrc_DocumentMan_for_LMO1User_user_settings_Load.Commit())
                 {
-                    DocumentMan.LMO1User.oSettings = user_settings;
+                    TSettings.LMO1User.oSettings = user_settings;
 
                     //xLMOUser.Form_settingsuser = new Form_SettingsUsers(xLMOUser);
                     //((Form_SettingsUsers)xLMOUser.Form_settingsuser).InitAfterLoad();
@@ -826,11 +827,11 @@ namespace Tangenta
                         xusrc_DocumentMan1366x768.Dock = DockStyle.Fill;
                         this.Controls.Add(xusrc_DocumentMan1366x768);
 
-                        xusrc_DocumentMan1366x768.Initialise(this, DocumentMan.LMO1User);
+                        xusrc_DocumentMan1366x768.Initialise(this, TSettings.LMO1User);
                         xusrc_DocumentMan1366x768.Init();
 
 
-                        DocumentMan.LMO1User.m_usrc_DocumentMan = xusrc_DocumentMan1366x768;
+                        TSettings.LMO1User.m_usrc_DocumentMan = xusrc_DocumentMan1366x768;
                         xusrc_DocumentMan1366x768.Exit_Click += m_usrc_Main_Exit_Click;
                         xusrc_DocumentMan1366x768.Activate_dgvx_XInvoice_SelectionChanged();
 
@@ -842,10 +843,10 @@ namespace Tangenta
                         xusrc_DocumentMan.Dock = DockStyle.Fill;
                         this.Controls.Add(xusrc_DocumentMan);
 
-                        xusrc_DocumentMan.Initialise(this, DocumentMan.LMO1User);
+                        xusrc_DocumentMan.Initialise(this, TSettings.LMO1User);
                         xusrc_DocumentMan.Init();
                         this.documentMan = xusrc_DocumentMan;
-                        DocumentMan.LMO1User.m_usrc_DocumentMan = xusrc_DocumentMan;
+                        TSettings.LMO1User.m_usrc_DocumentMan = xusrc_DocumentMan;
                         xusrc_DocumentMan.Exit_Click += m_usrc_Main_Exit_Click;
                         xusrc_DocumentMan.Activate_dgvx_XInvoice_SelectionChanged();
                     }
@@ -1535,7 +1536,7 @@ namespace Tangenta
             else
             {
                 RPC.RPCd rpcd = new RPC.RPCd("http://www.tangenta.si/AddUser.php", MyOrgItem);
-                DocumentMan.RPC.Execute(rpcd);
+                TSettings.RPC.Execute(rpcd);
                 string sResult = rpcd.GetResult(10000);
                 if (sResult != null)
                 {
@@ -1873,7 +1874,7 @@ namespace Tangenta
 
         private void loginControl1_UserLoggedOut(LoginControl.LMOUser xLMOUser)
         {
-            DocumentMan.SaveSettings(this,xLMOUser);
+            TSettings.SaveSettings(this,xLMOUser);
         }
 
         private void loginControl1_ActivateDocumentMan(LoginControl.LMOUser xLMOUser)

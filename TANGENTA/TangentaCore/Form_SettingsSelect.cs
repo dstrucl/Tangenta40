@@ -1,5 +1,4 @@
-﻿using DocumentManager;
-using Startup;
+﻿using Startup;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,8 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TangentaSettings;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_SettingsSelect : Form
     {
@@ -37,16 +37,16 @@ namespace DocumentManager
             nav.btn3_Image = Properties.Resources.Exit;
             string xCodeTables_IniFileFolder = null;
             string Err = null;
-            if (Global.f.SetApplicationDataSubFolder(ref xCodeTables_IniFileFolder, DocumentMan.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
+            if (Global.f.SetApplicationDataSubFolder(ref xCodeTables_IniFileFolder, TSettings.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
             {
                 string xSQLitebackupFolder = Properties.Settings.Default.SQLiteBackupFolder;
                 if (xSQLitebackupFolder.Length == 0)
                 {
-                    if (Global.f.SetApplicationDataSubFolder(ref xSQLitebackupFolder, DocumentMan.TANGENTA_SQLITEBACKUP_SUB_FOLDER, ref Err))
+                    if (Global.f.SetApplicationDataSubFolder(ref xSQLitebackupFolder, TSettings.TANGENTA_SQLITEBACKUP_SUB_FOLDER, ref Err))
                     {
                     }
                 }
-                DBSync.DBSync.DBMan(Main_Form, Reset2FactorySettings.DBConnectionControlXX_EXE, DocumentMan.m_XmlFileName, xCodeTables_IniFileFolder, ref sDBType, ref xSQLitebackupFolder, nav);
+                DBSync.DBSync.DBMan(Main_Form, Reset2FactorySettings.DBConnectionControlXX_EXE, TSettings.m_XmlFileName, xCodeTables_IniFileFolder, ref sDBType, ref xSQLitebackupFolder, nav);
                 Properties.Settings.Default.SQLiteBackupFolder = xSQLitebackupFolder;
                 Properties.Settings.Default.DBType = sDBType;
                 Properties.Settings.Default.Save();

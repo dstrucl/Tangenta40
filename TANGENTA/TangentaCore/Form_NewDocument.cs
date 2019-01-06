@@ -1,5 +1,4 @@
-﻿using DocumentManager;
-using HUDCMS;
+﻿using HUDCMS;
 using LanguageControl;
 using System;
 using System.Collections.Generic;
@@ -10,8 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using TangentaDB;
+using TangentaSettings;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_NewDocument : Form
     {

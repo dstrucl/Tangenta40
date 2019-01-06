@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Global
 {
@@ -37,5 +39,32 @@ namespace Global
             graphics.DrawString(s, font, new SolidBrush(color), drawRect);
             offset = sfx.Height;
         }
+
+        public static void DoubleBuffered(this DataGridView dgv, bool setting)
+        {
+            Type dgvType = dgv.GetType();
+            PropertyInfo pi = dgvType.GetProperty("DoubleBuffered",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+            pi.SetValue(dgv, setting, null);
+        }
+
+        public static void Cursor_Wait(Control xctrl)
+        {
+            Form frm = Global.f.GetParentForm(xctrl);
+            if (frm != null)
+            {
+                frm.Cursor = Cursors.WaitCursor;
+            }
+        }
+
+        public static void Cursor_Arrow(Control xctrl)
+        {
+            Form frm = Global.f.GetParentForm(xctrl);
+            if (frm != null)
+            {
+                frm.Cursor = Cursors.Arrow;
+            }
+        }
+
     }
 }

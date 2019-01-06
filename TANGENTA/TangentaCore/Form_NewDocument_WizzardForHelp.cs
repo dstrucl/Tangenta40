@@ -1,5 +1,4 @@
-﻿using DocumentManager;
-using HUDCMS;
+﻿using HUDCMS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_NewDocument_WizzardForHelp : Form
     {

@@ -20,7 +20,7 @@ using DBTypes;
 using TangentaDB;
 using DBConnectionControl40;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class OrganisationData_EditForm : Form
     {

@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using System.Windows.Forms;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     partial class Form_Expiry_Check
     {

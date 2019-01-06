@@ -18,7 +18,7 @@ using System.Windows.Forms;
 using DBTypes;
 using TangentaDB;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_Wait_FVI_SLO_Response : Form
     {

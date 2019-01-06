@@ -23,7 +23,7 @@ using TangentaDB;
 using UniqueControlNames;
 using DBConnectionControl40;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_myOrg_Person_Edit : Form
     {

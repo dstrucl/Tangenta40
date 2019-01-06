@@ -1,6 +1,6 @@
 ﻿using HUDCMS;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     partial class usrc_DocInvoice_AddOn
     {

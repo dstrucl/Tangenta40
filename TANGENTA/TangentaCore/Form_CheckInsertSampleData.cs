@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using Startup;
 using LanguageControl;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_CheckInsertSampleData : Form
     {

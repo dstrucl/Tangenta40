@@ -1,5 +1,4 @@
 ﻿using DBConnectionControl40;
-using DocumentManager;
 using NavigationButtons;
 using Startup;
 using System;
@@ -7,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TangentaSettings;
 using static Startup.startup_step;
 
 namespace TangentaBooting
@@ -44,14 +44,14 @@ namespace TangentaBooting
             string sDBType = null;
 
             string xinifolder = Booting.CodeTables_IniFileFolder;
-            if (Global.f.SetApplicationDataSubFolder(ref xinifolder, DocumentMan.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
+            if (Global.f.SetApplicationDataSubFolder(ref xinifolder, TSettings.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
             {
                 Booting.CodeTables_IniFileFolder = xinifolder;
                 if (CommandLineParam.bChangeConnection)
                 {
-                    DocumentMan.DBType = "";
+                    TSettings.DBType = "";
                 }
-                sDBType = DocumentMan.DBType;
+                sDBType = TSettings.DBType;
                 if (sDBType.Length == 0)
                 {
                     // just show window
@@ -87,7 +87,7 @@ namespace TangentaBooting
         internal Startup_eUndoProcedureResult Startup_02_Undo(startup_step xstartup_step,
                                         ref string Err)
         {
-            DocumentMan.DBType = "";
+            TSettings.DBType = "";
             if (DBSync.DBSync.DB_for_Tangenta!=null)
             {
                 if (DBSync.DBSync.DB_for_Tangenta.m_DBTables != null)
@@ -137,7 +137,7 @@ namespace TangentaBooting
                         {
                             case DBConnection.eDBType.SQLITE:
                                 sDBType = "SQLITE";
-                                DocumentMan.DBType = sDBType;
+                                TSettings.DBType = sDBType;
                                 if (DBSync.DBSync.Startup_02_Get_eDBType_and_DB_for_Tangenta(sDBType, ref eDBType, frm, Booting.CodeTables_IniFileFolder, Booting.xmlCodeTables))
                                 {
                                     if (Transaction.BreakOnTransactionDialog)
@@ -152,7 +152,7 @@ namespace TangentaBooting
                                 }
                             case DBConnection.eDBType.MSSQL:
                                 sDBType = "MSSQL";
-                                DocumentMan.DBType = sDBType;
+                                TSettings.DBType = sDBType;
                                 if (DBSync.DBSync.Startup_02_Get_eDBType_and_DB_for_Tangenta(sDBType, ref eDBType, frm, Booting.CodeTables_IniFileFolder, Booting.xmlCodeTables))
                                 {
                                     if (Transaction.BreakOnTransactionDialog)

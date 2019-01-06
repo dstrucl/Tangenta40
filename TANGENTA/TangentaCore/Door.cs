@@ -6,8 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TangentaDB;
+using TangentaSettings;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public class Door
     {
@@ -80,7 +81,7 @@ namespace DocumentManager
 
         public  bool OpenStockEdit(Form parent_form)
         {
-            if (DocumentManager.OperationMode.MultiUser)
+            if (OperationMode.MultiUser)
             {
                 string[] possiblerole = new string[]{LoginControl.AWP.ROLE_Administrator,
                                                      LoginControl.AWP.ROLE_StockTakeManagement };

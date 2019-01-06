@@ -1,5 +1,4 @@
 ﻿using DBConnectionControl40;
-using DocumentManager;
 using NavigationButtons;
 using Startup;
 using System;
@@ -7,8 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TangentaCore;
 using TangentaDataBaseDef;
 using TangentaDB;
+using TangentaSettings;
 using UpgradeDB;
 using static Startup.startup_step;
 
@@ -170,7 +171,7 @@ namespace TangentaBooting
             long lRowsCount = fs.GetTableRowsCount("DBSettings");
             if (lRowsCount > 1) //Database "Version" is wriiten after database creation in DBSettings
             {
-                switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.AdminPassword.Name, ref DocumentMan.AdministratorLockedPassword, ref bReadOnly, ref Err))
+                switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.AdminPassword.Name, ref TSettings.AdministratorLockedPassword, ref bReadOnly, ref Err))
                 {
                     case fs.enum_GetDBSettings.DBSettings_OK:
                         string MultiuserOperationWithLogin = null;
@@ -327,7 +328,7 @@ namespace TangentaBooting
                                                             ref delegate_startup_OnFormResult_proc startup_OnFormResult_proc)
         {
             startup_OnFormResult_proc = Startup_04_onformresult_ShowDBSettings;
-            xnav.ShowForm(new Form_DBSettings(xnav, DocumentMan.AdministratorLockedPassword), typeof(Form_DBSettings).ToString());
+            xnav.ShowForm(new Form_DBSettings(xnav, TSettings.AdministratorLockedPassword), typeof(Form_DBSettings).ToString());
             return true;
         }
 
@@ -341,7 +342,7 @@ namespace TangentaBooting
             {
                 case Navigation.eEvent.NEXT:
                     bool bDBSettingsChanged = ((Form_DBSettings)form).Changed;
-                    DocumentMan.AdministratorLockedPassword = ((Form_DBSettings)form).AdministratorLockedPassword;
+                    TSettings.AdministratorLockedPassword = ((Form_DBSettings)form).AdministratorLockedPassword;
 
                     OperationMode.MultiUser = ((Form_DBSettings)form).MultiuserOperationWithLogin;
                     OperationMode.SingleUserLoginAsAdministrator = ((Form_DBSettings)form).SingleUserLoginAsAdministrator;

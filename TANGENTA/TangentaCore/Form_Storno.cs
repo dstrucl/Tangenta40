@@ -19,7 +19,7 @@ using DBConnectionControl40;
 using LanguageControl;
 using TangentaDB;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_Storno : Form
     {

@@ -16,7 +16,7 @@ using System.Windows.Forms;
 using UniqueControlNames;
 using DBConnectionControl40;
 
-namespace DocumentManager
+namespace TangentaCore
 {
     public partial class Form_myOrg_Office : Form
     {

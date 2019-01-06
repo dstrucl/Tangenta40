@@ -1,7 +1,6 @@
 ﻿using CodeTables;
 using Country_ISO_3166;
 using DBConnectionControl40;
-using DocumentManager;
 using NavigationButtons;
 using Startup;
 using System;
@@ -9,8 +8,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TangentaCore;
 using TangentaDB;
 using TangentaSampleDB;
+using TangentaSettings;
 using TangentaTableClass;
 using static Startup.startup_step;
 
@@ -133,7 +134,7 @@ namespace TangentaBooting
                         }
                         else
                         {
-                            if (DocumentMan.b_FVI_SLO)
+                            if (TSettings.b_FVI_SLO)
                             {
                                 startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP;
                                 return Startup_check_proc_Result.WAIT_USER_INTERACTION;
@@ -245,7 +246,7 @@ namespace TangentaBooting
                                 }
                                 else
                                 {
-                                    if (DocumentMan.b_FVI_SLO)
+                                    if (TSettings.b_FVI_SLO)
                                     {
                                         startup_ShowForm_proc = Startup_05_Show_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP;
                                         return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
@@ -292,7 +293,7 @@ namespace TangentaBooting
             switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.FiscalVerificationOfInvoices.Name, ref sFiscalVerificationOfInvoices, ref bReadOnly, ref Err))
             {
                 case fs.enum_GetDBSettings.DBSettings_OK:
-                    DocumentMan.b_FVI_SLO = sFiscalVerificationOfInvoices.Equals("1");
+                    TSettings.b_FVI_SLO = sFiscalVerificationOfInvoices.Equals("1");
                     return true;
 
                 case fs.enum_GetDBSettings.No_TextValue:
@@ -821,7 +822,7 @@ namespace TangentaBooting
                 case Navigation.eEvent.NEXT:
                     if (form is Form_SetElectronicDeviceName)
                     {
-                        if (DocumentMan.b_FVI_SLO)
+                        if (TSettings.b_FVI_SLO)
                         {
                             startup_ShowForm_proc = Startup_05_Show_FiscalVerificationOfInvoices_SLO_Form_Settings;
                             return Startup_onformresult_proc_Result.WAIT_USER_INTERACTION;
@@ -865,7 +866,7 @@ namespace TangentaBooting
         {
             bool Reset2FactorySettings_FiscalVerification_DLL = Reset2FactorySettings.FiscalVerification_DLL;
             startup_OnFormResult_proc = Startup_05_onformresult_FiscalVerificationOfInvoices_SLO_Form_Settings;
-            xnav.ShowForm(new FiscalVerificationOfInvoices_SLO.Form_Settings(DocumentMan.FVI_SLO1, xnav,true, ref Reset2FactorySettings_FiscalVerification_DLL), typeof(FiscalVerificationOfInvoices_SLO.Form_Settings).ToString());
+            xnav.ShowForm(new FiscalVerificationOfInvoices_SLO.Form_Settings(TSettings.FVI_SLO1, xnav,true, ref Reset2FactorySettings_FiscalVerification_DLL), typeof(FiscalVerificationOfInvoices_SLO.Form_Settings).ToString());
             return true;
         }
 
@@ -907,8 +908,8 @@ namespace TangentaBooting
         {
             myOrg.eGetOrganisationDataResult eres = myOrg.GetOrganisationData(Startup.Startup.bFirstTimeInstallation,
                                                                               OperationMode.MultiUser,
-                                                                              DocumentMan.b_FVI_SLO,
-                                                                              ref DocumentMan.m_CountryHasFVI
+                                                                              TSettings.b_FVI_SLO,
+                                                                              ref TSettings.m_CountryHasFVI
                                                                               );
             return eres;
 
