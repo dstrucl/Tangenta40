@@ -47,11 +47,319 @@
     <Compile Include="DocumentEditor.cs" />
     <Compile Include="DocumentMan.cs" />
     <Compile Include="Door.cs" />
+    <Compile Include="DURS_Izpis_Postavka.cs" />
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Form_CheckInsertSampleData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_CheckInsertSampleData.Designer.cs">
+      <DependentUpon>Form_CheckInsertSampleData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_CodeTables.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_CodeTables.Designer.cs">
+      <DependentUpon>Form_CodeTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Currency_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Currency_Edit.Designer.cs">
+      <DependentUpon>Form_Currency_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Customer_Org_Assign.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Customer_Org_Assign.Designer.cs">
+      <DependentUpon>Form_Customer_Org_Assign.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Customer_Org_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Customer_Org_Edit.Designer.cs">
+      <DependentUpon>Form_Customer_Org_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Customer_Person_Assign.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Customer_Person_Assign.Designer.cs">
+      <DependentUpon>Form_Customer_Person_Assign.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Customer_Person_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Customer_Person_Edit.Designer.cs">
+      <DependentUpon>Form_Customer_Person_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_DBSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_DBSettings.Designer.cs">
+      <DependentUpon>Form_DBSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_DBSettings_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_DBSettings_Edit.Designer.cs">
+      <DependentUpon>Form_DBSettings_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_DocInvoice_AddOn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_DocInvoice_AddOn.Designer.cs">
+      <DependentUpon>Form_DocInvoice_AddOn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_DocInvoice_PaymentCash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_DocInvoice_PaymentCash.Designer.cs">
+      <DependentUpon>Form_DocInvoice_PaymentCash.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_DocProformaInvoice_AddOn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_DocProformaInvoice_AddOn.Designer.cs">
+      <DependentUpon>Form_DocProformaInvoice_AddOn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_DURS_FilesPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_DURS_FilesPreview.Designer.cs">
+      <DependentUpon>Form_DURS_FilesPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_DURS_output.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_DURS_output.Designer.cs">
+      <DependentUpon>Form_DURS_output.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Expiry_Check.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form_Expiry_Check.Designer.cs">
       <DependentUpon>Form_Expiry_Check.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Expiry_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Expiry_Edit.Designer.cs">
+      <DependentUpon>Form_Expiry_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_FirstTimeInstallationGreeting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_FirstTimeInstallationGreeting.Designer.cs">
+      <DependentUpon>Form_FirstTimeInstallationGreeting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_FVI_check.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_FVI_check.Designer.cs">
+      <DependentUpon>Form_FVI_check.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_IdleSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_IdleSettings.Designer.cs">
+      <DependentUpon>Form_IdleSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ItemGroups_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ItemGroups_Edit.Designer.cs">
+      <DependentUpon>Form_ItemGroups_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Logo_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Logo_Edit.Designer.cs">
+      <DependentUpon>Form_Logo_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_myOrg_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_myOrg_Edit.Designer.cs">
+      <DependentUpon>Form_myOrg_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_myOrg_Office.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_myOrg_Office.Designer.cs">
+      <DependentUpon>Form_myOrg_Office.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_myOrg_Office_Data.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_myOrg_Office_Data.Designer.cs">
+      <DependentUpon>Form_myOrg_Office_Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_myOrg_Office_Data_FVI_SLO_RealEstateBP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_myOrg_Office_Data_FVI_SLO_RealEstateBP.Designer.cs">
+      <DependentUpon>Form_myOrg_Office_Data_FVI_SLO_RealEstateBP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_myOrg_Person_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_myOrg_Person_Edit.Designer.cs">
+      <DependentUpon>Form_myOrg_Person_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_NewDocument.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_NewDocument.Designer.cs">
+      <DependentUpon>Form_NewDocument.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_NewDocument_WizzardForHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_NewDocument_WizzardForHelp.Designer.cs">
+      <DependentUpon>Form_NewDocument_WizzardForHelp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_NewDocument_WorkArea.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_NewDocument_WorkArea.Designer.cs">
+      <DependentUpon>Form_NewDocument_WorkArea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Notice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Notice.Designer.cs">
+      <DependentUpon>Form_Notice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_OrganisationAccount_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_OrganisationAccount_Edit.Designer.cs">
+      <DependentUpon>Form_OrganisationAccount_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_OrganisationData_Edi .cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_OrganisationData_Edi .Designer.cs">
+      <DependentUpon>Form_OrganisationData_Edi .cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_PersonAccount_Edit .cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_PersonAccount_Edit .Designer.cs">
+      <DependentUpon>Form_PersonAccount_Edit .cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_PersonData_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_PersonData_Edit.Designer.cs">
+      <DependentUpon>Form_PersonData_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_PersonFiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_PersonFiles.Designer.cs">
+      <DependentUpon>Form_PersonFiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_PrintReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_PrintReport.Designer.cs">
+      <DependentUpon>Form_PrintReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ProgramSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ProgramSettings.Designer.cs">
+      <DependentUpon>Form_ProgramSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Reset_Properties_Settings_Default.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Reset_Properties_Settings_Default.Designer.cs">
+      <DependentUpon>Form_Reset_Properties_Settings_Default.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_SelectPanels.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SelectPanels.Designer.cs">
+      <DependentUpon>Form_SelectPanels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Select_DefaultCurrency.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Select_DefaultCurrency.Designer.cs">
+      <DependentUpon>Form_Select_DefaultCurrency.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Select_from_Stock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Select_from_Stock.Designer.cs">
+      <DependentUpon>Form_Select_from_Stock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Select_Notice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Select_Notice.Designer.cs">
+      <DependentUpon>Form_Select_Notice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Select_Person_SINGLE_USER.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Select_Person_SINGLE_USER.Designer.cs">
+      <DependentUpon>Form_Select_Person_SINGLE_USER.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Select_TimeSpan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Select_TimeSpan.Designer.cs">
+      <DependentUpon>Form_Select_TimeSpan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_SetElectronicDeviceName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SetElectronicDeviceName.Designer.cs">
+      <DependentUpon>Form_SetElectronicDeviceName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_SettingsSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SettingsSelect.Designer.cs">
+      <DependentUpon>Form_SettingsSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_SettingsUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SettingsUsers.Designer.cs">
+      <DependentUpon>Form_SettingsUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_SettingsUsersCompare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SettingsUsersCompare.Designer.cs">
+      <DependentUpon>Form_SettingsUsersCompare.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ShopsInUse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ShopsInUse.Designer.cs">
+      <DependentUpon>Form_ShopsInUse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ShowShops.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ShowShops.Designer.cs">
+      <DependentUpon>Form_ShowShops.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ShowShops1366x768.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ShowShops1366x768.Designer.cs">
+      <DependentUpon>Form_ShowShops1366x768.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_SimpleItemGroups_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SimpleItemGroups_Edit.Designer.cs">
+      <DependentUpon>Form_SimpleItemGroups_Edit.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_Storno.cs">
       <SubType>Form</SubType>
@@ -59,8 +367,81 @@
     <Compile Include="Form_Storno.Designer.cs">
       <DependentUpon>Form_Storno.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_TableInspection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_TableInspection.Designer.cs">
+      <DependentUpon>Form_TableInspection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Taxation_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Taxation_Edit.Designer.cs">
+      <DependentUpon>Form_Taxation_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_TermsOfPayment_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_TermsOfPayment_Edit.Designer.cs">
+      <DependentUpon>Form_TermsOfPayment_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Unit_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Unit_Edit.Designer.cs">
+      <DependentUpon>Form_Unit_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_VODxml_OPAL_FilesPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_VODxml_OPAL_FilesPreview.Designer.cs">
+      <DependentUpon>Form_VODxml_OPAL_FilesPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_VODxml_OPAL_output.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_VODxml_OPAL_output.Designer.cs">
+      <DependentUpon>Form_VODxml_OPAL_output.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Wait_FVI_SLO_Response.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Wait_FVI_SLO_Response.Designer.cs">
+      <DependentUpon>Form_Wait_FVI_SLO_Response.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Warranty_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Warranty_Edit.Designer.cs">
+      <DependentUpon>Form_Warranty_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_WorkArea_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_WorkArea_Edit.Designer.cs">
+      <DependentUpon>Form_WorkArea_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_WorkingPlace_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_WorkingPlace_Edit.Designer.cs">
+      <DependentUpon>Form_WorkingPlace_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_XML_FilesPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_XML_FilesPreview.Designer.cs">
+      <DependentUpon>Form_XML_FilesPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_XML_output.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_XML_output.Designer.cs">
+      <DependentUpon>Form_XML_output.cs</DependentUpon>
+    </Compile>
     <Compile Include="lng.cs" />
     <Compile Include="OperationMode.cs" />
+    <Compile Include="ProgramModuleData.cs" />
     <Compile Include="PropertiesUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -74,11 +455,104 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="SetiingsUserValues.cs" />
+    <Compile Include="Setting.cs" />
+    <Compile Include="SettingsUser.cs" />
+    <Compile Include="SumPayment.cs" />
+    <Compile Include="usrc_AddOn.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_AddOn.Designer.cs">
+      <DependentUpon>usrc_AddOn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_checkmark.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_checkmark.Designer.cs">
+      <DependentUpon>usrc_checkmark.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_CodeTables.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_CodeTables.Designer.cs">
+      <DependentUpon>usrc_CodeTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Currency.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Currency.Designer.cs">
+      <DependentUpon>usrc_Currency.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Customer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Customer.Designer.cs">
+      <DependentUpon>usrc_Customer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_DocInvoice_AddOn.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_DocInvoice_AddOn.Designer.cs">
+      <DependentUpon>usrc_DocInvoice_AddOn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_DocProformaInvoice_AddOn .cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_DocProformaInvoice_AddOn .Designer.cs">
+      <DependentUpon>usrc_DocProformaInvoice_AddOn .cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_Item_PageHandler4usrc_WorkArea.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="usrc_Item_PageHandler4usrc_WorkArea.Designer.cs">
       <DependentUpon>usrc_Item_PageHandler4usrc_WorkArea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_MethodOfPayment_Data.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_MethodOfPayment_Data.Designer.cs">
+      <DependentUpon>usrc_MethodOfPayment_Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_New_Copy_of_Another_DocType.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_New_Copy_of_Another_DocType.Designer.cs">
+      <DependentUpon>usrc_New_Copy_of_Another_DocType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_New_Copy_of_Same_DocType.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_New_Copy_of_Same_DocType.Designer.cs">
+      <DependentUpon>usrc_New_Copy_of_Same_DocType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Notice.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Notice.Designer.cs">
+      <DependentUpon>usrc_Notice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Price_ItemOrService.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Price_ItemOrService.Designer.cs">
+      <DependentUpon>usrc_Price_ItemOrService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_PurchasePriceList_Edit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_PurchasePriceList_Edit.Designer.cs">
+      <DependentUpon>usrc_PurchasePriceList_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_ShopsInUse.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_ShopsInuse.Designer.cs">
+      <DependentUpon>usrc_ShopsInUse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_TableOfDocuments.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_TableOfDocuments.Designer.cs">
+      <DependentUpon>usrc_TableOfDocuments.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_WorkArea.cs">
       <SubType>UserControl</SubType>
@@ -93,11 +567,24 @@
       <DependentUpon>usrc_WorkAreaAll.cs</DependentUpon>
     </Compile>
     <Compile Include="WArea.cs" />
+    <Compile Include="XML_Izpis_Postavka.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\ColorSetings\ColorSettings.csproj">
       <Project>{7246e94a-782c-4f4d-b3a4-09b34c9975b6}</Project>
       <Name>ColorSettings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\ComboBox_Recent\ComboBox_Recent.csproj">
+      <Project>{0f0afe83-5e47-49cf-888a-79a03fa71321}</Project>
+      <Name>ComboBox_Recent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\CommandLineHelp\CommandLineHelp.csproj">
+      <Project>{5c02a9ff-0e40-4f63-89c5-8afcd9d4869d}</Project>
+      <Name>CommandLineHelp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\Country\Country_ISO_3166.csproj">
+      <Project>{1562473f-cfcb-4dfd-81ba-153988dc2d25}</Project>
+      <Name>Country_ISO_3166</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\DataGridView_2xls\DataGridView_2xls.csproj">
       <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
@@ -147,6 +634,14 @@
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
       <Name>CodeTables</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\TransactionLogDataBaseDef\TransactionLogDataBaseDef.csproj">
+      <Project>{53483E69-6DE9-4BB6-8734-5D5F1ADE0FBB}</Project>
+      <Name>TransactionLogDataBaseDef</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\TransactionLog\TransactionLog.csproj">
+      <Project>{28cfd914-0d1d-49ac-a55b-12287d80aa55}</Project>
+      <Name>TransactionLog</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\UTIL\Global\Global.csproj">
       <Project>{b95b4df8-a651-4193-9393-0fb33cc566d3}</Project>
       <Name>Global</Name>
@@ -159,9 +654,17 @@
       <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
       <Name>LogFile</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\RPC\RPC.csproj">
+      <Project>{57C5D942-3C95-4CC7-9F9C-731595F71E5F}</Project>
+      <Name>RPC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\UTIL\StaticLib\StaticLib.csproj">
       <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
       <Name>StaticLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\UniqueControlNames\UniqueControlNames.csproj">
+      <Project>{82dc8548-1981-4f2c-b0ba-abd37282085a}</Project>
+      <Name>UniqueControlNames</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\SLO_FISCAL\FiscalVerificationOfInvoices_SLO\FiscalVerificationOfInvoices_SLO.csproj">
       <Project>{61ca81c7-7f82-4744-a8de-fbe9972e7ee8}</Project>
@@ -175,6 +678,22 @@
       <Project>{d3e4af57-60eb-486b-a145-5eadd0f01177}</Project>
       <Name>PriseLists</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ShopA_Forms\ShopA_Forms.csproj">
+      <Project>{36cb959e-364e-40f5-ad90-6a950efe44b7}</Project>
+      <Name>ShopA_Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShopB\ShopB_Forms\ShopB_Forms.csproj">
+      <Project>{b66aace6-8404-4b5c-8e35-560555419412}</Project>
+      <Name>ShopB_Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShopC_Forms\ShopC_Forms.csproj">
+      <Project>{a023d289-ea3f-4655-83bb-b28d95b7436d}</Project>
+      <Name>ShopC_Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Startup\Startup.csproj">
+      <Project>{c4e59cf1-d085-4636-8bb4-2bfa63e54f4d}</Project>
+      <Name>Startup</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TangentaDataBaseDef\TangentaDataBaseDef.csproj">
       <Project>{5ACCE3B7-EB06-439E-B24D-393ECAB98980}</Project>
       <Name>TangentaDataBaseDef</Name>
@@ -187,6 +706,10 @@
       <Project>{728368f2-ecd5-4bc7-b50b-c9581769d429}</Project>
       <Name>TangentaPrint</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TangentaSampleDB\TangentaSampleDB.csproj">
+      <Project>{cf39a97b-c4cb-45f6-9d60-9df5638dd45a}</Project>
+      <Name>TangentaSampleDB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TangentaTableClass\TangentaTableClass.csproj">
       <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
       <Name>TangentaTableClass</Name>
@@ -195,17 +718,257 @@
       <Project>{1494ce99-385c-42cc-8fff-75597007da72}</Project>
       <Name>UniversalInvoice</Name>
     </ProjectReference>
+    <ProjectReference Include="..\usrc_Upgrade\UpgradeDB.csproj">
+      <Project>{7eea3e02-1c5d-4451-9976-4f65f2ce1492}</Project>
+      <Name>UpgradeDB</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form_CheckInsertSampleData.resx">
+      <DependentUpon>Form_CheckInsertSampleData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_CodeTables.resx">
+      <DependentUpon>Form_CodeTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Currency_Edit.resx">
+      <DependentUpon>Form_Currency_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Customer_Org_Assign.resx">
+      <DependentUpon>Form_Customer_Org_Assign.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Customer_Org_Edit.resx">
+      <DependentUpon>Form_Customer_Org_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Customer_Person_Assign.resx">
+      <DependentUpon>Form_Customer_Person_Assign.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Customer_Person_Edit.resx">
+      <DependentUpon>Form_Customer_Person_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_DBSettings.resx">
+      <DependentUpon>Form_DBSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_DBSettings_Edit.resx">
+      <DependentUpon>Form_DBSettings_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_DocInvoice_AddOn.resx">
+      <DependentUpon>Form_DocInvoice_AddOn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_DocInvoice_PaymentCash.resx">
+      <DependentUpon>Form_DocInvoice_PaymentCash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_DocProformaInvoice_AddOn.resx">
+      <DependentUpon>Form_DocProformaInvoice_AddOn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_DURS_FilesPreview.resx">
+      <DependentUpon>Form_DURS_FilesPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_DURS_output.resx">
+      <DependentUpon>Form_DURS_output.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_Expiry_Check.resx">
       <DependentUpon>Form_Expiry_Check.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Expiry_Edit.resx">
+      <DependentUpon>Form_Expiry_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_FirstTimeInstallationGreeting.resx">
+      <DependentUpon>Form_FirstTimeInstallationGreeting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_FVI_check.resx">
+      <DependentUpon>Form_FVI_check.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_IdleSettings.resx">
+      <DependentUpon>Form_IdleSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ItemGroups_Edit.resx">
+      <DependentUpon>Form_ItemGroups_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Logo_Edit.resx">
+      <DependentUpon>Form_Logo_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_myOrg_Edit.resx">
+      <DependentUpon>Form_myOrg_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_myOrg_Office.resx">
+      <DependentUpon>Form_myOrg_Office.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_myOrg_Office_Data.resx">
+      <DependentUpon>Form_myOrg_Office_Data.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_myOrg_Office_Data_FVI_SLO_RealEstateBP.resx">
+      <DependentUpon>Form_myOrg_Office_Data_FVI_SLO_RealEstateBP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_myOrg_Person_Edit.resx">
+      <DependentUpon>Form_myOrg_Person_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_NewDocument.resx">
+      <DependentUpon>Form_NewDocument.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_NewDocument_WizzardForHelp.resx">
+      <DependentUpon>Form_NewDocument_WizzardForHelp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_NewDocument_WorkArea.resx">
+      <DependentUpon>Form_NewDocument_WorkArea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Notice.resx">
+      <DependentUpon>Form_Notice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_OrganisationAccount_Edit.resx">
+      <DependentUpon>Form_OrganisationAccount_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_OrganisationData_Edi .resx">
+      <DependentUpon>Form_OrganisationData_Edi .cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_PersonAccount_Edit .resx">
+      <DependentUpon>Form_PersonAccount_Edit .cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_PersonData_Edit.resx">
+      <DependentUpon>Form_PersonData_Edit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_PersonFiles.resx">
+      <DependentUpon>Form_PersonFiles.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_PrintReport.resx">
+      <DependentUpon>Form_PrintReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ProgramSettings.resx">
+      <DependentUpon>Form_ProgramSettings.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Reset_Properties_Settings_Default.resx">
+      <DependentUpon>Form_Reset_Properties_Settings_Default.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_SelectPanels.resx">
+      <DependentUpon>Form_SelectPanels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Select_DefaultCurrency.resx">
+      <DependentUpon>Form_Select_DefaultCurrency.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Select_from_Stock.resx">
+      <DependentUpon>Form_Select_from_Stock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Select_Notice.resx">
+      <DependentUpon>Form_Select_Notice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Select_Person_SINGLE_USER.resx">
+      <DependentUpon>Form_Select_Person_SINGLE_USER.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Select_TimeSpan.resx">
+      <DependentUpon>Form_Select_TimeSpan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_SetElectronicDeviceName.resx">
+      <DependentUpon>Form_SetElectronicDeviceName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_SettingsSelect.resx">
+      <DependentUpon>Form_SettingsSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_SettingsUsers.resx">
+      <DependentUpon>Form_SettingsUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_SettingsUsersCompare.resx">
+      <DependentUpon>Form_SettingsUsersCompare.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ShopsInUse.resx">
+      <DependentUpon>Form_ShopsInUse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ShowShops.resx">
+      <DependentUpon>Form_ShowShops.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ShowShops1366x768.resx">
+      <DependentUpon>Form_ShowShops1366x768.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_SimpleItemGroups_Edit.resx">
+      <DependentUpon>Form_SimpleItemGroups_Edit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Storno.resx">
       <DependentUpon>Form_Storno.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_TableInspection.resx">
+      <DependentUpon>Form_TableInspection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Taxation_Edit.resx">
+      <DependentUpon>Form_Taxation_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_TermsOfPayment_Edit.resx">
+      <DependentUpon>Form_TermsOfPayment_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Unit_Edit.resx">
+      <DependentUpon>Form_Unit_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_VODxml_OPAL_FilesPreview.resx">
+      <DependentUpon>Form_VODxml_OPAL_FilesPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_VODxml_OPAL_output.resx">
+      <DependentUpon>Form_VODxml_OPAL_output.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Warranty_Edit.resx">
+      <DependentUpon>Form_Warranty_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_WorkArea_Edit.resx">
+      <DependentUpon>Form_WorkArea_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_WorkingPlace_Edit.resx">
+      <DependentUpon>Form_WorkingPlace_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_XML_FilesPreview.resx">
+      <DependentUpon>Form_XML_FilesPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_XML_output.resx">
+      <DependentUpon>Form_XML_output.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_AddOn.resx">
+      <DependentUpon>usrc_AddOn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_checkmark.resx">
+      <DependentUpon>usrc_checkmark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_CodeTables.resx">
+      <DependentUpon>usrc_CodeTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Currency.resx">
+      <DependentUpon>usrc_Currency.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Customer.resx">
+      <DependentUpon>usrc_Customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_DocInvoice_AddOn.resx">
+      <DependentUpon>usrc_DocInvoice_AddOn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_DocProformaInvoice_AddOn .resx">
+      <DependentUpon>usrc_DocProformaInvoice_AddOn .cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_MethodOfPayment_Data.resx">
+      <DependentUpon>usrc_MethodOfPayment_Data.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_New_Copy_of_Another_DocType.resx">
+      <DependentUpon>usrc_New_Copy_of_Another_DocType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_New_Copy_of_Same_DocType.resx">
+      <DependentUpon>usrc_New_Copy_of_Same_DocType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Notice.resx">
+      <DependentUpon>usrc_Notice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Price_ItemOrService.resx">
+      <DependentUpon>usrc_Price_ItemOrService.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_PurchasePriceList_Edit.resx">
+      <DependentUpon>usrc_PurchasePriceList_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_ShopsInuse.resx">
+      <DependentUpon>usrc_ShopsInUse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_TableOfDocuments.resx">
+      <DependentUpon>usrc_TableOfDocuments.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_WorkArea.resx">
       <DependentUpon>usrc_WorkArea.cs</DependentUpon>
@@ -226,6 +989,72 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Tangenta-Logo SMALL.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tangenta_Question.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Blagajna_Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ViewInvoice.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UpgradeDataBase.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TableInspection.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TableInspection_Shop_dtSQLdb.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TableInspection_ShopA.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TableInspection_ShopB.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TableInspection_ShopC.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DBSettings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\checkmark_No.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\checkmark_Yes.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectRow.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Print.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TimeSpan.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Settings.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EditInvoice.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Edit.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WorkAreaAsTable.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EditAndViewInvoice.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CodeTables.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

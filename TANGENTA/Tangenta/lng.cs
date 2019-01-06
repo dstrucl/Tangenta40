@@ -680,11 +680,6 @@ namespace Tangenta
         public static ltext sProgramSettings = new ltext(new string[]{"Program Settings",
                                                          "Programske nastavitve"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_ProgramSettings.cs
 
-        public static ltext s_GoToPreviousStartupStep = new ltext(new string[] { "Go to previous startup step", "Pojdi na prejšni korak" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
-
-        public static ltext s_GoToNextStartupStep = new ltext(new string[] { "Go to next startup step", "Nadaljuj na naslednji korak" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
-
-        public static ltext s_GoToExitProgram = new ltext(new string[] { "Exit program", "Končaj program" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
 
         public static ltext s_Startup_Tangenta_About = new ltext(new string[] { "Tangenta about", "O programu Tangenta" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs)
 
@@ -716,15 +711,12 @@ namespace Tangenta
 
         public static ltext s_Startup_Login = new ltext(new string[] { "Login", "Prijava" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
 
-        public static ltext s_Previous = new ltext(new string[] { "Previous", "Nazaj" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
 
         public static ltext s_RealyWantToExitProgram = new ltext(new string[] { "Do you realy want to end program? (Yes/No)", "Želite končati program? (Da/Ne)" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
 
-        public static ltext s_Next = new ltext(new string[] { "Next", "Naprej" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
 
         public static ltext s_Tangenta = new ltext(new string[] { "Tangenta", "Tangenta" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
 
-        public static ltext s_AUTONEXT_missing_parameter = new ltext(new string[] { "/AUTONEXT missing or parsing error for Auto_NEXT_in_miliseconds!/r/n(Example:\"/AUTONEXT==10\")\r\nAuto_NEXT_in_miliseconds = 10ms : is default value", "/AUTONEXT manjka parameter - število milisikund za skok na naslednji korak!\r\n\"/AUTONEXT=10\")\r\nAuto_NEXT_in_miliseconds = 10ms : je privzeta vrednost s katero bo program nadaljeval." });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
 
         public static ltext s_commandline_DOCINVOICE = new ltext(new string[] { "Starts program to edit or view Invoices", "Zažene program tako, da začnete najprej urejati ali pregledovati račune" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
 

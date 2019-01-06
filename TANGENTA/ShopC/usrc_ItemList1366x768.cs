@@ -19,6 +19,7 @@ using TangentaDB;
 using LanguageControl;
 using DBTypes;
 using usrc_Item_InsideGroup_Handler;
+using ShopC_Forms;
 
 namespace ShopC
 {

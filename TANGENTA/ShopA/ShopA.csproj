@@ -86,18 +86,6 @@
     <Compile Include="DataGridViewButtonImageCell.cs" />
     <Compile Include="DataGridViewButtonImageColumn.cs" />
     <Compile Include="DataGridViewImageButtonSelectCell.cs" />
-    <Compile Include="Form_ShopAItem_Edit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_ShopAItem_Edit.Designer.cs">
-      <DependentUpon>Form_ShopAItem_Edit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_Tool_SelectItem.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Tool_SelectItem.Designer.cs">
-      <DependentUpon>Form_Tool_SelectItem.cs</DependentUpon>
-    </Compile>
     <Compile Include="lng.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -167,13 +155,6 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form_ShopAItem_Edit.resx">
-      <DependentUpon>Form_ShopAItem_Edit.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_Tool_SelectItem.resx">
-      <DependentUpon>Form_Tool_SelectItem.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -267,6 +248,10 @@
       <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
       <Name>StaticLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DocumentManager\DocumentManager.csproj">
+      <Project>{4f00910d-6e8d-4a47-bcc3-526867f3e099}</Project>
+      <Name>DocumentManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Form_Discount\Form_Discount.csproj">
       <Project>{4ac81b7e-a501-40ba-9a29-ed8004430eab}</Project>
       <Name>Form_Discount</Name>
@@ -274,6 +259,14 @@
     <ProjectReference Include="..\ShopA_dbfunc\ShopA_dbfunc.csproj">
       <Project>{3501813f-d72e-4190-9d0f-d491d42bbbfc}</Project>
       <Name>ShopA_dbfunc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShopA_Forms\ShopA_Forms.csproj">
+      <Project>{36cb959e-364e-40f5-ad90-6a950efe44b7}</Project>
+      <Name>ShopA_Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShopB\ShopB_Forms\ShopB_Forms.csproj">
+      <Project>{b66aace6-8404-4b5c-8e35-560555419412}</Project>
+      <Name>ShopB_Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\TangentaDataBaseDef\TangentaDataBaseDef.csproj">
       <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>

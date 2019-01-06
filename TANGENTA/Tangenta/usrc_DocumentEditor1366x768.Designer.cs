@@ -1,4 +1,6 @@
-﻿namespace Tangenta
+﻿using DocumentManager;
+
+namespace Tangenta
 {
     partial class usrc_DocumentEditor1366x768
     {
@@ -36,8 +38,8 @@
             this.btn_Show_Shops = new System.Windows.Forms.Button();
             this.m_usrc_ShopB1366x768 = new ShopB.usrc_ShopB1366x768();
             this.m_usrc_ShopA1366x768 = new ShopA.usrc_ShopA1366x768();
-            this.usrc_AddOn1 = new Tangenta.usrc_AddOn();
-            this.usrc_Customer = new Tangenta.usrc_Customer();
+            this.usrc_AddOn1 = new usrc_AddOn();
+            this.usrc_Customer = new usrc_Customer();
             this.m_usrc_ShopC1366x768 = new ShopC.usrc_ShopC1366x768();
             this.btn_New = new System.Windows.Forms.Button();
             this.usrc_Item1366x768_selected1 = new ShopC.usrc_Item1366x768_selected();
@@ -215,7 +217,7 @@
         private System.Windows.Forms.Button btn_Issue;
         private usrc_Customer usrc_Customer;
         private System.Windows.Forms.CheckBox chk_Storno;
-        private usrc_AddOn usrc_AddOn1;
+        internal usrc_AddOn usrc_AddOn1;
         public System.Windows.Forms.Button btn_Show_Shops;
         public System.Windows.Forms.Label lbl_Sum;
         internal ShopA.usrc_ShopA1366x768 m_usrc_ShopA1366x768;

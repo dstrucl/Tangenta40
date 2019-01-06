@@ -154,7 +154,7 @@ namespace Tangenta
                 {
                     if (OperationMode.MultiUser)
                     {
-                        if (Program.Login_MultipleUsers)
+                        if (DocumentMan.Login_MultipleUsers)
                         {
                             DocM.timer_Login_MultiUsers_Countdown = Properties.Settings.Default.timer_Login_MultiUser_Countdown;
                             this.timer_Login_MultiUser.Enabled = true;
@@ -188,7 +188,7 @@ namespace Tangenta
         public usrc_DocumentMan1366x768()
         {
             InitializeComponent();
-            if (Program.bTransactionMonitor)
+            if (Startup.CommandLineParam.bTransactionMonitor)
             {
                 this.usrc_TransactionControl1.DataBase_TransactionsLog = DBSync.DBSync.DB_for_Tangenta.DB_TransactionsLog;
                 this.usrc_TransactionControl1.Visible = true;
@@ -229,7 +229,7 @@ namespace Tangenta
         public void SetInitialMode()
         {
             m_Form_Document.loginControl1.SetAccessAuthentification(Properties.Settings.Default.AccessAuthentication);
-            if (Program.Login_MultipleUsers)
+            if (DocumentMan.Login_MultipleUsers)
             {
                 initControlsRecursive(this.Controls);
             }
@@ -274,22 +274,22 @@ namespace Tangenta
 
             LogFile.LogFile.WriteDEBUG("usrc_DocumentMan.cs:Init():before if (Program.RunAs == null)");
 
-            if (Program.RunAs == null)
+            if (DocumentMan.RunAs == null)
             {
                 sLastDocInvoiceType =  PropertiesUser.LastDocType_Get(DocM.mSettingsUserValues);
                 if (sLastDocInvoiceType.Equals(GlobalData.const_DocInvoice) || sLastDocInvoiceType.Equals(GlobalData.const_DocProformaInvoice))
                 {
-                    Program.RunAs = sLastDocInvoiceType;
+                    DocumentMan.RunAs = sLastDocInvoiceType;
                 }
                 else
                 {
-                    Program.RunAs = GlobalData.const_DocInvoice;
+                    DocumentMan.RunAs = GlobalData.const_DocInvoice;
                 }
 
             }
             else
             {
-                sLastDocInvoiceType = Program.RunAs;
+                sLastDocInvoiceType = DocumentMan.RunAs;
             }
 
 
@@ -555,14 +555,14 @@ namespace Tangenta
 
         private void btn_New_Click(object sender, EventArgs e)
         {
-            if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
+            if (this.Visible && DocumentMan.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
 
-            if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
+            if (this.Visible && DocumentMan.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
             DataTable dtWorkAreaAll = null;
             int iWorkAreasCount = 0;
             if (f_WorkArea.GetWorkAreas(ref dtWorkAreaAll, ref iWorkAreasCount))
             {
-                if ((iWorkAreasCount > 0) && (Program.UseWorkAreas))
+                if ((iWorkAreasCount > 0) && (DocumentMan.UseWorkAreas))
                 {
                     Form_NewDocument_WorkArea frm_new_workarea = new Form_NewDocument_WorkArea(dtWorkAreaAll);
                     frm_new_workarea.ShowDialog(this);
@@ -598,9 +598,9 @@ namespace Tangenta
                 }
                 else
                 {
-                    Form_NewDocument frm_new = new Form_NewDocument(this, this.DocM, DocM.mSettingsUserValues);
+                    Form_NewDocument frm_new = new Form_NewDocument(this, this.DocM, DocM.mSettingsUserValues,this.m_usrc_DocumentEditor1366x768.lbl_Sum.Text);
                     frm_new.ShowDialog(this);
-                    if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
+                    if (this.Visible && DocumentMan.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
                     switch (frm_new.eNewDocumentResult)
                     {
                         case Form_NewDocument.e_NewDocument.New_Empty:
@@ -937,7 +937,7 @@ namespace Tangenta
 
         private void btn_SelectPanels_Click(object sender, EventArgs e)
         {
-            if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
+            if (this.Visible && DocumentMan.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
             Form_SelectPanels frm_select_panels = new Form_SelectPanels(DocM,DocM.mSettingsUserValues);
             if (frm_select_panels.ShowDialog(this)==DialogResult.OK)
             {
@@ -946,7 +946,7 @@ namespace Tangenta
                     LayoutChanged();
                 }
             }
-            if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
+            if (this.Visible && DocumentMan.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
         }
 
         internal void Activate_dgvx_XInvoice_SelectionChanged()
@@ -956,7 +956,7 @@ namespace Tangenta
 
         private void SetDocInvoiceOrDocPoformaInvoice()
         {
-            Program.RunAs = DocM.DocTyp;
+            DocumentMan.RunAs = DocM.DocTyp;
 
             this.m_usrc_TableOfDocuments.Clear();
 
@@ -1174,10 +1174,10 @@ namespace Tangenta
         {
             if (DocM.door.OpenIfUserIsAdministrator(Global.f.GetParentForm(this)))
             {
-                if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
+                if (this.Visible && DocumentMan.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
                 Form_SettingsSelect frm_settingsselect = new Form_SettingsSelect(m_Form_Document, this, DocM.mSettingsUserValues);
                 frm_settingsselect.ShowDialog(this);
-                if (this.Visible && Program.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
+                if (this.Visible && DocumentMan.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
 
             }
         }

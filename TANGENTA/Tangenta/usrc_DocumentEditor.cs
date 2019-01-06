@@ -268,7 +268,7 @@ namespace Tangenta
                 m_usrc_ShopC.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
                 m_usrc_ShopC.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
             }
-            m_usrc_ShopC.Init(DocE.m_LMOUser.Atom_WorkPeriod_ID, DocE.m_ShopABC, DocE.DBtcn,PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),Properties.Settings.Default.AutomaticSelectionOfItemFromStock,OperationMode.ShopC_ExclusivelySellFromStock);
+            m_usrc_ShopC.Init(DocE.m_LMOUser.Atom_WorkPeriod_ID, DocE.m_ShopABC, DocE.DBtcn,PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),DocumentMan.AutomaticSelectionOfItemFromStock,OperationMode.ShopC_ExclusivelySellFromStock);
             m_usrc_ShopC.Dock = DockStyle.Fill;
             m_usrc_ShopC.ItemAdded += usrc_ShopC_ItemAdded;
             m_usrc_ShopC.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
@@ -857,9 +857,9 @@ namespace Tangenta
             {
                 if (transaction_usrc_DocumentEditor_DocE_Init.Commit())
                 {
-                    this.usrc_Customer.aa_Customer_Person_Changed += new Tangenta.usrc_Customer.delegate_Customer_Person_Changed(this.usrc_Customer_Customer_Person_Changed);
-                    this.usrc_Customer.aa_Customer_Org_Changed += new Tangenta.usrc_Customer.delegate_Customer_Org_Changed(this.usrc_Customer_Customer_Org_Changed);
-                    this.usrc_Customer.aa_Customer_Removed += new Tangenta.usrc_Customer.delegate_Customer_Removed(this.usrc_Customer_aa_Customer_Removed);
+                    this.usrc_Customer.aa_Customer_Person_Changed += new usrc_Customer.delegate_Customer_Person_Changed(this.usrc_Customer_Customer_Person_Changed);
+                    this.usrc_Customer.aa_Customer_Org_Changed += new usrc_Customer.delegate_Customer_Org_Changed(this.usrc_Customer_Customer_Org_Changed);
+                    this.usrc_Customer.aa_Customer_Removed += new usrc_Customer.delegate_Customer_Removed(this.usrc_Customer_aa_Customer_Removed);
                     return true;
                 }
                 else
@@ -1319,7 +1319,7 @@ namespace Tangenta
 
         private void btn_Select_Shops_Click(object sender, EventArgs e)
         {
-            Form_ShowShops frm_sel_shops = new Form_ShowShops(this, DocE.mSettingsUserValues);
+            Form_ShowShops frm_sel_shops = new Form_ShowShops(DocE, DocE.mSettingsUserValues);
             if (frm_sel_shops.ShowDialog(this)==DialogResult.OK)
             {
                 Set_ShowShops(DocE.mSettingsUserValues.eShowShops);

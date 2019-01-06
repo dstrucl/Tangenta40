@@ -47,7 +47,7 @@ namespace TangentaPrint
         {
             if (m_nav!=null)
             {
-                if (m_nav.oStartup is startup)
+                if (m_nav.oStartup is Startup.Startup)
                 {
                     if (m_nav.StartupStep_index>0)
                     {

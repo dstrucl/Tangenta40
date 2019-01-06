@@ -121,32 +121,20 @@
   <data name="Cash" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Cash.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ViewInvoice" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ViewInvoice.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="TermsOfPayment" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TermsOfPayment.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Shopping_Basket" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Shopping_Basket.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="EditAndViewInvoice" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EditAndViewInvoice.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Atom_Item_ViewForm_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Atom_Item_ViewForm_icon.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TimeSpan" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TimeSpan.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Item_NoStock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Item_NoStock.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Expiry" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Expiry.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="UpgradeDataBase" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UpgradeDataBase.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Settings_in_DB" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Settings_in_DB.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -184,9 +172,6 @@
   <data name="Units" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Units.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="checkmark_No" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\checkmark_No.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Tax_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Tax_icon.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -207,9 +192,6 @@
   </data>
   <data name="Item_Stock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Item_Stock.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Tangenta_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Blagajna_Icon.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="DiscountHot" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DiscountHot.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -235,9 +217,6 @@
   <data name="RemoveFromBoxToFactory" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RemoveFromBoxToFactory.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="checkmark_Yes" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\checkmark_Yes.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Stock_EditForm" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Stock_EditForm.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -262,9 +241,6 @@
   <data name="RemoveAll" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RemoveAll.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="EditInvoice" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EditInvoice.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="printer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\printer.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -273,9 +249,6 @@
   </data>
   <data name="Item_NoStock_Return" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Item_NoStock_Return.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Edit.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CodeTables" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CodeTables.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -288,9 +261,6 @@
   </data>
   <data name="MyOrganisation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MyOrganisation.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SelectRow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SelectRow.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FVI_SLO_Invoice" xml:space="preserve">
     <value>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -413,29 +383,11 @@ vsako izbrano postavko lahko določite tudi poljuben popust.&lt;/font&gt;&lt;/p&
 &lt;/body&gt;
 &lt;/html&gt;</value>
   </data>
-  <data name="Settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Settings.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ProgramSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ProgramSettings.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Exit_Program" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Exit_Program.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Tangenta_Question" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Tangenta_Question.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Person" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Person.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Next" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Next.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Prev" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Prev.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CodeTablesImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CodeTables.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PasswordView" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PasswordView.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -445,9 +397,6 @@ vsako izbrano postavko lahko določite tudi poljuben popust.&lt;/font&gt;&lt;/p&
   </data>
   <data name="PaymentIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PaymentIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DBSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DBSettings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="VOD_shema" xml:space="preserve">
     <value>&lt;!--
@@ -1672,31 +1621,34 @@ Format v katerem je slika generirana, ki se nahaja v elementu RAW
   <data name="TangentaUninstaller_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TangentaUninstaller_Icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="WorkAreaAsTable" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WorkAreaAsTable.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="WorkArea" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\WorkArea.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Tangenta_Logo_SMALL" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Tangenta-Logo SMALL.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TableInspection" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TableInspection.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="TableInspection_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TableInspection_icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TableInspection_ShopA" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TableInspection_ShopA.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Exit1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Exit.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TableInspection_ShopB" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TableInspection_ShopB.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Next" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Next.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TableInspection_ShopC" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TableInspection_ShopC.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Prev" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Prev.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TableInspection_Shop_dtSQLdb" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TableInspection_Shop_dtSQLdb.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Tangenta_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Blagajna_Icon2.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Tangenta_Question" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Tangenta_Question.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EditAndViewInvoice" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EditAndViewInvoice.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Settings.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

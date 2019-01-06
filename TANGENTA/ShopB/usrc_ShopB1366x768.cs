@@ -22,6 +22,7 @@ using TangentaDB;
 using Form_Discount;
 using PriseLists;
 using DBTypes;
+using ShopB_Forms;
 
 namespace ShopB
 {

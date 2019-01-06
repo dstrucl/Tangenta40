@@ -31,7 +31,7 @@ namespace Startup
 
         int xusrc_startup_step_Width = 0;
 
-        public startup m_startup = null;
+        public Startup m_startup = null;
         
         public const int Y_DIST = 10;
 
@@ -39,7 +39,7 @@ namespace Startup
 
         public bool Exit { get { return m_Exit; } }
 
-        public usrc_Startup(startup xstartup)
+        public usrc_Startup(Startup xstartup)
         {
             InitializeComponent();
             m_UpgradeDB = new UpgradeDB_inThread(this);

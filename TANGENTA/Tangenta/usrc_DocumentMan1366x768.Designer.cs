@@ -1,4 +1,6 @@
-﻿namespace Tangenta
+﻿using DocumentManager;
+
+namespace Tangenta
 {
     partial class usrc_DocumentMan1366x768
     {
@@ -39,7 +41,7 @@
             this.usrc_FVI_SLO1 = new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO();
             this.btn_Settings = new System.Windows.Forms.Button();
             this.timer_Login_MultiUser = new System.Windows.Forms.Timer(this.components);
-            this.m_usrc_TableOfDocuments = new Tangenta.usrc_TableOfDocuments();
+            this.m_usrc_TableOfDocuments = new usrc_TableOfDocuments();
             this.m_usrc_DocumentEditor1366x768 = new Tangenta.usrc_DocumentEditor1366x768();
             this.usrc_TransactionControl1 = new TransactionLog.usrc_TransactionControl();
             this.SuspendLayout();
@@ -148,7 +150,7 @@
             this.m_usrc_TableOfDocuments.Name = "m_usrc_TableOfDocuments";
             this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(357, 622);
             this.m_usrc_TableOfDocuments.TabIndex = 39;
-            this.m_usrc_TableOfDocuments.SelectedInvoiceChanged += new Tangenta.usrc_TableOfDocuments.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
+            this.m_usrc_TableOfDocuments.SelectedInvoiceChanged += new usrc_TableOfDocuments.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
             // 
             // m_usrc_DocumentEditor1366x768
             // 

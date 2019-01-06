@@ -16,6 +16,7 @@ using System.Text;
 using System.Windows.Forms;
 using TangentaTableClass;
 using LanguageControl;
+using ShopC_Forms;
 
 namespace ShopC
 {

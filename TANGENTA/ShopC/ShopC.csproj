@@ -84,101 +84,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Colors.cs" />
-    <Compile Include="Form_ItemAtom_View.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_ItemAtom_View.Designer.cs">
-      <DependentUpon>Form_ItemAtom_View.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_ItemGroups_Edit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_ItemGroups_Edit.Designer.cs">
-      <DependentUpon>Form_ItemGroups_Edit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_plus.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_plus.Designer.cs">
-      <DependentUpon>Form_plus.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form_SetItemQunatityInBasket.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form_SetItemQunatityInBasket.Designer.cs">
       <DependentUpon>Form_SetItemQunatityInBasket.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_ShopC_TableInspection.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_ShopC_TableInspection.Designer.cs">
-      <DependentUpon>Form_ShopC_TableInspection.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_StockTake_Edit_WizzardForHelp.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_StockTake_Edit_WizzardForHelp.Designer.cs">
-      <DependentUpon>Form_StockTake_Edit_WizzardForHelp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_Select_Item_From_Stock.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Select_Item_From_Stock.Designer.cs">
-      <DependentUpon>Form_Select_Item_From_Stock.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_ShopC_Item_Edit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_ShopC_Item_Edit.Designer.cs">
-      <DependentUpon>Form_ShopC_Item_Edit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_SelectStockEditType.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_SelectStockEditType.Designer.cs">
-      <DependentUpon>Form_SelectStockEditType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_Show_Documents_Where_stock_item_was_sold_or_reserved.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Show_Documents_Where_stock_item_was_sold_or_reserved.Designer.cs">
-      <DependentUpon>Form_Show_Documents_Where_stock_item_was_sold_or_reserved.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_StockItem_Edit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_StockItem_Edit.Designer.cs">
-      <DependentUpon>Form_StockItem_Edit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_StockTake_AdditionalCost_Edit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_StockTake_AdditionalCost_Edit.Designer.cs">
-      <DependentUpon>Form_StockTake_AdditionalCost_Edit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_StockTake_Edit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_StockTake_Edit.Designer.cs">
-      <DependentUpon>Form_StockTake_Edit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_Stock_Address_Edit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Stock_Address_Edit.Designer.cs">
-      <DependentUpon>Form_Stock_Address_Edit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_Stock_AvoidStock_Edit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Stock_AvoidStock_Edit.Designer.cs">
-      <DependentUpon>Form_Stock_AvoidStock_Edit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_Stock_Edit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Stock_Edit.Designer.cs">
-      <DependentUpon>Form_Stock_Edit.cs</DependentUpon>
     </Compile>
     <Compile Include="lng.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -187,23 +97,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="usrc_Item_PageHandler4usrc_Item.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_Item_PageHandler4usrc_Item.Designer.cs">
-      <DependentUpon>usrc_Item_PageHandler4usrc_Item.cs</DependentUpon>
-    </Compile>
     <Compile Include="usrc_btn_Item.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="usrc_btn_Item.Designer.cs">
       <DependentUpon>usrc_btn_Item.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_checkmark.cs">
+    <Compile Include="usrc_Item.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_checkmark.Designer.cs">
-      <DependentUpon>usrc_checkmark.cs</DependentUpon>
+    <Compile Include="usrc_Item.Designer.cs">
+      <DependentUpon>usrc_Item.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_Item1366x768_selected.cs">
       <SubType>UserControl</SubType>
@@ -222,12 +126,6 @@
     </Compile>
     <Compile Include="usrc_Item1366x768.Designer.cs">
       <DependentUpon>usrc_Item1366x768.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_Item.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_Item.Designer.cs">
-      <DependentUpon>usrc_Item.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_ItemAtom1366x768.cs">
       <SubType>UserControl</SubType>
@@ -253,11 +151,17 @@
     <Compile Include="usrc_ItemAtomsList.Designer.cs">
       <DependentUpon>usrc_ItemAtomsList.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_ItemAtom_View.cs">
+    <Compile Include="usrc_ItemList1366x768.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_ItemAtom_View.Designer.cs">
-      <DependentUpon>usrc_ItemAtom_View.cs</DependentUpon>
+    <Compile Include="usrc_ItemList1366x768.Designer.cs">
+      <DependentUpon>usrc_ItemList1366x768.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_ItemList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_ItemList.Designer.cs">
+      <DependentUpon>usrc_ItemList.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_Item_InsidePageGroupHandler_Item_Data.cs">
       <SubType>UserControl</SubType>
@@ -277,29 +181,23 @@
     <Compile Include="usrc_Item_PageHandler4usrc_Atom_Item.Designer.cs">
       <DependentUpon>usrc_Item_PageHandler4usrc_Atom_Item.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_SetItemQuantityInBasket.cs">
+    <Compile Include="usrc_Item_PageHandler4usrc_Item.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_SetItemQuantityInBasket.Designer.cs">
-      <DependentUpon>usrc_SetItemQuantityInBasket.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_ItemList1366x768.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_ItemList1366x768.Designer.cs">
-      <DependentUpon>usrc_ItemList1366x768.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_ItemList.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_ItemList.Designer.cs">
-      <DependentUpon>usrc_ItemList.cs</DependentUpon>
+    <Compile Include="usrc_Item_PageHandler4usrc_Item.Designer.cs">
+      <DependentUpon>usrc_Item_PageHandler4usrc_Item.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_Item_TextSearch.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="usrc_Item_TextSearch.Designer.cs">
       <DependentUpon>usrc_Item_TextSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_SetItemQuantityInBasket.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_SetItemQuantityInBasket.Designer.cs">
+      <DependentUpon>usrc_SetItemQuantityInBasket.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_ShopC1366x768.cs">
       <SubType>UserControl</SubType>
@@ -313,71 +211,11 @@
     <Compile Include="usrc_ShopC.Designer.cs">
       <DependentUpon>usrc_ShopC.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_StockEditForSelectedStockTake.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_StockEditForSelectedStockTake.Designer.cs">
-      <DependentUpon>usrc_StockEditForSelectedStockTake.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_StockTake_Item.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_StockTake_Item.Designer.cs">
-      <DependentUpon>usrc_StockTake_Item.cs</DependentUpon>
-    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form_ItemAtom_View.resx">
-      <DependentUpon>Form_ItemAtom_View.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_ItemGroups_Edit.resx">
-      <DependentUpon>Form_ItemGroups_Edit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_plus.resx">
-      <DependentUpon>Form_plus.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form_SetItemQunatityInBasket.resx">
       <DependentUpon>Form_SetItemQunatityInBasket.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_ShopC_TableInspection.resx">
-      <DependentUpon>Form_ShopC_TableInspection.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_StockTake_Edit_WizzardForHelp.resx">
-      <DependentUpon>Form_StockTake_Edit_WizzardForHelp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_Select_Item_From_Stock.resx">
-      <DependentUpon>Form_Select_Item_From_Stock.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_ShopC_Item_Edit.resx">
-      <DependentUpon>Form_ShopC_Item_Edit.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_SelectStockEditType.resx">
-      <DependentUpon>Form_SelectStockEditType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_Show_Documents_Where_stock_item_was_sold_or_reserved.resx">
-      <DependentUpon>Form_Show_Documents_Where_stock_item_was_sold_or_reserved.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_StockItem_Edit.resx">
-      <DependentUpon>Form_StockItem_Edit.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_StockTake_AdditionalCost_Edit.resx">
-      <DependentUpon>Form_StockTake_AdditionalCost_Edit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_StockTake_Edit.resx">
-      <DependentUpon>Form_StockTake_Edit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_Stock_Address_Edit.resx">
-      <DependentUpon>Form_Stock_Address_Edit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_Stock_AvoidStock_Edit.resx">
-      <DependentUpon>Form_Stock_AvoidStock_Edit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_Stock_Edit.resx">
-      <DependentUpon>Form_Stock_Edit.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -386,8 +224,9 @@
     <EmbeddedResource Include="usrc_btn_Item.resx">
       <DependentUpon>usrc_btn_Item.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_checkmark.resx">
-      <DependentUpon>usrc_checkmark.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_Item.resx">
+      <DependentUpon>usrc_Item.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Item1366x768_selected.resx">
       <DependentUpon>usrc_Item1366x768_selected.cs</DependentUpon>
@@ -399,10 +238,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Item1366x768.resx">
       <DependentUpon>usrc_Item1366x768.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Item.resx">
-      <DependentUpon>usrc_Item.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_ItemAtom1366x768.resx">
@@ -421,12 +256,6 @@
       <DependentUpon>usrc_ItemAtomsList.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_ItemAtom_View.resx">
-      <DependentUpon>usrc_ItemAtom_View.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_SetItemQuantityInBasket.resx">
-      <DependentUpon>usrc_SetItemQuantityInBasket.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="usrc_ItemList1366x768.resx">
       <DependentUpon>usrc_ItemList1366x768.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -438,6 +267,9 @@
     <EmbeddedResource Include="usrc_Item_TextSearch.resx">
       <DependentUpon>usrc_Item_TextSearch.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_SetItemQuantityInBasket.resx">
+      <DependentUpon>usrc_SetItemQuantityInBasket.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_ShopC1366x768.resx">
       <DependentUpon>usrc_ShopC1366x768.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -445,12 +277,6 @@
     <EmbeddedResource Include="usrc_ShopC.resx">
       <DependentUpon>usrc_ShopC.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_StockEditForSelectedStockTake.resx">
-      <DependentUpon>usrc_StockEditForSelectedStockTake.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_StockTake_Item.resx">
-      <DependentUpon>usrc_StockTake_Item.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -558,6 +384,10 @@
       <Project>{82dc8548-1981-4f2c-b0ba-abd37282085a}</Project>
       <Name>UniqueControlNames</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DocumentManager\DocumentManager.csproj">
+      <Project>{4f00910d-6e8d-4a47-bcc3-526867f3e099}</Project>
+      <Name>DocumentManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Form_Discount\Form_Discount.csproj">
       <Project>{4ac81b7e-a501-40ba-9a29-ed8004430eab}</Project>
       <Name>Form_Discount</Name>
@@ -565,6 +395,10 @@
     <ProjectReference Include="..\PriseLists\PriseLists.csproj">
       <Project>{d3e4af57-60eb-486b-a145-5eadd0f01177}</Project>
       <Name>PriseLists</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShopC_Forms\ShopC_Forms.csproj">
+      <Project>{A023D289-EA3F-4655-83BB-B28D95B7436D}</Project>
+      <Name>ShopC_Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\TangentaDataBaseDef\TangentaDataBaseDef.csproj">
       <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>

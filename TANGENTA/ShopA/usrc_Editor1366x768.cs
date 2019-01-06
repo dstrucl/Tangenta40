@@ -18,6 +18,7 @@ using TangentaDB;
 using TangentaTableClass;
 using CodeTables;
 using DBConnectionControl40;
+using ShopA_Forms;
 
 namespace ShopA
 {

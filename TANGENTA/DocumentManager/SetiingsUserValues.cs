@@ -279,68 +279,68 @@ namespace DocumentManager
             }
         }
 
-        public int mForm_Document_WindowState = -1;
-        public int Form_Document_WindowState
+        public int mForm_WindowState = -1;
+        public int Form_WindowState
         {
             get
             {
-                return mForm_Document_WindowState;
+                return mForm_WindowState;
             }
             set
             {
-                mForm_Document_WindowState = value;
+                mForm_WindowState = value;
             }
         }
 
-        public int mForm_Document_Left = -1;
-        public int Form_Document_Left
+        public int mForm_Left = -1;
+        public int Form_Left
         {
             get
             {
-                return mForm_Document_Left;
+                return mForm_Left;
             }
             set
             {
-                mForm_Document_Left = value;
+                mForm_Left = value;
             }
         }
 
-        public int mForm_Document_Top = -1;
-        public int Form_Document_Top
+        public int mForm_Top = -1;
+        public int Form_Top
         {
             get
             {
-                return mForm_Document_Top;
+                return mForm_Top;
             }
             set
             {
-                mForm_Document_Top = value;
+                mForm_Top = value;
             }
         }
 
-        public int mForm_Document_Width = -1;
-        public int Form_Document_Width
+        public int mForm_Width = -1;
+        public int Form_Width
         {
             get
             {
-                return mForm_Document_Width;
+                return mForm_Width;
             }
             set
             {
-                mForm_Document_Width = value;
+                mForm_Width = value;
             }
         }
 
-        public int mForm_Document_Height = -1;
-        public int Form_Document_Height
+        public int mForm_Height = -1;
+        public int Form_Height
         {
             get
             {
-                return mForm_Document_Height;
+                return mForm_Height;
             }
             set
             {
-                mForm_Document_Height = value;
+                mForm_Height = value;
             }
         }
 
@@ -412,11 +412,11 @@ namespace DocumentManager
             AddRow(dt, "DocumentEditor_SplitControl1_spliterdistance", DocumentEditor_SplitControl1_spliterdistance, false);
             AddRow(dt, "DocumentEditor_SplitControl2_spliterdistance", DocumentEditor_SplitControl2_spliterdistance, false);
             AddRow(dt, "DocumentEditor_SplitControl3_spliterdistance", DocumentEditor_SplitControl3_spliterdistance, false);
-            AddRow(dt, "Form_Document_WindowState", Form_Document_WindowState, false);
-            AddRow(dt, "Form_Document_Left", Form_Document_Left, false);
-            AddRow(dt, "Form_Document_Top", Form_Document_Top, false);
-            AddRow(dt, "Form_Document_Width", Form_Document_Width, false);
-            AddRow(dt, "Form_Document_Height", Form_Document_Height, false);
+            AddRow(dt, "Form_WindowState", Form_WindowState, false);
+            AddRow(dt, "Form_Left", Form_Left, false);
+            AddRow(dt, "Form_Top", Form_Top, false);
+            AddRow(dt, "Form_Width", Form_Width, false);
+            AddRow(dt, "Form_Height", Form_Height, false);
             AddRow(dt, "Color_DocInvoiceForeGround", Color_DocInvoiceForeGround, false);
             AddRow(dt, "Color_DocProformaInvoiceBackGround", Color_DocProformaInvoiceBackGround, false);
 

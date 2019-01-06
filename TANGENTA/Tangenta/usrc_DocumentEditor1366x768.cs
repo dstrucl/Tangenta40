@@ -624,9 +624,9 @@ namespace Tangenta
             {
                 if (transaction_DocE_Init.Commit())
                 {
-                    this.usrc_Customer.aa_Customer_Person_Changed += new Tangenta.usrc_Customer.delegate_Customer_Person_Changed(this.usrc_Customer_Customer_Person_Changed);
-                    this.usrc_Customer.aa_Customer_Org_Changed += new Tangenta.usrc_Customer.delegate_Customer_Org_Changed(this.usrc_Customer_Customer_Org_Changed);
-                    this.usrc_Customer.aa_Customer_Removed += new Tangenta.usrc_Customer.delegate_Customer_Removed(this.usrc_Customer_aa_Customer_Removed);
+                    this.usrc_Customer.aa_Customer_Person_Changed += new usrc_Customer.delegate_Customer_Person_Changed(this.usrc_Customer_Customer_Person_Changed);
+                    this.usrc_Customer.aa_Customer_Org_Changed += new usrc_Customer.delegate_Customer_Org_Changed(this.usrc_Customer_Customer_Org_Changed);
+                    this.usrc_Customer.aa_Customer_Removed += new usrc_Customer.delegate_Customer_Removed(this.usrc_Customer_aa_Customer_Removed);
 
                     m_usrc_ShopA1366x768.aa_ItemAdded += M_usrc_ShopA_aa_ItemAdded;
                     m_usrc_ShopA1366x768.aa_ItemRemoved += M_usrc_ShopA_aa_ItemRemoved;
@@ -1173,7 +1173,7 @@ namespace Tangenta
 
         private void btn_Select_Shops_Click(object sender, EventArgs e)
         {
-            Form_ShowShops1366x768 frm_sel_shops = new Form_ShowShops1366x768(this, DocE.mSettingsUserValues);
+            Form_ShowShops1366x768 frm_sel_shops = new Form_ShowShops1366x768(DocE, DocE.mSettingsUserValues);
             if (frm_sel_shops.ShowDialog(this)==DialogResult.OK)
             {
                 Set_ShowShops(PropertiesUser.ShowShops_Get(DocE.mSettingsUserValues));

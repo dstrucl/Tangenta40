@@ -81,42 +81,12 @@ namespace Tangenta.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap checkmark_No {
-            get {
-                object obj = ResourceManager.GetObject("checkmark_No", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap checkmark_Yes {
-            get {
-                object obj = ResourceManager.GetObject("checkmark_Yes", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon CodeTables {
             get {
                 object obj = ResourceManager.GetObject("CodeTables", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap CodeTablesImage {
-            get {
-                object obj = ResourceManager.GetObject("CodeTablesImage", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -137,16 +107,6 @@ namespace Tangenta.Properties {
             get {
                 object obj = ResourceManager.GetObject("CustomerOnInvoice", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap DBSettings {
-            get {
-                object obj = ResourceManager.GetObject("DBSettings", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -223,16 +183,6 @@ namespace Tangenta.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Edit {
-            get {
-                object obj = ResourceManager.GetObject("Edit", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap EditAndViewInvoice {
             get {
                 object obj = ResourceManager.GetObject("EditAndViewInvoice", resourceCulture);
@@ -253,16 +203,6 @@ namespace Tangenta.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap EditInvoice {
-            get {
-                object obj = ResourceManager.GetObject("EditInvoice", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Exit {
             get {
                 object obj = ResourceManager.GetObject("Exit", resourceCulture);
@@ -276,6 +216,16 @@ namespace Tangenta.Properties {
         internal static System.Drawing.Bitmap Exit_Program {
             get {
                 object obj = ResourceManager.GetObject("Exit_Program", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Exit1 {
+            get {
+                object obj = ResourceManager.GetObject("Exit1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -459,16 +409,6 @@ namespace Tangenta.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon Person {
-            get {
-                object obj = ResourceManager.GetObject("Person", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Prev {
@@ -554,16 +494,6 @@ namespace Tangenta.Properties {
         internal static System.Drawing.Bitmap RemoveFromBoxToFactory {
             get {
                 object obj = ResourceManager.GetObject("RemoveFromBoxToFactory", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap SelectRow {
-            get {
-                object obj = ResourceManager.GetObject("SelectRow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -698,62 +628,12 @@ namespace Tangenta.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap TableInspection {
-            get {
-                object obj = ResourceManager.GetObject("TableInspection", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon TableInspection_icon {
             get {
                 object obj = ResourceManager.GetObject("TableInspection_icon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap TableInspection_Shop_dtSQLdb {
-            get {
-                object obj = ResourceManager.GetObject("TableInspection_Shop_dtSQLdb", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap TableInspection_ShopA {
-            get {
-                object obj = ResourceManager.GetObject("TableInspection_ShopA", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap TableInspection_ShopB {
-            get {
-                object obj = ResourceManager.GetObject("TableInspection_ShopB", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap TableInspection_ShopC {
-            get {
-                object obj = ResourceManager.GetObject("TableInspection_ShopC", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -828,42 +708,12 @@ namespace Tangenta.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap TimeSpan {
-            get {
-                object obj = ResourceManager.GetObject("TimeSpan", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon Units {
             get {
                 object obj = ResourceManager.GetObject("Units", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap UpgradeDataBase {
-            get {
-                object obj = ResourceManager.GetObject("UpgradeDataBase", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ViewInvoice {
-            get {
-                object obj = ResourceManager.GetObject("ViewInvoice", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -909,16 +759,6 @@ namespace Tangenta.Properties {
             get {
                 object obj = ResourceManager.GetObject("WorkArea", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WorkAreaAsTable {
-            get {
-                object obj = ResourceManager.GetObject("WorkAreaAsTable", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

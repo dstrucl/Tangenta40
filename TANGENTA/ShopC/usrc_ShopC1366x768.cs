@@ -20,6 +20,7 @@ using TangentaDB;
 using PriseLists;
 using DBTypes;
 using DBConnectionControl40;
+using ShopC_Forms;
 
 namespace ShopC
 {

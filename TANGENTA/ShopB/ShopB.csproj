@@ -91,18 +91,6 @@
     <Compile Include="DataGridViewButtonImageCell.cs" />
     <Compile Include="DataGridViewButtonImageColumn.cs" />
     <Compile Include="DataGridViewImageButtonSelectCell.cs" />
-    <Compile Include="Form_Atom_SimpleItem_Check.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Atom_SimpleItem_Check.Designer.cs">
-      <DependentUpon>Form_Atom_SimpleItem_Check.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_SimpleItem_Edit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_SimpleItem_Edit.Designer.cs">
-      <DependentUpon>Form_SimpleItem_Edit.cs</DependentUpon>
-    </Compile>
     <Compile Include="lng.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -125,13 +113,6 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form_Atom_SimpleItem_Check.resx">
-      <DependentUpon>Form_Atom_SimpleItem_Check.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_SimpleItem_Edit.resx">
-      <DependentUpon>Form_SimpleItem_Edit.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -200,6 +181,10 @@
       <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
       <Name>StaticLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DocumentManager\DocumentManager.csproj">
+      <Project>{4f00910d-6e8d-4a47-bcc3-526867f3e099}</Project>
+      <Name>DocumentManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Form_Discount\Form_Discount.csproj">
       <Project>{4ac81b7e-a501-40ba-9a29-ed8004430eab}</Project>
       <Name>Form_Discount</Name>
@@ -223,6 +208,10 @@
     <ProjectReference Include="..\TangentaTableClass\TangentaTableClass.csproj">
       <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
       <Name>TangentaTableClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="ShopB_Forms\ShopB_Forms.csproj">
+      <Project>{b66aace6-8404-4b5c-8e35-560555419412}</Project>
+      <Name>ShopB_Forms</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

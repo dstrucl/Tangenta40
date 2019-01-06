@@ -76,6 +76,8 @@ namespace DocumentManager
         public delegate void delegate_Storno(bool bStorno);
         public delegate void delegate_control_chk_Storno_Check(bool bcheck);
 
+        public Button btn_Show_Shops = null;
+
         private DocumentMan DocM = null;
 
         public enum emode

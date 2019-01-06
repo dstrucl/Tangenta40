@@ -16,8 +16,11 @@ namespace Startup
 {
    
 
-    public class startup
+    public class Startup
         {
+
+        public static bool bFirstTimeInstallation = false;
+
         public enum EvaulateStep_RESULT {EXIT,NEXT,PREV,START_GO_PREV, FINISHED_GO_NEXT };
 
         public SampleDB sbd;
@@ -68,7 +71,6 @@ namespace Startup
         public Icon m_FormIconQuestion = null;
         public fs.enum_GetDBSettings eGetDBSettings_Result = fs.enum_GetDBSettings.No_TextValue;
         public string CurrentDataBaseVersionTextValue = null;
-        private bool bFirstTimeInstallation = false;
 
         public bool bCanceled
         {
@@ -147,7 +149,7 @@ namespace Startup
             }
         }
 
-        public startup(Form parent_form, NavigationButtons.Navigation xnav, Icon xFormIconQuestion,bool xbFirstTimeInstallation)
+        public Startup(Form parent_form, NavigationButtons.Navigation xnav, Icon xFormIconQuestion,bool xbFirstTimeInstallation)
         {
             sbd = new SampleDB();
             m_parent_form = parent_form;

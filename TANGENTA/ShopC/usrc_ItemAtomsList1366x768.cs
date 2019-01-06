@@ -19,6 +19,7 @@ using XMessage;
 using TangentaDB;
 using DBConnectionControl40;
 using usrc_Item_InsidePage_Handler;
+using ShopC_Forms;
 
 namespace ShopC
 {
@@ -396,7 +397,7 @@ namespace ShopC
         private void showTablesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form pform = Global.f.GetParentForm(this);
-            Form_ShopC_TableInspection.DoShow(pform, m_ShopBC);
+            Form_ShopC_TableInspection.DoShow(pform);
         }
     }
 }

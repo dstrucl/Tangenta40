@@ -1,4 +1,6 @@
-﻿namespace Tangenta
+﻿using DocumentManager;
+
+namespace Tangenta
 {
     partial class usrc_DocumentMan
     {
@@ -30,8 +32,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.m_usrc_DocumentEditor = new Tangenta.usrc_DocumentEditor();
-            this.m_usrc_TableOfDocuments = new Tangenta.usrc_TableOfDocuments();
+            this.m_usrc_DocumentEditor = new usrc_DocumentEditor();
+            this.m_usrc_TableOfDocuments = new usrc_TableOfDocuments();
             this.cmb_DocType = new System.Windows.Forms.ComboBox();
             this.cmb_FinancialYear = new System.Windows.Forms.ComboBox();
             this.lbl_FinancialYear = new System.Windows.Forms.Label();
@@ -86,11 +88,11 @@
             this.m_usrc_DocumentEditor.SplitContainer2_spd = 78;
             this.m_usrc_DocumentEditor.SplitContainer3_spd = 130;
             this.m_usrc_DocumentEditor.TabIndex = 0;
-            this.m_usrc_DocumentEditor.Storno += new Tangenta.usrc_DocumentEditor.delegate_Storno(this.m_usrc_Invoice_Storno);
-            this.m_usrc_DocumentEditor.aa_DocInvoiceSaved += new Tangenta.usrc_DocumentEditor.delegate_DocInvoiceSaved(this.m_usrc_Invoice_DocInvoiceSaved);
-            this.m_usrc_DocumentEditor.aa_DocProformaInvoiceSaved += new Tangenta.usrc_DocumentEditor.delegate_DocProformaInvoiceSaved(this.m_usrc_Invoice_DocProformaInvoiceSaved);
-            this.m_usrc_DocumentEditor.aa_Customer_Person_Changed += new Tangenta.usrc_DocumentEditor.delegate_Customer_Person_Changed(this.m_usrc_Invoice_Customer_Person_Changed);
-            this.m_usrc_DocumentEditor.aa_Customer_Org_Changed += new Tangenta.usrc_DocumentEditor.delegate_Customer_Org_Changed(this.m_usrc_Invoice_aa_Customer_Org_Changed);
+            this.m_usrc_DocumentEditor.Storno += new usrc_DocumentEditor.delegate_Storno(this.m_usrc_Invoice_Storno);
+            this.m_usrc_DocumentEditor.aa_DocInvoiceSaved += new usrc_DocumentEditor.delegate_DocInvoiceSaved(this.m_usrc_Invoice_DocInvoiceSaved);
+            this.m_usrc_DocumentEditor.aa_DocProformaInvoiceSaved += new usrc_DocumentEditor.delegate_DocProformaInvoiceSaved(this.m_usrc_Invoice_DocProformaInvoiceSaved);
+            this.m_usrc_DocumentEditor.aa_Customer_Person_Changed += new usrc_DocumentEditor.delegate_Customer_Person_Changed(this.m_usrc_Invoice_Customer_Person_Changed);
+            this.m_usrc_DocumentEditor.aa_Customer_Org_Changed += new usrc_DocumentEditor.delegate_Customer_Org_Changed(this.m_usrc_Invoice_aa_Customer_Org_Changed);
             // 
             // m_usrc_TableOfDocuments
             // 
@@ -100,7 +102,7 @@
             this.m_usrc_TableOfDocuments.Name = "m_usrc_TableOfDocuments";
             this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(527, 702);
             this.m_usrc_TableOfDocuments.TabIndex = 0;
-            this.m_usrc_TableOfDocuments.SelectedInvoiceChanged += new Tangenta.usrc_TableOfDocuments.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
+            this.m_usrc_TableOfDocuments.SelectedInvoiceChanged += new usrc_TableOfDocuments.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
             // 
             // cmb_DocType
             // 
@@ -148,7 +150,7 @@
             // btn_SelectPanels
             // 
             this.btn_SelectPanels.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_SelectPanels.Image = global::Tangenta.Properties.Resources.EditAndViewInvoice;
+            this.btn_SelectPanels.Image = Properties.Resources.EditAndViewInvoice;
             this.btn_SelectPanels.Location = new System.Drawing.Point(423, 2);
             this.btn_SelectPanels.Name = "btn_SelectPanels";
             this.btn_SelectPanels.Size = new System.Drawing.Size(68, 49);
@@ -206,7 +208,7 @@
             // 
             this.btn_Settings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Settings.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Settings.Image = global::Tangenta.Properties.Resources.Settings;
+            this.btn_Settings.Image = Properties.Resources.Settings;
             this.btn_Settings.Location = new System.Drawing.Point(1149, 3);
             this.btn_Settings.Name = "btn_Settings";
             this.btn_Settings.Size = new System.Drawing.Size(33, 49);

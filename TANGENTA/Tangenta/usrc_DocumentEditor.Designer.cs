@@ -1,4 +1,6 @@
-﻿namespace Tangenta
+﻿using DocumentManager;
+
+namespace Tangenta
 {
     partial class usrc_DocumentEditor
     {
@@ -42,10 +44,10 @@
             this.txt_Issuer = new System.Windows.Forms.TextBox();
             this.btn_MyOrganisation = new System.Windows.Forms.Button();
             this.lbl_MyOrganisation = new System.Windows.Forms.Label();
-            this.usrc_Customer = new Tangenta.usrc_Customer();
+            this.usrc_Customer = new usrc_Customer();
             this.chk_Storno = new System.Windows.Forms.CheckBox();
             this.btn_Show_Shops = new System.Windows.Forms.Button();
-            this.usrc_AddOn1 = new Tangenta.usrc_AddOn();
+            this.usrc_AddOn1 = new usrc_AddOn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -59,7 +61,7 @@
             // 
             // txt_MyOrganisation
             // 
-            this.txt_MyOrganisation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txt_MyOrganisation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_MyOrganisation.Location = new System.Drawing.Point(191, 8);
             this.txt_MyOrganisation.Margin = new System.Windows.Forms.Padding(2);
@@ -178,8 +180,8 @@
             // 
             // splitContainer2
             // 
-            this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.splitContainer2.Location = new System.Drawing.Point(-1, 30);
@@ -226,7 +228,7 @@
             // 
             // lbl_MyOrganisation
             // 
-            this.lbl_MyOrganisation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbl_MyOrganisation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_MyOrganisation.AutoSize = true;
             this.lbl_MyOrganisation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -239,7 +241,7 @@
             // 
             // usrc_Customer
             // 
-            this.usrc_Customer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.usrc_Customer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_Customer.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.usrc_Customer.DocTyp = "";
@@ -275,7 +277,7 @@
             // 
             // usrc_AddOn1
             // 
-            this.usrc_AddOn1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.usrc_AddOn1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_AddOn1.BackColor = System.Drawing.Color.LemonChiffon;
             this.usrc_AddOn1.Location = new System.Drawing.Point(174, 615);

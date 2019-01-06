@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Colors.cs" />
+    <Compile Include="CommandLineParam.cs" />
     <Compile Include="Form_LicenseAgreement.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +104,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Reset2FactorySettings.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="startup_step.cs" />
     <Compile Include="usrc_Startup.cs">
@@ -126,6 +128,10 @@
     <ProjectReference Include="..\..\CodeTables\CONTROLS\ColorSetings\ColorSettings.csproj">
       <Project>{7246e94a-782c-4f4d-b3a4-09b34c9975b6}</Project>
       <Name>ColorSettings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\CommandLineHelp\CommandLineHelp.csproj">
+      <Project>{5c02a9ff-0e40-4f63-89c5-8afcd9d4869d}</Project>
+      <Name>CommandLineHelp</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\HUDCMS\HUDCMS.csproj">
       <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>

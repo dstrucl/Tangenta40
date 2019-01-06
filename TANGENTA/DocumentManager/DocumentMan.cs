@@ -1,9 +1,15 @@
-﻿using DBConnectionControl40;
+﻿using CodeTables;
+using DBConnectionControl40;
+using DBTypes;
 using FiscalVerificationOfInvoices_SLO;
 using Global;
+using LoginControl;
+using RPC;
+using Startup;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +21,139 @@ namespace DocumentManager
 {
     public class DocumentMan
     {
+
+        public static Form MainForm = null;
+
+        public static Door doorFor1 = null;
+
+        public static FVI_SLO_MessageBox message_box = null;
+
+        public static Thread_FVI thread_fvi = null;
+
+        public static string m_XmlFileName = null;
+
+        public const string TANGENTA_VODSHEMA_SUB_FOLDER = "\\TangentaVODshema";
+        public const string TANGENTA_SETTINGS_SUB_FOLDER = "\\TangentaSettings";
+        public const string TANGENTA_SQLITEBACKUP_SUB_FOLDER = "\\TangentaSQliteBackup";
+
+        public static string AdministratorLockedPassword = "dhlpt"; //"dhlpt" is Locked password for "12345"
+
+        public static string DBType
+        {
+            get
+            {
+                return Properties.Settings.Default.DBType;
+            }
+            set
+            {
+                Properties.Settings.Default.DBType = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+
+
+        public static bool m_CountryHasFVI = false;
+
+        public static bool CountryHasFVI
+        {
+            get
+            {
+                return m_CountryHasFVI;
+            }
+            set
+            {
+                m_CountryHasFVI = value;
+            }
+        }
+
+        internal static void Cursor_Wait(Control xctrl)
+        {
+            Form frm = Global.f.GetParentForm(xctrl);
+            if (frm != null)
+            {
+                frm.Cursor = Cursors.WaitCursor;
+            }
+        }
+
+        internal static void Cursor_Arrow(Control xctrl)
+        {
+            Form frm = Global.f.GetParentForm(xctrl);
+            if (frm != null)
+            {
+                frm.Cursor = Cursors.Arrow;
+            }
+        }
+
+      
+
+
+        public static LMOUser LMO1User
+        {
+            get
+            {
+                if (loginControl1 != null)
+                {
+                    return loginControl1.LMO1User;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public static bool Login_MultipleUsers
+        {
+            get
+            {
+                if (OperationMode.MultiUser)
+                {
+                    return Properties.Settings.Default.Login_MultipleUsers;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+
+        private static string m_RunAs = null;
+
+        public static string RunAs
+        {
+            get
+            {
+                if (m_RunAs != null)
+                {
+                    if (m_RunAs.ToUpper().Equals(CommandLineParam.const_command_DOCINVOICE))
+                    {
+                        return GlobalData.const_DocInvoice;
+                    }
+                    else if (m_RunAs.ToUpper().Equals(CommandLineParam.const_command_DOCPROFORMAINVOICE))
+                    {
+                        return GlobalData.const_DocProformaInvoice;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:RunAs=" + m_RunAs + " not implemented!");
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                string s = value;
+                m_RunAs = s.ToUpper();
+            }
+        }
+
+
 
         public static bool bStartup = true;
 
@@ -53,6 +192,16 @@ namespace DocumentManager
             }
         }
 
+        public static bool UseWorkAreas
+        {
+            get
+            {
+
+                return Properties.Settings.Default.UseWorkAreas;
+            }
+
+        }
+
         public CashierActivity CashierActivity
         {
             get
@@ -65,6 +214,14 @@ namespace DocumentManager
                 {
                     return null;
                 }
+            }
+        }
+
+        public static bool ControlLayout_TouchScreen
+        {
+            get
+            {
+                return Properties.Settings.Default.ControlLayout_TouchScreen;
             }
         }
 
@@ -212,6 +369,107 @@ namespace DocumentManager
         {
             get
             { return DocTyp.Equals(GlobalData.const_DocProformaInvoice); }
+        }
+
+        public static string eShopsInUse
+        {
+            get
+            {
+                return Properties.Settings.Default.eShopsInUse;
+            }
+        }
+
+        public static bool ShowAdministratorsInMultiuserLogin
+        {
+            get {
+                return Properties.Settings.Default.ShowAdministratorsInMultiuserLogin;
+                }
+        }
+
+        public static Icon Tangenta_Question_Icon {
+            get
+            {
+                return Properties.Resources.Tangenta_Question;
+            }
+        }
+
+        public static RPC.RPC RPC = null;
+
+
+        public static int LanguageID
+        {
+            get
+            {
+                return Properties.Settings.Default.LanguageID;
+            }
+
+            set
+            {
+                Properties.Settings.Default.LanguageID = value;
+                Properties.Settings.Default.Save();
+            }
+
+        }
+        
+        public static string HelpLocalPath
+        {
+            get
+            {
+                return Properties.Settings.Default.HelpLocalPath;
+            }
+
+            set
+            {
+                Properties.Settings.Default.HelpLocalPath = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        public static string HelpRemoteURL
+        {
+            get
+            {
+                return Properties.Settings.Default.HelpRemoteURL;
+            }
+            set
+            {
+                Properties.Settings.Default.HelpRemoteURL = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        public static void SaveHelpSettings(string LocalHelpPath, string RemoteHelpURL)
+        {
+            bool xbHelpSettingsChanged = false;
+            if (LocalHelpPath != null)
+            {
+                if (LocalHelpPath.Length > 0)
+                {
+                    Properties.Settings.Default.HelpLocalPath = LocalHelpPath;
+                    xbHelpSettingsChanged = true;
+                }
+            }
+            if (RemoteHelpURL != null)
+            {
+                if (RemoteHelpURL.Length > 0)
+                {
+                    Properties.Settings.Default.HelpRemoteURL = RemoteHelpURL;
+                    xbHelpSettingsChanged = true;
+                }
+            }
+            if (xbHelpSettingsChanged)
+            {
+                Properties.Settings.Default.Save();
+            }
+
+        }
+
+        public static bool AutomaticSelectionOfItemFromStock
+        {
+            get
+            {
+                return Properties.Settings.Default.AutomaticSelectionOfItemFromStock;
+            }
         }
 
         public DocumentMan(delegate_Control_SetMode xdelegate_control_SetMode,
@@ -370,5 +628,216 @@ namespace DocumentManager
             this.Delegate_control_TableOfDocuments_Init(this, false, false, mSettingsUserValues.FinancialYear, Doc_ID_to_show);
             m_LMOUser.ReloadAdministratorsAndUserManagers();
         }
+
+        public static void LayoutSave(Form frm,SettingsUserValues xSettingsUserValues)
+        {
+            switch (frm.WindowState)
+            {
+                case FormWindowState.Minimized:
+                    xSettingsUserValues.Form_WindowState = 0;
+                    break;
+                case FormWindowState.Normal:
+                    xSettingsUserValues.Form_WindowState = 1;
+                    xSettingsUserValues.Form_Width = frm.Width;
+                    xSettingsUserValues.Form_Height = frm.Height;
+                    xSettingsUserValues.Form_Left = frm.Left;
+                    xSettingsUserValues.Form_Top = frm.Top;
+                    break;
+                case FormWindowState.Maximized:
+                    xSettingsUserValues.Form_WindowState = 2;
+                    break;
+            }
+
+            //SaveSplitControlsSpliterDistance(xSettingsUserValues);
+
+        }
+
+        private void SaveSplitControlsSpliterDistance(SettingsUserValues xSettingsUserValues)
+        {
+            //if (SplitContainer1_spd > 0)
+            //{
+            //    mSettingsUserValues.DocumentMan_SplitControl1_splitterdistance = SplitContainer1_spd;
+            //}
+            //if (this.m_usrc_DocumentEditor != null)
+            //{
+            //    this.m_usrc_DocumentEditor.SaveSplitControlsSpliterDistance(xSettingsUserValues);
+            //}
+        }
+
+        public static void SaveSettings(Form frm,LoginControl.LMOUser xLMOUser)
+        {
+            SettingsUser user_settings = (SettingsUser)xLMOUser.oSettings;
+            if (user_settings != null)
+            {
+                LayoutSave(frm,user_settings.mSettingsUserValues);
+                Transaction transaction_Form_Document_SaveSettings_user_settings_Save = DBSync.DBSync.NewTransaction("Form_Document.SaveSettings.user_settings.Save");
+                if (user_settings.Save(transaction_Form_Document_SaveSettings_user_settings_Save))
+                {
+                    if (transaction_Form_Document_SaveSettings_user_settings_Save.Commit())
+                    {
+                        //((Form_SettingsUsers)xLMOUser.Form_settingsuser).InitAfterSave();
+                        //((Form_SettingsUsers)xLMOUser.Form_settingsuser).Refresh();
+                        //if (xLMOUser.m_usrc_DocumentMan is usrc_DocumentMan)
+                        //{
+                        //    ((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan).BeforeRemove();
+                        //    this.Controls.Remove((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan);
+                        //    ((usrc_DocumentMan)xLMOUser.m_usrc_DocumentMan).Dispose();
+                        //}
+                        //else if (xLMOUser.m_usrc_DocumentMan is usrc_DocumentMan1366x768)
+                        //{
+                        //    this.Controls.Remove((usrc_DocumentMan1366x768)xLMOUser.m_usrc_DocumentMan);
+                        //    ((usrc_DocumentMan1366x768)xLMOUser.m_usrc_DocumentMan).Dispose();
+                        //}
+                    }
+                }
+                else
+                {
+                    transaction_Form_Document_SaveSettings_user_settings_Save.Rollback();
+                }
+            }
+            xLMOUser.m_usrc_DocumentMan = null;
+        }
+        public static bool GetWorkPeriod(Form parentfrm, Startup.Startup myStartup, object oData, NavigationButtons.Navigation xnav, Transaction transaction, ref string Err)
+        {
+            if (OperationMode.MultiUser)
+            {
+                bool bCancel = false;
+                loginControl1.Init(parentfrm,
+                                                LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
+                                                DBSync.DBSync.Con,
+                                                null,
+                                                LanguageControl.DynSettings.LanguageID,
+                                                false,
+                                                ref bCancel
+                                                );
+
+
+                //myStartup.eNextStep++;
+                if (Login_MultipleUsers)
+                {
+                    if (loginControl1.Login_MultipleUsers_ShowControlAtStartup(xnav, Properties.Settings.Default.ShowAdministratorsInMultiuserLogin))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (loginControl1.Login_SingleUser(xnav))
+                    {
+                        myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(loginControl1.awp.LMO1User.myOrganisation_Person_ID);
+                        if (myOrg.m_myOrg_Office.m_myOrg_Person != null)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:GetWorkPeriod:myOrg.m_myOrg_Office.m_myOrg_Person==null");
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                        return false;
+                    }
+                }
+            }
+            else // Single user
+            {
+                //this.usrc_loginControl1.Visible = false;
+                ID myOrganisation_Person_SingleUser_ID = f_myOrganisation_Person.myOrganisation_Person_SingleUser_ID();
+                if (ID.Validate(myOrganisation_Person_SingleUser_ID))
+                {
+                    bool bCancel = false;
+                    loginControl1.Init(parentfrm,
+                                                    LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
+                                                    DBSync.DBSync.Con,
+                                                    null,
+                                                    LanguageControl.DynSettings.LanguageID,
+                                                    true,
+                                                    ref bCancel
+                                                    );
+                    LMO1User.myOrganisation_Person_ID = myOrganisation_Person_SingleUser_ID;
+                    ID xAtom_myOrganisation_Person_ID = null;
+                    string_v office_v = null;
+                    if (!f_Atom_myOrganisation_Person.Get(LMO1User.myOrganisation_Person_ID, ref xAtom_myOrganisation_Person_ID, ref office_v, transaction))
+                    {
+                        return false;
+                    }
+                    LMO1User.Atom_myOrganisation_Person_ID = xAtom_myOrganisation_Person_ID;
+
+
+                    if (Startup.Startup.bFirstTimeInstallation)
+                    {
+                        ID xAtom_WorkPeriod_ID = null;
+                        if (LoginControl.LoginCtrl.GetWorkPeriodEx(LMO1User, ref xAtom_WorkPeriod_ID, transaction))
+
+                        {
+                            LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
+                            return true;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        if (OperationMode.SingleUserLoginAsAdministrator)
+                        {
+                            if (doorFor1 == null)
+                            {
+                                doorFor1 = new Door(LMO1User);
+                            }
+                            if (doorFor1.DoLoginAsAdministrator(parentfrm))
+                            {
+                                ID xAtom_WorkPeriod_ID = null;
+                                if (LoginControl.LoginCtrl.GetWorkPeriodEx(LMO1User, ref xAtom_WorkPeriod_ID, transaction))
+                                {
+                                    LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
+                                    return true;
+                                }
+                                else
+                                {
+                                    LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            ID xAtom_WorkPeriod_ID = null;
+                            if (LoginControl.LoginCtrl.GetWorkPeriodEx(LMO1User, ref xAtom_WorkPeriod_ID, transaction))
+                            {
+                                LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
+                                return true;
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
+                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                return false;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    // myOrganisation_Person_SingleUser_ID is not valid !
+                    return false;
+                }
+            }
+        }
+
     }
 }

@@ -22,6 +22,7 @@ using TangentaDB;
 using Form_Discount;
 using DBConnectionControl40;
 using DynEditControls;
+using ShopC_Forms;
 
 namespace ShopC
 {

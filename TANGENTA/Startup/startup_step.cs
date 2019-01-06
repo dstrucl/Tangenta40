@@ -88,7 +88,7 @@ namespace Startup
 
         public usrc_startup_step m_usrc_startup_step = null;
 
-        public startup myStartup = null;
+        public Startup myStartup = null;
 
         public NavigationButtons.Navigation nav = null;
 
@@ -105,7 +105,7 @@ namespace Startup
         //public delegate_startup_check_proc Check_procedure { get => check_procedure; set => check_procedure = value; }
 
         public startup_step(string xs_Title,
-                            startup xmyStartup,
+                            Startup xmyStartup,
                             NavigationButtons.Navigation xnav,
                             delegate_startup_check_proc xcheck_proc,
                             delegate_startup_Undo xcheck_undo,
