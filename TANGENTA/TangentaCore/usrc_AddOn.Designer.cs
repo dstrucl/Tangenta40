@@ -49,7 +49,7 @@
             this.btn_Notice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_Notice.BackColor = System.Drawing.Color.OldLace;
-            this.btn_Notice.Image = Properties.Resources.Edit;
+            this.btn_Notice.Image = TangentaResources.Properties.Resources.Edit;
             this.btn_Notice.Location = new System.Drawing.Point(1, 0);
             this.btn_Notice.Name = "btn_Notice";
             this.btn_Notice.Size = new System.Drawing.Size(59, 46);

@@ -34,7 +34,7 @@ namespace TangentaCore
             NavigationButtons.Navigation nav = new NavigationButtons.Navigation(null);
             nav.btn3_Visible = true;
             nav.btn3_Text = "";
-            nav.btn3_Image = Properties.Resources.Exit;
+            nav.btn3_Image = TangentaResources.Properties.Resources.Exit;
             string xCodeTables_IniFileFolder = null;
             string Err = null;
             if (Global.f.SetApplicationDataSubFolder(ref xCodeTables_IniFileFolder, TSettings.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))

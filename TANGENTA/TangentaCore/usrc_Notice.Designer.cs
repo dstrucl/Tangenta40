@@ -36,7 +36,7 @@
             // btn_SelectNotice
             // 
             this.btn_SelectNotice.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_SelectNotice.Image = Properties.Resources.SelectRow;
+            this.btn_SelectNotice.Image = TangentaResources.Properties.Resources.SelectRow;
             this.btn_SelectNotice.Location = new System.Drawing.Point(3, 5);
             this.btn_SelectNotice.Name = "btn_SelectNotice";
             this.btn_SelectNotice.Size = new System.Drawing.Size(44, 27);

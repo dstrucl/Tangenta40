@@ -205,7 +205,7 @@
             // btn_OK
             // 
             this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_OK.Image = Properties.Resources.Exit;
+            this.btn_OK.Image = TangentaResources.Properties.Resources.Exit;
             this.btn_OK.Location = new System.Drawing.Point(461, 153);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(145, 44);
@@ -216,7 +216,7 @@
             // btn_WorkArea
             // 
             this.btn_WorkArea.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_WorkArea.Image = Properties.Resources.WorkAreaAsTable;
+            this.btn_WorkArea.Image = TangentaResources.Properties.Resources.WorkAreaAsTable;
             this.btn_WorkArea.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_WorkArea.Location = new System.Drawing.Point(8, 153);
             this.btn_WorkArea.Name = "btn_WorkArea";
@@ -229,7 +229,7 @@
             // btn_TableInspection
             // 
             this.btn_TableInspection.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_TableInspection.Image = Properties.Resources.TableInspection;
+            this.btn_TableInspection.Image = TangentaResources.Properties.Resources.TableInspection;
             this.btn_TableInspection.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_TableInspection.Location = new System.Drawing.Point(310, 153);
             this.btn_TableInspection.Name = "btn_TableInspection";

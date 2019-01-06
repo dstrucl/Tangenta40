@@ -129,7 +129,7 @@
             // 
             this.btn_Print.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Print.CausesValidation = false;
-            this.btn_Print.Image = Properties.Resources.Print;
+            this.btn_Print.Image = TangentaResources.Properties.Resources.Print;
             this.btn_Print.Location = new System.Drawing.Point(65, 4);
             this.btn_Print.Name = "btn_Print";
             this.btn_Print.Size = new System.Drawing.Size(55, 51);
@@ -140,7 +140,7 @@
             // btn_TimeSpan
             // 
             this.btn_TimeSpan.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_TimeSpan.Image = Properties.Resources.TimeSpan;
+            this.btn_TimeSpan.Image = TangentaResources.Properties.Resources.TimeSpan;
             this.btn_TimeSpan.Location = new System.Drawing.Point(3, 4);
             this.btn_TimeSpan.Name = "btn_TimeSpan";
             this.btn_TimeSpan.Size = new System.Drawing.Size(55, 51);

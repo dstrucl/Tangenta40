@@ -125,7 +125,7 @@
             // btn_Buyer
             // 
             this.btn_Buyer.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Buyer.Image = Properties.Resources.Edit;
+            this.btn_Buyer.Image = TangentaResources.Properties.Resources.Edit;
             this.btn_Buyer.Location = new System.Drawing.Point(61, 1);
             this.btn_Buyer.Name = "btn_Buyer";
             this.btn_Buyer.Size = new System.Drawing.Size(36, 28);

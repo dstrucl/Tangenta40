@@ -39,7 +39,7 @@
             // 
             this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Cancel.Image = Properties.Resources.Exit;
+            this.btn_Cancel.Image = TangentaResources.Properties.Resources.Exit;
             this.btn_Cancel.Location = new System.Drawing.Point(777, 2);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(73, 24);

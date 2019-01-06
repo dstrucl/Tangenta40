@@ -38,7 +38,7 @@
             // rdb_Doc
             // 
             this.rdb_Doc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_Doc.Image = Properties.Resources.ViewInvoice;
+            this.rdb_Doc.Image = TangentaResources.Properties.Resources.ViewInvoice;
             this.rdb_Doc.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.rdb_Doc.Location = new System.Drawing.Point(266, 55);
             this.rdb_Doc.Name = "rdb_Doc";
@@ -50,7 +50,7 @@
             // rdb_ItemsAndDoc
             // 
             this.rdb_ItemsAndDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_ItemsAndDoc.Image = Properties.Resources.EditAndViewInvoice;
+            this.rdb_ItemsAndDoc.Image = TangentaResources.Properties.Resources.EditAndViewInvoice;
             this.rdb_ItemsAndDoc.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.rdb_ItemsAndDoc.Location = new System.Drawing.Point(153, 55);
             this.rdb_ItemsAndDoc.Name = "rdb_ItemsAndDoc";
@@ -62,7 +62,7 @@
             // rdb_Items
             // 
             this.rdb_Items.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_Items.Image = Properties.Resources.EditInvoice;
+            this.rdb_Items.Image = TangentaResources.Properties.Resources.EditInvoice;
             this.rdb_Items.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.rdb_Items.Location = new System.Drawing.Point(35, 50);
             this.rdb_Items.Name = "rdb_Items";
@@ -74,7 +74,7 @@
             // btn_Cancel
             // 
             this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Cancel.Image = Properties.Resources.Exit;
+            this.btn_Cancel.Image = TangentaResources.Properties.Resources.Exit;
             this.btn_Cancel.Location = new System.Drawing.Point(210, 5);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(91, 36);

@@ -168,7 +168,7 @@ namespace Tangenta
             // 
             this.btn_New.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_New.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_New.Image = global::Tangenta.Properties.Resources.New;
+            this.btn_New.Image = TangentaResources.Properties.Resources.New;
             this.btn_New.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_New.Location = new System.Drawing.Point(756, 685);
             this.btn_New.Name = "btn_New";

@@ -42,7 +42,7 @@
             // btn_Cancel
             // 
             this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Cancel.Image = Properties.Resources.Exit;
+            this.btn_Cancel.Image = TangentaResources.Properties.Resources.Exit;
             this.btn_Cancel.Location = new System.Drawing.Point(400, 1);
             this.btn_Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Cancel.Name = "btn_Cancel";

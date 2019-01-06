@@ -151,7 +151,7 @@
             // btn_DBSettings
             // 
             this.btn_DBSettings.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_DBSettings.Image = Properties.Resources.DBSettings;
+            this.btn_DBSettings.Image = TangentaResources.Properties.Resources.DBSettings;
             this.btn_DBSettings.Location = new System.Drawing.Point(949, 32);
             this.btn_DBSettings.Name = "btn_DBSettings";
             this.btn_DBSettings.Size = new System.Drawing.Size(51, 43);

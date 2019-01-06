@@ -45,7 +45,7 @@ namespace TangentaCore
             // btn_Print
             // 
             this.btn_Print.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Print.Image = Properties.Resources.Print;
+            this.btn_Print.Image = TangentaResources.Properties.Resources.Print;
             this.btn_Print.Location = new System.Drawing.Point(288, 102);
             this.btn_Print.Name = "btn_Print";
             this.btn_Print.Size = new System.Drawing.Size(166, 39);
@@ -56,7 +56,7 @@ namespace TangentaCore
             // btn_Cancel
             // 
             this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Cancel.Image = Properties.Resources.Exit;
+            this.btn_Cancel.Image = TangentaResources.Properties.Resources.Exit;
             this.btn_Cancel.Location = new System.Drawing.Point(449, 2);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(39, 39);
@@ -127,7 +127,7 @@ namespace TangentaCore
             // btn_SaveAsText
             // 
             this.btn_SaveAsText.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_SaveAsText.Image = Properties.Resources.Edit;
+            this.btn_SaveAsText.Image = TangentaResources.Properties.Resources.Edit;
             this.btn_SaveAsText.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btn_SaveAsText.Location = new System.Drawing.Point(137, 101);
             this.btn_SaveAsText.Name = "btn_SaveAsText";

@@ -709,7 +709,7 @@ namespace TangentaCore
             if (PrintersList.PrintingWithHtmlTemplate(DocTyp, ref printer))
             {
                 Form parentform = Global.f.GetParentForm(parentControl);
-                TangentaPrint.Form_PrintDocument template_dlg = new TangentaPrint.Form_PrintDocument(m_LMOUser.Atom_WorkPeriod_ID, InvoiceData, Properties.Resources.Exit, door.OpenIfUserIsAdministrator);
+                TangentaPrint.Form_PrintDocument template_dlg = new TangentaPrint.Form_PrintDocument(m_LMOUser.Atom_WorkPeriod_ID, InvoiceData, TangentaResources.Properties.Resources.Exit, door.OpenIfUserIsAdministrator);
                 template_dlg.Owner = Global.f.GetParentForm(parentform);
                 if (template_dlg.ShowDialog(parentform) == DialogResult.OK)
                 {
@@ -1103,7 +1103,7 @@ namespace TangentaCore
             //else
             //{
             string furs_XML = DocInvoice_AddOn.FURS.Create_furs_InvoiceXML(false,
-                                   Properties.Resources.FVI_SLO_Invoice,
+                                   TangentaResources.Properties.Resources.FVI_SLO_Invoice,
                                    TSettings.FVI_SLO1.FursD_MyOrgTaxID,
                                    TSettings.FVI_SLO1.FursD_BussinesPremiseID,
                                    GlobalData.ElectronicDevice_Name,
@@ -1334,7 +1334,7 @@ namespace TangentaCore
                                             {
 
                                                 string furs_XML = DocInvoice_AddOn.FURS.Create_furs_InvoiceXML(true,
-                                                                                                              Properties.Resources.FVI_SLO_Invoice,
+                                                                                                              TangentaResources.Properties.Resources.FVI_SLO_Invoice,
                                                                                                               TSettings.FVI_SLO1.FursD_MyOrgTaxID,
                                                                                                               TSettings.FVI_SLO1.FursD_BussinesPremiseID,
                                                                                                               GlobalData.ElectronicDevice_Name,

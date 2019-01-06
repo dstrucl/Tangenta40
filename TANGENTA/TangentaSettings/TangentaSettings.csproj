@@ -88,10 +88,6 @@
       <Project>{1f20972e-563b-495d-a881-c04db9ab0af6}</Project>
       <Name>DataGridView_2xls_base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CodeTables\CONTROLS\HUDCMS\HUDCMS.csproj">
-      <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>
-      <Name>HUDCMS</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\NavigationButtons\NavigationButtons.csproj">
       <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
       <Name>NavigationButtons</Name>
@@ -226,7 +222,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
@@ -301,6 +297,180 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CodeTables.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeSelectService.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeSelectServiceDisabled.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeSelectServiceHot.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Discount.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DiscountDisabled.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DiscountHot.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EditAndViewInvoice1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EditDataBase.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exit_Program.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Item_NoStock.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Item_NoStock_Return.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Item_Stock.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Item_Stock_Return.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ItemStock_Edit.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\New.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Next.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PasswordView.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Prev.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RemoveAll.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RemoveFromBox.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RemoveFromBoxToFactory.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectService.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectServiceDisabled.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shopping_Basket.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectServiceHot.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Atom_Item_ViewForm_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Cash.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CodeTables.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Currency_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CustomerOnInvoice.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Discount_Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Expiry.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Form_DBSettings.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Item_EditForm_Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ItemGroups.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MyOrganisation.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NoStock.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OrganisationLogo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PaymentIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PriceList.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\printer.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PrintIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ProgramSettings.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectTimeSpan.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Settings_in_DB.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SimpleItemGroups.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Stock_EditForm.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StockPlaces.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Storno.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TableInspection_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TangentaInstaller_Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TangentaUninstaller_Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tax_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TermsOfPayment.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Units.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Warranty.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WorkArea.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WorkingPlace.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

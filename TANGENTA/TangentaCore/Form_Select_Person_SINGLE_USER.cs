@@ -30,7 +30,7 @@ namespace TangentaCore
             nav = xnav;
             usrc_NavigationButtons1.Init(nav);
             m_Office_ID = xOffice_ID;
-            this.Icon = Properties.Resources.Person;
+            this.Icon = TangentaResources.Properties.Resources.Person;
             lng.s_Form_Select_Person_SINGLE_USER_Title.Text(this);
             lng.s_Form_Select_Person_SINGLE_USER_Instruction.Text(lbl_Instruction);
             lng.s_Form_Select_Person_SINGLE_USER_FirstName.Text(lbl_FirstName);
@@ -174,7 +174,7 @@ namespace TangentaCore
             }
             else
             {
-                XMessage.Box.Show(this, lng.s_my_organisation_person_for_single_user_operation_is_not_selected, lng.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
+                XMessage.Box.Show(this, lng.s_my_organisation_person_for_single_user_operation_is_not_selected, lng.s_Warning.s, MessageBoxButtons.YesNo, TangentaResources.Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
                 return false;
             }
         }

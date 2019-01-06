@@ -971,7 +971,7 @@ namespace Tangenta
             }
 
             ((SettingsUser)DocE.m_LMOUser.oSettings).mSettingsUserValues.InvoiceHeaderChecked = chk_Head.Checked;
-            Properties.Settings.Default.Save();
+            TSettings.Save();
         }
 
 

@@ -224,7 +224,7 @@ namespace Tangenta
                     {
                         if (TSettings.Login_MultipleUsers)
                         {
-                            DocM.timer_Login_MultiUsers_Countdown = Properties.Settings.Default.timer_Login_MultiUser_Countdown;
+                            DocM.timer_Login_MultiUsers_Countdown = TangentaSettings.Properties.Settings.Default.timer_Login_MultiUser_Countdown;
                             this.timer_Login_MultiUser.Enabled = true;
                         }
                     }
@@ -273,7 +273,7 @@ namespace Tangenta
 
         public void SetInitialMode()
         {
-            string sManagerMode = Properties.Settings.Default.eManagerMode;
+            string sManagerMode = TangentaSettings.Properties.Settings.Default.eManagerMode;
             if ((sManagerMode.Contains("Shops")) && (sManagerMode.Contains("InvoiceTable")))
             {
                 DocM.Mode = DocumentMan.eMode.Shops_and_InvoiceTable;
@@ -293,7 +293,7 @@ namespace Tangenta
             }
 
 
-            m_Form_Document.loginControl1.SetAccessAuthentification(Properties.Settings.Default.AccessAuthentication);
+            m_Form_Document.loginControl1.SetAccessAuthentification(TangentaSettings.Properties.Settings.Default.AccessAuthentication);
             if (TSettings.Login_MultipleUsers)
             {
                 initControlsRecursive(this.Controls);
@@ -1318,7 +1318,7 @@ namespace Tangenta
             {
                 if (HasWindowsOpened())
                 {
-                    DocM.timer_Login_MultiUsers_Countdown = Properties.Settings.Default.timer_Login_MultiUser_Countdown;
+                    DocM.timer_Login_MultiUsers_Countdown = TangentaSettings.Properties.Settings.Default.timer_Login_MultiUser_Countdown;
                 }
                 else
                 {
@@ -1336,7 +1336,7 @@ namespace Tangenta
         {
             foreach (Control c in coll)
             {
-                c.MouseClick += (sender, e) => { DocM.timer_Login_MultiUsers_Countdown = Properties.Settings.Default.timer_Login_MultiUser_Countdown; };
+                c.MouseClick += (sender, e) => { DocM.timer_Login_MultiUsers_Countdown = TangentaSettings.Properties.Settings.Default.timer_Login_MultiUser_Countdown; };
                 initControlsRecursive(c.Controls);
             }
         }

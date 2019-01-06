@@ -1,9 +1,9 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DocumentManager.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TangentaSettings.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="eManagerMode" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">Shops&amp;InvoiceTable</Value>
     </Setting>
     <Setting Name="eShowShops" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -15,7 +15,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="End_Customers_Name" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">Končni kupec</Value>
     </Setting>
     <Setting Name="XML_output_folder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -27,19 +27,19 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Konto_VAT_rate_ganeral" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">26001</Value>
     </Setting>
     <Setting Name="Konto_Net_price" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">7600</Value>
     </Setting>
     <Setting Name="Konto_Price_with_tax_cash" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">1090</Value>
     </Setting>
     <Setting Name="Konto_Price_with_tax_payment_cards" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">1659</Value>
     </Setting>
     <Setting Name="End_Customers_Code" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="Startup_TangentaAbout_Showed" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -54,31 +54,31 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="ColorDraft" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">220, 255, 220</Value>
     </Setting>
     <Setting Name="ColorStorno" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">255, 200, 200</Value>
     </Setting>
     <Setting Name="ColorFurs_InvoiceConfirmed" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">255, 255, 220</Value>
     </Setting>
     <Setting Name="ColorFurs_SalesBookInvoiceConfirmed" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">255, 224, 192</Value>
     </Setting>
     <Setting Name="ColorFurs_SalesBookInvoiceNotConfirmed" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">DeepPink</Value>
     </Setting>
     <Setting Name="UseWorkAreas" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="Current_DataBase" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Login_MultipleUsers" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="RecordCashierActivity" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="DURS_output_folder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -108,7 +108,7 @@
       <Value Profile="(Default)">http:\\www.tangenta.si</Value>
     </Setting>
     <Setting Name="timer_Login_MultiUser_Countdown" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">60</Value>
     </Setting>
     <Setting Name="AccessAuthentication" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
@@ -117,19 +117,19 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ShowAdministratorsInMultiuserLogin" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="FullScreen" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="WaitToChangeDataBaseAtStartup" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="AllowToEditLanguageText" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="LanguageID" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">-1</Value>
     </Setting>
     <Setting Name="HelpLocalPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -139,6 +139,21 @@
     </Setting>
     <Setting Name="HelpRemoteURL" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://dstrucl.github.io/Tangenta-Help/</Value>
+    </Setting>
+    <Setting Name="Color_DocInvoiceBackGround" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Color_DocInvoiceForeGround" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Color_DocProformaInvoiceBackGround" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Color_DocProformaInvoiceForeGround" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MyOrgID" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

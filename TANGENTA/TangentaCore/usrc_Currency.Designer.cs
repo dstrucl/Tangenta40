@@ -38,7 +38,7 @@
             this.btn_SelectCurrency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_SelectCurrency.AutoEllipsis = true;
             this.btn_SelectCurrency.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_SelectCurrency.Image = Properties.Resources.SelectRow;
+            this.btn_SelectCurrency.Image = TangentaResources.Properties.Resources.SelectRow;
             this.btn_SelectCurrency.Location = new System.Drawing.Point(181, 0);
             this.btn_SelectCurrency.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btn_SelectCurrency.Name = "btn_SelectCurrency";

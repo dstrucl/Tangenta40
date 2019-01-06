@@ -131,7 +131,7 @@ namespace TangentaCore
                 string Err = null;
                 if (Global.f.SetApplicationDataSubFolder(ref xVodShemaFolder, TSettings.TANGENTA_VODSHEMA_SUB_FOLDER,ref Err))
                 {
-                    string shema = Properties.Resources.VOD_shema;
+                    string shema = TangentaResources.Properties.Resources.VOD_shema;
 
                     VOD_xsd_shema_file = xVodShemaFolder + "\\VOD.xsd";
                     try

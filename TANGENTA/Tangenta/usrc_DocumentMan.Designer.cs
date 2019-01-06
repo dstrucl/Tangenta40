@@ -137,7 +137,7 @@ namespace Tangenta
             // 
             this.btn_New.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_New.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_New.Image = global::Tangenta.Properties.Resources.New;
+            this.btn_New.Image = TangentaResources.Properties.Resources.New;
             this.btn_New.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_New.Location = new System.Drawing.Point(5, 3);
             this.btn_New.Name = "btn_New";
@@ -151,7 +151,7 @@ namespace Tangenta
             // btn_SelectPanels
             // 
             this.btn_SelectPanels.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_SelectPanels.Image = Properties.Resources.EditAndViewInvoice;
+            this.btn_SelectPanels.Image = TangentaResources.Properties.Resources.EditAndViewInvoice;
             this.btn_SelectPanels.Location = new System.Drawing.Point(423, 2);
             this.btn_SelectPanels.Name = "btn_SelectPanels";
             this.btn_SelectPanels.Size = new System.Drawing.Size(68, 49);
@@ -173,7 +173,7 @@ namespace Tangenta
             // 
             this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Exit.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Exit.Image = global::Tangenta.Properties.Resources.Exit;
+            this.btn_Exit.Image = TangentaResources.Properties.Resources.Exit;
             this.btn_Exit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_Exit.Location = new System.Drawing.Point(1252, 3);
             this.btn_Exit.Name = "btn_Exit";
@@ -197,7 +197,7 @@ namespace Tangenta
             // 
             this.usrc_FVI_SLO1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_FVI_SLO1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.usrc_FVI_SLO1.Image_ButtonExit = global::Tangenta.Properties.Resources.Exit;
+            this.usrc_FVI_SLO1.Image_ButtonExit = TangentaResources.Properties.Resources.Exit;
             this.usrc_FVI_SLO1.Location = new System.Drawing.Point(1104, 4);
             this.usrc_FVI_SLO1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_FVI_SLO1.Name = "usrc_FVI_SLO1";
@@ -209,7 +209,7 @@ namespace Tangenta
             // 
             this.btn_Settings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Settings.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Settings.Image = Properties.Resources.Settings;
+            this.btn_Settings.Image = TangentaResources.Properties.Resources.Settings;
             this.btn_Settings.Location = new System.Drawing.Point(1149, 3);
             this.btn_Settings.Name = "btn_Settings";
             this.btn_Settings.Size = new System.Drawing.Size(33, 49);

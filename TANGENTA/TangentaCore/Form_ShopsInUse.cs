@@ -36,7 +36,7 @@ namespace TangentaCore
             bResetShopsInUse = xbResetShopsInUse;
             lng.s_Shops_In_Use.Text(this);
            
-            wb1.DocumentText = Properties.Resources.SLO_Help_Shops_in_use;
+            wb1.DocumentText = TangentaResources.Properties.Resources.SLO_Help_Shops_in_use;
           
         }
 

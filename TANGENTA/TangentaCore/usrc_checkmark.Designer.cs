@@ -37,7 +37,7 @@
             this.pic.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.pic.Image = Properties.Resources.checkmark_Yes;
+            this.pic.Image = TangentaResources.Properties.Resources.checkmark_Yes;
             this.pic.InitialImage = null;
             this.pic.Location = new System.Drawing.Point(-1, -1);
             this.pic.Name = "pic";

@@ -126,7 +126,7 @@ namespace TangentaCore
         {
             if (usrc_EditRow.Changed)
             {
-                if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1)== DialogResult.Yes)
+                if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, TangentaResources.Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1)== DialogResult.Yes)
                 {
                     Transaction transaction_Form_myOrg_Edit_do_OK_usrc_EditRow_Save = DBSync.DBSync.NewTransaction("Form_myOrg_Edit.do_OK.usrc_EditRow.Save");
                     if (usrc_EditRow.Save(transaction_Form_myOrg_Edit_do_OK_usrc_EditRow_Save))
@@ -181,7 +181,7 @@ namespace TangentaCore
                 }
                 else
                 {
-                    XMessage.Box.Show(this, lng.s_YouMustEnterYourOrganisationData, "", MessageBoxButtons.OK, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
+                    XMessage.Box.Show(this, lng.s_YouMustEnterYourOrganisationData, "", MessageBoxButtons.OK, TangentaResources.Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
                     return false;
                 }
             }

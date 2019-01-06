@@ -1,0 +1,1705 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Atom_Item_ViewForm_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Atom_Item_ViewForm_icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cash" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cash.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="checkmark_No" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\checkmark_No.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="checkmark_Yes" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\checkmark_Yes.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CodeTables" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CodeTables.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CodeTablesImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CodeTables.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Currency_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Currency_icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CustomerOnInvoice" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CustomerOnInvoice.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DBSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DBSettings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeSelectSimpleItem" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeSelectService.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeSelectSimpleItemDisabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeSelectServiceDisabled.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeSelectSimpleItemHot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeSelectServiceHot.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Discount" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Discount.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DiscountDisabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DiscountDisabled.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DiscountHot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DiscountHot.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Discount_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Discount_Icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Edit.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EditAndViewInvoice" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EditAndViewInvoice.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EditAndViewInvoice1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EditAndViewInvoice1.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EditDataBase" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EditDataBase.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EditInvoice" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EditInvoice.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Exit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Exit.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Exit_Program" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Exit_Program.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Expiry" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Expiry.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Form_DBSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Form_DBSettings.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FVI_SLO_Invoice" xml:space="preserve">
+    <value>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;fu:InvoiceRequest xmlns:fu="http://www.fu.gov.si/" Id="test"&gt;
+	&lt;fu:Invoice&gt;
+		&lt;fu:TaxNumber&gt;@@Moja_Organizacija_DavčnaŠtevilka&lt;/fu:TaxNumber&gt;
+		&lt;fu:IssueDateTime&gt;@@Račun_Datum_izdaje_računa&lt;/fu:IssueDateTime&gt;
+		&lt;fu:NumberingStructure&gt;B&lt;/fu:NumberingStructure&gt;
+		&lt;fu:InvoiceIdentifier&gt;
+			&lt;fu:BusinessPremiseID&gt;@@Moja_Organizacija_PoslovnaEnota&lt;/fu:BusinessPremiseID&gt;
+			&lt;fu:ElectronicDeviceID&gt;@@Račun_OznakaBlagajne&lt;/fu:ElectronicDeviceID&gt;
+			&lt;fu:InvoiceNumber&gt;@@Račun_Številka&lt;/fu:InvoiceNumber&gt;
+		&lt;/fu:InvoiceIdentifier&gt;
+		&lt;fu:InvoiceAmount&gt;@@Cena_z_DDV&lt;/fu:InvoiceAmount&gt;
+		&lt;fu:PaymentAmount&gt;@@Cena_z_DDV&lt;/fu:PaymentAmount&gt;
+		&lt;fu:TaxesPerSeller&gt;
+			&lt;fu:VAT&gt;
+				&lt;fu:TaxRate&gt;22.00&lt;/fu:TaxRate&gt;
+				&lt;fu:TaxableAmount&gt;23.04&lt;/fu:TaxableAmount&gt;
+				&lt;fu:TaxAmount&gt;5.09&lt;/fu:TaxAmount&gt;
+			&lt;/fu:VAT&gt;
+		&lt;/fu:TaxesPerSeller&gt;
+		&lt;fu:OperatorTaxNumber&gt;@@OsebaKiJeIzdalaRačun_Oseba_DavčnaŠtevilka&lt;/fu:OperatorTaxNumber&gt;
+	&lt;/fu:Invoice&gt;
+&lt;/fu:InvoiceRequest&gt;</value>
+  </data>
+  <data name="ItemGroups" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ItemGroups.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ItemStock_Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ItemStock_Edit.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Item_EditForm_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Item_EditForm_Icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Item_NoStock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Item_NoStock.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Item_NoStock_Return" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Item_NoStock_Return.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Item_Stock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Item_Stock.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Item_Stock_Return" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Item_Stock_Return.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MyOrganisation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MyOrganisation.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="New" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\New.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Next" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Next.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NoStock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NoStock.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OrganisationLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OrganisationLogo.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PasswordView" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PasswordView.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PaymentIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PaymentIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Person" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Person.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Prev" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Prev.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PriceList" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PriceList.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Print" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Print.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="printer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\printer.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PrintIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PrintIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProgramSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProgramSettings.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RemoveAll" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RemoveAll.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RemoveFromBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RemoveFromBox.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RemoveFromBoxToFactory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RemoveFromBoxToFactory.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SelectRow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SelectRow.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SelectSimpleItem" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SelectService.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SelectSimpleItemDisabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SelectServiceDisabled.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SelectSimpleItemHot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SelectServiceHot.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SelectTimeSpan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SelectTimeSpan.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Settings.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Settings_in_DB" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Settings_in_DB.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Shopping_Basket" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shopping_Basket.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SimpleItemGroups" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SimpleItemGroups.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SLO_Help_Shops_in_use" xml:space="preserve">
+    <value>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta http-equiv="content-type" content="text/html; charset=windows-1250"/&gt;
+	&lt;title&gt;&lt;/title&gt;
+	&lt;meta name="generator" content="LibreOffice 5.0.3.2 (Windows)"/&gt;
+	&lt;meta name="created" content="2016-01-22T12:18:10.314000000"/&gt;
+	&lt;meta name="changed" content="2016-01-22T13:02:35.915000000"/&gt;
+&lt;/head&gt;
+&lt;body lang="sl-SI" dir="ltr"&gt;
+&lt;h1 style="line-height: 100%"&gt;&lt;font face="Arial, sans-serif"&gt;&lt;font size="4" style="font-size: 16pt"&gt;Pomoč
+pri zbiri prodajalne&lt;/font&gt;&lt;/font&gt;&lt;/h1&gt;
+&lt;p style="margin-top: 0.42cm; line-height: 100%; page-break-after: avoid"&gt;
+&lt;font face="Albany, sans-serif"&gt;&lt;font size="3" style="font-size: 12pt"&gt;Izberete
+lahko najmanj eno ali več prodajaln izmed treh prodajaln, ki so
+začetno poimenovane z A,B in C. Ime prodajalne lahko nastavite tudi
+sami.&lt;/font&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font color="#3333ff"&gt;&lt;font face="Arial, sans-serif"&gt;&lt;font size="4" style="font-size: 14pt"&gt;Prodajalna
+A - najbolj enostavno in brez cenika&lt;/font&gt;&lt;/font&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font face="Arial, sans-serif"&gt;Prodajalna A omogoča, da kar se da
+najhitreje napišete račun ali predračun. V dialogu vnesete kaj
+prodajate: ime artikla ali storitve, opis artikla ali storitve
+(neobvezno),davek, mersko enoto, količino, popust, ceno na enoto brez
+davka ali ceno na enoto z davkom ali končno ceno z davkom ali končno
+ceno brez davka. Program bo sam izračunal davek in vse druge
+postavke. Blago oziroma artikle in storitve, ki ste jih kdaj prej že
+vnesli na račun, program zapisuje v posebno tabelo tako, da lahko
+blago, artikle ali storitve pri vnosu izberete, že iz prejšnjih
+računov.&lt;/font&gt;&lt;/p&gt;
+&lt;p style="margin-top: 0.42cm; page-break-after: avoid"&gt;&lt;font color="#3333ff"&gt;&lt;font face="Arial, sans-serif"&gt;&lt;font size="4" style="font-size: 14pt"&gt;Prodajalna
+B - enostavna prodaja na osnovi cenika&lt;/font&gt;&lt;/font&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font face="Arial, sans-serif"&gt;Prodajalna B omogoča, da prodajate
+samo po ceniku vse kar lahko količinsko opišete s celimi števili.
+Prodajalna B nima merskih enot (kg, liter, ura itd..). Blago, artikle
+in/ali storitve lahko razvrščate po skupinah, kar vam omogoča lažji
+pregled in izbiro. To pride še posebej prav, ko imate zelo veliko
+artiklov ali storitev v prodaji. Prodajalna B ne vodi zalog. Blago,
+artikli ali storitve imajo lahko slike. Za vsako izbrano postavko
+lahko določite tudi poljuben popust.&lt;/font&gt;&lt;/p&gt;
+&lt;p style="margin-top: 0.42cm; page-break-after: avoid"&gt;&lt;font color="#3333ff"&gt;&lt;font face="Arial, sans-serif"&gt;&lt;font size="4" style="font-size: 14pt"&gt;Prodajalna
+C - prodaja na osnovi cenika z vodenjem zalog, rokom poteka
+veljavnosti blaga, garancije itd..&lt;/font&gt;&lt;/font&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font face="Arial, sans-serif"&gt;Prodajalna C omogoča, da prodajate
+samo po ceniku. V prodajalni C lahko določate merske enote. Blago,
+artikle in/ali storitve lahko razvrščate po skupinah, kar vam omogoča
+lažji pregled in izbiro, kar vam pride še posebej prav če je le teh
+veliko.  V prodajalni C lahko artiklom določate rok uporabe, program
+pa vas bo opozoril, na bližanje ali potek roka uporabe. V prodajalni
+C lahko artiklom določate potek roka garancije. V prodajalni C lahko
+prodajate iz zalog ali pa mimo zalog, če ste blago prejeli in takoj
+prodali naprej. V primeru, da prodajate samo iz zalog bo program tudi
+znal izračunati dnevni, mesečni ali drugačen kosmati dobiček, saj pri
+vnosu zalog vnesete tudi nabavno ceno. Pri vnašanju zalog lahko
+navedete tudi poreklo blaga (-dobavitelja) in drugo knjigovodsko
+referenco. Blago, artikli ali storitve imajo lahko tudi slike.Za
+vsako izbrano postavko lahko določite tudi poljuben popust.&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br/&gt;
+&lt;br/&gt;
+
+&lt;/p&gt;
+&lt;p&gt;&lt;br/&gt;
+&lt;br/&gt;
+
+&lt;/p&gt;
+&lt;p&gt;&lt;br/&gt;
+&lt;br/&gt;
+
+&lt;/p&gt;
+&lt;p style="margin-top: 0.42cm; page-break-after: avoid"&gt;&lt;br/&gt;
+&lt;br/&gt;
+
+&lt;/p&gt;
+&lt;p&gt;&lt;br/&gt;
+&lt;br/&gt;
+
+&lt;/p&gt;
+&lt;p style="margin-left: 2cm"&gt;&lt;br/&gt;
+&lt;br/&gt;
+
+&lt;/p&gt;
+&lt;p&gt;&lt;br/&gt;
+&lt;br/&gt;
+
+&lt;/p&gt;
+&lt;p&gt;&lt;br/&gt;
+&lt;br/&gt;
+
+&lt;/p&gt;
+&lt;p&gt;&lt;br/&gt;
+&lt;br/&gt;
+
+&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="StockPlaces" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\StockPlaces.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Stock_EditForm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Stock_EditForm.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Storno" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Storno.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TableInspection" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TableInspection.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TableInspection_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TableInspection_icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TableInspection_ShopA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TableInspection_ShopA.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TableInspection_ShopB" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TableInspection_ShopB.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TableInspection_ShopC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TableInspection_ShopC.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TableInspection_Shop_dtSQLdb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TableInspection_Shop_dtSQLdb.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TangentaInstaller_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TangentaInstaller_Icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TangentaUninstaller_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TangentaUninstaller_Icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Tangenta_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Blagajna_Icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Tangenta_Logo_SMALL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Tangenta-Logo SMALL.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Tangenta_Question" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Tangenta_Question.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Tax_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Tax_icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TermsOfPayment" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TermsOfPayment.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TimeSpan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TimeSpan.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Units" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Units.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UpgradeDataBase" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UpgradeDataBase.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ViewInvoice" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ViewInvoice.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VOD_shema" xml:space="preserve">
+    <value>&lt;!--
+ edited with XMLSpy v2006 rel. 3 sp1 (http://www.altova.com) by AAA (BBBB) 
+--&gt;
+&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified"&gt;
+&lt;xs:element name="Prenos"&gt;
+&lt;xs:complexType&gt;
+&lt;xs:sequence&gt;
+&lt;xs:element name="Glava"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Informativni podatki o programu in avtorjih, ki pripravi XML datoteko.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:complexType&gt;
+&lt;xs:sequence&gt;
+&lt;xs:element name="Program"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;Program, ki je pripravil XML datoteko&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="100"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Program_verzija"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;Verzija programa, ki je pripravil XML datoteko&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="20"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Program_avtor"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Avtor - podjetje, ki je izdelalo program, ki je pripravil XML datoteko
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="100"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Verzija_xml" type="xs:string" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Verzija XSD sheme na osnovi katere je izdelana XML datoteka.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Identifikacija" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatki se uporabljajo pri avtomatskem uvažanju datoteke, da sistem, ki uvaža ve v katero firmo uvoziti podatke. Pri ročnem uvozu podatki niso potrebni.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:complexType&gt;
+&lt;xs:sequence&gt;
+&lt;xs:element name="Firma"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Identifikacija podjetja v ERP-u kateremu so podatki namenjeni. Podatek mora biti usklajen med pošiljateljemm in prejemnikom.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:minLength value="10"/&gt;
+&lt;xs:maxLength value="30"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Kljuc"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Ključ. Na osnovi firme in ključa program, ki uvaža ugotovi kateri firmi podatki pripadajo. Podatek mora biti usklajen med pošiljateljemm in prejemnikom.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:minLength value="10"/&gt;
+&lt;xs:maxLength value="30"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Telo"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Vsebina prenešenih podatkov - dokumentov, oz. knjižb
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:complexType&gt;
+&lt;xs:sequence&gt;
+&lt;xs:element name="Dokument" maxOccurs="unbounded"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Dokument se lahko ponavlja, torej, jih je v eni XML datoteki lahko več.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:complexType&gt;
+&lt;xs:sequence&gt;
+&lt;xs:element name="Dokument" type="Dokument"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;En dokument ima lahko samo eno vrsto dokumenta&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Trg" type="Trg" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek ni obvezen, vendar če ga tu ni mora biti na knjižbi, če gre za dokument, ki gre v davčne evidence. Pri temeljnicah podatek ni potreben.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Stevilka_dokumenta" type="Stev_dok" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Unikatna številka dokumenta glede na element DOKUMENT. Podatek ni obvezen, vendar če ga tu ni mora biti na knjižbi. Pri prejetih računih je to interna št. dok. ali vložna številka v fasciklu ali zap. štev. prej. računa. Pri prej. računih ni nujno, da je podatek prisoten. V tem primeru ga genrira program, ki uvaža podatke.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Dobav_stevilka_dokumenta" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek nastopa le pri prejetih računih. Vsebuje originalno številko dobaviteljevega računa.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="22"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Model" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:length value="2"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Sklic" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek nastopa le pri prejetih računih. Vsebuije vrednost, ki se vpiše v sklic pri plačilu dotičnega računa.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:minLength value="0"/&gt;
+&lt;xs:maxLength value="22"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Datum_dokumenta" type="xs:date" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek ni obvezen, vendar če ga tu ni mora biti na knjižbi
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Datum_dur" type="xs:date" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Datum odpreme blaga, oz. opravljene storitve. Podatek ni obvezen, vendar če ga tu ni mora biti na knjižbi. Če dokument ni povezan z davčnimi evidencami podatek ni potreben.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Obracunsko_obdobje" type="Obracunsko_obdobje" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Bilančno obdobje. Podatek je namenjen generiranju bruto bilance. Podatek ni obvezen, vendar če ga tu ni mora biti na knjižbi
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Obracunsko_obdobje_do" type="Obracunsko_obdobje" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Bilančno obdobje do. Če je podatek podan, potem program, ki uvaža XML razmnoži knjižbe med bil. obd. in bil. obd. do.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Datum_knjizenja" type="xs:date" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek ni obvezen, vendar če ga tu ni mora biti na knjižbi
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Datum_prejema_izdaje" type="xs:date" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Datum prejema, oz. izdaje dokumenta. Podatek ni obvezen, vendar če ga tu ni in gre za prejeti račun, mora biti na knjižbi
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Opis_dokumenta" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="80"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Datum_ddv" type="xs:date" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek ni obvezen, vendar če ga tu ni mora biti na knjižbi. Podatek ni potreben, če gre za temeljnico, ki ni povezana z davčnimi evidencami.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Datum_osnove" type="xs:date" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek ni obvezen, vendar če ga ni tu naj bi bil na knjižbi. Vsebuje datum v katerega se knjiži osnova za obdavčitev. Običajno je to isti datum kot datum DDV-ja. Pri knjižbi vhodnega davka samoobdavčitve, pa je to datum obračunanega DDV-ja.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Datum_zapadlosti" type="xs:date" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek je namenjen saldakontom. Če gre npr. za temeljnico plač podatek ni obvezen.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Datum_predvidenega_placila" type="xs:date" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek je namenjen saldakontom. Če gre npr. za temeljnico plač podatek ni obvezen.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Partner" type="Partner" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Če ima dokument enega partnerja ga lahko podamo na tem nivoju, sicer pa pri vsaki knjižbi posebej.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Intrastat" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;Nabor podatkov potrebni za poročanje Intrasta&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:complexType&gt;
+&lt;xs:sequence&gt;
+&lt;xs:element name="Datum_intrastat" type="xs:date" minOccurs="0"/&gt;
+&lt;xs:element name="IPartner" type="Partner" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Če ima dokument enega partnerja ga lahko podamo na tem nivoju, sicer pa pri vsaki knjižbi posebej.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Pariteta" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;EXW, DDU, DDP...&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:length value="3"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Lega" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+1 -kraj na področju Slovenije, 2 - v drugi članici EU, 3 - Izven skupnosti
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:length value="1"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Vrsta_posla" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+11 - dokončni nakup / prodaja, 12 - blago na ogled, 13 - kompenzacijski posli...
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:length value="2"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Vrsta_transporta" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+1 - pomorski, 2 - želežniški, 3 - cestni, 4 - zračni, 5 - poštni, 7 - transportne napeljave, 9 - lastni pogon
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:length value="1"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="IDrzava" type="Drzava" minOccurs="0"/&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Sifra_valute" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+V kolikor je dokument- račun domač se podaja šifra domače valute. Npr: za ameriški dolar se vnese šifra 840, za EUR 978 Če podatek ni podan, se podatek podaja na knjižbi.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:integer"&gt;
+&lt;xs:minInclusive value="1"/&gt;
+&lt;xs:maxInclusive value="999"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Avans_info" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+V primeru avansnega računa informativni podatki o avansu. Če se ti podatki podajajo, potem mora biti podana tudi valuta na dokumentu, če gre za tuj avansni račun.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:complexType&gt;
+&lt;xs:sequence&gt;
+&lt;xs:element name="Konto_avansa"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Konto na katerega je bila knjižena banka na osnovi katere je izdelan avansni račun.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="8"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Znesek" type="xs:decimal"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Znesek avansa na osnovi katerega je izdelan avansni račun. Znesek je v domači valuti.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Znesek_v_valuti" type="xs:decimal" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Če gre za tuj avansni račun, potem je v tem polju znesek v tuji valuti, ki je podana na dokumentu. če je domač avansni račun, potem je ta znesek v domači valuti ali pa elementa sploh ni.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Znesek_dokumenta" type="xs:decimal" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Kotrolni podatek. Znesek računa v valuti računa. Znesek računa mora v nadaljevanju nastopati na knjižbi z vrsto knjižbe Znesek_z_DDV, ko gre za račune.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Tecaj" type="xs:double" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Tečaj po katerem je dokument preračunan v domačo valuto. V kolikor ni en tečaj za vse knjižbe dokumenta enak, se podaja na posamezni knjižbi.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Datum_tecaja" type="xs:date" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;Datum tečaja, ki je podan v elementu Tecaj.&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Stev_izvor_dokum" type="Stev_dok" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek nastopa pri dokumentu samoobdavčitve ali pri internemu računu. Vanj zapišemo številko izvornega dokumenta na osnovi katerega je bil izdelan dokument samoobdavčitve ali interni račun.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Sken" type="Sken" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Element se uporablja za potrebe skenirno dokumenrtnih sistemov
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Knjizba" maxOccurs="unbounded"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+V datoteki vrstni red knjižb glede na node Vrsta_knjizbe ni definiran. To pomeni, da se ne ve ali so knjižbe bruto zneskov računov pred knjižbami davkov...
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:complexType&gt;
+&lt;xs:sequence&gt;
+&lt;xs:element name="Trg" type="Trg" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Vrsta_knjizbe"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Knjižbe iste vrste se lahko na istem dokumentu večkrat ponovijo. Npr. za davek splošne stopnje je lahko več knjižb...
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:enumeration value="Znesek_z_ddv"/&gt;
+&lt;xs:enumeration value="Osnova_splosna_stopnja"/&gt;
+&lt;xs:enumeration value="Osnova_splosna_stopnja_neprem"/&gt;
+&lt;xs:enumeration value="Osnova_splosna_stopnja_drugaOS"/&gt;
+&lt;xs:enumeration value="Osnova_znizana_stopnja"/&gt;
+&lt;xs:enumeration value="Osnova_za_samoobdav_SI"/&gt;
+&lt;xs:enumeration value="Osnova_pavsalna_stopnja"/&gt;
+&lt;xs:enumeration value="Neobdavcen_promet_s_pravico_do_odbitka"/&gt;
+&lt;xs:enumeration value="Oproscen_promet_prodaja_na_daljavo"/&gt;
+&lt;xs:enumeration value="Oproscen_promet_tristranska_dobava"/&gt;
+&lt;xs:enumeration value="Oproscen_promet_izvoz_blaga"/&gt;
+&lt;xs:enumeration value="Oproscen_promet_montaza_v_EU"/&gt;
+&lt;xs:enumeration value="Oproscen_promet_brez_pravice_do_odbitka"/&gt;
+&lt;xs:enumeration value="Oproscen_promet_dobave_v_EU"/&gt;
+&lt;xs:enumeration value="Druge_oprostitve"/&gt;
+&lt;xs:enumeration value="Osnova_splosna_stop_76a_clen"/&gt;
+&lt;xs:enumeration value="Osnova_znizana_stop_76a_clen"/&gt;
+&lt;xs:enumeration value="Oproscen_promet_storitev_EU"/&gt;
+&lt;xs:enumeration value="Osnova_splosna_stop_blago"/&gt;
+&lt;xs:enumeration value="Osnova_znizana_stop_blago"/&gt;
+&lt;xs:enumeration value="Osnova_splosna_stop_storitev"/&gt;
+&lt;xs:enumeration value="Osnova_znizana_stop_storitev"/&gt;
+&lt;xs:enumeration value="Osnova_splosna_stop_blago_neodb"/&gt;
+&lt;xs:enumeration value="Osnova_znizana_stop_blago_neodb"/&gt;
+&lt;xs:enumeration value="Osnova_splosna_stop_storitev_neodb"/&gt;
+&lt;xs:enumeration value="Osnova_znizana_stop_storitev_neodb"/&gt;
+&lt;xs:enumeration value="Osnova_splosna_stop_76a_clen"/&gt;
+&lt;xs:enumeration value="Osnova_znizana_stop_76a_clen"/&gt;
+&lt;xs:enumeration value="Osnova_splosna_stop_76a_clen_neodb"/&gt;
+&lt;xs:enumeration value="Osnova_znizana_stop_76a_clen_neodb"/&gt;
+&lt;xs:enumeration value="Oprosceno"/&gt;
+&lt;xs:enumeration value="Oprosceno_neprem"/&gt;
+&lt;xs:enumeration value="Oprosceno_drugaOS"/&gt;
+&lt;xs:enumeration value="Osnova_pridobitve_tristranske"/&gt;
+&lt;xs:enumeration value="Ne_gre_v_knjigo"/&gt;
+&lt;xs:enumeration value="DDV_splosna_stopnja"/&gt;
+&lt;xs:enumeration value="DDV_znizana_stopnja"/&gt;
+&lt;xs:enumeration value="DDV_pavsalna_stopnja"/&gt;
+&lt;xs:enumeration value="DDV_splosna_stopnja_avans"/&gt;
+&lt;xs:enumeration value="DDV_znizana_stopnja_avans"/&gt;
+&lt;xs:enumeration value="DDV_splosna_stopnja_neodb"/&gt;
+&lt;xs:enumeration value="DDV_znizana_stopnja_neodb"/&gt;
+&lt;xs:enumeration value="DDV_pavsalna_stopnja_neodb"/&gt;
+&lt;xs:enumeration value="DDV_splosna_stopnja_avans"/&gt;
+&lt;xs:enumeration value="DDV_znizana_stopnja_avans"/&gt;
+&lt;xs:enumeration value="DDV_splosna_stopnja_avans_neodb"/&gt;
+&lt;xs:enumeration value="DDV_znizana_stopnja_avans_neodb"/&gt;
+&lt;xs:enumeration value="DDV_splosna_stop_samoobd_storitev"/&gt;
+&lt;xs:enumeration value="DDV_znizana_stop_samoobd_storitev"/&gt;
+&lt;xs:enumeration value="DDV_splosna_stop_samoobd_storitev_neodb"/&gt;
+&lt;xs:enumeration value="DDV_znizana_stop_samoobd_storitev_neodb"/&gt;
+&lt;xs:enumeration value="DDV_splosna_stop_samoobd_storitev_obrac"/&gt;
+&lt;xs:enumeration value="DDV_znizana_stop_samoobd_storitev_obrac"/&gt;
+&lt;xs:enumeration value="DDV_splosna_stop_samoobd_blago"/&gt;
+&lt;xs:enumeration value="DDV_znizana_stop_samoobd_blago"/&gt;
+&lt;xs:enumeration value="DDV_splosna_stop_samoobd_blago_neodb"/&gt;
+&lt;xs:enumeration value="DDV_znizana_stop_samoobd_blago_neodb"/&gt;
+&lt;xs:enumeration value="DDV_splosna_stop_samoobd_blago_obrac"/&gt;
+&lt;xs:enumeration value="DDV_znizana_stop_samoobd_blago_obrac"/&gt;
+&lt;xs:enumeration value="DDV_splosna_stop_uvoz_blago"/&gt;
+&lt;xs:enumeration value="DDV_znizana_stop_uvoz_blago"/&gt;
+&lt;xs:enumeration value="DDV_splosna_stop_uvoz_blago_neodb"/&gt;
+&lt;xs:enumeration value="DDV_znizana_stop_uvoz_blago_neodb"/&gt;
+&lt;xs:enumeration value="DDV_splosna_stop_samoobd_76a_clen"/&gt;
+&lt;xs:enumeration value="DDV_znizana_stop_samoobd_76a_clen"/&gt;
+&lt;xs:enumeration value="DDV_splosna_stop_samoobd_76a_clen_neodb"/&gt;
+&lt;xs:enumeration value="DDV_znizana_stop_samoobd_76a_clen_neodb"/&gt;
+&lt;xs:enumeration value="DDV_splosna_stop_samoobd_76a_clen_obrac"/&gt;
+&lt;xs:enumeration value="DDV_znizana_stop_samoobd_76a_clen_obrac"/&gt;
+&lt;xs:enumeration value=""/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Drzava_potrosnje" type="Drzava" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Država potrošnje. Če podatek ni podan je to domača država.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Stevilka_dokumenta" type="Stev_dok" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Veza" type="Stev_dok" minOccurs="0"/&gt;
+&lt;xs:element name="Datum_dokumenta" type="xs:date" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Datum_dur" type="xs:date" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Obracunsko_obdobje" type="Obracunsko_obdobje" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Obracunsko_obdobje_do" type="Obracunsko_obdobje" minOccurs="0"/&gt;
+&lt;xs:element name="Datum_knjizenja" type="xs:date" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Datum_prejema_izdaje" type="xs:date" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Opis_dokumenta" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="80"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Datum_ddv" type="xs:date" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Datum_osnove" type="xs:date" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek, če je podan prekrije tistega iz glave. Vsebuje datum v katerega se knjiži osnova za obdavčitev. Običajno je to isti datum kot datum DDV-ja. Pri knjižbi vhodnega davka samoobdavčitve, pa je to datum obračunanega DDV-ja.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Datum_zapadlosti" type="xs:date" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Datum_predvidenega_placila" type="xs:date" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek če je podan prekrije ta isti podatek, ki je podan že na dokumentu.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Vrsta_dokumenta" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;Simbol dokumenta&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Konto"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="8"/&gt;
+&lt;xs:minLength value="3"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Partner" type="Partner" minOccurs="0"/&gt;
+&lt;xs:element name="Stroskovno_mesto" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="10"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Analitika1" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Analitika 1..6 so razne analitične evidece, npr projekti, objekti, del. nalogi...
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="10"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Analitika2" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="10"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Analitika3" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="10"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Analitika4" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="10"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Analitika5" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="10"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Analitika6" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="10"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:choice&gt;
+&lt;xs:element name="Debet" type="xs:decimal"/&gt;
+&lt;xs:element name="Kredit" type="xs:decimal"/&gt;
+&lt;/xs:choice&gt;
+&lt;xs:element name="Osnova" type="xs:decimal" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Podatek nastopa le če je to knjižba davka in v tem primeru vsebuje osnovo od katere je bil obračunan DDV, ki se nahaja v polju Debet, oz. Kredit
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Sifra_valute" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+V kolikor je dokument- račun domač se podaja šifra domače valute. Npr: za ameriški dolar se vnese šifra 840, za EUR 978 Če podatek ni podan, se smatra, da gre za domačo valuto.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:integer"&gt;
+&lt;xs:minInclusive value="1"/&gt;
+&lt;xs:maxInclusive value="999"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Tecaj" type="xs:double" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Tečaj po katerem je znesek knjižbe (Debet, Kredit) v tuji valuti preračunan v domačo valuto. Če je enoten za cel dokument se lahko podaja že na dokumentu.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Datum_tecaja" type="xs:date" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;Datum tečaja, ki je podan v elementu Tecaj.&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:choice minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Znesek v valuti se podaja vedno, ravno tako kot Debet, Kredit. Če podatek ni podan, se smatra, da so vrednosti enake kot v primeru Debet in Kredit.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:element name="Valuta_debet" type="xs:decimal" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Če podatek ni podan se smatra, da je enak podatku Debet
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Valuta_kredit" type="xs:decimal" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Če podatek ni podan, se smatra, da je enak podatku Kredit.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;/xs:choice&gt;
+&lt;xs:element name="Drzava" type="Drzava" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Drzava je lahko katera koli ISO oznaka - dvo ali tro črkovna oznaka ali tro številčna. Če podatek ni podan se smatra, da gre za Slovenijo
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="SifraBS" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;Šifra Banke Slovenije. Npr. 106, 112...&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:length value="3"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="SifraBST" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;Šifra Banke slovenije za poročilo BST&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:length value="6"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Otvoritev" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Ali je knjižba otvoritvena knjižba: 0=ne, 1=da. Če podatek ni podan se smatra, da je knjižba promet in ne otvoritev.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:integer"&gt;
+&lt;xs:enumeration value="0"/&gt;
+&lt;xs:enumeration value="1"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Odbitni_delez" type="xs:decimal" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+V primeru prejetih računov, ko ima podjetje odbitni delež v tem polju na knjižbi neodbitnega davka podamo procent odbitnega deleža, ki je bil obračunan.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Dejanski_konto" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+V primeru neodbitnega davka iz naslova odbitnega deleža imamo v elementu Konto konto stroška ali zaloge, v tem polju pa konto davka na katerega je bil knjižen odbitni del DDV-ja.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:minLength value="3"/&gt;
+&lt;xs:maxLength value="8"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Intrastat" minOccurs="0"&gt;
+&lt;xs:complexType&gt;
+&lt;xs:sequence&gt;
+&lt;xs:element name="Datum_intrastat" type="xs:date" minOccurs="0"/&gt;
+&lt;xs:element name="IPartner" type="Partner" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Če ima dokument enega partnerja ga lahko podamo na dokumentu, sicer pa pri vsaki knjižbi posebej.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Pariteta" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;EXW, DDU, DDP...&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:length value="3"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Lega" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+1 -kraj na področju Slovenije, 2 - v drugi članici EU, 3 - Izven skupnosti
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:length value="1"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Vrsta_posla" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+11 - dokončni nakup / prodaja, 12 - blago na ogled, 13 - kompenzacijski posli...
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:length value="2"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Vrsta_transporta" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+1 - pomorski, 2 - želežniški, 3 - cestni, 4 - zračni, 5 - poštni, 7 - transportne napeljave, 9 - lastni pogon
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:length value="1"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="IDrzava" type="Drzava" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;PR: Država namena / IR: Država pošiljatelja&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Tarifa" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;Tarifna številka iz šifranta Carinske uprave&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:length value="10"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="IDrzava_porekla" type="Drzava" minOccurs="0"/&gt;
+&lt;xs:element name="Neto_teza" type="xs:decimal" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;Neto teža&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Kolicina" type="xs:decimal" minOccurs="0"/&gt;
+&lt;xs:element name="Zniz_zvis_FV" type="xs:decimal" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;Zniižanje ali zvišanje fakturne vrednosti&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Sken" type="Sken" minOccurs="0"/&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;/xs:element&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;/xs:element&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;/xs:element&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;/xs:element&gt;
+&lt;xs:complexType name="Partner"&gt;
+&lt;xs:sequence&gt;
+&lt;xs:element name="Sifra"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="10"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Naziv1" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="40"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Naziv2" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="40"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Naziv3" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="40"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Naslov" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="40"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Postna_stevilka" type="Postna_stevilka" minOccurs="0"/&gt;
+&lt;xs:element name="Kraj" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="35"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Drzava" type="Drzava" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Drzava je lahko katera koli ISO oznaka - dvo ali tro črkovna oznaka ali tro številčna. Če podatek ni podan se smatra, da gre za Slovenijo
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="DDV_status" type="DDV_status" minOccurs="0"/&gt;
+&lt;xs:element name="Identifikacijska_stevilka" type="ID_stev_za_DDV" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+ID številka za DDV. Slovenske so SIxxxxxxxx. Vedno se prične z dvomestno kodo države.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Davcna_stevilka" type="Davc_stev" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Nastopa le v primeru slovenskih oseb. V tem primeru je to Identifikacijska številka brez SI.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Maticna_stevilka" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="10"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Tel_stevilka" type="Tel_stev" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;Telefonska številka centrale ali tajništva&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Fax_stevilka" type="Tel_stev" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Telefonska številka centralnega faxa ali faxa v tajništvu
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Sifra_tuji_program" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="20"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Racuni" minOccurs="0"&gt;
+&lt;xs:complexType&gt;
+&lt;xs:sequence&gt;
+&lt;xs:element name="Racun" minOccurs="0" maxOccurs="unbounded"&gt;
+&lt;xs:complexType&gt;
+&lt;xs:sequence&gt;
+&lt;xs:element name="Racun" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="25"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;/xs:element&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Osebe" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;Zaposleni pri partnerju&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:complexType&gt;
+&lt;xs:sequence&gt;
+&lt;xs:element name="Oseba" type="Oseba" maxOccurs="unbounded"/&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;/xs:element&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;xs:complexType name="Oseba"&gt;
+&lt;xs:sequence&gt;
+&lt;xs:element name="EMSO" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+V kolikor imamo ta podatek podajamo ta podatek in se lahko uporabi kot unikaten podatek za identifikacijo osebe v sistemu. Pri tujcih se podaja EMST.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="13"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Koda" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Če se ne podaja podatek EMŠO ali ni na voljo je potrebno podati neko drugo kodo - šifro, iz sistema ki podatke podaja, oz. pripravlja prenosno datoteko.
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="13"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Priimek"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="30"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Ime"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="30"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Naslov1" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="40"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Naslov2" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="40"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Postna_stevilka" type="Postna_stevilka" minOccurs="0"/&gt;
+&lt;xs:element name="Kraj" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="35"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Drzava" type="Drzava" minOccurs="0"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Drzava je lahko katera koli ISO oznaka - dvo ali tro črkovna oznaka ali tro številčna. Če podatek ni podan se smatra, da gre za Slovenijo
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="EMail" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"/&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Tel_stevilke" minOccurs="0"&gt;
+&lt;xs:complexType&gt;
+&lt;xs:sequence&gt;
+&lt;xs:element name="Tel_stevilka" type="Tel_stevilka" maxOccurs="unbounded"/&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;/xs:element&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;xs:complexType name="Tel_stevilka"&gt;
+&lt;xs:sequence&gt;
+&lt;xs:element name="Stevilka" type="Tel_stev"/&gt;
+&lt;xs:element name="Tip" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:enumeration value="Stacionarni"/&gt;
+&lt;xs:enumeration value="Mobilni"/&gt;
+&lt;xs:enumeration value="Fax"/&gt;
+&lt;xs:enumeration value="Pager"/&gt;
+&lt;xs:enumeration value="Modem"/&gt;
+&lt;xs:enumeration value="Telefax"/&gt;
+&lt;xs:enumeration value="Car"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Namen" minOccurs="0"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:enumeration value="Privatni"/&gt;
+&lt;xs:enumeration value="Sluzbeni"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;xs:complexType name="Obracunsko_obdobje"&gt;
+&lt;xs:sequence&gt;
+&lt;xs:element name="Mesec"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:integer"&gt;
+&lt;xs:minInclusive value="1"/&gt;
+&lt;xs:maxInclusive value="12"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Leto"&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:integer"&gt;
+&lt;xs:minInclusive value="1900"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;xs:complexType name="Sken"&gt;
+&lt;xs:sequence&gt;
+&lt;xs:element name="Sken_ID"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;Unikaten identifikator slike v skenirnem sistemu&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;xs:simpleType&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="20"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="Slike" minOccurs="0"&gt;
+&lt;xs:complexType&gt;
+&lt;xs:sequence&gt;
+&lt;xs:element name="Slika" maxOccurs="unbounded"&gt;
+&lt;xs:complexType&gt;
+&lt;xs:sequence&gt;
+&lt;xs:element name="Format" type="FormatSlike"&gt;
+&lt;xs:annotation&gt;
+&lt;xs:documentation&gt;
+Format v katerem je slika generirana, ki se nahaja v elementu RAW
+&lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;
+&lt;/xs:element&gt;
+&lt;xs:element name="RAW" type="xs:base64Binary"/&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;/xs:element&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;/xs:element&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;xs:simpleType name="Postna_stevilka"&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="12"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;xs:simpleType name="Drzava"&gt;
+&lt;xs:restriction base="xs:string"/&gt;
+&lt;/xs:simpleType&gt;
+&lt;xs:simpleType name="Tel_stev"&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="20"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;xs:simpleType name="ID_stev_za_DDV"&gt;
+&lt;xs:restriction base="xs:string"/&gt;
+&lt;/xs:simpleType&gt;
+&lt;xs:simpleType name="Davc_stev"&gt;
+&lt;xs:restriction base="xs:string"/&gt;
+&lt;/xs:simpleType&gt;
+&lt;xs:simpleType name="Stev_dok"&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:maxLength value="15"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;xs:simpleType name="DDV_status"&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:enumeration value="Davcni_zavezanec"/&gt;
+&lt;xs:enumeration value="Nedavcni_zavezanec"/&gt;
+&lt;xs:enumeration value="Konzularno_predstavnistvo"/&gt;
+&lt;xs:enumeration value="Pavsalni_zavezanec"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;xs:simpleType name="Dokument"&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:enumeration value="Prejeti_racun"/&gt;
+&lt;xs:enumeration value="Prejeti_dobropis"/&gt;
+&lt;xs:enumeration value="Prejeti_avansni_racun"/&gt;
+&lt;xs:enumeration value="Prejeti_ecl"/&gt;
+&lt;xs:enumeration value="Prejeti_nedavcni_racun"/&gt;
+&lt;xs:enumeration value="Prejeti_interni_racun"/&gt;
+&lt;xs:enumeration value="Prejeti_racun_samoobdavcitev"/&gt;
+&lt;xs:enumeration value="Prejeti_dokum_car_post42"/&gt;
+&lt;xs:enumeration value="Izdani_racun"/&gt;
+&lt;xs:enumeration value="Izdani_dobropis"/&gt;
+&lt;xs:enumeration value="Izdani_avansni_racun"/&gt;
+&lt;xs:enumeration value="Izdani_nedavcni_racun"/&gt;
+&lt;xs:enumeration value="Temeljnica"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;xs:simpleType name="Trg"&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:enumeration value="Domac"/&gt;
+&lt;xs:enumeration value="EU"/&gt;
+&lt;xs:enumeration value="Tretji_svet"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;xs:simpleType name="FormatSlike"&gt;
+&lt;xs:restriction base="xs:string"&gt;
+&lt;xs:enumeration value="TIFF"/&gt;
+&lt;xs:enumeration value="JPG"/&gt;
+&lt;xs:enumeration value="PNG"/&gt;
+&lt;xs:enumeration value="PDF"/&gt;
+&lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</value>
+  </data>
+  <data name="Warranty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Warranty.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WorkArea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WorkArea.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WorkAreaAsTable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WorkAreaAsTable.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WorkingPlace" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WorkingPlace.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>

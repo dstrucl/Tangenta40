@@ -120,7 +120,7 @@
             this.btn_Select_BankAccount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Select_BankAccount.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Select_BankAccount.ForeColor = System.Drawing.Color.Black;
-            this.btn_Select_BankAccount.Image = Properties.Resources.SelectRow;
+            this.btn_Select_BankAccount.Image = TangentaResources.Properties.Resources.SelectRow;
             this.btn_Select_BankAccount.Location = new System.Drawing.Point(415, 20);
             this.btn_Select_BankAccount.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Select_BankAccount.Name = "btn_Select_BankAccount";
@@ -238,7 +238,7 @@
             // 
             this.btn_Select_Terms_of_Payment.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Select_Terms_of_Payment.ForeColor = System.Drawing.Color.Black;
-            this.btn_Select_Terms_of_Payment.Image = Properties.Resources.SelectRow;
+            this.btn_Select_Terms_of_Payment.Image = TangentaResources.Properties.Resources.SelectRow;
             this.btn_Select_Terms_of_Payment.Location = new System.Drawing.Point(201, 1);
             this.btn_Select_Terms_of_Payment.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Select_Terms_of_Payment.Name = "btn_Select_Terms_of_Payment";
@@ -265,7 +265,7 @@
             this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Cancel.ForeColor = System.Drawing.Color.Black;
-            this.btn_Cancel.Image = Properties.Resources.Exit;
+            this.btn_Cancel.Image = TangentaResources.Properties.Resources.Exit;
             this.btn_Cancel.Location = new System.Drawing.Point(350, 444);
             this.btn_Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Cancel.Name = "btn_Cancel";

@@ -152,7 +152,7 @@ namespace TangentaCore
         {
             if (usrc_EditTable1.Changed)
             {
-                if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, TangentaResources.Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     Transaction transaction_Form_myOrg_Office_Data_do_OK_usrc_EditTable1_Save = DBSync.DBSync.NewTransaction("Form_myOrg_Office_Data.do_OK.usrc_EditTable1.Save");
                     if (usrc_EditTable1.Save(transaction_Form_myOrg_Office_Data_do_OK_usrc_EditTable1_Save))
@@ -169,7 +169,7 @@ namespace TangentaCore
             {
                 if (usrc_EditTable1.RowsCount == 0)
                 {
-                    XMessage.Box.Show(this, lng.s_YouMustEnterYourOfficeAddressData, "", MessageBoxButtons.OK, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
+                    XMessage.Box.Show(this, lng.s_YouMustEnterYourOfficeAddressData, "", MessageBoxButtons.OK, TangentaResources.Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
                     return false;
                 }
             }
@@ -178,7 +178,7 @@ namespace TangentaCore
             {
                 if (ID.Validate(usrc_EditTable1.Identity))
                 {
-                    if (XMessage.Box.Show(this, lng.s_YourOfficeIsNotDefined_DefineSelectedOffice_AsYourOffice_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                    if (XMessage.Box.Show(this, lng.s_YourOfficeIsNotDefined_DefineSelectedOffice_AsYourOffice_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, TangentaResources.Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                     {
                         if (myOrg.Get())
                         {
@@ -198,7 +198,7 @@ namespace TangentaCore
 
                 if (myOrg.m_myOrg_Office == null)
                 {
-                    XMessage.Box.Show(this, lng.s_YourOfficeIsNotDefined_SelectedOffice_AsYourOffice, "", MessageBoxButtons.OK, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
+                    XMessage.Box.Show(this, lng.s_YourOfficeIsNotDefined_SelectedOffice_AsYourOffice, "", MessageBoxButtons.OK, TangentaResources.Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
                     return false;
                 }
             }

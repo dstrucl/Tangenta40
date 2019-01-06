@@ -700,6 +700,10 @@
       <Project>{728368f2-ecd5-4bc7-b50b-c9581769d429}</Project>
       <Name>TangentaPrint</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TangentaResources\TangentaResources.csproj">
+      <Project>{41871e28-b52b-4393-be34-92267e350d82}</Project>
+      <Name>TangentaResources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TangentaSampleDB\TangentaSampleDB.csproj">
       <Project>{cf39a97b-c4cb-45f6-9d60-9df5638dd45a}</Project>
       <Name>TangentaSampleDB</Name>
@@ -981,78 +985,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Exit.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Tangenta-Logo SMALL.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Tangenta_Question.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Blagajna_Icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Person.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ViewInvoice.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\UpgradeDataBase.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TableInspection.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TableInspection_Shop_dtSQLdb.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TableInspection_ShopA.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TableInspection_ShopB.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TableInspection_ShopC.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\DBSettings.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\checkmark_No.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\checkmark_Yes.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\SelectRow.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Print.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TimeSpan.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Settings.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\EditInvoice.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Edit.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\WorkAreaAsTable.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\EditAndViewInvoice.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\CodeTables.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

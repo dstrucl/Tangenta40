@@ -108,7 +108,7 @@ namespace TangentaCore
             this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Cancel.ForeColor = System.Drawing.Color.Black;
-            this.btn_Cancel.Image = Properties.Resources.Exit;
+            this.btn_Cancel.Image = TangentaResources.Properties.Resources.Exit;
             this.btn_Cancel.Location = new System.Drawing.Point(590, 499);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(115, 52);
@@ -151,7 +151,7 @@ namespace TangentaCore
             // 
             this.btn_Select_Terms_of_Payment.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Select_Terms_of_Payment.ForeColor = System.Drawing.Color.Black;
-            this.btn_Select_Terms_of_Payment.Image = Properties.Resources.SelectRow;
+            this.btn_Select_Terms_of_Payment.Image = TangentaResources.Properties.Resources.SelectRow;
             this.btn_Select_Terms_of_Payment.Location = new System.Drawing.Point(192, 13);
             this.btn_Select_Terms_of_Payment.Name = "btn_Select_Terms_of_Payment";
             this.btn_Select_Terms_of_Payment.Size = new System.Drawing.Size(55, 26);
@@ -200,7 +200,7 @@ namespace TangentaCore
             // 
             this.btn_Select_BankAccount.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Select_BankAccount.ForeColor = System.Drawing.Color.Black;
-            this.btn_Select_BankAccount.Image = Properties.Resources.SelectRow;
+            this.btn_Select_BankAccount.Image = TangentaResources.Properties.Resources.SelectRow;
             this.btn_Select_BankAccount.Location = new System.Drawing.Point(618, 99);
             this.btn_Select_BankAccount.Name = "btn_Select_BankAccount";
             this.btn_Select_BankAccount.Size = new System.Drawing.Size(40, 25);

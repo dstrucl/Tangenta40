@@ -299,12 +299,7 @@ namespace TangentaSettings
                 }
         }
 
-        public static Icon Tangenta_Question_Icon {
-            get
-            {
-                return Properties.Resources.Tangenta_Question;
-            }
-        }
+       
 
         public static RPC.RPC RPC = null;
 
@@ -535,6 +530,11 @@ namespace TangentaSettings
                 }
             }
             xLMOUser.m_usrc_DocumentMan = null;
+        }
+
+        public static void Save()
+        {
+            Properties.Settings.Default.Save();
         }
     }
 }

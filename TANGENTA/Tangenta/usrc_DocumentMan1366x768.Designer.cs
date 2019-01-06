@@ -77,7 +77,7 @@ namespace Tangenta
             // btn_SelectPanels
             // 
             this.btn_SelectPanels.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_SelectPanels.Image = global::Tangenta.Properties.Resources.EditAndViewInvoice;
+            this.btn_SelectPanels.Image = TangentaResources.Properties.Resources.EditAndViewInvoice;
             this.btn_SelectPanels.Location = new System.Drawing.Point(102, 700);
             this.btn_SelectPanels.Name = "btn_SelectPanels";
             this.btn_SelectPanels.Size = new System.Drawing.Size(87, 64);
@@ -97,7 +97,7 @@ namespace Tangenta
             // btn_Exit
             // 
             this.btn_Exit.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Exit.Image = global::Tangenta.Properties.Resources.Exit;
+            this.btn_Exit.Image = TangentaResources.Properties.Resources.Exit;
             this.btn_Exit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_Exit.Location = new System.Drawing.Point(0, 700);
             this.btn_Exit.Name = "btn_Exit";
@@ -118,7 +118,7 @@ namespace Tangenta
             // usrc_FVI_SLO1
             // 
             this.usrc_FVI_SLO1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.usrc_FVI_SLO1.Image_ButtonExit = global::Tangenta.Properties.Resources.Exit;
+            this.usrc_FVI_SLO1.Image_ButtonExit = TangentaResources.Properties.Resources.Exit;
             this.usrc_FVI_SLO1.Location = new System.Drawing.Point(215, 702);
             this.usrc_FVI_SLO1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_FVI_SLO1.Name = "usrc_FVI_SLO1";
@@ -129,7 +129,7 @@ namespace Tangenta
             // btn_Settings
             // 
             this.btn_Settings.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Settings.Image = global::Tangenta.Properties.Resources.Settings;
+            this.btn_Settings.Image = TangentaResources.Properties.Resources.Settings;
             this.btn_Settings.Location = new System.Drawing.Point(255, 701);
             this.btn_Settings.Name = "btn_Settings";
             this.btn_Settings.Size = new System.Drawing.Size(33, 64);

@@ -222,8 +222,6 @@
     <Compile Include="usrc_DocumentEditor.Designer.cs">
       <DependentUpon>usrc_DocumentEditor.cs</DependentUpon>
     </Compile>
-    <None Include="Resources\Atom_Item_ViewForm_icon1.ico" />
-    <None Include="Resources\TableInspection_ShopA.bmp" />
     <None Include="Tangenta.licenseheader" />
     <None Include="TangentaInsatllerMUI2.nsi" />
   </ItemGroup>
@@ -424,6 +422,10 @@
       <Project>{728368f2-ecd5-4bc7-b50b-c9581769d429}</Project>
       <Name>TangentaPrint</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TangentaResources\TangentaResources.csproj">
+      <Project>{41871e28-b52b-4393-be34-92267e350d82}</Project>
+      <Name>TangentaResources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TangentaSampleDB\TangentaSampleDB.csproj">
       <Project>{cf39a97b-c4cb-45f6-9d60-9df5638dd45a}</Project>
       <Name>TangentaSampleDB</Name>
@@ -454,181 +456,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\EditAndViewInvoice.bmp" />
-    <None Include="Resources\EditDataBase.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\SelectService.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\SelectServiceHot.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\SelectServiceDisabled.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\DeSelectService1.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\DeSelectServiceDisabled.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\DiscountDisabled.bmp" />
-    <None Include="Resources\DiscountHot.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MyCompany.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Edit.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Item_NoStock.bmp" />
-    <None Include="Resources\Item_Stock.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\New.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Discount_Icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Item_Stock_Return.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Item_NoStock_Return.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Shopping_Basket.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\RemoveFromBox.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Stock_EditForm.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Item_EditForm_Icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ItemAtom_ViewForm_icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Blagajna_Icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\RemoveFromBoxToFactory.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Currency_icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\PriceList.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Tax_icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\NoStock.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\checkmark_No.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Cash.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ToPrint.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\printer.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\printer %281%29.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="uwpf_UndefinedPriceForItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\DBSettings.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\UpgradeDataBase.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ViewInvoice.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TimeSpan.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\SelectTimeSpan.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Exit.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\PrintIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\CustomerOnInvoice.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\RemoveAll.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ItemStock_Edit.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\WorkingPlace.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Units.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Expiry.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Warranty.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TermsOfPayment.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\StockPlaces.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Settings_in_DB.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\CodeTables.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ItemGroups.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\SimpleItemGroups.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\DBSettings.png" />
     <EmbeddedResource Include="00_ENG_Invoice_A4.htm" />
-    <None Include="Resources\PaymentIcon.ico" />
-    <None Include="Resources\Print.bmp" />
-    <None Include="Resources\Form_DBSettings.ico" />
-    <None Include="Resources\PasswordView.png" />
-    <None Include="Resources\CodeTables.png" />
-    <None Include="Resources\Next.bmp" />
-    <None Include="Resources\Prev.bmp" />
-    <None Include="Resources\Person.ico" />
-    <None Include="Resources\Persons.ico" />
-    <None Include="Resources\Tangenta_Question.ico" />
-    <None Include="Resources\Exit_Program.bmp" />
-    <None Include="Resources\ProgramSettings.ico" />
-    <None Include="Resources\Settings.bmp" />
-    <None Include="Resources\SelectRow.bmp" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -647,22 +481,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Blagajna_Icon.ico" />
-    <None Include="Resources\EditAndViewInvoice2.bmp" />
-    <None Include="Resources\EditAndViewInvoice1.bmp" />
-    <None Include="Resources\Exit_Program1.bmp" />
-    <None Include="Resources\Prev1.bmp" />
-    <None Include="Resources\Next1.bmp" />
-    <None Include="Resources\Tangenta_Question1.ico" />
-    <None Include="Resources\Blagajna_Icon2.ico" />
-    <None Include="Resources\TableInspection_Shop_dtSQLdb.bmp" />
-    <None Include="Resources\TableInspection_icon.ico" />
-    <None Include="Resources\TableInspection_ShopC.bmp" />
-    <None Include="Resources\TableInspection_ShopB.bmp" />
-    <None Include="Resources\TableInspection.bmp" />
-    <None Include="Resources\Tangenta-Logo SMALL.gif" />
-    <None Include="Resources\WorkArea.ico" />
-    <None Include="Resources\WorkAreaAsTable.bmp" />
-    <None Include="Resources\TangentaUninstaller_Icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

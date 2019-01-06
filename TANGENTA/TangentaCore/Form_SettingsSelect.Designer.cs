@@ -38,7 +38,7 @@
             // btn_Backup
             // 
             this.btn_Backup.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Backup.Image = Properties.Resources.UpgradeDataBase;
+            this.btn_Backup.Image = TangentaResources.Properties.Resources.UpgradeDataBase;
             this.btn_Backup.Location = new System.Drawing.Point(180, 11);
             this.btn_Backup.Name = "btn_Backup";
             this.btn_Backup.Size = new System.Drawing.Size(75, 64);
@@ -49,7 +49,7 @@
             // btn_CodeTables
             // 
             this.btn_CodeTables.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_CodeTables.Image = Properties.Resources.CodeTablesImage;
+            this.btn_CodeTables.Image = TangentaResources.Properties.Resources.CodeTablesImage;
             this.btn_CodeTables.Location = new System.Drawing.Point(10, 11);
             this.btn_CodeTables.Name = "btn_CodeTables";
             this.btn_CodeTables.Size = new System.Drawing.Size(75, 64);
@@ -69,7 +69,7 @@
             // btn_Settings
             // 
             this.btn_Settings.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Settings.Image = Properties.Resources.Settings;
+            this.btn_Settings.Image = TangentaResources.Properties.Resources.Settings;
             this.btn_Settings.Location = new System.Drawing.Point(265, 11);
             this.btn_Settings.Name = "btn_Settings";
             this.btn_Settings.Size = new System.Drawing.Size(75, 64);
@@ -80,7 +80,7 @@
             // btn_Exit
             // 
             this.btn_Exit.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Exit.Image = Properties.Resources.Exit;
+            this.btn_Exit.Image = TangentaResources.Properties.Resources.Exit;
             this.btn_Exit.Location = new System.Drawing.Point(350, 11);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(75, 64);

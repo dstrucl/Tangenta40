@@ -37,11 +37,11 @@ namespace TangentaCore
             set { m_Checked = value;
                     if (m_Checked)
                     {
-                        pic.Image = Properties.Resources.checkmark_Yes;
+                        pic.Image = TangentaResources.Properties.Resources.checkmark_Yes;
                     }
                     else
                     {
-                        pic.Image = Properties.Resources.checkmark_No;
+                        pic.Image = TangentaResources.Properties.Resources.checkmark_No;
                     }
                     
                 }

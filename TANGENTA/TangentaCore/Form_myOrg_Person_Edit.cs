@@ -43,7 +43,7 @@ namespace TangentaCore
             m_Office_ID = xOffice_ID;
             m_myOrganisation_Person_ID = xmyOrganisation_Person_ID;
             lng.s_myOrganisation_Person_Data.Text(this);
-            this.Icon = Properties.Resources.Person;
+            this.Icon = TangentaResources.Properties.Resources.Person;
             this.usrc_EditTable1.Title = "";
             Init();
         }
@@ -98,7 +98,7 @@ namespace TangentaCore
         {
             if (usrc_EditTable1.Changed)
             {
-                if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, TangentaResources.Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     Transaction transaction_Form_myOrg_Person_Edit_do_OK_usrc_EditTable1_Save = DBSync.DBSync.NewTransaction("Form_myOrg_Person_Edit.do_OK.usrc_EditTable1.Save");
                     if (usrc_EditTable1.Save(transaction_Form_myOrg_Person_Edit_do_OK_usrc_EditTable1_Save))
@@ -149,7 +149,7 @@ namespace TangentaCore
                 }
                 else
                 {
-                    XMessage.Box.Show(this, lng.s_YouMustEnterYourOfficePersonData, "", MessageBoxButtons.OK, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
+                    XMessage.Box.Show(this, lng.s_YouMustEnterYourOfficePersonData, "", MessageBoxButtons.OK, TangentaResources.Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
                     return false;
                 }
             }

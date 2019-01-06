@@ -153,7 +153,7 @@ namespace TangentaBooting
 
             m_startup = new Startup.Startup(frm_document,
                                             nav,
-                                            TSettings.Tangenta_Question_Icon,
+                                            TangentaResources.Properties.Resources.Tangenta_Question,
             Startup.Startup.bFirstTimeInstallation
             );
 

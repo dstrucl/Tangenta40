@@ -38,7 +38,7 @@
             // 
             // btn_ShopB_TablesInspection
             // 
-            this.btn_ShopB_TablesInspection.Image = Properties.Resources.TableInspection_ShopB;
+            this.btn_ShopB_TablesInspection.Image = TangentaResources.Properties.Resources.TableInspection_ShopB;
             this.btn_ShopB_TablesInspection.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_ShopB_TablesInspection.Location = new System.Drawing.Point(171, 66);
             this.btn_ShopB_TablesInspection.Name = "btn_ShopB_TablesInspection";
@@ -51,7 +51,7 @@
             // 
             // btn_ShopC_TablesInspection
             // 
-            this.btn_ShopC_TablesInspection.Image = Properties.Resources.TableInspection_ShopC;
+            this.btn_ShopC_TablesInspection.Image = TangentaResources.Properties.Resources.TableInspection_ShopC;
             this.btn_ShopC_TablesInspection.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_ShopC_TablesInspection.Location = new System.Drawing.Point(330, 66);
             this.btn_ShopC_TablesInspection.Name = "btn_ShopC_TablesInspection";
@@ -64,7 +64,7 @@
             // 
             // btn_ShopA_TablesInspection
             // 
-            this.btn_ShopA_TablesInspection.Image = Properties.Resources.TableInspection_ShopA;
+            this.btn_ShopA_TablesInspection.Image = TangentaResources.Properties.Resources.TableInspection_ShopA;
             this.btn_ShopA_TablesInspection.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_ShopA_TablesInspection.Location = new System.Drawing.Point(12, 66);
             this.btn_ShopA_TablesInspection.Name = "btn_ShopA_TablesInspection";
@@ -76,7 +76,7 @@
             // 
             // btn_Exit
             // 
-            this.btn_Exit.Image = Properties.Resources.Exit;
+            this.btn_Exit.Image = TangentaResources.Properties.Resources.Exit;
             this.btn_Exit.Location = new System.Drawing.Point(367, 12);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(116, 48);
@@ -86,7 +86,7 @@
             // 
             // btn_View_SQL_StateMents
             // 
-            this.btn_View_SQL_StateMents.Image = Properties.Resources.TableInspection_Shop_dtSQLdb;
+            this.btn_View_SQL_StateMents.Image = TangentaResources.Properties.Resources.TableInspection_Shop_dtSQLdb;
             this.btn_View_SQL_StateMents.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_View_SQL_StateMents.Location = new System.Drawing.Point(12, 12);
             this.btn_View_SQL_StateMents.Name = "btn_View_SQL_StateMents";

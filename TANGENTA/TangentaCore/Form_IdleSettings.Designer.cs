@@ -36,7 +36,7 @@
             // btn_Exit
             // 
             this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Exit.Image = Properties.Resources.Exit;
+            this.btn_Exit.Image = TangentaResources.Properties.Resources.Exit;
             this.btn_Exit.Location = new System.Drawing.Point(443, 0);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(66, 26);

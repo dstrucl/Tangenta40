@@ -169,6 +169,10 @@
       <Project>{728368f2-ecd5-4bc7-b50b-c9581769d429}</Project>
       <Name>TangentaPrint</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TANGENTA\TangentaResources\TangentaResources.csproj">
+      <Project>{41871e28-b52b-4393-be34-92267e350d82}</Project>
+      <Name>TangentaResources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TANGENTA\TangentaSampleDB\TangentaSampleDB.csproj">
       <Project>{cf39a97b-c4cb-45f6-9d60-9df5638dd45a}</Project>
       <Name>TangentaSampleDB</Name>

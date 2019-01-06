@@ -13,7 +13,7 @@ namespace TangentaSettings.Properties {
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.8.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+    public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
@@ -25,7 +25,7 @@ namespace TangentaSettings.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Shops&InvoiceTable")]
         public string eManagerMode {
             get {
                 return ((string)(this["eManagerMode"]));
@@ -73,7 +73,7 @@ namespace TangentaSettings.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Končni kupec")]
         public string End_Customers_Name {
             get {
                 return ((string)(this["End_Customers_Name"]));
@@ -121,7 +121,7 @@ namespace TangentaSettings.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("26001")]
         public int Konto_VAT_rate_ganeral {
             get {
                 return ((int)(this["Konto_VAT_rate_ganeral"]));
@@ -133,7 +133,7 @@ namespace TangentaSettings.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("7600")]
         public int Konto_Net_price {
             get {
                 return ((int)(this["Konto_Net_price"]));
@@ -145,7 +145,7 @@ namespace TangentaSettings.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1090")]
         public int Konto_Price_with_tax_cash {
             get {
                 return ((int)(this["Konto_Price_with_tax_cash"]));
@@ -157,7 +157,7 @@ namespace TangentaSettings.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1659")]
         public int Konto_Price_with_tax_payment_cards {
             get {
                 return ((int)(this["Konto_Price_with_tax_payment_cards"]));
@@ -169,7 +169,7 @@ namespace TangentaSettings.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public int End_Customers_Code {
             get {
                 return ((int)(this["End_Customers_Code"]));
@@ -229,6 +229,7 @@ namespace TangentaSettings.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("220, 255, 220")]
         public global::System.Drawing.Color ColorDraft {
             get {
                 return ((global::System.Drawing.Color)(this["ColorDraft"]));
@@ -240,6 +241,7 @@ namespace TangentaSettings.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("255, 200, 200")]
         public global::System.Drawing.Color ColorStorno {
             get {
                 return ((global::System.Drawing.Color)(this["ColorStorno"]));
@@ -251,6 +253,7 @@ namespace TangentaSettings.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("255, 255, 220")]
         public global::System.Drawing.Color ColorFurs_InvoiceConfirmed {
             get {
                 return ((global::System.Drawing.Color)(this["ColorFurs_InvoiceConfirmed"]));
@@ -262,6 +265,7 @@ namespace TangentaSettings.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("255, 224, 192")]
         public global::System.Drawing.Color ColorFurs_SalesBookInvoiceConfirmed {
             get {
                 return ((global::System.Drawing.Color)(this["ColorFurs_SalesBookInvoiceConfirmed"]));
@@ -273,6 +277,7 @@ namespace TangentaSettings.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DeepPink")]
         public global::System.Drawing.Color ColorFurs_SalesBookInvoiceNotConfirmed {
             get {
                 return ((global::System.Drawing.Color)(this["ColorFurs_SalesBookInvoiceNotConfirmed"]));
@@ -284,7 +289,7 @@ namespace TangentaSettings.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool UseWorkAreas {
             get {
                 return ((bool)(this["UseWorkAreas"]));
@@ -308,7 +313,7 @@ namespace TangentaSettings.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Login_MultipleUsers {
             get {
                 return ((bool)(this["Login_MultipleUsers"]));
@@ -320,7 +325,7 @@ namespace TangentaSettings.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool RecordCashierActivity {
             get {
                 return ((bool)(this["RecordCashierActivity"]));
@@ -440,7 +445,7 @@ namespace TangentaSettings.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
         public int timer_Login_MultiUser_Countdown {
             get {
                 return ((int)(this["timer_Login_MultiUser_Countdown"]));
@@ -476,7 +481,7 @@ namespace TangentaSettings.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool ShowAdministratorsInMultiuserLogin {
             get {
                 return ((bool)(this["ShowAdministratorsInMultiuserLogin"]));
@@ -500,7 +505,7 @@ namespace TangentaSettings.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool WaitToChangeDataBaseAtStartup {
             get {
                 return ((bool)(this["WaitToChangeDataBaseAtStartup"]));
@@ -524,7 +529,7 @@ namespace TangentaSettings.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
         public int LanguageID {
             get {
                 return ((int)(this["LanguageID"]));
@@ -567,6 +572,62 @@ namespace TangentaSettings.Properties {
             }
             set {
                 this["HelpRemoteURL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Drawing.Color Color_DocInvoiceBackGround {
+            get {
+                return ((global::System.Drawing.Color)(this["Color_DocInvoiceBackGround"]));
+            }
+            set {
+                this["Color_DocInvoiceBackGround"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Drawing.Color Color_DocInvoiceForeGround {
+            get {
+                return ((global::System.Drawing.Color)(this["Color_DocInvoiceForeGround"]));
+            }
+            set {
+                this["Color_DocInvoiceForeGround"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Drawing.Color Color_DocProformaInvoiceBackGround {
+            get {
+                return ((global::System.Drawing.Color)(this["Color_DocProformaInvoiceBackGround"]));
+            }
+            set {
+                this["Color_DocProformaInvoiceBackGround"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Drawing.Color Color_DocProformaInvoiceForeGround {
+            get {
+                return ((global::System.Drawing.Color)(this["Color_DocProformaInvoiceForeGround"]));
+            }
+            set {
+                this["Color_DocProformaInvoiceForeGround"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string MyOrgID {
+            get {
+                return ((string)(this["MyOrgID"]));
+            }
+            set {
+                this["MyOrgID"] = value;
             }
         }
     }
