@@ -577,6 +577,7 @@ namespace TangentaProperties.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("226, 255, 186")]
         public global::System.Drawing.Color Color_DocInvoiceBackGround {
             get {
                 return ((global::System.Drawing.Color)(this["Color_DocInvoiceBackGround"]));
@@ -588,6 +589,7 @@ namespace TangentaProperties.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
         public global::System.Drawing.Color Color_DocInvoiceForeGround {
             get {
                 return ((global::System.Drawing.Color)(this["Color_DocInvoiceForeGround"]));
@@ -599,6 +601,7 @@ namespace TangentaProperties.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Azure")]
         public global::System.Drawing.Color Color_DocProformaInvoiceBackGround {
             get {
                 return ((global::System.Drawing.Color)(this["Color_DocProformaInvoiceBackGround"]));
@@ -610,6 +613,7 @@ namespace TangentaProperties.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
         public global::System.Drawing.Color Color_DocProformaInvoiceForeGround {
             get {
                 return ((global::System.Drawing.Color)(this["Color_DocProformaInvoiceForeGround"]));

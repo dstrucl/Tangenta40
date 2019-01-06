@@ -38,7 +38,7 @@ namespace TangentaCore
             DateTime dt = DateTime.Now;
             string s_time_extension = dt.Year.ToString() + "-" + dt.Month.ToString() + "-" + dt.Day.ToString() + "_" + dt.Hour.ToString() + "-" + dt.Minute.ToString() + "-" + dt.Second.ToString() + "-" + dt.Millisecond.ToString();
             lbl_FileNames.Text = filename_DURS_IZPIS_RACUNI_GLAVE_TXT + "\r\n" + filename_DURS_IZPIS_RACUNI_POSTAVKE_TXT;
-            DURS_Destination_Folder = Properties.Settings.Default.DURS_output_folder;
+            DURS_Destination_Folder = TangentaProperties.Properties.Settings.Default.DURS_output_folder;
             this.cmbR_FilePath.Text = DURS_Destination_Folder;
             this.btn_Save.Text = lng.s_Save.s;
             this.lbl_Folder.Text = lng.s_Folder.s;
@@ -59,8 +59,8 @@ namespace TangentaCore
                     cmbR_FilePath.Text += "\\";
                 }
                 DURS_Destination_Folder = cmbR_FilePath.Text;
-                Properties.Settings.Default.DURS_output_folder = DURS_Destination_Folder;
-                Properties.Settings.Default.Save();
+                TangentaProperties.Properties.Settings.Default.DURS_output_folder = DURS_Destination_Folder;
+                TangentaProperties.Properties.Settings.Default.Save();
             }
         }
 

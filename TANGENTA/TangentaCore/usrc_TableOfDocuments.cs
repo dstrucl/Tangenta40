@@ -236,11 +236,11 @@ namespace TangentaCore
         {
             docM = xdocM;
 
-            ColorDraft = Properties.Settings.Default.ColorDraft;
-            ColorStorno = Properties.Settings.Default.ColorStorno;
-            ColorFurs_InvoiceConfirmed = Properties.Settings.Default.ColorFurs_InvoiceConfirmed;
-            ColorFurs_SalesBookInvoiceConfirmed = Properties.Settings.Default.ColorFurs_SalesBookInvoiceConfirmed;
-            ColorFurs_SalesBookInvoiceNotConfirmed = Properties.Settings.Default.ColorFurs_SalesBookInvoiceNotConfirmed;
+            ColorDraft = TangentaProperties.Properties.Settings.Default.ColorDraft;
+            ColorStorno = TangentaProperties.Properties.Settings.Default.ColorStorno;
+            ColorFurs_InvoiceConfirmed = TangentaProperties.Properties.Settings.Default.ColorFurs_InvoiceConfirmed;
+            ColorFurs_SalesBookInvoiceConfirmed = TangentaProperties.Properties.Settings.Default.ColorFurs_SalesBookInvoiceConfirmed;
+            ColorFurs_SalesBookInvoiceNotConfirmed = TangentaProperties.Properties.Settings.Default.ColorFurs_SalesBookInvoiceNotConfirmed;
 
 
             int iRowsCount = -1;
@@ -775,20 +775,20 @@ namespace TangentaCore
                             string sdb = DBSync.DBSync.DataBase;
                             if (sdb != null)
                             {
-                                if (!Properties.Settings.Default.Current_DataBase.Equals(sdb))
+                                if (!TangentaProperties.Properties.Settings.Default.Current_DataBase.Equals(sdb))
                                 {
-                                    Properties.Settings.Default.Current_DataBase = sdb;
-                                    //Properties.Settings.Default.Current_DocInvoice_ID = "";
-                                    Properties.Settings.Default.Save();
+                                    TangentaProperties.Properties.Settings.Default.Current_DataBase = sdb;
+                                    //TangentaProperties.Properties.Settings.Default.Current_DocInvoice_ID = "";
+                                    TangentaProperties.Properties.Settings.Default.Save();
                                 }
                             }
                             if (iCurrentSelectedRow >= 0)
                             {
                                 dgvx_XInvoice.Rows[iCurrentSelectedRow].Selected = true;
                             }
-                            else if (false /*Properties.Settings.Default.Current_DocInvoice_ID.Length > 0*/)
+                            else if (false /*TangentaProperties.Properties.Settings.Default.Current_DocInvoice_ID.Length > 0*/)
                             {
-                                DataRow[] dr_Current = dt_XInvoice.Select("JOURNAL_DocInvoice_$_dinv_$$ID = " /*+ Properties.Settings.Default.Current_DocInvoice_ID*/);
+                                DataRow[] dr_Current = dt_XInvoice.Select("JOURNAL_DocInvoice_$_dinv_$$ID = " /*+ TangentaProperties.Properties.Settings.Default.Current_DocInvoice_ID*/);
                                 if (dr_Current.Count() > 0)
                                 {
                                     iCurrentSelectedRow = dt_XInvoice.Rows.IndexOf(dr_Current[0]);
@@ -828,20 +828,20 @@ namespace TangentaCore
                             string sdb = DBSync.DBSync.DataBase;
                             if (sdb != null)
                             {
-                                if (!Properties.Settings.Default.Current_DataBase.Equals(sdb))
+                                if (!TangentaProperties.Properties.Settings.Default.Current_DataBase.Equals(sdb))
                                 {
-                                    Properties.Settings.Default.Current_DataBase = sdb;
-                                    //Properties.Settings.Default.Current_DocProformaInvoice_ID = "";
-                                    Properties.Settings.Default.Save();
+                                    TangentaProperties.Properties.Settings.Default.Current_DataBase = sdb;
+                                    //TangentaProperties.Properties.Settings.Default.Current_DocProformaInvoice_ID = "";
+                                    TangentaProperties.Properties.Settings.Default.Save();
                                 }
                             }
                             if (iCurrentSelectedRow >= 0)
                             {
                                 dgvx_XInvoice.Rows[iCurrentSelectedRow].Selected = true;
                             }
-                            else if (false /*Properties.Settings.Default.Current_DocProformaInvoice_ID.Length>0*/)
+                            else if (false /*TangentaProperties.Properties.Settings.Default.Current_DocProformaInvoice_ID.Length>0*/)
                             {
-                                ID my_Current_DocProformaInvoice_ID = new ID(1/*Properties.Settings.Default.Current_DocProformaInvoice_ID*/);
+                                ID my_Current_DocProformaInvoice_ID = new ID(1/*TangentaProperties.Properties.Settings.Default.Current_DocProformaInvoice_ID*/);
                                 DataRow[] dr_Current = dt_XInvoice.Select("JOURNAL_DocProformaInvoice_$_dpinv_$$ID = " + my_Current_DocProformaInvoice_ID.ToString());
                                 if (dr_Current.Count() > 0)
                                 {

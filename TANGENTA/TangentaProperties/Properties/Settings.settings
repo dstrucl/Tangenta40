@@ -141,16 +141,16 @@
       <Value Profile="(Default)">https://dstrucl.github.io/Tangenta-Help/</Value>
     </Setting>
     <Setting Name="Color_DocInvoiceBackGround" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">226, 255, 186</Value>
     </Setting>
     <Setting Name="Color_DocInvoiceForeGround" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">Black</Value>
     </Setting>
     <Setting Name="Color_DocProformaInvoiceBackGround" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">Azure</Value>
     </Setting>
     <Setting Name="Color_DocProformaInvoiceForeGround" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">Black</Value>
     </Setting>
     <Setting Name="MyOrgID" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

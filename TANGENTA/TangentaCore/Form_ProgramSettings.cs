@@ -77,21 +77,21 @@ namespace TangentaCore
             lng.s_lbl_ExitTimeout.Text(lbl_ExitTimeout);
             lng.s_btn_UserSettings.Text(btn_UserSettings);
 
-            nmUpDn_ExitTimeout.Value = Convert.ToDecimal(Properties.Settings.Default.timer_Login_MultiUser_Countdown);
+            nmUpDn_ExitTimeout.Value = Convert.ToDecimal(TangentaProperties.Properties.Settings.Default.timer_Login_MultiUser_Countdown);
 
-            rdb_Authentification_None.Checked = (Properties.Settings.Default.AccessAuthentication == 0);
-            rdb_Authentification_Password.Checked = (Properties.Settings.Default.AccessAuthentication == 1);
-            rdb_Authentification_PIN.Checked = (Properties.Settings.Default.AccessAuthentication == 2);
-            rdb_Authentification_RFID.Checked = (Properties.Settings.Default.AccessAuthentication == 3);
-            if ((Properties.Settings.Default.AccessAuthentication < 0) || (Properties.Settings.Default.AccessAuthentication > 3))
+            rdb_Authentification_None.Checked = (TangentaProperties.Properties.Settings.Default.AccessAuthentication == 0);
+            rdb_Authentification_Password.Checked = (TangentaProperties.Properties.Settings.Default.AccessAuthentication == 1);
+            rdb_Authentification_PIN.Checked = (TangentaProperties.Properties.Settings.Default.AccessAuthentication == 2);
+            rdb_Authentification_RFID.Checked = (TangentaProperties.Properties.Settings.Default.AccessAuthentication == 3);
+            if ((TangentaProperties.Properties.Settings.Default.AccessAuthentication < 0) || (TangentaProperties.Properties.Settings.Default.AccessAuthentication > 3))
             {
-                LogFile.Error.Show("ERROR:Tangenta:ProgramSettings:Properties.Settings.Default.AccessAuthentication is not 0,1,2,3 it may not be " + Properties.Settings.Default.AccessAuthentication.ToString());
+                LogFile.Error.Show("ERROR:Tangenta:ProgramSettings:TangentaProperties.Properties.Settings.Default.AccessAuthentication is not 0,1,2,3 it may not be " + TangentaProperties.Properties.Settings.Default.AccessAuthentication.ToString());
             }
 
             if (OperationMode.MultiUser)
             {
                 chk_MultipleUserLogin.Enabled = true;
-                chk_MultipleUserLogin.Checked = Properties.Settings.Default.Login_MultipleUsers;
+                chk_MultipleUserLogin.Checked = TangentaProperties.Properties.Settings.Default.Login_MultipleUsers;
                 grp_AccessAuthentication.Enabled = true;
             }
             else
@@ -102,7 +102,7 @@ namespace TangentaCore
             }
 
 
-            chk_ShowChangeDatabaseButtonAtStartup.Checked = Properties.Settings.Default.WaitToChangeDataBaseAtStartup;
+            chk_ShowChangeDatabaseButtonAtStartup.Checked = TangentaProperties.Properties.Settings.Default.WaitToChangeDataBaseAtStartup;
 
             chk_RecordCashierActivity.Checked = TSettings.RecordCashierActivity;
 
@@ -116,10 +116,10 @@ namespace TangentaCore
             cmb_Language.SelectedIndex = DynSettings.LanguageID;
             cmb_Language.SelectedIndexChanged += cmb_Language_SelectedIndexChanged;
 
-            DynSettings.AllowToEditText = Properties.Settings.Default.AllowToEditLanguageText;
+            DynSettings.AllowToEditText = TangentaProperties.Properties.Settings.Default.AllowToEditLanguageText;
             chk_AllowToEditText.Checked = DynSettings.AllowToEditText;
             chk_AllowToEditText.CheckedChanged += chk_AllowToEditText_CheckedChanged;
-            chk_FullScreen.Checked = Properties.Settings.Default.FullScreen;
+            chk_FullScreen.Checked = TangentaProperties.Properties.Settings.Default.FullScreen;
             chk_FullScreen.CheckedChanged += Chk_FullScreen_CheckedChanged;
             if (nav.m_eButtons == NavigationButtons.Navigation.eButtons.PrevNextExit)
             {
@@ -157,8 +157,8 @@ namespace TangentaCore
         private void Chk_FullScreen_CheckedChanged(object sender, EventArgs e)
         {
             bChanged = true;
-            Properties.Settings.Default.FullScreen = chk_FullScreen.Checked;
-            if (Properties.Settings.Default.FullScreen)
+            TangentaProperties.Properties.Settings.Default.FullScreen = chk_FullScreen.Checked;
+            if (TangentaProperties.Properties.Settings.Default.FullScreen)
             {
                 DocumentMan.MainForm.WindowState= FormWindowState.Maximized;
                 DocumentMan.MainForm.FormBorderStyle = FormBorderStyle.None;
@@ -174,7 +174,7 @@ namespace TangentaCore
         {
             bChanged = true;
             DynSettings.AllowToEditText = chk_AllowToEditText.Checked;
-            Properties.Settings.Default.AllowToEditLanguageText = DynSettings.AllowToEditText;
+            TangentaProperties.Properties.Settings.Default.AllowToEditLanguageText = DynSettings.AllowToEditText;
         }
 
         private void cmb_Language_SelectedIndexChanged(object sender, EventArgs e)
@@ -209,78 +209,78 @@ namespace TangentaCore
 
                 if (OperationMode.MultiUser)
                 {
-                    if (Properties.Settings.Default.Login_MultipleUsers != chk_MultipleUserLogin.Checked)
+                    if (TangentaProperties.Properties.Settings.Default.Login_MultipleUsers != chk_MultipleUserLogin.Checked)
                     {
-                        Properties.Settings.Default.Login_MultipleUsers = chk_MultipleUserLogin.Checked;
+                        TangentaProperties.Properties.Settings.Default.Login_MultipleUsers = chk_MultipleUserLogin.Checked;
                         bChanged = true;
                     }
                 }
-                if (chk_RecordCashierActivity.Checked !=  Properties.Settings.Default.RecordCashierActivity)
+                if (chk_RecordCashierActivity.Checked !=  TangentaProperties.Properties.Settings.Default.RecordCashierActivity)
                 {
-                    Properties.Settings.Default.RecordCashierActivity = chk_RecordCashierActivity.Checked;
+                    TangentaProperties.Properties.Settings.Default.RecordCashierActivity = chk_RecordCashierActivity.Checked;
                     bChanged = true;
                 }
-                if (chk_UseWorkAreas.Checked != Properties.Settings.Default.UseWorkAreas)
+                if (chk_UseWorkAreas.Checked != TangentaProperties.Properties.Settings.Default.UseWorkAreas)
                 {
-                    Properties.Settings.Default.UseWorkAreas = chk_UseWorkAreas.Checked;
-                    bChanged = true;
-                }
-
-                if (chk_ShowChangeDatabaseButtonAtStartup.Checked != Properties.Settings.Default.WaitToChangeDataBaseAtStartup)
-                {
-                    Properties.Settings.Default.WaitToChangeDataBaseAtStartup = chk_ShowChangeDatabaseButtonAtStartup.Checked;
+                    TangentaProperties.Properties.Settings.Default.UseWorkAreas = chk_UseWorkAreas.Checked;
                     bChanged = true;
                 }
 
-
-                if (Properties.Settings.Default.Login_MultipleUsers)
+                if (chk_ShowChangeDatabaseButtonAtStartup.Checked != TangentaProperties.Properties.Settings.Default.WaitToChangeDataBaseAtStartup)
                 {
-                    if (nmUpDn_ExitTimeout.Value != Convert.ToDecimal(Properties.Settings.Default.timer_Login_MultiUser_Countdown))
+                    TangentaProperties.Properties.Settings.Default.WaitToChangeDataBaseAtStartup = chk_ShowChangeDatabaseButtonAtStartup.Checked;
+                    bChanged = true;
+                }
+
+
+                if (TangentaProperties.Properties.Settings.Default.Login_MultipleUsers)
+                {
+                    if (nmUpDn_ExitTimeout.Value != Convert.ToDecimal(TangentaProperties.Properties.Settings.Default.timer_Login_MultiUser_Countdown))
                     {
-                        Properties.Settings.Default.timer_Login_MultiUser_Countdown = Convert.ToInt32(nmUpDn_ExitTimeout.Value);
+                        TangentaProperties.Properties.Settings.Default.timer_Login_MultiUser_Countdown = Convert.ToInt32(nmUpDn_ExitTimeout.Value);
                         bChanged = true;
                     }
 
-                    if (rdb_Authentification_None.Checked && (Properties.Settings.Default.AccessAuthentication != 0))
+                    if (rdb_Authentification_None.Checked && (TangentaProperties.Properties.Settings.Default.AccessAuthentication != 0))
                     {
-                        Properties.Settings.Default.AccessAuthentication = 0;
+                        TangentaProperties.Properties.Settings.Default.AccessAuthentication = 0;
                         bChanged = true;
                     }
-                    if (rdb_Authentification_Password.Checked && (Properties.Settings.Default.AccessAuthentication != 1))
+                    if (rdb_Authentification_Password.Checked && (TangentaProperties.Properties.Settings.Default.AccessAuthentication != 1))
                     {
-                        Properties.Settings.Default.AccessAuthentication = 1;
+                        TangentaProperties.Properties.Settings.Default.AccessAuthentication = 1;
                         bChanged = true;
                     }
-                    if (rdb_Authentification_PIN.Checked && (Properties.Settings.Default.AccessAuthentication != 2))
+                    if (rdb_Authentification_PIN.Checked && (TangentaProperties.Properties.Settings.Default.AccessAuthentication != 2))
                     {
-                        Properties.Settings.Default.AccessAuthentication = 2;
+                        TangentaProperties.Properties.Settings.Default.AccessAuthentication = 2;
                         bChanged = true;
                     }
 
-                    if (rdb_Authentification_RFID.Checked && (Properties.Settings.Default.AccessAuthentication != 3))
+                    if (rdb_Authentification_RFID.Checked && (TangentaProperties.Properties.Settings.Default.AccessAuthentication != 3))
                     {
-                        Properties.Settings.Default.AccessAuthentication = 3;
+                        TangentaProperties.Properties.Settings.Default.AccessAuthentication = 3;
                         bChanged = true;
                     }
                 }
 
 
-                if (Properties.Settings.Default.ControlLayout_TouchScreen != chk_ControlLayout_TouchScreen.Checked)
+                if (TangentaProperties.Properties.Settings.Default.ControlLayout_TouchScreen != chk_ControlLayout_TouchScreen.Checked)
                 {
                     bChanged = true;
-                    Properties.Settings.Default.ControlLayout_TouchScreen = chk_ControlLayout_TouchScreen.Checked;
+                    TangentaProperties.Properties.Settings.Default.ControlLayout_TouchScreen = chk_ControlLayout_TouchScreen.Checked;
                 }
 
 
                 if (newLanguage != default_language_ID)
                 {
                     bChanged = true;
-                    Properties.Settings.Default.LanguageID = newLanguage;
+                    TangentaProperties.Properties.Settings.Default.LanguageID = newLanguage;
                 }
 
                 if (bChanged)
                 {
-                    Properties.Settings.Default.Save();
+                    TangentaProperties.Properties.Settings.Default.Save();
                 }
 
                 if ((bChanged || bDBSettingsChanged)&&(nav.m_eButtons== Navigation.eButtons.OkCancel))

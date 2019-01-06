@@ -29,7 +29,7 @@ namespace TangentaCore
 
         private void btn_Backup_Click(object sender, EventArgs e)
         {
-            string sDBType = Properties.Settings.Default.DBType;
+            string sDBType = TangentaProperties.Properties.Settings.Default.DBType;
             DBConnectionControl40.DBConnection.eDBType org_eDBType = DBSync.DBSync.m_DBType;
             NavigationButtons.Navigation nav = new NavigationButtons.Navigation(null);
             nav.btn3_Visible = true;
@@ -39,7 +39,7 @@ namespace TangentaCore
             string Err = null;
             if (Global.f.SetApplicationDataSubFolder(ref xCodeTables_IniFileFolder, TSettings.TANGENTA_SETTINGS_SUB_FOLDER, ref Err))
             {
-                string xSQLitebackupFolder = Properties.Settings.Default.SQLiteBackupFolder;
+                string xSQLitebackupFolder = TangentaProperties.Properties.Settings.Default.SQLiteBackupFolder;
                 if (xSQLitebackupFolder.Length == 0)
                 {
                     if (Global.f.SetApplicationDataSubFolder(ref xSQLitebackupFolder, TSettings.TANGENTA_SQLITEBACKUP_SUB_FOLDER, ref Err))
@@ -47,9 +47,9 @@ namespace TangentaCore
                     }
                 }
                 DBSync.DBSync.DBMan(Main_Form, Reset2FactorySettings.DBConnectionControlXX_EXE, TSettings.m_XmlFileName, xCodeTables_IniFileFolder, ref sDBType, ref xSQLitebackupFolder, nav);
-                Properties.Settings.Default.SQLiteBackupFolder = xSQLitebackupFolder;
-                Properties.Settings.Default.DBType = sDBType;
-                Properties.Settings.Default.Save();
+                TangentaProperties.Properties.Settings.Default.SQLiteBackupFolder = xSQLitebackupFolder;
+                TangentaProperties.Properties.Settings.Default.DBType = sDBType;
+                TangentaProperties.Properties.Settings.Default.Save();
             }
 
         }

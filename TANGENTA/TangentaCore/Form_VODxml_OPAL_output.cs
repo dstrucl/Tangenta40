@@ -63,7 +63,7 @@ namespace TangentaCore
             DateTime dt = DateTime.Now;
             string s_time_extension = dt.Year.ToString() + "-" + dt.Month.ToString() + "-" + dt.Day.ToString() + "_" + dt.Hour.ToString() + "-" + dt.Minute.ToString() + "-" + dt.Second.ToString() + "-" + dt.Millisecond.ToString();
             lbl_FileNames.Text =  filename_XML_IZPIS_RACUNI_GLAVE_TXT + "\r\n";
-            XML_Destination_Folder = Properties.Settings.Default.XML_output_folder;
+            XML_Destination_Folder = TangentaProperties.Properties.Settings.Default.XML_output_folder;
             this.lbl_VOD_xml_shema.Text = lng.s_VOD_xml_shema_file_path.s;
             this.cmbR_FilePath.Text = XML_Destination_Folder;
 
@@ -124,7 +124,7 @@ namespace TangentaCore
 
         private bool Read_VOD_XSD_shema()
         {
-            VOD_xsd_shema_file = Properties.Settings.Default.OPAL_VOD_XSD_shema;
+            VOD_xsd_shema_file = TangentaProperties.Properties.Settings.Default.OPAL_VOD_XSD_shema;
             if (VOD_xsd_shema_file.Length==0)
             {
                 string xVodShemaFolder = null;
@@ -137,8 +137,8 @@ namespace TangentaCore
                     try
                     {
                         File.WriteAllText(VOD_xsd_shema_file, shema);
-                        Properties.Settings.Default.OPAL_VOD_XSD_shema = VOD_xsd_shema_file;
-                        Properties.Settings.Default.Save();
+                        TangentaProperties.Properties.Settings.Default.OPAL_VOD_XSD_shema = VOD_xsd_shema_file;
+                        TangentaProperties.Properties.Settings.Default.Save();
                     }
                     catch (Exception Ex)
                     {
@@ -185,8 +185,8 @@ namespace TangentaCore
                     if (Get_VOD_XSD_shema())
                     {
                         cmb_VOD_xml_shema.Text = VOD_xsd_shema_file;
-                        Properties.Settings.Default.OPAL_VOD_XSD_shema = VOD_xsd_shema_file;
-                        Properties.Settings.Default.Save();
+                        TangentaProperties.Properties.Settings.Default.OPAL_VOD_XSD_shema = VOD_xsd_shema_file;
+                        TangentaProperties.Properties.Settings.Default.Save();
                         return true;
 
                     }
@@ -252,8 +252,8 @@ namespace TangentaCore
                     cmbR_FilePath.Text += "\\";
                 }
                 XML_Destination_Folder = cmbR_FilePath.Text;
-                Properties.Settings.Default.XML_output_folder = XML_Destination_Folder;
-                Properties.Settings.Default.Save();
+                TangentaProperties.Properties.Settings.Default.XML_output_folder = XML_Destination_Folder;
+                TangentaProperties.Properties.Settings.Default.Save();
             }
         }
 
@@ -999,11 +999,11 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
 
         private void ReadSettings()
         {
-            int Konto_DDV_splosna_stopnja = Properties.Settings.Default.Konto_VAT_rate_ganeral;
-            int Konto_Osnovna_splosna_stopnja = Properties.Settings.Default.Konto_Net_price;
-            int Konto_Price_with_tax_cash = Properties.Settings.Default.Konto_Price_with_tax_cash;
-            int Konto_Price_with_tax_payment_cards = Properties.Settings.Default.Konto_Price_with_tax_payment_cards;
-            int End_Customers_code = Properties.Settings.Default.End_Customers_Code;
+            int Konto_DDV_splosna_stopnja = TangentaProperties.Properties.Settings.Default.Konto_VAT_rate_ganeral;
+            int Konto_Osnovna_splosna_stopnja = TangentaProperties.Properties.Settings.Default.Konto_Net_price;
+            int Konto_Price_with_tax_cash = TangentaProperties.Properties.Settings.Default.Konto_Price_with_tax_cash;
+            int Konto_Price_with_tax_payment_cards = TangentaProperties.Properties.Settings.Default.Konto_Price_with_tax_payment_cards;
+            int End_Customers_code = TangentaProperties.Properties.Settings.Default.End_Customers_Code;
 
             decimal dKonto_DDV_splosna_stopnja = Konto_DDV_splosna_stopnja;
             decimal dKonto_Osnovna_splosna_stopnja = Konto_Osnovna_splosna_stopnja;
@@ -1017,7 +1017,7 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
             nmUpDn_Konto_Price_with_tax_for_cash.Value = dKonto_Price_with_tax_cash;
             nmUpDn_Konto_Price_with_tax_for_payment_cards.Value = dKonto_Price_with_tax_payment_cards;
             nmUpDn_End_Customers_Code.Value = dEnd_Customers_code;
-            txt_End_Customers_Name.Text = Properties.Settings.Default.End_Customers_Name;
+            txt_End_Customers_Name.Text = TangentaProperties.Properties.Settings.Default.End_Customers_Name;
         }
 
         private void SaveSettings()
@@ -1028,13 +1028,13 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
             int Konto_Price_with_tax_for_cash = Convert.ToInt32(nmUpDn_Konto_Price_with_tax_for_cash.Value);
             int Konto_Price_with_tax_payment_cards = Convert.ToInt32(nmUpDn_Konto_Price_with_tax_for_payment_cards.Value);
             int End_Customers_Code = Convert.ToInt32(nmUpDn_End_Customers_Code.Value);
-            Properties.Settings.Default.Konto_VAT_rate_ganeral = Konto_VAT_general_rate;
-            Properties.Settings.Default.Konto_Net_price  = Konto_NetPrice;
-            Properties.Settings.Default.Konto_Price_with_tax_cash =  Konto_Price_with_tax_for_cash;
-            Properties.Settings.Default.Konto_Price_with_tax_payment_cards = Konto_Price_with_tax_payment_cards;
-            Properties.Settings.Default.End_Customers_Code = End_Customers_Code;
-            Properties.Settings.Default.End_Customers_Name = Properties.Settings.Default.End_Customers_Name;
-            Properties.Settings.Default.Save();
+            TangentaProperties.Properties.Settings.Default.Konto_VAT_rate_ganeral = Konto_VAT_general_rate;
+            TangentaProperties.Properties.Settings.Default.Konto_Net_price  = Konto_NetPrice;
+            TangentaProperties.Properties.Settings.Default.Konto_Price_with_tax_cash =  Konto_Price_with_tax_for_cash;
+            TangentaProperties.Properties.Settings.Default.Konto_Price_with_tax_payment_cards = Konto_Price_with_tax_payment_cards;
+            TangentaProperties.Properties.Settings.Default.End_Customers_Code = End_Customers_Code;
+            TangentaProperties.Properties.Settings.Default.End_Customers_Name = TangentaProperties.Properties.Settings.Default.End_Customers_Name;
+            TangentaProperties.Properties.Settings.Default.Save();
         }
 
         private void Form_VODxml_OPAL_output_Load(object sender, EventArgs e)

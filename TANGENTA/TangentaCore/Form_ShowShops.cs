@@ -95,7 +95,7 @@ namespace TangentaCore
             }
             else
             { 
-                    LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_Invoice.m_eShopsMode illegal Mode! Properties.Settings.Default.eShopsMode = " + mSettingsUserValues.eShowShops);
+                    LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_Invoice.m_eShopsMode illegal Mode! TangentaProperties.Properties.Settings.Default.eShopsMode = " + mSettingsUserValues.eShowShops);
             }
             rdb_A.CheckedChanged += Rdb_A_CheckedChanged;
             rdb_B.CheckedChanged += Rdb_B_CheckedChanged;

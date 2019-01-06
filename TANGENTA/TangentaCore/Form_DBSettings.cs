@@ -159,8 +159,8 @@ namespace TangentaCore
                     }
                     else
                     {
-                        Properties.Settings.Default.RecordCashierActivity = false;
-                        Properties.Settings.Default.Save();
+                        TangentaProperties.Properties.Settings.Default.RecordCashierActivity = false;
+                        TangentaProperties.Properties.Settings.Default.Save();
                     }
 
                     if (chk_StockCheckAtStartup.Checked)

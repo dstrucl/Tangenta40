@@ -91,8 +91,8 @@ namespace TangentaCore
             DynSettings.LanguageTextSave();
             if (SettingsUserValues == null)
             {
-                Properties.Settings.Default.eShopsInUse = shInUse;
-                Properties.Settings.Default.Save();
+                TangentaProperties.Properties.Settings.Default.eShopsInUse = shInUse;
+                TangentaProperties.Properties.Settings.Default.Save();
             }
             else
             {

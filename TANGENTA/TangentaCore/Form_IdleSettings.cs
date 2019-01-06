@@ -29,15 +29,15 @@ namespace TangentaCore
         private void btn_OK_Click(object sender, EventArgs e)
         {
             this.usrc_IdleSettings1.Set();
-            Properties.Settings.Default.IdleControl_FileImageUrl1 = idlectrl.FileImageUrl1;
-            Properties.Settings.Default.IdleControl_FileImageUrl2 = idlectrl.FileImageUrl2;
-            Properties.Settings.Default.IdleControl_Active = idlectrl.Active;
-            Properties.Settings.Default.IdleControl_UseExitButton = idlectrl.UseExitButton;
-            Properties.Settings.Default.IdleControl_ShowURL2 = idlectrl.ShowURL2;
-            Properties.Settings.Default.IdleControl_TimeInSecondsToActivate = idlectrl.TimeInSecondsToActivate;
-            Properties.Settings.Default.IdleControl_URL1 = idlectrl.URL1;
-            Properties.Settings.Default.IdleControl_URL2 = idlectrl.URL2;
-            Properties.Settings.Default.Save();
+            TangentaProperties.Properties.Settings.Default.IdleControl_FileImageUrl1 = idlectrl.FileImageUrl1;
+            TangentaProperties.Properties.Settings.Default.IdleControl_FileImageUrl2 = idlectrl.FileImageUrl2;
+            TangentaProperties.Properties.Settings.Default.IdleControl_Active = idlectrl.Active;
+            TangentaProperties.Properties.Settings.Default.IdleControl_UseExitButton = idlectrl.UseExitButton;
+            TangentaProperties.Properties.Settings.Default.IdleControl_ShowURL2 = idlectrl.ShowURL2;
+            TangentaProperties.Properties.Settings.Default.IdleControl_TimeInSecondsToActivate = idlectrl.TimeInSecondsToActivate;
+            TangentaProperties.Properties.Settings.Default.IdleControl_URL1 = idlectrl.URL1;
+            TangentaProperties.Properties.Settings.Default.IdleControl_URL2 = idlectrl.URL2;
+            TangentaProperties.Properties.Settings.Default.Save();
             this.Close();
             DialogResult = DialogResult.OK;
         }

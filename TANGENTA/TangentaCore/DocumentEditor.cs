@@ -798,7 +798,7 @@ namespace TangentaCore
                 InvoiceData.DocInvoice_ID = document_ID;
             }
 
-            string showshops = Properties.Settings.Default.eShowShops;
+            string showshops = TangentaProperties.Properties.Settings.Default.eShowShops;
             if (mSettingsUserValues != null)
             {
                 if (mSettingsUserValues.eShowShops.Length == 0)

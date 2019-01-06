@@ -163,17 +163,17 @@ namespace TangentaCore
             Mode = mode;
             if (mode == DocumentMan.eMode.Shops)
             {
-                Properties.Settings.Default.eManagerMode = "Shops";
+                TangentaProperties.Properties.Settings.Default.eManagerMode = "Shops";
             }
             else if (mode == DocumentMan.eMode.InvoiceTable)
             {
-                Properties.Settings.Default.eManagerMode = "InvoiceTable";
+                TangentaProperties.Properties.Settings.Default.eManagerMode = "InvoiceTable";
             }
             else
             {
-                Properties.Settings.Default.eManagerMode = "Shops&InvoiceTable";
+                TangentaProperties.Properties.Settings.Default.eManagerMode = "Shops&InvoiceTable";
             }
-            Properties.Settings.Default.Save();
+            TangentaProperties.Properties.Settings.Default.Save();
             delegate_control_SetMode(Mode);
         }
 
@@ -210,7 +210,7 @@ namespace TangentaCore
 
         public void SetInitialMode()
         {
-            string sManagerMode = Properties.Settings.Default.eManagerMode;
+            string sManagerMode = TangentaProperties.Properties.Settings.Default.eManagerMode;
             if ((sManagerMode.Contains("Shops")) && (sManagerMode.Contains("InvoiceTable")))
             {
                 Mode = DocumentMan.eMode.Shops_and_InvoiceTable;
@@ -225,7 +225,7 @@ namespace TangentaCore
             }
             else
             {
-                LogFile.Error.Show("ERROR:usrc_DocumentMan:SetInitialMode:Properties.Settings.Default.eManagerMode may have only these values:\"Shops\",\"InvoiceTable\" or \"Shops@InvoiceTable\"");
+                LogFile.Error.Show("ERROR:usrc_DocumentMan:SetInitialMode:TangentaProperties.Properties.Settings.Default.eManagerMode may have only these values:\"Shops\",\"InvoiceTable\" or \"Shops@InvoiceTable\"");
                 Mode = DocumentMan.eMode.Shops_and_InvoiceTable;
             }
 
@@ -318,7 +318,7 @@ namespace TangentaCore
                 //myStartup.eNextStep++;
                 if (TSettings.Login_MultipleUsers)
                 {
-                    if (TSettings.LoginControl1.Login_MultipleUsers_ShowControlAtStartup(xnav, Properties.Settings.Default.ShowAdministratorsInMultiuserLogin))
+                    if (TSettings.LoginControl1.Login_MultipleUsers_ShowControlAtStartup(xnav, TangentaProperties.Properties.Settings.Default.ShowAdministratorsInMultiuserLogin))
                     {
                         return true;
                     }

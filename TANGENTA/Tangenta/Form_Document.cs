@@ -177,7 +177,7 @@ namespace Tangenta
             LogFile.LogFile.WriteRELEASE("Form_Document()before InitializeComponent()!");
             InitializeComponent();
 
-
+            TSettings.LoginControl1 = this.loginControl1;
 
             TSettings.FVI_SLO1 = this.fvI_SLO1;
             TSettings.thread_fvi = this.fvI_SLO1.thread_fvi;

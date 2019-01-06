@@ -509,7 +509,6 @@ namespace Tangenta
 
         private static void SelectLanguage(ref bool bLanguageSelectDialogShown,ref bool bLanguageSelected,ref bool bExitBeforeLogFileInitialised)
         {
-            TangentaProperties.Properties.Settings.Default.Reset();
             if (TangentaProperties.Prop.LanguageID < 0)
             {
                 Startup.Startup.bFirstTimeInstallation = true;
