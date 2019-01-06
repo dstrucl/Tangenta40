@@ -58,7 +58,6 @@
     <Compile Include="Booting_11_GetShopC_Items.cs" />
     <Compile Include="Booting_12_GetPrinters.cs" />
     <Compile Include="Booting_13_Login.cs" />
-    <Compile Include="CommandLineParam.cs" />
     <Compile Include="lng.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
