@@ -28,11 +28,14 @@ using PriseLists;
 using TangentaPrint;
 using TangentaCore;
 using TangentaProperties;
+using static TangentaCore.DocumentEditor;
 
 namespace Tangenta
 {
     public partial class usrc_DocumentEditor : UserControl
     {
+        private DocumentEditor.DoCurrent_delegates doCurrent_Delegates;
+
         public DocumentEditor DocE = null;
         private DocumentMan DocM = null;
 
@@ -706,9 +709,189 @@ namespace Tangenta
                 }
         }
 
+        private usrc_PriceList pusrc_PriceListB
+        {
+            get
+            {
+                if (this.m_usrc_ShopB != null)
+                {
+                    return this.m_usrc_ShopB.usrc_PriceList1;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        private usrc_PriceList pusrc_PriceListC
+        {
+            get
+            {
+                if (this.m_usrc_ShopC != null)
+                {
+                    return this.m_usrc_ShopC.usrc_PriceList1;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        private DocumentEditor.delegate_control_SetDraftButtons pdelegate_control_SetDraftButtons
+        {
+            get
+            {
+                if (this.m_usrc_ShopB != null)
+                {
+                    return this.m_usrc_ShopB.SetDraftButtons;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        private DocumentEditor.delegate_control_SetViewButtons pdelegate_control_SetViewButtons
+        {
+            get
+            {
+                if (this.m_usrc_ShopB != null)
+                {
+                    return this.m_usrc_ShopB.SetViewButtons;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        private DocumentEditor.delegate_control_SetCurrentInvoice_SelectedShopB_Items pdelegate_control_SetCurrentInvoice_SelectedShopB_Items
+        {
+            get
+            {
+                if (this.m_usrc_ShopB != null)
+                {
+                    return this.m_usrc_ShopB.SetCurrentInvoice_SelectedShopB_Items;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        private DocumentEditor.delegate_control_SetCurrentInvoice_SelectedShopC_Items pdelegate_control_SetCurrentInvoice_SelectedShopC_Items
+        {
+            get
+            {
+                if (this.m_usrc_ShopC != null)
+                {
+                    return this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        private DocumentEditor.delegate_control_ShopC_Reset pdelegate_control_ShopC_Reset
+        {
+            get
+            {
+                if (this.m_usrc_ShopC != null)
+                {
+                    return this.m_usrc_ShopC.Reset;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        private DocumentEditor.delegate_control_ShopC_Clear pdelegate_control_ShopC_Clear
+        {
+            get
+            {
+                if (this.m_usrc_ShopC != null)
+                {
+                    return this.m_usrc_ShopC.Clear;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        private DataTable pdt_SelectedShopBItem
+        {
+            get
+            {
+                if (this.m_usrc_ShopB != null)
+                {
+                    return this.m_usrc_ShopB.dt_SelectedShopBItem;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        private DataTable pdt_ShopA_Item_Price
+        {
+            get
+            {
+                if (this.m_usrc_ShopA != null)
+                {
+                    return this.m_usrc_ShopA.dt_Item_Price;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+                    
+                    
         public usrc_DocumentEditor()
         {
             InitializeComponent();
+            doCurrent_Delegates = new DocumentEditor.DoCurrent_delegates(
+                                    pusrc_PriceListB,
+                                    pusrc_PriceListC,
+                                    this.Set_ShowShops,
+                                    pdelegate_control_SetDraftButtons,
+                                    pdelegate_control_SetViewButtons,
+                                    this.usrc_Customer.Show_Customer,
+                                    this.set_CustomerText,
+                                    this.usrc_AddOn1.Show,
+                                    this.AddHandler,
+                                    this.RemoveHandler,
+                                    this.set_InvoiceNumberText,
+                                    this.SetMode,
+                                    this.m_usrc_ShopB,
+                                    pdelegate_control_SetCurrentInvoice_SelectedShopB_Items,
+                                    pdelegate_control_SetCurrentInvoice_SelectedShopC_Items,
+                                    this.chk_Storno_Show,
+                                    this.chk_Storno_Check,
+                                    pdelegate_control_ShopC_Reset,
+                                    pdelegate_control_ShopC_Clear,
+                                    pdt_ShopA_Item_Price,
+                                    pdt_SelectedShopBItem,
+                                    this.btn_Issue_Show,
+                                    this.lbl_Sum_ForeColor,
+                                    this.lbl_Sum_Text,
+                                    this.m_usrc_ShopB_Get_Price_ShopBItem_Data,
+                                    this.m_usrc_ShopB_Set_dgv_SelectedShopB_Items,
+                                    this.m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data);
+
             lng.s_Show_Shops.Text(btn_Show_Shops);
             lng.s_Issuer.Text(lbl_MyOrganisation);
             lng.s_Number.Text(lbl_Number);
@@ -841,18 +1024,22 @@ namespace Tangenta
             ID m_usrc_ShopB_usrc_PriceList1_ID = null;
             ID m_usrc_ShopC_usrc_PriceList1_ID = null;
             Transaction transaction_usrc_DocumentEditor_DocE_Init = DBSync.DBSync.NewTransaction("usrc_DocumentEditor.DocE.Init");
+            usrc_PriceList xusrc_PriceListB = null;
+            if (m_usrc_ShopB!=null)
+            {
+                xusrc_PriceListB = m_usrc_ShopB.usrc_PriceList1;
+            }
+            usrc_PriceList xusrc_PriceListC = null;
+            if (m_usrc_ShopC != null)
+            {
+                xusrc_PriceListC = m_usrc_ShopC.usrc_PriceList1;
+            }
+
             if (DocE.Init(pform,
                             Document_ID,
                             ref m_usrc_ShopB_usrc_PriceList1_ID,
                             ref m_usrc_ShopC_usrc_PriceList1_ID,
-                            this.Set_ShowShops,
-                            m_usrc_ShopB_usrc_PriceList1_Init,
-                            m_usrc_ShopC_usrc_PriceList1_Init,
-                            this.usrc_PriceList_Ask_To_Update,
-                            m_usrc_ShopB_Get_Price_ShopBItem_Data,
-                            this.DoCurrent,
-                            m_usrc_ShopB_Set_dgv_SelectedShopB_Items,
-                            m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data,
+                            doCurrent_Delegates,
                             transaction_usrc_DocumentEditor_DocE_Init
                             ))
             {
@@ -934,29 +1121,9 @@ namespace Tangenta
         public bool DoCurrent(ID xID, Transaction transaction)
         {
             return DocE.DoCurrent(xID,
-                                    this.m_usrc_ShopB.SetDraftButtons,
-                                    this.m_usrc_ShopB.SetViewButtons,
-                                    this.usrc_Customer.Show_Customer,
-                                    this.set_CustomerText,
-                                    this.usrc_AddOn1.Show,
-                                    this.AddHandler,
-                                    this.RemoveHandler,
-                                    this.set_InvoiceNumberText,
-                                    this.SetMode,
-                                    this.m_usrc_ShopB,
-                                    this.m_usrc_ShopB.SetCurrentInvoice_SelectedShopB_Items,
-                                    this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems,
-                                    this.chk_Storno_Show,
-                                    this.chk_Storno_Check,
-                                    this.m_usrc_ShopC.Reset,
-                                    this.m_usrc_ShopC.Clear,
-                                    this.m_usrc_ShopA.dt_Item_Price,
-                                    this.m_usrc_ShopB.dt_SelectedShopBItem,
-                                    this.btn_Issue_Show,
-                                    this.lbl_Sum_ForeColor,
-                                    this.lbl_Sum_Text,
-                                    transaction
-                                    );
+                                  doCurrent_Delegates,
+                                  transaction
+                                  );
         }
 
         private void chk_Head_CheckedChanged(object sender, EventArgs e)
@@ -1006,25 +1173,7 @@ namespace Tangenta
         }
 
 
-        private void usrc_PriceList_Ask_To_Update(char chShop, DataTable dt_ShopB_Item_NotIn_PriceList)
-        {
-            if (PriseLists.usrc_PriceList.Ask_To_Update(chShop, dt_ShopB_Item_NotIn_PriceList, this))
-            {
-                Transaction transaction_usrc_DocumentEditor_Insert_ShopB_Items_in_PriceList = DBSync.DBSync.NewTransaction("usrc_DocumentEditor.Insert_ShopB_Items_in_PriceList");
-                if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, this, transaction_usrc_DocumentEditor_Insert_ShopB_Items_in_PriceList))
-                {
-                    if (transaction_usrc_DocumentEditor_Insert_ShopB_Items_in_PriceList.Commit())
-                    {
-                        bool bPriceListChanged = false;
-                        this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
-                    }
-                }
-                else
-                {
-                    transaction_usrc_DocumentEditor_Insert_ShopB_Items_in_PriceList.Rollback();
-                }
-            }
-        }
+        
 
         public void SetNewDraft(LMOUser xLMOUser, string DocTyp, int xFinancialYear,xCurrency xcurrency, ID Atom_Currency_ID, WArea workArea)
         {

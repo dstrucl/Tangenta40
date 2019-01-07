@@ -173,10 +173,17 @@ namespace ShopC_Forms
             return true;
         }
 
-        private void Usrc_EditTable1_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes)
+        private void Usrc_EditTable1_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes, Transaction transaction)
         {
             if (bRes)
             {
+                if (transaction!=null)
+                {
+                    if (!transaction.Commit())
+                    {
+                        return;
+                    }
+                }
                 ID JOURNAL_StockTake_ID = null;
                 splitContainer1.Panel2Collapsed = false;
                 Transaction transaction_Form_StockTake_Edit_Usrc_EditTable1_after_InsertInDataBase_f_JOURNAL_StockTake_Get = DBSync.DBSync.NewTransaction("Form_StockTake_Edit.Usrc_EditTable1_after_InsertInDataBase.f_JOURNAL_StockTake.Get");
@@ -196,6 +203,16 @@ namespace ShopC_Forms
                 else
                 {
                     transaction_Form_StockTake_Edit_Usrc_EditTable1_after_InsertInDataBase_f_JOURNAL_StockTake_Get.Rollback();
+                }
+            }
+            else
+            {
+                if (transaction != null)
+                {
+                    if (transaction.Rollback())
+                    {
+                        return;
+                    }
                 }
             }
         }

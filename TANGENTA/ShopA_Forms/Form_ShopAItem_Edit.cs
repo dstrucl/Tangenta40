@@ -47,11 +47,24 @@ namespace ShopA_Forms
             }
         }
 
-        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes)
+        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes, Transaction transaction)
         {
             if (bRes)
             {
-
+                if (transaction!=null)
+                {
+                    if (!transaction.Commit())
+                    {
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                if (transaction != null)
+                {
+                    transaction.Rollback();
+                }
             }
         }
 

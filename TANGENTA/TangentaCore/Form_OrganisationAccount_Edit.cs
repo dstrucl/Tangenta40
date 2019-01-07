@@ -126,7 +126,7 @@ namespace TangentaCore
                 if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     Transaction transaction_Form_OrganisationAccount_Edit_btn_OK_Click_usrc_EditTable_Save = DBSync.DBSync.NewTransaction("Form_OrganisationAccount_Edit.btn_OK_Click.usrc_EditTable.Save");
-                    if (usrc_EditTable.Save(transaction_Form_OrganisationAccount_Edit_btn_OK_Click_usrc_EditTable_Save))
+                    if (usrc_EditTable.Save(ref transaction_Form_OrganisationAccount_Edit_btn_OK_Click_usrc_EditTable_Save))
                     {
                         if (!transaction_Form_OrganisationAccount_Edit_btn_OK_Click_usrc_EditTable_Save.Commit())
                         {
@@ -151,7 +151,7 @@ namespace TangentaCore
                 if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     Transaction transaction_Form_OrganisationAccount_Edit_btn_Cancel_Click_usrc_EditTable_Save = DBSync.DBSync.NewTransaction("Form_OrganisationAccount_Edit.btn_Cancel_Click.usrc_EditTable.Save");
-                    if (usrc_EditTable.Save(transaction_Form_OrganisationAccount_Edit_btn_Cancel_Click_usrc_EditTable_Save))
+                    if (usrc_EditTable.Save(ref transaction_Form_OrganisationAccount_Edit_btn_Cancel_Click_usrc_EditTable_Save))
                     {
                         if (!transaction_Form_OrganisationAccount_Edit_btn_Cancel_Click_usrc_EditTable_Save.Commit())
                         {
@@ -169,12 +169,26 @@ namespace TangentaCore
             DialogResult = DialogResult.No;
         }
 
-        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID xID, bool bRes)
+        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID xID, bool bRes, Transaction transaction)
         {
             List_of_Inserted_Items_ID.Add(xID);
             if (bRes)
             {
+                if (transaction!=null)
+                {
+                    if (!transaction.Commit())
+                    {
+                        return;
+                    }
+                }
                 FillProperties(m_tbl, xID);
+            }
+            else
+            {
+                if (transaction!=null)
+                {
+                    transaction.Rollback();
+                }
             }
         }
 

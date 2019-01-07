@@ -38,6 +38,7 @@ namespace Startup
         public static bool bDemo = false;
 
         public static bool m_bProgramDiagnostic = false;
+        public static bool m_bAutoNext = false;
 
     }
 }

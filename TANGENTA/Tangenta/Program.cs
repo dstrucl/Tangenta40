@@ -128,7 +128,8 @@ namespace Tangenta
         {
             get
             {
-                return typeof(Tangenta.Program).Assembly.GetName().Name;
+                return Assembly.GetExecutingAssembly().FullName;
+                //return typeof(Tangenta.Program).Assembly.GetName().Name;
             }
         }
 
@@ -202,6 +203,8 @@ namespace Tangenta
         [STAThread]
         private static void Main()
         {
+            ProgramModuleData.AssemblyName = Program.AssemblyName;
+
             bool bExitBeforeLogFileInitialised = false;
             string Err = null;
             TSettings.RPC = new RPC.RPC();
@@ -249,7 +252,7 @@ namespace Tangenta
 
                     if (Startup.CommandLineParam.bResetNew)
                     {
-                        Properties.Settings.Default.Reset();
+                        TangentaProperties.Properties.Settings.Default.Reset();
                         CodeTables.ASet.Settings_Reset();
                     }
 
@@ -472,6 +475,8 @@ namespace Tangenta
         private static void SetAllModulesLanguages()
         {
             lng.SetDictionary();
+            TangentaCore.lng.SetDictionary();
+            TangentaBooting.lng.SetDictionary();
             LanguageControl.lng.SetDictionary();
             CommandLineHelp.lng.SetDictionary();
             Country_ISO_3166.lng.SetDictionary();
@@ -494,8 +499,11 @@ namespace Tangenta
             Form_Discount.lng.SetDictionary();
             PriseLists.lng.SetDictionary();
             ShopA.lng.SetDictionary();
+            ShopA_Forms.lng.SetDictionary();
             ShopB.lng.SetDictionary();
+            ShopB_Forms.lng.SetDictionary();
             ShopC.lng.SetDictionary();
+            ShopC_Forms.lng.SetDictionary();
             Startup.lng.SetDictionary();
             TangentaSampleDB.lng.SetDictionary();
             ProgressForm.lng.SetDictionary();
@@ -550,10 +558,9 @@ namespace Tangenta
 
             if (frm_set.ShowDialog() == DialogResult.Yes)
             {
-                Reset2FactorySettings.Tangenta_EXE = frm_set.bTangenta_EXE;
+                Reset2FactorySettings.TangentaProperties = frm_set.bTangentaProperties;
                 Reset2FactorySettings.DBConnectionControlXX_EXE = frm_set.bDBConnectionControlXX_EXE;
                 Reset2FactorySettings.CodeTables_DLL = frm_set.bCodeTables_DLL;
-                Reset2FactorySettings.Tangenta_EXE = frm_set.bTangenta_EXE;
                 Reset2FactorySettings.LangugaControl_DLL = frm_set.bLangugaControl_DLL;
                 Reset2FactorySettings.TangentaPrint_DLL = frm_set.bTangentaPrint_DLL;
                 Reset2FactorySettings.FiscalVerification_DLL = frm_set.bFiscalVerification_DLL;
@@ -561,7 +568,7 @@ namespace Tangenta
             }
             else
             {
-                Reset2FactorySettings.Tangenta_EXE = false;
+                Reset2FactorySettings.TangentaProperties = false;
                 Reset2FactorySettings.DBConnectionControlXX_EXE = false;
                 Reset2FactorySettings.CodeTables_DLL = false;
                 Reset2FactorySettings.LangugaControl_DLL = false;

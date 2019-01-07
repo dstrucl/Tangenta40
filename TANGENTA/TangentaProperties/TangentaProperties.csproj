@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="lng.cs" />
     <Compile Include="OperationMode.cs" />
     <Compile Include="ProgramModuleData.cs" />
     <Compile Include="Prop.cs" />

@@ -32,7 +32,7 @@
             this.btn_Yes = new System.Windows.Forms.Button();
             this.btn_No = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.chk_Tangenta_EXE = new System.Windows.Forms.CheckBox();
+            this.chk_TangentaProperties = new System.Windows.Forms.CheckBox();
             this.chk_LanguageControl_DLL = new System.Windows.Forms.CheckBox();
             this.chk_DBConnectionControl_DLL = new System.Windows.Forms.CheckBox();
             this.chk_FiscalVerifiaction = new System.Windows.Forms.CheckBox();
@@ -75,13 +75,13 @@
             // 
             // chk_Tangenta_EXE
             // 
-            this.chk_Tangenta_EXE.AutoSize = true;
-            this.chk_Tangenta_EXE.Location = new System.Drawing.Point(10, 130);
-            this.chk_Tangenta_EXE.Name = "chk_Tangenta_EXE";
-            this.chk_Tangenta_EXE.Size = new System.Drawing.Size(96, 17);
-            this.chk_Tangenta_EXE.TabIndex = 3;
-            this.chk_Tangenta_EXE.Text = "Tangenta.EXE";
-            this.chk_Tangenta_EXE.UseVisualStyleBackColor = true;
+            this.chk_TangentaProperties.AutoSize = true;
+            this.chk_TangentaProperties.Location = new System.Drawing.Point(10, 130);
+            this.chk_TangentaProperties.Name = "chk_TangentaProperties";
+            this.chk_TangentaProperties.Size = new System.Drawing.Size(96, 17);
+            this.chk_TangentaProperties.TabIndex = 3;
+            this.chk_TangentaProperties.Text = "TangentaProperties.DLL";
+            this.chk_TangentaProperties.UseVisualStyleBackColor = true;
             // 
             // chk_LanguageControl_DLL
             // 
@@ -173,7 +173,7 @@
             this.Controls.Add(this.chk_FiscalVerifiaction);
             this.Controls.Add(this.chk_DBConnectionControl_DLL);
             this.Controls.Add(this.chk_LanguageControl_DLL);
-            this.Controls.Add(this.chk_Tangenta_EXE);
+            this.Controls.Add(this.chk_TangentaProperties);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btn_No);
             this.Controls.Add(this.btn_Yes);
@@ -194,7 +194,7 @@
         private System.Windows.Forms.Button btn_Yes;
         private System.Windows.Forms.Button btn_No;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox chk_Tangenta_EXE;
+        private System.Windows.Forms.CheckBox chk_TangentaProperties;
         private System.Windows.Forms.CheckBox chk_LanguageControl_DLL;
         private System.Windows.Forms.CheckBox chk_DBConnectionControl_DLL;
         private System.Windows.Forms.CheckBox chk_FiscalVerifiaction;

@@ -8,7 +8,7 @@ namespace Startup
 {
     public static class Reset2FactorySettings
     {
-        public static bool Tangenta_EXE = false;
+        public static bool TangentaProperties = false;
         public static bool DBConnectionControlXX_EXE = false;
         public static bool CodeTables_DLL = false;
         public static bool LangugaControl_DLL = false;

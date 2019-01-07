@@ -14,7 +14,6 @@ using System.Windows.Forms;
 using TangentaDB;
 using TangentaPrint;
 using TangentaProperties;
-using TangentaProperties;
 
 namespace TangentaCore
 {
@@ -81,6 +80,96 @@ namespace TangentaCore
         public Button btn_Show_Shops = null;
 
         private DocumentMan DocM = null;
+
+        public struct DoCurrent_delegates
+        {
+            public usrc_PriceList m_usrc_PriceListB;
+            public usrc_PriceList m_usrc_PriceListC;
+            public delegate_control_Set_ShowShops m_delegate_control_Set_ShowShops;
+            public delegate_control_SetDraftButtons m_delegate_control_SetDraftButtons;
+            public delegate_control_SetViewButtons m_delegate_control_SetViewButtons;
+            public delegate_control_Show_Customer m_delegate_control_Show_Customer;
+            public delegate_control_Customer_Text m_delegate_control_Customer_Text;
+            public delegate_control_AddOn_Show m_delegate_control_AddOn_Show;
+            public delegate_control_AddHandler m_delegate_control_AddHandler;
+            public delegate_control_RemoveHandler m_delegate_control_RemoveHandler;
+            public delegate_control_InvoiceNumber_Text m_delegate_control_InvoiceNumber_Text;
+            public delegate_control_SetMode m_delegate_control_SetMode;
+            public object m_usrc_ShopB;
+            public delegate_control_SetCurrentInvoice_SelectedShopB_Items m_delegate_control_SetCurrentInvoice_SelectedShopB_Items;
+            public delegate_control_SetCurrentInvoice_SelectedShopC_Items m_delegate_control_SetCurrentInvoice_SelectedShopC_Items;
+            public delegate_control_ShowStornoCheckBox m_delegate_control_ShowStornoCheckBox;
+            public delegate_control_SetStornoCheckBox m_delegate_control_SetStornoCheckBox;
+            public delegate_control_ShopC_Reset m_delegate_control_ShopC_Reset;
+            public delegate_control_ShopC_Clear m_delegate_control_ShopC_Clear;
+            public DataTable m_dt_Item_Price_ShopA;
+            public DataTable m_dt_SelectedShopBItem;
+            public delegate_control_btn_Issue_Show m_delegate_control_btn_Issue_Show;
+            public delegate_control_lbl_Sum_ForeColor m_delegate_control_lbl_Sum_ForeColor;
+            public delegate_control_lbl_Sum_Text m_delegate_control_lbl_Sum_Text;
+            public delegate_control_Get_Price_ShopBItem_Data m_delegate_control_Get_Price_ShopBItem_Data;
+            public delegate_control_m_usrc_ShopB_Set_dgv_SelectedShopB_Items m_delegate_control_m_usrc_ShopB_Set_dgv_SelectedShopB_Items;
+            public delegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data m_delegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data;
+
+            public DoCurrent_delegates(
+                                        usrc_PriceList xusrc_PriceListB,
+                                        usrc_PriceList xusrc_PriceListC,
+                                        delegate_control_Set_ShowShops xdelegate_control_Set_ShowShops,
+                                        delegate_control_SetDraftButtons xdelegate_control_SetDraftButtons,
+                                        delegate_control_SetViewButtons xdelegate_control_SetViewButtons,
+                                        delegate_control_Show_Customer xdelegate_control_Show_Customer,
+                                        delegate_control_Customer_Text xdelegate_control_Customer_Text,
+                                        delegate_control_AddOn_Show xdelegate_control_AddOn_Show,
+                                        delegate_control_AddHandler xdelegate_control_AddHandler,
+                                        delegate_control_RemoveHandler xdelegate_control_RemoveHandler,
+                                        delegate_control_InvoiceNumber_Text xdelegate_control_InvoiceNumber_Text,
+                                        delegate_control_SetMode xdelegate_control_SetMode,
+                                        object om_usrc_ShopB,
+                                        delegate_control_SetCurrentInvoice_SelectedShopB_Items xdelegate_control_SetCurrentInvoice_SelectedShopB_Items,
+                                        delegate_control_SetCurrentInvoice_SelectedShopC_Items xdelegate_control_SetCurrentInvoice_SelectedShopC_Items,
+                                        delegate_control_ShowStornoCheckBox xdelegate_control_ShowStornoCheckBox,
+                                        delegate_control_SetStornoCheckBox xdelegate_control_SetStornoCheckBox,
+                                        delegate_control_ShopC_Reset xdelegate_control_ShopC_Reset,
+                                        delegate_control_ShopC_Clear xdelegate_control_ShopC_Clear,
+                                        DataTable dt_Item_Price_ShopA,
+                                        DataTable dt_SelectedShopBItem,
+                                        delegate_control_btn_Issue_Show xdelegate_control_btn_Issue_Show,
+                                        delegate_control_lbl_Sum_ForeColor xdelegate_control_lbl_Sum_ForeColor,
+                                        delegate_control_lbl_Sum_Text xdelegate_control_lbl_Sum_Text,
+                                        delegate_control_Get_Price_ShopBItem_Data xdelegate_control_Get_Price_ShopBItem_Data,
+                                        delegate_control_m_usrc_ShopB_Set_dgv_SelectedShopB_Items xdelegate_control_m_usrc_ShopB_Set_dgv_SelectedShopB_Items,
+                                        delegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data xdelegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data)
+            {
+                m_usrc_PriceListB = xusrc_PriceListB;
+                m_usrc_PriceListC = xusrc_PriceListC;
+                m_delegate_control_Set_ShowShops = xdelegate_control_Set_ShowShops;
+                m_delegate_control_SetDraftButtons = xdelegate_control_SetDraftButtons;
+                m_delegate_control_SetViewButtons = xdelegate_control_SetViewButtons;
+                m_delegate_control_Show_Customer = xdelegate_control_Show_Customer;
+                m_delegate_control_Customer_Text = xdelegate_control_Customer_Text;
+                m_delegate_control_AddOn_Show = xdelegate_control_AddOn_Show;
+                m_delegate_control_AddHandler = xdelegate_control_AddHandler;
+                m_delegate_control_RemoveHandler = xdelegate_control_RemoveHandler;
+                m_delegate_control_InvoiceNumber_Text = xdelegate_control_InvoiceNumber_Text;
+                m_delegate_control_SetMode = xdelegate_control_SetMode;
+                m_usrc_ShopB = om_usrc_ShopB;
+                m_delegate_control_SetCurrentInvoice_SelectedShopB_Items = xdelegate_control_SetCurrentInvoice_SelectedShopB_Items;
+                m_delegate_control_SetCurrentInvoice_SelectedShopC_Items = xdelegate_control_SetCurrentInvoice_SelectedShopC_Items;
+                m_delegate_control_ShowStornoCheckBox = xdelegate_control_ShowStornoCheckBox;
+                m_delegate_control_SetStornoCheckBox = xdelegate_control_SetStornoCheckBox;
+                m_delegate_control_ShopC_Reset = xdelegate_control_ShopC_Reset;
+                m_delegate_control_ShopC_Reset = xdelegate_control_ShopC_Reset;
+                m_delegate_control_ShopC_Clear = xdelegate_control_ShopC_Clear;
+                m_dt_Item_Price_ShopA = dt_Item_Price_ShopA;
+                m_dt_SelectedShopBItem = dt_SelectedShopBItem;
+                m_delegate_control_btn_Issue_Show = xdelegate_control_btn_Issue_Show;
+                m_delegate_control_lbl_Sum_ForeColor = xdelegate_control_lbl_Sum_ForeColor;
+                m_delegate_control_lbl_Sum_Text = xdelegate_control_lbl_Sum_Text;
+                m_delegate_control_Get_Price_ShopBItem_Data = xdelegate_control_Get_Price_ShopBItem_Data;
+                m_delegate_control_m_usrc_ShopB_Set_dgv_SelectedShopB_Items = xdelegate_control_m_usrc_ShopB_Set_dgv_SelectedShopB_Items;
+                m_delegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data = xdelegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data;
+            }
+        }
 
         public enum emode
         {
@@ -151,155 +240,72 @@ namespace TangentaCore
             get
             {
                 return DocM.DocTyp;
-            }
-            //set
-            //{
-            //    string s = value;
-            //    if (s.Equals(GlobalData.const_DocInvoice) || s.Equals(GlobalData.const_DocProformaInvoice))
-            //    {
-            //        m_DocTyp = s;
-            //    }
-            //    else
-            //    {
-            //        if (s != null)
-            //        {
-            //            LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentEditor:property string DocTyp: DocTyp = " + s + " is not implemented!");
-            //        }
-            //        else
-            //        {
-            //            LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentEditor:property string DocTyp: DocTyp  value ==  null");
-            //        }
-
-            //    }
-
-            //    if (this.m_ShopABC != null)
-            //    {
-            //        this.m_ShopABC.DocTyp = DocTyp;
-            //    }
-            //    //if (this.m_usrc_ShopB1366x768 != null)
-            //    //{
-            //    //    this.m_usrc_ShopB1366x768.DocTyp = DocTyp;
-            //    //}
-            //    //if (this.m_usrc_ShopC1366x768 != null)
-            //    //{
-            //    //    this.m_usrc_ShopC1366x768.DocTyp = DocTyp;
-            //    //}
-            //}
+            }          
         }
+
         public bool DoCurrent(ID xID,
-                              delegate_control_SetDraftButtons xdelegate_control_SetDraftButtons,
-                              delegate_control_SetViewButtons xdelegate_control_SetViewButtons,
-                              delegate_control_Show_Customer xdelegate_control_Show_Customer,
-                              delegate_control_Customer_Text xdelegate_control_Customer_Text,
-                              delegate_control_AddOn_Show xdelegate_control_AddOn_Show,
-                              delegate_control_AddHandler xdelegate_control_AddHandler,
-                              delegate_control_RemoveHandler xdelegate_control_RemoveHandler,
-                              delegate_control_InvoiceNumber_Text xdelegate_control_InvoiceNumber_Text,
-                              delegate_control_SetMode xdelegate_control_SetMode,
-                              object om_usrc_ShopB,
-                              delegate_control_SetCurrentInvoice_SelectedShopB_Items xdelegate_control_SetCurrentInvoice_SelectedShopB_Items,
-                              delegate_control_SetCurrentInvoice_SelectedShopC_Items xdelegate_control_SetCurrentInvoice_SelectedShopC_Items,
-                              delegate_control_ShowStornoCheckBox xdelegate_control_ShowStornoCheckBox,
-                              delegate_control_SetStornoCheckBox xdelegate_control_SetStornoCheckBox,
-                              delegate_control_ShopC_Reset xdelegate_control_ShopC_Reset,
-                              delegate_control_ShopC_Clear xdelegate_control_ShopC_Clear,
-                              DataTable dt_Item_Price_ShopA,
-                              DataTable dt_SelectedShopBItem,
-                              delegate_control_btn_Issue_Show xdelegate_control_btn_Issue_Show,
-                              delegate_control_lbl_Sum_ForeColor xdelegate_control_lbl_Sum_ForeColor,
-                              delegate_control_lbl_Sum_Text xdelegate_control_lbl_Sum_Text,
+                              DoCurrent_delegates doCurrentDelegates,
                               Transaction transaction
                               )
         {
-            //if (om_usrc_ShopB is usrc_ShopB1366x768)
-            //{
-            //    ((usrc_ShopB1366x768)om_usrc_ShopB).DocTyp = this.DocTyp;
-            //}
-            if (DoGetCurrent(xID, 
-                             xdelegate_control_AddHandler, 
-                             xdelegate_control_RemoveHandler,
-                             xdelegate_control_InvoiceNumber_Text,
-                             xdelegate_control_SetMode,
-                             xdelegate_control_SetCurrentInvoice_SelectedShopB_Items,
-                             xdelegate_control_SetCurrentInvoice_SelectedShopC_Items,
-                             xdelegate_control_ShowStornoCheckBox,
-                             xdelegate_control_SetStornoCheckBox,
-                             xdelegate_control_ShopC_Reset,
-                             xdelegate_control_ShopC_Clear,
-                             dt_Item_Price_ShopA,
-                             dt_SelectedShopBItem,
-                              xdelegate_control_btn_Issue_Show,
-                              xdelegate_control_lbl_Sum_ForeColor,
-                              xdelegate_control_lbl_Sum_Text,
+            if (DoGetCurrent(xID,
+                              doCurrentDelegates,
                               transaction
                              ))
             {
                 if (m_ShopABC.m_CurrentDoc.ShowDraftButtons())
                 {
-                    xdelegate_control_SetDraftButtons();
+                    doCurrentDelegates.m_delegate_control_SetDraftButtons();
+                    
                 }
                 else
                 {
-                    xdelegate_control_SetViewButtons();
+                    doCurrentDelegates.m_delegate_control_SetViewButtons();
                 }
-                xdelegate_control_Show_Customer(m_ShopABC.m_CurrentDoc);
-                xdelegate_control_AddOn_Show(xID);
+                doCurrentDelegates.m_delegate_control_Show_Customer(m_ShopABC.m_CurrentDoc);
+                doCurrentDelegates.m_delegate_control_AddOn_Show(xID);
                 return true;
             }
             else
             {
-                xdelegate_control_Customer_Text("");
-                xdelegate_control_AddOn_Show(null);
+                doCurrentDelegates.m_delegate_control_Customer_Text("");
+                doCurrentDelegates.m_delegate_control_AddOn_Show(null);
                 return false;
             }
         }
 
         private bool DoGetCurrent(ID xID,
-                                delegate_control_AddHandler xdelegate_control_AddHandler,
-                                delegate_control_RemoveHandler xdelegate_control_RemoveHandler,
-                                delegate_control_InvoiceNumber_Text xdelegate_control_InvoiceNumber_Text,
-                                delegate_control_SetMode xdelegate_control_SetMode,
-                                delegate_control_SetCurrentInvoice_SelectedShopB_Items xdelegate_control_SetCurrentInvoice_SelectedShopB_Items,
-                                delegate_control_SetCurrentInvoice_SelectedShopC_Items xdelegate_control_SetCurrentInvoice_SelectedShopC_Items,
-                                delegate_control_ShowStornoCheckBox xdelegate_control_ShowStornoCheckBox,
-                                delegate_control_SetStornoCheckBox xdelegate_control_SetStornoCheckBox,
-                                delegate_control_ShopC_Reset xdelegate_control_ShopC_Reset,
-                                delegate_control_ShopC_Clear xdelegate_control_ShopC_Clear,
-                                DataTable dt_Item_Price_ShopA,
-                                DataTable dt_SelectedShopBItem,
-                                delegate_control_btn_Issue_Show xdelegate_control_btn_Issue_Show,
-                              delegate_control_lbl_Sum_ForeColor xdelegate_control_lbl_Sum_ForeColor,
-                              delegate_control_lbl_Sum_Text xdelegate_control_lbl_Sum_Text,
-                              Transaction transaction
+                                  DoCurrent_delegates doCurrent_delegates,
+                                  Transaction transaction
             )
         {
-            if (GetCurrent(xID, 
-                            xdelegate_control_InvoiceNumber_Text,
-                            xdelegate_control_SetMode,
-                            xdelegate_control_SetCurrentInvoice_SelectedShopB_Items,
-                            xdelegate_control_SetCurrentInvoice_SelectedShopC_Items,
-                            xdelegate_control_ShowStornoCheckBox,
-                            xdelegate_control_SetStornoCheckBox,
-                            xdelegate_control_ShopC_Reset,
-                            xdelegate_control_ShopC_Clear,
+            if (GetCurrent(xID,
+                            doCurrent_delegates.m_delegate_control_InvoiceNumber_Text,
+                            doCurrent_delegates.m_delegate_control_SetMode,
+                            doCurrent_delegates.m_delegate_control_SetCurrentInvoice_SelectedShopB_Items,
+                            doCurrent_delegates.m_delegate_control_SetCurrentInvoice_SelectedShopC_Items,
+                            doCurrent_delegates.m_delegate_control_ShowStornoCheckBox,
+                            doCurrent_delegates.m_delegate_control_SetStornoCheckBox,
+                            doCurrent_delegates.m_delegate_control_ShopC_Reset,
+                            doCurrent_delegates.m_delegate_control_ShopC_Clear,
                             transaction
                             ))
             {
-                GetPriceSum(dt_Item_Price_ShopA, 
-                            dt_SelectedShopBItem,
-                            xdelegate_control_btn_Issue_Show,
-                            xdelegate_control_lbl_Sum_ForeColor,
-                            xdelegate_control_lbl_Sum_Text
+                GetPriceSum(doCurrent_delegates.m_dt_Item_Price_ShopA,
+                            doCurrent_delegates.m_dt_SelectedShopBItem,
+                            doCurrent_delegates.m_delegate_control_btn_Issue_Show,
+                            doCurrent_delegates.m_delegate_control_lbl_Sum_ForeColor,
+                            doCurrent_delegates.m_delegate_control_lbl_Sum_Text
                             );
                 if (m_ShopABC.m_CurrentDoc.bDraft)
                 {
-                    xdelegate_control_AddHandler();
+                    doCurrent_delegates.m_delegate_control_AddHandler();
                 }
                 else
                 {
                     if (m_ShopABC.m_CurrentDoc.Exist)
                     {
-                        xdelegate_control_RemoveHandler();
+                        doCurrent_delegates.m_delegate_control_RemoveHandler();
                     }
                 }
                 return true;
@@ -744,18 +750,13 @@ namespace TangentaCore
             }
         }
 
-        private bool GetPriceList_ShopB(ref ID price_list_id,delegate_control_m_usrc_ShopB_usrc_PriceList1_Init xdelegate_control_m_usrc_ShopB_usrc_PriceList1_Init)
+        private bool GetPriceList_ShopB(ref ID price_list_id, usrc_PriceList usrc_PriceListB)
         {
             string Err = null;
             bool bGet = true;
             NavigationButtons.Navigation nav_PriceList = new NavigationButtons.Navigation(null);
             nav_PriceList.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-            //if (m_usrc_ShopB.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopB, ShopsUse.ShopsInUse_Get(DocE.mSettingsUserValues), ref Err))
-            if (xdelegate_control_m_usrc_ShopB_usrc_PriceList1_Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopB, PropertiesUser.ShopsInUse_Get(mSettingsUserValues),ref price_list_id, ref Err))
-            {
-
-            }
-            else
+            if (!usrc_PriceListB.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopB, PropertiesUser.ShopsInUse_Get(mSettingsUserValues), ref price_list_id, ref Err))
             {
                 bGet = false;
             }
@@ -767,18 +768,31 @@ namespace TangentaCore
             return DocM.DocTyp;
         }
 
+        private void usrc_PriceList_Ask_To_Update(Form pForm, usrc_PriceList usrc_PriceList1, char chShop, DataTable dt_ShopB_Item_NotIn_PriceList)
+        {
+            if (PriseLists.usrc_PriceList.Ask_To_Update(chShop, dt_ShopB_Item_NotIn_PriceList, pForm))
+            {
+                Transaction transaction_usrc_DocumentEditor_Insert_ShopB_Items_in_PriceList = DBSync.DBSync.NewTransaction("usrc_DocumentEditor.Insert_ShopB_Items_in_PriceList");
+                if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, pForm, transaction_usrc_DocumentEditor_Insert_ShopB_Items_in_PriceList))
+                {
+                    if (transaction_usrc_DocumentEditor_Insert_ShopB_Items_in_PriceList.Commit())
+                    {
+                        bool bPriceListChanged = false;
+                        usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
+                    }
+                }
+                else
+                {
+                    transaction_usrc_DocumentEditor_Insert_ShopB_Items_in_PriceList.Rollback();
+                }
+            }
+        }
+
         public bool Init(Form pform,
                           ID document_ID,
                           ref ID ShopB_pricelist_ID,
                           ref ID ShopC_pricelist_ID,
-                          delegate_control_Set_ShowShops xdelegate_control_Set_ShowShops,
-                          delegate_control_m_usrc_ShopB_usrc_PriceList1_Init xdeleagte_control_m_usrc_ShopB_usrc_PriceList1_Init,
-                          delegate_control_m_usrc_ShopC_usrc_PriceList1_Init xdeleagte_control_m_usrc_ShopC_usrc_PriceList1_Init,
-                          delegate_control_usrc_PriceList_Ask_To_Update xdelegate_control_usrc_PriceList_Ask_To_Update,
-                          delegate_control_Get_Price_ShopBItem_Data xdelegate_control_Get_Price_ShopBItem_Data,
-                          delegate_control_DoCurrent xdelegate_control_DoCurrent,
-                          delegate_control_m_usrc_ShopB_Set_dgv_SelectedShopB_Items xdelegate_control_m_usrc_ShopB_Set_dgv_SelectedShopB_Items,
-                          delegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data xdelegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data,
+                          DocumentEditor.DoCurrent_delegates doCurrent_delegates,
                           Transaction transaction)
         {
             if (DBtcn == null)
@@ -811,35 +825,30 @@ namespace TangentaCore
                 }
             }
 
-            xdelegate_control_Set_ShowShops(PropertiesUser.ShowShops_Get(mSettingsUserValues));// Set_ShowShops(mSettingsUserValues.eShowShops);
+            doCurrent_delegates.m_delegate_control_Set_ShowShops(PropertiesUser.ShowShops_Get(mSettingsUserValues));// Set_ShowShops(mSettingsUserValues.eShowShops);
             GetUnits();
 
             DataTable dt_ShopB_Item_NotIn_PriceList = new DataTable();
-            if (GetPriceList_ShopB(ref ShopB_pricelist_ID,xdeleagte_control_m_usrc_ShopB_usrc_PriceList1_Init))
-            {
-                if (f_PriceList.Check_All_ShopB_Items_In_PriceList(ref dt_ShopB_Item_NotIn_PriceList))
+            if (doCurrent_delegates.m_usrc_PriceListB != null)
+            { 
+                if (GetPriceList_ShopB(ref ShopB_pricelist_ID, doCurrent_delegates.m_usrc_PriceListB))
                 {
-                    if (dt_ShopB_Item_NotIn_PriceList.Rows.Count > 0)
+                    if (f_PriceList.Check_All_ShopB_Items_In_PriceList(ref dt_ShopB_Item_NotIn_PriceList))
                     {
-                        xdelegate_control_usrc_PriceList_Ask_To_Update('B', dt_ShopB_Item_NotIn_PriceList);
-                        //if (PriseLists.usrc_PriceList.Ask_To_Update('B', dt_ShopB_Item_NotIn_PriceList, this))
-                        //{
-                        //    if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, this))
-                        //    {
-                        //        bool bPriceListChanged = false;
-                        //        this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
-                        //    }
-                        //}
-                    }
-                    else
-                    {
-                        bool bEdit = false;
-                        f_PriceList.CheckPriceUndefined_ShopB(ref bEdit);
-                        if (bEdit)
+                        if (dt_ShopB_Item_NotIn_PriceList.Rows.Count > 0)
                         {
-                            //bool bPriceListChanged = false;
-                            //this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true,xnav, ref bPriceListChanged);
+                            usrc_PriceList_Ask_To_Update(pform, doCurrent_delegates.m_usrc_PriceListB,'B', dt_ShopB_Item_NotIn_PriceList);
+                        }
+                        else
+                        {
+                            bool bEdit = false;
+                            f_PriceList.CheckPriceUndefined_ShopB(ref bEdit);
+                            if (bEdit)
+                            {
+                                //bool bPriceListChanged = false;
+                                //this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true,xnav, ref bPriceListChanged);
 
+                            }
                         }
                     }
                 }
@@ -848,9 +857,9 @@ namespace TangentaCore
                 if (Get_Price_SimpleItem_Data(pform,
                                              ref iCount_Price_SimpleItem_Data,
                                               ShopB_pricelist_ID,
-                                              xdelegate_control_Get_Price_ShopBItem_Data))
+                                              doCurrent_delegates.m_delegate_control_Get_Price_ShopBItem_Data))
                 {
-                    xdelegate_control_m_usrc_ShopB_Set_dgv_SelectedShopB_Items();// this.m_usrc_ShopB.Set_dgv_SelectedShopB_Items();
+                    doCurrent_delegates.m_delegate_control_m_usrc_ShopB_Set_dgv_SelectedShopB_Items();// this.m_usrc_ShopB.Set_dgv_SelectedShopB_Items();
                 }
             }
             else
@@ -860,14 +869,14 @@ namespace TangentaCore
 
             if (PropertiesUser.ShopsInUse_Get(mSettingsUserValues).Contains("C"))
             {
-                if (GetPriceList_ShopC(ref ShopC_pricelist_ID,xdeleagte_control_m_usrc_ShopC_usrc_PriceList1_Init))
+                if (GetPriceList_ShopC(ref ShopC_pricelist_ID, doCurrent_delegates.m_usrc_PriceListC))
                 {
                     DataTable dt_ShopC_Item_NotIn_PriceList = new DataTable();
                     if (f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Item_NotIn_PriceList))
                     {
                         if (dt_ShopC_Item_NotIn_PriceList.Rows.Count > 0)
                         {
-                            xdelegate_control_usrc_PriceList_Ask_To_Update('C', dt_ShopC_Item_NotIn_PriceList);
+                            usrc_PriceList_Ask_To_Update(pform,doCurrent_delegates.m_usrc_PriceListC,'C', dt_ShopC_Item_NotIn_PriceList);
                             //if (PriseLists.usrc_PriceList.Ask_To_Update('C', dt_ShopC_Item_NotIn_PriceList, this))
                             //{
                             //    if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this))
@@ -890,7 +899,7 @@ namespace TangentaCore
                     }
 
                     //if (this.m_usrc_ShopC.usrc_ItemList.Get_Price_Item_Stock_Data(this.m_usrc_ShopC.usrc_PriceList1.ID))
-                    if (xdelegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data(ShopC_pricelist_ID))
+                    if (doCurrent_delegates.m_delegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data(ShopC_pricelist_ID))
                     {
                         if (TSettings.bStartup)
                         {
@@ -912,7 +921,7 @@ namespace TangentaCore
                                     }
 
                                     //return DoCurrent(Document_ID);
-                                    return xdelegate_control_DoCurrent(document_ID, transaction);
+                                    return this.DoCurrent(document_ID,doCurrent_delegates,transaction) ; //xdelegate_control_DoCurrent(document_ID, transaction);
                                 }
                                 else
                                 {
@@ -926,7 +935,7 @@ namespace TangentaCore
                         }
                         else
                         {
-                            return xdelegate_control_DoCurrent(document_ID, transaction); 
+                            return this.DoCurrent(document_ID,doCurrent_delegates, transaction); 
                         }
                     }
                     else
@@ -941,7 +950,7 @@ namespace TangentaCore
             }
             if (ID.Validate(document_ID))
             {
-                return xdelegate_control_DoCurrent(document_ID, transaction);
+                return this.DoCurrent(document_ID,doCurrent_delegates, transaction);
             }
             else
             {
@@ -949,18 +958,13 @@ namespace TangentaCore
             }
         }
 
-        private bool GetPriceList_ShopC(ref ID price_list_ID,delegate_control_m_usrc_ShopC_usrc_PriceList1_Init xdeleagte_control_m_usrc_ShopC_usrc_PriceList1_Init)
+        private bool GetPriceList_ShopC(ref ID price_list_ID, usrc_PriceList usrc_PriceListC)
         {
             string Err = null;
             bool bGet = true;
             NavigationButtons.Navigation nav_PriceList = new NavigationButtons.Navigation(null);
             nav_PriceList.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-            //if (m_usrc_ShopC.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopC, ShopsUse.ShopsInUse_Get(DocE.mSettingsUserValues), ref Err))
-            if (xdeleagte_control_m_usrc_ShopC_usrc_PriceList1_Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopC, PropertiesUser.ShopsInUse_Get(mSettingsUserValues),ref price_list_ID, ref Err))
-            {
-
-            }
-            else
+            if (!usrc_PriceListC.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopC, PropertiesUser.ShopsInUse_Get(mSettingsUserValues), ref price_list_ID, ref Err))
             {
                 bGet = false;
             }

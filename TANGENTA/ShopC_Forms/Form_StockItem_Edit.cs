@@ -119,7 +119,7 @@ namespace ShopC_Forms
                 if (XMessage.Box.Show(this, lng.s_YouHaveEnteredOrChangedDataButNotSavedThem_Save_YesNo, "", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     Transaction transaction_Form_ItemStock_Edit_FormClosing_m_usrc_EditTable_Save = DBSync.DBSync.NewTransaction("Form_ItemStock_Edit_FormClosing.m_usrc_EditTable.Save");
-                    if (m_usrc_EditTable.Save(transaction_Form_ItemStock_Edit_FormClosing_m_usrc_EditTable_Save))
+                    if (m_usrc_EditTable.Save(ref transaction_Form_ItemStock_Edit_FormClosing_m_usrc_EditTable_Save))
                     {
                         transaction_Form_ItemStock_Edit_FormClosing_m_usrc_EditTable_Save.Commit();
                     }
@@ -145,10 +145,17 @@ namespace ShopC_Forms
             }
         }
 
-        private void m_usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes)
+        private void m_usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes, Transaction transaction)
         {
             if (bRes)
             {
+                if (transaction!=null)
+                {
+                    if (!transaction.Commit())
+                    {
+                        return;
+                    }
+                }
                 if (m_tbl.TableName.Equals("Stock"))
                 {
                     DateTime EventTime = DateTime.Now;
@@ -177,14 +184,29 @@ namespace ShopC_Forms
                         transaction_f_JOURNAL_Stock_Get.Rollback();
                     }
                 }
+                m_bChanged = true;
             }
-            m_bChanged = true;
+            else
+            {
+                if (transaction!=null)
+                {
+                    transaction.Rollback();
+                }
+            }
+            
         }
 
-        private void m_usrc_EditTable_after_UpdateDataBase(SQLTable m_tbl, ID ID, bool bRes)
+        private void m_usrc_EditTable_after_UpdateDataBase(SQLTable m_tbl, ID ID, bool bRes,Transaction transaction)
         {
             if (bRes)
             {
+                if (transaction != null)
+                {
+                    if (!transaction.Commit())
+                    {
+                        return;
+                    }
+                }
                 if (m_tbl.TableName.Equals("Stock"))
                 {
                     DateTime EventTime = DateTime.Now;
@@ -213,8 +235,18 @@ namespace ShopC_Forms
                         transaction_f_JOURNAL_Stock_Get.Rollback();
                     }
                 }
+                m_bChanged = true;
             }
-            m_bChanged = true;
+            else
+            {
+                if (transaction != null)
+                {
+                    if (!transaction.Rollback())
+                    {
+                        return;
+                    }
+                }
+            }
         }
 
         public bool Changed

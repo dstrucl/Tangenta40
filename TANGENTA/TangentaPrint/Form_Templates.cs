@@ -122,7 +122,7 @@ namespace TangentaPrint
                 if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     Transaction transaction_Form_Template_btn_OK_Click_usrc_EditTable_Save = DBSync.DBSync.NewTransaction("Form_Template.btn_OK_Click.usrc_EditTable.Save");
-                    if (usrc_EditTable.Save(transaction_Form_Template_btn_OK_Click_usrc_EditTable_Save))
+                    if (usrc_EditTable.Save(ref transaction_Form_Template_btn_OK_Click_usrc_EditTable_Save))
                     {
                         transaction_Form_Template_btn_OK_Click_usrc_EditTable_Save.Commit();
                     }
@@ -155,7 +155,7 @@ namespace TangentaPrint
                 if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     Transaction transaction_Form_Template_btn_Cancel_Click_usrc_EditTable_Save = DBSync.DBSync.NewTransaction("Form_Template.btn_Cancel_Click.usrc_EditTable.Save");
-                    if (usrc_EditTable.Save(transaction_Form_Template_btn_Cancel_Click_usrc_EditTable_Save))
+                    if (usrc_EditTable.Save(ref transaction_Form_Template_btn_Cancel_Click_usrc_EditTable_Save))
                     {
                         transaction_Form_Template_btn_Cancel_Click_usrc_EditTable_Save.Commit();
                     }
@@ -170,10 +170,27 @@ namespace TangentaPrint
             DialogResult = DialogResult.No;
         }
 
-        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes)
+        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes, Transaction transaction)
         {
-            List_of_Inserted_Items_ID.Add(ID);
-            m_bChanged = true;
+            if (bRes)
+            {
+                if (transaction!=null)
+                {
+                    if (!transaction.Commit())
+                    {
+                        return;
+                    }
+                }
+                List_of_Inserted_Items_ID.Add(ID);
+                m_bChanged = true;
+            }
+            else
+            {
+                if (transaction!=null)
+                {
+                    transaction.Rollback();
+                }
+            }
         }
 
         private void Item_EditForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -213,9 +230,26 @@ namespace TangentaPrint
             get {return m_bChanged;}
         }
 
-        private void usrc_EditTable_after_UpdateDataBase(SQLTable m_tbl, ID ID, bool bRes)
+        private void usrc_EditTable_after_UpdateDataBase(SQLTable m_tbl, ID ID, bool bRes, Transaction transaction)
         {
-            m_bChanged = true;
+            if (bRes)
+            {
+                if (transaction!=null)
+                {
+                    if (!transaction.Commit())
+                    {
+                        return;
+                    }
+                }
+                m_bChanged = true;
+            }
+            else
+            {
+                if (transaction != null)
+                {
+                    transaction.Rollback();
+                }
+            }
         }
 
         private bool usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(CodeTables.SQLTable pSQL_Table, System.Collections.Generic.List<CodeTables.usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ID id, ref bool bCancelDialog, ref ltext Instruction)

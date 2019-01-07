@@ -129,7 +129,7 @@ namespace TangentaCore
                 if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, TangentaResources.Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1)== DialogResult.Yes)
                 {
                     Transaction transaction_Form_myOrg_Edit_do_OK_usrc_EditRow_Save = DBSync.DBSync.NewTransaction("Form_myOrg_Edit.do_OK.usrc_EditRow.Save");
-                    if (usrc_EditRow.Save(transaction_Form_myOrg_Edit_do_OK_usrc_EditRow_Save))
+                    if (usrc_EditRow.Save(ref transaction_Form_myOrg_Edit_do_OK_usrc_EditRow_Save))
                     {
                         if (transaction_Form_myOrg_Edit_do_OK_usrc_EditRow_Save.Commit())
                         {
@@ -236,12 +236,26 @@ namespace TangentaCore
             }
         }
 
-        private void usrc_EditRow_after_InsertInDataBase(SQLTable m_tbl, ID id, bool bRes)
+        private void usrc_EditRow_after_InsertInDataBase(SQLTable m_tbl, ID id, bool bRes, Transaction transaction)
         {
             if (bRes)
             {
+                if (transaction!=null)
+                {
+                    if (!transaction.Commit())
+                    {
+                        return;
+                    }
+                }
                 usrc_EditRow.AllowUserToAddNew = false;
                 myOrg.Get();
+            }
+            else
+            {
+                if (transaction != null)
+                {
+                    transaction.Rollback();
+                }
             }
         }
 
@@ -497,7 +511,7 @@ namespace TangentaCore
         }
 
 
-        private void usrc_EditRow_before_InsertInDataBase(SQLTable m_tbl, ref bool bCancel)
+        private void usrc_EditRow_before_InsertInDataBase(SQLTable m_tbl, ref bool bCancel,ref Transaction transaction)
         {
             if (myorg_PostAddress_v != null)
             {
@@ -506,13 +520,17 @@ namespace TangentaCore
                     if (!Check_TaxID(m_tbl))
                     {
                         bCancel = true;
+                        if (transaction != null)
+                        {
+                            transaction.Rollback();
+                        }
                     }
                 }
             }
 
         }
 
-        private void usrc_EditRow_before_UpdateDataBase(SQLTable m_tbl, ref bool bCancel)
+        private void usrc_EditRow_before_UpdateDataBase(SQLTable m_tbl, ref bool bCancel,ref Transaction transaction)
         {
             if (myorg_PostAddress_v != null)
             {
@@ -521,6 +539,10 @@ namespace TangentaCore
                     if (!Check_TaxID(m_tbl))
                     {
                         bCancel = true;
+                        if (transaction!=null)
+                        {
+                            transaction.Rollback();
+                        }
                     }
                 }
             }

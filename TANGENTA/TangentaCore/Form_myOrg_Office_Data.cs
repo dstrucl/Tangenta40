@@ -124,10 +124,17 @@ namespace TangentaCore
             }
         }
 
-        private void usrc_EditTable1_after_InsertInDataBase(SQLTable m_tbl, ID xID, bool bRes)
+        private void usrc_EditTable1_after_InsertInDataBase(SQLTable m_tbl, ID xID, bool bRes, Transaction transaction)
         {
             if (bRes)
             {
+                if (transaction!=null)
+                {
+                    if (!transaction.Commit())
+                    {
+                        return;
+                    }
+                }
                 //myOrg.Get(1);
                 //if (TSettings.b_FVI_SLO)
                 //{
@@ -137,6 +144,13 @@ namespace TangentaCore
                 //    this.Cursor = Cursors.Arrow;
                 //}
                 this.usrc_EditTable1.AllowUserToAddNew = false; //Only one row !!!
+            }
+            else
+            {
+                if (transaction!=null)
+                {
+                    transaction.Rollback();
+                }
             }
         }
 
@@ -155,7 +169,7 @@ namespace TangentaCore
                 if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, TangentaResources.Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     Transaction transaction_Form_myOrg_Office_Data_do_OK_usrc_EditTable1_Save = DBSync.DBSync.NewTransaction("Form_myOrg_Office_Data.do_OK.usrc_EditTable1.Save");
-                    if (usrc_EditTable1.Save(transaction_Form_myOrg_Office_Data_do_OK_usrc_EditTable1_Save))
+                    if (usrc_EditTable1.Save(ref transaction_Form_myOrg_Office_Data_do_OK_usrc_EditTable1_Save))
                     {
                         transaction_Form_myOrg_Office_Data_do_OK_usrc_EditTable1_Save.Commit();
                     }

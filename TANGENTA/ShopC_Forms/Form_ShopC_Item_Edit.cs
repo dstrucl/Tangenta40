@@ -153,7 +153,7 @@ namespace ShopC_Forms
                 if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     Transaction transaction_Form_ShopC_Item_Edit_do_OK_usrc_EditTable_Save = DBSync.DBSync.NewTransaction("Form_ShopC_Item_Edit.do_OK.usrc_EditTable.Save");
-                    if (usrc_EditTable.Save(transaction_Form_ShopC_Item_Edit_do_OK_usrc_EditTable_Save))
+                    if (usrc_EditTable.Save(ref transaction_Form_ShopC_Item_Edit_do_OK_usrc_EditTable_Save))
                     {
                         transaction_Form_ShopC_Item_Edit_do_OK_usrc_EditTable_Save.Commit();
                     }
@@ -210,12 +210,26 @@ namespace ShopC_Forms
             }
         }
 
-        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes)
+        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes, Transaction transaction)
         {
             if (bRes)
             {
+                if (transaction!=null)
+                {
+                    if (!transaction.Commit())
+                    {
+                        return;
+                    }
+                }
                 List_of_Inserted_Items_ID.Add(ID);
                 m_bChanged = true;
+            }
+            else
+            {
+                if (transaction!=null)
+                {
+                    transaction.Rollback();
+                }
             }
         }
 
@@ -272,9 +286,29 @@ namespace ShopC_Forms
         }
 
 
-        private void usrc_EditTable_after_UpdateDataBase(SQLTable m_tbl, ID ID, bool bRes)
+        private void usrc_EditTable_after_UpdateDataBase(SQLTable m_tbl, ID ID, bool bRes, Transaction transaction)
         {
-            m_bChanged = true;
+            if (bRes)
+            {
+                if (transaction != null)
+                {
+                    if (!transaction.Commit())
+                    {
+                        return;
+                    }
+                }
+                m_bChanged = true;
+            }
+            else
+            {
+                if (transaction != null)
+                {
+                    if (!transaction.Rollback())
+                    {
+                        return;
+                    }
+                }
+            }
         }
 
         private bool usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(CodeTables.SQLTable pSQL_Table, System.Collections.Generic.List<CodeTables.usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, ID id, ref bool bCancelDialog, ref ltext Instruction)

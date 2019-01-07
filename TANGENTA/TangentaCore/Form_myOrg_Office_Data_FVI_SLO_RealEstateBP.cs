@@ -74,7 +74,7 @@ namespace TangentaCore
             if (usrc_EditTable1.Changed)
             {
                 Transaction transaction_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP_do_OK_usrc_EditTable1_Save = DBSync.DBSync.NewTransaction("Form_myOrg_Office_Data_FVI_SLO_RealEstateBP.do_OK.usrc_EditTable1.Save");
-                if (usrc_EditTable1.Save(transaction_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP_do_OK_usrc_EditTable1_Save))
+                if (usrc_EditTable1.Save(ref transaction_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP_do_OK_usrc_EditTable1_Save))
                 {
                     if (transaction_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP_do_OK_usrc_EditTable1_Save.Commit())
                     {
@@ -134,11 +134,18 @@ namespace TangentaCore
             }
         }
 
-        private void usrc_EditTable1_after_InsertInDataBase(SQLTable m_tbl, ID xID, bool bRes)
+        private void usrc_EditTable1_after_InsertInDataBase(SQLTable m_tbl, ID xID, bool bRes, Transaction transaction)
         {
             if (bRes)
-            { 
+            {
                 usrc_EditTable1.AllowUserToAddNew = false;
+            }
+            else
+            {
+                if (transaction != null)
+                {
+                    transaction.Rollback();
+                }
             }
         }
 

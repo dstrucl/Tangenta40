@@ -131,11 +131,25 @@ namespace TangentaCore
             return default(bool);
         }
 
-        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID xID, bool bRes)
+        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, ID xID, bool bRes, Transaction transaction)
         {
             if (bRes)
             {
+                if (transaction!=null)
+                {
+                    if (!transaction.Commit())
+                    {
+                        return;
+                    }
+                }
                 FillProperties(m_tbl, xID);
+            }
+            else
+            {
+                if (transaction!=null)
+                {
+                    transaction.Rollback();
+                }
             }
         }
         private void FillProperties(SQLTable m_tbl, ID ID)

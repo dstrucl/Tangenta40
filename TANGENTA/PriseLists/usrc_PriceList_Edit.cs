@@ -199,7 +199,7 @@ namespace PriseLists
             }
         }
 
-        private void usrc_EditTable_PriceList_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes)
+        private void usrc_EditTable_PriceList_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes, Transaction transaction)
         {
             // Now create price lists
             if (bRes)
@@ -221,10 +221,9 @@ namespace PriseLists
 
                             sql = @" insert into Price_SimpleItem (SimpleItem_ID,PriceList_ID,Taxation_ID,RetailSimpleItemPrice,Discount) 
                                     select id," + ID.ToString() + "," + id_Taxation.ToString() + ",-1,0 from SimpleItem where ToOffer = 1";
-                            Transaction transaction_usrc_EditTable_PriceList_after_InsertInDataBase = DBSync.DBSync.NewTransaction("usrc_EditTable_PriceList_after_InsertInDataBase");
-                            if (transaction_usrc_EditTable_PriceList_after_InsertInDataBase.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
+                            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
                             {
-                                transaction_usrc_EditTable_PriceList_after_InsertInDataBase.Commit();
+                                transaction.Commit();
                                 if (tbl_Price_SimpleItem == null)
                                 {
                                     tbl_Price_SimpleItem = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_SimpleItem)));
@@ -258,19 +257,18 @@ namespace PriseLists
                             }
                             else
                             {
-                                transaction_usrc_EditTable_PriceList_after_InsertInDataBase.Rollback();
+                                transaction.Rollback();
                                 LogFile.Error.Show("ERROR:usrc_PriceList_Edit:usrc_EditTable_PriceList_after_InsertInDataBase:Err=" + Err + "\r\nSql=" + sql);
                                 return;
                             }
                         }
                         else
                         {
-                            Transaction transaction_usrc_EditTable_PriceList_after_InsertInDataBase = DBSync.DBSync.NewTransaction("usrc_EditTable_PriceList_after_InsertInDataBase");
                             sql = @" insert into Price_Item (Item_ID,PriceList_ID,Taxation_ID,RetailPricePerUnit,Discount) 
                                             select id," + ID.ToString() + "," + id_Taxation.ToString() + ",-1,0 from Item where ToOffer = 1";
-                            if (transaction_usrc_EditTable_PriceList_after_InsertInDataBase.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
+                            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
                             {
-                                transaction_usrc_EditTable_PriceList_after_InsertInDataBase.Commit();
+                                transaction.Commit();
                                 if (tbl_Price_Item == null)
                                 {
                                     tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_Item)));
@@ -311,11 +309,18 @@ namespace PriseLists
                             }
                             else
                             {
-                                transaction_usrc_EditTable_PriceList_after_InsertInDataBase.Rollback();
+                                transaction.Rollback();
                                 LogFile.Error.Show("ERROR:usrc_PriceList_Edit:usrc_EditTable_PriceList_after_InsertInDataBase:Err=" + Err + "\r\nSql=" + sql);
                             }
                         }
                     }
+                }
+            }
+            else
+            {
+                if (transaction!=null)
+                {
+                    transaction.Rollback();
                 }
             }
         }
@@ -502,7 +507,7 @@ namespace PriseLists
             }
         }
 
-        private void usrc_EditTable_PriceList_before_InsertInDataBase(SQLTable m_tbl, ref bool bCancel)
+        private void usrc_EditTable_PriceList_before_InsertInDataBase(SQLTable m_tbl, ref bool bCancel, ref Transaction transaction)
         {
         }
 
@@ -657,7 +662,7 @@ namespace PriseLists
                             if (usrc_EditTable_PriceList.Changed)
                             {
                                 Transaction transaction_usrc_EditTable_PriceList_Save = DBSync.DBSync.NewTransaction("usrc_EditTablePriceList.Save");
-                                if (usrc_EditTable_PriceList.Save(transaction_usrc_EditTable_PriceList_Save))
+                                if (usrc_EditTable_PriceList.Save(ref transaction_usrc_EditTable_PriceList_Save))
                                 {
                                     transaction_usrc_EditTable_PriceList_Save.Commit();
                                 }
@@ -710,19 +715,63 @@ namespace PriseLists
             }
         }
 
-        private void usrc_EditTable_Shop_Prices_after_UpdateDataBase(SQLTable m_tbl, ID ID, bool bRes)
+        private void usrc_EditTable_Shop_Prices_after_UpdateDataBase(SQLTable m_tbl, ID ID, bool bRes, Transaction transaction)
         {
-            bChanged = true;
+            if (bRes)
+            {
+                bChanged = true;
+            }
+            else
+            {
+                if (transaction != null)
+                {
+                    transaction.Rollback();
+                }
+            }
         }
 
-        private void usrc_EditTable_Shop_Prices_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes)
+        private void usrc_EditTable_Shop_Prices_after_InsertInDataBase(SQLTable m_tbl, ID ID, bool bRes, Transaction transaction)
         {
-            bChanged = true;
+            if (bRes)
+            {
+                if (transaction != null)
+                {
+                    if (!transaction.Commit())
+                    {
+                        return;
+                    }
+                }
+                bChanged = true;
+            }
+            else
+            {
+                if (transaction!=null)
+                {
+                    transaction.Rollback();
+                }
+            }
         }
 
-        private void usrc_EditTable_PriceList_after_UpdateDataBase(SQLTable m_tbl, ID ID, bool bRes)
+        private void usrc_EditTable_PriceList_after_UpdateDataBase(SQLTable m_tbl, ID ID, bool bRes, Transaction transaction)
         {
-            bChanged = true;
+            if (bRes)
+            {
+                if (transaction != null)
+                {
+                    if (!transaction.Commit())
+                    {
+                        return;
+                    }
+                }
+                bChanged = true;
+            }
+            else
+            {
+                if (transaction != null)
+                {
+                    transaction.Rollback();
+                }
+            }
         }
     }
 }

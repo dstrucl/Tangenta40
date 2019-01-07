@@ -101,7 +101,7 @@ namespace TangentaCore
                 if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, TangentaResources.Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     Transaction transaction_Form_myOrg_Person_Edit_do_OK_usrc_EditTable1_Save = DBSync.DBSync.NewTransaction("Form_myOrg_Person_Edit.do_OK.usrc_EditTable1.Save");
-                    if (usrc_EditTable1.Save(transaction_Form_myOrg_Person_Edit_do_OK_usrc_EditTable1_Save))
+                    if (usrc_EditTable1.Save(ref transaction_Form_myOrg_Person_Edit_do_OK_usrc_EditTable1_Save))
                     {
                         if (transaction_Form_myOrg_Person_Edit_do_OK_usrc_EditTable1_Save.Commit())
                         {
@@ -318,13 +318,17 @@ namespace TangentaCore
             this.usrc_EditTable1.KeyPressed(e.KeyCode);
         }
 
-        private void usrc_EditTable1_before_InsertInDataBase(SQLTable m_tbl, ref bool bCancel)
+        private void usrc_EditTable1_before_InsertInDataBase(SQLTable m_tbl, ref bool bCancel,ref Transaction transaction)
         {
             if (myOrg.Address_v.Country_ISO_3166_num==Country_ISO_3166.ISO_3166_Table.m_Slovenia.State_Number)
             {
                 if (!Check_TaxID(m_tbl))
                 {
                     bCancel = true;
+                    if (transaction!=null)
+                    {
+                        transaction.Rollback();
+                    }
                 }
             }
         }
@@ -378,13 +382,17 @@ namespace TangentaCore
             return true;
         }
 
-        private void usrc_EditTable1_before_UpdateDataBase(SQLTable m_tbl, ref bool bCancel)
+        private void usrc_EditTable1_before_UpdateDataBase(SQLTable m_tbl, ref bool bCancel, ref Transaction transaction)
         {
             if (myOrg.Address_v.Country_ISO_3166_num == Country_ISO_3166.ISO_3166_Table.m_Slovenia.State_Number)
             {
                 if (!Check_TaxID(m_tbl))
                 {
                     bCancel = true;
+                    if (transaction!=null)
+                    {
+                        transaction.Rollback();
+                    }
                 }
             }
         }

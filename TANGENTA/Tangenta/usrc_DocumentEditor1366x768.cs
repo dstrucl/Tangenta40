@@ -26,11 +26,14 @@ using DBConnectionControl40;
 using LoginControl;
 using TangentaCore;
 using TangentaProperties;
+using PriseLists;
 
 namespace Tangenta
 {
     public partial class usrc_DocumentEditor1366x768 : UserControl
     {
+        private DocumentEditor.DoCurrent_delegates doCurrent_delegates;
+
         public DocumentEditor DocE = null;
         private DocumentMan DocM = null;
 
@@ -464,6 +467,45 @@ namespace Tangenta
         public usrc_DocumentEditor1366x768()
         {
             InitializeComponent();
+            usrc_PriceList xusrc_PriceListB = null;
+            if (this.m_usrc_ShopB1366x768 != null)
+            {
+                xusrc_PriceListB = this.m_usrc_ShopB1366x768.usrc_PriceList1;
+            }
+            usrc_PriceList xusrc_PriceListC = null;
+            if (this.m_usrc_ShopC1366x768 != null)
+            {
+                xusrc_PriceListC = this.m_usrc_ShopC1366x768.m_usrc_PriceList1;
+            }
+            doCurrent_delegates = new DocumentEditor.DoCurrent_delegates(
+                                   xusrc_PriceListB,
+                                   xusrc_PriceListC,
+                                   this.Set_ShowShops,
+                                   this.m_usrc_ShopB1366x768.SetDraftButtons,
+                                   this.m_usrc_ShopB1366x768.SetViewButtons,
+                                   this.usrc_Customer.Show_Customer,
+                                   this.set_CustomerText,
+                                   this.usrc_AddOn1.Show,
+                                   this.AddHandler,
+                                   this.RemoveHandler,
+                                   this.set_InvoiceNumberText,
+                                   this.SetMode,
+                                   this.m_usrc_ShopB1366x768,
+                                   this.m_usrc_ShopB1366x768.SetCurrentInvoice_SelectedShopB_Items,
+                                   this.m_usrc_ShopC1366x768.SetCurrentInvoice_SelectedItems,
+                                   this.chk_Storno_Show,
+                                   this.chk_Storno_Check,
+                                   this.m_usrc_ShopC1366x768.Reset,
+                                   this.m_usrc_ShopC1366x768.Clear,
+                                   this.m_usrc_ShopA1366x768.dt_Item_Price,
+                                   this.m_usrc_ShopB1366x768.dt_SelectedShopBItem,
+                                   this.btn_Issue_Show,
+                                   this.lbl_Sum_ForeColor,
+                                   this.lbl_Sum_Text,
+                                   this.m_usrc_ShopB1366x768.Get_Price_ShopBItem_Data,
+                                   this.m_usrc_ShopB1366x768.Set_dgv_SelectedShopB_Items,
+                                   this.m_usrc_ShopC1366x768.m_usrc_ItemList1366x768.Get_Price_Item_Stock_Data);
+
             ShopA_default_X = this.m_usrc_ShopA1366x768.Left;
             ShopA_default_Y = this.m_usrc_ShopA1366x768.Top;
             ShopB_default_X = this.m_usrc_ShopB1366x768.Left;
@@ -612,14 +654,7 @@ namespace Tangenta
                             Document_ID,
                             ref m_usrc_ShopB1366x768_usrc_PriceList1_ID,
                             ref m_usrc_ShopC1366x768_m_usrc_PriceList1_ID,
-                            this.Set_ShowShops,
-                            m_usrc_ShopB1366x768.usrc_PriceList1.Init,
-                            m_usrc_ShopC1366x768.m_usrc_PriceList1.Init,
-                            this.usrc_PriceList_Ask_To_Update,
-                            m_usrc_ShopB1366x768.Get_Price_ShopBItem_Data,
-                            this.DoCurrent,
-                            m_usrc_ShopB1366x768.Set_dgv_SelectedShopB_Items,
-                            m_usrc_ShopC1366x768.m_usrc_ItemList1366x768.Get_Price_Item_Stock_Data,
+                            doCurrent_delegates,
                             transaction_DocE_Init
                             ))
             {
@@ -718,27 +753,7 @@ namespace Tangenta
         public bool DoCurrent(ID xID, Transaction transaction)
         {
             return DocE.DoCurrent(xID,
-                        this.m_usrc_ShopB1366x768.SetDraftButtons,
-                        this.m_usrc_ShopB1366x768.SetViewButtons,
-                        this.usrc_Customer.Show_Customer,
-                        this.set_CustomerText,
-                        this.usrc_AddOn1.Show,
-                        this.AddHandler,
-                        this.RemoveHandler,
-                        this.set_InvoiceNumberText,
-                        this.SetMode,
-                        this.m_usrc_ShopB1366x768,
-                        this.m_usrc_ShopB1366x768.SetCurrentInvoice_SelectedShopB_Items,
-                        this.m_usrc_ShopC1366x768.SetCurrentInvoice_SelectedItems,
-                        this.chk_Storno_Show,
-                        this.chk_Storno_Check,
-                        this.m_usrc_ShopC1366x768.Reset,
-                        this.m_usrc_ShopC1366x768.Clear,
-                        this.m_usrc_ShopA1366x768.dt_Item_Price,
-                        this.m_usrc_ShopB1366x768.dt_SelectedShopBItem,
-                        this.btn_Issue_Show,
-                        this.lbl_Sum_ForeColor,
-                        this.lbl_Sum_Text,
+                        doCurrent_delegates,
                         transaction
                         );
         }

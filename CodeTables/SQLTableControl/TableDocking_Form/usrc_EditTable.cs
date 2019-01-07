@@ -34,11 +34,11 @@ namespace CodeTables.TableDocking_Form
 
         public delegate void delegate_SelectedIndexChanged(SQLTable m_tbl,ID ID, int index);
 
-        public delegate void delegate_before_InsertInDataBase(SQLTable m_tbl, ref bool bCancel);
-        public delegate void delegate_after_InsertInDataBase(SQLTable m_tbl,ID ID, bool bRes);
+        public delegate void delegate_before_InsertInDataBase(SQLTable m_tbl, ref bool bCancel,ref Transaction transaction);
+        public delegate void delegate_after_InsertInDataBase(SQLTable m_tbl,ID ID, bool bRes, Transaction transaction);
 
-        public delegate void delegate_before_UpdateDataBase(SQLTable m_tbl, ref bool bCancel);
-        public delegate void delegate_after_UpdateDataBase(SQLTable m_tbl,ID ID, bool bRes);
+        public delegate void delegate_before_UpdateDataBase(SQLTable m_tbl, ref bool bCancel,ref Transaction transaction);
+        public delegate void delegate_after_UpdateDataBase(SQLTable m_tbl,ID ID, bool bRes, Transaction transaction);
 
         public delegate void delegate_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e);
 
@@ -170,6 +170,32 @@ namespace CodeTables.TableDocking_Form
             }
         }
 
+        public bool Init(CodeTables.DBTableControl xdbTables,
+                       TransactionLog_delegates xTransactionLog_delegates,
+                       SQLTable xtbl,
+                       string xSelectedColumns,
+                       string xOrderByColumnName,
+                       bool xbEditUndefined,
+                       string xWhereConditon,
+                       ID IDa, bool bReadOnly,
+                       NavigationButtons.Navigation xnav,
+                       string transaction_name)
+        {
+            if (transaction_name != null)
+            {
+                this.usrc_EditRow.TransactionName = transaction_name;
+            }
+            return Init(xdbTables,
+                 xTransactionLog_delegates,
+                 xtbl,
+                 xSelectedColumns,
+                 xOrderByColumnName,
+                 xbEditUndefined,
+                 xWhereConditon,
+                 IDa,
+                 bReadOnly,
+                 xnav);
+        }
 
         public bool Init(CodeTables.DBTableControl xdbTables,
                         TransactionLog_delegates xTransactionLog_delegates,
@@ -181,6 +207,10 @@ namespace CodeTables.TableDocking_Form
                         ID IDa,bool bReadOnly,
                         NavigationButtons.Navigation xnav)
         {
+            if (this.usrc_EditRow.TransactionName==null)
+            {
+                this.usrc_EditRow.SetDefaultTransactionName(this);
+            }
             nav = xnav;
             bEditUndefined = xbEditUndefined;
             SelectedColumns = xSelectedColumns;
@@ -499,39 +529,39 @@ namespace CodeTables.TableDocking_Form
             }
          }
 
-        private void usrc_EditRow_before_InsertInDataBase(SQLTable x_tbl, ref bool bCancel)
+        private void usrc_EditRow_before_InsertInDataBase(SQLTable x_tbl, ref bool bCancel,ref Transaction transaction)
         {
             m_WorkingSemaphore = true;
             if (before_InsertInDataBase != null)
             {
-                before_InsertInDataBase(x_tbl, ref bCancel);
+                before_InsertInDataBase(x_tbl, ref bCancel,ref transaction);
             }
         }
 
-        private void usrc_EditRow_before_UpdateDataBase(SQLTable x_tbl, ref bool bCancel)
+        private void usrc_EditRow_before_UpdateDataBase(SQLTable x_tbl, ref bool bCancel,ref Transaction transaction)
         {
             if (before_UpdateDataBase != null)
             {
-                before_UpdateDataBase(x_tbl, ref bCancel);
+                before_UpdateDataBase(x_tbl, ref bCancel,ref transaction);
             }
         }
 
-        private void usrc_EditRow_after_InsertInDataBase(SQLTable x_tbl,ID id, bool bRes)
+        private void usrc_EditRow_after_InsertInDataBase(SQLTable x_tbl,ID id, bool bRes, Transaction transaction)
         {
             Identity = id;
             if (after_InsertInDataBase != null)
             {
-                after_InsertInDataBase(x_tbl,id, bRes);
+                after_InsertInDataBase(x_tbl,id, bRes, transaction);
             }
             m_WorkingSemaphore = false;
         }
 
-        private void usrc_EditRow_after_UpdateDataBase(SQLTable x_tbl,ID id, bool bRes)
+        private void usrc_EditRow_after_UpdateDataBase(SQLTable x_tbl,ID id, bool bRes, Transaction transaction)
         {
             Identity = id;
             if (after_UpdateDataBase != null)
             {
-                after_UpdateDataBase(x_tbl,id, bRes);
+                after_UpdateDataBase(x_tbl,id, bRes, transaction);
             }
         }
 
@@ -551,9 +581,9 @@ namespace CodeTables.TableDocking_Form
             }
         }
 
-        public bool Save(Transaction transaction)
+        public bool Save(ref Transaction transaction)
         {
-            return this.usrc_EditRow.Save(transaction);
+            return this.usrc_EditRow.Save(ref transaction);
         }
 
         private void dgvx_Table_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

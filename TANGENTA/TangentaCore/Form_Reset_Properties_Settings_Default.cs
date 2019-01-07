@@ -12,7 +12,7 @@ namespace TangentaCore
 {
     public partial class Form_Reset_Properties_Settings_Default : Form
     {
-        public bool bTangenta_EXE = false;
+        public bool bTangentaProperties = false;
         public bool bDBConnectionControlXX_EXE = false;
         public bool bCodeTables_DLL = false;
         public bool bFiscalVerification_DLL = false;
@@ -25,7 +25,7 @@ namespace TangentaCore
         {
             InitializeComponent();
             lng.s_AreYouSure_ToResetSettingsToInitialvalues.Text(label1);
-            this.chk_Tangenta_EXE.Checked = true;
+            this.chk_TangentaProperties.Checked = true;
             this.chk_DBConnectionControl_DLL.Checked = true;
             this.chk_CodeTables_DLL.Checked = true;
             this.chk_LanguageControl_DLL.Checked = true;
@@ -40,7 +40,7 @@ namespace TangentaCore
 
         private void btn_Yes_Click(object sender, EventArgs e)
         {
-            bTangenta_EXE = this.chk_Tangenta_EXE.Checked;
+            bTangentaProperties = this.chk_TangentaProperties.Checked;
             bDBConnectionControlXX_EXE = this.chk_DBConnectionControl_DLL.Checked;
             bCodeTables_DLL = this.chk_CodeTables_DLL.Checked;
             bLangugaControl_DLL = this.chk_LanguageControl_DLL.Checked;

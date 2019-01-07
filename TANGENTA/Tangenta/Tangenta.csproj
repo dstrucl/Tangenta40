@@ -366,10 +366,6 @@
       <Project>{61ca81c7-7f82-4744-a8de-fbe9972e7ee8}</Project>
       <Name>FiscalVerificationOfInvoices_SLO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\TangentaBooting\TangentaBooting.csproj">
-      <Project>{75060581-1F43-4F11-BA99-F9DB13CE1715}</Project>
-      <Name>TangentaBooting</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Form_Discount\Form_Discount.csproj">
       <Project>{4ac81b7e-a501-40ba-9a29-ed8004430eab}</Project>
       <Name>Form_Discount</Name>
@@ -398,13 +394,25 @@
       <Project>{f417c16a-b37f-4284-9e39-4fbeff69008e}</Project>
       <Name>ShopB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ShopB\ShopB_Forms\ShopB_Forms.csproj">
+      <Project>{b66aace6-8404-4b5c-8e35-560555419412}</Project>
+      <Name>ShopB_Forms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ShopC\ShopC.csproj">
       <Project>{3d077dc4-bdab-414f-8907-c902b91fcb0e}</Project>
       <Name>ShopC</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ShopC_Forms\ShopC_Forms.csproj">
+      <Project>{a023d289-ea3f-4655-83bb-b28d95b7436d}</Project>
+      <Name>ShopC_Forms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Startup\Startup.csproj">
       <Project>{c4e59cf1-d085-4636-8bb4-2bfa63e54f4d}</Project>
       <Name>Startup</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TangentaBooting\TangentaBooting.csproj">
+      <Project>{75060581-1F43-4F11-BA99-F9DB13CE1715}</Project>
+      <Name>TangentaBooting</Name>
     </ProjectReference>
     <ProjectReference Include="..\TangentaCore\TangentaCore.csproj">
       <Project>{4f00910d-6e8d-4a47-bcc3-526867f3e099}</Project>
