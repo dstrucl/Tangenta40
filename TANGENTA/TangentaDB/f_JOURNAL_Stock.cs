@@ -43,13 +43,13 @@ namespace TangentaDB
 
         public static bool Get_JOURNAL_Stock_Type_ID(Transaction transaction)
         {
-            if (fs.Get_JOURNAL_TYPE(JOURNAL_Stock_Type_TABLE, New_Stock_Data, ref m_JOURNAL_Stock_Type_ID_new_stock_data, transaction))
+            if (fs.Get_TABLE_TYPE(JOURNAL_Stock_Type_TABLE, New_Stock_Data, ref m_JOURNAL_Stock_Type_ID_new_stock_data, transaction))
             {
-                if (fs.Get_JOURNAL_TYPE(JOURNAL_Stock_Type_TABLE, Stock_Data_Changed, ref m_JOURNAL_Stock_Type_ID_stock_data_changed, transaction))
+                if (fs.Get_TABLE_TYPE(JOURNAL_Stock_Type_TABLE, Stock_Data_Changed, ref m_JOURNAL_Stock_Type_ID_stock_data_changed, transaction))
                 {
-                    if (fs.Get_JOURNAL_TYPE(JOURNAL_Stock_Type_TABLE, From_Stock_To_Basket, ref m_JOURNAL_Stock_Type_ID_from_stock_to_basket, transaction))
+                    if (fs.Get_TABLE_TYPE(JOURNAL_Stock_Type_TABLE, From_Stock_To_Basket, ref m_JOURNAL_Stock_Type_ID_from_stock_to_basket, transaction))
                     {
-                        if (fs.Get_JOURNAL_TYPE(JOURNAL_Stock_Type_TABLE, From_Basket_To_Stock, ref m_JOURNAL_Stock_Type_ID_from_basket_to_stock, transaction))
+                        if (fs.Get_TABLE_TYPE(JOURNAL_Stock_Type_TABLE, From_Basket_To_Stock, ref m_JOURNAL_Stock_Type_ID_from_basket_to_stock, transaction))
                         {
                             return true;
                         }

@@ -1,6 +1,9 @@
 ﻿using DBConnectionControl40;
 using DBTypes;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Windows.Forms;
 
 namespace UpgradeDB
 {
@@ -38,7 +41,17 @@ namespace UpgradeDB
                     CREATE TABLE DocInvoice_ShopC_Item_TEMP ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
                                                               DocInvoice_ID INTEGER NOT NULL REFERENCES DocInvoice(ID),
                                                               Atom_Price_Item_ID INTEGER NOT NULL REFERENCES Atom_Price_Item(ID),
-                                                              ExtraDiscount DECIMAL(18, 5) NOT NULL);
+                                                              ExtraDiscount DECIMAL(18, 5));
+
+                    CREATE TABLE DocInvoice_ShopC_Item_Source_TEMP 
+                                                            ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                               DocInvoice_ShopC_Item_TEMP_ID INTEGER NOT NULL REFERENCES DocInvoice_ShopC_Item_TEMP(ID),
+                                                               Stock_ID INTEGER NULL REFERENCES Stock(ID),
+                                                               dQuantity DECIMAL(18,5) NOT NULL,
+                                                               'SourceDiscount' DECIMAL(18,5) NOT NULL,
+                                                               'RetailPriceWithDiscount' DECIMAL(18,5) NOT NULL,
+                                                               'TaxPrice' DECIMAL(18,5) NOT NULL,
+                                                               'ExpiryDate' DATETIME NULL );               
 
                     Insert into DocInvoice_ShopC_Item_TEMP(DocInvoice_ID,
                                                            Atom_Price_Item_ID,
@@ -53,6 +66,16 @@ namespace UpgradeDB
                                                               DocProformaInvoice_ID INTEGER NOT NULL REFERENCES DocProformaInvoice(ID),
                                                               Atom_Price_Item_ID INTEGER NOT NULL REFERENCES Atom_Price_Item(ID),
                                                               ExtraDiscount DECIMAL(18, 5) NOT NULL);
+
+                    CREATE TABLE DocProformaInvoice_ShopC_Item_Source_TEMP 
+                                                            ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                               DocProformaInvoice_ShopC_Item_TEMP_ID INTEGER NOT NULL REFERENCES DocProformaInvoice_ShopC_Item_TEMP(ID),
+                                                               Stock_ID INTEGER NULL REFERENCES Stock(ID),
+                                                               dQuantity DECIMAL(18,5) NOT NULL,
+                                                               'SourceDiscount' DECIMAL(18,5) NOT NULL,
+                                                               'RetailPriceWithDiscount' DECIMAL(18,5) NOT NULL,
+                                                               'TaxPrice' DECIMAL(18,5) NOT NULL,
+                                                               'ExpiryDate' DATETIME NULL );  
 
                     Insert into  DocProformaInvoice_ShopC_Item_TEMP (DocProformaInvoice_ID,
                                                            Atom_Price_Item_ID,
@@ -117,6 +140,7 @@ namespace UpgradeDB
                     return false;
                 }
 
+
                 if (!WriteDocInvoice_ShopC_Item_Source(transaction_UpgradeDB_1_27_to_1_28))
                 {
                     transaction_UpgradeDB_1_27_to_1_28.Rollback();
@@ -129,28 +153,120 @@ namespace UpgradeDB
                     return false;
                 }
 
-                sql = @" 
+                transaction_UpgradeDB_1_27_to_1_28.Commit();
+
+                sql = @"        
+                                PRAGMA foreign_keys = OFF;
+
                                 DROP TABLE DocInvoice_ShopC_Item;
-                                ALTER TABLE DocInvoice_ShopC_Item_TEMP RENAME TO DocInvoice_ShopC_Item;
+
+                                CREATE TABLE DocInvoice_ShopC_Item ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                              DocInvoice_ID INTEGER NOT NULL REFERENCES DocInvoice(ID),
+                                                              Atom_Price_Item_ID INTEGER NOT NULL REFERENCES Atom_Price_Item(ID),
+                                                              ExtraDiscount DECIMAL(18, 5));
+
+                                insert into DocInvoice_ShopC_Item
+                                                              (
+                                                              ID,
+                                                              DocInvoice_ID,
+                                                              Atom_Price_Item_ID,
+                                                              ExtraDiscount
+                                                              )
+                                                              select 
+                                                              ID,
+                                                              DocInvoice_ID,
+                                                              Atom_Price_Item_ID,
+                                                              ExtraDiscount
+                                                              from DocInvoice_ShopC_Item_TEMP;
+
+                                insert into DocInvoice_ShopC_Item_Source
+                                                             (
+                                                               ID,
+                                                               DocInvoice_ShopC_Item_ID,
+                                                               Stock_ID,
+                                                               dQuantity,
+                                                               SourceDiscount,
+                                                               RetailPriceWithDiscount,
+                                                               TaxPrice,
+                                                               ExpiryDate
+                                                              )
+                                                             select 
+                                                               ID,
+                                                               DocInvoice_ShopC_Item_TEMP_ID,
+                                                               Stock_ID,
+                                                               dQuantity,
+                                                               SourceDiscount,
+                                                               RetailPriceWithDiscount,
+                                                               TaxPrice,
+                                                               ExpiryDate
+                                                               from DocInvoice_ShopC_Item_Source_TEMP;
 
                                 DROP TABLE DocProformaInvoice_ShopC_Item;
-                                ALTER TABLE DocProformaInvoice_ShopC_Item_TEMP RENAME TO DocProformaInvoice_ShopC_Item;
 
-                                DROP TABLE Atom_Computer;
-                                ALTER TABLE Atom_Computer_TEMP RENAME TO Atom_Computer;
+                                CREATE TABLE DocProformaInvoice_ShopC_Item ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                              DocProformaInvoice_ID INTEGER NOT NULL REFERENCES DocProformaInvoice(ID),
+                                                              Atom_Price_Item_ID INTEGER NOT NULL REFERENCES Atom_Price_Item(ID),
+                                                              ExtraDiscount DECIMAL(18, 5));
 
+                                insert into DocProformaInvoice_ShopC_Item
+                                                              (
+                                                              ID,
+                                                              DocProformaInvoice_ID,
+                                                              Atom_Price_Item_ID,
+                                                              ExtraDiscount
+                                                              )
+                                                              select 
+                                                              ID,
+                                                              DocProformaInvoice_ID,
+                                                              Atom_Price_Item_ID,
+                                                              ExtraDiscount
+                                                              from DocProformaInvoice_ShopC_Item_TEMP;
+
+                                insert into DocProformaInvoice_ShopC_Item_Source
+                                                             (
+                                                               ID,
+                                                               DocProformaInvoice_ShopC_Item_ID,
+                                                               Stock_ID,
+                                                               dQuantity,
+                                                               SourceDiscount,
+                                                               RetailPriceWithDiscount,
+                                                               TaxPrice,
+                                                               ExpiryDate
+                                                              )
+                                                             select 
+                                                               ID,
+                                                               DocProformaInvoice_ShopC_Item_TEMP_ID,
+                                                               Stock_ID,
+                                                               dQuantity,
+                                                               SourceDiscount,
+                                                               RetailPriceWithDiscount,
+                                                               TaxPrice,
+                                                               ExpiryDate
+                                                               from DocProformaInvoice_ShopC_Item_Source_TEMP;
+
+                                DROP TABLE DocInvoice_ShopC_Item_Source_TEMP;
+                                DROP TABLE DocInvoice_ShopC_Item_TEMP;
+
+                                DROP TABLE DocProformaInvoice_ShopC_Item_Source_TEMP;
+                                DROP TABLE DocProformaInvoice_ShopC_Item_TEMP;
+                                
                                 DROP TABLE Atom_WorkPeriod;
                                 ALTER TABLE Atom_WorkPeriod_TEMP RENAME TO Atom_WorkPeriod;
 
+                                DROP TABLE Atom_Computer;
+                                ALTER TABLE Atom_Computer_TEMP RENAME TO Atom_Computer;
                                 PRAGMA foreign_keys = ON;
+                                
                     ";
-                if (!transaction_UpgradeDB_1_27_to_1_28.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
+                //if (!transaction_UpgradeDB_1_27_to_1_28.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
+                DBSync.DBSync.Con.TransactionsOnly = false;
+                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                 {
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_27_to_1_28:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
+                DBSync.DBSync.Con.TransactionsOnly = true;
 
-              
                 if (DBSync.DBSync.Create_VIEWs(transaction_UpgradeDB_1_27_to_1_28))
                 {
                     if (UpgradeDB_inThread.Set_DataBase_Version("1.28", transaction_UpgradeDB_1_27_to_1_28))
@@ -188,42 +304,81 @@ namespace UpgradeDB
             string sql_Temp = @"Select 
             ID, 
 		    DocInvoice_ID,
-		    Atom_Price_Item_ID
+		    Atom_Price_Item_ID,
+            ExtraDiscount
 		    from DocInvoice_ShopC_Item_TEMP";
             string Err = null;
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql_Temp, ref Err))
             {
+                int i = 0;
                 foreach (DataRow dr in dt.Rows)
                 {
-                    ID doc_ShopC_Item_ID = tf.set_ID(dr["ID"]);
+                    i++;
+                    
+                    ID doc_ShopC_Item_TEMP_ID = tf.set_ID(dr["ID"]);
                     ID doc_ID = tf.set_ID(dr["DocInvoice_ID"]);
                     ID atom_Price_Item_ID = tf.set_ID(dr["Atom_Price_Item_ID"]);
-                    string sql = @"
-                    INSERT Into DocInvoice_ShopC_Item_Source
-                    (
-                    DocInvoice_ShopC_Item_ID,
-                    Stock_ID,
-                    dQuantity,
-                    SourceDiscount,
-		            RetailPriceWithDiscount,
-		            TaxPrice, 
-		            ExpiryDate
-		            )
-                    SELECT  
-                    " + doc_ShopC_Item_ID.ToString() + @",
-	                Stock_ID,
-		            dQuantity,
-                    0,
-		            RetailPriceWithDiscount,
-		            TaxPrice, 
-		            ExpiryDate
-		            from DocInvoice_ShopC_Item where DocInvoice_ID = " + doc_ID.ToString() + " and Atom_Price_Item_ID = "+ atom_Price_Item_ID.ToString();
-
-                    if (!transaction.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
+                    decimal_v ExtraDiscount_v = tf.set_decimal(dr["ExtraDiscount"]);
+                    ID[] doc_ShopC_Item_ID = null;
+                    ID[] stock_ID = null;
+                    if (get_doc_ShopC_Item_ID("DocInvoice",doc_ID, atom_Price_Item_ID, ExtraDiscount_v, ref doc_ShopC_Item_ID, ref stock_ID))
                     {
-                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_27_to_1_28:sql=" + sql + "\r\nErr=" + Err);
-                        return false;
+                        string sql = null;
+                        foreach (ID stock_id in stock_ID)
+                        {
+                            if (ID.Validate(stock_id))
+                            {
+                                sql = @"
+                                INSERT Into DocInvoice_ShopC_Item_Source_TEMP
+                                (
+                                DocInvoice_ShopC_Item_TEMP_ID,
+                                Stock_ID,
+                                dQuantity,
+                                SourceDiscount,
+		                        RetailPriceWithDiscount,
+		                        TaxPrice, 
+		                        ExpiryDate
+		                        )
+                                SELECT  
+                                " + doc_ShopC_Item_TEMP_ID.ToString() + @",
+	                            " + stock_id.ToString() + @",
+		                        dQuantity,
+                                0,
+		                        RetailPriceWithDiscount,
+		                        TaxPrice, 
+		                        ExpiryDate
+		                        from DocInvoice_ShopC_Item where DocInvoice_ID = " + doc_ID.ToString() + " and Atom_Price_Item_ID = " + atom_Price_Item_ID.ToString();
+                            }
+                            else
+                            {
+                                sql = @"
+                                INSERT Into DocInvoice_ShopC_Item_Source_TEMP
+                                (
+                                DocInvoice_ShopC_Item_TEMP_ID,
+                                Stock_ID,
+                                dQuantity,
+                                SourceDiscount,
+		                        RetailPriceWithDiscount,
+		                        TaxPrice, 
+		                        ExpiryDate
+		                        )
+                                SELECT  
+                                " + doc_ShopC_Item_TEMP_ID.ToString() + @",
+	                            null,
+		                        dQuantity,
+                                0,
+		                        RetailPriceWithDiscount,
+		                        TaxPrice, 
+		                        ExpiryDate
+		                        from DocInvoice_ShopC_Item where DocInvoice_ID = " + doc_ID.ToString() + " and Atom_Price_Item_ID = " + atom_Price_Item_ID.ToString();
+                            }
+                            if (!transaction.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con, sql, null, ref Err))
+                            {
+                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_27_to_1_28:sql=" + sql + "\r\nErr=" + Err);
+                                return false;
+                            }
+                        }
                     }
                 }
                 return true;
@@ -235,6 +390,59 @@ namespace UpgradeDB
             }
         }
 
+        private static bool get_doc_ShopC_Item_ID(string doctype,ID doc_ID, ID atom_Price_Item_ID, decimal_v extraDiscount_v, ref ID[] doc_ShopC_Item_ID, ref ID[] stock_ID)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_doc_ID = "@par_doc_ID";
+            SQL_Parameter par_doc_ID = new SQL_Parameter(spar_doc_ID, false, doc_ID);
+            lpar.Add(par_doc_ID);
+
+            string spar_atom_Price_Item_ID = "@par_atom_Price_Item_ID";
+            SQL_Parameter par_atom_Price_Item_ID = new SQL_Parameter(spar_atom_Price_Item_ID, false, atom_Price_Item_ID);
+            lpar.Add(par_atom_Price_Item_ID);
+
+
+            string scond_ExtraDiscount = "ExtraDiscount is null";
+            if (extraDiscount_v != null)
+            {
+                string spar_ExtraDiscount = "@par_ExtraDiscount";
+                SQL_Parameter par_ExtraDiscount = new SQL_Parameter(spar_ExtraDiscount,SQL_Parameter.eSQL_Parameter.Decimal, false, extraDiscount_v.v);
+                lpar.Add(par_ExtraDiscount);
+                scond_ExtraDiscount = "ExtraDiscount = " + spar_ExtraDiscount;
+            }
+
+            string sql = @"Select 
+                            ID, 
+                            Stock_ID
+		                    from "+ doctype + "_ShopC_Item where "+ doctype + "_ID = "+ spar_doc_ID + " and Atom_Price_Item_ID = "+ spar_atom_Price_Item_ID+" and "+ scond_ExtraDiscount;
+            DataTable dt = new DataTable();
+            string err = null;
+            if (DBSync.DBSync.Con.ReadDataTable(ref dt, sql,lpar,ref err))
+            {
+                int iCount = dt.Rows.Count;
+                if (iCount>0)
+                {
+                    doc_ShopC_Item_ID = new ID[iCount];
+                    stock_ID = new ID[iCount];
+                    for (int i=0;i<iCount;i++)
+                    { 
+                        doc_ShopC_Item_ID[i] = tf.set_ID(dt.Rows[i]["ID"]);
+                        stock_ID[i] = tf.set_ID(dt.Rows[i]["Stock_ID"]);
+                    }
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("iCount==0");
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_27_to_1_28:sql=" + sql + "\r\nErr=" + err);
+                return false;
+            }
+        }
 
         private static bool WriteDocProformaInvoice_ShopC_Item_Source(Transaction transaction)
         {
@@ -247,36 +455,74 @@ namespace UpgradeDB
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql_Temp, ref Err))
             {
+                int i = 0;
                 foreach (DataRow dr in dt.Rows)
                 {
-                    ID doc_ShopC_Item_ID = tf.set_ID(dr["ID"]);
+                    i++;
+
+                    ID doc_ShopC_Item_TEMP_ID = tf.set_ID(dr["ID"]);
                     ID doc_ID = tf.set_ID(dr["DocProformaInvoice_ID"]);
                     ID atom_Price_Item_ID = tf.set_ID(dr["Atom_Price_Item_ID"]);
-                    string sql = @"
-                    INSERT Into DocProformaInvoice_ShopC_Item_Source
-                    (
-                    DocProformaInvoice_ShopC_Item_ID,
-                    Stock_ID,
-                    dQuantity,
-                    SourceDiscount,
-		            RetailPriceWithDiscount,
-		            TaxPrice, 
-		            ExpiryDate
-		            )
-                    SELECT  
-                    " + doc_ShopC_Item_ID.ToString() + @",
-		            Stock_ID,
-		            dQuantity,
-                    0,
-		            RetailPriceWithDiscount,
-		            TaxPrice, 
-		            ExpiryDate
-		            from DocProformaInvoice_ShopC_Item where DocProformaInvoice_ID = " + doc_ID.ToString() + " and Atom_Price_Item_ID = " + atom_Price_Item_ID.ToString();
-
-                    if (!transaction.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
+                    decimal_v ExtraDiscount_v = tf.set_decimal(dr["ExtraDiscount"]);
+                    ID[] doc_ShopC_Item_ID = null;
+                    ID[] stock_ID = null;
+                    if (get_doc_ShopC_Item_ID("DocProformaInvoice", doc_ID, atom_Price_Item_ID, ExtraDiscount_v, ref doc_ShopC_Item_ID, ref stock_ID))
                     {
-                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_27_to_1_28:sql=" + sql + "\r\nErr=" + Err);
-                        return false;
+                        string sql = null;
+                        foreach (ID stock_id in stock_ID)
+                        {
+                            if (ID.Validate(stock_id))
+                            {
+                                sql = @"
+                                INSERT Into DocProformaInvoice_ShopC_Item_Source_TEMP
+                                (
+                                DocProformaInvoice_ShopC_Item_TEMP_ID,
+                                Stock_ID,
+                                dQuantity,
+                                SourceDiscount,
+		                        RetailPriceWithDiscount,
+		                        TaxPrice, 
+		                        ExpiryDate
+		                        )
+                                SELECT  
+                                " + doc_ShopC_Item_TEMP_ID.ToString() + @",
+	                            " + stock_id.ToString() + @",
+		                        dQuantity,
+                                0,
+		                        RetailPriceWithDiscount,
+		                        TaxPrice, 
+		                        ExpiryDate
+		                        from DocProformaInvoice_ShopC_Item where DocProformaInvoice_ID = " + doc_ID.ToString() + " and Atom_Price_Item_ID = " + atom_Price_Item_ID.ToString();
+                            }
+                            else
+                            {
+                                sql = @"
+                                INSERT Into DocProformaInvoice_ShopC_Item_Source_TEMP
+                                (
+                                DocProformaInvoice_ShopC_Item_TEMP_ID,
+                                Stock_ID,
+                                dQuantity,
+                                SourceDiscount,
+		                        RetailPriceWithDiscount,
+		                        TaxPrice, 
+		                        ExpiryDate
+		                        )
+                                SELECT  
+                                " + doc_ShopC_Item_TEMP_ID.ToString() + @",
+	                            null,
+		                        dQuantity,
+                                0,
+		                        RetailPriceWithDiscount,
+		                        TaxPrice, 
+		                        ExpiryDate
+		                        from DocProformaInvoice_ShopC_Item where DocProformaInvoice_ID = " + doc_ID.ToString() + " and Atom_Price_Item_ID = " + atom_Price_Item_ID.ToString();
+                            }
+                            if (!transaction.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con, sql, null, ref Err))
+                            {
+                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_27_to_1_28:sql=" + sql + "\r\nErr=" + Err);
+                                return false;
+                            }
+                        }
                     }
                 }
                 return true;

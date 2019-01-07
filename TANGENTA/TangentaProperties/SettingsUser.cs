@@ -101,7 +101,7 @@ namespace TangentaProperties
                         //Store its default value
                         ID SettingsType_ID = null;
                         string sSettingsValue = set_string_value(currentProperty.GetValue(mSettingsUserValues));
-                        if (f_SattingsType.Get(currentProperty.PropertyType.ToString(), ref SettingsType_ID, transaction))
+                        if (f_SettingsType.Get(currentProperty.PropertyType.ToString(), ref SettingsType_ID, transaction))
                         {
                             ID xPropertiesSettings_ID = null;
                             if (f_PropertiesSettings.Save(

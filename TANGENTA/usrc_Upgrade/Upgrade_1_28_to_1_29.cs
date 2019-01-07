@@ -18,14 +18,25 @@ namespace UpgradeDB
             cashierActivityList.Clear();
             if (DBSync.DBSync.Drop_VIEWs(ref Err, transaction_UpgradeDB_1_28_to_1_29))
             {
-                //change Atom_myOrganisation_Person
-                //change myOrganisation_Person
+                string[] new_tables = new string[] {
+                                        "PriceListImportType",
+                                        "PriceListCheckType",
+                                        "PriceListImport"
+                                    };
 
+                if (!DBSync.DBSync.CreateTables(new_tables, ref Err, transaction_UpgradeDB_1_28_to_1_29))
+                {
+                    transaction_UpgradeDB_1_28_to_1_29.Rollback();
+                    return false;
+                }
                 string strVAT_bit = "0";
                 if (DBSync.DBSync.DataBase.ToLower().Contains("studiomarjetka"))
                 {
                     strVAT_bit = "0";
                 }
+
+                transaction_UpgradeDB_1_28_to_1_29.Commit(); //commit before nontransaction mode!
+
                 string sql = @"
                     PRAGMA foreign_keys = OFF;
                     CREATE TABLE StockTake_TEMP ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -48,6 +59,16 @@ namespace UpgradeDB
                                                   PriceList_ID INTEGER NULL REFERENCES PriceList(ID)
                                                   );
 
+                    CREATE TABLE PriceList_TEMP  ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                    PriceList_Name_ID INTEGER NOT NULL REFERENCES PriceList_Name(ID),
+                                                    'Valid' BIT NOT NULL,
+                                                    Currency_ID INTEGER NOT NULL REFERENCES Currency(ID),
+                                                   'ValidFrom' DATETIME NULL,
+                                                   'ValidTo' DATETIME NULL,
+                                                    'CreationDate' DATETIME NULL,
+                                                    'Description' varchar(2000) NULL,
+                                                    PriceListImport_ID INTEGER NULL REFERENCES PriceListImport(ID));
+
                     Insert into StockTake_TEMP( ID,
                                                   Name,
                                                   StockTake_Date,
@@ -63,7 +84,7 @@ namespace UpgradeDB
                                                   Name,
                                                   StockTake_Date,
                                                   StockTakePriceTotal,
-                                                  "+strVAT_bit+@",
+                                                  " + strVAT_bit+ @",
                                                   Reference_ID,
                                                   Description,
                                                   Supplier_ID,
@@ -90,20 +111,47 @@ namespace UpgradeDB
                                                 1
                                                 from WorkArea;
 
+                    insert into PriceList_TEMP  (ID,
+                                                PriceList_Name_ID,
+                                                Valid,
+                                                Currency_ID,
+                                                ValidFrom,
+                                                ValidTo,
+                                                CreationDate,
+                                                Description,
+                                                PriceListImport_ID)
+                                                select
+                                                ID,
+                                                PriceList_Name_ID,
+                                                Valid,
+                                                Currency_ID,
+                                                ValidFrom,
+                                                ValidTo,
+                                                CreationDate,
+                                                Description,
+                                                null
+                                                from PriceList;
+
+
                                 DROP TABLE StockTake;
                                 ALTER TABLE StockTake_TEMP RENAME TO StockTake;
 
                                 DROP TABLE WorkArea;
                                 ALTER TABLE WorkArea_TEMP RENAME TO WorkArea;
 
+                                DROP TABLE PriceList;
+                                ALTER TABLE PriceList_TEMP RENAME TO PriceList;
+
                                 PRAGMA foreign_keys = ON;
                     ";
-                if (!transaction_UpgradeDB_1_28_to_1_29.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
+                DBSync.DBSync.Con.TransactionsOnly = false;
+                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                 {
                     transaction_UpgradeDB_1_28_to_1_29.Rollback();
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_28_to_1_29:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
+                DBSync.DBSync.Con.TransactionsOnly = true;
 
                 if (DBSync.DBSync.Create_VIEWs(transaction_UpgradeDB_1_28_to_1_29))
                 {

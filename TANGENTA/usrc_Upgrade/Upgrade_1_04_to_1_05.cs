@@ -37,7 +37,7 @@ namespace UpgradeDB
                 wfp_ui_thread.Message("$$$" + lng.s_UpgradeDatabase.s + Message_Title);
                 wfp_ui_thread.Message(lng.s_ReadTable.s + tbl.TableName);
                 SQLTable xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
                 TableDataItem dt_PersonData = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
@@ -56,7 +56,7 @@ namespace UpgradeDB
                 wfp_ui_thread.Message("$$$" + lng.s_UpgradeDatabase.s + Message_Title);
                 wfp_ui_thread.Message(lng.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
                 TableDataItem dt_myOrganisation = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
@@ -71,7 +71,7 @@ namespace UpgradeDB
                 wfp_ui_thread.Message("$$$" + lng.s_UpgradeDatabase.s + Message_Title);
                 wfp_ui_thread.Message(lng.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
                 TableDataItem dt_Atom_myOrganisation = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
@@ -86,7 +86,7 @@ namespace UpgradeDB
                 wfp_ui_thread.Message("$$$" + lng.s_UpgradeDatabase.s + Message_Title);
                 wfp_ui_thread.Message(lng.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
                 TableDataItem dt_Price_Item = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
@@ -100,7 +100,7 @@ namespace UpgradeDB
                 tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_SimpleItem));
                 wfp_ui_thread.Message(lng.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
                 TableDataItem dt_Price_SimpleItem = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
@@ -113,7 +113,7 @@ namespace UpgradeDB
                 tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationAccount));
                 wfp_ui_thread.Message(lng.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
                 TableDataItem dt_OrganisationAccount = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
@@ -127,7 +127,7 @@ namespace UpgradeDB
                 tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice_ShopB_Item));
                 wfp_ui_thread.Message(lng.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
                 TableDataItem dt_DocInvoice_ShopB_Item = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
@@ -141,7 +141,7 @@ namespace UpgradeDB
                 tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice_ShopC_Item));
                 wfp_ui_thread.Message(lng.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
                 TableDataItem dt_DocInvoice_ShopC_Item = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
@@ -157,7 +157,7 @@ namespace UpgradeDB
                 wfp_ui_thread.Message("$$$" + lng.s_UpgradeDatabase.s + Message_Title);
                 wfp_ui_thread.Message(lng.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
                 TableDataItem dt_DBSettings = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
@@ -173,7 +173,7 @@ namespace UpgradeDB
                 wfp_ui_thread.Message("$$$" + lng.s_UpgradeDatabase.s + Message_Title);
                 wfp_ui_thread.Message(lng.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
                 TableDataItem dt_BaseCurrency = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {

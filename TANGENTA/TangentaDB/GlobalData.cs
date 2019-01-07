@@ -496,13 +496,16 @@ namespace TangentaDB
                                 
                                 if (fs.Get_JOURNAL_TYPE_ID(transaction_Type_definitions_Read))
                                 {
-                                    if (transaction_Type_definitions_Read.Commit())
+                                    if (PriceList_definitions_Read(transaction_Type_definitions_Read))
                                     {
-                                        return true;
-                                    }
-                                    else
-                                    {
-                                        return false;
+                                        if (transaction_Type_definitions_Read.Commit())
+                                        {
+                                            return true;
+                                        }
+                                        else
+                                        {
+                                            return false;
+                                        }
                                     }
                                 }
                             }
@@ -511,6 +514,18 @@ namespace TangentaDB
                 }
             }
             transaction_Type_definitions_Read.Rollback();
+            return false;
+        }
+
+        private static bool PriceList_definitions_Read(Transaction transaction)
+        {
+            if (f_PriceListImportType.Get(transaction))
+            {
+                if (f_PriceListCheckType.Get(transaction))
+                {
+                    return true;
+                }
+            }
             return false;
         }
 

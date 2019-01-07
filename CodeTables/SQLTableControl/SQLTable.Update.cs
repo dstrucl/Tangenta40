@@ -50,7 +50,7 @@ namespace CodeTables
 
                                     Column id_column = col.ownerTable.IdentityColumn();
                                     id_column.obj = lID;
-                                    string sUniqueN = col.UniqueName(dbTables.items);
+                                    string sUniqueN = col.UniqueName(dbTables.DBT.items);
                                     //string sVar = "@Var_" + sUniqueN + col.Name;
                                     string sPar = DBtypesFunc.DbValueForSql(ref col.obj, col.obj.GetType().BaseType, sUniqueN, ref sqlParamList, col.Name);
                                     //string sPar = inpctrl.m_col.DbValueForSql(sUniqueN, ref sqlParamList);
@@ -227,7 +227,7 @@ namespace CodeTables
                             if (DBtypesFunc.IsValueDefined(col.obj))
                             {
                                 Column id_column = col.ownerTable.IdentityColumn();
-                                string sUniqueN = col.UniqueName(dbTables.items);
+                                string sUniqueN = col.UniqueName(dbTables.DBT.items);
                                 string sVar = "@Var_" + sUniqueN + col.Name;
                                 string sPar = DBtypesFunc.DbValueForSql(ref col.obj, col.BasicType(), sUniqueN, ref sqlParamList, col.Name);
                                 //string sPar = inpctrl.m_col.DbValueForSql(sUniqueN, ref sqlParamList);
@@ -252,7 +252,7 @@ namespace CodeTables
                                     {
 
                                         Column id_column_Parent = col.ownerTable.pParentTable.IdentityColumn();
-                                        string sUniqueN_id_column_Parent = id_column_Parent.UniqueName(dbTables.items);
+                                        string sUniqueN_id_column_Parent = id_column_Parent.UniqueName(dbTables.DBT.items);
 
                                         string sParID_Parent = DBtypesFunc.DbValueForSql(ref id_column_Parent.obj, id_column_Parent.BasicType(), sUniqueN, ref sqlParamList, id_column_Parent.Name);
                                         //string sParID_Parent = id_column_Parent.DbValueForSql(sUniqueN_id_column_Parent, ref sqlParamList);
@@ -420,7 +420,7 @@ namespace CodeTables
             //        {
             //            inpctrl.UpdateValue();
             //            Column id_column = inpctrl.m_col.ownerTable.IdentityColumn();
-            //            string sUniqueN = inpctrl.m_col.UniqueName(dbTables.items);
+            //            string sUniqueN = inpctrl.m_col.UniqueName(dbTables.DBT.items);
             //            string sVar = "@Var_" + sUniqueN + inpctrl.m_col.Name;
             //            string sPar = DBtypesFunc.DbValueForSql(ref inpctrl.m_col.obj, inpctrl.m_col.BasicType(), sUniqueN, ref sqlParamList, inpctrl.m_col.Name);
             //            //string sPar = inpctrl.m_col.DbValueForSql(sUniqueN, ref sqlParamList);
@@ -447,7 +447,7 @@ namespace CodeTables
 
             //                    string sParentfKeyColumnName = inpctrl.m_col.ownerTable.pParentTable.GetfKeyColumnName(inpctrl.m_col.ownerTable);
             //                    Column id_column_Parent = inpctrl.m_col.ownerTable.pParentTable.IdentityColumn();
-            //                    string sUniqueN_id_column_Parent = id_column_Parent.UniqueName(dbTables.items);
+            //                    string sUniqueN_id_column_Parent = id_column_Parent.UniqueName(dbTables.DBT.items);
 
             //                    string sParID_Parent = DBtypesFunc.DbValueForSql(ref id_column_Parent.obj, id_column_Parent.BasicType(), sUniqueN, ref sqlParamList, id_column_Parent.Name);
             //                    //string sParID_Parent = id_column_Parent.DbValueForSql(sUniqueN_id_column_Parent, ref sqlParamList);
@@ -961,10 +961,10 @@ namespace CodeTables
         //private bool Get_RowReferencedFromTable_List(DBTableControl dbTables,long id,ref List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List,ref int total_count, ref string Err)
         //{
         //    total_count = 0;
-        //    foreach (SQLTable x_tbl in dbTables.items)
+        //    foreach (SQLTable x_tbl in dbTables.DBT.items)
         //    {
         //        SQLTable tbl = new SQLTable(x_tbl);
-        //        tbl.CreateTableTree(dbTables.items);
+        //        tbl.CreateTableTree(dbTables.DBT.items);
         //        if (tbl.Column != null)
         //        {
         //            foreach (Column col in tbl.Column)

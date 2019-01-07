@@ -1620,6 +1620,33 @@ namespace TangentaTableClass
         public Name Name = new Name();
     }
 
+   
+    public class PriceIncrease : DB_Percent
+    {
+
+    }
+
+    public class PriceListImportType
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+    }
+
+    public class PriceListCheckType
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+    }
+
+    public class PriceListImport
+    {
+        public ID ID = new ID();
+        public PriceListImportType m_PriceListImportType = new PriceListImportType();
+        public PriceListCheckType m_PriceListCheckType = new PriceListCheckType();
+        public PriceIncrease PriceIncrease = new PriceIncrease();
+        public PriceList_Name m_PriceList_Name = new PriceList_Name();
+    }
+
     public class PriceList
     {
         public ID ID = new ID();
@@ -1630,6 +1657,7 @@ namespace TangentaTableClass
         public ValidTo ValidTo = new ValidTo();
         public Description Description = new Description();
         public CreationDate CreationDate = new CreationDate();
+        public PriceListImport m_PriceListImport = new PriceListImport();
     }
 
     public class Price_Item
@@ -3726,6 +3754,15 @@ namespace TangentaTableClass
 
         /* 253 */
         public StornoReason m_StornoReason = new StornoReason();
+
+        /* 254 */
+        public PriceListImportType m_PriceListImportType = new PriceListImportType();
+
+        /* 255 */
+        public PriceListCheckType m_PriceListCheckType = new PriceListCheckType();
+
+        /* 256 */
+        public PriceListImport m_PriceListImport = new PriceListImport();
 
     }
 }

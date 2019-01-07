@@ -1283,6 +1283,11 @@ namespace DBConnectionControl40
                     }
                     else
                     {
+                        if (m_con_SQLite.Con == null)
+                        {
+                            m_con_SQLite.Con = new SQLiteConnection(ConnectionString);
+                            return m_con_SQLite.BeginTransaction(transaction_name, ref transaction_id);
+                        }
                         return false;
                     }
 
@@ -3522,13 +3527,43 @@ namespace DBConnectionControl40
 
         }
 
-        #endregion PUBLIC MEMBER FUNCTIONS
-        #endregion PUBLIC
+        public bool TransactionsOnly
+        {
+
+            get
+            {
+                switch (m_DBType)
+                {
+                    case eDBType.MSSQL:
+                        return false;// m_con_MSSQL.TransactionsOnly;
+                    case eDBType.MYSQL:
+                        return false;// m_con_MYSQL.TransactionsOnly;
+                    case eDBType.SQLITE:
+                        return m_con_SQLite.TransactionsOnly;
+                    default:
+                        return false;
+                }
+
+            }
+
+            set
+            {
+                switch (m_DBType)
+                {
+                    case eDBType.SQLITE:
+                        m_con_SQLite.TransactionsOnly = value;
+                        break;
+                }
+            }
+        }
+
+#endregion PUBLIC MEMBER FUNCTIONS
+#endregion PUBLIC
 
 
 
 
-        internal void Create_m_conData_MSSQL(bool p, string p_2, string p_3, string p_4, string p_5, string p_6, string p_7)
+internal void Create_m_conData_MSSQL(bool p, string p_2, string p_3, string p_4, string p_5, string p_6, string p_7)
         {
             throw new NotImplementedException();
         }

@@ -271,7 +271,14 @@ namespace DBConnectionControl40
         {
             get
             {
-                return Con.State;
+                if (Con != null)
+                {
+                    return Con.State;
+                }
+                else
+                {
+                    return ConnectionState.Broken;
+                }
             }
         }
 
@@ -299,6 +306,10 @@ namespace DBConnectionControl40
                     m_TransactionName = transaction_name;
                     m_TransactionNumber++;
                     transaction_id = TransactionName;
+                    if (Con.State!=ConnectionState.Open)
+                    {
+                        Con.Open();
+                    }
                     Tran = Con.BeginTransaction();
                     if (cmd==null)
                     {

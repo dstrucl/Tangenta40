@@ -24,6 +24,16 @@ namespace TangentaDB
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name); 
         }
 
+        public static ltext s_ImportType_not_defined = new ltext(new string[] { "Not used", "Ni v uporabi" });
+        public static ltext s_ImportType_PurchasePrices = new ltext(new string[] { "Import prices from purchase prices", "Uvozi cene iz nabavnih cen" });
+        public static ltext s_ImportType_OtherPriceList = new ltext(new string[] { "Import prices from other price list", "Uvozi cene iz drugega cenika" });
+
+        public static ltext s_ImportCheck_not_defined = new ltext(new string[] { "Not used", "Ni v uporabi" });
+        public static ltext s_ImportCheck_OnStartupEachDay = new ltext(new string[] { "On startup each day","Ob zagonu vsak dan" });
+        public static ltext s_ImportCheck_OnStartupEachWeek = new ltext(new string[] { "On startup each week", "Ob zagonu vsak teden"});
+        public static ltext s_ImportCheck_OnStartupEachMonth = new ltext(new string[] { "On startup each month", "Ob zagonu vsak mesec" });
+
+
         public static ltext s_Undefined = new ltext(new string[] { "Undefined", "Nedoločeno" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\CashierActivity.cs
 
         public static ltext s_To = new ltext(new string[] { "to", "do" });

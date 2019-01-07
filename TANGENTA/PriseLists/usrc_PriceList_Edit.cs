@@ -208,7 +208,7 @@ namespace PriseLists
                 if (nav.m_eButtons == Navigation.eButtons.OkCancel)
                 {
                     SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Taxation)));
-                    tbl_Taxation.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                    tbl_Taxation.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
                     SelectID_Table_Assistant_Form SelectID_Table_dlg = new SelectID_Table_Assistant_Form(tbl_Taxation, DBSync.DBSync.DB_for_Tangenta.m_DBTables, null);
                     SelectID_Table_dlg.ShowDialog();
                     ID id_Taxation = SelectID_Table_dlg.ID;
@@ -227,7 +227,7 @@ namespace PriseLists
                                 if (tbl_Price_SimpleItem == null)
                                 {
                                     tbl_Price_SimpleItem = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_SimpleItem)));
-                                    tbl_Price_SimpleItem.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                                    tbl_Price_SimpleItem.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
                                 }
                                 else
                                 {
@@ -272,7 +272,7 @@ namespace PriseLists
                                 if (tbl_Price_Item == null)
                                 {
                                     tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_Item)));
-                                    tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                                    tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
                                 }
                                 else
                                 {
@@ -410,7 +410,7 @@ namespace PriseLists
                         if (tbl_Price_SimpleItem == null)
                         {
                             tbl_Price_SimpleItem = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_SimpleItem)));
-                            tbl_Price_SimpleItem.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                            tbl_Price_SimpleItem.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
                         }
                         else
                         {
@@ -459,7 +459,7 @@ namespace PriseLists
                         if (tbl_Price_Item == null)
                         {
                             tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_Item)));
-                            tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                            tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
                         }
                         else
                         {

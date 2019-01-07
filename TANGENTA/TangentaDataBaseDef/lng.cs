@@ -24,6 +24,12 @@ namespace TangentaDataBaseDef
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext lngt_PriceListImport = new ltext(new string[] { "PriceList Import", "Uvoz v cenik" });
+
+        public static ltext lngt_PriceListCheckType = new ltext(new string[] { "PriceList Check Type ", "Način preverjanja cenika" });
+
+        public static ltext lngt_PriceListImportType = new ltext(new string[] { "PriceList Import Type ", "Način uvoza v cenik" });
+
         public static ltext lngt_t_StornoReason = new ltext(new string[] { "Storno Reason", "Razlog stornacije" });
 
         public static ltext lngt_t_StornoName = new ltext(new string[] { "Storno Name", "Ime stornacije" });

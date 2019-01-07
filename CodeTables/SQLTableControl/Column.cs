@@ -254,8 +254,8 @@ namespace CodeTables
                         {
                             DBm_owner_Table = this.ownerTable;
                         }
-                        new_ref_Table = new SQLTable(refTable, DBm_owner_Table, dbTables.items);
-                        dbTables.items.Add(new_ref_Table);
+                        new_ref_Table = new SQLTable(refTable, DBm_owner_Table, dbTables.DBT.items);
+                        dbTables.DBT.items.Add(new_ref_Table);
 
                         string new_sql_DBm = new_ref_Table.MSSQLcmd_CreateTable(dbTables, UniqueConstraintNameList, ref sql_DBm, DBm_owner_Table);
                         sql_DBm += new_sql_DBm;
@@ -331,8 +331,8 @@ namespace CodeTables
                         {
                             DBm_owner_Table = this.ownerTable;
                         }
-                        new_ref_Table = new SQLTable(refTable, DBm_owner_Table, dbTables.items);
-                        dbTables.items.Add(new_ref_Table);
+                        new_ref_Table = new SQLTable(refTable, DBm_owner_Table, dbTables.DBT.items);
+                        dbTables.DBT.items.Add(new_ref_Table);
 
                         string new_sql_DBm = new_ref_Table.MySQLcmd_CreateTable(dbTables, UniqueConstraintNameList, ref sql_DBm, DBm_owner_Table);
                         sql_DBm += new_sql_DBm;
@@ -430,8 +430,8 @@ namespace CodeTables
                         {
                             DBm_owner_Table = this.ownerTable;
                         }
-                        new_ref_Table = new SQLTable(refTable, DBm_owner_Table, dbTables.items);
-                        dbTables.items.Add(new_ref_Table);
+                        new_ref_Table = new SQLTable(refTable, DBm_owner_Table, dbTables.DBT.items);
+                        dbTables.DBT.items.Add(new_ref_Table);
 
                         string new_sql_DBm = new_ref_Table.SQLitecmd_CreateTable(dbTables, UniqueConstraintNameList, ref sql_DBm, DBm_owner_Table);
                         sql_DBm += new_sql_DBm;
@@ -487,8 +487,8 @@ namespace CodeTables
                         {
                             DBm_owner_Table = this.ownerTable;
                         }
-                        new_ref_Table = new SQLTable(refTable, DBm_owner_Table, dbTables.items);
-                        dbTables.items.Add(new_ref_Table);
+                        new_ref_Table = new SQLTable(refTable, DBm_owner_Table, dbTables.DBT.items);
+                        dbTables.DBT.items.Add(new_ref_Table);
 
                         new_ref_Table.SQLitecmd_CreateFkeys(dbTables,  DBm_owner_Table);
 

@@ -48,7 +48,7 @@ namespace PriseLists
             m_eShopType = xeShopType;
             bEditUndefined = xbEditUndefined;
             m_tbl_PriceList = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(PriceList)));
-            m_tbl_PriceList.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+            m_tbl_PriceList.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
             this.Text = lng.s_PriceListType.s;
         }
 

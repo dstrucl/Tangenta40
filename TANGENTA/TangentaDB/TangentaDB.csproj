@@ -156,6 +156,8 @@
     <Compile Include="f_cCity_Person.cs" />
     <Compile Include="f_cCountry_Org.cs" />
     <Compile Include="f_cCountry_Person.cs" />
+    <Compile Include="f_PriceListCheckType.cs" />
+    <Compile Include="f_PriceListImportType.cs" />
     <Compile Include="f_StornoReason.cs" />
     <Compile Include="f_StornoName.cs" />
     <Compile Include="f_cFirstName.cs" />
@@ -229,7 +231,7 @@
     <Compile Include="f_Atom_ShopBItem.cs" />
     <Compile Include="f_Reference.cs" />
     <Compile Include="f_Reference_Image.cs" />
-    <Compile Include="f_SattingsType.cs" />
+    <Compile Include="f_SettingsType.cs" />
     <Compile Include="f_SettingsValue.cs" />
     <Compile Include="f_SimpleItem.cs" />
     <Compile Include="f_SimpleItemAtom_Image.cs" />

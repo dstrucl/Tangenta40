@@ -27,7 +27,7 @@ namespace UpgradeDB
             wfp_ui_thread.Message("$$$" + lng.s_UpgradeDatabase.s + " 1.01 -> 1.02");
             wfp_ui_thread.Message(lng.s_ReadTable.s + tbl.TableName);
             SQLTable xtbl = new SQLTable(tbl);
-            xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+            xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
             TableDataItem dt_Price_Item = new TableDataItem(xtbl, ref dt_List, null, ref Err);
             if (Err != null)
             {
@@ -41,7 +41,7 @@ namespace UpgradeDB
             tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_SimpleItem));
             wfp_ui_thread.Message(lng.s_ReadTable.s + tbl.TableName);
             xtbl = new SQLTable(tbl);
-            xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+            xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
             TableDataItem dt_Price_SimpleItem = new TableDataItem(xtbl, ref dt_List, null, ref Err);
             if (Err != null)
             {
@@ -54,7 +54,7 @@ namespace UpgradeDB
             tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationAccount));
             wfp_ui_thread.Message(lng.s_ReadTable.s + tbl.TableName);
             xtbl = new SQLTable(tbl);
-            xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+            xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
             TableDataItem dt_OrganisationAccount = new TableDataItem(xtbl, ref dt_List, null, ref Err);
             if (Err != null)
             {

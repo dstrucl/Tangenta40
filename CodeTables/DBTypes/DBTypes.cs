@@ -1198,7 +1198,7 @@ namespace DBTypes
                     tableName = tableName.Substring(ij + 1);
                 }
 
-                string csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.items.Add(tbl_" + tableName + ")";
+                string csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.DBT.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.DBT.items.Add(tbl_" + tableName + ")";
                 Error.Show(csError, "Program Error!");
                 return csError;
             }
@@ -1331,7 +1331,7 @@ namespace DBTypes
                 //    tableName = tableName.Substring(ij + 1);
                 //}
 
-                //string csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.items.Add(tbl_" + tableName + ")";
+                //string csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.DBT.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.DBT.items.Add(tbl_" + tableName + ")";
                 //Error.Show(csError, "Program Error!");
                 //return false;
             }
@@ -1457,7 +1457,7 @@ namespace DBTypes
                 //    tableName = tableName.Substring(ij + 1);
                 //}
 
-                //string csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.items.Add(tbl_" + tableName + ")";
+                //string csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.DBT.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.DBT.items.Add(tbl_" + tableName + ")";
                 //Error.Show(csError, "Program Error!");
                 return -1;
             }
@@ -1589,7 +1589,7 @@ namespace DBTypes
                     tableName = tableName.Substring(ij + 1);
                 }
 
-                string csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.items.Add(tbl_" + tableName + ")";
+                string csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.DBT.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.DBT.items.Add(tbl_" + tableName + ")";
                 Error.Show(csError, "Program Error!");
                 return csError;
             }
@@ -1725,7 +1725,7 @@ namespace DBTypes
                     tableName = tableName.Substring(ij + 1);
                 }
 
-                string csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.items.Add(tbl_" + tableName + ")";
+                string csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.DBT.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.DBT.items.Add(tbl_" + tableName + ")";
                 LogFile.Error.Show(csError, "Program Error!");
                 return csError;
             }
@@ -3928,7 +3928,7 @@ namespace DBTypes
     //        {
     //            tableName = tableName.Substring(ij + 1);
     //        }
-    //        csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.items.Add(tbl_" + tableName + ")" +
+    //        csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.DBT.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.DBT.items.Add(tbl_" + tableName + ")" +
     //                  "\r\n or basic type " + baseType.ToString() + " is not type (field) in DBTypes class!";
     //        return false;
     //    }
@@ -4031,7 +4031,7 @@ namespace DBTypes
     //                tableName = tableName.Substring(ij + 1);
     //            }
 
-    //            string csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.items.Add(tbl_" + tableName + ")";
+    //            string csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.DBT.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.DBT.items.Add(tbl_" + tableName + ")";
     //            Error.Show(csError, "Program Error!");
     //            return csError;
     //        }
@@ -4136,7 +4136,7 @@ namespace DBTypes
     //            //    tableName = tableName.Substring(ij + 1);
     //            //}
 
-    //            //string csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.items.Add(tbl_" + tableName + ")";
+    //            //string csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.DBT.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.DBT.items.Add(tbl_" + tableName + ")";
     //            //Error.Show(csError, "Program Error!");
     //            //return false;
     //        }
@@ -4246,7 +4246,7 @@ namespace DBTypes
     //            //    tableName = tableName.Substring(ij + 1);
     //            //}
 
-    //            //string csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.items.Add(tbl_" + tableName + ")";
+    //            //string csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.DBT.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.DBT.items.Add(tbl_" + tableName + ")";
     //            //Error.Show(csError, "Program Error!");
     //            return -1;
     //        }
@@ -4354,7 +4354,7 @@ namespace DBTypes
     //                tableName = tableName.Substring(ij + 1);
     //            }
 
-    //            string csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.items.Add(tbl_" + tableName + ")";
+    //            string csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.DBT.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.DBT.items.Add(tbl_" + tableName + ")";
     //            Error.Show(csError, "Program Error!");
     //            return csError;
     //        }
@@ -4461,7 +4461,7 @@ namespace DBTypes
     //                tableName = tableName.Substring(ij + 1);
     //            }
 
-    //            string csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.items.Add(tbl_" + tableName + ")";
+    //            string csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.DBT.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.DBT.items.Add(tbl_" + tableName + ")";
     //            LogFile.Error.Show(csError, "Program Error!");
     //            return csError;
     //        }

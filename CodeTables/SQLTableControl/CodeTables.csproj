@@ -123,6 +123,7 @@
       <DependentUpon>CreateTables_WindowsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CreateTables_WindowsForm_Thread.cs" />
+    <Compile Include="DataBaseTables.cs" />
     <Compile Include="DataBaseView.cs" />
     <Compile Include="DefWinowsPos.cs" />
     <Compile Include="Document_Box.cs">

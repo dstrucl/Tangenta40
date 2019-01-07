@@ -324,7 +324,7 @@ namespace CodeTables
                                     ID ID = null;
                                     string csError = null;
                                     bool bSomethingDefined = false;
-                                    if (sqlTbl.SQLcmd_InsertInto_SQLITE(dbTables.Con, PrevVar, ref sVarID, /*ref  lsqlPar,*/ dbTables.items,ref bSomethingDefined, ref ID, ref csError, transaction))
+                                    if (sqlTbl.SQLcmd_InsertInto_SQLITE(dbTables.Con, PrevVar, ref sVarID, /*ref  lsqlPar,*/ dbTables.DBT.items,ref bSomethingDefined, ref ID, ref csError, transaction))
                                     {
                                         if (ID.Validate(ID))
                                         {
@@ -342,7 +342,7 @@ namespace CodeTables
                                 }
                                 else
                                 {
-                                    sqlTbl.SQLcmd_Insert_MSSQL(ref sbSQLInsert, sPrevVar, ref sVarID, ref lsqlPar, dbTables.items,0);
+                                    sqlTbl.SQLcmd_Insert_MSSQL(ref sbSQLInsert, sPrevVar, ref sVarID, ref lsqlPar, dbTables.DBT.items,0);
                                     if (transaction.ExecuteNonQuerySQL(dbTables.Con,sbSQLInsert.ToString(), lsqlPar, ref ErrorMsg))
                                     {
                                         lsqlPar.Clear();
@@ -413,10 +413,10 @@ namespace CodeTables
                         string sTableName = sLine.Substring(iTableNameStart + 1, iTableNameEnd - iTableNameStart - 1);
                         sTableName = sTableName.TrimStart(trimChars);
                         sTableName = sTableName.TrimEnd(trimChars);
-                        if (Globals.FindTable(out refsqlTbl, sTableName, dbTables.items))
+                        if (Globals.FindTable(out refsqlTbl, sTableName, dbTables.DBT.items))
                         {
                             sqlTbl = new SQLTable(refsqlTbl);
-                            sqlTbl.CreateTableTree(dbTables.items);
+                            sqlTbl.CreateTableTree(dbTables.DBT.items);
                             index++;
                             continue;
                         }

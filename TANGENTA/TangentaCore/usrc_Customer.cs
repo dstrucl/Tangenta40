@@ -144,7 +144,7 @@ namespace TangentaCore
         private void Select_Customer_Person()
         {
             SQLTable tbl_Customer_Person = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Customer_Person)));
-            tbl_Customer_Person.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+            tbl_Customer_Person.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
             string sql = @"SELECT
             Customer_Person.ID,
             Customer_Person_$_per.ID AS Customer_Person_$_per_$$ID,
@@ -217,7 +217,7 @@ namespace TangentaCore
         private void Select_Customer_Org()
         {
             SQLTable tbl_Customer_Org = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Customer_Org)));
-            tbl_Customer_Org.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+            tbl_Customer_Org.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
             string[] sColumnsToView = new string[] { "Customer_Org_$_orgd_$_org_$$Name",
                                                      "Customer_Org_$_orgd_$_org_$$Tax_ID",
                                                      "Customer_Org_$_orgd_$_cadrorg_$_cstrnorg_$$StreetName",

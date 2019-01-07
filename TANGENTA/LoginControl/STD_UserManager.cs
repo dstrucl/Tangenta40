@@ -971,7 +971,7 @@ namespace LoginControl
         ////        m_amb_user.Active.val = true;
         ////        m_tbl_amb_user.SetColumnValues(m_amb_user);
         ////        row_ID = -1;
-        ////        if (m_tbl_amb_user.SQLcmd_InsertInto(m_DB_Local.m_DBTables.m_con, m_DB_Local.m_DBTables.items, ref csError, m_DB_Local.m_DBTables.m_strSQLUseDatabase, ref row_ID))
+        ////        if (m_tbl_amb_user.SQLcmd_InsertInto(m_DB_Local.m_DBTables.m_con, m_DB_Local.m_DBTables.DBT.items, ref csError, m_DB_Local.m_DBTables.m_strSQLUseDatabase, ref row_ID))
         ////        {
         ////            return true;
         ////        }

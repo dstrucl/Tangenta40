@@ -131,11 +131,11 @@ namespace UpgradeDB
                 {
                     dr[exsist_in_m_DBTables_items] = false;
                 }
-                int iCount_items = DBSync.DBSync.DB_for_Tangenta.m_DBTables.items.Count;
+                int iCount_items = DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items.Count;
                 int i;
                 for (i=0;i< iCount_items; i++)
                 {
-                    string table_name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.items[i].TableName;
+                    string table_name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items[i].TableName;
                     DataRow[] drs =  dt.Select("name = '" + table_name + "'");
                     if (drs.Count() > 0)
                     {

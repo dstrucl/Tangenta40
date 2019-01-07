@@ -36,11 +36,11 @@ namespace TangentaDB
         public static bool Get_JOURNAL_StockTake_Type_ID(Transaction transaction)
         {
 
-            if (fs.Get_JOURNAL_TYPE(JOURNAL_StockTake_Type_TABLE, New_StockTake_opened, ref m_JOURNAL_StockTake_Type_ID_New_StockTake_opened, transaction))
+            if (fs.Get_TABLE_TYPE(JOURNAL_StockTake_Type_TABLE, New_StockTake_opened, ref m_JOURNAL_StockTake_Type_ID_New_StockTake_opened, transaction))
             {
-                if (fs.Get_JOURNAL_TYPE(JOURNAL_StockTake_Type_TABLE, Opened_StockTake_closed, ref m_JOURNAL_StockTake_Type_ID_Opened_StockTake_closed, transaction))
+                if (fs.Get_TABLE_TYPE(JOURNAL_StockTake_Type_TABLE, Opened_StockTake_closed, ref m_JOURNAL_StockTake_Type_ID_Opened_StockTake_closed, transaction))
                 {
-                    if (fs.Get_JOURNAL_TYPE(JOURNAL_StockTake_Type_TABLE, Closed_StockTake_changed, ref m_JOURNAL_StockTake_Type_ID_Closed_StockTake_reopened, transaction))
+                    if (fs.Get_TABLE_TYPE(JOURNAL_StockTake_Type_TABLE, Closed_StockTake_changed, ref m_JOURNAL_StockTake_Type_ID_Closed_StockTake_reopened, transaction))
                     {
                             return true;
                     }

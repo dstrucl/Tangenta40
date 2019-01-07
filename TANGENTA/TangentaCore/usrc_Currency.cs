@@ -71,7 +71,7 @@ namespace TangentaCore
         private void Select_Currency(Navigation xnav, ref string err)
         {
             SQLTable tbl_Currency = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Currency)));
-            tbl_Currency.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+            tbl_Currency.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.DBT.items);
             string sql = @"SELECT
             Name,
             Abbreviation,

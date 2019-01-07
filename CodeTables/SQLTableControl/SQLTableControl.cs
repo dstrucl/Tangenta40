@@ -108,11 +108,22 @@ namespace CodeTables
         DataTable SQLite_tables = null;
         DataTable SQLite_columns_table = null;
 
-        public List<SQLTable> items = new List<SQLTable>();
+        private DataBaseTables m_DBT = null;
+        public DataBaseTables DBT
+        {
+            get
+            {
+                return m_DBT;
+            }
+            set
+            {
+                m_DBT = value;
+            }
+        }
 
         public List<DataBaseView> SQL_DataBase_VIEW_List = new List<DataBaseView>();
 
-        public enum enumDataBaseCheckResult { OK, NO_DATABASE_CONNECTION,NO_TABLES, TABLE_MISSING, COLUMN_MISSING, FOREIGN_KEY_MISSING, PRIMARY_KEY_MISSING, CONNECTION_FAILED, ERROR };
+        public enum enumDataBaseCheckResult { OK, NO_DATABASE_CONNECTION,NO_TABLES, TABLE_MISSING, COLUMN_MISSING, FOREIGN_KEY_MISSING, PRIMARY_KEY_MISSING, CONNECTION_FAILED, WRONG_DBVERSION, ERROR };
         public StringBuilder m_strSQLUseDatabase = null;
         StringBuilder m_strSQLCheckTables = new StringBuilder();
         public Form m_ParentForm;
@@ -135,7 +146,7 @@ namespace CodeTables
             }
             foreach (string stbl in table_names)
             {
-                foreach (SQLTable tbl in items)
+                foreach (SQLTable tbl in DBT.items)
                 {
                     if (stbl.ToLower().Equals(tbl.TableName.ToLower()))
                     {
@@ -165,13 +176,13 @@ namespace CodeTables
         {
             int iTable;
             int iTableCount;
-            iTableCount = items.Count;
+            iTableCount = DBT.items.Count;
 
             for (iTable = iTableCount - 1; iTable >= 0; iTable--)
             {
-                if (items[iTable].objTable.GetType() == typeOrefTable)
+                if (DBT.items[iTable].objTable.GetType() == typeOrefTable)
                 {
-                    return items[iTable];
+                    return DBT.items[iTable];
                 }
             }
             return null;
@@ -225,7 +236,7 @@ namespace CodeTables
                 //strSql.Append(Create_Database_Table(col_evl_History, m_evl_History));
                 int iTable;
                 int iTableCount;
-                iTableCount = items.Count;
+                iTableCount = DBT.items.Count;
 
                 List<string> UniqueConstraintNameList = new List<string>();
                 string sql_DBm = "";
@@ -235,8 +246,8 @@ namespace CodeTables
                 for (iTable = 0; iTable < iTableCount; iTable++)
                 {
                     DataRow dr = dtSQLdb.NewRow();
-                    dr[dcol_TableName] = items[iTable].TableName;
-                    SQLTable tbl = items[iTable];
+                    dr[dcol_TableName] = DBT.items[iTable].TableName;
+                    SQLTable tbl = DBT.items[iTable];
                     if (DBtypesFunc.Is_DBm_Type(tbl.objTable))
                     {
                         continue; // ignore DBm_*  Tables
@@ -260,12 +271,12 @@ namespace CodeTables
                     switch (Con.DBType)
                     {
                         case DBConnection.eDBType.MYSQL:
-                            dr[dcol_SQL_AddFkey] = items[iTable].SQLcmdMySQL_AlterTableAddConstraintForeign();
+                            dr[dcol_SQL_AddFkey] = DBT.items[iTable].SQLcmdMySQL_AlterTableAddConstraintForeign();
                             strTableAlterTable.Append((string)dr[dcol_SQL_AddFkey]);
                             break;
 
                         case DBConnection.eDBType.MSSQL:
-                            dr[dcol_SQL_AddFkey] = items[iTable].SQLcmdMSSQL_AlterTableAddConstraintForeign();
+                            dr[dcol_SQL_AddFkey] = DBT.items[iTable].SQLcmdMSSQL_AlterTableAddConstraintForeign();
                             strTableAlterTable.Append((string)dr[dcol_SQL_AddFkey]);
                             break;
 
@@ -287,7 +298,7 @@ namespace CodeTables
                     DataRow dr = dtSQLdb.Rows[iTable];
                     Application.DoEvents();
                     string table_view = null;
-                    StringBuilder SQLCreateView_InDataBase = items[iTable].SQLCreateView_InDataBase(items);
+                    StringBuilder SQLCreateView_InDataBase = DBT.items[iTable].SQLCreateView_InDataBase(DBT.items);
                     if (SQLCreateView_InDataBase.Length > 0)
                     {
                         switch (Con.DBType)
@@ -296,7 +307,7 @@ namespace CodeTables
                                 break;
 
                             case DBConnection.eDBType.MSSQL:
-                                foreach (SQLTable.Table_View.ColumnNames cnames in items[iTable].m_Table_View.View_ColumnNames_List)
+                                foreach (SQLTable.Table_View.ColumnNames cnames in DBT.items[iTable].m_Table_View.View_ColumnNames_List)
                                 {
                                     if (cnames.Name.Length >= 128)
                                     {
@@ -308,7 +319,7 @@ namespace CodeTables
                                         {
                                             if (table_view == null)
                                             {
-                                                table_view = items[iTable].ViewName;
+                                                table_view = DBT.items[iTable].ViewName;
                                                 ErrMSSQLNameToLong += "\r\n  " + table_view;
                                             }
                                         }
@@ -328,11 +339,11 @@ namespace CodeTables
                                 break;
                         }
 
-                        items[iTable].sql_CreateView = SQLCreateView_InDataBase.ToString();
-                        dr[dcol_ViewName] = items[iTable].ViewName;
-                        dr[dcol_SQL_CreateView] = items[iTable].sql_CreateView;
+                        DBT.items[iTable].sql_CreateView = SQLCreateView_InDataBase.ToString();
+                        dr[dcol_ViewName] = DBT.items[iTable].ViewName;
+                        dr[dcol_SQL_CreateView] = DBT.items[iTable].sql_CreateView;
 
-                        DataBaseView xDataBaseView = new DataBaseView(items[iTable].ViewName, SQLCreateView_InDataBase.ToString());
+                        DataBaseView xDataBaseView = new DataBaseView(DBT.items[iTable].ViewName, SQLCreateView_InDataBase.ToString());
                         SQL_DataBase_VIEW_List.Add(xDataBaseView);
                     }
                 }
@@ -358,7 +369,7 @@ namespace CodeTables
                     //strSql.Append(Create_Database_Table(col_evl_History, m_evl_History));
                     int iTable;
                     int iTableCount;
-                    iTableCount = items.Count;
+                    iTableCount = DBT.items.Count;
 
                     List<string> UniqueConstraintNameList = new List<string>();
                     string sql_DBm = "";
@@ -368,8 +379,8 @@ namespace CodeTables
                     for (iTable = 0; iTable < iTableCount; iTable++)
                     {
                         DataRow dr = dtSQLdb.Rows[iTable];
-                        items[iTable].TableName = (string)dr[col_TABLE_NAME];
-                        SQLTable tbl = items[iTable];
+                        DBT.items[iTable].TableName = (string)dr[col_TABLE_NAME];
+                        SQLTable tbl = DBT.items[iTable];
                         if (DBtypesFunc.Is_DBm_Type(tbl.objTable))
                         {
                             continue; // ignore DBm_*  Tables
@@ -408,7 +419,7 @@ namespace CodeTables
                                 break;
 
                             case DBConnection.eDBType.SQLITE:
-                                //strTable = new StringBuilder(items[iTable].SQLcmd_AlterTableAddConstraintForeign());
+                                //strTable = new StringBuilder(DBT.items[iTable].SQLcmd_AlterTableAddConstraintForeign());
                                 break;
 
                             default:
@@ -431,11 +442,11 @@ namespace CodeTables
                             string_v viewName_v = tf.set_string(dr[col_VIEW_NAME]);
                             if (viewName_v != null)
                             {
-                                if (items[iTable].m_Table_View==null)
+                                if (DBT.items[iTable].m_Table_View==null)
                                 {
-                                    items[iTable].m_Table_View = new SQLTable.Table_View();
+                                    DBT.items[iTable].m_Table_View = new SQLTable.Table_View();
                                 }
-                                items[iTable].ViewName = viewName_v.v;
+                                DBT.items[iTable].ViewName = viewName_v.v;
                             }
                             StringBuilder SQLCreateView_InDataBase = new StringBuilder(s_v.v);
                             if (SQLCreateView_InDataBase.Length > 0)
@@ -446,7 +457,7 @@ namespace CodeTables
                                         break;
 
                                     case DBConnection.eDBType.MSSQL:
-                                        foreach (SQLTable.Table_View.ColumnNames cnames in items[iTable].m_Table_View.View_ColumnNames_List)
+                                        foreach (SQLTable.Table_View.ColumnNames cnames in DBT.items[iTable].m_Table_View.View_ColumnNames_List)
                                         {
                                             if (cnames.Name.Length >= 128)
                                             {
@@ -458,7 +469,7 @@ namespace CodeTables
                                                 {
                                                     if (table_view == null)
                                                     {
-                                                        table_view = items[iTable].ViewName;
+                                                        table_view = DBT.items[iTable].ViewName;
                                                         ErrMSSQLNameToLong += "\r\n  " + table_view;
                                                     }
                                                 }
@@ -478,10 +489,10 @@ namespace CodeTables
                                         break;
                                 }
 
-                                items[iTable].sql_CreateView = SQLCreateView_InDataBase.ToString();
-                                items[iTable].SQLitecmd_CreateFkeys(this, null);
-                                //items[iTable].CreateTableTree(items);
-                                DataBaseView xDataBaseView = new DataBaseView(items[iTable].ViewName, SQLCreateView_InDataBase.ToString());
+                                DBT.items[iTable].sql_CreateView = SQLCreateView_InDataBase.ToString();
+                                DBT.items[iTable].SQLitecmd_CreateFkeys(this, null);
+                                //DBT.items[iTable].CreateTableTree(DBT.items);
+                                DataBaseView xDataBaseView = new DataBaseView(DBT.items[iTable].ViewName, SQLCreateView_InDataBase.ToString());
                                 SQL_DataBase_VIEW_List.Add(xDataBaseView);
                             }
                         }
@@ -494,7 +505,7 @@ namespace CodeTables
                     //    {
                     //        if (jTable != iTable)
                     //        {
-                    //            foreach (Column col in items[iTable].Column)
+                    //            foreach (Column col in DBT.items[iTable].Column)
                     //            {
                     //                if (!col.IsIdentity)
                     //                {
@@ -502,9 +513,9 @@ namespace CodeTables
                     //                    {
                     //                        if (col.fKey.refInListOfTables != null)
                     //                        {
-                    //                            if (col.fKey.refInListOfTables.TableName.Equals(items[jTable].TableName))
+                    //                            if (col.fKey.refInListOfTables.TableName.Equals(DBT.items[jTable].TableName))
                     //                            {
-                    //                                col.fKey.refInListOfTables.ReferencesToThisTable.Add(items[iTable], col.Name);
+                    //                                col.fKey.refInListOfTables.ReferencesToThisTable.Add(DBT.items[iTable], col.Name);
                     //                            }
                     //                        }
                     //                    }
@@ -540,7 +551,7 @@ namespace CodeTables
                 ");
           //  int iTable;
             int iTableCount;
-            iTableCount = items.Count;
+            iTableCount = DBT.items.Count;
 
             foreach (DataBaseView dbv in SQL_DataBase_VIEW_List)
             {
@@ -582,7 +593,7 @@ namespace CodeTables
                 ");
             int iTable;
             int iTableCount;
-            iTableCount = items.Count;
+            iTableCount = DBT.items.Count;
 
             foreach (DataBaseView dbv in SQL_DataBase_VIEW_List)
             {
@@ -610,26 +621,26 @@ namespace CodeTables
             }
             for (iTable = iTableCount - 1; iTable >= 0; iTable--)
             {
-                if (DBtypesFunc.Is_DBm_Type(items[iTable]))
+                if (DBtypesFunc.Is_DBm_Type(DBT.items[iTable]))
                 {
                     continue;
                 }
                 else
                 {
-                    StringBuilder strTable = new StringBuilder(items[iTable].SQLcmd_AlterTableDropConstraintForeign());
+                    StringBuilder strTable = new StringBuilder(DBT.items[iTable].SQLcmd_AlterTableDropConstraintForeign());
                     strSqlAll.Append(strTable);
                 }
             }
 
             for (iTable = iTableCount - 1; iTable >= 0; iTable--)
             {
-                if (DBtypesFunc.Is_DBm_Type(items[iTable]))
+                if (DBtypesFunc.Is_DBm_Type(DBT.items[iTable]))
                 {
                     continue;
                 }
                 else
                 {
-                    StringBuilder strTable = new StringBuilder(items[iTable].SQLcmd_DropTable());
+                    StringBuilder strTable = new StringBuilder(DBT.items[iTable].SQLcmd_DropTable());
                     strSqlAll.Append(strTable);
                 }
             }
@@ -647,7 +658,7 @@ namespace CodeTables
                 ");
             int iTable;
             int iTableCount;
-            iTableCount = items.Count;
+            iTableCount = DBT.items.Count;
 
             foreach (DataBaseView dbv in SQL_DataBase_VIEW_List)
             {
@@ -656,13 +667,13 @@ namespace CodeTables
             }
             for (iTable = iTableCount - 1; iTable >= 0; iTable--)
             {
-                StringBuilder strTable = new StringBuilder(items[iTable].MySQLcmd_AlterTableDropConstraintForeign());
+                StringBuilder strTable = new StringBuilder(DBT.items[iTable].MySQLcmd_AlterTableDropConstraintForeign());
                 strSqlAll.Append(strTable);
             }
 
             for (iTable = iTableCount - 1; iTable >= 0; iTable--)
             {
-                StringBuilder strTable = new StringBuilder(items[iTable].MySQLcmd_DropTable());
+                StringBuilder strTable = new StringBuilder(DBT.items[iTable].MySQLcmd_DropTable());
                 strSqlAll.Append(strTable);
             }
             return strSqlAll;
@@ -673,7 +684,7 @@ namespace CodeTables
             StringBuilder strSqlAll = new StringBuilder("");
             int iTable;
             int iTableCount;
-            iTableCount = items.Count;
+            iTableCount = DBT.items.Count;
 
             foreach (DataBaseView dbv in SQL_DataBase_VIEW_List)
             {
@@ -682,13 +693,13 @@ namespace CodeTables
             }
             for (iTable = iTableCount - 1; iTable >= 0; iTable--)
             {
-                StringBuilder strTable = new StringBuilder(items[iTable].SQLitecmd_AlterTableDropConstraintForeign());
+                StringBuilder strTable = new StringBuilder(DBT.items[iTable].SQLitecmd_AlterTableDropConstraintForeign());
                 strSqlAll.Append(strTable);
             }
 
             for (iTable = iTableCount - 1; iTable >= 0; iTable--)
             {
-                StringBuilder strTable = new StringBuilder(items[iTable].SQLitecmd_DropTable());
+                StringBuilder strTable = new StringBuilder(DBT.items[iTable].SQLitecmd_DropTable());
                 strSqlAll.Append(strTable);
             }
             return strSqlAll;
@@ -696,7 +707,7 @@ namespace CodeTables
 
         public bool IsMyTable(out SQLTable OutTbl,Type type)
         {
-            foreach (SQLTable tbl in items)
+            foreach (SQLTable tbl in DBT.items)
             {
                 if (type == tbl.objTable.GetType())
                 {
@@ -712,11 +723,11 @@ namespace CodeTables
         {
             int iTable;
             int iTableCount;
-            iTableCount = items.Count;
+            iTableCount = DBT.items.Count;
 
             for (iTable = iTableCount - 1; iTable >= 0; iTable--)
             {
-                if (items[iTable].objTable.GetType() == typeOrefTable)
+                if (DBT.items[iTable].objTable.GetType() == typeOrefTable)
                 {
                     return iTable;
                 }
@@ -883,7 +894,24 @@ namespace CodeTables
                     return enumDataBaseCheckResult.NO_TABLES;
                 }
 
-                foreach (SQLTable tbl in items)
+                if (DataBaseTablesInfo != null)
+                {
+                    DataRow[] drs = DataBaseTablesInfo.Select("tbl_name = 'DBSettings'");
+                    if (drs.Count() > 0)
+                    {
+                        string version = null;
+                        if (!DBTableControl.GetDataBaseVersion(Con, DBT.DBVersion, ref version))
+                        {
+                            return enumDataBaseCheckResult.ERROR;
+                        }
+                        if (!version.Equals(DBT.DBVersion))
+                        {
+                            return enumDataBaseCheckResult.WRONG_DBVERSION;
+                        }
+                    }
+                }
+
+                foreach (SQLTable tbl in DBT.items)
                 {
                     if (DBtypesFunc.Is_DBm_Type(tbl.objTable))
                     {
@@ -919,6 +947,27 @@ namespace CodeTables
             else
             {
                 return enumDataBaseCheckResult.NO_DATABASE_CONNECTION;
+            }
+        }
+
+        public static bool GetDataBaseVersion(DBConnection con,string dBVersion, ref string version)
+        {
+            string err = null;
+            version = "??";
+            string sql = "Select TextValue from DBSettings where Name = 'Version'";
+            DataTable dt = new DataTable();
+            if (con.ReadDataTable(ref dt,sql,ref err))
+            {
+                if (dt.Rows.Count>0)
+                {
+                    version = tf._set_string(dt.Rows[0]["TextValue"]);
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:CodeTables:SQLTableControl:GetDataBaseVersion:Error="+err +"\r\nsql="+sql);
+                return false;
             }
         }
 
@@ -1188,7 +1237,7 @@ namespace CodeTables
                             string sTableName = Source_Txt.sLine.Substring(iTableNameStart + 1, iTableNameEnd - iTableNameStart - 1);
                             sTableName = sTableName.TrimStart(trimChars);
                             sTableName = sTableName.TrimEnd(trimChars);
-                            if (Globals.FindTable(out refsqlTbl, sTableName, items))
+                            if (Globals.FindTable(out refsqlTbl, sTableName, DBT.items))
                             {
                                 sqlTbl = new SQLTable(refsqlTbl);
                                 sqlTbl.CreateTableTree(lTable);
@@ -1235,7 +1284,7 @@ namespace CodeTables
                 }
             }
             CreateTables_WindowsForm_Thread xCreateTables_WindowsForm_Thread = new CreateTables_WindowsForm_Thread();
-            int Tables_Count = items.Count();
+            int Tables_Count = DBT.items.Count();
             xCreateTables_WindowsForm_Thread.Start(Tables_Count);
 
             String csErrorMsg = "";
@@ -1800,7 +1849,7 @@ namespace CodeTables
 
         internal ReferencesToTable GetReferencesToTable(SQLTable sQLTable)
         {
-            SQLTable pfound = items.Find(delegate (SQLTable p) { return p.TableName == sQLTable.TableName; });
+            SQLTable pfound = DBT.items.Find(delegate (SQLTable p) { return p.TableName == sQLTable.TableName; });
             if (pfound!=null)
             {
                 return pfound.ReferencesToThisTable;
@@ -2066,7 +2115,7 @@ namespace CodeTables
 
         public SQLTable GetTable(string sTableName)
         {
-            foreach (SQLTable tbl in items)
+            foreach (SQLTable tbl in DBT.items)
             {
                 if (tbl.TableName.Equals(sTableName))
                 {
@@ -2078,7 +2127,7 @@ namespace CodeTables
 
         public SQLTable GetTable_from_TableName_Abbreviation(string sTableName_Abbreviation)
         {
-            foreach (SQLTable tbl in items)
+            foreach (SQLTable tbl in DBT.items)
             {
                 if (tbl.TableName_Abbreviation.Equals(sTableName_Abbreviation))
                 {

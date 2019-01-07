@@ -323,7 +323,9 @@ namespace DBSync
             switch (eres_DB_Tangenta)
             {
                 case enumDataBaseCheckResult.OK:
+                case enumDataBaseCheckResult.WRONG_DBVERSION:
                     return true;
+
                 case enumDataBaseCheckResult.NO_TABLES:
                     if (CreateTables_DB_for_Tangenta(ref Err, ref bCancel))
                     {
@@ -599,7 +601,7 @@ namespace DBSync
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:DBSync:DBSync:CreateTables:Table " + stbl + " not found in m_DBTables.items !");
+                    LogFile.Error.Show("ERROR:DBSync:DBSync:CreateTables:Table " + stbl + " not found in m_DBTables.DBT.items !");
                     Err = err;
                     return false;
                 }

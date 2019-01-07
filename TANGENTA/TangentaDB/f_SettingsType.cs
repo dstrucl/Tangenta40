@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TangentaDB
 {
-    public class f_SattingsType
+    public class f_SettingsType
     {
         public static bool Get(string xSettingsType, ref ID SettingsType_ID, Transaction transaction)
         {

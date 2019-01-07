@@ -955,12 +955,12 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get_JOURNAL_TYPE(string JOURNAL_TYPE_table_name, string stype_name, ref ID ID, Transaction transaction)
+        public static bool Get_TABLE_TYPE(string table_TYPE_table_name, string stype_name, ref ID ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_name = "@par_type_name";
             SQL_Parameter par_name = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, stype_name);
-            string sql = " select ID from " + JOURNAL_TYPE_table_name + " where Name = " + spar_name;
+            string sql = " select ID from " + table_TYPE_table_name + " where Name = " + spar_name;
             lpar.Add(par_name);
             DataTable dt = new DataTable();
             string Err = null;
@@ -978,21 +978,21 @@ namespace TangentaDB
                 else
                 {
                    
-                    sql = "  insert into " + JOURNAL_TYPE_table_name + " (Name) values (" + spar_name + ")";
-                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref ID,  ref Err, JOURNAL_TYPE_table_name))
+                    sql = "  insert into " + table_TYPE_table_name + " (Name) values (" + spar_name + ")";
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref ID,  ref Err, table_TYPE_table_name))
                     {
                         return true;
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR::TangentaDB:fs:Get_JOURNAL_TYPE:sql=" + sql + "\r\nErr=" + Err);
+                        LogFile.Error.Show("ERROR::TangentaDB:fs:Get_TABLE_TYPE:sql=" + sql + "\r\nErr=" + Err);
                         return false;
                     }
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR::TangentaDB:fs:Get_JOURNAL_TYPE:sql=" + sql + "\r\nErr=" + Err);
+                LogFile.Error.Show("ERROR::TangentaDB:fs:Get_TABLE_TYPE:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
         }
