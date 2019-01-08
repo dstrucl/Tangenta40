@@ -678,7 +678,7 @@ namespace TangentaCore
                                             InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = TSettings.FVI_SLO1.GetQRImage(InvoiceData.AddOnDI.m_FURS.FURS_QR_v.v);
                                             InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
                                         }
-                                        Printing_DocInvoice(pform);//Printing_DocInvoice();
+                                        Printing_DocInvoice(pform, null);//Printing_DocInvoice();
                                                                                 //TangentaPrint.Form_PrintJournal frm_Print_Existing_invoice = new TangentaPrint.Form_PrintJournal(m_InvoiceData,"UNKNOWN PRINETR NAME??",Program.usrc_TangentaPrint1);
                                                                                 //frm_Print_Existing_invoice.ShowDialog(this);
                                     }
@@ -694,7 +694,7 @@ namespace TangentaCore
                                 {
                                     if (transaction_m_InvoiceData_Read_DocInvoice.Commit())
                                     {
-                                        Printing_DocInvoice(pform);//Printing_DocInvoice();
+                                        Printing_DocInvoice(pform,null);//Printing_DocInvoice();
                                                                                 //TangentaPrint.Form_PrintJournal frm_Print_Existing_invoice = new TangentaPrint.Form_PrintJournal(m_InvoiceData,"UNKNOWN PRINETR NAME??",Program.usrc_TangentaPrint1);
                                                                                 //frm_Print_Existing_invoice.ShowDialog(this);
                                     }
@@ -710,11 +710,16 @@ namespace TangentaCore
             }
         }
 
-        internal bool Printing_DocInvoice(Control parentControl)
+        internal bool Printing_DocInvoice(Control parentControl, Transaction transaction)
         {
             Printer printer = null;
             if (PrintersList.PrintingWithHtmlTemplate(DocTyp, ref printer))
             {
+                if (transaction != null)
+                {
+                    transaction.Commit();
+                }
+
                 Form parentform = Global.f.GetParentForm(parentControl);
                 TangentaPrint.Form_PrintDocument template_dlg = new TangentaPrint.Form_PrintDocument(m_LMOUser.Atom_WorkPeriod_ID, InvoiceData, TangentaResources.Properties.Resources.Exit, door.OpenIfUserIsAdministrator);
                 template_dlg.Owner = Global.f.GetParentForm(parentform);
@@ -724,11 +729,14 @@ namespace TangentaCore
                 }
                 return false;
             }
-            if (printer != null)
+            else
             {
-                //printer.Print()
+                PrintDocInvoice prndocinvoice = new PrintDocInvoice(printer.PrinterName, InvoiceData);
+       
+                prndocinvoice.Print(DocumentMan.MainForm);
+
+                return true;
             }
-            return false;
         }
 
         public bool GetUnits()
@@ -1049,7 +1057,7 @@ namespace TangentaCore
                         if (InvoiceData.Read_DocInvoice(transaction))
                         {
                             xdelegate_DocInvoiceSaved(m_ShopABC.m_CurrentDoc.Doc_ID);
-                            Printing_DocInvoice(pform);// Printing_DocInvoice();
+                            Printing_DocInvoice(pform, transaction);// Printing_DocInvoice();
                             return true;
                         }
                         else
@@ -1073,7 +1081,7 @@ namespace TangentaCore
                         if (InvoiceData.Read_DocInvoice(transaction))
                         {
                             xdelegate_DocProformaInvoiceSaved(m_ShopABC.m_CurrentDoc.Doc_ID);
-                            Printing_DocInvoice(pform);// Printing_DocInvoice();
+                            Printing_DocInvoice(pform, transaction);// Printing_DocInvoice();
                             return true;
                         }
                         else

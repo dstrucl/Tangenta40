@@ -123,6 +123,7 @@
     <Compile Include="PrintersList.cs" />
     <Compile Include="Printer.cs" />
     <Compile Include="PrintCashierActivity.cs" />
+    <Compile Include="PrintDocInvoice.cs" />
     <Compile Include="PrintStockTake.cs" />
     <Compile Include="PrintReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

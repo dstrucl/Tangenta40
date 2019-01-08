@@ -31,14 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DataGridView_2xls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\DataGridView_2xls.dll</HintPath>
-    </Reference>
-    <Reference Include="DataGridView_2xls_base, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\CONTROLS\DataGridView_2xls_base\bin\AnyCPU\Debug\DataGridView_2xls_base.dll</HintPath>
-    </Reference>
     <Reference Include="Excell_Export, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Excell_Export\bin\AnyCPU\Debug\Excell_Export.dll</HintPath>
@@ -124,6 +116,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CONTROLS\DataGridView_2xls\DataGridView_2xls.csproj">
+      <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
+      <Name>DataGridView_2xls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CONTROLS\DataGridView_2xls_base\DataGridView_2xls_base.csproj">
+      <Project>{1f20972e-563b-495d-a881-c04db9ab0af6}</Project>
+      <Name>DataGridView_2xls_base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DBConectionControl40\DBConnectionControl40.csproj">
       <Project>{322af3bf-b609-477d-9d2b-39a9bbbbc721}</Project>
       <Name>DBConnectionControl40</Name>

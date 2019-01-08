@@ -50,6 +50,7 @@ namespace TangentaPrint
                 return false;
             }
         }
+       
 
         public static bool InvoicePrinting_PaymentCash(DataRow dr)
         {
@@ -363,7 +364,7 @@ namespace TangentaPrint
             foreach (ManagementObject printer in searcher.Get())
             {
                 printerName = printer["Name"].ToString().ToLower();
-                if (printerName.Equals(printername))
+                if (printerName.Equals(printername.ToLower()))
                 {
                     Console.WriteLine("Printer = " + printer["Name"]);
                     if (printer["WorkOffline"].ToString().ToLower().Equals("true"))
@@ -397,9 +398,16 @@ namespace TangentaPrint
                         {
                             if (InvoicePrinting(dr))
                             {
-                                if (IsPrinterConnected(printername))
+                                if (PrintingWithHtmlTemplates(dr))
                                 {
-
+                                    if (IsPrinterConnected(printername))
+                                    {
+                                        return true;
+                                    }
+                                }
+                                else
+                                {
+                                    printer = new Printer(printername);
                                 }
                             }
                         }
@@ -408,5 +416,7 @@ namespace TangentaPrint
             }
             return false;
         }
+
+   
     }
 }

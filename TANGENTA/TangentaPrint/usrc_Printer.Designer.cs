@@ -69,6 +69,7 @@
             this.chk_PrintingWithHtmlTemplates.TabIndex = 7;
             this.chk_PrintingWithHtmlTemplates.Text = "Printing with HTML templates";
             this.chk_PrintingWithHtmlTemplates.UseVisualStyleBackColor = true;
+            this.chk_PrintingWithHtmlTemplates.CheckedChanged += new System.EventHandler(this.Chk_PrintingWithHtmlTemplates_CheckedChanged);
             // 
             // btn_Remove
             // 

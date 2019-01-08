@@ -107,7 +107,7 @@ namespace TangentaPrint
                 this.grp_Printer.Text = (string)PrintersList.dt.Rows[IndexInPrinterList][PrintersList.dcol_PrinterName];
                 PrinterSettings printerSettings = new PrinterSettings();
                 printerSettings.PrinterName = this.grp_Printer.Text;
-                if ((printerSettings.DefaultPageSettings.PaperSize.Width == 284)&& (printerSettings.DefaultPageSettings.PaperSize.Height > 12000))
+                if ((printerSettings.DefaultPageSettings.PaperSize.Width <= 284)&& (printerSettings.DefaultPageSettings.PaperSize.Height > 12000))
                 {
                     //Rol paper 80 mm
                     chk_PrintingWithHtmlTemplates.Checked = PrintingWithHtmlTemplates;
@@ -141,6 +141,7 @@ namespace TangentaPrint
         private void Chk_PrintingWithHtmlTemplates_CheckedChanged(object sender, EventArgs e)
         {
             PrintingWithHtmlTemplates = chk_PrintingWithHtmlTemplates.Checked;
+            bChanged = true;
         }
 
         private void chk_CheckedChanged(object sender, EventArgs e)

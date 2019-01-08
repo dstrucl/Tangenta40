@@ -27,6 +27,8 @@ namespace TangentaPrint
 {
     public class Printer
     {
+        private int pagewidth = 0;
+
         private PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog();
         public PrintDocument printDocument = null;
         public PrinterSettings printer_settings = new PrinterSettings();
@@ -389,7 +391,212 @@ namespace TangentaPrint
             return null; // printDocument.PrinterSettings.PrinterName;
         }
 
-        
+        public bool PrintDoc(InvoiceData xinvoiceData)
+        {
+            PrintDocument pdoc = new PrintDocument();
+
+            PrinterSettings ps = new PrinterSettings();
+
+           
+            ps.PrinterName = this.PrinterName;// (string)PrintersList.dt.Rows[0][PrintersList.dcol_PrinterName.ColumnName];
+            Font font = new Font("Courier New", 15);
+            //PaperSize psize = new PaperSize("Custom", 100, 200);
+            //ps.DefaultPageSettings.PaperSize = psize;
+
+            pdoc.PrinterSettings = ps;
+
+            pdoc.DocumentName = "Tangenta Report"; ;
+            //pd.Document = pdoc;
+            //pd.Document.DefaultPageSettings.PaperSize = psize;
+            //pdoc.DefaultPageSettings.PaperSize.Height =320;
+            //pdoc.DefaultPageSettings.PaperSize.Height = 820;
+
+            //pdoc.DefaultPageSettings.PaperSize.Width = 520;
+
+            pdoc.PrintPage += new PrintPageEventHandler(pdoc_PrintPage);
+
+            pagewidth = pdoc.PrinterSettings.DefaultPageSettings.PaperSize.Width;
+                pdoc.Print();
+                return true;
+        }
+
+        void pdoc_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            int OFS = 18;
+            int OFS1 = 8;
+            int OFS2 = 16;
+
+            Graphics graphics = e.Graphics;
+            Font font = new Font("Courier New", 10);
+
+            Pen pen1 = new Pen(Color.Black, 1);
+            Pen pen2 = new Pen(Color.Black, 2);
+            Pen pen3 = new Pen(Color.Black, 3);
+            float fontHeight = font.GetHeight();
+            float startX = 0;
+            float startY = 35;
+            float Offset = 40;
+
+            Font fArial8 = new Font(familyName: "Arial", emSize: 8, style: FontStyle.Bold);
+            Font fArial8r = new Font(familyName: "Arial", emSize: 8, style: FontStyle.Regular);
+            Font fArial9 = new Font(familyName: "Arial", emSize: 9, style: FontStyle.Bold);
+            Font fArial12 = new Font(familyName: "Arial", emSize: 12, style: FontStyle.Bold);
+            Font fCurierNew14 = new Font("Courier New", 14);
+
+            //String underLine = "****************************************";
+            //Offset = Offset + OFS;
+            //graphics.DrawString(underLine, fArial10, new SolidBrush(Color.Black), startX, startY + Offset);
+            //graphics.DrawLine(pen3, fArial10, new SolidBrush(Color.Black), startX, startY + Offset);
+
+            Offset = Offset + OFS;
+          
+            graphics.DrawImage(Properties.Resources.Tangenta_Logo1colorH32, startX, startY + Offset);
+            graphics.DrawString(lng.s_DocInvoice.s + ":", fArial12, new SolidBrush(Color.Black), startX + 8, startY + Offset + 8);
+            Offset = Offset + OFS + 32;
+            //graphics.DrawString(lng.s_STOCKTAKE_ID.s + ":" + stocktake_ID, fArial12, new SolidBrush(Color.Black), startX, startY + Offset);
+            //Offset = Offset + OFS;
+            //string sdate = LanguageControl.DynSettings.SetLanguageDateString(m_stocktaketime);
+            //graphics.DrawString(lng.s_Date.s + ":" + sdate, fArial9, new SolidBrush(Color.Black), startX, startY + Offset);
+            //Offset = Offset + OFS;
+            //graphics.DrawString(lng.s_Supplier.s + ":" + m_supplier, fArial9, new SolidBrush(Color.Black), startX, startY + Offset);
+            //Offset = Offset + OFS;
+            //graphics.DrawString(lng.s_SupplierTaxID.s + ":" + m_supplierTaxID, fArial9, new SolidBrush(Color.Black), startX, startY + Offset);
+            //Offset = Offset + OFS;
+            //graphics.DrawString(lng.s_Buyer.s + ":" + m_buyer, fArial9, new SolidBrush(Color.Black), startX, startY + Offset);
+            //Offset = Offset + OFS;
+            //graphics.DrawString(lng.s_BuyerTaxID.s + ":" + m_buyerTaxID, fArial9, new SolidBrush(Color.Black), startX, startY + Offset);
+            //Offset = Offset + OFS;
+            //graphics.DrawString(lng.s_DeliveryNumber.s + ":" + m_deliverynumber, fArial9, new SolidBrush(Color.Black), startX, startY + Offset);
+
+            //Offset = Offset + OFS + OFS / 2;
+            //graphics.DrawString(lng.s_Item.s + "/", fArial9, new SolidBrush(Color.Black), startX, startY + Offset);
+            //Global.g.DrawStringAlignRight(graphics, lng.s_Amount.s + " " + GlobalData.BaseCurrency.Abbreviation, fArial9, Color.Black, startX + pagewidth, startY + Offset);
+
+            //Offset = Offset + OFS;
+            //graphics.DrawString(lng.s_Quantity.s, fArial9, new SolidBrush(Color.Black), startX, startY + Offset);
+            //graphics.DrawString(lng.s_VAT.s, fArial9, new SolidBrush(Color.Black), startX + (pagewidth * 34) / 60, startY + Offset);
+            //Global.g.DrawStringAlignRight(graphics, lng.s_without_VAT.s, fArial9, Color.Black, startX + pagewidth, startY + Offset);
+
+            ////underLine = "---------------------------------------";
+            ////Offset = Offset + OFS;
+            ////graphics.DrawString(underLine, fArial10, new SolidBrush(Color.Black), startX, startY + Offset);
+            //Offset = Offset + OFS + OFS / 5;
+            //graphics.DrawLine(pen1, startX, startY + Offset, startX + pagewidth, startY + Offset);
+
+            //decimal dTotalAllWithoutTaxWithDiscount = 0;
+            //StaticLib.TaxSum taxSum = new StaticLib.TaxSum();
+            //int n = 1;
+            //foreach (DataRow dr in m_dt_Stock_Of_Current_StockTake.Rows)
+            //{
+
+            //    string_v item_name_v = tf.set_string(dr["UniqueName"]);
+            //    string sitem = "";
+            //    if (item_name_v != null)
+            //    {
+            //        sitem = item_name_v.v;
+            //        Offset = Offset + OFS2;
+
+            //        graphics.DrawString("(" + n.ToString() + ") ", fArial8r, new SolidBrush(Color.Black), startX, startY + Offset);
+            //        float ofsx = 0;
+            //        Global.g.DrawWordWrap(graphics, sitem, fArial9, Color.Black, startX + (pagewidth * 6) / 60, startY + Offset, pagewidth, ref ofsx);
+            //        decimal_v dQuantity_v = tf.set_decimal(dr["dQuantity"]);
+            //        string sQUantity = "";
+            //        if (dQuantity_v != null)
+            //        {
+            //            sQUantity = dQuantity_v.v.ToString();
+            //        }
+            //        string_v sUnitSymbol_v = tf.set_string(dr["UnitSymbol"]);
+            //        string sUnitSymbol = "";
+            //        if (sUnitSymbol_v != null)
+            //        {
+            //            sUnitSymbol = sUnitSymbol_v.v;
+            //        }
+
+
+            //        decimal_v dPurchasePricePerUnit_v = tf.set_decimal(dr["PurchasePricePerUnit"]);
+            //        string sPurchasePricePerUnit = "";
+            //        if (dPurchasePricePerUnit_v != null)
+            //        {
+            //            sPurchasePricePerUnit = LanguageControl.DynSettings.SetLanguageCurrencyString(dPurchasePricePerUnit_v.v, GlobalData.BaseCurrency.DecimalPlaces, null);
+            //        }
+
+            //        string spercent = "0";
+            //        decimal_v dDisount_v = tf.set_decimal(dr["Discount"]);
+            //        if (dDisount_v != null)
+            //        {
+            //            spercent = Global.f.GetPercent(dDisount_v.v, 2);
+            //        }
+
+            //        Offset = Offset + ofsx + 2;
+            //        graphics.DrawString(sQUantity + " " + sUnitSymbol + " x " + sPurchasePricePerUnit + "(-" + spercent + "%)", fArial9, new SolidBrush(Color.Black), startX, startY + Offset);
+
+            //        string staxrate = "";
+            //        decimal dTaxRate = 0;
+            //        decimal_v dTaxRate_v = tf.set_decimal(dr["TaxationRate"]);
+            //        if (dTaxRate_v != null)
+            //        {
+            //            dTaxRate = dTaxRate_v.v;
+            //            staxrate = Global.f.GetPercent(dTaxRate_v.v, 1) + "%";
+            //        }
+            //        Global.g.DrawStringAlignRight(graphics, staxrate, fArial9, Color.Black, startX + (pagewidth * 44) / 60, startY + Offset);
+
+            //        string sdTotalWithoutTaxWithDiscount = "";
+            //        decimal dTotalWithoutTaxWithDiscount = 0;
+            //        decimal_v dTotalWithoutTaxWithDiscount_v = tf.set_decimal(dr["TotalWithoutTaxWithDiscount"]);
+            //        if (dTotalWithoutTaxWithDiscount_v != null)
+            //        {
+            //            dTotalWithoutTaxWithDiscount = dTotalWithoutTaxWithDiscount_v.v;
+            //            dTotalAllWithoutTaxWithDiscount += dTotalWithoutTaxWithDiscount_v.v;
+            //            sdTotalWithoutTaxWithDiscount = LanguageControl.DynSettings.SetLanguageCurrencyString(dTotalWithoutTaxWithDiscount_v.v, GlobalData.BaseCurrency.DecimalPlaces, null);
+            //        }
+            //        Global.g.DrawStringAlignRight(graphics, sdTotalWithoutTaxWithDiscount, fArial9, Color.Black, startX + pagewidth, startY + Offset);
+
+            //        decimal dtax = dTotalWithoutTaxWithDiscount * dTaxRate;
+            //        taxSum.Add(dtax, dTotalWithoutTaxWithDiscount, staxrate, dTaxRate);
+            //        n++;
+             //       Offset = Offset + OFS1;
+            //    }
+
+            //}
+            ////Offset = Offset + OFS;
+            ////graphics.DrawString(underLine, fArial10, new SolidBrush(Color.Black), startX, startY + Offset);
+            //Offset = Offset + OFS + OFS / 5;
+            //graphics.DrawLine(pen1, startX, startY + Offset, startX + pagewidth, startY + Offset);
+
+            //dTotalAllWithoutTaxWithDiscount = decimal.Round(dTotalAllWithoutTaxWithDiscount, GlobalData.BaseCurrency.DecimalPlaces);
+            //string sdTotalAllWithoutTaxWithDiscount = LanguageControl.DynSettings.SetLanguageCurrencyString(dTotalAllWithoutTaxWithDiscount, GlobalData.BaseCurrency.DecimalPlaces, null);
+
+            //Offset = Offset + OFS;
+            //graphics.DrawString(lng.s_Total_without_VAT.s + ":", fArial9, new SolidBrush(Color.Black), startX, startY + Offset);
+            //Global.g.DrawStringAlignRight(graphics, sdTotalAllWithoutTaxWithDiscount, fArial9, Color.Black, startX + pagewidth, startY + Offset);
+
+            //decimal dTaxTotal = 0;
+            //foreach (StaticLib.Tax tax in taxSum.TaxList)
+            //{
+            //    Offset = Offset + OFS;
+            //    graphics.DrawString(lng.s_Plus_VAT.s + " " + tax.Name + " " + lng.s_From_Base.s + " " + sdTotalAllWithoutTaxWithDiscount, fArial9, new SolidBrush(Color.Black), startX, startY + Offset);
+            //    dTaxTotal += tax.TaxAmount;
+            //    decimal dTaxBase = decimal.Round(tax.TaxAmount, GlobalData.BaseCurrency.DecimalPlaces);
+            //    string sdTax = LanguageControl.DynSettings.SetLanguageCurrencyString(dTaxBase, GlobalData.BaseCurrency.DecimalPlaces, null);
+            //    Global.g.DrawStringAlignRight(graphics, sdTax, fArial9, Color.Black, startX + pagewidth, startY + Offset);
+            //}
+            //Offset = Offset + OFS;
+            //graphics.DrawString(lng.s_Total_with_VAT.s + ":", fArial9, new SolidBrush(Color.Black), startX, startY + Offset);
+            //dTaxTotal = decimal.Round(dTaxTotal, GlobalData.BaseCurrency.DecimalPlaces);
+            //decimal dAllTotal = dTaxTotal + dTotalAllWithoutTaxWithDiscount;
+            //string sdTaxTotal = LanguageControl.DynSettings.SetLanguageCurrencyString(dAllTotal, GlobalData.BaseCurrency.DecimalPlaces, null);
+            //Global.g.DrawStringAlignRight(graphics, sdTaxTotal, fArial9, Color.Black, startX + pagewidth, startY + Offset);
+
+
+            ////dr["dInitialQuantity"]
+            //decimal_v dTotalWithTaxWithDiscount_v = tf.set_decimal(dr["TotalWithTaxWithDiscount"]);
+            //string_v taxation_name_v = tf.set_string(dr["TaxationName"]);
+            ////dr["ImportTime"]
+            ////dr["ExpiryDate"]
+            //string_v supplier_v = tf.set_string(dr["Supplier"]);
+            ////dr["Symbol"]
+        }
+
         public bool Print(string buffer)
         {
 
