@@ -44,6 +44,7 @@
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_WorkArea = new System.Windows.Forms.Button();
             this.btn_TableInspection = new System.Windows.Forms.Button();
+            this.btn_MyOrganisation_Data = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_Currency
@@ -205,7 +206,7 @@
             // btn_OK
             // 
             this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_OK.Image = TangentaResources.Properties.Resources.Exit;
+            this.btn_OK.Image = ((System.Drawing.Image)(resources.GetObject("btn_OK.Image")));
             this.btn_OK.Location = new System.Drawing.Point(461, 153);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(145, 44);
@@ -216,7 +217,7 @@
             // btn_WorkArea
             // 
             this.btn_WorkArea.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_WorkArea.Image = TangentaResources.Properties.Resources.WorkAreaAsTable;
+            this.btn_WorkArea.Image = ((System.Drawing.Image)(resources.GetObject("btn_WorkArea.Image")));
             this.btn_WorkArea.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_WorkArea.Location = new System.Drawing.Point(8, 153);
             this.btn_WorkArea.Name = "btn_WorkArea";
@@ -229,7 +230,7 @@
             // btn_TableInspection
             // 
             this.btn_TableInspection.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_TableInspection.Image = TangentaResources.Properties.Resources.TableInspection;
+            this.btn_TableInspection.Image = ((System.Drawing.Image)(resources.GetObject("btn_TableInspection.Image")));
             this.btn_TableInspection.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_TableInspection.Location = new System.Drawing.Point(310, 153);
             this.btn_TableInspection.Name = "btn_TableInspection";
@@ -240,9 +241,23 @@
             this.btn_TableInspection.UseVisualStyleBackColor = false;
             this.btn_TableInspection.Click += new System.EventHandler(this.btn_TableInspection_Click);
             // 
+            // btn_MyOrganisation_Data
+            // 
+            this.btn_MyOrganisation_Data.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_MyOrganisation_Data.Image = ((System.Drawing.Image)(resources.GetObject("btn_MyOrganisation_Data.Image")));
+            this.btn_MyOrganisation_Data.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_MyOrganisation_Data.Location = new System.Drawing.Point(159, 153);
+            this.btn_MyOrganisation_Data.Name = "btn_MyOrganisation_Data";
+            this.btn_MyOrganisation_Data.Size = new System.Drawing.Size(145, 44);
+            this.btn_MyOrganisation_Data.TabIndex = 15;
+            this.btn_MyOrganisation_Data.Text = "My organisation";
+            this.btn_MyOrganisation_Data.UseVisualStyleBackColor = false;
+            this.btn_MyOrganisation_Data.Click += new System.EventHandler(this.btn_MyOrganisation_Data_Click);
+            // 
             // usrc_CodeTables
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.btn_MyOrganisation_Data);
             this.Controls.Add(this.btn_TableInspection);
             this.Controls.Add(this.btn_WorkArea);
             this.Controls.Add(this.btn_OK);
@@ -281,5 +296,6 @@
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_WorkArea;
         private System.Windows.Forms.Button btn_TableInspection;
+        private System.Windows.Forms.Button btn_MyOrganisation_Data;
     }
 }

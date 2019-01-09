@@ -341,6 +341,28 @@ namespace TangentaDB
             }
         }
 
+        internal static bool Get(ID atom_MyOrganisation_Person_ID, ref ID atom_Person_ID)
+        {
+            atom_Person_ID = null;
+            string sql = @"select Atom_Person_ID from  Atom_myOrganisation_Person where ID = " + atom_MyOrganisation_Person_ID.ToString();
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                int iCount = dt.Rows.Count;
+                if (iCount > 0)
+                {
+                    atom_Person_ID = tf.set_ID(dt.Rows[0]["Atom_Person_ID"]);
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Atom_myOrganisation_Person:Get:" + sql + "\r\n:Err=" + Err);
+                return false;
+            }
+        }
+
         public static bool Get(ID xAtom_myOrganisation_Person_ID, ref string xAtomOfficeShortName, ref string xAtom_Person_Tax_ID)
         {
             xAtomOfficeShortName = null;

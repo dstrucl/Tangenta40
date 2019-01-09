@@ -494,6 +494,9 @@ namespace TangentaCore
 
         public static ltext s_btn_Expiry = new ltext(new string[] { "Expiry", "Roki uporabe" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_CodeTables.cs
 
+        public static ltext s_btn_MyOrganisation = new ltext(new string[] { "My organisation","Moja organizacija" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_CodeTables.cs
+
+
         public static ltext s_btn_Atom_WorkArea = new ltext(new string[] { "Jobs", "Delovna mesta" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_CodeTables.cs
 
         public static ltext s_btn_Units = new ltext(new string[] { "Units", "Merske enote" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_CodeTables.cs

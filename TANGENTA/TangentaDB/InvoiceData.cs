@@ -425,6 +425,49 @@ namespace TangentaDB
                 html.Append("\r\n" + hTML_RollPaperPrintingOutput.pagenumber.html + "\r\n");
             }
         }
+
+        public bool SetCopyPrintInfo(ID xAtom_WorkPeriod_ID,string printer_name, Transaction transaction)
+        {
+            if (PrintCopyInfo.Length == 0)
+            {
+                string s_journal_invoice_type = f_Journal_DocInvoice.ORIGINALPRINT;
+                string s_journal_invoice_description = "";
+                if (printer_name != null)
+                {
+                        s_journal_invoice_description = printer_name;
+                    
+                }
+                if (!OriginalOrCopyPrint(s_journal_invoice_description,
+                                                 s_journal_invoice_type,
+                                                 xAtom_WorkPeriod_ID,
+                                                 transaction))
+                {
+                    return false;
+                }
+
+
+            }
+            else
+            {
+                string s_journal_invoice_type = f_Journal_DocInvoice.COPYPRINT;
+                string s_journal_invoice_description = "";
+                if (printer_name != null)
+                {
+                        s_journal_invoice_description = printer_name;
+                }
+
+                if (!OriginalOrCopyPrint(s_journal_invoice_description,
+                                                s_journal_invoice_type,
+                                                xAtom_WorkPeriod_ID,
+                                                transaction))
+                {
+                    return false;
+                }
+
+            }
+            return true;
+        }
+
         private void StartBuildHtmlElementsOnNewPage(HTML_PrintingElement pel, HTML_PrintingElement_List hTML_RollPaperPrintingOutput,ref StringBuilder shtml, ref StringBuilder html)
         {
             if (pel.Is("table", "tableitems"))
@@ -510,6 +553,12 @@ namespace TangentaDB
                                        </body>
                                      </html>");
             }
+        }
+
+        public bool OriginalOrCopyPrint(string s_journal_invoice_description,string s_journal_invoice_type,ID xAtom_WorkPeriod_ID,Transaction transaction)
+        {
+            ID journal_docinvoice_id = null;
+            return f_Journal_DocInvoice.Write(DocInvoice_ID, xAtom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, PrintingTime_v, ref journal_docinvoice_id, transaction);
         }
 
         public void InsertPageNumbers(ref StringBuilder html)

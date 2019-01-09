@@ -51,7 +51,15 @@ namespace TangentaDB
 
         public static UniversalInvoice.Person GetInvoiceAuthor(ID Atom_MyOrganisation_Person_ID)
         {
-            return f_Atom_Person.GetData(lng.st_IssuerOfInvoice, Atom_MyOrganisation_Person_ID);
+            ID atom_Person_ID = null;
+            if (f_Atom_myOrganisation_Person.Get(Atom_MyOrganisation_Person_ID, ref atom_Person_ID))
+            {
+                if (ID.Validate(atom_Person_ID))
+                {
+                    return f_Atom_Person.GetData(lng.st_IssuerOfInvoice, atom_Person_ID);
+                }
+            }
+            return null;
         }
 
         public static bool DeleteAll(string TableName, Transaction transaction)

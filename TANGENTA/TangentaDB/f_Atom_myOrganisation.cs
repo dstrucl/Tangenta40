@@ -25,7 +25,9 @@ namespace TangentaDB
             DataTable dt = new DataTable();
 
             string sql_find_Atom_myOrganisation_ID = @"select
-                                Atom_myOrganisation.ID as Atom_myOrganisation_ID
+                                Atom_myOrganisation.ID as Atom_myOrganisation_ID,
+								cpn.PhoneNumber as cpnPhone,
+								acpn.PhoneNumber as acpnPhone
                                 from Atom_myOrganisation
                                 inner join Atom_OrganisationData on Atom_myOrganisation.Atom_OrganisationData_ID = Atom_OrganisationData.ID
                                 inner join Atom_Organisation on Atom_OrganisationData.Atom_Organisation_ID = Atom_Organisation.ID
@@ -36,6 +38,10 @@ namespace TangentaDB
                                 left join Atom_cZIP_Org on Atom_cAddress_Org.Atom_cZIP_Org_ID = Atom_cZIP_Org.ID
                                 left join Atom_cCountry_Org on Atom_cAddress_Org.Atom_cCountry_Org_ID = Atom_cCountry_Org.ID
                                 left join Atom_cState_Org on Atom_cAddress_Org.Atom_cState_Org_ID = Atom_cState_Org.ID
+                                left join cPhoneNumber_Org acpn on Atom_OrganisationData.cPhoneNumber_Org_ID = acpn.ID
+								left join cFaxNumber_Org acfn on Atom_OrganisationData.cFaxNumber_Org_ID = acfn.ID
+								left  join cEmail_Org  aceo on Atom_OrganisationData.cEmail_Org_ID = aceo.ID
+								left  join cHomePage_Org achpo on Atom_OrganisationData.cHomePage_Org_ID = achpo.ID
                                 inner join Organisation on Organisation.Name = Atom_Organisation.Name
                                            and ((Organisation.Tax_ID = Atom_Organisation.Tax_ID) or ( Organisation.Tax_ID is null and  Atom_Organisation.Tax_ID is null))
                                            and ((Organisation.Registration_ID = Atom_Organisation.Registration_ID) or (Organisation.Registration_ID is null and Atom_Organisation.Registration_ID is null))
@@ -48,16 +54,23 @@ namespace TangentaDB
                                 left  join cZIP_Org on cAddress_Org.cZIP_Org_ID = cZIP_Org.ID
                                 left  join cCountry_Org on cAddress_Org.cCountry_Org_ID = cCountry_Org.ID
                                 left  join cState_Org on cAddress_Org.cState_Org_ID = cState_Org.ID
+                                left  join cPhoneNumber_Org cpn on OrganisationData.cPhoneNumber_Org_ID = cpn.ID 
+                                left  join cFaxNumber_Org cfn on OrganisationData.cFaxNumber_Org_ID = cfn.ID
+                                left  join cEmail_Org  ceo on OrganisationData.cEmail_Org_ID = ceo.ID
+                                left  join cHomePage_Org chpo on OrganisationData.cHomePage_Org_ID = chpo.ID
                                 left  join Logo on OrganisationData.Logo_ID = Logo.ID
                                 left  join Atom_Logo on Atom_OrganisationData.Atom_Logo_ID = Atom_Logo.ID
-                                where
+                                where ((  cpn.PhoneNumber is null and acpn.PhoneNumber is null) or (  cpn.PhoneNumber = acpn.PhoneNumber ) ) and
+								((  acfn.FaxNumber is null and cfn.FaxNumber is null) or (  acfn.FaxNumber = cfn.FaxNumber ) ) and
+								((  aceo.Email is null and ceo.Email is null) or (  aceo.Email = ceo.Email ) ) and
+								((  achpo.HomePage is null and chpo.HomePage is null) or (  achpo.HomePage = chpo.HomePage ) ) and
                                 ( (  Logo.Image_Hash is null  and   Atom_Logo.Image_Hash is null  ) or  (Logo.Image_Hash=Atom_Logo.Image_Hash) ) and
                                 (
                                 ( (  cStreetName_Org.StreetName is null  and   Atom_cStreetName_Org.StreetName  is null  ) or (cStreetName_Org.StreetName = Atom_cStreetName_Org.StreetName ) ) and
                                 ( (  cHouseNumber_Org.HouseNumber is null  and   Atom_cHouseNumber_Org.HouseNumber is null  )or  ( cHouseNumber_Org.HouseNumber = Atom_cHouseNumber_Org.HouseNumber ) ) and
                                 ( (  Atom_OrganisationData.cHomePage_Org_ID is null   and  OrganisationData.cHomePage_Org_ID is null  ) or  ( Atom_OrganisationData.cHomePage_Org_ID = OrganisationData.cHomePage_Org_ID ) ) and
                                 ( (  Atom_OrganisationData.cEmail_Org_ID is null  and   OrganisationData.cEmail_Org_ID is null ) or  ( Atom_OrganisationData.cEmail_Org_ID = OrganisationData.cEmail_Org_ID ) ) and
-                                ( (  Atom_OrganisationData.cPhoneNumber_Org_ID is null  and   OrganisationData.cPhoneNumber_Org_ID is null  ) or  ( Atom_OrganisationData.cPhoneNumber_Org_ID = OrganisationData.cPhoneNumber_Org_ID ) ) and
+                                
                                 ( (  Atom_OrganisationData.cFaxNumber_Org_ID is null  and   OrganisationData.cFaxNumber_Org_ID is null  ) or  ( Atom_OrganisationData.cFaxNumber_Org_ID = OrganisationData.cFaxNumber_Org_ID ) ) and
                                 ( (  cCity_Org.City is null ) and  Atom_cCity_Org.City is null   ) or  (cCity_Org.City = Atom_cCity_Org.City  ) and
                                 ( (  cZip_Org.ZIP is null  and  Atom_cZIP_Org.ZIP is null  )or  (cZip_Org.ZIP = Atom_cZIP_Org.ZIP ) ) and
@@ -65,7 +78,7 @@ namespace TangentaDB
                                 ( ( cState_Org.State is null and  Atom_cState_Org.State is null  ) or  (cState_Org.State = Atom_cState_Org.State ) ) 
                                 )
                                 and
-                                myOrganisation.id = " + myOrganisation_ID.ToString();
+                                myOrganisation.id =" + myOrganisation_ID.ToString();
 
             if (DBSync.DBSync.ReadDataTable(ref dt, sql_find_Atom_myOrganisation_ID, ref Err))
             {

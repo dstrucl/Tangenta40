@@ -24,7 +24,9 @@ namespace TangentaPrint
         private Font fArial8 = new Font(familyName: "Arial", emSize: 8, style: FontStyle.Bold);
         private Font fArial8r = new Font(familyName: "Arial", emSize: 8, style: FontStyle.Regular);
         private Font fArial9 = new Font(familyName: "Arial", emSize: 9, style: FontStyle.Bold);
+        private Font fArial9r = new Font(familyName: "Arial", emSize: 9, style: FontStyle.Regular);
         private Font fArial12 = new Font(familyName: "Arial", emSize: 12, style: FontStyle.Bold);
+        private Font fArial12r = new Font(familyName: "Arial", emSize: 12, style: FontStyle.Regular);
 
         Font fCurierNew14 = new Font("Courier New", 14);
         private InvoiceData m_invoiceData = null;
@@ -221,7 +223,7 @@ namespace TangentaPrint
             float fontHeight = font.GetHeight();
             float startX = 0;
             float startY = 35;
-            float Offset = 40;
+            float Offset = 0;
 
           
 
@@ -244,18 +246,18 @@ namespace TangentaPrint
             }
             //graphics.DrawImage(Properties.Resources.Tangenta_Logo1colorH32, startX, startY + Offset);
             graphics.DrawString(lng.s_DocInvoice.s + " " + lng.s_num.s + ":" + m_invoiceData.GetInvoiceNumberString(), fArial12, new SolidBrush(Color.Black), startX + 8, startY + Offset + 8);
-            Offset = Offset + OFS + 16;
+            Offset = Offset + OFS+16;
             if (m_invoiceData.PrintCopyInfo.Length > 0)
             {
-                graphics.DrawString(m_invoiceData.PrintCopyInfo, fArial12, new SolidBrush(Color.Black), startX + 8, startY + Offset + 8);
-                Offset = Offset + OFS + 32;
+                graphics.DrawString(m_invoiceData.PrintCopyInfo, fArial12r, new SolidBrush(Color.Black), startX + 8, startY + Offset + 8);
+                Offset = Offset + OFS+16;
             }
             if (m_invoiceData.Invoice_Storno_v!=null)
             {
                 if(m_invoiceData.Invoice_Storno_v.v)
                 {
                     graphics.DrawString(lng.s_Storno.s, fArial12, new SolidBrush(Color.Black), startX + 8, startY + Offset + 8);
-                    Offset = Offset + OFS + 32;
+                    Offset = Offset + OFS + 16;
                 }
             }
 
@@ -276,30 +278,32 @@ namespace TangentaPrint
             graphics.DrawString(lng.s_Issuer.s + ":", fArial9, new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + 2;
 
-            graphics.DrawString(m_invoiceData.MyOrganisation.Name, fArial8r, new SolidBrush(Color.Black), startX+100, startY + Offset);
+            int xofst = 80;
+            graphics.DrawString(m_invoiceData.MyOrganisation.Name, fArial8r, new SolidBrush(Color.Black), startX+ xofst, startY + Offset);
             Offset = Offset + 2 * OFS / 3;
             graphics.DrawString(m_invoiceData.MyOrganisation.Address.StreetName+ " "
                                + m_invoiceData.MyOrganisation.Address.HouseNumber+"," 
                                + m_invoiceData.MyOrganisation.Address.ZIP + " "
-                               + m_invoiceData.MyOrganisation.Address.City, fArial8r, new SolidBrush(Color.Black), startX + 100, startY + Offset);
+                               + m_invoiceData.MyOrganisation.Address.City, fArial8r, new SolidBrush(Color.Black), startX + xofst, startY + Offset);
             Offset = Offset + 2 * OFS / 3;
 
-            graphics.DrawString(lng.s_Tax_ID.s+": "+m_invoiceData.MyOrganisation.Tax_ID, fArial8r, new SolidBrush(Color.Black), startX + 100, startY + Offset);
+            graphics.DrawString(lng.s_Tax_ID.s+": "+m_invoiceData.MyOrganisation.Tax_ID, fArial8r, new SolidBrush(Color.Black), startX + xofst, startY + Offset);
             Offset = Offset + 2 * OFS / 3;
 
-            graphics.DrawString(lng.s_Registration_ID.s + ": " + m_invoiceData.MyOrganisation.Registration_ID, fArial8r, new SolidBrush(Color.Black), startX + 100, startY + Offset);
+            graphics.DrawString(lng.s_Registration_ID.s + ": " + m_invoiceData.MyOrganisation.Registration_ID, fArial8r, new SolidBrush(Color.Black), startX + xofst, startY + Offset);
             Offset = Offset + 2 * OFS / 3;
 
-            graphics.DrawString(lng.s_OfficeName.s + ": " + m_invoiceData.MyOrganisation.Atom_Office_Name, fArial8r, new SolidBrush(Color.Black), startX + 100, startY + Offset);
+            graphics.DrawString(lng.s_OfficeName.s + ": " + m_invoiceData.MyOrganisation.Atom_Office_Name, fArial8r, new SolidBrush(Color.Black), startX + xofst, startY + Offset);
             Offset = Offset + 2 * OFS / 3;
 
+            
             string selectronicdevicename = "";
             if (m_invoiceData.Electronic_Device_Name_v!=null)
             {
                 selectronicdevicename = m_invoiceData.Electronic_Device_Name_v.v;
 
             }
-            graphics.DrawString(lng.s_ElectronicDevice.s + ": " + selectronicdevicename, fArial8r, new SolidBrush(Color.Black), startX + 100, startY + Offset);
+            graphics.DrawString(lng.s_ElectronicDevice.s + ": " + selectronicdevicename, fArial8r, new SolidBrush(Color.Black), startX + xofst, startY + Offset);
             Offset = Offset + 2 * OFS / 3;
 
             string sIssuerPerson = "";
@@ -311,15 +315,46 @@ namespace TangentaPrint
             {
                 sIssuerPerson += " " + m_invoiceData.My_Organisation_Person_LastName_v.v;
             }
-            graphics.DrawString(lng.s_IssuerPerson.s + ": " + sIssuerPerson, fArial8r, new SolidBrush(Color.Black), startX + 100, startY + Offset);
+            graphics.DrawString(lng.s_IssuerPerson.s + ": " + sIssuerPerson, fArial8r, new SolidBrush(Color.Black), startX + xofst, startY + Offset);
             Offset = Offset + 2 * OFS / 3;
 
-            graphics.DrawString(lng.s_Email.s + ": " + m_invoiceData.MyOrganisation.Email, fArial8r, new SolidBrush(Color.Black), startX + 100, startY + Offset);
-            Offset = Offset + 2 * OFS / 3;
+            if (m_invoiceData.MyOrganisation.PhoneNumber != null)
+            {
+                if (m_invoiceData.MyOrganisation.PhoneNumber.Length>0)
+                {
+                    graphics.DrawString(lng.s_PhoneNumber.s + ": " + m_invoiceData.MyOrganisation.PhoneNumber, fArial8r, new SolidBrush(Color.Black), startX + xofst, startY + Offset);
+                    Offset = Offset + 2 * OFS / 3;
+                }
+            }
+            
+            if (m_invoiceData.MyOrganisation.Email!=null)
+            {
+                if(m_invoiceData.MyOrganisation.Email.Length>0)
+                {
+                    graphics.DrawString(lng.s_Email.s + ": " + m_invoiceData.MyOrganisation.Email, fArial8r, new SolidBrush(Color.Black), startX + xofst, startY + Offset);
+                    Offset = Offset + 2 * OFS / 3;
+                }
+            }
 
-            graphics.DrawString(lng.s_Homepage.s + ": " + m_invoiceData.MyOrganisation.HomePage, fArial8r, new SolidBrush(Color.Black), startX + 100, startY + Offset);
-            Offset = Offset + OFS;
 
+            if (m_invoiceData.MyOrganisation.HomePage != null)
+            {
+                if (m_invoiceData.MyOrganisation.HomePage.Length > 0)
+                {
+                    graphics.DrawString(lng.s_Homepage.s + ": " + m_invoiceData.MyOrganisation.HomePage, fArial8r, new SolidBrush(Color.Black), startX + xofst, startY + Offset);
+                    Offset = Offset + OFS;
+                }
+            }
+
+            if (m_invoiceData.MyOrganisation.Comment1!=null)
+            {
+                if (m_invoiceData.MyOrganisation.Comment1.Length>0)
+                {
+                    float xofsComment1 = 0;
+                    Global.g.DrawWordWrap(graphics, m_invoiceData.MyOrganisation.Comment1, fArial8r, Color.Black, startX+ xofst, startY + Offset, pagewidth, ref xofsComment1);
+                    Offset = Offset + xofsComment1+ 8;
+                }
+            }
             string sinvoicetime = LanguageControl.DynSettings.SetLanguageDateTimeString(m_invoiceData.IssueDate_v.v);
 
             graphics.DrawString(lng.s_IssueTime.s + ": " + sinvoicetime, fArial9, new SolidBrush(Color.Black), startX, startY + Offset);
@@ -391,20 +426,27 @@ namespace TangentaPrint
             {
                 if (sNoticeText.Length>0)
                 {
+                    Offset = Offset + 16;
                     float xofsnotice = 0;
-                    Global.g.DrawWordWrap(graphics, sNoticeText, fArial8r, Color.Black, startX, startY + Offset, pagewidth * 1 / 2 - 2, ref xofsnotice);
+                    Global.g.DrawWordWrap(graphics, sNoticeText, fArial8r, Color.Black, startX, startY + Offset, pagewidth, ref xofsnotice);
                     Offset = Offset + xofsnotice + OFS;
                 }
             }
 
-            graphics.DrawString(lng.s_EOR.s + ": " + m_invoiceData.AddOnDI.m_FURS.sFURS_EOR, fArial9, new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + OFS;
-            graphics.DrawString(lng.s_ZOI.s + ": " + m_invoiceData.AddOnDI.m_FURS.sFURS_ZOI, fArial9, new SolidBrush(Color.Black), startX, startY + Offset);
-            Offset = Offset + OFS;
+            float xofsEOR = 0;
+            Global.g.DrawWordWrap(graphics, lng.s_EOR.s + ": " + m_invoiceData.AddOnDI.m_FURS.sFURS_EOR, fArial9, Color.Black, startX, startY + Offset, pagewidth, ref xofsEOR);            Offset = Offset + xofsEOR + 8;
+            float xofsZOI = 0;
+            Global.g.DrawWordWrap(graphics, lng.s_ZOI.s + ": " + m_invoiceData.AddOnDI.m_FURS.sFURS_ZOI, fArial9, Color.Black, startX, startY + Offset, pagewidth, ref xofsZOI);
+            Offset = Offset + xofsZOI + 8;
 
             float qr_width = 80;
             float qr_height =  80;
             graphics.DrawImage(m_invoiceData.AddOnDI.m_FURS.FURS_Image_QRcode, startX + pagewidth / 2 - qr_width/2, startY + Offset, qr_width, qr_height);
+            Offset = Offset + qr_height + 8;
+
+            graphics.DrawImage(Properties.Resources.Tangenta_Logo1colorH32, startX, startY + Offset);
+            graphics.DrawString(lng.s_TangentaInvoicingAdd.s, fArial12r, new SolidBrush(Color.Black), startX + 8, startY + Offset + 8);
+
             //string sdate = LanguageControl.DynSettings.SetLanguageDateString(m_stocktaketime);
             //graphics.DrawString(lng.s_Date.s + ":" + sdate, fArial9, new SolidBrush(Color.Black), startX, startY + Offset);
             //Offset = Offset + OFS;

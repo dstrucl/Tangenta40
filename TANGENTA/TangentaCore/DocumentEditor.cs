@@ -733,7 +733,24 @@ namespace TangentaCore
             {
                 PrintDocInvoice prndocinvoice = new PrintDocInvoice(printer.PrinterName, InvoiceData);
        
-                prndocinvoice.Print(DocumentMan.MainForm);
+                if (prndocinvoice.Print(DocumentMan.MainForm))
+                {
+                    if (transaction == null)
+                    {
+                        transaction = DBSync.DBSync.NewTransaction("DocumentEditor.SetCopyPrintInfo");
+                    }
+                    if (InvoiceData.SetCopyPrintInfo(m_LMOUser.Atom_WorkPeriod_ID,
+                                                     printer.PrinterName,
+                                                     transaction))
+                    {
+                        return transaction.Commit();
+                    }
+                    else
+                    {
+                        transaction.Rollback();
+                        return false;
+                    }
+                }
 
                 return true;
             }

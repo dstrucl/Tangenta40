@@ -60,6 +60,7 @@ namespace TangentaCore
             lng.s_btn_TermsOfPayment.Text(btn_TermsOfPayment);
             lng.s_btn_Warranty.Text(btn_Warranty);
             lng.s_btn_Expiry.Text(btn_Expiry);
+            lng.s_btn_MyOrganisation.Text(btn_MyOrganisation_Data);
         }
 
         private void btn_Taxation_Click(object sender, EventArgs e)
@@ -227,6 +228,36 @@ namespace TangentaCore
         {
             Form_TableInspection frmtbli = new Form_TableInspection(M_usrc_DocumentManX);
             frmtbli.ShowDialog(this);
+        }
+
+        private void edit_MyOrganisation_Data()
+        {
+            NavigationButtons.Navigation nav_EditMyOrganisation_Data = new NavigationButtons.Navigation(null);
+            nav_EditMyOrganisation_Data.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+            nav_EditMyOrganisation_Data.bDoModal = true;
+            EditMyOrganisation_Data(this,false, nav_EditMyOrganisation_Data);
+        }
+
+        public static bool EditMyOrganisation_Data(Control parentctrl, bool bAllowNew, NavigationButtons.Navigation xnav)
+        {
+            parentctrl.Cursor = Cursors.WaitCursor;
+            Form_myOrg_Edit edt_my_company_dlg = new Form_myOrg_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation))), bAllowNew, xnav, null);
+            parentctrl.Cursor = Cursors.Arrow;
+            xnav.ChildDialog = edt_my_company_dlg;
+            xnav.ShowDialog();
+            if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void btn_MyOrganisation_Data_Click(object sender, EventArgs e)
+        {
+            edit_MyOrganisation_Data();
         }
     }
 }

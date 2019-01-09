@@ -345,41 +345,15 @@ namespace TangentaPrint
 
             if (m_InvoiceData.IsDocInvoice)
             {
-                if (m_InvoiceData.PrintCopyInfo.Length == 0)
+                string sprinter_name = "";
+                if (m_Printer!=null)
                 {
-                    string s_journal_invoice_type = f_Journal_DocInvoice.ORIGINALPRINT;
-                    string s_journal_invoice_description = "";
-                    if (m_Printer != null)
-                    {
-                        if (m_Printer.PrinterName != null)
-                        {
-                            s_journal_invoice_description = m_Printer.PrinterName;
-                        }
-                    }
-                    ID journal_docinvoice_id = null;
-                    if (!f_Journal_DocInvoice.Write(m_InvoiceData.DocInvoice_ID, m_Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, m_InvoiceData.PrintingTime_v, ref journal_docinvoice_id, transaction_usrc_InvoicePreview_btn_Print_Click))
-                    {
-                        transaction_usrc_InvoicePreview_btn_Print_Click.Rollback();
-                        return;
-                    }
+                    sprinter_name = m_Printer.PrinterName;
                 }
-                else
+                if (!m_InvoiceData.SetCopyPrintInfo(m_Atom_WorkPeriod_ID, sprinter_name, transaction_usrc_InvoicePreview_btn_Print_Click))
                 {
-                    string s_journal_invoice_type = f_Journal_DocInvoice.COPYPRINT;
-                    string s_journal_invoice_description = "";
-                    if (m_Printer != null)
-                    {
-                        if (m_Printer.PrinterName != null)
-                        {
-                            s_journal_invoice_description = m_Printer.PrinterName;
-                        }
-                    }
-                    ID journal_docinvoice_id = null;
-                    if (!f_Journal_DocInvoice.Write(m_InvoiceData.DocInvoice_ID, m_Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, m_InvoiceData.PrintingTime_v, ref journal_docinvoice_id, transaction_usrc_InvoicePreview_btn_Print_Click))
-                    {
-                        transaction_usrc_InvoicePreview_btn_Print_Click.Rollback();
-                        return;
-                    }
+                    transaction_usrc_InvoicePreview_btn_Print_Click.Rollback();
+                    return;
                 }
                 bDocInvoicePrinted = true;
             }

@@ -942,24 +942,6 @@ namespace Tangenta
             this.splitContainer1.Enabled = b;
         }
 
-      
-        private bool EditMyOrganisation_Data(bool bAllowNew,NavigationButtons.Navigation xnav)
-        {
-            this.Cursor = Cursors.WaitCursor;
-            Form_myOrg_Edit edt_my_company_dlg = new Form_myOrg_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation))), bAllowNew,xnav,null);
-            this.Cursor = Cursors.Arrow;
-            xnav.ChildDialog = edt_my_company_dlg;
-            xnav.ShowDialog();
-            if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK)|| (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
 
         public bool Initialise(DocumentMan xDocumentMan, LoginControl.LMOUser xLMOUser)
         {
@@ -1486,7 +1468,7 @@ namespace Tangenta
             NavigationButtons.Navigation nav_EditMyOrganisation_Data = new NavigationButtons.Navigation(null);
             nav_EditMyOrganisation_Data.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
             nav_EditMyOrganisation_Data.bDoModal = true;
-            EditMyOrganisation_Data(false, nav_EditMyOrganisation_Data);
+            usrc_CodeTables.EditMyOrganisation_Data(this,false, nav_EditMyOrganisation_Data);
         }
 
         private void usrc_Currency1_CurrencyChanged(xCurrency currency, ID xAtom_Currency_ID)
