@@ -415,11 +415,25 @@ namespace LanguageControl
         {
             if (LanguageID == Slovensko_ID)
             {
+                string shour = datetime.Hour.ToString();
+                if (shour.Length==1)
+                {
+                    shour = "0" + shour;
+                }
+                string sminute = datetime.Minute.ToString();
+                if (sminute.Length == 1)
+                {
+                    sminute = "0" + sminute;
+                }
+                string ssec = datetime.Second.ToString();
+                if (ssec.Length == 1)
+                {
+                    ssec = "0" + ssec;
+                }
                 return datetime.Day.ToString() + "."
                                     + datetime.Month.ToString() + "."
                                     + datetime.Year.ToString() + " "
-                                    + datetime.Hour.ToString() + ":"
-                                    + datetime.Minute.ToString();
+                                    + shour + ":" + sminute + ":" + ssec;
             }
             else
             {

@@ -31,6 +31,7 @@ namespace Tangenta
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_DocumentMan1366x768));
             this.cmb_DocType = new System.Windows.Forms.ComboBox();
             this.cmb_FinancialYear = new System.Windows.Forms.ComboBox();
             this.lbl_FinancialYear = new System.Windows.Forms.Label();
@@ -41,7 +42,7 @@ namespace Tangenta
             this.usrc_FVI_SLO1 = new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO();
             this.btn_Settings = new System.Windows.Forms.Button();
             this.timer_Login_MultiUser = new System.Windows.Forms.Timer(this.components);
-            this.m_usrc_TableOfDocuments = new usrc_TableOfDocuments();
+            this.m_usrc_TableOfDocuments = new TangentaCore.usrc_TableOfDocuments();
             this.m_usrc_DocumentEditor1366x768 = new Tangenta.usrc_DocumentEditor1366x768();
             this.usrc_TransactionControl1 = new TransactionLog.usrc_TransactionControl();
             this.SuspendLayout();
@@ -77,7 +78,7 @@ namespace Tangenta
             // btn_SelectPanels
             // 
             this.btn_SelectPanels.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_SelectPanels.Image = TangentaResources.Properties.Resources.EditAndViewInvoice;
+            this.btn_SelectPanels.Image = ((System.Drawing.Image)(resources.GetObject("btn_SelectPanels.Image")));
             this.btn_SelectPanels.Location = new System.Drawing.Point(102, 700);
             this.btn_SelectPanels.Name = "btn_SelectPanels";
             this.btn_SelectPanels.Size = new System.Drawing.Size(87, 64);
@@ -97,7 +98,7 @@ namespace Tangenta
             // btn_Exit
             // 
             this.btn_Exit.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Exit.Image = TangentaResources.Properties.Resources.Exit;
+            this.btn_Exit.Image = ((System.Drawing.Image)(resources.GetObject("btn_Exit.Image")));
             this.btn_Exit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_Exit.Location = new System.Drawing.Point(0, 700);
             this.btn_Exit.Name = "btn_Exit";
@@ -118,7 +119,7 @@ namespace Tangenta
             // usrc_FVI_SLO1
             // 
             this.usrc_FVI_SLO1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.usrc_FVI_SLO1.Image_ButtonExit = TangentaResources.Properties.Resources.Exit;
+            this.usrc_FVI_SLO1.Image_ButtonExit = ((System.Drawing.Image)(resources.GetObject("usrc_FVI_SLO1.Image_ButtonExit")));
             this.usrc_FVI_SLO1.Location = new System.Drawing.Point(215, 702);
             this.usrc_FVI_SLO1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_FVI_SLO1.Name = "usrc_FVI_SLO1";
@@ -129,7 +130,7 @@ namespace Tangenta
             // btn_Settings
             // 
             this.btn_Settings.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Settings.Image = TangentaResources.Properties.Resources.Settings;
+            this.btn_Settings.Image = ((System.Drawing.Image)(resources.GetObject("btn_Settings.Image")));
             this.btn_Settings.Location = new System.Drawing.Point(255, 701);
             this.btn_Settings.Name = "btn_Settings";
             this.btn_Settings.Size = new System.Drawing.Size(33, 64);
@@ -150,7 +151,7 @@ namespace Tangenta
             this.m_usrc_TableOfDocuments.Name = "m_usrc_TableOfDocuments";
             this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(357, 622);
             this.m_usrc_TableOfDocuments.TabIndex = 39;
-            this.m_usrc_TableOfDocuments.SelectedInvoiceChanged += new usrc_TableOfDocuments.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
+            this.m_usrc_TableOfDocuments.SelectedInvoiceChanged += new TangentaCore.usrc_TableOfDocuments.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
             // 
             // m_usrc_DocumentEditor1366x768
             // 
@@ -161,9 +162,11 @@ namespace Tangenta
             this.m_usrc_DocumentEditor1366x768.Size = new System.Drawing.Size(1006, 768);
             this.m_usrc_DocumentEditor1366x768.TabIndex = 40;
             this.m_usrc_DocumentEditor1366x768.New_Click += new Tangenta.usrc_DocumentEditor1366x768.delegate_New_Click(this.btn_New_Click);
+            this.m_usrc_DocumentEditor1366x768.Storno += new Tangenta.usrc_DocumentEditor1366x768.delegate_Storno(this.m_usrc_Invoice_Storno);
             // 
             // usrc_TransactionControl1
             // 
+            this.usrc_TransactionControl1.DataBase_TransactionsLog = null;
             this.usrc_TransactionControl1.Location = new System.Drawing.Point(4, 41);
             this.usrc_TransactionControl1.Name = "usrc_TransactionControl1";
             this.usrc_TransactionControl1.Size = new System.Drawing.Size(23, 25);

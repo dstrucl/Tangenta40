@@ -583,7 +583,13 @@ namespace TangentaDB
         }
 
 
-        public bool Storno(ID xAtom_WorkPeriod_ID, ref ID Storno_DocInvoice_ID, bool bStorno, string ElectronicDevice_Name, string sReason, ref DateTime retissue_time, Transaction transaction)
+        public bool Storno(ID xAtom_WorkPeriod_ID,
+                            ref ID Storno_DocInvoice_ID,
+                            bool bStorno,
+                            string ElectronicDevice_Name,
+                            string sReason,
+                            ref DateTime retissue_time,
+                            Transaction transaction)
         {
             string Err = null;
             DataTable dt_ProfInv = new DataTable();

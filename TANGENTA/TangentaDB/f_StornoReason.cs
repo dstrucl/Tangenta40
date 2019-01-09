@@ -31,19 +31,20 @@ namespace TangentaDB
                 scond_DocInvoice_ID = "DocInvoice_ID is null";
                 sval_DocInvoice_ID = "null";
             }
+
             string scond_stornoName_ID = null;
             string sval_stornoName_ID = "null";
             if (ID.Validate(docInvoice_ID))
             {
                 string spar_stornoName_ID = "@par_stornoName_ID";
-                SQL_Parameter par_stornoName_ID = new SQL_Parameter(spar_stornoName_ID, false, docInvoice_ID);
+                SQL_Parameter par_stornoName_ID = new SQL_Parameter(spar_stornoName_ID, false, stornoName_ID);
                 lpar.Add(par_stornoName_ID);
-                scond_stornoName_ID = "c = " + spar_stornoName_ID;
+                scond_stornoName_ID = "StornoName_ID = " + spar_stornoName_ID;
                 sval_stornoName_ID = spar_stornoName_ID;
             }
             else
             {
-                scond_stornoName_ID = "c is null";
+                scond_stornoName_ID = "StornoName_ID is null";
                 sval_stornoName_ID = "null";
             }
 
@@ -64,7 +65,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    sql = @"insert into StornoReason (DocInvoice_ID,sval_DocInvoice_ID) values (" + sval_DocInvoice_ID + ","+ sval_stornoName_ID + ")";
+                    sql = @"insert into StornoReason (DocInvoice_ID,StornoName_ID) values (" + sval_DocInvoice_ID + ","+ sval_stornoName_ID + ")";
                     if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref stornoReason_ID,  ref Err, "StornoReason"))
                     {
                         return true;

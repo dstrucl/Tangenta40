@@ -40,21 +40,8 @@ namespace TangentaPrint
             {
                 lng.s_HistoryOfProformaInvoiceAndPrint.Text(this);
             }
-            string sED = "";
-            if (m_InvoiceData.Electronic_Device_Name_v!=null)
-            {
-                sED = m_InvoiceData.Electronic_Device_Name_v.v;
-            }
-            string sOfficeShortName = "";
           
-            if (m_InvoiceData.MyOrganisation!=null)
-            {
-                if (m_InvoiceData.MyOrganisation.Atom_Office_ShortName != null)
-                {
-                    sOfficeShortName = m_InvoiceData.MyOrganisation.Atom_Office_ShortName;
-                }
-            }
-            string snumber = sOfficeShortName+"-"+sED+"-"+m_InvoiceData.NumberInFinancialYear.ToString() +"/"+ m_InvoiceData.FinancialYear.ToString();
+            string snumber = m_InvoiceData.GetInvoiceNumberString();
             this.usrc_PrintExistingInvoice1.Init(xInvoiceData, snumber);
         }
 

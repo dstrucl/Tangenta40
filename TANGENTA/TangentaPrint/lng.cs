@@ -25,7 +25,19 @@ namespace TangentaPrint
         }
 
         #region PrintStockTake
+        public static ltext s_EOR = new ltext(new string[] { "EOR", "EOR" });
+        public static ltext s_ZOI = new ltext(new string[] { "ZOI", "ZOI" });
 
+        public static ltext s_Discount = new ltext(new string[] { "Discount", "Popust" });
+        public static ltext s_ItemOrService = new ltext(new string[] { "Item or service", "Artikek/Storitev" });
+        public static ltext s_TaxationRate = new ltext(new string[] { "Tax", "Davek" });
+        public static ltext s_PriceWithTax = new ltext(new string[] { "Total", "Cena z DDV" });
+        public static ltext s_Homepage = new ltext(new string[] { "Homepage", "Domača stran" });
+        public static ltext s_Email = new ltext(new string[] { "Email", "E-Pošta" });
+        public static ltext s_Issuer = new ltext(new string[] { "Issuer", "Izdajatelj" });
+        public static ltext s_Registration_ID =  new ltext(new string[] { "Registration ID", "Matična št." });
+        public static ltext s_Tax_ID = new ltext(new string[] { "Tax ID", "Davčna št." });
+        public static ltext s_ToAddress = new ltext(new string[] { "To Aaddress", "Naslovu" });
         public static ltext s_STOCKTAKE = new ltext(new string[] { "STOCKTAKE", "PREVZEMNICA" });
         public static ltext s_STOCKTAKE_ID = new ltext(new string[] { "Stocktake ID", "Prevzemnica ID" });
         public static ltext s_Date = new ltext(new string[] { "Date", "Datum" });
@@ -76,7 +88,7 @@ namespace TangentaPrint
         public static ltext s_CashierClose_Number = new ltext(new string[] { "Closing cashier ((@@EDName@@)) Closing Num.:", "Zaključek blagajne ((@@EDName@@)) Št. zaključka:"});
 
         
-        public static ltext s_TaxID_for_VAT = new ltext(new string[] { "ID for VAT: ", "ID za DDV: " });
+        public static ltext s_TaxID_for_VAT = new ltext(new string[] { "ID for VAT", "ID za DDV" });
         
         public static ltext s_BussinessUnit = new ltext(new string[] { "Office: ", "PE: " });
         public static ltext s_OrganisationName = new ltext(new string[] { "Organisation name", "Organizacija" });
@@ -240,5 +252,7 @@ namespace TangentaPrint
 
         public static ltext s_DocInvoice = new ltext(new string[]{"Invoice",
                                                  "Račun" });
+        public static ltext s_num = new ltext(new string[]{"num.",
+                                                 "št." });
     }
 }

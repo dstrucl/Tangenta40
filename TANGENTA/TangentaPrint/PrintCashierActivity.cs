@@ -244,7 +244,7 @@ namespace TangentaPrint
             }
 
             Offset = Offset + OFS;
-            Global.g.DrawStringAlignCenter(graphics, lng.s_TaxID_for_VAT.s+ sCountryPrefix+ sTaxID, mFArial10, Color.Black, startY + Offset,pagewidth);
+            Global.g.DrawStringAlignCenter(graphics, lng.s_TaxID_for_VAT.s+": "+ sCountryPrefix+ sTaxID, mFArial10, Color.Black, startY + Offset,pagewidth);
             
             // DRAW LINE ___________________________________________________________
             Offset = Offset + OFS;

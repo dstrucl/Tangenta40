@@ -1336,9 +1336,14 @@ namespace TangentaCore
                                     ID Storno_DocInvoice_ID = null;
                                     DateTime stornoInvoiceIssueDateTime = new DateTime();
                                     Transaction transaction_Storno = DBSync.DBSync.NewTransaction("Storno");
-                                    if (m_ShopABC.m_CurrentDoc.Storno(m_LMOUser.Atom_WorkPeriod_ID, ref Storno_DocInvoice_ID, true, GlobalData.ElectronicDevice_Name, frm_storno_dlg.m_Reason, ref stornoInvoiceIssueDateTime, transaction_Storno))
+                                    if (m_ShopABC.m_CurrentDoc.Storno(m_LMOUser.Atom_WorkPeriod_ID,
+                                                                      ref Storno_DocInvoice_ID,
+                                                                      true,
+                                                                      GlobalData.ElectronicDevice_Name,
+                                                                      frm_storno_dlg.m_Reason,
+                                                                      ref stornoInvoiceIssueDateTime,
+                                                                      transaction_Storno))
                                     {
-
                                         if (TSettings.b_FVI_SLO)
                                         {
                                             InvoiceData.AddOnDI.b_FVI_SLO = TSettings.b_FVI_SLO;
@@ -1387,13 +1392,26 @@ namespace TangentaCore
                                                     }
                                                     else
                                                     {
+                                                        transaction_Storno.Rollback();
                                                         return false;
                                                     }
                                                 }
                                             }
                                         }
-                                        xdelegate_Storno(true);
+                                        if (transaction_Storno.Commit())
+                                        {
+                                            xdelegate_Storno(true);
+                                        }
+                                        else
+                                        {
+                                            xdelegate_Storno(false);
+                                        }
                                     }
+                                    else
+                                    {
+                                        transaction_Storno.Rollback();
+                                    }
+
                                 }
                             }
                         }

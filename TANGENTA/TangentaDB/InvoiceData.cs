@@ -72,6 +72,27 @@ namespace TangentaDB
         public enum eType { DRAFT_INVOICE, INVOICE, PROFORMA_INVOICE, STORNO, UNKNOWN };
 
         public eType m_eType = eType.UNKNOWN;
+
+        public string GetInvoiceNumberString()
+        {
+            string sED = "";
+            if (Electronic_Device_Name_v != null)
+            {
+                sED = Electronic_Device_Name_v.v;
+            }
+            string sOfficeShortName = "";
+
+            if (MyOrganisation != null)
+            {
+                if (MyOrganisation.Atom_Office_ShortName != null)
+                {
+                    sOfficeShortName = MyOrganisation.Atom_Office_ShortName;
+                }
+            }
+            string snumber = sOfficeShortName + "-" + sED + "-" + NumberInFinancialYear.ToString() + "/" + FinancialYear.ToString();
+            return snumber;
+        }        
+
         public string_v Electronic_Device_Name_v = null;
 
         public DateTime_v PrintingTime_v = null;
@@ -126,6 +147,9 @@ namespace TangentaDB
         public UniversalInvoice.ItemSold[] ItemsSold = null;
         public UniversalInvoice.GeneralToken GeneralToken = null;
         public UniversalInvoice.InvoiceToken InvoiceToken = null;
+
+        public string_v My_Organisation_Person_FirstName_v = null;
+        public string_v My_Organisation_Person_LastName_v = null;
 
 
         public int iCountSimpleItemsSold = 0;
@@ -343,6 +367,52 @@ namespace TangentaDB
             InsertPageNumbers(ref html);
             return html;
        }
+
+        public bool CustomerIsDefined()
+        {
+            if (Customer!=null)
+            {
+                if (Customer is UniversalInvoice.Organisation)
+                {
+                    UniversalInvoice.Organisation uorg = (UniversalInvoice.Organisation)Customer;
+                    if (uorg.Name!=null)
+                    {
+                        return uorg.Name.Length > 0;
+                    }
+                }
+                if (Customer is UniversalInvoice.Person)
+                {
+                    UniversalInvoice.Person uper = (UniversalInvoice.Person)Customer;
+                    if (uper.FirstName != null)
+                    {
+                        if (uper.FirstName.Length > 0)
+                        {
+                                return true;
+                        }
+                    }
+                    if (uper.LastName != null)
+                    {
+                        if (uper.LastName.Length > 0)
+                        {
+                           return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        public Image GetOrganisationLogoImage()
+        {
+            if (MyOrganisation!=null)
+            {
+                if (MyOrganisation.Logo_Data!=null)
+                {
+                    return DBTypes.func.byteArrayToImage(MyOrganisation.Logo_Data);
+                }
+            }
+            return null;
+        }
 
         private void InsertPage(ref StringBuilder html, HTML_PrintingElement_List hTML_RollPaperPrintingOutput)
         {
@@ -1167,7 +1237,8 @@ namespace TangentaDB
                         Currency.Abbreviation = (string)dt_DocInvoice.Rows[0]["CurrencyAbbreviation"];
                         Currency.CurrencyCode = (int)dt_DocInvoice.Rows[0]["CurrencyCode"];
                         Currency.DecimalPlaces = (int)dt_DocInvoice.Rows[0]["CurrencyDecimalPlaces"];
-
+                        My_Organisation_Person_FirstName_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["My_Organisation_Person_FirstName"]);
+                        My_Organisation_Person_LastName_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["My_Organisation_Person_LastName"]);
 
                         if (IsDocInvoice)
                         {
