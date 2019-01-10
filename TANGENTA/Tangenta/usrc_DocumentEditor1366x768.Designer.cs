@@ -32,6 +32,7 @@ namespace Tangenta
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_DocumentEditor1366x768));
             this.txt_Number = new System.Windows.Forms.TextBox();
             this.lbl_Number = new System.Windows.Forms.Label();
             this.lbl_Sum = new System.Windows.Forms.Label();
@@ -40,8 +41,8 @@ namespace Tangenta
             this.btn_Show_Shops = new System.Windows.Forms.Button();
             this.m_usrc_ShopB1366x768 = new ShopB.usrc_ShopB1366x768();
             this.m_usrc_ShopA1366x768 = new ShopA.usrc_ShopA1366x768();
-            this.usrc_AddOn1 = new usrc_AddOn();
-            this.usrc_Customer = new usrc_Customer();
+            this.usrc_AddOn1 = new TangentaCore.usrc_AddOn();
+            this.usrc_Customer = new TangentaCore.usrc_Customer();
             this.m_usrc_ShopC1366x768 = new ShopC.usrc_ShopC1366x768();
             this.btn_New = new System.Windows.Forms.Button();
             this.usrc_Item1366x768_selected1 = new ShopC.usrc_Item1366x768_selected();
@@ -53,7 +54,7 @@ namespace Tangenta
             this.txt_Number.Location = new System.Drawing.Point(81, 3);
             this.txt_Number.Name = "txt_Number";
             this.txt_Number.ReadOnly = true;
-            this.txt_Number.Size = new System.Drawing.Size(104, 24);
+            this.txt_Number.Size = new System.Drawing.Size(202, 24);
             this.txt_Number.TabIndex = 22;
             // 
             // lbl_Number
@@ -68,7 +69,7 @@ namespace Tangenta
             // 
             // lbl_Sum
             // 
-            this.lbl_Sum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lbl_Sum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_Sum.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_Sum.Location = new System.Drawing.Point(3, 697);
             this.lbl_Sum.Name = "lbl_Sum";
@@ -78,7 +79,7 @@ namespace Tangenta
             // 
             // btn_Issue
             // 
-            this.btn_Issue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_Issue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Issue.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Issue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Issue.Location = new System.Drawing.Point(3, 727);
@@ -92,6 +93,7 @@ namespace Tangenta
             // 
             // chk_Storno
             // 
+            this.chk_Storno.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chk_Storno.Appearance = System.Windows.Forms.Appearance.Button;
             this.chk_Storno.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.chk_Storno.Location = new System.Drawing.Point(938, 685);
@@ -104,6 +106,7 @@ namespace Tangenta
             // 
             // btn_Show_Shops
             // 
+            this.btn_Show_Shops.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Show_Shops.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Show_Shops.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Show_Shops.Location = new System.Drawing.Point(868, 685);
@@ -116,6 +119,8 @@ namespace Tangenta
             // 
             // m_usrc_ShopB1366x768
             // 
+            this.m_usrc_ShopB1366x768.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_usrc_ShopB1366x768.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.m_usrc_ShopB1366x768.DocTyp = "";
             this.m_usrc_ShopB1366x768.Location = new System.Drawing.Point(0, 220);
@@ -125,6 +130,8 @@ namespace Tangenta
             // 
             // m_usrc_ShopA1366x768
             // 
+            this.m_usrc_ShopA1366x768.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_usrc_ShopA1366x768.BackColor = System.Drawing.SystemColors.Control;
             this.m_usrc_ShopA1366x768.Location = new System.Drawing.Point(0, 40);
             this.m_usrc_ShopA1366x768.Name = "m_usrc_ShopA1366x768";
@@ -133,8 +140,7 @@ namespace Tangenta
             // 
             // usrc_AddOn1
             // 
-            this.usrc_AddOn1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_AddOn1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_AddOn1.BackColor = System.Drawing.Color.LemonChiffon;
             this.usrc_AddOn1.Location = new System.Drawing.Point(159, 689);
             this.usrc_AddOn1.Name = "usrc_AddOn1";
@@ -147,14 +153,16 @@ namespace Tangenta
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_Customer.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.usrc_Customer.DocTyp = "";
-            this.usrc_Customer.Location = new System.Drawing.Point(193, 2);
+            this.usrc_Customer.Location = new System.Drawing.Point(290, 0);
             this.usrc_Customer.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_Customer.Name = "usrc_Customer";
-            this.usrc_Customer.Size = new System.Drawing.Size(809, 35);
+            this.usrc_Customer.Size = new System.Drawing.Size(258, 35);
             this.usrc_Customer.TabIndex = 33;
             // 
             // m_usrc_ShopC1366x768
             // 
+            this.m_usrc_ShopC1366x768.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_usrc_ShopC1366x768.AutomaticSelectionOfItemsFromStock = true;
             this.m_usrc_ShopC1366x768.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.m_usrc_ShopC1366x768.ExclusivelySellFromStock = false;
@@ -166,9 +174,10 @@ namespace Tangenta
             // 
             // btn_New
             // 
+            this.btn_New.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_New.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_New.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_New.Image = TangentaResources.Properties.Resources.New;
+            this.btn_New.Image = ((System.Drawing.Image)(resources.GetObject("btn_New.Image")));
             this.btn_New.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_New.Location = new System.Drawing.Point(756, 685);
             this.btn_New.Name = "btn_New";
@@ -180,6 +189,7 @@ namespace Tangenta
             // 
             // usrc_Item1366x768_selected1
             // 
+            this.usrc_Item1366x768_selected1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_Item1366x768_selected1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(249)))), ((int)(((byte)(166)))));
             this.usrc_Item1366x768_selected1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.usrc_Item1366x768_selected1.Location = new System.Drawing.Point(338, 679);

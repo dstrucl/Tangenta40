@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using usrc_Item_InsidePageGroup_Handler;
 using TangentaDB;
+using usrc_Item_InsideGroup_Handler;
 
 namespace ShopC
 {

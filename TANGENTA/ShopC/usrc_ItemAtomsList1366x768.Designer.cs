@@ -33,9 +33,9 @@ namespace ShopC
             this.components = new System.ComponentModel.Container();
             this.btn_ClearAll = new System.Windows.Forms.Button();
             this.lbl_InvoiceInfo = new System.Windows.Forms.Label();
-            this.usrc_Item_InsidePageHandler_ItemAtomList = new usrc_Item_InsidePageHandler_Doc_ShopC_Item();
             this.ContextMenuStrip_DocInfo = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.showTablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usrc_Item_InsidePageHandler_ItemAtomList = new ShopC.usrc_Item_InsidePageHandler_Doc_ShopC_Item();
             this.ContextMenuStrip_DocInfo.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,6 +62,20 @@ namespace ShopC
             this.lbl_InvoiceInfo.TabIndex = 12;
             this.lbl_InvoiceInfo.Text = "label1";
             // 
+            // ContextMenuStrip_DocInfo
+            // 
+            this.ContextMenuStrip_DocInfo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showTablesToolStripMenuItem});
+            this.ContextMenuStrip_DocInfo.Name = "ContextMenuStrip_DocInfo";
+            this.ContextMenuStrip_DocInfo.Size = new System.Drawing.Size(140, 26);
+            // 
+            // showTablesToolStripMenuItem
+            // 
+            this.showTablesToolStripMenuItem.Name = "showTablesToolStripMenuItem";
+            this.showTablesToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.showTablesToolStripMenuItem.Text = "Show Tables";
+            this.showTablesToolStripMenuItem.Click += new System.EventHandler(this.showTablesToolStripMenuItem_Click);
+            // 
             // usrc_Item_InsidePageHandler_ItemAtomList
             // 
             this.usrc_Item_InsidePageHandler_ItemAtomList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -76,21 +90,8 @@ namespace ShopC
             this.usrc_Item_InsidePageHandler_ItemAtomList.SelectedIndex = -1;
             this.usrc_Item_InsidePageHandler_ItemAtomList.Size = new System.Drawing.Size(395, 236);
             this.usrc_Item_InsidePageHandler_ItemAtomList.TabIndex = 11;
-            this.usrc_Item_InsidePageHandler_ItemAtomList.SelectionChanged += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler<Doc_ShopC_Item>.delegate_SelectionChanged(this.Usrc_Item_InsidePageHandler1_SelectionChanged);
-            // 
-            // ContextMenuStrip_DocInfo
-            // 
-            this.ContextMenuStrip_DocInfo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showTablesToolStripMenuItem});
-            this.ContextMenuStrip_DocInfo.Name = "ContextMenuStrip_DocInfo";
-            this.ContextMenuStrip_DocInfo.Size = new System.Drawing.Size(140, 26);
-            // 
-            // showTablesToolStripMenuItem
-            // 
-            this.showTablesToolStripMenuItem.Name = "showTablesToolStripMenuItem";
-            this.showTablesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.showTablesToolStripMenuItem.Text = "Show Tables";
-            this.showTablesToolStripMenuItem.Click += new System.EventHandler(this.showTablesToolStripMenuItem_Click);
+            this.usrc_Item_InsidePageHandler_ItemAtomList.SelectionChanged += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler<TangentaDB.Doc_ShopC_Item>.delegate_SelectionChanged(this.Usrc_Item_InsidePageHandler1_SelectionChanged);
+            this.usrc_Item_InsidePageHandler_ItemAtomList.Resize += new System.EventHandler(this.usrc_Item_InsidePageHandler_ItemAtomList_Resize);
             // 
             // usrc_Atom_ItemsList1366x768
             // 
@@ -109,9 +110,9 @@ namespace ShopC
 
         #endregion
         private System.Windows.Forms.Button btn_ClearAll;
-        private usrc_Item_InsidePageHandler_Doc_ShopC_Item usrc_Item_InsidePageHandler_ItemAtomList;
         private System.Windows.Forms.Label lbl_InvoiceInfo;
         private System.Windows.Forms.ContextMenuStrip ContextMenuStrip_DocInfo;
         private System.Windows.Forms.ToolStripMenuItem showTablesToolStripMenuItem;
+        internal usrc_Item_InsidePageHandler_Doc_ShopC_Item usrc_Item_InsidePageHandler_ItemAtomList;
     }
 }

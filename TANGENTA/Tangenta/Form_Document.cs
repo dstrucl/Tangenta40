@@ -822,6 +822,7 @@ namespace Tangenta
                     if (TangentaProperties.Properties.Settings.Default.ControlLayout_TouchScreen)
                     {
                         usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768 = new usrc_DocumentMan1366x768();
+                        xusrc_DocumentMan1366x768.LayoutChanged += M_usrc_Main_LayoutChanged;
                         xusrc_DocumentMan1366x768.DocM.DocTyp = PropertiesUser.LastDocType_Get(user_settings.mSettingsUserValues);
                         xusrc_DocumentMan1366x768.Active = true;
                         xusrc_DocumentMan1366x768.Dock = DockStyle.Fill;
@@ -841,6 +842,7 @@ namespace Tangenta
                         usrc_DocumentMan xusrc_DocumentMan = new usrc_DocumentMan();
                         xusrc_DocumentMan.Active = true;
                         xusrc_DocumentMan.Dock = DockStyle.Fill;
+                        xusrc_DocumentMan.LayoutChanged += M_usrc_Main_LayoutChanged;
                         this.Controls.Add(xusrc_DocumentMan);
 
                         xusrc_DocumentMan.Initialise(this, TSettings.LMO1User);

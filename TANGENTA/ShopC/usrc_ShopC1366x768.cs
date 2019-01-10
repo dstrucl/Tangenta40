@@ -122,6 +122,7 @@ namespace ShopC
         public usrc_ShopC1366x768()
         {
             InitializeComponent();
+            this.m_usrc_Atom_ItemsList1366x768.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Bottom;
             //this.btn_Stock.Image = ShopC.Properties.Resources.Edit;
             //this.btn_Items.Image = ShopC.Properties.Resources.Edit;
             //this.Load += new System.EventHandler(this.usrc_ShopC_Load);
@@ -314,6 +315,10 @@ namespace ShopC
                 }
 
             }
+        }
+
+        public void Set_DocumentMan_eMode_Shops()
+        {
         }
 
         internal bool CountInBaskets(ref decimal count_in_baskets)
@@ -603,6 +608,17 @@ namespace ShopC
                 }
 
             }
+        }
+        public void DoRefresh()
+        {
+           
+           
+            this.m_usrc_Atom_ItemsList1366x768.usrc_Item_InsidePageHandler_ItemAtomList.Visible = true;
+            
+            this.m_usrc_Atom_ItemsList1366x768.usrc_Item_InsidePageHandler_ItemAtomList.DoRefresh();
+            this.m_usrc_Atom_ItemsList1366x768.usrc_Item_InsidePageHandler_ItemAtomList.Refresh();
+            this.m_usrc_ItemList1366x768.DoRefresh();
+            this.m_usrc_Atom_ItemsList1366x768.usrc_Item_InsidePageHandler_ItemAtomList.BringToFront();
         }
     }
 }

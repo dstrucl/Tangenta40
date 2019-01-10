@@ -136,6 +136,8 @@ namespace usrc_Item_InsidePageGroup_Handler
         }
 
         private int m_ctrlHeightInGroupBox = 40;
+        private int default_usrc_Item_InsidePageHandler1_Width;
+
         public int CtrlHeightInGroupBox
         {
             get
@@ -155,6 +157,9 @@ namespace usrc_Item_InsidePageGroup_Handler
         public usrcG_Item_InsidePageGroupHandler()
         {
             InitializeComponent();
+            default_usrc_Item_InsidePageHandler1_Width = this.usrc_Item_InsidePageHandler1.Width;
+            this.usrc_Item_InsidePageHandler1.Anchor = AnchorStyles.Left | AnchorStyles.Top| AnchorStyles.Right | AnchorStyles.Bottom;
+            this.usrc_Item_InsidePageHandler1.Resize += Usrc_Item_InsidePageHandler1_Resize;
             usrc_Item_InsidePageHandler1.SetName += Usrc_Item_InsidePageHandler1_SetName;
             usrc_Item_InsidePageHandler1.CreateControl += Usrc_Item_InsidePageHandler1_CreateControl;
             usrc_Item_InsidePageHandler1.FillControl += Usrc_Item_InsidePageHandler1_FillControl;
@@ -162,6 +167,15 @@ namespace usrc_Item_InsidePageGroup_Handler
             usrc_Item_InsidePageHandler1.Paint += Usrc_Item_InsidePageHandler1_Paint;
             usrc_Item_InsidePageHandler1.SelectionChanged += Usrc_Item_InsidePageHandler1_SelectionChanged;
             usrc_Item_InsidePageHandler1.CompareWithString += usrc_Item_InsidePageHandler1_CompareWithString;
+        }
+
+        private void Usrc_Item_InsidePageHandler1_Resize(object sender, EventArgs e)
+        {
+            //if (default_usrc_Item_InsidePageHandler1_Width != this.usrc_Item_InsidePageHandler1.Width)
+            //{
+            //    MessageBox.Show("usrc_Item_InsidePageHandler1.Width=" + usrc_Item_InsidePageHandler1.Width.ToString()
+            //                    + "\r\ndefault_usrc_Item_InsidePageHandler1_Width=" + default_usrc_Item_InsidePageHandler1_Width.ToString());
+            //}
         }
 
         private void Usrc_Item_InsidePageHandler1_SelectionChanged(Control ctrl, object oData, int index, bool selected)
@@ -253,6 +267,13 @@ namespace usrc_Item_InsidePageGroup_Handler
         public void DoRepaint()
         {
             this.usrc_Item_InsidePageHandler1.ShowPage(this.usrc_Item_InsidePageHandler1.CurrentPage);
+        }
+
+        public void DoRefresh()
+        {
+          
+            this.usrc_Item_InsideGroup_Handler1.DoRefresh();
+            this.usrc_Item_InsidePageHandler1.DoRefresh();
         }
 
         private void usrc_Item_InsideGroup_Handler1_SelectionChanged(string[] sgroup)

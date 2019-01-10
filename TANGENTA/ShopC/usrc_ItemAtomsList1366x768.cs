@@ -71,7 +71,7 @@ namespace ShopC
         }
 
         public int m_NumberOfItemsPerPage = 10;
-
+        private int default_usrc_Item_InsidePageHandler_ItemAtomList_Width;
 
         public int NumberOfItemsPerPage
         {
@@ -90,6 +90,7 @@ namespace ShopC
         public usrc_Atom_ItemsList1366x768()
         {
             InitializeComponent();
+            default_usrc_Item_InsidePageHandler_ItemAtomList_Width = usrc_Item_InsidePageHandler_ItemAtomList.Width;
             this.usrc_Item_InsidePageHandler_ItemAtomList.CreateControl += Usrc_Item_InsidePageHandler1_CreateControl;
             this.usrc_Item_InsidePageHandler_ItemAtomList.FillControl += Usrc_Item_InsidePageHandler1_FillControl;
             this.usrc_Item_InsidePageHandler_ItemAtomList.SelectControl += Usrc_Item_InsidePageHandler1_SelectControl;
@@ -398,6 +399,18 @@ namespace ShopC
         {
             Form pform = Global.f.GetParentForm(this);
             Form_ShopC_TableInspection.DoShow(pform);
+        }
+
+        private void usrc_Item_InsidePageHandler_ItemAtomList_Resize(object sender, EventArgs e)
+        {
+            if (default_usrc_Item_InsidePageHandler_ItemAtomList_Width != usrc_Item_InsidePageHandler_ItemAtomList.Width)
+            {
+                usrc_Item_InsidePageHandler_ItemAtomList.Width = default_usrc_Item_InsidePageHandler_ItemAtomList_Width;
+                usrc_Item_InsidePageHandler_ItemAtomList.Left = 0;
+                usrc_Item_InsidePageHandler_ItemAtomList.Visible = true;
+                //MessageBox.Show("default_usrc_Item_InsidePageHandler_ItemAtomList_Width=" + default_usrc_Item_InsidePageHandler_ItemAtomList_Width.ToString() +
+                //                "\r\n usrc_Item_InsidePageHandler_ItemAtomList.Width =" + usrc_Item_InsidePageHandler_ItemAtomList.Width.ToString());
+            }
         }
     }
 }

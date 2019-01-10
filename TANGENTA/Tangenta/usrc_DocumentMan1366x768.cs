@@ -31,8 +31,26 @@ namespace Tangenta
 {
     public partial class usrc_DocumentMan1366x768 : UserControl
     {
+        internal class Defpos
+        {
+            internal int usrc_DocumentEditor1366x768_Left = 0;
+            internal int usrc_DocumentEditor1366x768_Width = 0;
+            internal int cmb_DocType_Left;
+            internal int cmb_DocType_Top;
+            internal int lbl_FinancialYear_Left;
+            internal int lbl_FinancialYear_Top;
+            internal int cmb_FinancialYear_Left;
+            internal int cmb_FinancialYear_Top;
+            internal int usrc_loginControl1_Left;
+            internal int usrc_loginControl1_Top;
+            internal int usrc_loginControl1_Width;
+            internal int usrc_TransactionControl1_Left;
+            internal int usrc_TransactionControl1_Top;
+            internal int usrc_TableOfDocuments_Width;
+        }
+        private Defpos defpos = null;
         internal Form_Document m_Form_Document = null;
-
+        
         public new bool Visible
         {
             get
@@ -189,6 +207,22 @@ namespace Tangenta
         public usrc_DocumentMan1366x768()
         {
             InitializeComponent();
+            defpos = new Defpos();
+            defpos.usrc_DocumentEditor1366x768_Left = m_usrc_DocumentEditor1366x768.Left;
+            defpos.usrc_DocumentEditor1366x768_Width = m_usrc_DocumentEditor1366x768.Width;
+            defpos.cmb_DocType_Left = this.cmb_DocType.Left;
+            defpos.cmb_DocType_Top = this.cmb_DocType.Top;
+            defpos.lbl_FinancialYear_Left = this.lbl_FinancialYear.Left;
+            defpos.lbl_FinancialYear_Top = this.lbl_FinancialYear.Top;
+            defpos.cmb_FinancialYear_Left = this.cmb_FinancialYear.Left;
+            defpos.cmb_FinancialYear_Top = this.cmb_FinancialYear.Top;
+            defpos.usrc_loginControl1_Left = this.usrc_loginControl1.Left;
+            defpos.usrc_loginControl1_Width = this.usrc_loginControl1.Width;
+            defpos.usrc_loginControl1_Top = this.usrc_loginControl1.Top;
+            defpos.usrc_TransactionControl1_Left = this.usrc_TransactionControl1.Left;
+            defpos.usrc_TransactionControl1_Top = this.usrc_TransactionControl1.Top;
+            defpos.usrc_TableOfDocuments_Width = this.m_usrc_TableOfDocuments.Width;
+
             if (Startup.CommandLineParam.bTransactionMonitor)
             {
                 this.usrc_TransactionControl1.DataBase_TransactionsLog = DBSync.DBSync.DB_for_Tangenta.DB_TransactionsLog;
@@ -242,18 +276,57 @@ namespace Tangenta
         {
             if (mode == DocumentMan.eMode.Shops)
             {
-                //splitContainer1.Panel2Collapsed = true;
-                //splitContainer1.Panel1Collapsed = false;
+                m_usrc_TableOfDocuments.Visible = false;
+                m_usrc_DocumentEditor1366x768.Visible = true;
+
+                m_usrc_DocumentEditor1366x768.Left = 0;
+                m_usrc_DocumentEditor1366x768.Width = this.Width;
+                m_usrc_DocumentEditor1366x768.Set_DocumentMan_eMode_Shops(defpos.usrc_DocumentEditor1366x768_Left,
+                                                                          defpos.usrc_loginControl1_Left + defpos.usrc_loginControl1_Width - defpos.usrc_TransactionControl1_Left);
+                this.usrc_TransactionControl1.Top = this.cmb_DocType.Top;
+                this.usrc_TransactionControl1.Left = this.cmb_FinancialYear.Left + this.cmb_FinancialYear.Width + 5;
+                this.usrc_loginControl1.Left = this.usrc_TransactionControl1.Left + this.usrc_TransactionControl1.Width + 5;
+                this.usrc_loginControl1.Top = this.cmb_DocType.Top;
+                this.cmb_DocType.BringToFront();
+                this.usrc_TransactionControl1.BringToFront();
+                this.usrc_loginControl1.BringToFront();
+                this.lbl_FinancialYear.BringToFront();
+                this.cmb_FinancialYear.BringToFront();
+                btn_Exit.BringToFront();
+                btn_SelectPanels.BringToFront();
+                usrc_FVI_SLO1.BringToFront();
+                btn_Settings.BringToFront();
+                m_usrc_Help.BringToFront();
+                this.m_usrc_DocumentEditor1366x768.DoRefresh();
             }
             else if (mode == DocumentMan.eMode.InvoiceTable)
             {
-                //splitContainer1.Panel2Collapsed = false;
-                //splitContainer1.Panel1Collapsed = true;
+                m_usrc_DocumentEditor1366x768.Visible = false;
+                this.m_usrc_TableOfDocuments.Visible = true;
+                this.m_usrc_TableOfDocuments.Width = this.Width;
+                this.m_usrc_DocumentEditor1366x768.Set_DocumentMan_eMode_Shops_and_InvoiceTable();
+                this.m_usrc_DocumentEditor1366x768.DoRefresh();
             }
             else
             {
-                //splitContainer1.Panel2Collapsed = false;
-                //splitContainer1.Panel1Collapsed = false;
+
+                m_usrc_DocumentEditor1366x768.Left = defpos.usrc_DocumentEditor1366x768_Left;
+                m_usrc_DocumentEditor1366x768.Width = defpos.usrc_DocumentEditor1366x768_Width;
+                m_usrc_DocumentEditor1366x768.Set_DocumentMan_eMode_Shops_and_InvoiceTable();
+                this.cmb_DocType.Left = defpos.cmb_DocType_Left;
+                this.cmb_DocType.Top = defpos.cmb_DocType_Top;
+                this.lbl_FinancialYear.Left = defpos.lbl_FinancialYear_Left;
+                this.lbl_FinancialYear.Top = defpos.lbl_FinancialYear_Top;
+                this.cmb_FinancialYear.Left = defpos.cmb_FinancialYear_Left;
+                this.cmb_FinancialYear.Top = defpos.cmb_FinancialYear_Top;
+                this.usrc_TransactionControl1.Left = defpos.usrc_TransactionControl1_Left;
+                this.usrc_TransactionControl1.Top = defpos.usrc_TransactionControl1_Top;
+                this.usrc_loginControl1.Left = defpos.usrc_loginControl1_Left;
+                this.usrc_loginControl1.Top = defpos.usrc_loginControl1_Top;
+                this.m_usrc_TableOfDocuments.Width = defpos.usrc_TableOfDocuments_Width;
+                this.m_usrc_TableOfDocuments.Visible = true;
+                m_usrc_DocumentEditor1366x768.Visible = true;
+                this.m_usrc_DocumentEditor1366x768.DoRefresh();
             }
         }
 

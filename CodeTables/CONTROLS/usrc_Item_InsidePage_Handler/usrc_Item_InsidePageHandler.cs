@@ -43,7 +43,22 @@ namespace usrc_Item_InsidePage_Handler
         public enum eCollectionType { ARRAY,LIST};
         private class Page
         {
-            public int ItemsCount;
+            private int m_ItemsCount = 0;
+            public int ItemsCount
+            {
+                get
+                {
+                    return m_ItemsCount;
+                }
+                set
+                {
+                    m_ItemsCount = value;
+                    //if (m_ItemsCount<0)
+                    //{
+                    //    MessageBox.Show("(m_ItemsCount<0)");
+                    //}
+                }
+            }
             public int iControlStartIndex;
             public int iControlEndIndex;
             public int iObjectDataStartIndex;
@@ -150,6 +165,10 @@ namespace usrc_Item_InsidePage_Handler
                 {
                     isum += ipg.ItemsCount;
                 }
+                //if (isum<0)
+                //{
+                //    MessageBox.Show("STOP isum<=0 ");
+                //}
                 return isum;
             }
         }
@@ -466,29 +485,33 @@ namespace usrc_Item_InsidePage_Handler
         }
 
 
-        public void refresh()
+        public void DoRefresh()
         {
+            
             GetLayoutMatrix();
-            initialise();
-            if (m_SelectedIndex>=0)
+            if (ctrlItemsCount > 0)
             {
-                if (m_SelectedIndex >= NumberOfItems)
+                clear_ctrl_array_resource();
+                initialise();
+                if (m_SelectedIndex >= 0)
                 {
-                    SelectObject(NumberOfItems - 1, eSelection.ON_REFRESH);
+                    if (m_SelectedIndex >= NumberOfItems)
+                    {
+                        SelectObject(NumberOfItems - 1, eSelection.ON_REFRESH);
+                    }
+                    else
+                    {
+                        SelectObject(m_SelectedIndex, eSelection.ON_REFRESH);
+                    }
                 }
                 else
                 {
-                    SelectObject(m_SelectedIndex, eSelection.ON_REFRESH);
+                    if (NumberOfItems > 0)
+                    {
+                        SelectObject(0, eSelection.ON_REFRESH);
+                    }
                 }
             }
-            else
-            {
-                if (NumberOfItems > 0)
-                {
-                    SelectObject(0, eSelection.ON_REFRESH);
-                }
-            }
-
         }
 
         private void RemoveControlItems()
@@ -505,6 +528,26 @@ namespace usrc_Item_InsidePage_Handler
                 }
                 ctrlItems_array = null;
             }
+        }
+        private void clear_ctrl_array_resource()
+        {
+            if (ctrlItems_array_resource != null)
+            {
+                ctrlItems_array = null;
+                int iCount = ctrlItems_array_resource.Length;
+                for (int i = 0; i < iCount; i++)
+                {
+                    Control ctrl = ctrlItems_array_resource[i];
+                    if (ctrl != null)
+                    {
+                        this.Controls.Remove(ctrl);
+                        ctrl.Dispose();
+                        ctrlItems_array_resource[i] = null;
+                    }
+                }
+                ctrlItems_array_resource = null;
+            }
+            
         }
 
         private void create_ctrl_array_resource()
@@ -778,7 +821,7 @@ namespace usrc_Item_InsidePage_Handler
                             pgPrev = pg;
                             rest_items = NumberOfItems - NumberOfPageAllocatedItems;
                         }
-                        else
+                        else if (ctrlItemsCount>0)
                         {
                             Page pg = new Page();
                             pg.ItemsCount = ctrlItemsCount - 1;
@@ -797,6 +840,11 @@ namespace usrc_Item_InsidePage_Handler
                             Pages.Add(pg);
                             pgPrev = pg;
                             rest_items = NumberOfItems - NumberOfPageAllocatedItems;
+                        }
+                        else
+                        {
+                            // to small to allocate anything
+                            return;
                         }
                     }
                 }
@@ -825,6 +873,11 @@ namespace usrc_Item_InsidePage_Handler
 
         public void Init(object xDataCollection, eMode xMode)
         {
+            this.GetLayoutMatrix();
+            if (ctrlItemsCount==0)
+            {
+                return;
+            }
             bool bselectionchanged = false;
             Mode = xMode;
             if (SelectedIndex>=0)
@@ -1027,7 +1080,7 @@ namespace usrc_Item_InsidePage_Handler
 
         private void usrc_Item_InsidePageHandler_Resize(object sender, EventArgs e)
         {
-            refresh();
+            //DoRefresh();
         }
 
         private void btn_Next_Click(object sender, EventArgs e)
@@ -1048,6 +1101,7 @@ namespace usrc_Item_InsidePage_Handler
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            
             int index = SelectedIndex;
             if (index>=0)
             {
@@ -1057,9 +1111,18 @@ namespace usrc_Item_InsidePage_Handler
                     int ipage = 0;
                     if (get_page(index, ref ipage, ref ictrl))
                     {
-                        if (ctrlItems_array[ictrl].Visible)
+                        if (ctrlItems_array != null)
                         {
-                            ctrlItems_array[ictrl].Refresh();
+                            if (ictrl < ctrlItems_array.Length)
+                            {
+                                if (ctrlItems_array[ictrl] != null)
+                                {
+                                    if (ctrlItems_array[ictrl].Visible)
+                                    {
+                                        ctrlItems_array[ictrl].Refresh();
+                                    }
+                                }
+                            }
                         }
                     }
                 }

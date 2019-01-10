@@ -19,7 +19,7 @@ using usrc_Item_InsidePage_Handler;
 
 namespace usrc_Item_InsideGroup_Handler
 {
-    public partial class usrc_Item_InsideGroupHandler : UserControl
+    public partial class usrcG_Item_InsideGroupHandler<T> : UserControl
     {
         private string[] currentGroups = null;
 
@@ -125,11 +125,7 @@ namespace usrc_Item_InsideGroup_Handler
         public usrc_Item_InsideGroupHandler()
         {
             InitializeComponent();
-            this.usrc_Item_InsidePageHandler1.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
-            this.usrc_Item_InsidePageHandler2.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
-            this.usrc_Item_InsidePageHandler3.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
-
-
+            
         }
 
         public void SelectGroup(string[] sgroup)
@@ -952,13 +948,6 @@ namespace usrc_Item_InsideGroup_Handler
                 return ((GroupInsideControl)oData).Name.Equals(s);
             }
             return false;
-        }
-
-        public void DoRefresh()
-        {
-            this.usrc_Item_InsidePageHandler1.DoRefresh();
-            this.usrc_Item_InsidePageHandler2.DoRefresh();
-            this.usrc_Item_InsidePageHandler3.DoRefresh();
         }
     }
 }

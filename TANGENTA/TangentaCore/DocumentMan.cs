@@ -268,7 +268,7 @@ namespace TangentaCore
 
         public void DocInvoiceSaved(ID docInvoice_id)
         {
-            SetMode(DocumentMan.eMode.Shops_and_InvoiceTable);
+            //SetMode(DocumentMan.eMode.Shops_and_InvoiceTable);
 
             ID Doc_ID_to_show_v = null;
             if (ID.Validate(docInvoice_id))
@@ -281,7 +281,7 @@ namespace TangentaCore
 
         public void DocProformaInvoiceSaved(ID docProformaInvoice_id)
         {
-            SetMode(DocumentMan.eMode.Shops_and_InvoiceTable);
+           // SetMode(DocumentMan.eMode.Shops_and_InvoiceTable);
             ID Doc_ID_to_show = null;
             if (ID.Validate(docProformaInvoice_id))
             {

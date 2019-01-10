@@ -434,9 +434,9 @@ namespace TangentaPrint
             }
 
             float xofsEOR = 0;
-            Global.g.DrawWordWrap(graphics, lng.s_EOR.s + ": " + m_invoiceData.AddOnDI.m_FURS.sFURS_EOR, fArial9, Color.Black, startX, startY + Offset, pagewidth, ref xofsEOR);            Offset = Offset + xofsEOR + 8;
+            Global.g.DrawWordWrap(graphics, lng.s_EOR.s + ": " + m_invoiceData.AddOnDI.m_FURS.sFURS_EOR, fArial9r, Color.Black, startX, startY + Offset, pagewidth, ref xofsEOR);            Offset = Offset + xofsEOR + 8;
             float xofsZOI = 0;
-            Global.g.DrawWordWrap(graphics, lng.s_ZOI.s + ": " + m_invoiceData.AddOnDI.m_FURS.sFURS_ZOI, fArial9, Color.Black, startX, startY + Offset, pagewidth, ref xofsZOI);
+            Global.g.DrawWordWrap(graphics, lng.s_ZOI.s + ": " + m_invoiceData.AddOnDI.m_FURS.sFURS_ZOI, fArial9r, Color.Black, startX, startY + Offset, pagewidth, ref xofsZOI);
             Offset = Offset + xofsZOI + 8;
 
             float qr_width = 80;

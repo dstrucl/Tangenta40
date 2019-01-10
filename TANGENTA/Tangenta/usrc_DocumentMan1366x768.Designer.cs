@@ -110,7 +110,7 @@ namespace Tangenta
             // 
             // usrc_loginControl1
             // 
-            this.usrc_loginControl1.Location = new System.Drawing.Point(34, 41);
+            this.usrc_loginControl1.Location = new System.Drawing.Point(34, 40);
             this.usrc_loginControl1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_loginControl1.Name = "usrc_loginControl1";
             this.usrc_loginControl1.Size = new System.Drawing.Size(320, 33);
@@ -147,9 +147,9 @@ namespace Tangenta
             // 
             this.m_usrc_TableOfDocuments.BackColor = System.Drawing.Color.Linen;
             this.m_usrc_TableOfDocuments.DocM = null;
-            this.m_usrc_TableOfDocuments.Location = new System.Drawing.Point(0, 72);
+            this.m_usrc_TableOfDocuments.Location = new System.Drawing.Point(0, 77);
             this.m_usrc_TableOfDocuments.Name = "m_usrc_TableOfDocuments";
-            this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(357, 622);
+            this.m_usrc_TableOfDocuments.Size = new System.Drawing.Size(357, 603);
             this.m_usrc_TableOfDocuments.TabIndex = 39;
             this.m_usrc_TableOfDocuments.SelectedInvoiceChanged += new TangentaCore.usrc_TableOfDocuments.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
             // 
@@ -163,6 +163,10 @@ namespace Tangenta
             this.m_usrc_DocumentEditor1366x768.TabIndex = 40;
             this.m_usrc_DocumentEditor1366x768.New_Click += new Tangenta.usrc_DocumentEditor1366x768.delegate_New_Click(this.btn_New_Click);
             this.m_usrc_DocumentEditor1366x768.Storno += new Tangenta.usrc_DocumentEditor1366x768.delegate_Storno(this.m_usrc_Invoice_Storno);
+            this.m_usrc_DocumentEditor1366x768.aa_DocInvoiceSaved += new Tangenta.usrc_DocumentEditor1366x768.delegate_DocInvoiceSaved(this.m_usrc_Invoice_DocInvoiceSaved);
+            this.m_usrc_DocumentEditor1366x768.aa_DocProformaInvoiceSaved += new Tangenta.usrc_DocumentEditor1366x768.delegate_DocProformaInvoiceSaved(this.m_usrc_Invoice_DocProformaInvoiceSaved);
+            this.m_usrc_DocumentEditor1366x768.aa_Customer_Person_Changed += new Tangenta.usrc_DocumentEditor1366x768.delegate_Customer_Person_Changed(this.m_usrc_Invoice_Customer_Person_Changed);
+            this.m_usrc_DocumentEditor1366x768.aa_Customer_Org_Changed += new Tangenta.usrc_DocumentEditor1366x768.delegate_Customer_Org_Changed(this.m_usrc_Invoice_aa_Customer_Org_Changed);
             // 
             // usrc_TransactionControl1
             // 

@@ -362,5 +362,10 @@ namespace ShopC
                 Items_Click();
             }
         }
+
+        public void DoRefresh()
+        {
+            this.usrc_Item_InsidePageGroupHandler1.DoRefresh();
+        }
     }
 }

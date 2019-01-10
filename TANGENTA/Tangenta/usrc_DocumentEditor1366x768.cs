@@ -32,6 +32,16 @@ namespace Tangenta
 {
     public partial class usrc_DocumentEditor1366x768 : UserControl
     {
+        internal class Defpos
+        {
+            internal int lbl_Number_Left;
+            internal int lbl_Number_Top;
+            internal int txt_Number_Left;
+            internal int txt_Number_Top;
+            internal int usrc_Customer_Left;
+            internal int usrc_Customer_Top;
+        }
+        private Defpos defpos = null;
         private DocumentEditor.DoCurrent_delegates doCurrent_delegates;
 
         public DocumentEditor DocE = null;
@@ -262,6 +272,18 @@ namespace Tangenta
             m_usrc_ShopA1366x768.Visible = false;
         }
 
+        internal void Set_DocumentMan_eMode_Shops(int usrc_DocumentEditor1366x768_Left,int usrc_TransactionLog_plus_usrc_LoginCtrl_width)
+        {
+            int idist = usrc_DocumentEditor1366x768_Left + usrc_TransactionLog_plus_usrc_LoginCtrl_width;
+            this.lbl_Number.Left = defpos.lbl_Number_Left + idist;
+            this.txt_Number.Left = defpos.txt_Number_Left + idist;
+            this.usrc_Customer.Left = defpos.usrc_Customer_Left + +idist;
+            this.m_usrc_ShopA1366x768.Width = this.Width;
+            this.m_usrc_ShopB1366x768.Width = this.Width;
+            this.m_usrc_ShopC1366x768.Width = this.Width;
+            //this.m_usrc_ShopC1366x768.Set_DocumentMan_eMode_Shops();
+        }
+
         private void Set_ShowShops_AC()
         {
             PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "AC");
@@ -274,6 +296,16 @@ namespace Tangenta
             m_usrc_ShopC1366x768.Height = (ShopC_default_Y + ShopC_default_H) - (ShopA_default_Y + m_usrc_ShopA1366x768.Height);
 
             m_usrc_ShopB1366x768.Visible = false;
+        }
+
+        internal void Set_DocumentMan_eMode_Shops_and_InvoiceTable()
+        {
+            lbl_Number.Left = defpos.lbl_Number_Left;
+            lbl_Number.Top = defpos.lbl_Number_Top;
+            txt_Number.Left = defpos.txt_Number_Left;
+            txt_Number.Top = defpos.txt_Number_Top;
+            usrc_Customer.Left = defpos.usrc_Customer_Left;
+            usrc_Customer.Top = defpos.usrc_Customer_Top;
         }
 
         private void Set_ShowShops_ABC()
@@ -467,6 +499,13 @@ namespace Tangenta
         public usrc_DocumentEditor1366x768()
         {
             InitializeComponent();
+            defpos = new Defpos();
+            defpos.lbl_Number_Left = lbl_Number.Left;
+            defpos.lbl_Number_Top = lbl_Number.Top;
+            defpos.txt_Number_Left= txt_Number.Left;
+            defpos.txt_Number_Top = txt_Number.Top;
+            defpos.usrc_Customer_Left = usrc_Customer.Left;
+            defpos.usrc_Customer_Top = usrc_Customer.Top;
             usrc_PriceList xusrc_PriceListB = null;
             if (this.m_usrc_ShopB1366x768 != null)
             {
@@ -1229,6 +1268,10 @@ namespace Tangenta
             {
                 New_Click(sender, e);
             }
+        }
+        public void DoRefresh()
+        {
+            this.m_usrc_ShopC1366x768.DoRefresh();
         }
     }
 }
