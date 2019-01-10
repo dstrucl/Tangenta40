@@ -45,6 +45,7 @@ namespace Tangenta
             this.m_usrc_TableOfDocuments = new TangentaCore.usrc_TableOfDocuments();
             this.m_usrc_DocumentEditor1366x768 = new Tangenta.usrc_DocumentEditor1366x768();
             this.usrc_TransactionControl1 = new TransactionLog.usrc_TransactionControl();
+            this.usrc_DocIssue1 = new TangentaCore.usrc_DocIssue();
             this.SuspendLayout();
             // 
             // cmb_DocType
@@ -162,6 +163,10 @@ namespace Tangenta
             this.m_usrc_DocumentEditor1366x768.Size = new System.Drawing.Size(1006, 768);
             this.m_usrc_DocumentEditor1366x768.TabIndex = 40;
             this.m_usrc_DocumentEditor1366x768.New_Click += new Tangenta.usrc_DocumentEditor1366x768.delegate_New_Click(this.btn_New_Click);
+            this.m_usrc_DocumentEditor1366x768.SetTotalColor += new Tangenta.usrc_DocumentEditor1366x768.delegate_SetTotalColor(this.m_usrc_DocumentEditor1366x768_SetTotalColor);
+            this.m_usrc_DocumentEditor1366x768.SetTotal += new Tangenta.usrc_DocumentEditor1366x768.delegate_SetTotal(this.m_usrc_DocumentEditor1366x768_SetTotal);
+            this.m_usrc_DocumentEditor1366x768.SetBtnIssueLabel += new Tangenta.usrc_DocumentEditor1366x768.delegate_SetBtnIssueLabel(this.m_usrc_DocumentEditor1366x768_SetBtnIssueLabel);
+            this.m_usrc_DocumentEditor1366x768.SetBtnIssueVisible += new Tangenta.usrc_DocumentEditor1366x768.delegate_SetBtnIssueVisible(this.m_usrc_DocumentEditor1366x768_SetBtnIssueVisible);
             this.m_usrc_DocumentEditor1366x768.Storno += new Tangenta.usrc_DocumentEditor1366x768.delegate_Storno(this.m_usrc_Invoice_Storno);
             this.m_usrc_DocumentEditor1366x768.aa_DocInvoiceSaved += new Tangenta.usrc_DocumentEditor1366x768.delegate_DocInvoiceSaved(this.m_usrc_Invoice_DocInvoiceSaved);
             this.m_usrc_DocumentEditor1366x768.aa_DocProformaInvoiceSaved += new Tangenta.usrc_DocumentEditor1366x768.delegate_DocProformaInvoiceSaved(this.m_usrc_Invoice_DocProformaInvoiceSaved);
@@ -177,10 +182,26 @@ namespace Tangenta
             this.usrc_TransactionControl1.State = DBConnectionControl40.Transaction.eConnectionState.DICSONNECTED;
             this.usrc_TransactionControl1.TabIndex = 41;
             // 
+            // usrc_DocIssue1
+            // 
+            this.usrc_DocIssue1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("usrc_DocIssue1.BackgroundImage")));
+            this.usrc_DocIssue1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.usrc_DocIssue1.BtnIssueLabel = "Issue";
+            this.usrc_DocIssue1.BtnIssueVisible = true;
+            this.usrc_DocIssue1.Location = new System.Drawing.Point(361, 688);
+            this.usrc_DocIssue1.Name = "usrc_DocIssue1";
+            this.usrc_DocIssue1.Size = new System.Drawing.Size(150, 80);
+            this.usrc_DocIssue1.TabIndex = 42;
+            this.usrc_DocIssue1.Total = "SKUPAJ";
+            this.usrc_DocIssue1.TotalColor = System.Drawing.SystemColors.ControlText;
+            this.usrc_DocIssue1.Visible = false;
+            this.usrc_DocIssue1.DoClick += new TangentaCore.usrc_DocIssue.delegate_Click(this.usrc_DocIssue1_DoClick);
+            // 
             // usrc_DocumentMan1366x768
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.SystemColors.Control;
+            this.Controls.Add(this.usrc_DocIssue1);
             this.Controls.Add(this.usrc_TransactionControl1);
             this.Controls.Add(this.cmb_DocType);
             this.Controls.Add(this.lbl_FinancialYear);
@@ -214,5 +235,6 @@ namespace Tangenta
         public usrc_TableOfDocuments m_usrc_TableOfDocuments;
         public usrc_DocumentEditor1366x768 m_usrc_DocumentEditor1366x768;
         private TransactionLog.usrc_TransactionControl usrc_TransactionControl1;
+        private usrc_DocIssue usrc_DocIssue1;
     }
 }

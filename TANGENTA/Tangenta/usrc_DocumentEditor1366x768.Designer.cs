@@ -35,8 +35,6 @@ namespace Tangenta
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_DocumentEditor1366x768));
             this.txt_Number = new System.Windows.Forms.TextBox();
             this.lbl_Number = new System.Windows.Forms.Label();
-            this.lbl_Sum = new System.Windows.Forms.Label();
-            this.btn_Issue = new System.Windows.Forms.Button();
             this.chk_Storno = new System.Windows.Forms.CheckBox();
             this.btn_Show_Shops = new System.Windows.Forms.Button();
             this.m_usrc_ShopB1366x768 = new ShopB.usrc_ShopB1366x768();
@@ -46,6 +44,7 @@ namespace Tangenta
             this.m_usrc_ShopC1366x768 = new ShopC.usrc_ShopC1366x768();
             this.btn_New = new System.Windows.Forms.Button();
             this.usrc_Item1366x768_selected1 = new ShopC.usrc_Item1366x768_selected();
+            this.usrc_DocIssue1 = new TangentaCore.usrc_DocIssue();
             this.SuspendLayout();
             // 
             // txt_Number
@@ -66,30 +65,6 @@ namespace Tangenta
             this.lbl_Number.Size = new System.Drawing.Size(77, 20);
             this.lbl_Number.TabIndex = 23;
             this.lbl_Number.Text = "Številka:";
-            // 
-            // lbl_Sum
-            // 
-            this.lbl_Sum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbl_Sum.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Sum.Location = new System.Drawing.Point(3, 697);
-            this.lbl_Sum.Name = "lbl_Sum";
-            this.lbl_Sum.Size = new System.Drawing.Size(170, 29);
-            this.lbl_Sum.TabIndex = 30;
-            this.lbl_Sum.Text = "SKUPAJ";
-            // 
-            // btn_Issue
-            // 
-            this.btn_Issue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Issue.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Issue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Issue.Location = new System.Drawing.Point(3, 727);
-            this.btn_Issue.Name = "btn_Issue";
-            this.btn_Issue.Size = new System.Drawing.Size(150, 41);
-            this.btn_Issue.TabIndex = 32;
-            this.btn_Issue.Text = "Issue";
-            this.btn_Issue.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_Issue.UseVisualStyleBackColor = false;
-            this.btn_Issue.Click += new System.EventHandler(this.btn_Issue_Click);
             // 
             // chk_Storno
             // 
@@ -198,9 +173,25 @@ namespace Tangenta
             this.usrc_Item1366x768_selected1.Size = new System.Drawing.Size(413, 88);
             this.usrc_Item1366x768_selected1.TabIndex = 49;
             // 
+            // usrc_DocIssue1
+            // 
+            this.usrc_DocIssue1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_DocIssue1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("usrc_DocIssue1.BackgroundImage")));
+            this.usrc_DocIssue1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.usrc_DocIssue1.BtnIssueLabel = "Issue";
+            this.usrc_DocIssue1.BtnIssueVisible = true;
+            this.usrc_DocIssue1.Location = new System.Drawing.Point(5, 687);
+            this.usrc_DocIssue1.Name = "usrc_DocIssue1";
+            this.usrc_DocIssue1.Size = new System.Drawing.Size(150, 80);
+            this.usrc_DocIssue1.TabIndex = 50;
+            this.usrc_DocIssue1.Total = "SKUPAJ";
+            this.usrc_DocIssue1.TotalColor = System.Drawing.SystemColors.ControlText;
+            this.usrc_DocIssue1.DoClick += new TangentaCore.usrc_DocIssue.delegate_Click(this.btn_Issue_Click);
+            // 
             // usrc_DocumentEditor1366x768
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.usrc_DocIssue1);
             this.Controls.Add(this.usrc_Item1366x768_selected1);
             this.Controls.Add(this.btn_New);
             this.Controls.Add(this.m_usrc_ShopC1366x768);
@@ -210,8 +201,6 @@ namespace Tangenta
             this.Controls.Add(this.usrc_AddOn1);
             this.Controls.Add(this.chk_Storno);
             this.Controls.Add(this.usrc_Customer);
-            this.Controls.Add(this.btn_Issue);
-            this.Controls.Add(this.lbl_Sum);
             this.Controls.Add(this.lbl_Number);
             this.Controls.Add(this.txt_Number);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -226,16 +215,15 @@ namespace Tangenta
         #endregion
         private System.Windows.Forms.TextBox txt_Number;
         private System.Windows.Forms.Label lbl_Number;
-        private System.Windows.Forms.Button btn_Issue;
         private usrc_Customer usrc_Customer;
         private System.Windows.Forms.CheckBox chk_Storno;
         internal usrc_AddOn usrc_AddOn1;
         public System.Windows.Forms.Button btn_Show_Shops;
-        public System.Windows.Forms.Label lbl_Sum;
         internal ShopA.usrc_ShopA1366x768 m_usrc_ShopA1366x768;
         internal ShopB.usrc_ShopB1366x768 m_usrc_ShopB1366x768;
         internal ShopC.usrc_ShopC1366x768 m_usrc_ShopC1366x768;
         internal System.Windows.Forms.Button btn_New;
         private ShopC.usrc_Item1366x768_selected usrc_Item1366x768_selected1;
+        public usrc_DocIssue usrc_DocIssue1;
     }
 }

@@ -144,20 +144,7 @@ namespace Tangenta
             }
         }
 
-        //public bool m_usrc_InvoiceHead_Visible
-        //{
-        //    get
-        //    {
-        //        if (m_usrc_DocumentEditor1366x768 != null)
-        //        {
-        //            return m_usrc_DocumentEditor1366x768.HeadVisible;
-        //        }
-        //        else
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //}
+     
 
         public bool Active
         {
@@ -276,6 +263,7 @@ namespace Tangenta
         {
             if (mode == DocumentMan.eMode.Shops)
             {
+                this.usrc_DocIssue1.Visible = false;
                 m_usrc_TableOfDocuments.Visible = false;
                 m_usrc_DocumentEditor1366x768.Visible = true;
 
@@ -303,13 +291,14 @@ namespace Tangenta
             {
                 m_usrc_DocumentEditor1366x768.Visible = false;
                 this.m_usrc_TableOfDocuments.Visible = true;
+                this.usrc_DocIssue1.Visible = true;
                 this.m_usrc_TableOfDocuments.Width = this.Width;
                 this.m_usrc_DocumentEditor1366x768.Set_DocumentMan_eMode_Shops_and_InvoiceTable();
                 this.m_usrc_DocumentEditor1366x768.DoRefresh();
             }
             else
             {
-
+                this.usrc_DocIssue1.Visible = false;
                 m_usrc_DocumentEditor1366x768.Left = defpos.usrc_DocumentEditor1366x768_Left;
                 m_usrc_DocumentEditor1366x768.Width = defpos.usrc_DocumentEditor1366x768_Width;
                 m_usrc_DocumentEditor1366x768.Set_DocumentMan_eMode_Shops_and_InvoiceTable();
@@ -672,7 +661,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    Form_NewDocument frm_new = new Form_NewDocument(this, this.DocM, DocM.mSettingsUserValues,this.m_usrc_DocumentEditor1366x768.lbl_Sum.Text);
+                    Form_NewDocument frm_new = new Form_NewDocument(this, this.DocM, DocM.mSettingsUserValues,this.m_usrc_DocumentEditor1366x768.usrc_DocIssue1.Total);
                     frm_new.ShowDialog(this);
                     if (this.Visible && TSettings.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
                     switch (frm_new.eNewDocumentResult)
@@ -1307,6 +1296,31 @@ namespace Tangenta
                 c.MouseClick += (sender, e) => { DocM.timer_Login_MultiUsers_Countdown = TangentaProperties.Properties.Settings.Default.timer_Login_MultiUser_Countdown; };
                 initControlsRecursive(c.Controls);
             }
+        }
+
+        private void m_usrc_DocumentEditor1366x768_SetBtnIssueLabel(string slabel)
+        {
+            usrc_DocIssue1.BtnIssueLabel = slabel;
+        }
+
+        private void m_usrc_DocumentEditor1366x768_SetBtnIssueVisible(bool bvisible)
+        {
+            usrc_DocIssue1.Visible = bvisible;
+        }
+
+        private void m_usrc_DocumentEditor1366x768_SetTotal(string stotal)
+        {
+            usrc_DocIssue1.Total = stotal;
+        }
+
+        private void m_usrc_DocumentEditor1366x768_SetTotalColor(Color color)
+        {
+            usrc_DocIssue1.TotalColor = color;
+        }
+
+        private void usrc_DocIssue1_DoClick(object sender, EventArgs e)
+        {
+            m_usrc_DocumentEditor1366x768.btn_Issue_Click(sender, e);
         }
     }
 }

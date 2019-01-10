@@ -56,6 +56,20 @@ namespace Tangenta
         public delegate void delegate_New_Click(object sender, EventArgs e);
         public event delegate_New_Click New_Click = null;
 
+
+        public delegate void delegate_SetTotalColor(Color color);
+        public event delegate_SetTotalColor SetTotalColor = null;
+
+        public delegate void delegate_SetTotal(string stotal);
+        public event delegate_SetTotal SetTotal = null;
+
+        public delegate void delegate_SetBtnIssueLabel(string slabel);
+        public event delegate_SetBtnIssueLabel SetBtnIssueLabel = null;
+
+        public delegate void delegate_SetBtnIssueVisible(bool bvisible);
+        public event delegate_SetBtnIssueVisible SetBtnIssueVisible = null;
+     
+
         public int ShopA_default_X = -1;
         public int ShopA_default_Y = -1;
         public int ShopB_default_X = -1;
@@ -562,7 +576,8 @@ namespace Tangenta
             lng.s_Show_Shops.Text(btn_Show_Shops);
             lng.s_Number.Text(lbl_Number);
             //btn_BuyerSelect.Text = lng.s_BuyerSelect.s;
-            lng.s_Issue.Text(btn_Issue);
+            this.usrc_DocIssue1.BtnIssueLabel = lng.s_Issue.s;
+
             lng.s_chk_Storno.Text(chk_Storno);
 
             lng.s_Shop_AB = new ltext(lng.s_Shop_A.sText(0) + " && " + lng.s_Shop_B.sText(0), lng.s_Shop_A.sText(1) + " && " + lng.s_Shop_B.sText(1));
@@ -570,7 +585,8 @@ namespace Tangenta
             lng.s_Shop_AC = new ltext(lng.s_Shop_A.sText(0) + " && " + lng.s_Shop_C.sText(0), lng.s_Shop_A.sText(1) + " && " + lng.s_Shop_C.sText(1));
             lng.s_Shop_ABC = new ltext(lng.s_Shop_A.sText(0) + " && " + lng.s_Shop_B.sText(0) + " && " + lng.s_Shop_C.sText(0), lng.s_Shop_A.sText(1) + " && " + lng.s_Shop_B.sText(1) + " && " + lng.s_Shop_C.sText(1));
 
-            lng.s_Total.Text(this.lbl_Sum);
+
+            this.usrc_DocIssue1.Total = lng.s_Total.s;
             lng.s_btn_New.Text(btn_New);
 
 
@@ -595,11 +611,20 @@ namespace Tangenta
             if (mode == DocumentEditor.emode.view_eDocumentType)
             {
                 chk_Storno.Visible = true;
-                lng.s_Print.Text(btn_Issue);
+                usrc_DocIssue1.BtnIssueLabel = lng.s_Print.s;
+                if (SetBtnIssueLabel!=null)
+                {
+                    SetBtnIssueLabel(lng.s_Print.s);
+                }
+            
             }
             else
             {
-                lng.s_Issue.Text(btn_Issue);
+                usrc_DocIssue1.BtnIssueLabel = lng.s_Issue.s;
+                if (SetBtnIssueLabel != null)
+                {
+                    SetBtnIssueLabel(lng.s_Issue.s);
+                }
                 chk_Storno.Visible = false;
             }
 
@@ -776,17 +801,30 @@ namespace Tangenta
 
         private void btn_Issue_Show(bool bvisible)
         {
-            btn_Issue.Visible = bvisible;
+            usrc_DocIssue1.Visible = bvisible;
+            if (SetBtnIssueVisible!=null)
+            {
+                SetBtnIssueVisible(bvisible);
+            }
         }
 
         private void lbl_Sum_ForeColor(Color color)
         {
-            this.lbl_Sum.ForeColor = color;
+            usrc_DocIssue1.TotalColor = color;
+           if (SetTotalColor!=null)
+            {
+                SetTotalColor(color);
+            }
+            
         }
 
         private void lbl_Sum_Text(string s)
         {
-            this.lbl_Sum.Text = s;
+            usrc_DocIssue1.Total = s;
+            if (SetTotal != null)
+            {
+                SetTotal(s);
+            }
         }
 
         public bool DoCurrent(ID xID, Transaction transaction)
@@ -1101,7 +1139,7 @@ namespace Tangenta
         }
 
 
-        private void btn_Issue_Click(object sender, EventArgs e)
+        internal void btn_Issue_Click(object sender, EventArgs e)
         {
             Form pform = Global.f.GetParentForm(this);
             DocE.btn_Issue_Click(pform,

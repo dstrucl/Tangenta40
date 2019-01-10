@@ -488,6 +488,12 @@
     <Compile Include="usrc_DocInvoice_AddOn.Designer.cs">
       <DependentUpon>usrc_DocInvoice_AddOn.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_DocIssue.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_DocIssue.Designer.cs">
+      <DependentUpon>usrc_DocIssue.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_DocProformaInvoice_AddOn .cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -945,6 +951,9 @@
     <EmbeddedResource Include="usrc_DocInvoice_AddOn.resx">
       <DependentUpon>usrc_DocInvoice_AddOn.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_DocIssue.resx">
+      <DependentUpon>usrc_DocIssue.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_DocProformaInvoice_AddOn .resx">
       <DependentUpon>usrc_DocProformaInvoice_AddOn .cs</DependentUpon>
     </EmbeddedResource>
@@ -985,6 +994,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IssueUnpressed.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
