@@ -25,6 +25,7 @@ namespace TangentaPrint
         }
 
         #region PrintStockTake
+        public static ltext s_WorkArea = new ltext(new string[] { "Working area", "Področje dela" });
         public static ltext s_TangentaInvoicingAdd = new ltext(new string[] { "invoicing software: www.tangenta.si", "davčna blagajna: www.tangenta.si" });
         public static ltext s_PhoneNumber = new ltext(new string[] { "Phone number", "Tel.številka" });
         public static ltext s_EOR = new ltext(new string[] { "EOR", "EOR" });

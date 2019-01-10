@@ -105,6 +105,7 @@ namespace TangentaDB
         public bool bInvoiceStorno = false;
         public DateTime_v StornoIssueDate_v = null;
         public bool_v Invoice_Storno_v = null;
+        public string_v Atom_WorkArea_Name_v = null;
         public string_v Invoice_Reference_Type_v = null;
 
 
@@ -1037,6 +1038,7 @@ namespace TangentaDB
                                 JOURNAL_DocInvoice_$_dinv_$_fvisbi.SerialNumber AS JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SerialNumber,
                                 pi.Storno,
                                 pi.Invoice_Reference_Type,
+                                awa.Name as Atom_WorkArea_Name,
                                 pi.Invoice_Reference_ID
                                 from JOURNAL_DocInvoice jpi
                                 inner join JOURNAL_DocInvoice_Type jpit on jpi.JOURNAL_DocInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
@@ -1052,6 +1054,8 @@ namespace TangentaDB
                                 inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                 inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
                                 left join Atom_Comment1 acmt1 on ao.Atom_Comment1_ID = acmt1.ID
+                                left join DocInvoice_Atom_WorkArea diawa on pi.ID = diawa.DocInvoice_ID
+                                left join Atom_WorkArea awa on awa.ID = diawa.Atom_WorkArea_ID
                                 left join DocInvoiceAddOn piao on piao.DocInvoice_ID = pi.ID
                                 LEFT JOIN FVI_SLO_Response JOURNAL_DocInvoice_$_dinv_$_fvisres ON JOURNAL_DocInvoice_$_dinv_$_fvisres.DocInvoice_ID = pi.ID 
                                 LEFT JOIN FVI_SLO_SalesBookInvoice JOURNAL_DocInvoice_$_dinv_$_fvisbi ON JOURNAL_DocInvoice_$_dinv_$_fvisbi.DocInvoice_ID = pi.ID 
@@ -1131,6 +1135,7 @@ namespace TangentaDB
                                 jpit.Name as JOURNAL_DocInvoice_Type_Name,
                                 pi.Storno,
                                 pi.Invoice_Reference_Type,
+                                awa.Name as Atom_WorkArea_Name,
                                 pi.Invoice_Reference_ID
                                 from JOURNAL_DocInvoice jpi
                                 inner join JOURNAL_DocInvoice_Type jpit on jpi.JOURNAL_DocInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
@@ -1146,6 +1151,8 @@ namespace TangentaDB
                                 inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                 inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
                                 left join Atom_Comment1 acmt1 on ao.Atom_Comment1_ID = acmt1.ID
+                                left join DocInvoice_Atom_WorkArea diawa on pi.ID = diawa.DocInvoice_ID
+                                left join Atom_WorkArea awa on awa.ID = diawa.Atom_WorkArea_ID
                                 left join DocInvoiceAddOn piao on piao.DocInvoice_ID = pi.ID
                                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
                                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
@@ -1295,6 +1302,7 @@ namespace TangentaDB
                             {
                                 return false;
                             }
+                            Atom_WorkArea_Name_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["Atom_WorkArea_Name"]);
                             Invoice_Storno_v = DBTypes.tf.set_bool(dt_DocInvoice.Rows[0]["Storno"]);
                             Invoice_Reference_Type_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["Invoice_Reference_Type"]);
                             DocInvoice_Reference_ID = DBTypes.tf.set_ID(dt_DocInvoice.Rows[0]["Invoice_Reference_ID"]);

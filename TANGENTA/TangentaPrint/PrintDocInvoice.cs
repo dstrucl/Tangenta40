@@ -360,7 +360,15 @@ namespace TangentaPrint
             graphics.DrawString(lng.s_IssueTime.s + ": " + sinvoicetime, fArial9, new SolidBrush(Color.Black), startX, startY + Offset);
             Offset = Offset + OFS;
 
-
+            if (m_invoiceData.Atom_WorkArea_Name_v!=null)
+            {
+                if (m_invoiceData.Atom_WorkArea_Name_v.v != null)
+                {
+                    graphics.DrawString(lng.s_WorkArea.s + ": " + m_invoiceData.Atom_WorkArea_Name_v.v, fArial9, new SolidBrush(Color.Black), startX, startY + Offset);
+                    Offset = Offset + OFS;
+                } 
+            }
+            
             graphics.DrawString(lng.s_ItemOrService.s, fArial8r, new SolidBrush(Color.Black), startX, startY + Offset+2);
             graphics.DrawString(lng.s_Quantity.s+",", fArial8r, new SolidBrush(Color.Black), startX + pagewidth * 1 / 2-2, startY + Offset + 2);
             graphics.DrawString(lng.s_TaxationRate.s+",", fArial8r, new SolidBrush(Color.Black), startX+ pagewidth * 1 / 2 + 40, startY + Offset+2);
