@@ -23,6 +23,14 @@ namespace PriseLists
         {
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
+        public static ltext s_rdb_Import_purchase_prices_and_from_other_price_list = new ltext(new string[] { "Set prices from purchase prices\r\n other with import from another price list", "Postavi cene iz nabavnih cen  iz drugega cenika,\r\n vsem, ki nabavne cene nimajo cene z uvozi  iz drugega cenika" });
+        public static ltext s_rdb_Import_From_other_PriceList = new ltext(new string[] { "Set prices with import from another price list", "Postavi cene z uvozom cen iz drugega cenika" });
+
+        public static ltext s_rdb_Import_From_PurchasePriceList_other_leave_undefined = new ltext(new string[] { "Set all prices from purchase prices other prices left undefined", "Postavi cene iz nabavnih cen, vsem ostalim pa vrednost -1 (nedoločeno vrednost)" });
+        public static ltext s_rdb_AllPricesUndefined = new ltext(new string[] { "Set all prices undefined", "Postavi vsem cenam nedoločeno vrednost (vrednost -1)" });
+        public static ltext s_btn_Import = new ltext(new string[] { "Import/Create PriceList", "Uvozi/Naredi cenik" });
+
+        public static ltext s_Form_PriceList_Import = new ltext(new string[] { "Price List Import", "Uvoz cenika" });   // referenced in C:\Tangenta40\TANGENTA\PriseLists\Form_GetPriceList_ImportType
 
         public static ltext s_PriceListType = new ltext(new string[] { "Price List Type", "Ceniki" });   // referenced in C:\Tangenta40\TANGENTA\PriseLists\Form_PriceList_Edit.cs
 

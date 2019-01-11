@@ -384,6 +384,35 @@ namespace TangentaPrint
             return false;
         }
 
+        public static bool PrintingStockWithHtmlTemplate( ref Printer printer)
+        {
+            if (dt != null)
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        string printername = PrinterName(dr);
+
+                        
+                        if (PrintingWithHtmlTemplates(dr))
+                        {
+                            if (IsPrinterConnected(printername))
+                            {
+                                return true;
+                            }
+                        }
+                        else
+                        {
+                            printer = new Printer(printername);
+                        }
+                        
+                    }
+                }
+            }
+            return false;
+        }
+
         public static bool PrintingWithHtmlTemplate(string doctype, ref Printer printer)
         {
             if (dt != null)

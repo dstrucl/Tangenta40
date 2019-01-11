@@ -80,6 +80,7 @@ namespace TangentaDB
             }
         }
 
+       
         public static bool GeStockTakeItems(ref DataTable dt_Stock_Of_Current_StockTake,ref Doc_ShopC_Item[] array_Doc_ShopC_Item, ID StockTake_ID)
         {
             DataTable dt_dQuantity = new DataTable();
@@ -277,6 +278,8 @@ namespace TangentaDB
             return false;
             }
         }
+
+      
 
         internal static bool GetQuantity(ID stock_ID, ref decimal_v dQuantityInStock_v, Transaction transaction)
         {
@@ -486,6 +489,42 @@ namespace TangentaDB
                 LogFile.Error.Show("ERROR:TangentaDB.f_Stock.GetItemInStock:slq=" + sql + "\r\nErr=" + Err);
                 return false;
             }
+        }
+
+        public static decimal GetQuantityInStock(DataTable dtShopCItemInStock)
+        {
+            int icount = dtShopCItemInStock.Rows.Count;
+            decimal dQuantityInStock = 0;
+            for (int i=0;i< icount;i++)
+            {
+                decimal_v dQuantity_v = tf.set_decimal(dtShopCItemInStock.Rows[i]["Stock_dQuantity"]);
+                if (dQuantity_v!=null)
+                {
+                    dQuantityInStock += dQuantity_v.v;
+                }
+            }
+            return dQuantityInStock;
+        }
+
+        public static decimal GetPriceValueInStock(DataTable dtShopCItemInStock)
+        {
+            int icount = dtShopCItemInStock.Rows.Count;
+            decimal dPriceValueInStock = 0;
+            for (int i = 0; i < icount; i++)
+            {
+                decimal_v dPriceValue_v = tf.set_decimal(dtShopCItemInStock.Rows[i]["PurchasePricePerUnit"]);
+                decimal_v dDiscount_v = tf.set_decimal(dtShopCItemInStock.Rows[i]["PurchaseDiscount"]);
+                decimal discount = 0;
+                if (dDiscount_v!=null)
+                {
+                    discount = dDiscount_v.v;
+                }
+                if (dPriceValue_v != null)
+                {
+                    dPriceValueInStock += dPriceValue_v.v*(1- discount);
+                }
+            }
+            return dPriceValueInStock;
         }
 
         public static bool GetStock(ref DataTable dtStock)

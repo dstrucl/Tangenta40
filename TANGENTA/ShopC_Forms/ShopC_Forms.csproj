@@ -43,6 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form_Inventura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Inventura.Designer.cs">
+      <DependentUpon>Form_Inventura.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_ItemAtom_View.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +172,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form_Inventura.resx">
+      <DependentUpon>Form_Inventura.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_ItemAtom_View.resx">
       <DependentUpon>Form_ItemAtom_View.cs</DependentUpon>
     </EmbeddedResource>
@@ -347,6 +356,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\PrinterSettings.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Print.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

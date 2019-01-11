@@ -22,11 +22,14 @@ namespace TangentaDB
         public const string Stock_Data_Changed = "Stock Data Changed";
         public const string From_Stock_To_Basket = "From stock to basket";
         public const string From_Basket_To_Stock = "From basket to stock";
+        public const string Inventura_Stock_Change = "Inventura stock change";
+        
 
         private static ID m_JOURNAL_Stock_Type_ID_new_stock_data = null;
         private static ID m_JOURNAL_Stock_Type_ID_stock_data_changed = null;
         private static ID m_JOURNAL_Stock_Type_ID_from_stock_to_basket = null;
         private static ID m_JOURNAL_Stock_Type_ID_from_basket_to_stock = null;
+        private static ID m_JOURNAL_Stock_Type_ID_Inventura_Stock_Change = null;
 
         public static ID JOURNAL_Stock_Type_ID_new_stock_data
         { get { return m_JOURNAL_Stock_Type_ID_new_stock_data; } }
@@ -40,6 +43,9 @@ namespace TangentaDB
         public static ID JOURNAL_Stock_Type_ID_from_basket_to_stock
         { get { return m_JOURNAL_Stock_Type_ID_from_basket_to_stock; } }
 
+        public static ID JOURNAL_Stock_Type_ID_Inventura_Stock_Change
+        { get { return m_JOURNAL_Stock_Type_ID_Inventura_Stock_Change; } }
+
 
         public static bool Get_JOURNAL_Stock_Type_ID(Transaction transaction)
         {
@@ -51,13 +57,17 @@ namespace TangentaDB
                     {
                         if (fs.Get_TABLE_TYPE(JOURNAL_Stock_Type_TABLE, From_Basket_To_Stock, ref m_JOURNAL_Stock_Type_ID_from_basket_to_stock, transaction))
                         {
-                            return true;
+                            if (fs.Get_TABLE_TYPE(JOURNAL_Stock_Type_TABLE, Inventura_Stock_Change, ref m_JOURNAL_Stock_Type_ID_Inventura_Stock_Change, transaction))
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
             }
             return false;
         }
+
         public static bool Get(ID Stock_id, ID stock_type_id,ID xAtom_WorkPeriod_ID, DateTime dEventTime, decimal dQuantity, ref ID JOURNAL_Stock_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();

@@ -32,6 +32,7 @@
             this.btn_EditStockTakeItems = new System.Windows.Forms.Button();
             this.btn_EditItemsInStock = new System.Windows.Forms.Button();
             this.usrc_Help1 = new HUDCMS.usrc_Help();
+            this.btn_Inventura = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_EditStockTakeItems
@@ -39,7 +40,7 @@
             this.btn_EditStockTakeItems.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_EditStockTakeItems.Location = new System.Drawing.Point(3, 3);
             this.btn_EditStockTakeItems.Name = "btn_EditStockTakeItems";
-            this.btn_EditStockTakeItems.Size = new System.Drawing.Size(189, 106);
+            this.btn_EditStockTakeItems.Size = new System.Drawing.Size(147, 82);
             this.btn_EditStockTakeItems.TabIndex = 1;
             this.btn_EditStockTakeItems.Text = "btn_EditStockTakeItems";
             this.btn_EditStockTakeItems.UseVisualStyleBackColor = false;
@@ -48,9 +49,9 @@
             // btn_EditItemsInStock
             // 
             this.btn_EditItemsInStock.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_EditItemsInStock.Location = new System.Drawing.Point(214, 4);
+            this.btn_EditItemsInStock.Location = new System.Drawing.Point(352, 4);
             this.btn_EditItemsInStock.Name = "btn_EditItemsInStock";
-            this.btn_EditItemsInStock.Size = new System.Drawing.Size(189, 106);
+            this.btn_EditItemsInStock.Size = new System.Drawing.Size(167, 81);
             this.btn_EditItemsInStock.TabIndex = 2;
             this.btn_EditItemsInStock.Text = "btn_EditItemsInStock";
             this.btn_EditItemsInStock.UseVisualStyleBackColor = false;
@@ -58,16 +59,28 @@
             // 
             // usrc_Help1
             // 
-            this.usrc_Help1.Location = new System.Drawing.Point(420, 3);
+            this.usrc_Help1.Location = new System.Drawing.Point(525, 12);
             this.usrc_Help1.Name = "usrc_Help1";
             this.usrc_Help1.Size = new System.Drawing.Size(35, 51);
             this.usrc_Help1.TabIndex = 3;
+            // 
+            // btn_Inventura
+            // 
+            this.btn_Inventura.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_Inventura.Location = new System.Drawing.Point(166, 4);
+            this.btn_Inventura.Name = "btn_Inventura";
+            this.btn_Inventura.Size = new System.Drawing.Size(167, 81);
+            this.btn_Inventura.TabIndex = 4;
+            this.btn_Inventura.Text = "Inventura";
+            this.btn_Inventura.UseVisualStyleBackColor = false;
+            this.btn_Inventura.Click += new System.EventHandler(this.btn_Inventura_Click);
             // 
             // Form_SelectStockEditType
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(461, 117);
+            this.ClientSize = new System.Drawing.Size(576, 102);
+            this.Controls.Add(this.btn_Inventura);
             this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_EditItemsInStock);
             this.Controls.Add(this.btn_EditStockTakeItems);
@@ -86,5 +99,6 @@
         private System.Windows.Forms.Button btn_EditStockTakeItems;
         private System.Windows.Forms.Button btn_EditItemsInStock;
         private HUDCMS.usrc_Help usrc_Help1;
+        private System.Windows.Forms.Button btn_Inventura;
     }
 }

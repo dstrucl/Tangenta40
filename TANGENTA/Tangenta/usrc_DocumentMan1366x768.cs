@@ -263,7 +263,7 @@ namespace Tangenta
         {
             if (mode == DocumentMan.eMode.Shops)
             {
-                this.usrc_DocIssue1.Visible = false;
+                
                 m_usrc_TableOfDocuments.Visible = false;
                 m_usrc_DocumentEditor1366x768.Visible = true;
 
@@ -286,19 +286,21 @@ namespace Tangenta
                 btn_Settings.BringToFront();
                 m_usrc_Help.BringToFront();
                 this.m_usrc_DocumentEditor1366x768.DoRefresh();
+                this.usrc_DocIssue1.Visible = false;
             }
             else if (mode == DocumentMan.eMode.InvoiceTable)
             {
                 m_usrc_DocumentEditor1366x768.Visible = false;
                 this.m_usrc_TableOfDocuments.Visible = true;
-                this.usrc_DocIssue1.Visible = true;
+                
                 this.m_usrc_TableOfDocuments.Width = this.Width;
                 this.m_usrc_DocumentEditor1366x768.Set_DocumentMan_eMode_Shops_and_InvoiceTable();
                 this.m_usrc_DocumentEditor1366x768.DoRefresh();
+                this.usrc_DocIssue1.Visible = true;
             }
             else
             {
-                this.usrc_DocIssue1.Visible = false;
+                
                 m_usrc_DocumentEditor1366x768.Left = defpos.usrc_DocumentEditor1366x768_Left;
                 m_usrc_DocumentEditor1366x768.Width = defpos.usrc_DocumentEditor1366x768_Width;
                 m_usrc_DocumentEditor1366x768.Set_DocumentMan_eMode_Shops_and_InvoiceTable();
@@ -316,6 +318,7 @@ namespace Tangenta
                 this.m_usrc_TableOfDocuments.Visible = true;
                 m_usrc_DocumentEditor1366x768.Visible = true;
                 this.m_usrc_DocumentEditor1366x768.DoRefresh();
+                this.usrc_DocIssue1.Visible = false;
             }
         }
 
@@ -1305,7 +1308,14 @@ namespace Tangenta
 
         private void m_usrc_DocumentEditor1366x768_SetBtnIssueVisible(bool bvisible)
         {
-            usrc_DocIssue1.Visible = bvisible;
+            if (!m_usrc_DocumentEditor1366x768.Visible)
+            {
+                usrc_DocIssue1.Visible = bvisible;
+            }
+            else
+            {
+                usrc_DocIssue1.Visible = false;
+            }
         }
 
         private void m_usrc_DocumentEditor1366x768_SetTotal(string stotal)

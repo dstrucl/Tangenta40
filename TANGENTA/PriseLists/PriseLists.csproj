@@ -71,6 +71,15 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DynEditControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\AnyCPU\Debug\DynEditControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Password, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CodeTables\CONTROLS\Password\bin\AnyCPU\Debug\Password.dll</HintPath>
+    </Reference>
+    <Reference Include="SelectGender, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -82,6 +91,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form_PriceList_Import.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_PriceList_Import.Designer.cs">
+      <DependentUpon>Form_PriceList_Import.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_PriceList_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +131,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form_PriceList_Import.resx">
+      <DependentUpon>Form_PriceList_Import.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_PriceList_Edit.resx">
       <DependentUpon>Form_PriceList_Edit.cs</DependentUpon>
     </EmbeddedResource>
@@ -206,6 +224,9 @@
       <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
       <Name>TangentaTableClass</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exit.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -84,5 +84,12 @@ namespace ShopC_Forms
                 }
             }
         }
+
+        private void btn_Inventura_Click(object sender, EventArgs e)
+        {
+            Form_Inventura frm_inventura = new Form_Inventura();
+            frm_inventura.ShowDialog(this);
+
+        }
     }
 }

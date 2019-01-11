@@ -120,6 +120,7 @@
       <DependentUpon>Form_TemplateTokens.cs</DependentUpon>
     </Compile>
     <Compile Include="lng.cs" />
+    <Compile Include="PrintIStockOfItems.cs" />
     <Compile Include="PrintersList.cs" />
     <Compile Include="Printer.cs" />
     <Compile Include="PrintCashierActivity.cs" />

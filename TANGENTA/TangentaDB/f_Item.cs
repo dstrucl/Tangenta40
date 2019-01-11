@@ -25,6 +25,9 @@ namespace TangentaDB
               Item_Image.Image_Data AS Item_Image_Image_Data,
               Item.Code AS Item_Code,
               Item.ToOffer AS Item_ToOffer,
+              Unit.Name as Unit_Name,
+              Unit.Symbol as Unit_Symbol,
+              Unit.DecimalPlaces as Unit_DecimalPlaces,
               Expiry.ExpectedShelfLifeInDays,
               Expiry.SaleBeforeExpiryDateInDays,
               Expiry.DiscardBeforeExpiryDateInDays,
@@ -33,6 +36,7 @@ namespace TangentaDB
               Warranty.WarrantyDurationType,
               Warranty.WarrantyConditions
              From Item 
+                INNER JOIN Unit ON Item.Unit_ID = Unit.ID
                 LEFT JOIN Item_Image ON Item.Item_Image_ID = Item_Image.ID
                 LEFT JOIN Expiry ON Item.Expiry_ID = Expiry.ID
                 LEFT JOIN Warranty ON Item.Warranty_ID = Warranty.ID

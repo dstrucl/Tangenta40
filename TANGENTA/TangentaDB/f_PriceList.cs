@@ -187,6 +187,54 @@ namespace TangentaDB
             }
         }
 
+        public static bool GetTable(ref DataTable dtPriceList)
+        {
+           string  sql = @"SELECT PriceList.ID,
+                            PriceList_$_pln.ID AS PriceList_$_pln_$$ID,
+                            PriceList_$_pln.Name AS PriceList_$_pln_$$Name,
+                            PriceList.Valid AS PriceList_$$Valid,
+                            PriceList_$_Cur.ID AS PriceList_$_Cur_$$ID,
+                            PriceList_$_Cur.Abbreviation AS PriceList_$_Cur_$$Abbreviation,
+                            PriceList_$_Cur.Name AS PriceList_$_Cur_$$Name,
+                            PriceList_$_Cur.Symbol AS PriceList_$_Cur_$$Symbol,
+                            PriceList_$_Cur.CurrencyCode AS PriceList_$_Cur_$$CurrencyCode,
+                            PriceList_$_Cur.DecimalPlaces AS PriceList_$_Cur_$$DecimalPlaces,
+                            PriceList.ValidFrom AS PriceList_$$ValidFrom,
+                            PriceList.ValidTo AS PriceList_$$ValidTo,
+                            PriceList.CreationDate AS PriceList_$$CreationDate,
+                            PriceList.Description AS PriceList_$$Description,
+                            PriceList_$_pli.ID AS PriceList_$_pli_$$ID,
+                            PriceList_$_pli_$_plit.ID AS PriceList_$_pli_$_plit_$$ID,
+                            PriceList_$_pli_$_plit.Name AS PriceList_$_pli_$_plit_$$Name,
+                            PriceList_$_pli_$_plct.ID AS PriceList_$_pli_$_plct_$$ID,
+                            PriceList_$_pli_$_plct.Name AS PriceList_$_pli_$_plct_$$Name,
+                            PriceList_$_pli_$_pln.ID AS PriceList_$_pli_$_pln_$$ID,
+                            PriceList_$_pli_$_pln.Name AS PriceList_$_pli_$_pln_$$Name,
+                            PriceList_$_pli.PriceIncrease AS PriceList_$_pli_$$PriceIncrease
+                            FROM PriceList 
+                            INNER JOIN PriceList_Name PriceList_$_pln ON PriceList.PriceList_Name_ID = PriceList_$_pln.ID
+                            INNER JOIN Currency PriceList_$_Cur ON PriceList.Currency_ID = PriceList_$_Cur.ID 
+                            LEFT JOIN PriceListImport PriceList_$_pli ON PriceList.PriceListImport_ID = PriceList_$_pli.ID 
+                            LEFT JOIN PriceListImportType PriceList_$_pli_$_plit ON PriceList_$_pli.PriceListImportType_ID = PriceList_$_pli_$_plit.ID 
+                            LEFT JOIN PriceListCheckType PriceList_$_pli_$_plct ON PriceList_$_pli.PriceListCheckType_ID = PriceList_$_pli_$_plct.ID 
+                            LEFT JOIN PriceList_Name PriceList_$_pli_$_pln ON PriceList_$_pli.PriceList_Name_ID = PriceList_$_pli_$_pln.ID";
+            if (dtPriceList!=null)
+            {
+                dtPriceList.Dispose();
+                dtPriceList = null;
+            }
+            dtPriceList = new DataTable();
+            string err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dtPriceList, sql,ref err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_PriceList:GetTable:sql=" + sql + "\r\nErr=" + err);
+                return false;
+            }
+        }
 
         public static bool Insert_ShopB_Items_in_PriceList(DataTable dt_SimpleItem, Control parent_ctrl, Transaction transaction)
         {

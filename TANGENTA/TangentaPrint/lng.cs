@@ -24,6 +24,12 @@ namespace TangentaPrint
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        #region PrintStockOfItems
+        public static ltext s_PrintStockOfItems = new ltext(new string[] { "Stock of items printout", "Izpis zaloge" });
+        public static ltext s_StockPriceValue = new ltext(new string[] { "Stock value", "Vrednost zaloge" });
+        public static ltext s_PriceWithoutTax = new ltext(new string[] { "Price without tax", "Cena brez DDV" });
+        #endregion
+
         #region PrintStockTake
         public static ltext s_WorkArea = new ltext(new string[] { "Working area", "Področje dela" });
         public static ltext s_TangentaInvoicingAdd = new ltext(new string[] { "invoicing software: www.tangenta.si", "davčna blagajna: www.tangenta.si" });

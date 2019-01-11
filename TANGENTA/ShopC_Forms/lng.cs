@@ -24,6 +24,18 @@ namespace ShopC_Forms
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_PriceValueOfStock = new ltext(new string[] { "Stock price value", "Vrednost zaloge" });
+        public static ltext s_Unit_DecimalPlaces = new ltext(new string[] { "Unit decimal places", "Število decimalnih mest merska enote" });
+        public static ltext s_Unit_Symbol = new ltext(new string[] { "Unit symbol", "Merska enota simbol" });
+        public static ltext s_Unit_Name = new ltext(new string[] { "Unit name", "Merska enota" });
+        public static ltext s_StockChangeQuantity = new ltext(new string[] { "Change of quantity in stock", "Sprememba količine na zalogi" });
+        public static ltext s_NewQuantityInStock = new ltext(new string[] { "NEW Quantity in stock", "Nova količina na zalogi" });
+        public static ltext s_Item_UniqueName = new ltext(new string[] { "Item UNIQUE Name", "Unikatno ime artikla" });
+        public static ltext s_QuantityInStock = new ltext(new string[] { "Quantity in stock", "Količina na zalogi" });
+        public static ltext s_lbl_StockOfItem = new ltext(new string[] { "An inventory of an item in stocks, item", "Inventura artikla v zalogah, artikel" });
+        public static ltext s_InventoryOfStock = new ltext(new string[] { "An inventory of stocks", "Inventura zalog" });
+
+        public static ltext s_lbl_StockItems = new ltext(new string[] { "Stock items", "Zaloga artiklov" });
 
         public static ltext s_StockTakePriceWithoutVAT = new ltext(new string[] { "Stock-Take price without VAT", "Cena prevzemnice brez DDV" });
 
