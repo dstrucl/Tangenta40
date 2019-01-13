@@ -81,7 +81,7 @@ namespace TangentaCore
 
         private DocumentMan DocM = null;
 
-        public struct DoCurrent_delegates
+        public class DoCurrent_delegates
         {
             public usrc_PriceList m_usrc_PriceListB;
             public usrc_PriceList m_usrc_PriceListC;
@@ -157,7 +157,6 @@ namespace TangentaCore
                 m_delegate_control_SetCurrentInvoice_SelectedShopC_Items = xdelegate_control_SetCurrentInvoice_SelectedShopC_Items;
                 m_delegate_control_ShowStornoCheckBox = xdelegate_control_ShowStornoCheckBox;
                 m_delegate_control_SetStornoCheckBox = xdelegate_control_SetStornoCheckBox;
-                m_delegate_control_ShopC_Reset = xdelegate_control_ShopC_Reset;
                 m_delegate_control_ShopC_Reset = xdelegate_control_ShopC_Reset;
                 m_delegate_control_ShopC_Clear = xdelegate_control_ShopC_Clear;
                 m_dt_Item_Price_ShopA = dt_Item_Price_ShopA;
@@ -255,12 +254,18 @@ namespace TangentaCore
             {
                 if (m_ShopABC.m_CurrentDoc.ShowDraftButtons())
                 {
-                    doCurrentDelegates.m_delegate_control_SetDraftButtons();
+                    if (doCurrentDelegates.m_delegate_control_SetDraftButtons!=null)
+                    { 
+                        doCurrentDelegates.m_delegate_control_SetDraftButtons();
+                    }
                     
                 }
                 else
                 {
-                    doCurrentDelegates.m_delegate_control_SetViewButtons();
+                    if (doCurrentDelegates.m_delegate_control_SetViewButtons != null)
+                    {
+                        doCurrentDelegates.m_delegate_control_SetViewButtons();
+                    }
                 }
                 doCurrentDelegates.m_delegate_control_Show_Customer(m_ShopABC.m_CurrentDoc);
                 doCurrentDelegates.m_delegate_control_AddOn_Show(xID);
@@ -390,14 +395,26 @@ namespace TangentaCore
                 if (m_ShopABC.m_CurrentDoc.bDraft)
                 {
                     SetMode(DocumentEditor.emode.edit_eDocumentType, xdelegate_control_SetMode);
-                    xdelegate_control_SetCurrentInvoice_SelectedShopB_Items(); //this.m_usrc_ShopB.SetCurrentInvoice_SelectedShopB_Items();
-                    xdelegate_control_SetCurrentInvoice_SelectedShopC_Items(); //this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
+                    if (xdelegate_control_SetCurrentInvoice_SelectedShopB_Items != null)
+                    {
+                        xdelegate_control_SetCurrentInvoice_SelectedShopB_Items(); //this.m_usrc_ShopB.SetCurrentInvoice_SelectedShopB_Items();
+                    }
+                    if (xdelegate_control_SetCurrentInvoice_SelectedShopC_Items != null)
+                    {
+                        xdelegate_control_SetCurrentInvoice_SelectedShopC_Items(); //this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
+                    }
                 }
                 else
                 {
                     SetMode(DocumentEditor.emode.view_eDocumentType, xdelegate_control_SetMode);
-                    xdelegate_control_SetCurrentInvoice_SelectedShopB_Items(); //this.m_usrc_ShopB.SetCurrentInvoice_SelectedShopB_Items();
-                    xdelegate_control_SetCurrentInvoice_SelectedShopC_Items(); //this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
+                    if (xdelegate_control_SetCurrentInvoice_SelectedShopB_Items != null)
+                    {
+                        xdelegate_control_SetCurrentInvoice_SelectedShopB_Items(); //this.m_usrc_ShopB.SetCurrentInvoice_SelectedShopB_Items();
+                    }
+                    if (xdelegate_control_SetCurrentInvoice_SelectedShopC_Items != null)
+                    {
+                        xdelegate_control_SetCurrentInvoice_SelectedShopC_Items(); //this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
+                    }
                     chk_Storno_CanBe_ManualyChanged = false;
                     if (DocM.IsDocInvoice)
                     {
@@ -417,7 +434,11 @@ namespace TangentaCore
                         xdelegate_control_ShowStornoCheckBox(false);//this.chk_Storno.Visible = false;
                     }
                 }
-                xdelegate_control_ShopC_Reset();// this.m_usrc_ShopC.Reset();
+                if (xdelegate_control_ShopC_Reset != null)
+                {
+                    xdelegate_control_ShopC_Reset();// this.m_usrc_ShopC.Reset();
+                   
+                }
                 return true;
             }
             else
@@ -439,15 +460,28 @@ namespace TangentaCore
                 {
                     xdelegate_control_InvoiceNumber_Text(DocumentMan.GetInvoiceNumber(m_ShopABC.m_CurrentDoc.bDraft, m_ShopABC.m_CurrentDoc.FinancialYear, m_ShopABC.m_CurrentDoc.NumberInFinancialYear, m_ShopABC.m_CurrentDoc.DraftNumber));// this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.m_CurrentDoc.bDraft, m_ShopABC.m_CurrentDoc.FinancialYear, m_ShopABC.m_CurrentDoc.NumberInFinancialYear, m_ShopABC.m_CurrentDoc.DraftNumber);//
 
-                    xdelegate_control_ShopC_Clear();// this.m_usrc_ShopC.Clear();
-                    xdelegate_control_SetCurrentInvoice_SelectedShopC_Items(); //this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
-                    xdelegate_control_ShopC_Reset();//this.m_usrc_ShopC.Reset();
+                    if (xdelegate_control_ShopC_Clear != null)
+                    {
+                        xdelegate_control_ShopC_Clear();// this.m_usrc_ShopC.Clear();
+                    }
+                    if (xdelegate_control_SetCurrentInvoice_SelectedShopC_Items != null)
+                    {
+                        xdelegate_control_SetCurrentInvoice_SelectedShopC_Items(); //this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
+                    }
+
+                    if (xdelegate_control_ShopC_Reset != null)
+                    {
+                        xdelegate_control_ShopC_Reset();//this.m_usrc_ShopC.Reset();
+                    }
 
                     return true;
                 }
                 else
                 {
-                    xdelegate_control_ShopC_Reset();//this.m_usrc_ShopC.Reset();
+                    if (xdelegate_control_ShopC_Reset != null)
+                    {
+                        xdelegate_control_ShopC_Reset();//this.m_usrc_ShopC.Reset();
+                    }
                     return false;
                 }
             }
@@ -475,35 +509,42 @@ namespace TangentaCore
             TaxSum = null;
             TaxSum = new StaticLib.TaxSum();
 
-            foreach (DataRow dr in dt_Item_Price_ShopA.Rows) //foreach (DataRow dr in this.m_usrc_ShopA.dt_Item_Price.Rows)
+            if (dt_Item_Price_ShopA != null)
             {
-                decimal price = (decimal)dr[DocTyp + "_ShopA_Item_$$EndPriceWithDiscountAndTax"];
-                decimal tax = (decimal)dr[DocTyp + "_ShopA_Item_$$TAX"];
-                decimal tax_rate = (decimal)dr[DocTyp + "_ShopA_Item_$_aisha_$_tax_$$Rate"];
-                string tax_name = (string)dr[DocTyp + "_ShopA_Item_$_aisha_$_tax_$$Name"];
-                dsum_GrossSum += price;
-                TaxSum.Add(tax, 0, tax_name, tax_rate);
-                dsum_NetSum += price - tax;
+                foreach (DataRow dr in dt_Item_Price_ShopA.Rows) //foreach (DataRow dr in this.m_usrc_ShopA.dt_Item_Price.Rows)
+                {
+                    decimal price = (decimal)dr[DocTyp + "_ShopA_Item_$$EndPriceWithDiscountAndTax"];
+                    decimal tax = (decimal)dr[DocTyp + "_ShopA_Item_$$TAX"];
+                    decimal tax_rate = (decimal)dr[DocTyp + "_ShopA_Item_$_aisha_$_tax_$$Rate"];
+                    string tax_name = (string)dr[DocTyp + "_ShopA_Item_$_aisha_$_tax_$$Name"];
+                    dsum_GrossSum += price;
+                    TaxSum.Add(tax, 0, tax_name, tax_rate);
+                    dsum_NetSum += price - tax;
+                }
             }
 
-
-            foreach (DataRow dr in dt_SelectedShopBItem.Rows) //foreach (DataRow dr in this.m_usrc_ShopB.dt_SelectedShopBItem.Rows)
+            if (dt_SelectedShopBItem != null)
             {
-                decimal price = (decimal)dr["SelectedSimpleItemPrice"];
-                decimal tax = (decimal)dr["SelectedSimpleItemPriceTax"];
-                decimal tax_rate = (decimal)dr["SelectedSimpleItem_TaxRate"];
-                string tax_name = (string)dr["SelectedSimpleItem_TaxName"];
-                dsum_GrossSum += price;
-                TaxSum.Add(tax, 0, tax_name, tax_rate);
-                dsum_NetSum += price - tax;
+                foreach (DataRow dr in dt_SelectedShopBItem.Rows) //foreach (DataRow dr in this.m_usrc_ShopB.dt_SelectedShopBItem.Rows)
+                {
+                    decimal price = (decimal)dr["SelectedSimpleItemPrice"];
+                    decimal tax = (decimal)dr["SelectedSimpleItemPriceTax"];
+                    decimal tax_rate = (decimal)dr["SelectedSimpleItem_TaxRate"];
+                    string tax_name = (string)dr["SelectedSimpleItem_TaxName"];
+                    dsum_GrossSum += price;
+                    TaxSum.Add(tax, 0, tax_name, tax_rate);
+                    dsum_NetSum += price - tax;
+                }
             }
 
             decimal dsum_GrossSum_Basket = 0;
             decimal dsum_TaxSum_Basket = 0;
             decimal dsum_NetSum_Basket = 0;
 
-            m_ShopABC.m_CurrentDoc.m_Basket.GetPriceSum(ref dsum_GrossSum_Basket, ref dsum_TaxSum_Basket, ref dsum_NetSum_Basket, ref TaxSum);
-
+            if (m_ShopABC.m_CurrentDoc.m_Basket!=null)
+            {
+                m_ShopABC.m_CurrentDoc.m_Basket.GetPriceSum(ref dsum_GrossSum_Basket, ref dsum_TaxSum_Basket, ref dsum_NetSum_Basket, ref TaxSum);
+            }
             dsum_GrossSum += dsum_GrossSum_Basket;
             dsum_TaxSum += dsum_TaxSum_Basket;
             dsum_NetSum += dsum_NetSum_Basket;
@@ -549,35 +590,7 @@ namespace TangentaCore
             xdelegate_control_lbl_Sum_Text(sGrossSum + " " + GlobalData.BaseCurrency.Symbol);// this.lbl_Sum.Text = sGrossSum + " " + GlobalData.BaseCurrency.Symbol;// +" tax:" + TaxSum.ToString() + " " + NetSum.ToString();
         }
 
-        //public bool UpdateInvoicePriceInDraft()
-        //{
-        //    List<DBConnectionControl40.SQL_Parameter> lpar = new List<DBConnectionControl40.SQL_Parameter>();
-        //    string spar_GrossSum = "@par_GrossSum";
-        //    DBConnectionControl40.SQL_Parameter par_GrossSum = new DBConnectionControl40.SQL_Parameter(spar_GrossSum, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, GrossSum);
-        //    lpar.Add(par_GrossSum);
-        //    decimal TaxSum_Value = TaxSum.Value;
-        //    string spar_TaxSum = "@par_TaxSum";
-
-        //    DBConnectionControl40.SQL_Parameter par_TaxSum = new DBConnectionControl40.SQL_Parameter(spar_TaxSum, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, TaxSum_Value);
-        //    lpar.Add(par_TaxSum);
-        //    string spar_NetSum = "@par_NetSum";
-        //    DBConnectionControl40.SQL_Parameter par_NetSum = new DBConnectionControl40.SQL_Parameter(spar_NetSum, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, NetSum);
-        //    lpar.Add(par_NetSum);
-
-        //    string sql_SetPrice = "update " + DocTyp + " set GrossSum = " + spar_GrossSum + ",TaxSum = " + spar_TaxSum + ",NetSum = " + spar_NetSum + " where ID = " + m_ShopABC.m_CurrentDoc.Doc_ID.ToString();
-        //    object ores = null;
-        //    string Err = null;
-        //    if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_SetPrice, lpar, ref ores, ref Err))
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        LogFile.Error.Show("ERROR:usrc_Invoice:UpdateInvoicePriceInDraft:Err=" + Err);
-        //        return false;
-        //    }
-        //}
-
+  
         public void btn_Issue_Click(
                                     Form pform,
                                     delegate_control_Check_DocInvoice_AddOn xdelegate_control_Check_DocInvoice_AddOn,
@@ -887,10 +900,8 @@ namespace TangentaCore
                     doCurrent_delegates.m_delegate_control_m_usrc_ShopB_Set_dgv_SelectedShopB_Items();// this.m_usrc_ShopB.Set_dgv_SelectedShopB_Items();
                 }
             }
-            else
-            {
-                return false;
-            }
+            
+           
 
             if (PropertiesUser.ShopsInUse_Get(mSettingsUserValues).Contains("C"))
             {

@@ -271,6 +271,7 @@ namespace Tangenta
                 m_usrc_ShopC.CheckAccessPriceList += M_usrcCheckPriceListAccess;
                 m_usrc_ShopC.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
                 m_usrc_ShopC.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
+                doCurrent_Delegates.m_usrc_PriceListC = m_usrc_ShopC.usrc_PriceList1;
             }
             m_usrc_ShopC.Init(DocE.m_LMOUser.Atom_WorkPeriod_ID, DocE.m_ShopABC, DocE.DBtcn,PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),TSettings.AutomaticSelectionOfItemFromStock,OperationMode.ShopC_ExclusivelySellFromStock);
             m_usrc_ShopC.Dock = DockStyle.Fill;
@@ -1015,6 +1016,7 @@ namespace Tangenta
             if (m_usrc_ShopC != null)
             {
                 xusrc_PriceListC = m_usrc_ShopC.usrc_PriceList1;
+                doCurrent_Delegates.m_usrc_PriceListC = m_usrc_ShopC.usrc_PriceList1;
             }
 
             if (DocE.Init(pform,
@@ -1102,6 +1104,14 @@ namespace Tangenta
 
         public bool DoCurrent(ID xID, Transaction transaction)
         {
+            if (this.m_usrc_ShopC!=null)
+            {
+                doCurrent_Delegates.m_usrc_PriceListC = this.m_usrc_ShopC.usrc_PriceList1;
+            }
+            if (this.m_usrc_ShopB != null)
+            {
+                doCurrent_Delegates.m_usrc_PriceListB = this.m_usrc_ShopB.usrc_PriceList1;
+            }
             return DocE.DoCurrent(xID,
                                   doCurrent_Delegates,
                                   transaction

@@ -99,6 +99,7 @@ namespace ShopC
         public usrc_Atom_ItemsList()
         {
             InitializeComponent();
+            usrc_Atom_Item_array = null;
         }
 
         internal void Init(ID xAtom_WorkPeriod_ID,usrc_ItemList x_usrc_ItemList, TangentaDB.ShopABC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn)

@@ -1519,6 +1519,15 @@ namespace TangentaTableClass
 
     }
 
+    public class Inventura_ShopC_Item
+    {
+        public ID ID = new ID();
+        public Name m_Name = new Name();
+        public Description m_Description = new Description();
+
+
+    }
+
     public class DocInvoice_ShopC_Item_Source
     {
         public ID ID = new ID();
@@ -1529,6 +1538,15 @@ namespace TangentaTableClass
         public RetailPriceWithDiscount RetailPriceWithDiscount = new RetailPriceWithDiscount();
         public TaxPrice TaxPrice = new TaxPrice();
         public ExpiryDate ExpiryDate = new ExpiryDate();
+    }
+
+    public class Inventura_ShopC_Item_Source
+    {
+        public ID ID = new ID();
+        public Inventura_ShopC_Item m_Inventura_ShopC_Item = new Inventura_ShopC_Item();
+        public Stock m_Stock = new Stock();
+        public dQuantity dQuantity = new dQuantity();
+        public Description Description = new Description();
     }
 
     public class DocProformaInvoice_ShopC_Item
@@ -1730,6 +1748,7 @@ namespace TangentaTableClass
     {
         public ID ID = new ID();
         public Name Name = new Name();
+        public Inventura_ShopC_Item m_Inventura_ShopC_Item = new Inventura_ShopC_Item();
         public StockTake_Date StockTake_Date = new StockTake_Date();
         public Supplier m_Supplier = new Supplier();
         public StockTakePriceTotal StockTakePriceTotal = new StockTakePriceTotal();
@@ -3764,5 +3783,10 @@ namespace TangentaTableClass
         /* 256 */
         public PriceListImport m_PriceListImport = new PriceListImport();
 
+        /* 257 */
+        public Inventura_ShopC_Item m_Inventura_ShopC_Item = new Inventura_ShopC_Item();
+
+        /* 258 */
+        public Inventura_ShopC_Item_Source m_Inventura_ShopC_Item_Source = new Inventura_ShopC_Item_Source();
     }
 }

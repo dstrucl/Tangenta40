@@ -827,7 +827,7 @@ namespace Tangenta
                         xusrc_DocumentMan1366x768.Active = true;
                         xusrc_DocumentMan1366x768.Dock = DockStyle.Fill;
                         this.Controls.Add(xusrc_DocumentMan1366x768);
-
+                        xusrc_DocumentMan1366x768.Show();
                         xusrc_DocumentMan1366x768.Initialise(this, TSettings.LMO1User);
                         xusrc_DocumentMan1366x768.Init();
 
@@ -844,7 +844,7 @@ namespace Tangenta
                         xusrc_DocumentMan.Dock = DockStyle.Fill;
                         xusrc_DocumentMan.LayoutChanged += M_usrc_Main_LayoutChanged;
                         this.Controls.Add(xusrc_DocumentMan);
-
+                        xusrc_DocumentMan.Show();
                         xusrc_DocumentMan.Initialise(this, TSettings.LMO1User);
                         xusrc_DocumentMan.Init();
                         this.documentMan = xusrc_DocumentMan;
@@ -1841,7 +1841,7 @@ namespace Tangenta
                         xusrc_DocumentMan1366x768.Visible = false;
                         xusrc_DocumentMan1366x768.Dock = DockStyle.Fill;
                         this.Controls.Add(xusrc_DocumentMan1366x768);
-
+                        xusrc_DocumentMan1366x768.Show();
                         xusrc_DocumentMan1366x768.Initialise(this, xLMOUser);
                         xusrc_DocumentMan1366x768.Init();
 
@@ -1856,7 +1856,7 @@ namespace Tangenta
                         xusrc_DocumentMan.Visible = false;
                         xusrc_DocumentMan.Dock = DockStyle.Fill;
                         this.Controls.Add(xusrc_DocumentMan);
-
+                        xusrc_DocumentMan.Show();
                         xusrc_DocumentMan.Initialise(this, xLMOUser);
                         xusrc_DocumentMan.Init();
 

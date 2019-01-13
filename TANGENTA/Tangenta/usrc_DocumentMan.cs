@@ -602,7 +602,6 @@ namespace Tangenta
             }
             SetColor();
         }
-
         public void Reload()
         {
             splitContainer1.Panel2Collapsed = false;
@@ -620,6 +619,7 @@ namespace Tangenta
                 }
             }
         }
+
 
 
         private void btn_New_Click(object sender, EventArgs e)

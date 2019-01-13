@@ -766,6 +766,10 @@ namespace TangentaDataBaseDef
         /* 256 */
         public SQLTable t_PriceListImport = null;
 
+        public SQLTable t_Inventura_ShopC_Item = null;
+
+        /* 258 */
+        public Inventura_ShopC_Item_Source t_Inventura_ShopC_Item_Source = null;
 
         public void Define_SQL_Database_Tables() // constructor;
         {
