@@ -44,7 +44,7 @@ namespace Tangenta
         public usrc_ShopC m_usrc_ShopC = null;
 
 
-//        private usrc_DocumentMan m_usrc_DocumentMan = null;
+        //        private usrc_DocumentMan m_usrc_DocumentMan = null;
 
         private NavigationButtons.Navigation nav = null;
 
@@ -101,7 +101,7 @@ namespace Tangenta
             }
         }
 
-      
+
 
         public bool IsDocInvoice
         {
@@ -143,7 +143,7 @@ namespace Tangenta
         {
             get
             {
-                if (myOrg.m_myOrg_Office!=null)
+                if (myOrg.m_myOrg_Office != null)
                 {
                     if (myOrg.m_myOrg_Office.m_myOrg_Person != null)
                     {
@@ -219,9 +219,10 @@ namespace Tangenta
 
         private void New_ShopA()
         {
-            if (m_usrc_ShopA==null)
+            if (m_usrc_ShopA == null)
             {
                 m_usrc_ShopA = new usrc_ShopA();
+                set_do_doCurrent_Delegates();
             }
             m_usrc_ShopA.Init(DocE.m_ShopABC, DocE.DBtcn);
             m_usrc_ShopA.Dock = DockStyle.Fill;
@@ -234,7 +235,7 @@ namespace Tangenta
         private bool M_usrc_ShopA_EditUnits()
         {
             SQLTable tbl_Unit = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Unit)));
-            Form_Unit_Edit unit_dlg = new Form_Unit_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Unit, "ID asc",nav);
+            Form_Unit_Edit unit_dlg = new Form_Unit_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Unit, "ID asc", nav);
             if (unit_dlg.ShowDialog() == DialogResult.OK)
             {
                 DocE.GetUnits();
@@ -246,7 +247,7 @@ namespace Tangenta
 
         internal void HideGroupHandlerForm()
         {
-            if (m_usrc_ShopC!=null)
+            if (m_usrc_ShopC != null)
             {
                 m_usrc_ShopC.HideGroupHandlerForm();
             }
@@ -271,9 +272,10 @@ namespace Tangenta
                 m_usrc_ShopC.CheckAccessPriceList += M_usrcCheckPriceListAccess;
                 m_usrc_ShopC.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
                 m_usrc_ShopC.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
-                doCurrent_Delegates.m_usrc_PriceListC = m_usrc_ShopC.usrc_PriceList1;
+                set_do_doCurrent_Delegates();
+
             }
-            m_usrc_ShopC.Init(DocE.m_LMOUser.Atom_WorkPeriod_ID, DocE.m_ShopABC, DocE.DBtcn,PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),TSettings.AutomaticSelectionOfItemFromStock,OperationMode.ShopC_ExclusivelySellFromStock);
+            m_usrc_ShopC.Init(DocE.m_LMOUser.Atom_WorkPeriod_ID, DocE.m_ShopABC, DocE.DBtcn, PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues), TSettings.AutomaticSelectionOfItemFromStock, OperationMode.ShopC_ExclusivelySellFromStock);
             m_usrc_ShopC.Dock = DockStyle.Fill;
             m_usrc_ShopC.ItemAdded += usrc_ShopC_ItemAdded;
             m_usrc_ShopC.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
@@ -296,7 +298,7 @@ namespace Tangenta
 
         private void Set_ShowShops_A()
         {
-            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues,"A");
+            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "A");
             this.splitContainer1.Panel1.Controls.Clear();
             this.splitContainer3.Panel1.Controls.Clear();
             this.splitContainer3.Panel2.Controls.Clear();
@@ -393,7 +395,7 @@ namespace Tangenta
         {
             DocE.mSettingsUserValues.eShopsInUse = xshops_inuse;
             this.Set_ShowShops(xshops_inuse);
-            if (LayoutChanged!=null)
+            if (LayoutChanged != null)
             {
                 LayoutChanged();
             }
@@ -421,9 +423,8 @@ namespace Tangenta
             {
 
                 m_usrc_ShopB = new usrc_ShopB(returnDocTyp);
-
                 m_usrc_ShopB.CheckAccessPriceList += M_usrcCheckPriceListAccess;
-
+                set_do_doCurrent_Delegates();
             }
 
             m_usrc_ShopB.Init(DocE.m_ShopABC, DocE.DBtcn, PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues));
@@ -446,7 +447,7 @@ namespace Tangenta
             if (DocE.mSettingsUserValues.eShopsInUse.Length == 1)
             {
                 eShopsShow = DocE.mSettingsUserValues.eShopsInUse;
- //               this.btn_Show_Shops.Visible = false;
+                //               this.btn_Show_Shops.Visible = false;
             }
             else
             {
@@ -462,7 +463,7 @@ namespace Tangenta
             }
 
 
-            if (m_usrc_ShopA==null)
+            if (m_usrc_ShopA == null)
             {
                 New_ShopA();
             }
@@ -471,7 +472,7 @@ namespace Tangenta
             {
                 New_ShopB();
             }
-            
+
             if (m_usrc_ShopC == null)
             {
                 New_ShopC();
@@ -585,7 +586,7 @@ namespace Tangenta
 
         internal void SetSplitControlsSpliterDistance(SettingsUserValues xSettingsUserValues)
         {
-            if (xSettingsUserValues.DocumentEditor_SplitControl2_spliterdistance>0)
+            if (xSettingsUserValues.DocumentEditor_SplitControl2_spliterdistance > 0)
             {
                 this.SplitContainer2_spd = xSettingsUserValues.DocumentEditor_SplitControl2_spliterdistance;
             }
@@ -615,7 +616,7 @@ namespace Tangenta
                 }
             }
 
-            if (m_usrc_ShopB!=null)
+            if (m_usrc_ShopB != null)
             {
                 if (xSettingsUserValues.ShopB_SplitControl2_spliterdistance > 0)
                 {
@@ -645,15 +646,15 @@ namespace Tangenta
         {
             if (this.SplitContainer2_spd > 0)
             {
-                 xSettingsUserValues.DocumentEditor_SplitControl2_spliterdistance = this.SplitContainer2_spd;
+                xSettingsUserValues.DocumentEditor_SplitControl2_spliterdistance = this.SplitContainer2_spd;
             }
             if (this.SplitContainer1_spd > 0)
             {
-                 xSettingsUserValues.DocumentEditor_SplitControl1_spliterdistance = this.SplitContainer1_spd;
+                xSettingsUserValues.DocumentEditor_SplitControl1_spliterdistance = this.SplitContainer1_spd;
             }
             if (this.SplitContainer3_spd > 0)
             {
-                 xSettingsUserValues.DocumentEditor_SplitControl3_spliterdistance = this.SplitContainer3_spd;
+                xSettingsUserValues.DocumentEditor_SplitControl3_spliterdistance = this.SplitContainer3_spd;
             }
 
             if (m_usrc_ShopA != null)
@@ -680,7 +681,7 @@ namespace Tangenta
                 }
                 if (m_usrc_ShopB.SplitContainer2_spd > 0)
                 {
-                     xSettingsUserValues.ShopB_SplitControl2_spliterdistance = m_usrc_ShopB.SplitContainer2_spd;
+                    xSettingsUserValues.ShopB_SplitControl2_spliterdistance = m_usrc_ShopB.SplitContainer2_spd;
                 }
             }
 
@@ -706,8 +707,8 @@ namespace Tangenta
         public bool HeadVisible
         {
             get {
-                 return this.chk_Head.Checked;
-                }
+                return this.chk_Head.Checked;
+            }
         }
 
         private usrc_PriceList pusrc_PriceListB
@@ -859,12 +860,12 @@ namespace Tangenta
                 }
             }
         }
-                    
-                    
-        public usrc_DocumentEditor()
+
+        private void set_do_doCurrent_Delegates()
         {
-            InitializeComponent();
-            doCurrent_Delegates = new DocumentEditor.DoCurrent_delegates(
+            if (doCurrent_Delegates == null)
+            {
+                doCurrent_Delegates = new DocumentEditor.DoCurrent_delegates(
                                     pusrc_PriceListB,
                                     pusrc_PriceListC,
                                     this.Set_ShowShops,
@@ -892,7 +893,44 @@ namespace Tangenta
                                     this.m_usrc_ShopB_Get_Price_ShopBItem_Data,
                                     this.m_usrc_ShopB_Set_dgv_SelectedShopB_Items,
                                     this.m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data);
+            }
+            else
+            {
+                doCurrent_Delegates.Set(
+                                    pusrc_PriceListB,
+                                    pusrc_PriceListC,
+                                    this.Set_ShowShops,
+                                    pdelegate_control_SetDraftButtons,
+                                    pdelegate_control_SetViewButtons,
+                                    this.usrc_Customer.Show_Customer,
+                                    this.set_CustomerText,
+                                    this.usrc_AddOn1.Show,
+                                    this.AddHandler,
+                                    this.RemoveHandler,
+                                    this.set_InvoiceNumberText,
+                                    this.SetMode,
+                                    this.m_usrc_ShopB,
+                                    pdelegate_control_SetCurrentInvoice_SelectedShopB_Items,
+                                    pdelegate_control_SetCurrentInvoice_SelectedShopC_Items,
+                                    this.chk_Storno_Show,
+                                    this.chk_Storno_Check,
+                                    pdelegate_control_ShopC_Reset,
+                                    pdelegate_control_ShopC_Clear,
+                                    pdt_ShopA_Item_Price,
+                                    pdt_SelectedShopBItem,
+                                    this.btn_Issue_Show,
+                                    this.lbl_Sum_ForeColor,
+                                    this.lbl_Sum_Text,
+                                    this.m_usrc_ShopB_Get_Price_ShopBItem_Data,
+                                    this.m_usrc_ShopB_Set_dgv_SelectedShopB_Items,
+                                    this.m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data); 
+            }
+        }
 
+        public usrc_DocumentEditor()
+        {
+            InitializeComponent();
+            set_do_doCurrent_Delegates();
             lng.s_Show_Shops.Text(btn_Show_Shops);
             lng.s_Issuer.Text(lbl_MyOrganisation);
             lng.s_Number.Text(lbl_Number);
@@ -1020,6 +1058,7 @@ namespace Tangenta
             }
 
             if (DocE.Init(pform,
+                            this.btn_Show_Shops,
                             Document_ID,
                             ref m_usrc_ShopB_usrc_PriceList1_ID,
                             ref m_usrc_ShopC_usrc_PriceList1_ID,

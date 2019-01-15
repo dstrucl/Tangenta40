@@ -715,6 +715,7 @@ namespace Tangenta
 
             Transaction transaction_DocE_Init = DBSync.DBSync.NewTransaction("DocE.Init");
             if (DocE.Init(pform,
+                            this.btn_Show_Shops,
                             Document_ID,
                             ref m_usrc_ShopB1366x768_usrc_PriceList1_ID,
                             ref m_usrc_ShopC1366x768_m_usrc_PriceList1_ID,

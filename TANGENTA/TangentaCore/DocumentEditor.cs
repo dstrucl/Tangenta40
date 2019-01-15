@@ -77,6 +77,7 @@ namespace TangentaCore
         public delegate void delegate_Storno(bool bStorno);
         public delegate void delegate_control_chk_Storno_Check(bool bcheck);
 
+        public Form MainForm = null;
         public Button btn_Show_Shops = null;
 
         private DocumentMan DocM = null;
@@ -113,6 +114,64 @@ namespace TangentaCore
 
             public DoCurrent_delegates(
                                         usrc_PriceList xusrc_PriceListB,
+                                        usrc_PriceList xusrc_PriceListC,
+                                        delegate_control_Set_ShowShops xdelegate_control_Set_ShowShops,
+                                        delegate_control_SetDraftButtons xdelegate_control_SetDraftButtons,
+                                        delegate_control_SetViewButtons xdelegate_control_SetViewButtons,
+                                        delegate_control_Show_Customer xdelegate_control_Show_Customer,
+                                        delegate_control_Customer_Text xdelegate_control_Customer_Text,
+                                        delegate_control_AddOn_Show xdelegate_control_AddOn_Show,
+                                        delegate_control_AddHandler xdelegate_control_AddHandler,
+                                        delegate_control_RemoveHandler xdelegate_control_RemoveHandler,
+                                        delegate_control_InvoiceNumber_Text xdelegate_control_InvoiceNumber_Text,
+                                        delegate_control_SetMode xdelegate_control_SetMode,
+                                        object om_usrc_ShopB,
+                                        delegate_control_SetCurrentInvoice_SelectedShopB_Items xdelegate_control_SetCurrentInvoice_SelectedShopB_Items,
+                                        delegate_control_SetCurrentInvoice_SelectedShopC_Items xdelegate_control_SetCurrentInvoice_SelectedShopC_Items,
+                                        delegate_control_ShowStornoCheckBox xdelegate_control_ShowStornoCheckBox,
+                                        delegate_control_SetStornoCheckBox xdelegate_control_SetStornoCheckBox,
+                                        delegate_control_ShopC_Reset xdelegate_control_ShopC_Reset,
+                                        delegate_control_ShopC_Clear xdelegate_control_ShopC_Clear,
+                                        DataTable dt_Item_Price_ShopA,
+                                        DataTable dt_SelectedShopBItem,
+                                        delegate_control_btn_Issue_Show xdelegate_control_btn_Issue_Show,
+                                        delegate_control_lbl_Sum_ForeColor xdelegate_control_lbl_Sum_ForeColor,
+                                        delegate_control_lbl_Sum_Text xdelegate_control_lbl_Sum_Text,
+                                        delegate_control_Get_Price_ShopBItem_Data xdelegate_control_Get_Price_ShopBItem_Data,
+                                        delegate_control_m_usrc_ShopB_Set_dgv_SelectedShopB_Items xdelegate_control_m_usrc_ShopB_Set_dgv_SelectedShopB_Items,
+                                        delegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data xdelegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data)
+            {
+                m_usrc_PriceListB = xusrc_PriceListB;
+                m_usrc_PriceListC = xusrc_PriceListC;
+                m_delegate_control_Set_ShowShops = xdelegate_control_Set_ShowShops;
+                m_delegate_control_SetDraftButtons = xdelegate_control_SetDraftButtons;
+                m_delegate_control_SetViewButtons = xdelegate_control_SetViewButtons;
+                m_delegate_control_Show_Customer = xdelegate_control_Show_Customer;
+                m_delegate_control_Customer_Text = xdelegate_control_Customer_Text;
+                m_delegate_control_AddOn_Show = xdelegate_control_AddOn_Show;
+                m_delegate_control_AddHandler = xdelegate_control_AddHandler;
+                m_delegate_control_RemoveHandler = xdelegate_control_RemoveHandler;
+                m_delegate_control_InvoiceNumber_Text = xdelegate_control_InvoiceNumber_Text;
+                m_delegate_control_SetMode = xdelegate_control_SetMode;
+                m_usrc_ShopB = om_usrc_ShopB;
+                m_delegate_control_SetCurrentInvoice_SelectedShopB_Items = xdelegate_control_SetCurrentInvoice_SelectedShopB_Items;
+                m_delegate_control_SetCurrentInvoice_SelectedShopC_Items = xdelegate_control_SetCurrentInvoice_SelectedShopC_Items;
+                m_delegate_control_ShowStornoCheckBox = xdelegate_control_ShowStornoCheckBox;
+                m_delegate_control_SetStornoCheckBox = xdelegate_control_SetStornoCheckBox;
+                m_delegate_control_ShopC_Reset = xdelegate_control_ShopC_Reset;
+                m_delegate_control_ShopC_Clear = xdelegate_control_ShopC_Clear;
+                m_dt_Item_Price_ShopA = dt_Item_Price_ShopA;
+                m_dt_SelectedShopBItem = dt_SelectedShopBItem;
+                m_delegate_control_btn_Issue_Show = xdelegate_control_btn_Issue_Show;
+                m_delegate_control_lbl_Sum_ForeColor = xdelegate_control_lbl_Sum_ForeColor;
+                m_delegate_control_lbl_Sum_Text = xdelegate_control_lbl_Sum_Text;
+                m_delegate_control_Get_Price_ShopBItem_Data = xdelegate_control_Get_Price_ShopBItem_Data;
+                m_delegate_control_m_usrc_ShopB_Set_dgv_SelectedShopB_Items = xdelegate_control_m_usrc_ShopB_Set_dgv_SelectedShopB_Items;
+                m_delegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data = xdelegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data;
+            }
+
+           
+            public void Set(usrc_PriceList xusrc_PriceListB,
                                         usrc_PriceList xusrc_PriceListC,
                                         delegate_control_Set_ShowShops xdelegate_control_Set_ShowShops,
                                         delegate_control_SetDraftButtons xdelegate_control_SetDraftButtons,
@@ -827,12 +886,15 @@ namespace TangentaCore
         }
 
         public bool Init(Form pform,
+                          Button xbtnShowShops,
                           ID document_ID,
                           ref ID ShopB_pricelist_ID,
                           ref ID ShopC_pricelist_ID,
                           DocumentEditor.DoCurrent_delegates doCurrent_delegates,
                           Transaction transaction)
         {
+            this.MainForm = pform;
+            this.btn_Show_Shops = xbtnShowShops;
             if (DBtcn == null)
             {
                 DBtcn = new DBTablesAndColumnNames();

@@ -319,15 +319,15 @@ namespace TangentaDB
                 string sval_Atom_ElectronicDevice_ID = "null";
                 if (ID.Validate(Atom_ElectronicDevice_ID))
                 {
-                    string spar_Atom_ElectronicDevice_ID = "@par_Atom_ElectronicDevice_ID";
+                    string spar_Atom_ElectronicDevice_ID = "@par_Atom_ElectronicDevice_Temp_ID";
                     SQL_Parameter par_Atom_ElectronicDevice_ID = new SQL_Parameter(spar_Atom_ElectronicDevice_ID, false, Atom_ElectronicDevice_ID);
                     lpar.Add(par_Atom_ElectronicDevice_ID);
-                    scond_Atom_ElectronicDevice_ID = "Atom_ElectronicDevice_ID = " + spar_Atom_ElectronicDevice_ID;
+                    scond_Atom_ElectronicDevice_ID = "Atom_ElectronicDevice_Temp_ID = " + spar_Atom_ElectronicDevice_ID;
                     sval_Atom_ElectronicDevice_ID = spar_Atom_ElectronicDevice_ID;
                 }
                 else
                 {
-                    scond_Atom_ElectronicDevice_ID = "Atom_ElectronicDevice_ID is null";
+                    scond_Atom_ElectronicDevice_ID = "Atom_ElectronicDevice_Temp_ID is null";
                     sval_Atom_ElectronicDevice_ID = "null";
                 }
 
@@ -368,7 +368,7 @@ namespace TangentaDB
                 string    sql = @"insert into Atom_WorkPeriod_Temp (ID,
                                                                Atom_WorkPeriod_TYPE_ID,
                                                                Atom_myOrganisation_Person_ID,
-                                                               Atom_ElectronicDevice_ID,
+                                                               Atom_ElectronicDevice_Temp_ID,
                                                                LoginTime,
                                                                LogoutTime) values ("
                                                                 + sval_Atom_WorkPeriod_ID + ","
@@ -424,6 +424,34 @@ namespace TangentaDB
             }
         }
 
+        public static bool Get_Temp(ID xAtom_WorkPeriod_ID, ref string xElectronicDeviceName, ref string xAtomOfficeShortName)
+        {
+            xElectronicDeviceName = null;
+            xAtomOfficeShortName = null;
+            string sql = @"select  aed.Name as Atom_ElectronicDevice_Name,
+	                        ao.ShortName as Atom_Office_ShortName 
+	                       from Atom_WorkPeriod awp
+                        inner join Atom_ElectronicDevice_Temp aedt on awp.Atom_ElectronicDevice_Temp_ID = aedt.ID
+                        inner join Atom_Office ao on aedt.Atom_Office_ID = ao.ID 
+                        where awp.ID = " + xAtom_WorkPeriod_ID.ToString();
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                int iCount = dt.Rows.Count;
+                if (iCount > 0)
+                {
+                    xElectronicDeviceName = tf._set_string(dt.Rows[0]["Atom_ElectronicDevice_Name"]);
+                    xAtomOfficeShortName = tf._set_string(dt.Rows[0]["Atom_Office_ShortName"]);
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Atom_WorkPeriod:Get:" + sql + "\r\n:Err=" + Err);
+                return false;
+            }
+        }
         public static bool GetOld(string Atom_WorkPeriod_Type_Name,
                                  string Atom_WorkPeriod_Type_Description,
                                  ID Atom_myOrganisation_Person_ID,

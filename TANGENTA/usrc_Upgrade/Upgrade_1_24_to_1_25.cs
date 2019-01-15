@@ -16,11 +16,14 @@ namespace UpgradeDB
 
         internal static object UpgradeDB_1_24_to_1_25(object obj, ref string Err)
         {
-            Transaction transaction_UpgradeDB_1_24_to_1_25  = DBSync.DBSync.NewTransaction("UpgradeDB_1_24_to_1_25");
-            if (DBSync.DBSync.Drop_VIEWs(ref Err, transaction_UpgradeDB_1_24_to_1_25))
+            Transaction transaction_UpgradeDB_1_24_to_1_25_drop = DBSync.DBSync.NewTransaction("transaction_UpgradeDB_1_24_to_1_25_drop");
+            if (DBSync.DBSync.Drop_VIEWs(ref Err, transaction_UpgradeDB_1_24_to_1_25_drop))
             {
+                transaction_UpgradeDB_1_24_to_1_25_drop.Commit();
                 //change Atom_myOrganisation_Person
                 //change myOrganisation_Person
+
+
 
                 string sql = @"
 
@@ -56,48 +59,90 @@ namespace UpgradeDB
 
                         CREATE TABLE Atom_WorkPeriod_Temp ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
                                                             Atom_myOrganisation_Person_ID INTEGER NOT NULL REFERENCES Atom_myOrganisation_Person(ID),
-                                                            Atom_ElectronicDevice_ID INTEGER NOT NULL REFERENCES Atom_ElectronicDevice(ID),
+                                                            Atom_ElectronicDevice_Temp_ID INTEGER NOT NULL REFERENCES Atom_ElectronicDevice_Temp(ID),
                                                             'LoginTime' DATETIME NULL,
                                                             'LogoutTime' DATETIME NULL,
                                                             Atom_WorkPeriod_TYPE_ID INTEGER NULL REFERENCES Atom_WorkPeriod_TYPE(ID) );
 
                          ";
-                if (!transaction_UpgradeDB_1_24_to_1_25.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
+                DBSync.DBSync.Con.TransactionsOnly = false;
+                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                 {
-                    transaction_UpgradeDB_1_24_to_1_25.Rollback();
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_24_to_1_25:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
+                DBSync.DBSync.Con.TransactionsOnly = true;
 
-                if (!Import_From_Atom_WorkPeriod_To_Atom_WorkPeriod_Temp(transaction_UpgradeDB_1_24_to_1_25))
+                Transaction transaction_UpgradeDB_1_24_to_1_25_import = DBSync.DBSync.NewTransaction("UpgradeDB_1_24_to_1_25_import");
+
+                if (!Import_From_Atom_WorkPeriod_To_Atom_WorkPeriod_Temp(transaction_UpgradeDB_1_24_to_1_25_import))
                 {
+                    transaction_UpgradeDB_1_24_to_1_25_import.Rollback();
                     return false;
                 }
+                transaction_UpgradeDB_1_24_to_1_25_import.Commit();
+
 
                 sql = @"
+                        PRAGMA foreign_keys = OFF;
                         DROP TABLE Atom_Computer;
-                        ALTER TABLE Atom_Computer_Temp RENAME TO Atom_Computer;
+
+                        CREATE TABLE Atom_Computer ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                     Atom_ComputerName_ID INTEGER NOT NULL REFERENCES Atom_ComputerName(ID),
+                                                     Atom_MAC_address_ID INTEGER NULL REFERENCES Atom_MAC_address(ID),
+                                                     Atom_ComputerUserName_ID INTEGER NULL REFERENCES Atom_ComputerUserName(ID),
+                                                     Atom_IP_address_ID INTEGER NULL REFERENCES Atom_IP_address(ID) );
+                        insert into Atom_Computer (ID,Atom_ComputerName_ID,Atom_MAC_address_ID,Atom_ComputerUserName_ID,Atom_IP_address_ID)
+                                                  select
+                                                    ID,Atom_ComputerName_ID,Atom_MAC_address_ID,Atom_ComputerUserName_ID,Atom_IP_address_ID
+                                                  from   Atom_Computer_Temp;
+
+                        DROP TABLE Atom_Computer_Temp;
 
                         DROP TABLE Atom_ElectronicDevice;
-                        ALTER TABLE Atom_ElectronicDevice_Temp RENAME TO Atom_ElectronicDevice;
+   
+                        CREATE TABLE Atom_ElectronicDevice ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                                 'Name' varchar(264) NOT NULL,
+                                                                  Atom_Computer_ID INTEGER NOT NULL REFERENCES Atom_Computer(ID),
+                                                                  Atom_Office_ID INTEGER NOT NULL REFERENCES Atom_Office(ID),
+                                                                 'Description' varchar(2000) NULL );
+                        insert into Atom_ElectronicDevice (ID,Name,Atom_Computer_ID,Atom_Office_ID,Description) 
+                                                           select ID,Name,Atom_Computer_ID,Atom_Office_ID,Description
+                                                           from Atom_ElectronicDevice_Temp;
+
+                        DROP TABLE Atom_ElectronicDevice_Temp;
 
                         DROP TABLE Atom_WorkPeriod;
-                        ALTER TABLE Atom_WorkPeriod_Temp RENAME TO Atom_WorkPeriod;
+
+                        CREATE TABLE Atom_WorkPeriod ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                            Atom_myOrganisation_Person_ID INTEGER NOT NULL REFERENCES Atom_myOrganisation_Person(ID),
+                                                            Atom_ElectronicDevice_ID INTEGER NOT NULL REFERENCES Atom_ElectronicDevice(ID),
+                                                            'LoginTime' DATETIME NULL,
+                                                            'LogoutTime' DATETIME NULL,
+                                                            Atom_WorkPeriod_TYPE_ID INTEGER NULL REFERENCES Atom_WorkPeriod_TYPE(ID) );
+
+                        insert into Atom_WorkPeriod (ID,Atom_myOrganisation_Person_ID,Atom_ElectronicDevice_ID,LoginTime,LogoutTime,Atom_WorkPeriod_TYPE_ID) 
+                                                           select ID,Atom_myOrganisation_Person_ID,Atom_ElectronicDevice_Temp_ID,LoginTime,LogoutTime,Atom_WorkPeriod_TYPE_ID
+                                                           from Atom_WorkPeriod_Temp;
+
+
+                        DROP TABLE Atom_WorkPeriod_Temp;
 
                         DROP TABLE WorkingPlace;
 
                         DROP TABLE Atom_WorkingPlace;
 
-
+                        PRAGMA foreign_keys = ON;      
 
                         ";
 
-                if (!transaction_UpgradeDB_1_24_to_1_25.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
+                DBSync.DBSync.Con.TransactionsOnly = false;
+                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                 {
-                    transaction_UpgradeDB_1_24_to_1_25.Rollback();
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_24_to_1_25:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
+                DBSync.DBSync.Con.TransactionsOnly = true;
 
 
 
@@ -132,14 +177,15 @@ namespace UpgradeDB
                                         "Current_DocProformaInvoice_ID",
                                         "DocInvoice_ShopC_Item_AdditionalData_TYPE"
                                     };
-
-                if (!DBSync.DBSync.CreateTables(new_tables, ref Err, transaction_UpgradeDB_1_24_to_1_25))
+                Transaction transaction_UpgradeDB_1_24_to_1_25_CreateTables = DBSync.DBSync.NewTransaction("UpgradeDB_1_24_to_1_25_CreateTables");
+                if (!DBSync.DBSync.CreateTables(new_tables, ref Err, transaction_UpgradeDB_1_24_to_1_25_CreateTables))
                 {
+                    transaction_UpgradeDB_1_24_to_1_25_CreateTables.Rollback();
                     return false;
                 }
-
+                transaction_UpgradeDB_1_24_to_1_25_CreateTables.Commit();
                 sql = @"
-
+                        PRAGMA foreign_keys = OFF;
                         CREATE TABLE LoginUsers_Temp ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
                                                        myOrganisation_Person_ID INTEGER NOT NULL REFERENCES myOrganisation_Person(ID),
                                                        'Enabled' BIT NOT NULL,
@@ -232,17 +278,22 @@ namespace UpgradeDB
                         PRAGMA foreign_keys = ON;
                         ";
 
-                if (!transaction_UpgradeDB_1_24_to_1_25.ExecuteNonQuerySQL_NoMultiTrans(DBSync.DBSync.Con,sql, null, ref Err))
+                DBSync.DBSync.Con.TransactionsOnly = false;
+                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                 {
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_24_to_1_25:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
+                DBSync.DBSync.Con.TransactionsOnly = true;
 
-                if (DBSync.DBSync.Create_VIEWs(transaction_UpgradeDB_1_24_to_1_25))
+                Transaction transaction_UpgradeDB_1_24_to_1_25_Create_VIEWs = DBSync.DBSync.NewTransaction("UpgradeDB_1_24_to_1_25_Create_VIEWs");
+                if (DBSync.DBSync.Create_VIEWs(transaction_UpgradeDB_1_24_to_1_25_Create_VIEWs))
                 {
-                    if (UpgradeDB_inThread.Set_DataBase_Version("1.25", transaction_UpgradeDB_1_24_to_1_25))
+                    transaction_UpgradeDB_1_24_to_1_25_Create_VIEWs.Commit();
+                    Transaction transaction_UpgradeDB_1_24_to_1_25_Set_DataBase_Version = DBSync.DBSync.NewTransaction("UpgradeDB_1_24_to_1_25_Set_DataBase_Version");
+                    if (UpgradeDB_inThread.Set_DataBase_Version("1.25", transaction_UpgradeDB_1_24_to_1_25_Set_DataBase_Version))
                     {
-                        if (!transaction_UpgradeDB_1_24_to_1_25.Commit())
+                        if (!transaction_UpgradeDB_1_24_to_1_25_Set_DataBase_Version.Commit())
                         {
                             return false;
                         }
@@ -250,19 +301,19 @@ namespace UpgradeDB
                     }
                     else
                     {
-                        transaction_UpgradeDB_1_24_to_1_25.Rollback();
+                        transaction_UpgradeDB_1_24_to_1_25_Set_DataBase_Version.Rollback();
                         return false;
                     }
                 }
                 else
                 {
-                    transaction_UpgradeDB_1_24_to_1_25.Rollback();
+                    transaction_UpgradeDB_1_24_to_1_25_Create_VIEWs.Rollback();
                     return false;
                 }
             }
             else
             {
-                transaction_UpgradeDB_1_24_to_1_25.Rollback();
+                transaction_UpgradeDB_1_24_to_1_25_drop.Rollback();
                 return false;
             }
         }
