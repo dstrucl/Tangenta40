@@ -75,6 +75,8 @@ namespace TangentaProperties
             set
             {
                 meShowShops = value;
+                Properties.Settings.Default.eShowShops = meShowShops;
+                Properties.Settings.Default.Save();
             }
         }
 
@@ -88,6 +90,8 @@ namespace TangentaProperties
             set
             {
                 meShopsInUse = value;
+                Properties.Settings.Default.eShopsInUse = meShopsInUse;
+                Properties.Settings.Default.Save();
             }
         }
 

@@ -62,7 +62,7 @@ namespace TangentaDataBaseDef
     }
     partial class MyDataBase_Tangenta
     {
-        public const string VERSION = "1.29";
+        public const string VERSION = "1.30";
         public Settings Settings = null;
 
         /* 1 */
@@ -766,10 +766,24 @@ namespace TangentaDataBaseDef
         /* 256 */
         public SQLTable t_PriceListImport = null;
 
-        public SQLTable t_Inventura_ShopC_Item = null;
+        /* 257 */
+        public SQLTable t_ConsumptionType = null;
 
         /* 258 */
-        public Inventura_ShopC_Item_Source t_Inventura_ShopC_Item_Source = null;
+        public SQLTable t_Consumption = null;
+
+        /* 259 */
+        public SQLTable t_Consumption_ShopC_Item = null;
+
+        /* 260 */
+        public SQLTable t_Consumption_ShopC_Item_Source = null;
+
+        /* 261 */
+        public SQLTable t_ItemComponent = null;
+
+        /* 262 */
+        public SQLTable t_ItemAssembled = null;
+
 
         public void Define_SQL_Database_Tables() // constructor;
         {
@@ -2922,6 +2936,61 @@ namespace TangentaDataBaseDef
             t_PriceListImport.AddColumn((Object)mt.m_PriceListImport.m_PriceList_Name, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("PriceList Name ID", "Ime cenika ID"));
             t_PriceListImport.AddColumn((Object)mt.m_PriceListImport.PriceIncrease, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.NumericUpDown, new ltext("Price increase", "Povečanje cene v %"));
             m_DBTables.DBT.items.Add(t_PriceListImport);
+
+              /* 257 */
+            t_ConsumptionType = new SQLTable((Object)new ConsumptionType(), "cst", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_ConsumptionType); 
+            t_ConsumptionType.AddColumn((Object)mt.m_ConsumptionType.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_ConsumptionType.AddColumn((Object)mt.m_ConsumptionType.Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Name", "Ime"));
+            t_ConsumptionType.AddColumn((Object)mt.m_ConsumptionType.Description, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
+            m_DBTables.DBT.items.Add(t_ConsumptionType);
+
+            /* 258 */
+            t_Consumption = new SQLTable((Object)new Consumption(), "cs", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_Consumption); 
+            t_Consumption.AddColumn((Object)mt.m_Consumption.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Consumption.AddColumn((Object)mt.m_Consumption.Draft, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Draft", "Osnutek"));
+            t_Consumption.AddColumn((Object)mt.m_Consumption.DraftNumber, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Draft Number", "Številka Osnutka"));
+            t_Consumption.AddColumn((Object)mt.m_Consumption.FinancialYear, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Financial Year", "Obračunsko Leto"));
+            t_Consumption.AddColumn((Object)mt.m_Consumption.NumberInFinancialYear, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Number in Financial Year", "Številka v Obračunskem Letu"));
+            t_Consumption.AddColumn((Object)mt.m_Consumption.NetSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Net Sum", "Cena brez DDV"));
+            t_Consumption.AddColumn((Object)mt.m_Consumption.EndSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("End Sum", "Cena s popustom"));
+            t_Consumption.AddColumn((Object)mt.m_Consumption.TaxSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Tax Sum", "DDV"));
+            t_Consumption.AddColumn((Object)mt.m_Consumption.GrossSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Gross Sum", "Cena za plačilo"));
+            t_Consumption.AddColumn((Object)mt.m_Consumption.m_Atom_Currency, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Curreny archiv ID", "Valuta arhiv ID"));
+            t_Consumption.AddColumn((Object)mt.m_Consumption.Storno, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Storno", "Stornirano"));
+            t_Consumption.AddColumn((Object)mt.m_Consumption.Consumption_Reference_ID, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Consumption Reference ID", "Referenca na račun ID"));
+            t_Consumption.AddColumn((Object)mt.m_Consumption.Consumption_Reference_Type, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Consumption Reference Type", "Referenca na porabo"));
+            t_Consumption.AddColumn((Object)mt.m_Consumption.m_ConsumptionType, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Consumption Reference Type", "Vrsta reference na porabo"));
+            m_DBTables.DBT.items.Add(t_Consumption);
+
+            /* 259 */
+            t_Consumption_ShopC_Item = new SQLTable((Object)new Consumption_ShopC_Item(), "cssci", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_Consumption_ShopC_Item); 
+            t_Consumption_ShopC_Item.AddColumn((Object)mt.m_Consumption_ShopC_Item.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Consumption_ShopC_Item.AddColumn((Object)mt.m_Consumption_ShopC_Item.m_Consumption, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Consumption ID", "Poraba ID"));
+            t_Consumption_ShopC_Item.AddColumn((Object)mt.m_Consumption_ShopC_Item.m_Item, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Item arh ID", "Artikel arh ID"));
+            m_DBTables.DBT.items.Add(t_Consumption_ShopC_Item);
+
+            /* 260 */
+            t_Consumption_ShopC_Item_Source = new SQLTable((Object)new Consumption_ShopC_Item_Source(), "csscis", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_Consumption_ShopC_Item_Source);
+            t_Consumption_ShopC_Item_Source.AddColumn((Object)mt.m_Consumption_ShopC_Item_Source.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Consumption_ShopC_Item_Source.AddColumn((Object)mt.m_Consumption_ShopC_Item_Source.m_Consumption_ShopC_Item, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Item in basket ID", "Artikel v košari ID"));
+            t_Consumption_ShopC_Item_Source.AddColumn((Object)mt.m_Consumption_ShopC_Item_Source.m_Stock, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Stock ID", "Zaloga ID"));
+            t_Consumption_ShopC_Item_Source.AddColumn((Object)mt.m_Consumption_ShopC_Item_Source.dQuantity, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Selected Quantity", "Izbrana Količina"));
+            t_Consumption_ShopC_Item_Source.AddColumn((Object)mt.m_Consumption_ShopC_Item_Source.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Description", "Opis"));
+            m_DBTables.DBT.items.Add(t_Consumption_ShopC_Item_Source);
+
+             /* 261 */
+            t_ItemComponent = new SQLTable((Object)new ItemComponent(), "ic", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_ItemComponent);
+            t_ItemComponent.AddColumn((Object)mt.m_ItemComponent.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_ItemComponent.AddColumn((Object)mt.m_ItemComponent.m_Item, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Item ID", "Artikel ID"));
+            m_DBTables.DBT.items.Add(t_ItemComponent);
+
+            /* 262 */
+            t_ItemAssembled = new SQLTable((Object)new ItemAssembled(), "ia", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_ItemAssembled);
+            t_ItemAssembled.AddColumn((Object)mt.m_ItemAssembled.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_ItemAssembled.AddColumn((Object)mt.m_ItemAssembled.m_Item, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Item ID", "Artikel ID"));
+            t_ItemAssembled.AddColumn((Object)mt.m_ItemAssembled.m_ItemComponent, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Item component ID", "Sestavni artikel ID"));
+            m_DBTables.DBT.items.Add(t_ItemAssembled);
+
         }
     }
 }

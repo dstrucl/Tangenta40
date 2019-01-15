@@ -1519,14 +1519,8 @@ namespace TangentaTableClass
 
     }
 
-    public class Inventura_ShopC_Item
-    {
-        public ID ID = new ID();
-        public Name m_Name = new Name();
-        public Description m_Description = new Description();
 
-
-    }
+ 
 
     public class DocInvoice_ShopC_Item_Source
     {
@@ -1540,10 +1534,42 @@ namespace TangentaTableClass
         public ExpiryDate ExpiryDate = new ExpiryDate();
     }
 
-    public class Inventura_ShopC_Item_Source
+    public class ConsumptionType
     {
         public ID ID = new ID();
-        public Inventura_ShopC_Item m_Inventura_ShopC_Item = new Inventura_ShopC_Item();
+        public Name Name = new Name();
+        public Description Description = new Description();
+    }
+
+    public class Consumption
+    {
+        public ID ID = new ID();
+        public FinancialYear FinancialYear = new FinancialYear();
+        public NumberInFinancialYear NumberInFinancialYear = new NumberInFinancialYear();
+        public Draft Draft = new Draft();
+        public DraftNumber DraftNumber = new DraftNumber();
+        public NetSum NetSum = new NetSum();
+        public EndSum EndSum = new EndSum();
+        public TaxSum TaxSum = new TaxSum();
+        public GrossSum GrossSum = new GrossSum();
+        public Atom_Currency m_Atom_Currency = new Atom_Currency();
+        public Storno Storno = new Storno();
+        public Consumption_Reference_ID Consumption_Reference_ID = new Consumption_Reference_ID();
+        public Consumption_Reference_Type Consumption_Reference_Type = new Consumption_Reference_Type();
+        public ConsumptionType m_ConsumptionType = new ConsumptionType();
+    }
+
+    public class Consumption_ShopC_Item
+    {
+        public ID ID = new ID();
+        public Consumption m_Consumption = new Consumption();
+        public Item m_Item = new Item();
+    }
+
+    public class Consumption_ShopC_Item_Source
+    {
+        public ID ID = new ID();
+        public Consumption_ShopC_Item m_Consumption_ShopC_Item = new Consumption_ShopC_Item();
         public Stock m_Stock = new Stock();
         public dQuantity dQuantity = new dQuantity();
         public Description Description = new Description();
@@ -1748,7 +1774,6 @@ namespace TangentaTableClass
     {
         public ID ID = new ID();
         public Name Name = new Name();
-        public Inventura_ShopC_Item m_Inventura_ShopC_Item = new Inventura_ShopC_Item();
         public StockTake_Date StockTake_Date = new StockTake_Date();
         public Supplier m_Supplier = new Supplier();
         public StockTakePriceTotal StockTakePriceTotal = new StockTakePriceTotal();
@@ -2049,11 +2074,20 @@ namespace TangentaTableClass
 
     }
 
+    public class Consumption_Reference_ID : DB_Int64
+    {
+
+    }
+
     public class Invoice_Reference_Type:DB_varchar_25
     {
 
     }
 
+    public class Consumption_Reference_Type : DB_varchar_25
+    {
+
+    }
 
     public class  TermsOfPayment 
     {
@@ -2117,6 +2151,8 @@ namespace TangentaTableClass
         public Invoice_Reference_ID Invoice_Reference_ID = new Invoice_Reference_ID();
         public Invoice_Reference_Type Invoice_Reference_Type = new Invoice_Reference_Type();
     }
+
+   
 
     public class DocInvoiceAddOn
     {
@@ -3031,6 +3067,26 @@ namespace TangentaTableClass
         public StornoName m_StornoName = new StornoName();
     }
 
+    public class ItemComponentPercent : DB_decimal
+    {
+
+    }
+
+    public class ItemComponent
+    {
+        public ID ID = new ID();
+        public Item m_Item = new Item();
+    }
+
+ 
+    public class ItemAssembled
+    {
+        public ID ID = new ID();
+        public Item m_Item = new Item();
+        public ItemComponent m_ItemComponent = new ItemComponent();
+        public ItemComponentPercent ItemComponentPercent = new ItemComponentPercent();
+    }
+
     public class SQL_Database_Tables_Definition
     {
 
@@ -3784,9 +3840,22 @@ namespace TangentaTableClass
         public PriceListImport m_PriceListImport = new PriceListImport();
 
         /* 257 */
-        public Inventura_ShopC_Item m_Inventura_ShopC_Item = new Inventura_ShopC_Item();
+        public ConsumptionType m_ConsumptionType = new ConsumptionType();
 
         /* 258 */
-        public Inventura_ShopC_Item_Source m_Inventura_ShopC_Item_Source = new Inventura_ShopC_Item_Source();
+        public Consumption m_Consumption = new Consumption();
+
+        /* 259 */
+        public Consumption_ShopC_Item m_Consumption_ShopC_Item = new Consumption_ShopC_Item();
+
+        /* 260 */
+        public Consumption_ShopC_Item_Source m_Consumption_ShopC_Item_Source = new Consumption_ShopC_Item_Source();
+
+        /* 261 */
+        public ItemComponent m_ItemComponent = new ItemComponent();
+
+        /* 262 */
+        public ItemAssembled m_ItemAssembled = new ItemAssembled();
+
     }
 }

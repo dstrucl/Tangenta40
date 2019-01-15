@@ -157,6 +157,7 @@ namespace TangentaProperties
                         // so save this single property
                         if (f_PropertiesSettings.Update(xitem.PropertiesSettings_ID, sval, transaction))
                         {
+                            xitem.SaveToPropertiesSettingsDefault(sval);
                             continue;
                         }
                         else

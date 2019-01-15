@@ -145,5 +145,10 @@ namespace TangentaProperties
                 return null;
             }
         }
+
+        internal void SaveToPropertiesSettingsDefault(string sval)
+        {
+            
+        }
     }
 }

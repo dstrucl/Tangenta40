@@ -24,6 +24,18 @@ namespace TangentaDataBaseDef
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext lngt_ItemComponent = new ltext(new string[] { "Component Item", "Sestavni Artikel" });
+
+        public static ltext lngt_ItemAssembled = new ltext(new string[] { "Assembled item", "Sestavljeni artikel" });
+
+        public static ltext lngt_ConsumptionType = new ltext(new string[] { "Consumption Type", "Vrsta porabe" });
+
+        public static ltext lngt_Consumption = new ltext(new string[] { "Consumption", "Poraba" });
+
+        public static ltext lngt_Consumption_ShopC_Item = new ltext(new string[] { "Consumption Shop C Item", "Poraba artiklov prodajalne C" });
+
+        public static ltext lngt_Consumption_ShopC_Item_Source = new ltext(new string[] { "Consumption Shop C Item source", "Izvor porabe artiklov prodajalne C" });
+
         public static ltext lngt_PriceListImport = new ltext(new string[] { "PriceList Import", "Uvoz v cenik" });
 
         public static ltext lngt_PriceListCheckType = new ltext(new string[] { "PriceList Check Type ", "Način preverjanja cenika" });
