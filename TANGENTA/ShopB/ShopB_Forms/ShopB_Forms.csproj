@@ -85,6 +85,10 @@
       <Project>{1f20972e-563b-495d-a881-c04db9ab0af6}</Project>
       <Name>DataGridView_2xls_base</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\CodeTables\CONTROLS\DynEditControls\DynEditControls.csproj">
+      <Project>{f3e6177c-42ce-4a38-a638-829dcee259e4}</Project>
+      <Name>DynEditControls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\CodeTables\CONTROLS\NavigationButtons\NavigationButtons.csproj">
       <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
       <Name>NavigationButtons</Name>

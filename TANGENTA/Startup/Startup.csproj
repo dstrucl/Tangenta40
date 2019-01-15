@@ -133,6 +133,10 @@
       <Project>{5c02a9ff-0e40-4f63-89c5-8afcd9d4869d}</Project>
       <Name>CommandLineHelp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\DynEditControls\DynEditControls.csproj">
+      <Project>{f3e6177c-42ce-4a38-a638-829dcee259e4}</Project>
+      <Name>DynEditControls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\HUDCMS\HUDCMS.csproj">
       <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>
       <Name>HUDCMS</Name>

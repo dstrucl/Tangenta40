@@ -84,7 +84,7 @@
   <ItemGroup>
     <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Tangenta40\DLL\FastColoredTextBox.dll</HintPath>
+      <HintPath>..\..\DLL\FastColoredTextBox.dll</HintPath>
     </Reference>
     <Reference Include="GongShell">
       <HintPath>..\..\DLL\GongShell.dll</HintPath>
