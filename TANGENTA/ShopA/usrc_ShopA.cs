@@ -40,7 +40,7 @@ namespace ShopA
 
         public enum eMode { VIEW, EDIT };
         ShopABC m_ShopABC = null;
-        DBTablesAndColumnNames DBtcn = null;
+        DBTablesAndColumnNamesOfDocInvoice DBtcn = null;
         public DataTable dt_Item_Price = new DataTable();
         DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item = new DocInvoice_ShopA_Item();
         SQLTable t_DocInvoice_ShopA_Item = null;
@@ -147,7 +147,7 @@ namespace ShopA
             lbl_ShopA_Name.ForeColor = Colors.ShopA.ForeColor; ;
         }
 
-        public void Init(ShopABC xm_ShopABC, DBTablesAndColumnNames xDBtcn)
+        public void Init(ShopABC xm_ShopABC, DBTablesAndColumnNamesOfDocInvoice xDBtcn)
         {
             m_ShopABC = xm_ShopABC;
             DBtcn = xDBtcn;

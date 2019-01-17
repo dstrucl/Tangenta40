@@ -17,7 +17,7 @@ namespace TangentaDB
         public double BotomLineDistance = -1;
         public int pagenumber = -1;
 
-        internal bool Is(string xTagName, string xClassName)
+        public bool Is(string xTagName, string xClassName)
         {
             if ((TagName != null) && (xTagName != null))
             {

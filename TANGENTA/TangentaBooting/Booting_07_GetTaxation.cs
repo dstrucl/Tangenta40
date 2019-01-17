@@ -18,7 +18,7 @@ namespace TangentaBooting
     public class Booting_07_GetTaxation
     {
         private startup_step.eStep eStep = eStep.Check_07_GetTaxation;
-        public DBTablesAndColumnNames DBtcn = null;
+        public DBTablesAndColumnNamesOfDocInvoice DBtcn = null;
 
         private Form frm = null;
         private Startup.Startup m_startup = null;
@@ -58,7 +58,7 @@ namespace TangentaBooting
             Err = null;
             if (DBtcn == null)
             {
-                DBtcn = new DBTablesAndColumnNames();
+                DBtcn = new DBTablesAndColumnNamesOfDocInvoice();
             }
 
             ShopABC xShopABC = new ShopABC(DBtcn);

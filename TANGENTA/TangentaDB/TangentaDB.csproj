@@ -83,12 +83,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBTablesAndColumnNamesOfConsumption.cs" />
     <Compile Include="Doc_ShopC_Item.cs" />
     <Compile Include="Basket.cs" />
     <Compile Include="CashierActivity.cs" />
     <Compile Include="Columns_Price_Item_Stock.cs" />
     <Compile Include="CurrentDoc.cs" />
-    <Compile Include="DBTablesAndColumnNames.cs" />
+    <Compile Include="DBTablesAndColumnNamesOfDocInvoice.cs" />
     <Compile Include="DocInvoice_AddOn.cs" />
     <Compile Include="DocProformaInvoice_AddOn.cs" />
     <Compile Include="doc_page_type_definitions.cs" />
@@ -103,6 +104,10 @@
     <Compile Include="f_Atom_cCity_Person.cs" />
     <Compile Include="f_Atom_cCountry_Person.cs" />
     <Compile Include="f_Atom_cHouseNumber_Person.cs" />
+    <Compile Include="f_OwnUseDescription.cs" />
+    <Compile Include="f_OwnUseReason.cs" />
+    <Compile Include="f_OwnUseAddOn.cs" />
+    <Compile Include="f_WriteOffReason.cs" />
     <Compile Include="f_Atom_ComputerName.cs" />
     <Compile Include="f_Atom_ComputerUsername.cs" />
     <Compile Include="f_Atom_ElectronicDevice.cs" />
@@ -156,6 +161,7 @@
     <Compile Include="f_cCity_Person.cs" />
     <Compile Include="f_cCountry_Org.cs" />
     <Compile Include="f_cCountry_Person.cs" />
+    <Compile Include="f_WriteOffAddOn.cs" />
     <Compile Include="f_Journal_Consumption.cs" />
     <Compile Include="f_PriceListCheckType.cs" />
     <Compile Include="f_PriceListImportType.cs" />

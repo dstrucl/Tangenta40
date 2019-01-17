@@ -100,7 +100,7 @@ namespace ShopC
         public usrc_Item[] usrc_Item_aray = null;
         usrc_Atom_ItemsList m_usrc_Atom_ItemsList = null;
         internal ShopABC m_ShopBC;
-        DBTablesAndColumnNames DBtcn;
+        DBTablesAndColumnNamesOfDocInvoice DBtcn;
         int ipnl_Items_Width_default = -1;
         private ID m_PriceList_ID = null;
 
@@ -194,7 +194,7 @@ namespace ShopC
             }
         }
 
-        internal void Init(ID xAtom_WorkPeriod_ID, TangentaDB.ShopABC xm_ShopBC, DBTablesAndColumnNames xDBtcn, usrc_ShopC x_usrc_ItemMan, bool xbExclusivelySellFromStock)
+        internal void Init(ID xAtom_WorkPeriod_ID, TangentaDB.ShopABC xm_ShopBC, DBTablesAndColumnNamesOfDocInvoice xDBtcn, usrc_ShopC x_usrc_ItemMan, bool xbExclusivelySellFromStock)
         {
             m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             m_ShopBC = xm_ShopBC;

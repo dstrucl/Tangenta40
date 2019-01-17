@@ -49,7 +49,7 @@ namespace ShopB
         public DataTable dt_SelectedShopBItem = new DataTable();
 
         TangentaDB.ShopABC m_InvoiceDB = null;
-        DBTablesAndColumnNames DBtcn = null;
+        DBTablesAndColumnNamesOfDocInvoice DBtcn = null;
 
 
         private string m_DocTyp = "";
@@ -115,11 +115,11 @@ namespace ShopB
             this.ForeColor = Colors.ShopB.ForeColor;
         }
 
-        public void Init(ShopABC x_InvoiceDB, DBTablesAndColumnNames xDBtcn, string shops_in_use)
+        public void Init(ShopABC x_InvoiceDB, DBTablesAndColumnNamesOfDocInvoice xDBtcn, string shops_in_use)
         {
             if (DBtcn == null)
             {
-               DBtcn = new DBTablesAndColumnNames();
+               DBtcn = new DBTablesAndColumnNamesOfDocInvoice();
             }
             lng.s_ShopB_Name.Text(lbl_ShopB_Name);
 
@@ -144,7 +144,7 @@ namespace ShopB
 
             if (DBtcn == null)
             {
-                DBtcn = new DBTablesAndColumnNames();
+                DBtcn = new DBTablesAndColumnNamesOfDocInvoice();
             }
             //dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index, DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index_TYPE);
 

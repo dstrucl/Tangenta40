@@ -51,7 +51,7 @@ namespace TangentaDB
         public ShopShelf m_ShopShelf = null;
         public Basket m_Basket = null;
 
-        DBTablesAndColumnNames DBtcn = null;
+        DBTablesAndColumnNamesOfDocInvoice DBtcn = null;
 
         public int FinancialYear;
         public int NumberInFinancialYear;
@@ -104,7 +104,7 @@ namespace TangentaDB
         
        }
 
-        public CurrentDoc(ShopABC xInvoiceDB, DBTablesAndColumnNames xDBtcn)
+        public CurrentDoc(ShopABC xInvoiceDB, DBTablesAndColumnNamesOfDocInvoice xDBtcn)
         {
             m_InvoiceDB = xInvoiceDB;
             DBtcn = xDBtcn;

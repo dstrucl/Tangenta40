@@ -246,7 +246,7 @@ namespace TangentaCore
 
         public emode m_mode = emode.view_eDocumentType;
 
-        public DBTablesAndColumnNames DBtcn = new DBTablesAndColumnNames();
+        public DBTablesAndColumnNamesOfDocInvoice DBtcn = new DBTablesAndColumnNamesOfDocInvoice();
 
         public TangentaDB.ShopABC m_ShopABC = null;
 
@@ -897,7 +897,7 @@ namespace TangentaCore
             this.btn_Show_Shops = xbtnShowShops;
             if (DBtcn == null)
             {
-                DBtcn = new DBTablesAndColumnNames();
+                DBtcn = new DBTablesAndColumnNamesOfDocInvoice();
             }
             if (m_ShopABC == null)
             {

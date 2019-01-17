@@ -58,7 +58,7 @@ namespace ShopC
         private ID m_Atom_WorkPeriod_ID = null;
         private DataTable dt_Item = new DataTable();
         private TangentaDB.ShopABC m_ShopBC = null;
-        private DBTablesAndColumnNames DBtcn = null;
+        private DBTablesAndColumnNamesOfDocInvoice DBtcn = null;
         public NavigationButtons.Navigation nav = null;
         private string m_DocTyp = "";
 
@@ -157,7 +157,7 @@ namespace ShopC
 
         public void Init(ID xAtom_WorkPeriod_ID,
                         TangentaDB.ShopABC x_ShopBC,
-                        DBTablesAndColumnNames xDBtcn,
+                        DBTablesAndColumnNamesOfDocInvoice xDBtcn,
                         string ShopsInUse,
                         bool bAutomaticSelectionOfItemFromStock,
                         bool bExclusivelySellFromStock,
@@ -173,7 +173,7 @@ namespace ShopC
             if (DBtcn == null)
             {
                 LogFile.Error.Show("ERROR:usrc_ShopC:Init:DBtcn == null!");
-                DBtcn = new DBTablesAndColumnNames();
+                DBtcn = new DBTablesAndColumnNamesOfDocInvoice();
             }
 
             lng.s_ShopC_Name.Text(lbl_ShopC_Name);

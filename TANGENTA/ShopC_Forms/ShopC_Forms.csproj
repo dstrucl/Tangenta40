@@ -43,6 +43,84 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsumptionData.cs" />
+    <Compile Include="ConsumptionEditor.cs" />
+    <Compile Include="ConsumptionMan.cs" />
+    <Compile Include="CurrentConsumption.cs" />
+    <Compile Include="OwnUseAddOn.cs" />
+    <Compile Include="usrc_ConsumptionMan.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_ConsumptionMan.Designer.cs">
+      <DependentUpon>usrc_ConsumptionMan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Item.Designer.cs">
+      <DependentUpon>usrc_Item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Item_Button.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Item_Button.Designer.cs">
+      <DependentUpon>usrc_Item_Button.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Item_selected.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Item_selected.Designer.cs">
+      <DependentUpon>usrc_Item_selected.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_ItemAtom.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_ItemAtom.Designer.cs">
+      <DependentUpon>usrc_ItemAtom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_ItemAtomsList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_ItemAtomsList.Designer.cs">
+      <DependentUpon>usrc_ItemAtomsList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_ItemList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_ItemList.Designer.cs">
+      <DependentUpon>usrc_ItemList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Item_InsidePageGroupHandler_Item_Data.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Item_InsidePageGroupHandler_Item_Data.Designer.cs">
+      <DependentUpon>usrc_Item_InsidePageGroupHandler_Item_Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Item_InsidePageHandler_Doc_ShopC_Item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Item_InsidePageHandler_Doc_ShopC_Item.Designer.cs">
+      <DependentUpon>usrc_Item_InsidePageHandler_Doc_ShopC_Item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Item_TextSearch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Item_TextSearch.Designer.cs">
+      <DependentUpon>usrc_Item_TextSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_ShopC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_ShopC.Designer.cs">
+      <DependentUpon>usrc_ShopC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_TableOfConsumption.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_TableOfConsumption.Designer.cs">
+      <DependentUpon>usrc_TableOfConsumption.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WriteOffAddOn.cs" />
     <Compile Include="Form_Inventura.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +230,12 @@
     <Compile Include="usrc_checkmark.Designer.cs">
       <DependentUpon>usrc_checkmark.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_ConsumptionEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_ConsumptionEditor.Designer.cs">
+      <DependentUpon>usrc_ConsumptionEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_ItemAtom_View.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -230,14 +314,55 @@
     <EmbeddedResource Include="usrc_checkmark.resx">
       <DependentUpon>usrc_checkmark.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_ConsumptionEditor.resx">
+      <DependentUpon>usrc_ConsumptionEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_ConsumptionMan.resx">
+      <DependentUpon>usrc_ConsumptionMan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Item.resx">
+      <DependentUpon>usrc_Item.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Item_Button.resx">
+      <DependentUpon>usrc_Item_Button.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Item_selected.resx">
+      <DependentUpon>usrc_Item_selected.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_ItemAtom.resx">
+      <DependentUpon>usrc_ItemAtom.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_ItemAtomsList.resx">
+      <DependentUpon>usrc_ItemAtomsList.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_ItemAtom_View.resx">
       <DependentUpon>usrc_ItemAtom_View.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_ItemList.resx">
+      <DependentUpon>usrc_ItemList.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Item_TextSearch.resx">
+      <DependentUpon>usrc_Item_TextSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_ShopC.resx">
+      <DependentUpon>usrc_ShopC.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_StockEditForSelectedStockTake.resx">
       <DependentUpon>usrc_StockEditForSelectedStockTake.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_StockTake_Item.resx">
       <DependentUpon>usrc_StockTake_Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_TableOfConsumption.resx">
+      <DependentUpon>usrc_TableOfConsumption.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -273,9 +398,17 @@
       <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
       <Name>NavigationButtons</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Item_InsideGroupHandler\usrc_Item_InsideGroup_Handler.csproj">
+      <Project>{f049f942-bcf9-4955-8267-dfb2dbdf78d5}</Project>
+      <Name>usrc_Item_InsideGroup_Handler</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Item_InsidePageGroup_Handler\usrc_Item_InsidePageGroup_Handler.csproj">
       <Project>{173e7499-bc98-4204-aa0e-3538d566fb69}</Project>
       <Name>usrc_Item_InsidePageGroup_Handler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Item_InsidePage_Handler\usrc_Item_InsidePage_Handler.csproj">
+      <Project>{035aaec7-b4a5-4e7a-aca6-5564052addf9}</Project>
+      <Name>usrc_Item_InsidePage_Handler</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\XMessage\XMessage.csproj">
       <Project>{e3223150-d4af-4438-acba-98be7905273f}</Project>
@@ -321,6 +454,10 @@
       <Project>{4ac81b7e-a501-40ba-9a29-ed8004430eab}</Project>
       <Name>Form_Discount</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LoginControl\LoginControl.csproj">
+      <Project>{e36fd767-54a9-46c4-ae95-d0fec3fc8909}</Project>
+      <Name>LoginControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PriseLists\PriseLists.csproj">
       <Project>{d3e4af57-60eb-486b-a145-5eadd0f01177}</Project>
       <Name>PriseLists</Name>
@@ -337,9 +474,21 @@
       <Project>{728368f2-ecd5-4bc7-b50b-c9581769d429}</Project>
       <Name>TangentaPrint</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TangentaProperties\TangentaProperties.csproj">
+      <Project>{4610ad91-239e-4a98-99e1-286ca3443dad}</Project>
+      <Name>TangentaProperties</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TangentaResources\TangentaResources.csproj">
+      <Project>{41871e28-b52b-4393-be34-92267e350d82}</Project>
+      <Name>TangentaResources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TangentaTableClass\TangentaTableClass.csproj">
       <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
       <Name>TangentaTableClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalInvoice\UniversalInvoice.csproj">
+      <Project>{1494ce99-385c-42cc-8fff-75597007da72}</Project>
+      <Name>UniversalInvoice</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

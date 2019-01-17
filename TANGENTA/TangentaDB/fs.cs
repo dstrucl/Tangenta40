@@ -2001,7 +2001,7 @@ namespace TangentaDB
             }
         }
 
-        internal static void RemoveToManySpaces(ref string stag)
+        public static void RemoveToManySpaces(ref string stag)
         {
             stag = stag.Replace("\t", " ");
             string stag1 = stag.Replace("  ", " ");

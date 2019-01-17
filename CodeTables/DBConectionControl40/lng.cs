@@ -24,6 +24,8 @@ namespace DBConnectionControl40
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+
+
         public static ltext s_Password = new ltext( new string[]{"Password",
                                          "Geslo"});   // referenced in C:\Tangenta40\CodeTables\DBConectionControl40\ConnectionDialog.cs
 

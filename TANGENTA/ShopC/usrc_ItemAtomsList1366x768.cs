@@ -35,7 +35,7 @@ namespace ShopC
 
 
         public TangentaDB.ShopABC m_ShopBC;
-        private DBTablesAndColumnNames DBtcn;
+        private DBTablesAndColumnNamesOfDocInvoice DBtcn;
 
         public delegate void delegate_After_Atom_Item_Remove();
         public event delegate_After_Atom_Item_Remove After_Atom_Item_Remove = null;
@@ -251,7 +251,7 @@ namespace ShopC
         internal void Init(ID xAtom_WorkPeriod_ID,
                            usrc_ItemList1366x768 x_usrc_ItemList1366x768,
                            TangentaDB.ShopABC xm_InvoiceDB, 
-                           DBTablesAndColumnNames xDBtcn)
+                           DBTablesAndColumnNamesOfDocInvoice xDBtcn)
         {
             m_usrc_ItemList1366x768 = x_usrc_ItemList1366x768;
             m_ShopBC=xm_InvoiceDB;

@@ -102,7 +102,7 @@ namespace ShopC
         usrc_Atom_ItemsList1366x768 m_usrc_Atom_ItemsList1366x768 = null;
 
         ShopABC m_ShopBC;
-        DBTablesAndColumnNames DBtcn;
+        DBTablesAndColumnNamesOfDocInvoice DBtcn;
         private ID m_PriceList_ID = null;
 
 
@@ -306,7 +306,7 @@ namespace ShopC
 
         internal void Init(ID xAtom_WorkPeriod_ID,
                            TangentaDB.ShopABC xm_ShopBC,
-                           DBTablesAndColumnNames xDBtcn, 
+                           DBTablesAndColumnNamesOfDocInvoice xDBtcn, 
                            usrc_ShopC1366x768 x_usrc_ItemMan,
                            usrc_Atom_ItemsList1366x768 x_usrc_Atom_ItemsList,
                            bool xbExclusivelySellFromStock)

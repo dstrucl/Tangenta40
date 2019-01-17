@@ -24,6 +24,23 @@ namespace ShopC_Forms
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_Item_Not_In_Offer = new ltext(new string[] { "Item is not in offer any more!", "Artikel ni več v ponudbi!" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ShopC.cs
+
+        public static ltext s_STORNO = new ltext(new string[] { "REVERSE", "STORNO" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\InvoiceData.cs
+
+        public static ltext st_WriteOff = new ltext(new string[] { "Write off", "Odpis" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\InvoiceData.cs
+
+        public static ltext st_OwnUse = new ltext(new string[] { "Own use", "Lastna poraba" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\InvoiceData.cs
+
+        public static ltext st_IssuerOfConsumption = new ltext(new string[] { "IssuerOfConsumption", "OsebaKiJeIzdalaPorabo" });   // referenced in C:\Tangenta40\TANGENTA\ShopC_Forms\ConsumptionData.cs
+
+        public static ltext st_My = new ltext(new string[] { "My", "Moja" });   // referenced in C:\Tangenta40\TANGENTA\ShopC_Forms\ConsumptionData.cs
+
+        public static ltext s_Shop_C = new ltext(new string[] { "Shop C", "Prodajalna C" });
+
+        public static ltext s_YouCanNotWriteInvoices_CasshierIsClosed = new ltext(new string[] { "You can not write invoices. Cashier is closed!", "Kadar je blagajna zaprta ni možno pisati in izdajati računov!" });
+
+        public static ltext s_IssueDate_not_defined = new ltext(new string[] { "Issue date not defined", "Čas izdaje ni določen" });
         public static ltext s_PriceValueOfStock = new ltext(new string[] { "Stock price value", "Vrednost zaloge" });
         public static ltext s_Unit_DecimalPlaces = new ltext(new string[] { "Unit decimal places", "Število decimalnih mest merska enote" });
         public static ltext s_Unit_Symbol = new ltext(new string[] { "Unit symbol", "Merska enota simbol" });

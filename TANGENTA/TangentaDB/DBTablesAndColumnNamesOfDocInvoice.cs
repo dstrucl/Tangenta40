@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace TangentaDB
 {
-    public class DBTablesAndColumnNames
+    public class DBTablesAndColumnNamesOfDocInvoice
     {
         public string stbl_Atom_myOrganisation_Person_TableName = null;
         public string stbl_Atom_myOrganisation_TableName = null;
@@ -226,7 +226,7 @@ namespace TangentaDB
         public string colInvoice_Storno;
 
 
-        public DBTablesAndColumnNames()
+        public DBTablesAndColumnNamesOfDocInvoice()
         {
             TangentaTableClass.SQL_Database_Tables_Definition td = DBSync.DBSync.DB_for_Tangenta.mt;
 
@@ -298,8 +298,6 @@ namespace TangentaDB
 
             stbl_BuyerOrganisationAtom_TableName = tbl_Atom_Customer_Org.TableName;
             stbl_TermsOfPayment_TableName = tbl_TermsOfPayment.TableName;
-
-            stbl_DocInvoice_TableName = tbl_DocInvoice.TableName;
 
             stbl_DocInvoice_TableName = tbl_DocInvoice.TableName;
 

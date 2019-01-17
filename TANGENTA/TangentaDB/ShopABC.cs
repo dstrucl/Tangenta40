@@ -39,7 +39,7 @@ namespace TangentaDB
         }
 
         TangentaTableClass.SQL_Database_Tables_Definition td = null;
-        DBTablesAndColumnNames DBtcn = null;
+        DBTablesAndColumnNamesOfDocInvoice DBtcn = null;
         internal ID m_Atom_WorkPeriod_ID = null;
 
         public xTaxationList m_xTaxationList = null;
@@ -49,7 +49,7 @@ namespace TangentaDB
         public CurrentDoc m_CurrentDoc = null;
 
 
-        public ShopABC(DBTablesAndColumnNames xDBtcn)
+        public ShopABC(DBTablesAndColumnNamesOfDocInvoice xDBtcn)
         {
             //may be called only from Booting_07_GetTaxation !
             m_xTaxationList=Get_TaxationList();
@@ -60,7 +60,7 @@ namespace TangentaDB
         }
 
 
-        public ShopABC(delegate_GetDocType xdelegate_GetDocType, DBTablesAndColumnNames xDBtcn, ID xAtom_WorkPeriod_ID)
+        public ShopABC(delegate_GetDocType xdelegate_GetDocType, DBTablesAndColumnNamesOfDocInvoice xDBtcn, ID xAtom_WorkPeriod_ID)
         {
             DelegateGetDocType = xdelegate_GetDocType;
             m_xTaxationList=Get_TaxationList();

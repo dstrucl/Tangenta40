@@ -23,6 +23,9 @@ namespace TangentaDB
     {
         public const string const_DocInvoice = "DocInvoice";
         public const string const_DocProformaInvoice = "DocProformaInvoice";
+        public const string const_Consumption = "Consumption";
+        public const string const_WriteOff = "WriteOff";
+        public const string const_OwnUse = "OwnUse";
 
         public const string const_Storno = "Storno";
         public const string const_Storno_with_description = "Storno*";
