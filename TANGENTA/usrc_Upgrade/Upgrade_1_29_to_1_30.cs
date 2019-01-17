@@ -25,7 +25,15 @@ namespace UpgradeDB
                                         "Consumption_ShopC_Item_Source",
                                         "ItemComponent",
                                         "ItemAssembled",
+                                        "WriteOffReason",
+                                        "OwnUseReason",
+                                        "OwnUseDescription",
+                                        "WriteOffAddOn",
+                                        "OwnUseAddOn",
+                                        "JOURNAL_Consumption_Type",
+                                        "JOURNAL_Consumption"
                                     };
+
 
                 if (!DBSync.DBSync.CreateTables(new_tables, ref Err, transaction_UpgradeDB_1_29_to_1_30))
                 {

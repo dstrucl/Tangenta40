@@ -1534,46 +1534,6 @@ namespace TangentaTableClass
         public ExpiryDate ExpiryDate = new ExpiryDate();
     }
 
-    public class ConsumptionType
-    {
-        public ID ID = new ID();
-        public Name Name = new Name();
-        public Description Description = new Description();
-    }
-
-    public class Consumption
-    {
-        public ID ID = new ID();
-        public FinancialYear FinancialYear = new FinancialYear();
-        public NumberInFinancialYear NumberInFinancialYear = new NumberInFinancialYear();
-        public Draft Draft = new Draft();
-        public DraftNumber DraftNumber = new DraftNumber();
-        public NetSum NetSum = new NetSum();
-        public EndSum EndSum = new EndSum();
-        public TaxSum TaxSum = new TaxSum();
-        public GrossSum GrossSum = new GrossSum();
-        public Atom_Currency m_Atom_Currency = new Atom_Currency();
-        public Storno Storno = new Storno();
-        public Consumption_Reference_ID Consumption_Reference_ID = new Consumption_Reference_ID();
-        public Consumption_Reference_Type Consumption_Reference_Type = new Consumption_Reference_Type();
-        public ConsumptionType m_ConsumptionType = new ConsumptionType();
-    }
-
-    public class Consumption_ShopC_Item
-    {
-        public ID ID = new ID();
-        public Consumption m_Consumption = new Consumption();
-        public Item m_Item = new Item();
-    }
-
-    public class Consumption_ShopC_Item_Source
-    {
-        public ID ID = new ID();
-        public Consumption_ShopC_Item m_Consumption_ShopC_Item = new Consumption_ShopC_Item();
-        public Stock m_Stock = new Stock();
-        public dQuantity dQuantity = new dQuantity();
-        public Description Description = new Description();
-    }
 
     public class DocProformaInvoice_ShopC_Item
     {
@@ -3067,6 +3027,103 @@ namespace TangentaTableClass
         public StornoName m_StornoName = new StornoName();
     }
 
+    public class ConsumptionType
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public Description Description = new Description();
+    }
+
+    public class Consumption
+    {
+        public ID ID = new ID();
+        public FinancialYear FinancialYear = new FinancialYear();
+        public NumberInFinancialYear NumberInFinancialYear = new NumberInFinancialYear();
+        public Draft Draft = new Draft();
+        public DraftNumber DraftNumber = new DraftNumber();
+        public NetSum NetSum = new NetSum();
+        public EndSum EndSum = new EndSum();
+        public TaxSum TaxSum = new TaxSum();
+        public GrossSum GrossSum = new GrossSum();
+        public Atom_Currency m_Atom_Currency = new Atom_Currency();
+        public Storno Storno = new Storno();
+        public Consumption_Reference_ID Consumption_Reference_ID = new Consumption_Reference_ID();
+        public Consumption_Reference_Type Consumption_Reference_Type = new Consumption_Reference_Type();
+        public ConsumptionType m_ConsumptionType = new ConsumptionType();
+    }
+
+    public class JOURNAL_Consumption_Type
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public Description Description = new Description();
+    }
+
+    public class JOURNAL_Consumption
+    {
+        public ID ID = new ID();
+        public JOURNAL_Consumption_Type m_JOURNAL_Consumption_Type = new JOURNAL_Consumption_Type();
+        public Consumption m_Consumption = new Consumption();
+        public EventTime EventTime = new EventTime();
+        public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
+    }
+
+    public class WriteOffReason
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public Description Description = new Description();
+    }
+
+    public class OwnUseReason
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public Description Description = new Description();
+    }
+
+    public class OwnUseDescription
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public Description Description = new Description();
+    }
+
+    public class WriteOffAddOn
+    {
+        public ID ID = new ID();
+        public Consumption m_Consumption = new Consumption();
+        public IssueDate IssueDate = new IssueDate();
+        public WriteOffReason m_WriteOffReason = new WriteOffReason();
+        public Doc_ImageLib m_Doc_ImageLib = new Doc_ImageLib();
+    }
+
+    public class OwnUseAddOn
+    {
+        public ID ID = new ID();
+        public Consumption m_Consumption = new Consumption();
+        public IssueDate IssueDate = new IssueDate();
+        public OwnUseReason m_OwnUseReason = new OwnUseReason();
+        public OwnUseDescription m_OwnUseDescription = new OwnUseDescription();
+        public Doc_ImageLib m_Doc_ImageLib = new Doc_ImageLib();
+    }
+
+    public class Consumption_ShopC_Item
+    {
+        public ID ID = new ID();
+        public Consumption m_Consumption = new Consumption();
+        public Item m_Item = new Item();
+    }
+
+    public class Consumption_ShopC_Item_Source
+    {
+        public ID ID = new ID();
+        public Consumption_ShopC_Item m_Consumption_ShopC_Item = new Consumption_ShopC_Item();
+        public Stock m_Stock = new Stock();
+        public dQuantity dQuantity = new dQuantity();
+        public Description Description = new Description();
+    }
+
     public class ItemComponentPercent : DB_decimal
     {
 
@@ -3856,6 +3913,27 @@ namespace TangentaTableClass
 
         /* 262 */
         public ItemAssembled m_ItemAssembled = new ItemAssembled();
+
+        /* 263 */
+        public WriteOffReason m_WriteOffReason = new WriteOffReason();
+
+        /* 264 */
+        public OwnUseReason m_OwnUseReason = new OwnUseReason();
+
+        /* 265 */
+        public OwnUseDescription m_OwnUseDescription = new OwnUseDescription();
+
+        /* 266 */
+        public WriteOffAddOn m_WriteOffAddOn = new WriteOffAddOn();
+
+        /* 267 */
+        public OwnUseAddOn m_OwnUseAddOn = new OwnUseAddOn();
+
+        /* 268 */
+        public JOURNAL_Consumption_Type m_JOURNAL_Consumption_Type = new JOURNAL_Consumption_Type();
+
+        /* 269 */
+        public JOURNAL_Consumption m_JOURNAL_Consumption = new JOURNAL_Consumption();
 
     }
 }

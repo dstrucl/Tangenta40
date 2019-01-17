@@ -64,6 +64,7 @@ namespace TangentaDB
 
         public static JOURNAL_DocInvoice_Type_definitions JOURNAL_DocInvoice_Type_definitions = null;
         public static JOURNAL_DocProformaInvoice_Type_definitions JOURNAL_DocProformaInvoice_Type_definitions = null;
+        public static JOURNAL_Consumption_Type_definitions JOURNAL_Consumption_Type_definitions = null;
         public static doc_page_type_definitions doc_page_type_definitions = null;
         public static doc_type_definitions doc_type_definitions = null;
         public static Language_definitions language_definitions = null;
@@ -101,8 +102,10 @@ namespace TangentaDB
 
         public static void Init()
         {
+            
             JOURNAL_DocInvoice_Type_definitions = new JOURNAL_DocInvoice_Type_definitions();
             JOURNAL_DocProformaInvoice_Type_definitions = new JOURNAL_DocProformaInvoice_Type_definitions();
+            JOURNAL_Consumption_Type_definitions = new JOURNAL_Consumption_Type_definitions();
             doc_page_type_definitions = new doc_page_type_definitions();
             doc_type_definitions = new doc_type_definitions();
             language_definitions = new Language_definitions();
@@ -587,7 +590,10 @@ namespace TangentaDB
             {
                 if (GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.Read(transaction))
                 {
-                    return true;
+                    if (GlobalData.JOURNAL_Consumption_Type_definitions.Read(transaction))
+                    {
+                        return true;
+                    }
                 }
             }
             return false;

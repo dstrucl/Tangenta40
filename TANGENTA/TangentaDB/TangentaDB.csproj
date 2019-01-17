@@ -156,6 +156,7 @@
     <Compile Include="f_cCity_Person.cs" />
     <Compile Include="f_cCountry_Org.cs" />
     <Compile Include="f_cCountry_Person.cs" />
+    <Compile Include="f_Journal_Consumption.cs" />
     <Compile Include="f_PriceListCheckType.cs" />
     <Compile Include="f_PriceListImportType.cs" />
     <Compile Include="f_StornoReason.cs" />
@@ -261,6 +262,8 @@
     <Compile Include="HTML_PrintingOutput.cs" />
     <Compile Include="InvoiceData.cs" />
     <Compile Include="Item_Data.cs" />
+    <Compile Include="journaltype.cs" />
+    <Compile Include="JOURNAL_Consumption_Type_definitions.cs" />
     <Compile Include="JOURNAL_DocProformaInvoice_Type_definitions .cs" />
     <Compile Include="JOURNAL_DocInvoice_Type_definitions.cs" />
     <Compile Include="Language_definitions.cs" />

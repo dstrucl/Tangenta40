@@ -17,35 +17,32 @@ using System.Threading.Tasks;
 
 namespace TangentaDB
 {
-    public class JOURNAL_DocInvoice_Type_definitions
+    public class JOURNAL_Consumption_Type_definitions
     {
-        public journaltype InvoiceDraftTime = null;
-        public journaltype InvoiceTime = null;
-        public journaltype InvoicePaidTime = null;
-        public journaltype InvoiceStornoTime = null;
+        public journaltype ConsumptionDraftTime = null;
+        public journaltype ConsumptionTime = null;
+        public journaltype ConsumptionStornoTime = null;
 
 
         List<journaltype> journaltype_list = new List<journaltype>();
 
 
-        public JOURNAL_DocInvoice_Type_definitions()
+        public JOURNAL_Consumption_Type_definitions()
         {
             //Tax Invoice
-            InvoiceDraftTime = new journaltype("InvoiceDraftTime", lng.s_InvoiceDraftTime_description.s); ;
-            journaltype_list.Add(InvoiceDraftTime);
-            InvoiceTime = new journaltype("InvoiceTime", lng.s_InvoiceTime_description.s);
-            journaltype_list.Add(InvoiceTime);
-            InvoicePaidTime = new journaltype("InvoicePaidTime", lng.s_InvoicePaidTime_description.s); ;
-            journaltype_list.Add(InvoicePaidTime);
-            InvoiceStornoTime = new journaltype("InvoiceStornoTime", lng.s_InvoiceStornoTime_description.s); ;
-            journaltype_list.Add(InvoiceStornoTime);
+            ConsumptionDraftTime = new journaltype("ConsumptionDraftTime", lng.s_InvoiceDraftTime_description.s); ;
+            journaltype_list.Add(ConsumptionDraftTime);
+            ConsumptionTime = new journaltype("ConsumptionTime", lng.s_InvoiceTime_description.s);
+            journaltype_list.Add(ConsumptionTime);
+            ConsumptionStornoTime = new journaltype("ConsumptionStornoTime", lng.s_InvoiceStornoTime_description.s); ;
+            journaltype_list.Add(ConsumptionStornoTime);
 
         }
 
         public bool Read(Transaction transaction)
         {
             string Err = null;
-            string sql = "select ID,Name,Description from JOURNAL_DocInvoice_Type";
+            string sql = "select ID,Name,Description from JOURNAL_Consumption_Type";
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt,sql,ref Err))
             {
@@ -68,7 +65,7 @@ namespace TangentaDB
             }
             else
             {
-                LogFile.Error.Show("ERROR:JOURNAL_DocInvoice_Type_definitions:Read:Err=" +Err);
+                LogFile.Error.Show("ERROR:JOURNAL_Consumption_Type_definitions:Read:Err=" +Err);
                 return false;
             }
         }
@@ -109,17 +106,17 @@ namespace TangentaDB
                     lpar.Add(par_Description);
                 }
             }
-            string sql = "insert into JOURNAL_DocInvoice_Type (Name,Description) values ("+sval_Name+","+sval_Description+")";
+            string sql = "insert into JOURNAL_Consumption_Type (Name,Description) values ("+sval_Name+","+sval_Description+")";
             ID jrt_id =null;
             string Err = null;
-            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql,lpar,ref jrt_id,ref Err,"JOURNAL_DocInvoice_Type"))
+            if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql,lpar,ref jrt_id,ref Err,"JOURNAL_Consumption_Type"))
             {
                 jrt.ID = jrt_id;
                 return true;
             }
             else
             {
-                LogFile.Error.Show("ERROR:JOURNAL_DocInvoice_Type_definitions:Set:Err= "+Err);
+                LogFile.Error.Show("ERROR:JOURNAL_Consumption_Type_definitions:Set:Err= "+Err);
                 return false;
             }
         }

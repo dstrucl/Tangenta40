@@ -784,6 +784,27 @@ namespace TangentaDataBaseDef
         /* 262 */
         public SQLTable t_ItemAssembled = null;
 
+        /* 263 */
+        public SQLTable t_WriteOffReason = null;
+
+        /* 264 */
+        public SQLTable t_OwnUseReason = null;
+
+        /* 265 */
+        public SQLTable t_OwnUseDescription = null;
+
+        /* 266 */
+        public SQLTable t_WriteOffAddOn = null;
+
+        /* 267 */
+        public SQLTable t_OwnUseAddOn = null;
+
+        /* 268 */
+        public SQLTable t_JOURNAL_Consumption_Type = null;
+
+        /* 269 */
+        public SQLTable t_JOURNAL_Consumption = null;
+
 
         public void Define_SQL_Database_Tables() // constructor;
         {
@@ -2990,6 +3011,64 @@ namespace TangentaDataBaseDef
             t_ItemAssembled.AddColumn((Object)mt.m_ItemAssembled.m_Item, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Item ID", "Artikel ID"));
             t_ItemAssembled.AddColumn((Object)mt.m_ItemAssembled.m_ItemComponent, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Item component ID", "Sestavni artikel ID"));
             m_DBTables.DBT.items.Add(t_ItemAssembled);
+
+            /* 263 */
+            t_WriteOffReason = new SQLTable((Object)new WriteOffReason(), "wor", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_WriteOffReason);
+            t_WriteOffReason.AddColumn((Object)mt.m_WriteOffReason.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_WriteOffReason.AddColumn((Object)mt.m_WriteOffReason.Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Name", "Ime"));
+            t_WriteOffReason.AddColumn((Object)mt.m_WriteOffReason.Description, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
+            m_DBTables.DBT.items.Add(t_WriteOffReason);
+
+            /* 264 */
+            t_OwnUseReason = new SQLTable((Object)new OwnUseReason(), "our", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_OwnUseReason);
+            t_OwnUseReason.AddColumn((Object)mt.m_OwnUseReason.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_OwnUseReason.AddColumn((Object)mt.m_OwnUseReason.Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Name", "Ime"));
+            t_OwnUseReason.AddColumn((Object)mt.m_OwnUseReason.Description, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
+            m_DBTables.DBT.items.Add(t_OwnUseReason);
+
+            /* 265 */
+            t_OwnUseDescription = new SQLTable((Object)new OwnUseDescription(), "oud", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_OwnUseDescription);
+            t_OwnUseDescription.AddColumn((Object)mt.m_OwnUseDescription.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_OwnUseDescription.AddColumn((Object)mt.m_OwnUseDescription.Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Name", "Ime"));
+            t_OwnUseDescription.AddColumn((Object)mt.m_OwnUseDescription.Description, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
+            m_DBTables.DBT.items.Add(t_OwnUseDescription);
+
+            /* 266 */
+            t_WriteOffAddOn = new SQLTable((Object)new WriteOffAddOn(), "woao", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_WriteOffAddOn);
+            t_WriteOffAddOn.AddColumn((Object)mt.m_WriteOffAddOn.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_WriteOffAddOn.AddColumn((Object)mt.m_WriteOffAddOn.IssueDate, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Write-off date", "Datum odpisa"));
+            t_WriteOffAddOn.AddColumn((Object)mt.m_WriteOffAddOn.m_Consumption, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Consumption ID", "Poraba ID"));
+            t_WriteOffAddOn.AddColumn((Object)mt.m_WriteOffAddOn.m_WriteOffReason, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Write-off reason ID", "Razlog odpisa ID"));
+            t_WriteOffAddOn.AddColumn((Object)mt.m_WriteOffAddOn.m_Doc_ImageLib, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Image ID", "Slika ID"));
+            m_DBTables.DBT.items.Add(t_WriteOffAddOn);
+
+            /* 267 */
+            t_OwnUseAddOn = new SQLTable((Object)new OwnUseAddOn(), "ouao", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_OwnUseAddOn);
+            t_OwnUseAddOn.AddColumn((Object)mt.m_OwnUseAddOn.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_OwnUseAddOn.AddColumn((Object)mt.m_OwnUseAddOn.IssueDate, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Own consumption date", "Lastna poraba odpis"));
+            t_OwnUseAddOn.AddColumn((Object)mt.m_OwnUseAddOn.m_Consumption, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Consumption ID", "Poraba ID"));
+            t_OwnUseAddOn.AddColumn((Object)mt.m_OwnUseAddOn.m_OwnUseReason, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Write-off reason ID", "Razlog odpisa ID"));
+            t_OwnUseAddOn.AddColumn((Object)mt.m_OwnUseAddOn.m_OwnUseDescription, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Write-off reason ID", "Razlog odpisa ID"));
+            t_OwnUseAddOn.AddColumn((Object)mt.m_OwnUseAddOn.m_Doc_ImageLib, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Image ID", "Slika ID"));
+            m_DBTables.DBT.items.Add(t_OwnUseAddOn);
+
+            /* 268 */
+            t_JOURNAL_Consumption_Type = null;
+            t_JOURNAL_Consumption_Type = new SQLTable((Object)new JOURNAL_Consumption_Type(), "jct", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_JOURNAL_Consumption_Type);
+            t_JOURNAL_Consumption_Type.AddColumn((Object)mt.m_JOURNAL_Consumption_Type.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_JOURNAL_Consumption_Type.AddColumn((Object)mt.m_JOURNAL_Consumption_Type.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Type Name", "Ime"));
+            t_JOURNAL_Consumption_Type.AddColumn((Object)mt.m_JOURNAL_Consumption_Type.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
+            m_DBTables.DBT.items.Add(t_JOURNAL_Consumption_Type);
+
+            /* 269 */
+            t_JOURNAL_Consumption = null;
+            t_JOURNAL_Consumption = new SQLTable((Object)new JOURNAL_Consumption(), "jc", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_JOURNAL_Consumption);
+            t_JOURNAL_Consumption.AddColumn((Object)mt.m_JOURNAL_Consumption.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_JOURNAL_Consumption.AddColumn((Object)mt.m_JOURNAL_Consumption.m_JOURNAL_Consumption_Type, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Journal event invoice ID", "Dogodek račun ID"));
+            t_JOURNAL_Consumption.AddColumn((Object)mt.m_JOURNAL_Consumption.m_Consumption, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Consumption ID", "Poraba ID"));
+            t_JOURNAL_Consumption.AddColumn((Object)mt.m_JOURNAL_Consumption.EventTime, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Event time", "Čas dogodka"));
+            t_JOURNAL_Consumption.AddColumn((Object)mt.m_JOURNAL_Consumption.m_Atom_WorkPeriod, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Work shift ID", "Šiht ID"));
+            m_DBTables.DBT.items.Add(t_JOURNAL_Consumption);
 
         }
     }
