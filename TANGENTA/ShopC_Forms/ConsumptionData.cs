@@ -22,24 +22,10 @@ using UniversalInvoice;
 
 namespace ShopC_Forms
 {
-    //public class FURS_Response_data
-    //{
-    //    public string ZOI = null;
-    //    public string EOR = null;
-    //    public string BarCodeValue = null;
-    //    public Image Image_QRcode = null;
-
-    //    public FURS_Response_data(string furs_UniqeMsgID, string furs_UniqeInvID,string furs_barcode_value, Image furs_Image_QRcode)
-    //    {
-    //        this.ZOI = furs_UniqeMsgID;
-    //        this.EOR = furs_UniqeInvID;
-    //        this.BarCodeValue = furs_barcode_value;
-    //        this.Image_QRcode = furs_Image_QRcode;
-    //    }
-    //}
 
     public class ConsumptionData
     {
+        public delegate string delegate_ConsumptionType();
 
         private WriteOffAddOn m_WriteOffAddOn = null;
         public WriteOffAddOn AddOnWriteOff
@@ -162,12 +148,12 @@ namespace ShopC_Forms
 
         private CurrentConsumption m_CurrentConsumption = null;
 
-        private ConsumptionMan m_ConsM = null;
-        public ConsumptionMan ConsM
+        private delegate_ConsumptionType m_delegate_ConsumptionType = null;
+        public delegate_ConsumptionType Delegate_ConsumptionType
         {
             get
             {
-                return m_ConsM;
+                return m_delegate_ConsumptionType;
             }
         }
 
@@ -175,9 +161,9 @@ namespace ShopC_Forms
         {
             get
             {
-                if (ConsM != null)
+                if (m_delegate_ConsumptionType != null)
                 {
-                    return ConsM.DocTyp;
+                    return m_delegate_ConsumptionType();
                 }
                 else
                 {
@@ -189,9 +175,9 @@ namespace ShopC_Forms
         public bool IsWriteOff
         {
             get { 
-                    if (ConsM != null)
+                    if (m_delegate_ConsumptionType != null)
                     {
-                        return ConsM.IsWriteOff;
+                        return m_delegate_ConsumptionType().Equals(GlobalData.const_WriteOff);
                     }
                     else
                     {
@@ -204,9 +190,9 @@ namespace ShopC_Forms
         {
             get
             {
-                if (ConsM != null)
+                if (m_delegate_ConsumptionType != null)
                 {
-                    return ConsM.IsOwnUse;
+                    return m_delegate_ConsumptionType().Equals(GlobalData.const_OwnUse);
                 }
                 else
                 {
@@ -237,9 +223,9 @@ namespace ShopC_Forms
             }
         }
 
-        public ConsumptionData(ConsumptionMan xConsM, ID xConsumption_ID,  string xElectronic_Device_Name)
+        public ConsumptionData(delegate_ConsumptionType xdelegate_ConsumptionType, ID xConsumption_ID,  string xElectronic_Device_Name)
         {
-            m_ConsM = xConsM;
+            m_delegate_ConsumptionType = xdelegate_ConsumptionType;
             Consumption_ID = xConsumption_ID;
             Electronic_Device_Name_v = new string_v(xElectronic_Device_Name);
             AddOnWriteOff = new WriteOffAddOn();
@@ -778,7 +764,7 @@ namespace ShopC_Forms
             }
         }
 
-        public void Fill_Sold_ShopC_ItemsData(List<Doc_ShopC_Item> xConsumption_ShopC_Item_Data_LIST, ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count,bool bInvoiceStorno)
+        public void Fill_Sold_ShopC_ItemsData(List<TangentaDB.Consumption_ShopC_Item> xConsumption_ShopC_Item_Data_LIST, ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count,bool bInvoiceStorno)
         {
 
             int i;
@@ -788,7 +774,7 @@ namespace ShopC_Forms
 
             for (i = start_index; i < end_index; i++)
             {
-                Doc_ShopC_Item xdsci = (Doc_ShopC_Item)xConsumption_ShopC_Item_Data_LIST[j];
+                TangentaDB.Consumption_ShopC_Item xdsci = (TangentaDB.Consumption_ShopC_Item)xConsumption_ShopC_Item_Data_LIST[j];
 
                 decimal Discount = xdsci.Discount;
 
@@ -1319,17 +1305,17 @@ namespace ShopC_Forms
                             }
                         }
 
-                            List<Doc_ShopC_Item> xDocProformaInvoice_ShopC_Item_Data_LIST = new List<Doc_ShopC_Item>();
+                            List<TangentaDB.Consumption_ShopC_Item> xDocProformaInvoice_ShopC_Item_Data_LIST = new List<TangentaDB.Consumption_ShopC_Item>();
                             if (this.m_eType == eType.STORNO)
                             {
-                                if (!m_CurrentConsumption.m_Basket.Read_Doc_ShopC_Item_Table(Consumption,xDoc_ID, ref xDocProformaInvoice_ShopC_Item_Data_LIST, transaction))
+                                if (!m_CurrentConsumption.m_Basket.Read_Consumption_ShopC_Item_Table(Consumption,xDoc_ID, ref xDocProformaInvoice_ShopC_Item_Data_LIST, transaction))
                                 {
                                     return false;
                                 }
                             }
                             else
                             {
-                                xDocProformaInvoice_ShopC_Item_Data_LIST = m_CurrentConsumption.m_Basket.Basket_Doc_ShopC_Item_LIST;
+                                xDocProformaInvoice_ShopC_Item_Data_LIST = m_CurrentConsumption.m_Basket.Basket_Consumption_ShopC_Item_LIST;
                             }
 
 

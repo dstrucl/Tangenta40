@@ -742,31 +742,16 @@ namespace ShopC_Forms
                     iColIndex_DocInvoice_IssueDate = dt_XInvoice.Columns.IndexOf("IssueDate");
                     dgvx_XInvoice.Columns[iColIndex_DocInvoice_IssueDate].HeaderText = lng.s_IssueDate.s;
                     dgvx_XInvoice.Columns[iColIndex_DocInvoice_Invoice_StornoReason].HeaderText = lng.s_StornoReason.s;
-                    if (TSettings.b_FVI_SLO)
-                    {
-                        iColIndex_DocInvoice_FSI_SLO_ID = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_fvisres_$$ID"); 
-                        iColIndex_DocInvoice_FSI_SLO_EOR = dt_XInvoice.Columns.IndexOf("EOR");
-                        iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue");
-                        iColIndex_DocInvoice_FSI_SLO_SalesBookInvoice_InvoiceNumber = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$InvoiceNumber");
-                    }
 
                     iColIndex_DocInvoice_PaymentType_Identification = dt_XInvoice.Columns.IndexOf("PaymentType_Identification");
                     iColIndex_DocInvoice_PaymentType_Name = dt_XInvoice.Columns.IndexOf("PaymentType_Name");
 
                     dgvx_XInvoice.Columns[iColIndex_DocInvoice_PaymentType_Identification].Visible = false;
 
-                    if (IsDocInvoice && TSettings.UseWorkAreas)
-                    {
-                        dgvx_XInvoice.Columns["Atom_WorkArea_Name"].HeaderText = lng.s_Atom_WorkArea_Name.s;
-                    }
 
                     SetLabels();
                     SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice)));
                     tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_XInvoice, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
-                    if (TSettings.b_FVI_SLO)
-                    {
-                        dgvx_XInvoice.Columns["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue"].HeaderText = lng.s_FURS_BarCode.s;
-                    }
                     iRowsCount = dt_XInvoice.Rows.Count;
                     if (!bNew)
                     {
@@ -1154,7 +1139,7 @@ namespace ShopC_Forms
         public void SetTimeSpanParam(eMode eMode, DateTime xdtStartTime, DateTime xdtEndTime)
         {
             Mode = eMode;
-            if (eMode == usrc_TableOfDocuments.eMode.All)
+            if (eMode == usrc_TableOfConsumption.eMode.All)
             {
                 lbl_From_To.Text = lng.s_ShowAll.s;
                 sFromTo_Suffix = "";
@@ -1166,40 +1151,40 @@ namespace ShopC_Forms
                 SetTimeSpanParam_Ex(xdtStartTime, xdtEndTime);
                 switch (eMode)
                 {
-                    case usrc_TableOfDocuments.eMode.Today:
+                    case usrc_TableOfConsumption.eMode.Today:
                         lbl_From_To.Text = lng.s_Today.s + " " + sDate(dtStartTime);
                         sFromTo_Suffix = sDate_Suffix(dtStartTime);
                         break;
-                    case usrc_TableOfDocuments.eMode.ThisWeek:
+                    case usrc_TableOfConsumption.eMode.ThisWeek:
                         lbl_From_To.Text = lng.s_ThisWeek.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
 
-                    case usrc_TableOfDocuments.eMode.LastWeek:
+                    case usrc_TableOfConsumption.eMode.LastWeek:
                         lbl_From_To.Text = lng.s_LastWeek.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
-                    case usrc_TableOfDocuments.eMode.ThisMonth:
+                    case usrc_TableOfConsumption.eMode.ThisMonth:
                         lbl_From_To.Text = lng.s_ThisMonth.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
-                    case usrc_TableOfDocuments.eMode.LastMonth:
+                    case usrc_TableOfConsumption.eMode.LastMonth:
                         lbl_From_To.Text = lng.s_LastMonth.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
-                    case usrc_TableOfDocuments.eMode.ThisYear:
+                    case usrc_TableOfConsumption.eMode.ThisYear:
                         lbl_From_To.Text = lng.s_ThisYear.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
-                    case usrc_TableOfDocuments.eMode.LastYear:
+                    case usrc_TableOfConsumption.eMode.LastYear:
                         lbl_From_To.Text = lng.s_LastYear.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
-                    case usrc_TableOfDocuments.eMode.TimeSpan:
+                    case usrc_TableOfConsumption.eMode.TimeSpan:
                         lbl_From_To.Text = lng.s_TimeSpan.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
-                    case usrc_TableOfDocuments.eMode.ForDay:
+                    case usrc_TableOfConsumption.eMode.ForDay:
                         lbl_From_To.Text = lng.s_ForDay.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;

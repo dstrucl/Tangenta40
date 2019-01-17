@@ -83,7 +83,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasketConsumption.cs" />
     <Compile Include="DBTablesAndColumnNamesOfConsumption.cs" />
+    <Compile Include="Consumption_ShopC_Item.cs" />
     <Compile Include="Doc_ShopC_Item.cs" />
     <Compile Include="Basket.cs" />
     <Compile Include="CashierActivity.cs" />
@@ -93,8 +95,11 @@
     <Compile Include="DocInvoice_AddOn.cs" />
     <Compile Include="DocProformaInvoice_AddOn.cs" />
     <Compile Include="doc_page_type_definitions.cs" />
+    <Compile Include="Consumption_ShopC_Item_Data.cs" />
     <Compile Include="Doc_ShopC_Item_Data.cs" />
+    <Compile Include="Consumption_ShopC_Item_Source.cs" />
     <Compile Include="doc_type_definitions.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="fs.cs" />
     <Compile Include="f_Atom_Bank.cs" />
     <Compile Include="f_Atom_BankAccount.cs" />
@@ -104,6 +109,8 @@
     <Compile Include="f_Atom_cCity_Person.cs" />
     <Compile Include="f_Atom_cCountry_Person.cs" />
     <Compile Include="f_Atom_cHouseNumber_Person.cs" />
+    <Compile Include="f_Consumption_ShopC_Item.cs" />
+    <Compile Include="f_Consumption_ShopC_Item_Source.cs" />
     <Compile Include="f_OwnUseDescription.cs" />
     <Compile Include="f_OwnUseReason.cs" />
     <Compile Include="f_OwnUseAddOn.cs" />
@@ -252,7 +259,6 @@
     <Compile Include="f_StockTakeCostDescription.cs" />
     <Compile Include="f_StockTake_AdditionalCost.cs" />
     <Compile Include="f_StockTakeCostName.cs" />
-    <Compile Include="Doc_ShopC_Item_toDELETE.cs" />
     <Compile Include="f_Supplier.cs" />
     <Compile Include="f_Taxation.cs" />
     <Compile Include="f_Atom_Taxation.cs" />
@@ -278,7 +284,10 @@
     <Compile Include="myOrg_Office_ElectronicDevice.cs" />
     <Compile Include="PaymentType_definitions.cs" />
     <Compile Include="Report.cs" />
+    <Compile Include="ShopC_Item_Source_ListConsumption.cs" />
     <Compile Include="ShopC_Item_Source_List.cs" />
+    <Compile Include="ShopShelfConsumption.cs" />
+    <Compile Include="SumPayment.cs" />
     <Compile Include="TermsOfPayment_definitions.cs" />
     <Compile Include="MyOrg.cs" />
     <Compile Include="myOrg_Office.cs" />

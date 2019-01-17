@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TangentaCore
+namespace TangentaDB
 {
     public class SumPayment
     {
@@ -29,7 +29,7 @@ namespace TangentaCore
 
         }
 
-        internal void Add(decimal Value, string type)
+        public void Add(decimal Value, string type)
         {
             int iIndex=0;
             if (Find(type, ref iIndex))

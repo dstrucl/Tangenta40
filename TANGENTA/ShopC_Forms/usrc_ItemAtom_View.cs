@@ -25,7 +25,7 @@ namespace ShopC_Forms
     {
         private TangentaDB.ShopABC m_InvoiceDB = null;
         private ID m_Atom_Item_ID = null;
-        private List<Doc_ShopC_Item> dsci_List = new List<Doc_ShopC_Item>();
+        private List<TangentaDB.Consumption_ShopC_Item> dsci_List = new List<TangentaDB.Consumption_ShopC_Item>();
         private DataTable dt_DocInvoice_Atom_Item_Stock_view = new DataTable();
         private Color Color_null;
         public usrc_Atom_Item_View()
@@ -152,7 +152,7 @@ namespace ShopC_Forms
                     {
                         DataRow dria = dt_DocInvoice_Atom_Item_Stock_view.Rows[i];
 
-                        Doc_ShopC_Item dsci = new Doc_ShopC_Item();
+                        TangentaDB.Consumption_ShopC_Item dsci = new TangentaDB.Consumption_ShopC_Item();
                         dsci.Set(m_InvoiceDB.DocTyp, dria,ref dsci_List);
 
                         if (dria[iCol_Stock_ExpiryDate] is DateTime)
@@ -160,7 +160,7 @@ namespace ShopC_Forms
                             dria[iCol_ExpiryDate] = dria[iCol_Stock_ExpiryDate];
                         }
                     }
-                    Doc_ShopC_Item xdsci= (Doc_ShopC_Item)dsci_List[0];
+                    TangentaDB.Consumption_ShopC_Item xdsci= (TangentaDB.Consumption_ShopC_Item)dsci_List[0];
                     this.txt_Atom_Item_Name.Text = xdsci.Atom_Item_Name_Name_v.v;
                     if (xdsci.Atom_Item_Description_Description != null)
                     {

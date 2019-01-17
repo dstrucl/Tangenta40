@@ -22,11 +22,11 @@ namespace ShopC_Forms
 {
     public partial class usrc_Atom_Item : UserControl
     {
-        public TangentaDB.Doc_ShopC_Item m_dsci = null;
+        public TangentaDB.Consumption_ShopC_Item m_dsci = null;
 
         public long Item_ID = -1;
 
-        public delegate void delegate_btn_RemoveClick(TangentaDB.Doc_ShopC_Item xdsci);
+        public delegate void delegate_btn_RemoveClick(TangentaDB.Consumption_ShopC_Item xdsci);
         public event delegate_btn_RemoveClick btn_RemoveClick = null;
 
         public bool FromFactory = false;
@@ -55,10 +55,9 @@ namespace ShopC_Forms
             base.OnClick(e);
         }
 
-        public usrc_Atom_Item1366x768()
+        public usrc_Atom_Item()
         {
             InitializeComponent();
-            this.lbl_DiscountText.Text = lng.s_Discount.s;
         }
 
         internal void SelectControl(object oData, bool selected)
@@ -120,10 +119,10 @@ namespace ShopC_Forms
 
         }
 
-        internal void DoPaint(Doc_ShopC_Item xdsci, usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode emode)
+        internal void DoPaint(TangentaDB.Consumption_ShopC_Item xdsci, usrc_Item_InsidePageHandler<TangentaDB.Consumption_ShopC_Item>.eMode emode)
         {
             m_dsci = xdsci;
-            if (emode== usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode.EDIT)
+            if (emode== usrc_Item_InsidePageHandler<TangentaDB.Consumption_ShopC_Item>.eMode.EDIT)
             {
                 btn_RemoveFromBasket.Visible = true;
             }

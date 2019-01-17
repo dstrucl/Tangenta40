@@ -103,12 +103,6 @@
     <Compile Include="usrc_btn_Item.Designer.cs">
       <DependentUpon>usrc_btn_Item.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_ConsumptionEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_ConsumptionEditor.Designer.cs">
-      <DependentUpon>usrc_ConsumptionEditor.cs</DependentUpon>
-    </Compile>
     <Compile Include="usrc_Item.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -229,10 +223,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_btn_Item.resx">
       <DependentUpon>usrc_btn_Item.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_ConsumptionEditor.resx">
-      <DependentUpon>usrc_ConsumptionEditor.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Item.resx">
       <DependentUpon>usrc_Item.cs</DependentUpon>

@@ -15,7 +15,7 @@ namespace ShopC_Forms
     public partial class Form_Show_Documents_Where_stock_item_was_sold_or_reserved : Form
     {
         ID Stock_ID = null;
-        Doc_ShopC_Item_Data[] adata = null;
+        TangentaDB.Consumption_ShopC_Item_Data[] adata = null;
         DataTable dt_Where_stock_item_was_sold_or_reserved = new DataTable();
         DataColumn dcol_DocumentType = null;
         DataColumn dcol_DocumentTypeName = null;
@@ -34,7 +34,7 @@ namespace ShopC_Forms
         f_DocProformaInvoice.fData DocProformaInvoice_data = new f_DocProformaInvoice.fData();
 
 
-        public Form_Show_Documents_Where_stock_item_was_sold_or_reserved(ID xStock_ID, Doc_ShopC_Item_Data[] xadata)
+        public Form_Show_Documents_Where_stock_item_was_sold_or_reserved(ID xStock_ID, TangentaDB.Consumption_ShopC_Item_Data[] xadata)
         {
             InitializeComponent();
             Stock_ID = xStock_ID;
@@ -82,7 +82,7 @@ namespace ShopC_Forms
 
         private void Form_Show_Documents_Where_stock_item_was_sold_or_reserved_Load(object sender, EventArgs e)
         {
-            foreach (Doc_ShopC_Item_Data data in adata)
+            foreach (TangentaDB.Consumption_ShopC_Item_Data data in adata)
             {
                 DataRow dr = dt_Where_stock_item_was_sold_or_reserved.NewRow();
 

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
+using TangentaDB;
 
 namespace ShopC_Forms
 {
@@ -150,7 +151,7 @@ namespace ShopC_Forms
                     this.WriteOff_ID = WriteOff_ID;
                 }
 
-                if (f_OwnUseAddOn.Get(this.WriteOff_ID, ref WriteOffAddOn_ID))
+                if (f_WriteOffAddOn.Get(this.WriteOff_ID, ref WriteOffAddOn_ID))
                 {
                     if (ID.Validate(WriteOffAddOn_ID))
                     {

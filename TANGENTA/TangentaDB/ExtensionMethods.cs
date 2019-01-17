@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TangentaCore
+namespace TangentaDB
 {
     public static class ExtensionMethods
     {

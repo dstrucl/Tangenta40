@@ -48,7 +48,7 @@ namespace ShopC_Forms
 
         public string DocTyp
         {
-            get { return m_ShopBC.DocTyp; }
+            get { return m_consE.DocTyp; }
         }
 
 
@@ -101,8 +101,8 @@ namespace ShopC_Forms
         public usrc_Item[] usrc_Item_aray = null;
         usrc_Atom_ItemsList m_usrc_Atom_ItemsList = null;
 
-        ShopABC m_ShopBC;
-        DBTablesAndColumnNamesOfDocInvoice DBtcn;
+        ConsumptionEditor m_consE;
+        DBTablesAndColumnNamesOfConsumption DBtcn;
         private ID m_PriceList_ID = null;
 
 
@@ -119,13 +119,13 @@ namespace ShopC_Forms
             usrc_Item_InsidePageGroupHandler1.ControlClick += Usrc_Item_InsidePageGroupHandler1_ControlClick;
         }
 
-        internal void Select(Doc_ShopC_Item xdsci, string s_ItemUniqueName)
+        internal void Select(TangentaDB.Consumption_ShopC_Item xdsci, string s_ItemUniqueName)
         {
            string[] sgroup = new string[3] { xdsci.s1_name, xdsci.s2_name, xdsci.s3_name };
            this.usrc_Item_InsidePageGroupHandler1.SelectGroup(sgroup, s_ItemUniqueName);
         }
 
-        internal void Select(Doc_ShopC_Item xdsci, string s_ItemUniqueName, ref object odata, ref Control ctrl)
+        internal void Select(TangentaDB.Consumption_ShopC_Item xdsci, string s_ItemUniqueName, ref object odata, ref Control ctrl)
         {
             string[] sgroup = new string[3] { xdsci.s1_name, xdsci.s2_name, xdsci.s3_name };
             this.usrc_Item_InsidePageGroupHandler1.SelectGroup(sgroup, s_ItemUniqueName,ref odata, ref ctrl);
@@ -183,21 +183,21 @@ namespace ShopC_Forms
             {
                 Item_Data xData = (Item_Data)oData;
                 bool bRes = false;
-                Doc_ShopC_Item dsci = null;
+                TangentaDB.Consumption_ShopC_Item dsci = null;
                 if (this.SelectItemsFromStockDialog)
                 {
-                    bRes = m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(ref dsci,
-                                                                     m_ShopBC.DocTyp,
-                                                                     m_ShopBC.m_CurrentDoc.Doc_ID,
+                    bRes = m_consE.m_CurrentConsumption.m_Basket.Add2Basket(ref dsci,
+                                                                     m_consE.DocTyp,
+                                                                     m_consE.m_CurrentConsumption.Doc_ID,
                                                                      dQuantity2Add,
                                                                      xData,
                                                                      Select_Items_From_Stock_Dialog);
                 }
                 else
                 {
-                    bRes = m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(ref dsci,
-                                                                     m_ShopBC.DocTyp,
-                                                                     m_ShopBC.m_CurrentDoc.Doc_ID,
+                    bRes = m_consE.m_CurrentConsumption.m_Basket.Add2Basket(ref dsci,
+                                                                     m_consE.DocTyp,
+                                                                     m_consE.m_CurrentConsumption.Doc_ID,
                                                                      dQuantity2Add,
                                                                      xData,
                                                                      null);
@@ -207,7 +207,7 @@ namespace ShopC_Forms
                 {
                     if (ctrl is usrc_Item)
                     {
-                        ((usrc_Item)ctrl).DoPaint(xData, m_ShopBC.m_CurrentDoc.m_Basket);
+                        ((usrc_Item)ctrl).DoPaint(xData, m_consE.m_CurrentConsumption.m_Basket);
                     }
 
 
@@ -258,9 +258,9 @@ namespace ShopC_Forms
         {
             string[] sreversgroup = usrc_Item_InsideGroupHandler.reversegroup(groups);
 
-           if ( m_ShopBC.m_CurrentDoc.m_ShopShelf.Load(m_PriceList_ID, sreversgroup))
+           if (m_consE.m_CurrentConsumption.m_ShopShelf.Load(m_PriceList_ID, sreversgroup))
             {
-                list = m_ShopBC.m_CurrentDoc.m_ShopShelf.ListOfItems;
+                list = m_consE.m_CurrentConsumption.m_ShopShelf.ListOfItems;
                 return true;
             }
             return false;
@@ -276,7 +276,7 @@ namespace ShopC_Forms
                 {
                     usrc_Item xusrc_Item = (usrc_Item)ctrl;
 
-                    xusrc_Item.DoPaint(idata, m_ShopBC.m_CurrentDoc.m_Basket);
+                    xusrc_Item.DoPaint(idata, m_consE.m_CurrentConsumption.m_Basket);
                 }
             }
         }
@@ -305,14 +305,14 @@ namespace ShopC_Forms
         }
 
         internal void Init(ID xAtom_WorkPeriod_ID,
-                           TangentaDB.ShopABC xm_ShopBC,
-                           DBTablesAndColumnNamesOfDocInvoice xDBtcn, 
+                           ConsumptionEditor xconsE,
+                           DBTablesAndColumnNamesOfConsumption xDBtcn, 
                            usrc_ShopC x_usrc_ItemMan,
                            usrc_Atom_ItemsList x_usrc_Atom_ItemsList,
                            bool xbExclusivelySellFromStock)
         {
             m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
-            m_ShopBC = xm_ShopBC;
+            m_consE = xconsE;
             m_usrc_ItemMan = x_usrc_ItemMan;
             DBtcn = xDBtcn;
             //            this.m_usrc_Item_Group_Handler.ShopName = lng.s_ShopC_Name.s;
@@ -326,9 +326,9 @@ namespace ShopC_Forms
         public bool Get_Price_Item_Stock_Data(ID xPriceList_ID)
         {
             m_PriceList_ID = xPriceList_ID;
-            if (m_ShopBC.m_CurrentDoc.m_ShopShelf.GetGroupsTable(xPriceList_ID))
+            if (m_consE.m_CurrentConsumption.m_ShopShelf.GetGroupsTable(xPriceList_ID))
             {
-                usrc_Item_InsidePageGroupHandler1.Init(m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group);
+                usrc_Item_InsidePageGroupHandler1.Init(m_consE.m_CurrentConsumption.m_ShopShelf.dt_Price_Item_Group);
                 return true;
             }
             return false;

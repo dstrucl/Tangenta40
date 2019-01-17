@@ -49,8 +49,8 @@ namespace ShopC_Forms
 
         public DataTable dtCurrent_Consumption_ShopC_Item = null;
 
-        public ShopShelf m_ShopShelf = null;
-        public Basket m_Basket = null;
+        public ShopShelfConsumption m_ShopShelf = null;
+        public BasketConsumption m_Basket = null;
 
         DBTablesAndColumnNamesOfDocInvoice DBtcn = null;
 
@@ -98,7 +98,7 @@ namespace ShopC_Forms
                         dtCurrent_Consumption_ShopC_Item.Clear();
                         if (m_Basket != null)
                         {
-                            m_Basket.Basket_Doc_ShopC_Item_LIST.Clear();
+                            m_Basket.Basket_Consumption_ShopC_Item_LIST.Clear();
                         }
                     }
                 }
@@ -115,8 +115,8 @@ namespace ShopC_Forms
 
             dtCurrent_Consumption_ShopC_Item = new DataTable();
 
-            m_ShopShelf = new ShopShelf();
-            m_Basket = new Basket();
+            m_ShopShelf = new ShopShelfConsumption();
+            m_Basket = new BasketConsumption();
 
             
             FinancialYear = DateTime.Now.Year;
@@ -247,7 +247,7 @@ namespace ShopC_Forms
         }
 
 
-        public bool Get_Atom_Price_Item(ref Doc_ShopC_Item xdsci, Transaction transaction)
+        public bool Get_Atom_Price_Item(ref TangentaDB.Consumption_ShopC_Item xdsci, Transaction transaction)
         {
             ID atom_Taxation_ID = null;
             return f_Atom_Price_Item.Get(xdsci.Atom_Item_UniqueName_v.v,

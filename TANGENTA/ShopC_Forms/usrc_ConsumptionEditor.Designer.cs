@@ -1,10 +1,9 @@
 ﻿
 
-using TangentaCore;
 
-namespace ShopC
+namespace ShopC_Forms
 {
-    partial class usrc_DocumentEditor1366x768
+    partial class usrc_ConsumptionEditor
     {
         /// <summary> 
         /// Required designer variable.
@@ -32,15 +31,15 @@ namespace ShopC
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_DocumentEditor1366x768));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_ConsumptionEditor));
             this.txt_Number = new System.Windows.Forms.TextBox();
             this.lbl_Number = new System.Windows.Forms.Label();
             this.chk_Storno = new System.Windows.Forms.CheckBox();
             this.btn_Show_Shops = new System.Windows.Forms.Button();
-            this.m_usrc_ShopC1366x768 = new ShopC.usrc_ShopC1366x768();
+            this.m_usrc_ShopC = new usrc_ShopC();
             this.btn_New = new System.Windows.Forms.Button();
-            this.usrc_Item1366x768_selected1 = new ShopC.usrc_Item1366x768_selected();
-            this.usrc_DocIssue1 = new TangentaCore.usrc_DocIssue();
+            this.usrc_Item_selected1 = new usrc_Item_selected();
+            this.usrc_DocIssue1 = new usrc_DocIssue();
             this.SuspendLayout();
             // 
             // txt_Number
@@ -85,29 +84,7 @@ namespace ShopC
             this.btn_Show_Shops.Size = new System.Drawing.Size(68, 82);
             this.btn_Show_Shops.TabIndex = 41;
             this.btn_Show_Shops.Text = "trgovine";
-            this.btn_Show_Shops.UseVisualStyleBackColor = false;
-            this.btn_Show_Shops.Click += new System.EventHandler(this.btn_Select_Shops_Click);
-            // 
-            // m_usrc_ShopB1366x768
-            // 
-            this.m_usrc_ShopB1366x768.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_usrc_ShopB1366x768.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.m_usrc_ShopB1366x768.DocTyp = "";
-            this.m_usrc_ShopB1366x768.Location = new System.Drawing.Point(0, 220);
-            this.m_usrc_ShopB1366x768.Name = "m_usrc_ShopB1366x768";
-            this.m_usrc_ShopB1366x768.Size = new System.Drawing.Size(1006, 140);
-            this.m_usrc_ShopB1366x768.TabIndex = 45;
-            // 
-            // m_usrc_ShopA1366x768
-            // 
-            this.m_usrc_ShopA1366x768.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_usrc_ShopA1366x768.BackColor = System.Drawing.SystemColors.Control;
-            this.m_usrc_ShopA1366x768.Location = new System.Drawing.Point(0, 40);
-            this.m_usrc_ShopA1366x768.Name = "m_usrc_ShopA1366x768";
-            this.m_usrc_ShopA1366x768.Size = new System.Drawing.Size(1006, 180);
-            this.m_usrc_ShopA1366x768.TabIndex = 44;
+            this.btn_Show_Shops.UseVisualStyleBackColor = false;           
             // 
             // usrc_AddOn1
             // 
@@ -118,30 +95,18 @@ namespace ShopC
             this.usrc_AddOn1.Size = new System.Drawing.Size(177, 79);
             this.usrc_AddOn1.TabIndex = 40;
             // 
-            // usrc_Customer
+            // m_usrc_ShopC
             // 
-            this.usrc_Customer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.m_usrc_ShopC.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Customer.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.usrc_Customer.DocTyp = "";
-            this.usrc_Customer.Location = new System.Drawing.Point(290, 0);
-            this.usrc_Customer.Margin = new System.Windows.Forms.Padding(4);
-            this.usrc_Customer.Name = "usrc_Customer";
-            this.usrc_Customer.Size = new System.Drawing.Size(258, 35);
-            this.usrc_Customer.TabIndex = 33;
-            // 
-            // m_usrc_ShopC1366x768
-            // 
-            this.m_usrc_ShopC1366x768.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_usrc_ShopC1366x768.AutomaticSelectionOfItemsFromStock = true;
-            this.m_usrc_ShopC1366x768.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.m_usrc_ShopC1366x768.ExclusivelySellFromStock = false;
-            this.m_usrc_ShopC1366x768.Location = new System.Drawing.Point(0, 360);
-            this.m_usrc_ShopC1366x768.Margin = new System.Windows.Forms.Padding(4);
-            this.m_usrc_ShopC1366x768.Name = "m_usrc_ShopC1366x768";
-            this.m_usrc_ShopC1366x768.Size = new System.Drawing.Size(1006, 320);
-            this.m_usrc_ShopC1366x768.TabIndex = 46;
+            this.m_usrc_ShopC.AutomaticSelectionOfItemsFromStock = true;
+            this.m_usrc_ShopC.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.m_usrc_ShopC.ExclusivelySellFromStock = false;
+            this.m_usrc_ShopC.Location = new System.Drawing.Point(0, 360);
+            this.m_usrc_ShopC.Margin = new System.Windows.Forms.Padding(4);
+            this.m_usrc_ShopC.Name = "m_usrc_ShopC";
+            this.m_usrc_ShopC.Size = new System.Drawing.Size(1006, 320);
+            this.m_usrc_ShopC.TabIndex = 46;
             // 
             // btn_New
             // 
@@ -158,16 +123,16 @@ namespace ShopC
             this.btn_New.UseVisualStyleBackColor = false;
             this.btn_New.Click += new System.EventHandler(this.btn_New_Click);
             // 
-            // usrc_Item1366x768_selected1
+            // usrc_Item_selected1
             // 
-            this.usrc_Item1366x768_selected1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Item1366x768_selected1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(249)))), ((int)(((byte)(166)))));
-            this.usrc_Item1366x768_selected1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.usrc_Item1366x768_selected1.Location = new System.Drawing.Point(338, 679);
-            this.usrc_Item1366x768_selected1.Margin = new System.Windows.Forms.Padding(4);
-            this.usrc_Item1366x768_selected1.Name = "usrc_Item1366x768_selected1";
-            this.usrc_Item1366x768_selected1.Size = new System.Drawing.Size(413, 88);
-            this.usrc_Item1366x768_selected1.TabIndex = 49;
+            this.usrc_Item_selected1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Item_selected1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(249)))), ((int)(((byte)(166)))));
+            this.usrc_Item_selected1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.usrc_Item_selected1.Location = new System.Drawing.Point(338, 679);
+            this.usrc_Item_selected1.Margin = new System.Windows.Forms.Padding(4);
+            this.usrc_Item_selected1.Name = "usrc_Item_selected1";
+            this.usrc_Item_selected1.Size = new System.Drawing.Size(413, 88);
+            this.usrc_Item_selected1.TabIndex = 49;
             // 
             // usrc_DocIssue1
             // 
@@ -182,25 +147,22 @@ namespace ShopC
             this.usrc_DocIssue1.TabIndex = 50;
             this.usrc_DocIssue1.Total = "SKUPAJ";
             this.usrc_DocIssue1.TotalColor = System.Drawing.SystemColors.ControlText;
-            this.usrc_DocIssue1.DoClick += new TangentaCore.usrc_DocIssue.delegate_Click(this.btn_Issue_Click);
+            this.usrc_DocIssue1.DoClick += new usrc_DocIssue.delegate_Click(this.btn_Issue_Click);
             // 
-            // usrc_DocumentEditor1366x768
+            // usrc_DocumentEditor
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.Controls.Add(this.usrc_DocIssue1);
-            this.Controls.Add(this.usrc_Item1366x768_selected1);
+            this.Controls.Add(this.usrc_Item_selected1);
             this.Controls.Add(this.btn_New);
-            this.Controls.Add(this.m_usrc_ShopC1366x768);
-            this.Controls.Add(this.m_usrc_ShopB1366x768);
-            this.Controls.Add(this.m_usrc_ShopA1366x768);
+            this.Controls.Add(this.m_usrc_ShopC);
             this.Controls.Add(this.btn_Show_Shops);
             this.Controls.Add(this.usrc_AddOn1);
             this.Controls.Add(this.chk_Storno);
-            this.Controls.Add(this.usrc_Customer);
             this.Controls.Add(this.lbl_Number);
             this.Controls.Add(this.txt_Number);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "usrc_DocumentEditor1366x768";
+            this.Name = "usrc_DocumentEditor";
             this.Size = new System.Drawing.Size(1006, 768);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -211,15 +173,12 @@ namespace ShopC
         #endregion
         private System.Windows.Forms.TextBox txt_Number;
         private System.Windows.Forms.Label lbl_Number;
-        private usrc_Customer usrc_Customer;
         private System.Windows.Forms.CheckBox chk_Storno;
-        internal usrc_AddOn usrc_AddOn1;
+        internal usrc_Consumption_AddOn usrc_AddOn1;
         public System.Windows.Forms.Button btn_Show_Shops;
-        internal ShopA.usrc_ShopA1366x768 m_usrc_ShopA1366x768;
-        internal ShopB.usrc_ShopB1366x768 m_usrc_ShopB1366x768;
-        internal ShopC.usrc_ShopC1366x768 m_usrc_ShopC1366x768;
+        internal usrc_ShopC m_usrc_ShopC;
         internal System.Windows.Forms.Button btn_New;
-        private ShopC.usrc_Item1366x768_selected usrc_Item1366x768_selected1;
+        private usrc_Item_selected usrc_Item_selected1;
         public usrc_DocIssue usrc_DocIssue1;
     }
 }

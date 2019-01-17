@@ -121,7 +121,7 @@ namespace ShopC_Forms
             {
                 if (dt.Rows.Count > 0)
                 {
-                    MyIssueDate = WriteOff_AddOn.IssueDate.Set(dt.Rows[0]["IssueDate"]);
+                    MyIssueDate = WriteOffAddOn.IssueDate.Set(dt.Rows[0]["IssueDate"]);
 
                     object oNoticeText = dt.Rows[0]["NoticeText"];
                     m_NoticeText = null;

@@ -48,7 +48,6 @@
     <Compile Include="DocumentMan.cs" />
     <Compile Include="Door.cs" />
     <Compile Include="DURS_Izpis_Postavka.cs" />
-    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Form_CheckInsertSampleData.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -451,7 +450,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="SumPayment.cs" />
     <Compile Include="usrc_AddOn.cs">
       <SubType>UserControl</SubType>
     </Compile>

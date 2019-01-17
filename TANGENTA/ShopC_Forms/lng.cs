@@ -24,6 +24,151 @@ namespace ShopC_Forms
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_Are_Sure_To_Remove_All_From_Basket = new ltext(new string[] { "Are you sure to remove all items from basket ?", "Ste prepričani, da želite prestaviti vse artikle nazaj iz košare?" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtomsList.cs
+
+        public static ltext s_StornoConsumption = new ltext(new string[] { "STORNO", "Stornacija porabe" });
+
+        public static ltext s_VODxml_export_for = new ltext(new string[] { "VOD xml export for period", "Izvoz faktur v VOD XML datoteko za obdobje od" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_VODxml_OPAL_output.cs
+
+        public static ltext s_Issue = new ltext(new string[] { "Issue", "Izdaj" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_DocumentMan.cs
+
+        public static ltext s_Print = new ltext(new string[] { "Print", "Natisni" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_DocumentMan.cs
+
+        public static ltext s_AreYouSureToStornoThisConsumption = new ltext(new string[] { "Are you sure to Storno this consumption?", "Ali zares želite stornirati porabo ?" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_Invoice.cs
+
+        public static ltext s_Consumption = new ltext(new string[] { "Consumption", "Poraba" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_DocumentMan.cs
+
+        public static ltext s_Year = new ltext(new string[] { "Year", "Leto" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_DocumentMan.cs
+
+        public static ltext s_XML_files_Saved_OK = new ltext(new string[] { " are saved ok.", " sta uspešno zapisani." });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_XML_output.cs
+
+        public static ltext s_XML_Files = new ltext(new string[] { "XML files:", "Datoteki za XML:" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_XML_output.cs
+
+        public static ltext s_HasNoDecimalPlaces = new ltext(new string[] { "has no decimal places.", "nima decimalnih mest." });
+
+        public static ltext s_Tax = new ltext(new string[] { "Taxation", "Davek" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_StockEditForSelectedStockTake.cs
+
+        public static ltext s_ThereAreNotsoManyArticlesInStock = new ltext(new string[] { "There is not such quantity in stock", "Na zalogi ni tolikšne količine artikla" });
+
+        public static ltext sYouSetAllQuantitiesToZeroDoYouwantToRemoveItem = new ltext(new string[] { "You set all quantitites to zero.Do you want to remove item?", "Vse količine ste postavili na nič.Želite umakniti artikel iz košare?" });
+
+        public static ltext s_RetailPrice = new ltext(new string[] { "Price:", "Cena:" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom.cs
+
+        public static ltext s_Error = new ltext(new string[]{"Error",
+                                         "Napaka"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_DURS_FilesPreview.cs
+
+        public static ltext s_NoInvoicesData = new ltext(new string[] { "There are now invoices for DURS in selected period", "DURS Izpis za izbrano obdbobje je prazen!" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_DURS_output.cs
+
+        public static ltext s_VOD_XML_File = new ltext(new string[] { "VOD XML file:", "XML datoteka po VOD standardu:" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_VODxml_OPAL_output.cs
+
+        public static ltext s_Err_Write_File = new ltext(new string[] { "Error writing file:", "!Prišlo je do napake pri pisanju doatoteke:" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_DURS_output.cs
+
+        public static ltext s_you_must_have_select_one_month_period_to_do_VODxml_Output = new ltext(new string[] { "There must be selectedt exactly one month period of invoices to do VOD xml ouptut!", "Izbrani računi morajo pripadati točno izbranemu celemu mesecu, da bi lahko naredili izvoz faktur v VOD XML datoteko!" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_VODxml_OPAL_output.cs
+
+        public static ltext s_Can_not_read_VOD_shema_file_Do_you_want_to_exit = new ltext(new string[] { "Can not read VOD shema file %%SHEMAFILE.You can not export VOD XML file unless shema file is defined!\r\nDo you want to exit?", "Napaka pri branju VOD shema datoteke %%SHEMAFILE.\r\nBrez VOD shema datoteke ni možno izvoziti faktur v VOD XML datoteko!\r\nŽelite končati?" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_VODxml_OPAL_output.cs
+
+        public static ltext s_YouDidnot_select_VOD_shema_file_Do_you_want_to_exit = new ltext(new string[] { "You didn't select VOD shema file.You can not export VOD XML file unless shema file is defined!\r\n Do you want to exit?", "Niste izbrali VOD shema datoteke.\r\nBrez VOD shema datoteke ni možno izvoziti faktur v VOD XML datoteko!\r\nŽelite končati?" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_VODxml_OPAL_output.cs
+
+        public static ltext s_VOD_Head = new ltext(new string[] { "HEAD", "GLAVA" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_VODxml_OPAL_output.cs
+
+        public static ltext s_Konto_Price_with_tax_for_cash = new ltext(new string[] { "Price with tax (CASH) Konto=", "Znesek z DDV (gotovina) Konto=" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_VODxml_OPAL_output.cs
+
+        public static ltext s_Konto_Price_with_tax_for_payment_cards = new ltext(new string[] { "Price with tax (CARDS) Konto=", "Znesek z DDV (kartice) Konto=" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_VODxml_OPAL_output.cs
+
+        public static ltext s_Konto_Net_price = new ltext(new string[] { "Net price Konto=", "Neto cena Konto=" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_VODxml_OPAL_output.cs
+
+        public static ltext s_Konto_VAT_general_rate = new ltext(new string[] { "VAT Konto=", "DDV splošna stopnja Konto=" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_VODxml_OPAL_output.cs
+
+        public static ltext s_View = new ltext(new string[]{"View",
+                                                "Prikaz"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_DURS_output.cs
+
+        public static ltext s_End_Customers_Code = new ltext(new string[] { "End Customers code=", "Končni kupci Šifra=" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_VODxml_OPAL_output.cs
+
+        public static ltext s_End_Customes_Name = new ltext(new string[] { "End Customers name=", "Končni kupci naziv=" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_VODxml_OPAL_output.cs
+
+        public static ltext s_Export_to_VOD_XML = new ltext(new string[] { "OPAL VOD XML export", "Izvoz v OPAL VOD XML" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_VODxml_OPAL_output.cs
+
+        public static ltext s_Folder = new ltext(new string[]{" Folder ",
+                                                " Mapa "});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_DURS_output.cs
+
+        public static ltext s_Save = new ltext(new string[]{"Save",
+                                               "Shrani"});   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_DURS_output.cs
+
+        public static ltext s_VOD_xml_shema_file_path = new ltext(new string[] { "OPAL VOD XSD shema file", "OPAL VOD XML shema:" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_VODxml_OPAL_output.cs
+
+        public static ltext s_VODxml_OPAL_export = new ltext(new string[] { "VOD XML OPAL export", "Izpis XML VOD OPAL" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_PrintReport.cs
+
+        public static ltext s_XML_export = new ltext(new string[] { "XML export", "Izpisi XML" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_PrintReport.cs
+
+        public static ltext s_SaveAsTextFile = new ltext(new string[] { "Save as text file", "Shrani v tekstovno datoteko" });
+
+        public static ltext s_Details = new ltext(new string[] { "Details", "Podrobnosti" });
+
+        public static ltext s_ShowAll = new ltext(new string[] { "Show all", "Prikaži vse" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_InvoiceTable.cs
+
+        public static ltext s_to = new ltext(new string[] { "to", "do" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_VODxml_OPAL_output.cs
+
+        public static ltext ss_From = new ltext(new string[] { "from", "od" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_TimeSpan.cs
+
+        public static ltext ss_OK = new ltext(new string[] { "OK", " Potrdi" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_TimeSpan.cs
+
+        public static ltext ss_To = new ltext(new string[] { "to", "do" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_TimeSpan.cs
+
+
+        public static ltext s_ForDay = new ltext(new string[] { "For day", "Za dan" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_TimeSpan.cs
+
+        public static ltext s_TimeSpan = new ltext(new string[] { "Time span", "Obdobje" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_TimeSpan.cs
+
+        public static ltext s_Today = new ltext(new string[] { "Today", "Danes" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_TimeSpan.cs
+
+        public static ltext s_ThisWeek = new ltext(new string[] { "This week", "Ta teden" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_TimeSpan.cs
+
+        public static ltext s_LastWeek = new ltext(new string[] { "Last week", "Prejšni teden" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_TimeSpan.cs
+
+        public static ltext s_ThisMonth = new ltext(new string[] { "This month", "Ta mesec" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_TimeSpan.cs
+
+        public static ltext s_LastMonth = new ltext(new string[] { "Last month", "Prejšni mesec" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_TimeSpan.cs
+
+        public static ltext s_ThisYear = new ltext(new string[] { "This year", "To leto" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_TimeSpan.cs
+
+        public static ltext s_LastYear = new ltext(new string[] { "Last Year", "Prejšne leto" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_TimeSpan.cs
+
+
+        public static ltext s_all = new ltext(new string[] { "all", "vse" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_TimeSpan.cs
+
+        public static ltext s_SelectTimeSpan = new ltext(new string[] { "Select time span", "Izberi obdobje" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_TimeSpan.cs
+
+        public static ltext s_StornoReason = new ltext(new string[] { "Storno reason", "Razlog stornacije" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_InvoiceTable.cs
+
+        public static ltext s_IssueDate = new ltext(new string[] { "Issue date", "Čas izdaje" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_InvoiceTable.cs
+
+        public static ltext s_lbl_SelectionDescription_AllProformaInvoices = new ltext(new string[] { "Proforma from all", "Pedračuni os vseh" });
+
+
+        public static ltext s_lbl_SelectionDescription_AllInvoices = new ltext(new string[] { "Invoices from all", "Računi od vseh" });
+
+
+        public static ltext s_lbl_SelectionDescription_AllInvoicesOfUser = new ltext(new string[] { "User:", "Uporabnik:" });
+
+        public static ltext s_from = new ltext(new string[] { "from", "od" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_VODxml_OPAL_output.cs
+
+        public static ltext s_Sum_WithoutTax = new ltext(new string[] { "Net price = ", "Brez davka = " });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_InvoiceTable.cs
+
+        public static ltext s_Sum_Tax = new ltext(new string[] { "Tax = ", "Davek = " });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_InvoiceTable.cs
+
+        public static ltext s_Sum_All = new ltext(new string[] { "Total = ", "Skupaj = " });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_InvoiceTable.cs
+
+        public static ltext s_AllData = new ltext(new string[] { "All Data", "Vsi podatki" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Select_TimeSpan.cs
+
+        public static ltext s_Consumption_Issue = new ltext(new string[] { "Issue an consumption", "Izdaj porabo" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_DocProformaInvoice_AddOn .cs
+
+
+        public static ltext s_PaymentOfInvoiceAndPrint = new ltext(new string[] { "Payment and Print", "Način plačila in izdaja računa" });   // referenced in C:\Tangenta40\TANGENTA\ShopC_Forms\Form_Consumption__AddOn.cs
+
+        public static ltext s_AvoidStock = new ltext(new string[] { "Not from stock", "Mimo zaloge" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_Select_Item_From_Stock.cs
+
+        public static ltext s_FromStock = new ltext(new string[] { "From stock", "Iz zaloge" });   // referenced in C:\Tangenta40\TANGENTA\ShopC_Forms\Form_Select_Item_From_Stock.cs
+
         public static ltext s_Item_Not_In_Offer = new ltext(new string[] { "Item is not in offer any more!", "Artikel ni več v ponudbi!" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ShopC.cs
 
         public static ltext s_STORNO = new ltext(new string[] { "REVERSE", "STORNO" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\InvoiceData.cs

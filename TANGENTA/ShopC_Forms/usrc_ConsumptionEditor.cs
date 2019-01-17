@@ -16,19 +16,16 @@ using CodeTables;
 using LanguageControl;
 using DBTypes;
 using TangentaDB;
-using ShopC;
 using System.Drawing;
 using System.Linq;
-using Startup;
 using DBConnectionControl40;
 using LoginControl;
-using TangentaCore;
 using TangentaProperties;
 using PriseLists;
 
-namespace ShopC
+namespace ShopC_Forms
 {
-    public partial class usrc_DocumentEditor1366x768 : UserControl
+    public partial class usrc_ConsumptionEditor : UserControl
     {
         internal class Defpos
         {
@@ -40,10 +37,10 @@ namespace ShopC
             internal int usrc_Customer_Top;
         }
         private Defpos defpos = null;
-        private DocumentEditor.DoCurrent_delegates doCurrent_delegates;
+        private ConsumptionEditor.DoCurrent_delegates doCurrent_delegates;
 
-        public DocumentEditor DocE = null;
-        private DocumentMan DocM = null;
+        public ConsumptionEditor ConsE = null;
+        private ConsumptionMan ConsM = null;
 
         private NavigationButtons.Navigation nav = null;
 
@@ -86,13 +83,13 @@ namespace ShopC
         public bool IsDocInvoice
         {
             get
-            { return DocE.DocTyp.Equals(GlobalData.const_DocInvoice); }
+            { return ConsE.DocTyp.Equals(GlobalData.const_DocInvoice); }
         }
 
         public bool IsDocProformaInvoice
         {
             get
-            { return DocE.DocTyp.Equals(GlobalData.const_DocProformaInvoice); }
+            { return ConsE.DocTyp.Equals(GlobalData.const_DocProformaInvoice); }
         }
 
 
@@ -114,28 +111,15 @@ namespace ShopC
 
 
 
-        public int NumberOfShopBGroupLevels
-        {
-            get
-            {
-                if (this.m_usrc_ShopB1366x768 != null)
-                {
-                    return m_usrc_ShopB1366x768.NumberOfGroupLevels;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-        }
+       
 
         public int NumberOfShopCGroupLevels
         {
             get
             {
-                if (this.m_usrc_ShopC1366x768 != null)
+                if (this.m_usrc_ShopC != null)
                 {
-                    //return m_usrc_ShopC1366x768.NumberOfGroupLevels;
+                    //return m_usrc_ShopC.NumberOfGroupLevels;
                     return 0;
                 }
                 else
@@ -146,30 +130,7 @@ namespace ShopC
         }
 
 
-        public List<Employee> Employees = new List<Employee>();
-
-        private void Init_ShopA()
-        {
-            m_usrc_ShopA1366x768.Init(DocE.m_ShopABC, DocE.DBtcn);
-            m_usrc_ShopA1366x768.Dock = DockStyle.None;
-            m_usrc_ShopA1366x768.aa_ItemAdded += M_usrc_ShopA_aa_ItemAdded;
-            m_usrc_ShopA1366x768.aa_ItemRemoved += M_usrc_ShopA_aa_ItemRemoved;
-            m_usrc_ShopA1366x768.EditUnits += M_usrc_ShopA_EditUnits;
-
-        }
-
-        private bool M_usrc_ShopA_EditUnits()
-        {
-            SQLTable tbl_Unit = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Unit)));
-            Form_Unit_Edit unit_dlg = new Form_Unit_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Unit, "ID asc",nav);
-            if (unit_dlg.ShowDialog() == DialogResult.OK)
-            {
-                DocE.GetUnits();
-                return true;
-
-            }
-            return false;
-        }
+       
 
         private void M_usrc_ShopA_aa_ItemRemoved(ID ID, DataTable dt)
         {
@@ -184,161 +145,69 @@ namespace ShopC
 
         private void Init_ShopC()
         {
-            //if (m_usrc_ShopC1366x768 == null)
+            //if (m_usrc_ShopC == null)
             //{
-            //    m_usrc_ShopC1366x768 = new usrc_ShopC1366x768();
-            //    m_usrc_ShopC1366x768.DocTyp = this.DocTyp;
-            //    m_usrc_ShopC1366x768.CheckAccessPriceList += M_usrcCheckPriceListAccess;
-            //    m_usrc_ShopC1366x768.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
-            //    m_usrc_ShopC1366x768.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
+            //    m_usrc_ShopC = new usrc_ShopC();
+            //    m_usrc_ShopC.DocTyp = this.DocTyp;
+            //    m_usrc_ShopC.CheckAccessPriceList += M_usrcCheckPriceListAccess;
+            //    m_usrc_ShopC.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
+            //    m_usrc_ShopC.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
             //}
-            m_usrc_ShopC1366x768.Init(DocE.m_LMOUser.Atom_WorkPeriod_ID,
-                                      DocE.m_ShopABC,
-                                      DocE.DBtcn,
-                                      PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),
+            m_usrc_ShopC.Init(ConsE.m_LMOUser.Atom_WorkPeriod_ID,
+                                      ConsE,
+                                      ConsE.DBtcn,
+                                      null,
                                       TangentaProperties.Properties.Settings.Default.AutomaticSelectionOfItemFromStock,
                                       OperationMode.ShopC_ExclusivelySellFromStock,
-                                      this.usrc_Item1366x768_selected1);
+                                      this.usrc_Item_selected1);
 
-            m_usrc_ShopC1366x768.Dock = DockStyle.None;
-            m_usrc_ShopC1366x768.ItemAdded += usrc_ShopC_ItemAdded;
-            m_usrc_ShopC1366x768.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
+            m_usrc_ShopC.Dock = DockStyle.None;
+            m_usrc_ShopC.ItemAdded += usrc_ShopC_ItemAdded;
+            m_usrc_ShopC.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
         }
 
         private bool M_usrc_ShopC_CheckIfAdministrator()
         {
-            return DocE.m_LMOUser.IsAdministrator;
+            return ConsE.m_LMOUser.IsAdministrator;
         }
 
         private bool M_usrc_ShopC_CheckAccessStock()
         {
-            return DocE.door.OpenStockEdit(Global.f.GetParentForm(this));
+            return true;
         }
 
         private bool M_usrcCheckPriceListAccess()
         {
-            return DocE.door.OpenPriceList(Global.f.GetParentForm(this));
-        }
-
-        private void Set_ShowShops_A()
-        {
-            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "A");
-            m_usrc_ShopA1366x768.Visible = true;
-            m_usrc_ShopA1366x768.Top = ShopA_default_Y;
-            m_usrc_ShopA1366x768.Height = (ShopC_default_Y+ShopC_default_H)- ShopA_default_Y;
-
-            m_usrc_ShopB1366x768.Visible = false;
-            m_usrc_ShopC1366x768.Visible = false;
-        }
-
-        private void Set_ShowShops_B()
-        {
-            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues,"B");
-            m_usrc_ShopB1366x768.Visible = true;
-            m_usrc_ShopB1366x768.Top = ShopA_default_Y; 
-            m_usrc_ShopB1366x768.Height = (ShopC_default_Y + ShopC_default_H)- ShopA_default_Y;
-
-            m_usrc_ShopA1366x768.Visible = false;
-            m_usrc_ShopC1366x768.Visible = false;
-        }
-
-        private void Set_ShowShops_C()
-        {
-            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "C");
-            m_usrc_ShopC1366x768.Visible = true;
-            m_usrc_ShopC1366x768.Top = ShopA_default_Y; 
-            m_usrc_ShopC1366x768.Height = (ShopC_default_Y + ShopC_default_H)- ShopA_default_Y;
-
-            m_usrc_ShopB1366x768.Visible = false;
-            m_usrc_ShopA1366x768.Visible = false;
+            return true;
         }
 
 
-        private void Set_ShowShops_AB()
+
+
+
+
+        internal void Set_ConsumptionMan_eMode_Shops(int usrc_ConsumptionEditor_Left,int usrc_TransactionLog_plus_usrc_LoginCtrl_width)
         {
-            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "AB");
-
-            m_usrc_ShopA1366x768.Visible = true;
-            m_usrc_ShopA1366x768.Top = ShopA_default_Y;
-            m_usrc_ShopA1366x768.Height = (ShopB_default_Y + ShopB_default_H/2)- ShopA_default_Y;
-
-            m_usrc_ShopB1366x768.Visible = true;
-            m_usrc_ShopB1366x768.Top = ShopA_default_Y+m_usrc_ShopA1366x768.Height;
-            m_usrc_ShopB1366x768.Height = (ShopC_default_Y + ShopC_default_H)- (ShopA_default_Y + m_usrc_ShopA1366x768.Height);
-
-            m_usrc_ShopC1366x768.Visible = false;
-        }
-
-
-        private void Set_ShowShops_BC()
-        {
-            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "BC");
-            m_usrc_ShopB1366x768.Visible = true;
-            m_usrc_ShopB1366x768.Top = ShopA_default_Y; 
-            m_usrc_ShopB1366x768.Height = (ShopB_default_Y + ShopB_default_H / 2)- ShopA_default_Y;
-
-            m_usrc_ShopC1366x768.Visible = true;
-            m_usrc_ShopC1366x768.Top = ShopA_default_Y+m_usrc_ShopB1366x768.Height;
-            m_usrc_ShopC1366x768.Height = (ShopC_default_Y + ShopC_default_H) - (ShopA_default_Y + m_usrc_ShopB1366x768.Height);
-
-            m_usrc_ShopA1366x768.Visible = false;
-        }
-
-        internal void Set_DocumentMan_eMode_Shops(int usrc_DocumentEditor1366x768_Left,int usrc_TransactionLog_plus_usrc_LoginCtrl_width)
-        {
-            int idist = usrc_DocumentEditor1366x768_Left + usrc_TransactionLog_plus_usrc_LoginCtrl_width;
+            int idist = usrc_ConsumptionEditor_Left + usrc_TransactionLog_plus_usrc_LoginCtrl_width;
             this.lbl_Number.Left = defpos.lbl_Number_Left + idist;
             this.txt_Number.Left = defpos.txt_Number_Left + idist;
-            this.usrc_Customer.Left = defpos.usrc_Customer_Left + +idist;
-            this.m_usrc_ShopA1366x768.Width = this.Width;
-            this.m_usrc_ShopB1366x768.Width = this.Width;
-            this.m_usrc_ShopC1366x768.Width = this.Width;
-            //this.m_usrc_ShopC1366x768.Set_DocumentMan_eMode_Shops();
+            this.m_usrc_ShopC.Width = this.Width;
+            //this.m_usrc_ShopC.Set_ConsumptionMan_eMode_Shops();
         }
 
-        private void Set_ShowShops_AC()
-        {
-            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues, "AC");
-            m_usrc_ShopA1366x768.Visible = true;
-            m_usrc_ShopA1366x768.Top = ShopA_default_Y; 
-            m_usrc_ShopA1366x768.Height = (ShopB_default_Y + ShopB_default_H / 2)- ShopA_default_Y; 
+    
 
-            m_usrc_ShopC1366x768.Visible = true;
-            m_usrc_ShopC1366x768.Top = ShopA_default_Y + m_usrc_ShopA1366x768.Height;
-            m_usrc_ShopC1366x768.Height = (ShopC_default_Y + ShopC_default_H) - (ShopA_default_Y + m_usrc_ShopA1366x768.Height);
-
-            m_usrc_ShopB1366x768.Visible = false;
-        }
-
-        internal void Set_DocumentMan_eMode_Shops_and_InvoiceTable()
+        internal void Set_ConsumptionMan_eMode_Shops_and_InvoiceTable()
         {
             lbl_Number.Left = defpos.lbl_Number_Left;
             lbl_Number.Top = defpos.lbl_Number_Top;
             txt_Number.Left = defpos.txt_Number_Left;
             txt_Number.Top = defpos.txt_Number_Top;
-            usrc_Customer.Left = defpos.usrc_Customer_Left;
-            usrc_Customer.Top = defpos.usrc_Customer_Top;
         }
 
-        private void Set_ShowShops_ABC()
-        {
-            PropertiesUser.ShowShops_Set(DocE.mSettingsUserValues,"ABC");
-            m_usrc_ShopA1366x768.Visible = true;
-            m_usrc_ShopA1366x768.Top = ShopA_default_Y;
-            m_usrc_ShopA1366x768.Height = ShopA_default_H;
-
-            m_usrc_ShopB1366x768.Visible = true;
-            m_usrc_ShopB1366x768.Top = ShopB_default_Y; 
-            m_usrc_ShopB1366x768.Height = ShopB_default_H;
-
-            m_usrc_ShopC1366x768.Visible = true;
-            m_usrc_ShopC1366x768.Top = ShopC_default_Y; ;
-            m_usrc_ShopC1366x768.Height = ShopC_default_H;
-        }
 
         internal void WizzardShow_ShopsVisible(string xshops_inuse)
         {
-            this.Set_ShowShops(xshops_inuse);
             if (LayoutChanged!=null)
             {
                 LayoutChanged();
@@ -353,72 +222,8 @@ namespace ShopC
             this.Refresh();
         }
 
-        private void Init_ShopB()
-
-        {
-            m_usrc_ShopB1366x768.Init(DocE.m_ShopABC, DocE.DBtcn, PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues));
-
-            m_usrc_ShopB1366x768.Dock = DockStyle.None;
-
-            m_usrc_ShopB1366x768.aa_ExtraDiscount += usrc_ShopB_ExtraDiscount;
-
-            m_usrc_ShopB1366x768.aa_ItemAdded += usrc_ShopB_ItemAdded;
-
-            m_usrc_ShopB1366x768.aa_ItemRemoved += usrc_ShopB_ItemRemoved;
-
-            m_usrc_ShopB1366x768.aa_ItemUpdated += usrc_ShopB_ItemUpdated;
-
-        }
-
         private bool bInitShops = true;
 
-        internal void Set_ShowShops(string showShops)
-        {
-            if (bInitShops)
-            {
-                m_usrc_ShopA1366x768.Init(DocE.m_ShopABC, DocE.DBtcn);
-                m_usrc_ShopB1366x768.Init(DocE.m_ShopABC, DocE.DBtcn, PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues));
-                m_usrc_ShopC1366x768.Init(DocE.m_LMOUser.Atom_WorkPeriod_ID,
-                                          DocE.m_ShopABC,
-                                          DocE.DBtcn,
-                                          PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),
-                                          TangentaProperties.Properties.Settings.Default.AutomaticSelectionOfItemFromStock,
-                                          OperationMode.ShopC_ExclusivelySellFromStock,
-                                          this.usrc_Item1366x768_selected1);
-                bInitShops = false;
-            }
-
-            showShops = PropertiesUser.setCompatibleWithShopsInUse(DocE.mSettingsUserValues, showShops);
-
-            if (showShops.Equals("A"))
-            {
-                Set_ShowShops_A();
-            }
-            else if (showShops.Equals("B"))
-            {
-                Set_ShowShops_B();
-            }
-            else if (showShops.Equals("C"))
-            {
-                Set_ShowShops_C();
-            }
-            else if (showShops.Equals("AB"))
-            {
-                Set_ShowShops_AB();
-            }
-            else if (showShops.Equals("BC"))
-            {
-                Set_ShowShops_BC();
-            }
-            else if (showShops.Equals("AC"))
-            {
-                Set_ShowShops_AC();
-            }
-            else if (showShops.Equals("ABC"))
-            {
-                Set_ShowShops_ABC();
-            }
-        }
 
        
 
@@ -440,37 +245,15 @@ namespace ShopC
 
         private bool EventsActive;
 
-        public ID PriceList_ShopB_ID
-        {
-            get
-            {
-                if (m_usrc_ShopB1366x768 != null)
-                {
-                    return m_usrc_ShopB1366x768.usrc_PriceList1.ID;
-                }
-                else
-                {
-                    if (this.DesignMode)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:usrc_Invoice:public long PriceList_ID:this.usrc_PriceList==null");
-                        return null;
-                    }
-                }
-            }
-        }
 
 
         public ID PriceList_ShopC_ID
         {
             get
             {
-                if (m_usrc_ShopC1366x768 != null)
+                if (m_usrc_ShopC != null)
                 {
-                    return m_usrc_ShopC1366x768.m_usrc_PriceList1.ID;
+                    return m_usrc_ShopC.m_usrc_PriceList1.ID;
                 }
                 else
                 {
@@ -487,19 +270,6 @@ namespace ShopC
             }
         }
 
-        public bool ShopA_DefaultVisible
-        {
-            get { return PropertiesUser.ShowShops_Get(DocE.mSettingsUserValues).Contains("A"); }
-        }
-        public bool ShopB_DefaultVisible
-        {
-            get { return PropertiesUser.ShowShops_Get(DocE.mSettingsUserValues).Contains("B"); }
-        }
-
-        public bool ShopC_DefaultVisible
-        {
-            get { return PropertiesUser.ShowShops_Get(DocE.mSettingsUserValues).Contains("Ç"); }
-        }
 
         //public bool HeadVisible
         //{
@@ -508,7 +278,7 @@ namespace ShopC
         //        }
         //}
 
-        public usrc_DocumentEditor1366x768()
+        public usrc_ConsumptionEditor()
         {
             InitializeComponent();
             defpos = new Defpos();
@@ -516,97 +286,62 @@ namespace ShopC
             defpos.lbl_Number_Top = lbl_Number.Top;
             defpos.txt_Number_Left= txt_Number.Left;
             defpos.txt_Number_Top = txt_Number.Top;
-            defpos.usrc_Customer_Left = usrc_Customer.Left;
-            defpos.usrc_Customer_Top = usrc_Customer.Top;
             usrc_PriceList xusrc_PriceListB = null;
-            if (this.m_usrc_ShopB1366x768 != null)
-            {
-                xusrc_PriceListB = this.m_usrc_ShopB1366x768.usrc_PriceList1;
-            }
             usrc_PriceList xusrc_PriceListC = null;
-            if (this.m_usrc_ShopC1366x768 != null)
+            if (this.m_usrc_ShopC != null)
             {
-                xusrc_PriceListC = this.m_usrc_ShopC1366x768.m_usrc_PriceList1;
+                xusrc_PriceListC = this.m_usrc_ShopC.m_usrc_PriceList1;
             }
-            doCurrent_delegates = new DocumentEditor.DoCurrent_delegates(
-                                   xusrc_PriceListB,
+            doCurrent_delegates = new ConsumptionEditor.DoCurrent_delegates(
                                    xusrc_PriceListC,
-                                   this.Set_ShowShops,
-                                   this.m_usrc_ShopB1366x768.SetDraftButtons,
-                                   this.m_usrc_ShopB1366x768.SetViewButtons,
-                                   this.usrc_Customer.Show_Customer,
-                                   this.set_CustomerText,
                                    this.usrc_AddOn1.Show,
                                    this.AddHandler,
                                    this.RemoveHandler,
                                    this.set_InvoiceNumberText,
                                    this.SetMode,
-                                   this.m_usrc_ShopB1366x768,
-                                   this.m_usrc_ShopB1366x768.SetCurrentInvoice_SelectedShopB_Items,
-                                   this.m_usrc_ShopC1366x768.SetCurrentInvoice_SelectedItems,
+                                   this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems,
                                    this.chk_Storno_Show,
                                    this.chk_Storno_Check,
-                                   this.m_usrc_ShopC1366x768.Reset,
-                                   this.m_usrc_ShopC1366x768.Clear,
-                                   this.m_usrc_ShopA1366x768.dt_Item_Price,
-                                   this.m_usrc_ShopB1366x768.dt_SelectedShopBItem,
+                                   this.m_usrc_ShopC.Reset,
+                                   this.m_usrc_ShopC.Clear,
                                    this.btn_Issue_Show,
                                    this.lbl_Sum_ForeColor,
                                    this.lbl_Sum_Text,
-                                   this.m_usrc_ShopB1366x768.Get_Price_ShopBItem_Data,
-                                   this.m_usrc_ShopB1366x768.Set_dgv_SelectedShopB_Items,
-                                   this.m_usrc_ShopC1366x768.m_usrc_ItemList1366x768.Get_Price_Item_Stock_Data);
+                                   this.m_usrc_ShopC.m_usrc_ItemList.Get_Price_Item_Stock_Data);
 
-            ShopA_default_X = this.m_usrc_ShopA1366x768.Left;
-            ShopA_default_Y = this.m_usrc_ShopA1366x768.Top;
-            ShopB_default_X = this.m_usrc_ShopB1366x768.Left;
-            ShopB_default_Y = this.m_usrc_ShopB1366x768.Top;
-            ShopC_default_X = this.m_usrc_ShopC1366x768.Left;
-            ShopC_default_Y = this.m_usrc_ShopC1366x768.Top;
+            ShopC_default_X = this.m_usrc_ShopC.Left;
+            ShopC_default_Y = this.m_usrc_ShopC.Top;
 
-            ShopA_default_W = this.m_usrc_ShopA1366x768.Width;
-            ShopA_default_H = this.m_usrc_ShopA1366x768.Height;
-            ShopB_default_W = this.m_usrc_ShopB1366x768.Width;
-            ShopB_default_H = this.m_usrc_ShopB1366x768.Height;
-            ShopC_default_W = this.m_usrc_ShopC1366x768.Width;
-            ShopC_default_H = this.m_usrc_ShopC1366x768.Height;
+            ShopC_default_W = this.m_usrc_ShopC.Width;
+            ShopC_default_H = this.m_usrc_ShopC.Height;
 
-            lng.s_Show_Shops.Text(btn_Show_Shops);
-            lng.s_Number.Text(lbl_Number);
+            //lng.s_Number.Text(lbl_Number);
             //btn_BuyerSelect.Text = lng.s_BuyerSelect.s;
-            this.usrc_DocIssue1.BtnIssueLabel = lng.s_Issue.s;
+            //this.usrc_DocIssue1.BtnIssueLabel = lng.s_Issue.s;
 
-            lng.s_chk_Storno.Text(chk_Storno);
+            //lng.s_chk_Storno.Text(chk_Storno);
 
-            lng.s_Shop_AB = new ltext(lng.s_Shop_A.sText(0) + " && " + lng.s_Shop_B.sText(0), lng.s_Shop_A.sText(1) + " && " + lng.s_Shop_B.sText(1));
-            lng.s_Shop_BC = new ltext(lng.s_Shop_B.sText(0) + " && " + lng.s_Shop_C.sText(0), lng.s_Shop_B.sText(1) + " && " + lng.s_Shop_C.sText(1));
-            lng.s_Shop_AC = new ltext(lng.s_Shop_A.sText(0) + " && " + lng.s_Shop_C.sText(0), lng.s_Shop_A.sText(1) + " && " + lng.s_Shop_C.sText(1));
-            lng.s_Shop_ABC = new ltext(lng.s_Shop_A.sText(0) + " && " + lng.s_Shop_B.sText(0) + " && " + lng.s_Shop_C.sText(0), lng.s_Shop_A.sText(1) + " && " + lng.s_Shop_B.sText(1) + " && " + lng.s_Shop_C.sText(1));
+            
 
-
-            this.usrc_DocIssue1.Total = lng.s_Total.s;
-            lng.s_btn_New.Text(btn_New);
+            //this.usrc_DocIssue1.Total = lng.s_Total.s;
+            //lng.s_btn_New.Text(btn_New);
 
 
         }
 
-        internal void SetMode(DocumentEditor.emode mode)
+        internal void SetMode(ConsumptionEditor.emode mode)
         {
-            DocE.m_mode = mode;
-            if (mode == DocumentEditor.emode.edit_eDocumentType)
+            ConsE.m_mode = mode;
+            if (mode == ConsumptionEditor.emode.edit_eDocumentType)
             {
-                this.m_usrc_ShopA1366x768.SetMode(usrc_ShopA1366x768.eMode.EDIT);
-                this.m_usrc_ShopB1366x768.SetMode(usrc_ShopB1366x768.eMode.EDIT);
-                this.m_usrc_ShopC1366x768.SetMode(usrc_ShopC1366x768.eMode.EDIT);
+                this.m_usrc_ShopC.SetMode(usrc_ShopC.eMode.EDIT);
             }
             else
             {
-                this.m_usrc_ShopA1366x768.SetMode(usrc_ShopA1366x768.eMode.VIEW);
-                this.m_usrc_ShopB1366x768.SetMode(usrc_ShopB1366x768.eMode.VIEW);
-                this.m_usrc_ShopC1366x768.SetMode(usrc_ShopC1366x768.eMode.VIEW);
+                this.m_usrc_ShopC.SetMode(usrc_ShopC.eMode.VIEW);
             }
 
-            if (mode == DocumentEditor.emode.view_eDocumentType)
+            if (mode == ConsumptionEditor.emode.view_eDocumentType)
             {
                 chk_Storno.Visible = true;
                 usrc_DocIssue1.BtnIssueLabel = lng.s_Print.s;
@@ -634,38 +369,38 @@ namespace ShopC
         }
 
       
-        private bool EditMyOrganisation_Data(bool bAllowNew,NavigationButtons.Navigation xnav)
-        {
-            this.Cursor = Cursors.WaitCursor;
-            Form_myOrg_Edit edt_my_company_dlg = new Form_myOrg_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation))), bAllowNew,xnav,null);
-            this.Cursor = Cursors.Arrow;
-            xnav.ChildDialog = edt_my_company_dlg;
-            xnav.ShowDialog();
-            if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK)|| (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //private bool EditMyOrganisation_Data(bool bAllowNew,NavigationButtons.Navigation xnav)
+        //{
+        //    this.Cursor = Cursors.WaitCursor;
+        //    Form_myOrg_Edit edt_my_company_dlg = new Form_myOrg_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation))), bAllowNew,xnav,null);
+        //    this.Cursor = Cursors.Arrow;
+        //    xnav.ChildDialog = edt_my_company_dlg;
+        //    xnav.ShowDialog();
+        //    if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK)|| (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
 
 
-        public bool Initialise(DocumentMan xDocM, LoginControl.LMOUser xLMOUser)
+        public bool Initialise(ConsumptionMan xDocM, LoginControl.LMOUser xLMOUser)
         {
-            DocM = xDocM;
-            DocE = DocM.DocE;
-            DocE.m_mode = DocumentEditor.emode.view_eDocumentType;
-            DocE.mSettingsUserValues = ((SettingsUser)xLMOUser.oSettings).mSettingsUserValues;
-            DocM = xDocM;
-            DocE.m_LMOUser = xLMOUser;
-            DocE.door = new Door(DocE.m_LMOUser);
+            ConsM = xDocM;
+            ConsE = ConsM.ConsE;
+            ConsE.m_mode = ConsumptionEditor.emode.view_eDocumentType;
+            //ConsE.mSettingsUserValues = ((SettingsUser)xLMOUser.oSettings).mSettingsUserValues;
+            ConsM = xDocM;
+            ConsE.m_LMOUser = xLMOUser;
+            //ConsE.door = new Door(ConsE.m_LMOUser);
             //lng.s_Head.Text(chk_Head);
             //chk_Head.Checked = DocE.mSettingsUserValues.InvoiceHeaderChecked;
             //chk_Head.CheckedChanged += chk_Head_CheckedChanged;
             //splitContainer2.Panel1Collapsed = !chk_Head.Checked;
-            usrc_AddOn1.Init(this, this.DocM);
+            usrc_AddOn1.Init(this, this.ConsM);
 
             SetOperationMode();
             return true;
@@ -686,63 +421,63 @@ namespace ShopC
 
         }
 
-        private void usrc_PriceList_Ask_To_Update(char chShop, DataTable dt_ShopB_Item_NotIn_PriceList)
-        {
-            if (PriseLists.usrc_PriceList.Ask_To_Update(chShop, dt_ShopB_Item_NotIn_PriceList, this))
-            {
+        //private void usrc_PriceList_Ask_To_Update(char chShop, DataTable dt_ShopB_Item_NotIn_PriceList)
+        //{
+        //    if (PriseLists.usrc_PriceList.Ask_To_Update(chShop, dt_ShopB_Item_NotIn_PriceList, this))
+        //    {
 
-                Transaction transaction_usrc_DocumentEditor1366x768_usrc_PriceList_Ask_To_Update = DBSync.DBSync.NewTransaction("usrc_DocumentEditor1366x768.usrc_PriceList_Ask_To_Update");
-                if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, this, transaction_usrc_DocumentEditor1366x768_usrc_PriceList_Ask_To_Update))
-                {
-                    transaction_usrc_DocumentEditor1366x768_usrc_PriceList_Ask_To_Update.Commit();
-                    bool bPriceListChanged = false;
-                    this.m_usrc_ShopB1366x768.usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
-                }
-                else
-                {
-                    transaction_usrc_DocumentEditor1366x768_usrc_PriceList_Ask_To_Update.Rollback();
-                }
-            }
-        }
+        //        Transaction transaction_usrc_ConsumptionEditor_usrc_PriceList_Ask_To_Update = DBSync.DBSync.NewTransaction("usrc_ConsumptionEditor.usrc_PriceList_Ask_To_Update");
+        //        if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, this, transaction_usrc_ConsumptionEditor_usrc_PriceList_Ask_To_Update))
+        //        {
+        //            transaction_usrc_ConsumptionEditor_usrc_PriceList_Ask_To_Update.Commit();
+        //            bool bPriceListChanged = false;
+        //            this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
+        //        }
+        //        else
+        //        {
+        //            transaction_usrc_ConsumptionEditor_usrc_PriceList_Ask_To_Update.Rollback();
+        //        }
+        //    }
+        //}
 
         public bool Init(ID Document_ID)
         {
             Form pform = Global.f.GetParentForm(this);
-            ID m_usrc_ShopB1366x768_usrc_PriceList1_ID = null;
-            ID m_usrc_ShopC1366x768_m_usrc_PriceList1_ID = null;
+            ID m_usrc_ShopB_usrc_PriceList1_ID = null;
+            ID m_usrc_ShopC_m_usrc_PriceList1_ID = null;
 
             Transaction transaction_DocE_Init = DBSync.DBSync.NewTransaction("DocE.Init");
-            if (DocE.Init(pform,
+            if (ConsE.Init(pform,
                             this.btn_Show_Shops,
                             Document_ID,
-                            ref m_usrc_ShopB1366x768_usrc_PriceList1_ID,
-                            ref m_usrc_ShopC1366x768_m_usrc_PriceList1_ID,
+                            ref m_usrc_ShopB_usrc_PriceList1_ID,
+                            ref m_usrc_ShopC_m_usrc_PriceList1_ID,
                             doCurrent_delegates,
                             transaction_DocE_Init
                             ))
             {
                 if (transaction_DocE_Init.Commit())
                 {
-                    this.usrc_Customer.aa_Customer_Person_Changed += new usrc_Customer.delegate_Customer_Person_Changed(this.usrc_Customer_Customer_Person_Changed);
-                    this.usrc_Customer.aa_Customer_Org_Changed += new usrc_Customer.delegate_Customer_Org_Changed(this.usrc_Customer_Customer_Org_Changed);
-                    this.usrc_Customer.aa_Customer_Removed += new usrc_Customer.delegate_Customer_Removed(this.usrc_Customer_aa_Customer_Removed);
+                    //this.usrc_Customer.aa_Customer_Person_Changed += new usrc_Customer.delegate_Customer_Person_Changed(this.usrc_Customer_Customer_Person_Changed);
+                    //this.usrc_Customer.aa_Customer_Org_Changed += new usrc_Customer.delegate_Customer_Org_Changed(this.usrc_Customer_Customer_Org_Changed);
+                    //this.usrc_Customer.aa_Customer_Removed += new usrc_Customer.delegate_Customer_Removed(this.usrc_Customer_aa_Customer_Removed);
 
-                    m_usrc_ShopA1366x768.aa_ItemAdded += M_usrc_ShopA_aa_ItemAdded;
-                    m_usrc_ShopA1366x768.aa_ItemRemoved += M_usrc_ShopA_aa_ItemRemoved;
-                    m_usrc_ShopA1366x768.EditUnits += M_usrc_ShopA_EditUnits;
+                    //m_usrc_ShopA.aa_ItemAdded += M_usrc_ShopA_aa_ItemAdded;
+                    //m_usrc_ShopA.aa_ItemRemoved += M_usrc_ShopA_aa_ItemRemoved;
+                    //m_usrc_ShopA.EditUnits += M_usrc_ShopA_EditUnits;
 
-                    m_usrc_ShopB1366x768.DocTyp = DocE.DocTyp;
-                    m_usrc_ShopB1366x768.aa_ExtraDiscount += usrc_ShopB_ExtraDiscount;
-                    m_usrc_ShopB1366x768.aa_ItemAdded += usrc_ShopB_ItemAdded;
-                    m_usrc_ShopB1366x768.aa_ItemRemoved += usrc_ShopB_ItemRemoved;
-                    m_usrc_ShopB1366x768.aa_ItemUpdated += usrc_ShopB_ItemUpdated;
+                    //m_usrc_ShopB.DocTyp = ConsE.DocTyp;
+                    //m_usrc_ShopB.aa_ExtraDiscount += usrc_ShopB_ExtraDiscount;
+                    //m_usrc_ShopB.aa_ItemAdded += usrc_ShopB_ItemAdded;
+                    //m_usrc_ShopB.aa_ItemRemoved += usrc_ShopB_ItemRemoved;
+                    //m_usrc_ShopB.aa_ItemUpdated += usrc_ShopB_ItemUpdated;
 
-                    m_usrc_ShopC1366x768.CheckAccessPriceList += M_usrcCheckPriceListAccess;
-                    m_usrc_ShopC1366x768.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
-                    m_usrc_ShopC1366x768.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
+                    m_usrc_ShopC.CheckAccessPriceList += M_usrcCheckPriceListAccess;
+                    m_usrc_ShopC.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
+                    m_usrc_ShopC.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
 
-                    m_usrc_ShopC1366x768.ItemAdded += usrc_ShopC_ItemAdded;
-                    m_usrc_ShopC1366x768.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
+                    m_usrc_ShopC.ItemAdded += usrc_ShopC_ItemAdded;
+                    m_usrc_ShopC.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
                     return true;
                 }
                 else
@@ -759,29 +494,26 @@ namespace ShopC
 
         internal void SetColor()
         {
-            this.BackColor = Colors.m_usrc_DocumentEditor.BackColor;
-            this.ForeColor = Colors.m_usrc_DocumentEditor.ForeColor;
-            //this.splitContainer2.Panel1.BackColor = Colors.HeadColor.BackColor;
-            //this.splitContainer2.Panel1.ForeColor = Colors.HeadColor.ForeColor;
+            //this.BackColor = Colors.m_usrc_ConsumptionEditor.BackColor;
+            //this.ForeColor = Colors.m_usrc_ConsumptionEditor.ForeColor;
+            ////this.splitContainer2.Panel1.BackColor = Colors.HeadColor.BackColor;
+            ////this.splitContainer2.Panel1.ForeColor = Colors.HeadColor.ForeColor;
 
-            if (m_usrc_ShopA1366x768 != null)
-            {
-                m_usrc_ShopA1366x768.SetColor();
-            }
-            if (m_usrc_ShopB1366x768 != null)
-            {
-                m_usrc_ShopB1366x768.SetColor();
-            }
-            if (m_usrc_ShopC1366x768 != null)
-            {
-                m_usrc_ShopC1366x768.SetColor();
-            }
+            //if (m_usrc_ShopA != null)
+            //{
+            //    m_usrc_ShopA.SetColor();
+            //}
+            //if (m_usrc_ShopB != null)
+            //{
+            //    m_usrc_ShopB.SetColor();
+            //}
+            //if (m_usrc_ShopC != null)
+            //{
+            //    m_usrc_ShopC.SetColor();
+            //}
         }
 
-        private void set_CustomerText(string s)
-        {
-            usrc_Customer.Text = s;
-        }
+      
 
         private void set_InvoiceNumberText(string s)
         {
@@ -828,7 +560,7 @@ namespace ShopC
 
         public bool DoCurrent(ID xID, Transaction transaction)
         {
-            return DocE.DoCurrent(xID,
+            return ConsE.DoCurrent(xID,
                         doCurrent_delegates,
                         transaction
                         );
@@ -854,13 +586,7 @@ namespace ShopC
             if (!EventsActive)
             {
                 EventsActive = true;
-                if (this.m_usrc_ShopB1366x768 != null)
-                {
-                    this.m_usrc_ShopB1366x768.aa_ItemAdded += new usrc_ShopB1366x768.delegate_ItemAdded(usrc_ShopB_ItemAdded);
-                    this.m_usrc_ShopB1366x768.aa_ItemRemoved += new usrc_ShopB1366x768.delegate_ItemRemoved(usrc_ShopB_ItemRemoved);
-                    this.m_usrc_ShopB1366x768.aa_ItemUpdated += new usrc_ShopB1366x768.delegate_ItemUpdated(usrc_ShopB_ItemUpdated);
-                    this.m_usrc_ShopB1366x768.aa_ExtraDiscount += new usrc_ShopB1366x768.delegate_ExtraDiscount(usrc_ShopB_ExtraDiscount);
-                }
+             
             }
         }
 
@@ -869,13 +595,7 @@ namespace ShopC
             if (EventsActive)
             {
                 EventsActive = false;
-                if (m_usrc_ShopB1366x768 != null)
-                {
-                    this.m_usrc_ShopB1366x768.aa_ItemAdded -= new usrc_ShopB1366x768.delegate_ItemAdded(usrc_ShopB_ItemAdded);
-                    this.m_usrc_ShopB1366x768.aa_ItemRemoved -= new usrc_ShopB1366x768.delegate_ItemRemoved(usrc_ShopB_ItemRemoved);
-                    this.m_usrc_ShopB1366x768.aa_ItemUpdated -= new usrc_ShopB1366x768.delegate_ItemUpdated(usrc_ShopB_ItemUpdated);
-                    this.m_usrc_ShopB1366x768.aa_ExtraDiscount -= new usrc_ShopB1366x768.delegate_ExtraDiscount(usrc_ShopB_ExtraDiscount);
-                }
+                
             }
         }
 
@@ -888,31 +608,31 @@ namespace ShopC
         
 
 
-        public void SetNewDraft(LMOUser xLMOUser, string DocTyp, int xFinancialYear,xCurrency xcurrency, ID Atom_Currency_ID, WArea workArea)
+        public void SetNewDraft(LMOUser xLMOUser, string DocTyp, int xFinancialYear,xCurrency xcurrency, ID Atom_Currency_ID)
         {
             Form pform = Global.f.GetParentForm(this);
-            DocE.SetNewDraft(pform,
+            ConsE.SetNewDraft(pform,
                             xLMOUser,
                             DocTyp,
                             xFinancialYear,
                             xcurrency,
                             Atom_Currency_ID,
-                            workArea,
+                            //workArea,
                             this.SetMode,
                             this.set_InvoiceNumberText
                             );
         }
 
-        private bool SetNewInvoiceDraft(LMOUser xLMOUser,  int FinancialYear, xCurrency xcurrency, ID xAtom_Currency_ID, WArea workArea)
+        private bool SetNewConsumptionDraft(LMOUser xLMOUser,  int FinancialYear, xCurrency xcurrency, ID xAtom_Currency_ID)
         {
             Form pform = Global.f.GetParentForm(this);
-            return DocE.SetNewInvoiceDraft(
+            return ConsE.SetNewConsumptionDraft(
                             pform,
                             xLMOUser,
                             FinancialYear,
                             xcurrency,
                             xAtom_Currency_ID,
-                            workArea,
+                            //workArea,
                             this.SetMode,
                             this.set_InvoiceNumberText
                             );
@@ -920,11 +640,11 @@ namespace ShopC
 
         private void get_price_sum()
         {
-            DocE.GetPriceSum(this.m_usrc_ShopA1366x768.dt_Item_Price,
-                                    this.m_usrc_ShopB1366x768.dt_SelectedShopBItem,
-                                    this.btn_Issue_Show,
-                                    this.lbl_Sum_ForeColor,
-                                    this.lbl_Sum_Text);
+            //ConsE.GetPriceSum(this.m_usrc_ShopA.dt_Item_Price,
+            //                        this.m_usrc_ShopB.dt_SelectedShopBItem,
+            //                        this.btn_Issue_Show,
+            //                        this.lbl_Sum_ForeColor,
+            //                        this.lbl_Sum_Text);
         }
 
         private void usrc_ShopC_ItemAdded()
@@ -970,7 +690,7 @@ namespace ShopC
         //    {
         //        if (IsDocInvoice)
         //        {
-        //            DocE.InvoiceData.AddOnDI.b_FVI_SLO = DocumentMan.b_FVI_SLO;
+        //            DocE.InvoiceData.AddOnDI.b_FVI_SLO = ConsumptionMan.b_FVI_SLO;
                   
         //            ID DocInvoice_ID = null;
         //            // save doc Invoice 
@@ -979,7 +699,7 @@ namespace ShopC
 
         //                DocE.m_ShopABC.m_CurrentDoc.Doc_ID = DocInvoice_ID;
 
-        //                if (DocumentMan.b_FVI_SLO)
+        //                if (ConsumptionMan.b_FVI_SLO)
         //                {
 
         //                    if ((DocE.InvoiceData.AddOnDI.IsCashPayment && Program.FVI_SLO1.FVI_for_cash_payment)
@@ -1133,7 +853,7 @@ namespace ShopC
         {
             if (aa_DocProformaInvoiceSaved != null)
             {
-                aa_DocProformaInvoiceSaved(DocE.m_ShopABC.m_CurrentDoc.Doc_ID);
+                aa_DocProformaInvoiceSaved(ConsE.m_CurrentConsumption.Doc_ID);
             }
         }
 
@@ -1141,15 +861,15 @@ namespace ShopC
         internal void btn_Issue_Click(object sender, EventArgs e)
         {
             Form pform = Global.f.GetParentForm(this);
-            DocE.btn_Issue_Click(pform,
-                                usrc_AddOn1.Check_DocInvoice_AddOn,
-                                usrc_AddOn1.Get_Doc_AddOn,
-                                usrc_AddOn1.Check_DocProformaInvoice_AddOn,
-                                usrc_AddOn1.Get_Doc_AddOn,
-                                this.DoCurrent,
-                                this.docInvoice_saved,
-                                this.docProformaInvoice_saved
-                                );
+            //ConsE.btn_Issue_Click(pform,
+            //                    usrc_AddOn1.Check_Consumption_AddOn,
+            //                    usrc_AddOn1.Get_Doc_AddOn,
+            //                    usrc_AddOn1.Check_DocProformaInvoice_AddOn,
+            //                    usrc_AddOn1.Get_Doc_AddOn,
+            //                    this.DoCurrent,
+            //                    this.docInvoice_saved,
+            //                    this.docProformaInvoice_saved
+            //                    );
         }
 
    
@@ -1158,7 +878,7 @@ namespace ShopC
         //    if (IsDocInvoice)
         //    {
         //        invoiceData.AddOnDI = DocE.m_InvoiceData.AddOnDI;
-        //        invoiceData.AddOnDI.b_FVI_SLO = DocumentMan.b_FVI_SLO;
+        //        invoiceData.AddOnDI.b_FVI_SLO = ConsumptionMan.b_FVI_SLO;
         //        invoiceData.AddOnDPI = null;
         //        invoiceData.AddOnDI.Get(invoiceData.DocInvoice_ID);
         //    }
@@ -1196,14 +916,14 @@ namespace ShopC
 
         }
 
-        private void usrc_Customer_Customer_Person_Changed(ID Customer_Person_ID)
-        {
-            this.Cursor = Cursors.WaitCursor;
-            DocE.Customer_Person_Changed(Customer_Person_ID,
-                                         usrc_Customer.Show_Customer_Person,
-                                         customer_Person_Changed);
-            this.Cursor = Cursors.Arrow;
-        }
+        //private void usrc_Customer_Customer_Person_Changed(ID Customer_Person_ID)
+        //{
+        //    this.Cursor = Cursors.WaitCursor;
+        //    ConsE.Customer_Person_Changed(Customer_Person_ID,
+        //                                 usrc_Customer.Show_Customer_Person,
+        //                                 customer_Person_Changed);
+        //    this.Cursor = Cursors.Arrow;
+        //}
 
         private void storno_event(bool b)
         {
@@ -1215,80 +935,80 @@ namespace ShopC
         private void chk_Storno_CheckedChanged(object sender, EventArgs e)
         {
             Form pform = Global.f.GetParentForm(this);
-            Transaction transaction_usrc_DocumentEditor1366x768_chk_Storno_CheckedChanged = DBSync.DBSync.NewTransaction("transaction_usrc_DocumentEditor1366x768_chk_Storno_CheckedChanged");
-            if (DocE.Storno_CheckedChanged(pform,
+            Transaction transaction_usrc_ConsumptionEditor_chk_Storno_CheckedChanged = DBSync.DBSync.NewTransaction("transaction_usrc_ConsumptionEditor_chk_Storno_CheckedChanged");
+            if (ConsE.Storno_CheckedChanged(pform,
                                        chk_Storno.Checked,
                                        txt_Number.Text,
                                        storno_event,
                                        chk_Storno_Check,
-                                       transaction_usrc_DocumentEditor1366x768_chk_Storno_CheckedChanged
+                                       transaction_usrc_ConsumptionEditor_chk_Storno_CheckedChanged
                                        ))
             {
-                transaction_usrc_DocumentEditor1366x768_chk_Storno_CheckedChanged.Commit();
+                transaction_usrc_ConsumptionEditor_chk_Storno_CheckedChanged.Commit();
             }
             else
             {
-                transaction_usrc_DocumentEditor1366x768_chk_Storno_CheckedChanged.Rollback();
+                transaction_usrc_ConsumptionEditor_chk_Storno_CheckedChanged.Rollback();
             }
         }
 
 
 
 
-        private void usrc_Customer_Customer_Org_Changed(ID Customer_Org_ID)
-        {
-            this.Cursor = Cursors.WaitCursor;
-            DocE.Customer_Org_Changed(Customer_Org_ID,
-                                      usrc_Customer.Show_Customer_Org,
-                                      this.customer_Organisation_Changed
-                                      );
-            this.Cursor = Cursors.Arrow;
-        }
+        //private void usrc_Customer_Customer_Org_Changed(ID Customer_Org_ID)
+        //{
+        //    this.Cursor = Cursors.WaitCursor;
+        //    ConsE.Customer_Org_Changed(Customer_Org_ID,
+        //                              usrc_Customer.Show_Customer_Org,
+        //                              this.customer_Organisation_Changed
+        //                              );
+        //    this.Cursor = Cursors.Arrow;
+        //}
 
-        private bool usrc_Customer_aa_Customer_Removed(string xDoxTyp, Transaction transaction)
-        {
-            this.Cursor = Cursors.WaitCursor;
-            Transaction transaction_Update_Customer_Remove = DBSync.DBSync.NewTransaction("Update_Customer_Remove");
-            if (DocE.m_ShopABC.m_CurrentDoc.Update_Customer_Remove(xDoxTyp, transaction_Update_Customer_Remove))
-            {
-                transaction_Update_Customer_Remove.Commit();
-                this.Cursor = Cursors.Arrow;
-                return true;
-            }
-            else
-            {
-                transaction_Update_Customer_Remove.Rollback();
-                this.Cursor = Cursors.Arrow;
-                return false;
-            }
-        }
+        //private bool usrc_Customer_aa_Customer_Removed(string xDoxTyp, Transaction transaction)
+        //{
+        //    this.Cursor = Cursors.WaitCursor;
+        //    Transaction transaction_Update_Customer_Remove = DBSync.DBSync.NewTransaction("Update_Customer_Remove");
+        //    if (ConsE.m_ShopABC.m_CurrentDoc.Update_Customer_Remove(xDoxTyp, transaction_Update_Customer_Remove))
+        //    {
+        //        transaction_Update_Customer_Remove.Commit();
+        //        this.Cursor = Cursors.Arrow;
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        transaction_Update_Customer_Remove.Rollback();
+        //        this.Cursor = Cursors.Arrow;
+        //        return false;
+        //    }
+        //}
 
-        private void btn_Select_Shops_Click(object sender, EventArgs e)
-        {
-            Form_ShowShops1366x768 frm_sel_shops = new Form_ShowShops1366x768(DocE, DocE.mSettingsUserValues);
-            if (frm_sel_shops.ShowDialog(this)==DialogResult.OK)
-            {
-                Set_ShowShops(PropertiesUser.ShowShops_Get(DocE.mSettingsUserValues));
-                if (LayoutChanged!=null)
-                {
-                    LayoutChanged();
-                }
-            }
+        //private void btn_Select_Shops_Click(object sender, EventArgs e)
+        //{
+        //    Form_ShowShops frm_sel_shops = new Form_ShowShops(ConsE, ConsE.mSettingsUserValues);
+        //    if (frm_sel_shops.ShowDialog(this)==DialogResult.OK)
+        //    {
+        //        Set_ShowShops(PropertiesUser.ShowShops_Get(ConsE.mSettingsUserValues));
+        //        if (LayoutChanged!=null)
+        //        {
+        //            LayoutChanged();
+        //        }
+        //    }
             
-        }
+        //}
 
-        private void btn_MyOrganisation_Click(object sender, EventArgs e)
-        {
-            NavigationButtons.Navigation nav_EditMyOrganisation_Data = new NavigationButtons.Navigation(null);
-            nav_EditMyOrganisation_Data.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-            nav_EditMyOrganisation_Data.bDoModal = true;
-            EditMyOrganisation_Data(false, nav_EditMyOrganisation_Data);
-        }
+        //private void btn_MyOrganisation_Click(object sender, EventArgs e)
+        //{
+        //    NavigationButtons.Navigation nav_EditMyOrganisation_Data = new NavigationButtons.Navigation(null);
+        //    nav_EditMyOrganisation_Data.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+        //    nav_EditMyOrganisation_Data.bDoModal = true;
+        //    EditMyOrganisation_Data(false, nav_EditMyOrganisation_Data);
+        //}
 
         private void usrc_Currency1_CurrencyChanged(xCurrency currency, ID xAtom_Currency_ID)
         {
             GlobalData.BaseCurrency = currency;
-            DocE.Atom_Currency_ID = xAtom_Currency_ID;
+            ConsE.Atom_Currency_ID = xAtom_Currency_ID;
         }
 
         private void chk_Head_CheckedChanged_1(object sender, EventArgs e)
@@ -1308,7 +1028,7 @@ namespace ShopC
         }
         public void DoRefresh()
         {
-            this.m_usrc_ShopC1366x768.DoRefresh();
+            this.m_usrc_ShopC.DoRefresh();
         }
     }
 }

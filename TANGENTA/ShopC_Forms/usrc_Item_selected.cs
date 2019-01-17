@@ -33,7 +33,7 @@ namespace ShopC_Forms
         private float penwidth = 2;
         private Pen[] pen = new Pen[5] { null, null, null, null, null };
 
-        private TangentaDB.Doc_ShopC_Item dsci = null;
+        private TangentaDB.Consumption_ShopC_Item dsci = null;
         private Item_Data itemdata = null;
 
         private usrc_Atom_Item m_usrc_Atom_Item = null;
@@ -43,7 +43,7 @@ namespace ShopC_Forms
 
         public delegate void delegate_SetItemQuantityInBasket(usrc_Item_selected xusrc_Item_selected,
                                                               usrc_Atom_Item xusrc_Atom_Item,
-                                                              TangentaDB.Doc_ShopC_Item xdsci,
+                                                              TangentaDB.Consumption_ShopC_Item xdsci,
                                                               Item_Data idata,
                                                               usrc_ItemList xusrc_ItemList,
                                                               usrc_Item xusrc_Item
@@ -139,9 +139,9 @@ namespace ShopC_Forms
                                              object oitemdata,
                                              Control ctrl_itemdata)
         {
-            if (oxdsci is TangentaDB.Doc_ShopC_Item)
+            if (oxdsci is TangentaDB.Consumption_ShopC_Item)
             {
-                dsci = (TangentaDB.Doc_ShopC_Item)oxdsci;
+                dsci = (TangentaDB.Consumption_ShopC_Item)oxdsci;
                 if (ctrl_appisd is usrc_Atom_Item)
                 {
                     m_usrc_Atom_Item = (usrc_Atom_Item)ctrl_appisd;

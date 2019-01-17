@@ -47,12 +47,102 @@
     <Compile Include="ConsumptionEditor.cs" />
     <Compile Include="ConsumptionMan.cs" />
     <Compile Include="CurrentConsumption.cs" />
-    <Compile Include="OwnUseAddOn.cs" />
+    <Compile Include="ConsumptionType.cs" />
+    <Compile Include="Form_OwnUse_AddOn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_OwnUse_AddOn.Designer.cs">
+      <DependentUpon>Form_OwnUse_AddOn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_PrintReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_PrintReport.Designer.cs">
+      <DependentUpon>Form_PrintReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_SelectPanels.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SelectPanels.Designer.cs">
+      <DependentUpon>Form_SelectPanels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Select_TimeSpan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Select_TimeSpan.Designer.cs">
+      <DependentUpon>Form_Select_TimeSpan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_VODxml_OPAL_FilesPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_VODxml_OPAL_FilesPreview.Designer.cs">
+      <DependentUpon>Form_VODxml_OPAL_FilesPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_VODxml_OPAL_output.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_VODxml_OPAL_output.Designer.cs">
+      <DependentUpon>Form_VODxml_OPAL_output.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_WriteOff_AddOn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_WriteOff_AddOn.Designer.cs">
+      <DependentUpon>Form_WriteOff_AddOn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_SetItemQunatityInBasket.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SetItemQunatityInBasket.Designer.cs">
+      <DependentUpon>Form_SetItemQunatityInBasket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_XML_FilesPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_XML_FilesPreview.Designer.cs">
+      <DependentUpon>Form_XML_FilesPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_XML_output.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_XML_output.Designer.cs">
+      <DependentUpon>Form_XML_output.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_btn_Item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_btn_Item.Designer.cs">
+      <DependentUpon>usrc_btn_Item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Consumption_AddOn.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Consumption_AddOn.Designer.cs">
+      <DependentUpon>usrc_Consumption_AddOn.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_ConsumptionMan.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="usrc_ConsumptionMan.Designer.cs">
       <DependentUpon>usrc_ConsumptionMan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_OwnUse_AddOn.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_OwnUse_AddOn.Designer.cs">
+      <DependentUpon>usrc_OwnUse_AddOn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_WriteOff_AddOn.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_WriteOff_AddOn.Designer.cs">
+      <DependentUpon>usrc_WriteOff_AddOn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_DocIssue.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_DocIssue.Designer.cs">
+      <DependentUpon>usrc_DocIssue.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_Item.cs">
       <SubType>UserControl</SubType>
@@ -108,6 +198,12 @@
     <Compile Include="usrc_Item_TextSearch.Designer.cs">
       <DependentUpon>usrc_Item_TextSearch.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_SetItemQuantityInBasket.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_SetItemQuantityInBasket.Designer.cs">
+      <DependentUpon>usrc_SetItemQuantityInBasket.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_ShopC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -120,6 +216,7 @@
     <Compile Include="usrc_TableOfConsumption.Designer.cs">
       <DependentUpon>usrc_TableOfConsumption.cs</DependentUpon>
     </Compile>
+    <Compile Include="OwnUseAddOn.cs" />
     <Compile Include="WriteOffAddOn.cs" />
     <Compile Include="Form_Inventura.cs">
       <SubType>Form</SubType>
@@ -254,8 +351,30 @@
     <Compile Include="usrc_StockTake_Item.Designer.cs">
       <DependentUpon>usrc_StockTake_Item.cs</DependentUpon>
     </Compile>
+    <Compile Include="XML_Izpis_Postavka.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form_OwnUse_AddOn.resx">
+      <DependentUpon>Form_OwnUse_AddOn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_PrintReport.resx">
+      <DependentUpon>Form_PrintReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_SelectPanels.resx">
+      <DependentUpon>Form_SelectPanels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Select_TimeSpan.resx">
+      <DependentUpon>Form_Select_TimeSpan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_VODxml_OPAL_FilesPreview.resx">
+      <DependentUpon>Form_VODxml_OPAL_FilesPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_VODxml_OPAL_output.resx">
+      <DependentUpon>Form_VODxml_OPAL_output.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_WriteOff_AddOn.resx">
+      <DependentUpon>Form_WriteOff_AddOn.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_Inventura.resx">
       <DependentUpon>Form_Inventura.cs</DependentUpon>
     </EmbeddedResource>
@@ -273,6 +392,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Select_Item_From_Stock.resx">
       <DependentUpon>Form_Select_Item_From_Stock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_SetItemQunatityInBasket.resx">
+      <DependentUpon>Form_SetItemQunatityInBasket.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ShopC_Item_Edit.resx">
       <DependentUpon>Form_ShopC_Item_Edit.cs</DependentUpon>
@@ -307,9 +429,21 @@
       <DependentUpon>Form_Stock_Edit.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_XML_FilesPreview.resx">
+      <DependentUpon>Form_XML_FilesPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_XML_output.resx">
+      <DependentUpon>Form_XML_output.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_btn_Item.resx">
+      <DependentUpon>usrc_btn_Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Consumption_AddOn.resx">
+      <DependentUpon>usrc_Consumption_AddOn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_checkmark.resx">
       <DependentUpon>usrc_checkmark.cs</DependentUpon>
@@ -320,6 +454,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_ConsumptionMan.resx">
       <DependentUpon>usrc_ConsumptionMan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_OwnUse_AddOn.resx">
+      <DependentUpon>usrc_OwnUse_AddOn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_WriteOff_AddOn.resx">
+      <DependentUpon>usrc_WriteOff_AddOn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_DocIssue.resx">
+      <DependentUpon>usrc_DocIssue.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Item.resx">
       <DependentUpon>usrc_Item.cs</DependentUpon>
@@ -351,6 +494,9 @@
     <EmbeddedResource Include="usrc_Item_TextSearch.resx">
       <DependentUpon>usrc_Item_TextSearch.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_SetItemQuantityInBasket.resx">
+      <DependentUpon>usrc_SetItemQuantityInBasket.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_ShopC.resx">
       <DependentUpon>usrc_ShopC.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -369,6 +515,10 @@
     <ProjectReference Include="..\..\CodeTables\CONTROLS\ColorSetings\ColorSettings.csproj">
       <Project>{7246E94A-782C-4F4D-B3A4-09B34C9975B6}</Project>
       <Name>ColorSettings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\ComboBox_Recent\ComboBox_Recent.csproj">
+      <Project>{0f0afe83-5e47-49cf-888a-79a03fa71321}</Project>
+      <Name>ComboBox_Recent</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\Country\Country_ISO_3166.csproj">
       <Project>{1562473F-CFCB-4DFD-81BA-153988DC2D25}</Project>
@@ -409,6 +559,10 @@
     <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Item_InsidePage_Handler\usrc_Item_InsidePage_Handler.csproj">
       <Project>{035aaec7-b4a5-4e7a-aca6-5564052addf9}</Project>
       <Name>usrc_Item_InsidePage_Handler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_NumKeypad\usrc_NumKeypad.csproj">
+      <Project>{672eb8f1-8eda-4a4d-88d6-6467e2837312}</Project>
+      <Name>usrc_NumKeypad</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\XMessage\XMessage.csproj">
       <Project>{e3223150-d4af-4438-acba-98be7905273f}</Project>
@@ -485,6 +639,10 @@
     <ProjectReference Include="..\TangentaTableClass\TangentaTableClass.csproj">
       <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
       <Name>TangentaTableClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tangenta_DefaultPrintTemplates\Tangenta_DefaultPrintTemplates.csproj">
+      <Project>{881e369b-527b-4a80-83e8-f350c26b6bab}</Project>
+      <Name>Tangenta_DefaultPrintTemplates</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniversalInvoice\UniversalInvoice.csproj">
       <Project>{1494ce99-385c-42cc-8fff-75597007da72}</Project>

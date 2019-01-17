@@ -279,7 +279,205 @@ namespace TangentaDB
             }
         }
 
-      
+        public static bool GeStockTakeItems(ref DataTable dt_Stock_Of_Current_StockTake, ref Consumption_ShopC_Item[] array_Doc_ShopC_Item, ID StockTake_ID)
+        {
+            DataTable dt_dQuantity = new DataTable();
+
+            DataTable dt_DocInvoice_ShopC_Item_of_StockTake = new DataTable();
+            DataTable dt_DocProformaInvoice_ShopC_Item_of_StockTake = new DataTable();
+            string Err = null;
+            array_Doc_ShopC_Item = null;
+            string sql = @"select i.UniqueName,
+                                  s.dQuantity,
+                                  s.ImportTime,
+                                  s.ExpiryDate,
+                                  pp.PurchasePricePerUnit,
+                                  cur.Symbol,
+                                  org.Name as Supplier,
+                                  t.Name as TaxationName,
+                                  s.Description,
+                                  ctrorg.Name as TruckingOrganisation,
+                                  org.Tax_ID as Supplier_Tax_ID,
+                                  st.StockTakePriceTotal,
+                                  st.Draft,
+                                  tr.TruckingCost,
+                                  tr.Customs,                                  
+                                  st.Name as StockTake_Name, 
+                                  u.Name as UnitName,
+                                  u.symbol as UnitSymbol,
+                                  u.DecimalPlaces as UnitDecimalPlaces,
+                                  u.StorageOption as UnitStorageOption,
+                                  pp.Discount,
+                                  pp.PriceWithoutVAT,
+                                  pp.VATCanNotBeDeducted,
+                                  t.Rate as TaxationRate,
+                                  s.ID as Stock_ID,
+                                  s.PurchasePrice_Item_ID,
+                                  ppi.PurchasePrice_ID,
+                                  i.ID as Item_ID,
+                                  pp.Currency_ID, 
+                                  pp.Taxation_ID
+                           from Stock s
+                           inner join PurchasePrice_Item ppi on s.PurchasePrice_Item_ID = ppi.ID and StockTake_ID = " + StockTake_ID.ToString() + @"
+                           inner join PurchasePrice pp on ppi.PurchasePrice_ID = pp.ID
+                           inner join Currency cur on pp.Currency_ID = cur.ID
+                           inner join Taxation t on pp.Taxation_ID = t.ID
+                           inner join Item i on ppi.Item_ID = i.ID
+                           inner join Unit u on i.Unit_ID = u.ID
+                           inner join StockTake st on ppi.StockTake_ID = st.ID 
+                           left join  Supplier sp on st.Supplier_ID = sp.ID
+                           left join  Contact c on sp.Contact_ID = c.ID
+                           left join  OrganisationData orgd on c.OrganisationData_ID = orgd.ID
+                           left join  Organisation org on orgd.Organisation_ID = org.ID
+                           left join  Trucking tr on st.Trucking_ID = tr.ID
+                           left join  Contact ctr on tr.Contact_ID = ctr.ID
+                           left join  OrganisationData ctrorgd on ctr.OrganisationData_ID = ctrorgd.ID
+                           left join  Organisation ctrorg on ctrorgd.Organisation_ID = ctrorg.ID
+                          ";
+
+            if (dt_Stock_Of_Current_StockTake == null)
+            {
+                dt_Stock_Of_Current_StockTake = new DataTable();
+            }
+            dt_Stock_Of_Current_StockTake.Rows.Clear();
+            dt_Stock_Of_Current_StockTake.Columns.Clear();
+            if (DBSync.DBSync.ReadDataTable(ref dt_Stock_Of_Current_StockTake, sql, ref Err))
+            {
+                DataColumn dcol_InitialQuantity = new DataColumn("dInitialQuantity", typeof(decimal));
+                dt_Stock_Of_Current_StockTake.Columns.Add(dcol_InitialQuantity);
+                foreach (DataRow dr in dt_Stock_Of_Current_StockTake.Rows)
+                {
+                    long stock_id = (long)dr["stock_id"];
+                    if ((DBSync.DBSync.m_DBType == DBConnection.eDBType.MSSQL))
+                    {
+                        sql = "select top 1 dQuantity from Journal_Stock where Stock_ID = " + stock_id.ToString() + " and ((Journal_Stock_Type_ID = " + f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data.ToString() + ") OR (Journal_Stock_Type_ID = " + f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed + ")) order by EventTime desc";
+                    }
+                    else
+                    {
+                        sql = "select dQuantity from Journal_Stock where Stock_ID = " + stock_id.ToString() + " and ((Journal_Stock_Type_ID = " + f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data.ToString() + ") OR (Journal_Stock_Type_ID = " + f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed + ")) order by EventTime desc limit 1";
+                    }
+                    dt_dQuantity.Rows.Clear();
+                    dt_dQuantity.Columns.Clear();
+                    if (DBSync.DBSync.ReadDataTable(ref dt_dQuantity, sql, ref Err))
+                    {
+                        decimal dInitialQuantity = 0;
+                        if (dt_dQuantity.Rows.Count > 0)
+                        {
+                            dInitialQuantity = (decimal)dt_dQuantity.Rows[0]["dQuantity"];
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:TangentaDB.f_Stock.cs:Get_OfStockTake:No initial quantity for Stock_ID = " + stock_id.ToString() + " in JOURNAL_STOCK!");
+                        }
+                        dr[dcol_InitialQuantity] = dInitialQuantity;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB.f_Stock.cs:Get_OfStockTake:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+
+                int iCount = dt_Stock_Of_Current_StockTake.Rows.Count;
+                if (iCount > 0)
+                {
+                    array_Doc_ShopC_Item = new Consumption_ShopC_Item[iCount];
+                    sql = @"select  
+                                    di.Draft,
+                                    di.DraftNumber,
+                                    di.FinancialYear,
+                                    di.NumberInFinancialYear,
+                                    discis.Stock_ID,
+                                    disci.DocInvoice_ID,
+                                    disci.ID
+                            from DocInvoice_ShopC_Item disci
+							inner join DocInvoice_ShopC_Item_Source discis on discis.DocInvoice_ShopC_Item_ID = disci.ID
+                            inner join  DocInvoice di on disci.DocInvoice_ID = di.ID
+                            inner join  JOURNAL_DocInvoice jdi on jdi.DocInvoice_ID = di.ID
+                            inner join  JOURNAL_DocInvoice_Type jdit on jdi.JOURNAL_DocInvoice_Type_ID = jdit.ID and jdit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @"
+                            inner join  Atom_WorkPeriod awp on jdi.Atom_WorkPeriod_ID = awp.ID
+                            left join  ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
+                            inner join  Atom_myOrganisation_Person amop on awp.Atom_myOrganisation_Person_ID = amop.ID
+                            left join  Atom_Person ap on amop.Atom_Person_ID = ap.ID
+                            left join  Atom_cFirstName acfn on ap.Atom_cFirstName_ID = acfn.ID
+                            left join  Atom_cLastName acln on ap.Atom_cLastName_ID = acln.ID
+                            inner join  Stock s on discis.Stock_ID = s.ID
+                            inner join  PurchasePrice_Item ppi on s.PurchasePrice_Item_ID = ppi.ID and ppi.StockTake_ID = " + StockTake_ID.ToString();
+                    dt_DocInvoice_ShopC_Item_of_StockTake.Rows.Clear();
+                    if (DBSync.DBSync.ReadDataTable(ref dt_DocInvoice_ShopC_Item_of_StockTake, sql, ref Err))
+                    {
+                        sql = @"select  
+                                    dpi.Draft,
+                                    dpi.DraftNumber,
+                                    dpi.FinancialYear,
+                                    dpi.NumberInFinancialYear,
+                                    dpiscis.Stock_ID,
+                                    dpisci.DocProformaInvoice_ID,
+                                    dpisci.ID
+                            from DocProformaInvoice_ShopC_Item dpisci
+                            inner join  DocProformaInvoice_ShopC_Item_Source dpiscis on dpiscis.DocProformaInvoice_ShopC_Item_ID = dpisci.ID
+                            inner join  DocProformaInvoice dpi on dpisci.DocProformaInvoice_ID = dpi.ID
+                            inner join  JOURNAL_DocProformaInvoice jdpi on jdpi.DocProformaInvoice_ID = dpi.ID
+                            inner join  JOURNAL_DocProformaInvoice_Type jdpit on jdpi.JOURNAL_DocProformaInvoice_Type_ID = jdpit.ID and jdpit.ID = " + GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID.ToString() + @"
+                            inner join  Atom_WorkPeriod awp on jdpi.Atom_WorkPeriod_ID = awp.ID
+                            left join  ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
+                            inner join  Atom_myOrganisation_Person amop on awp.Atom_myOrganisation_Person_ID = amop.ID
+                            left join  Atom_Person ap on amop.Atom_Person_ID = ap.ID
+                            left join  Atom_cFirstName acfn on ap.Atom_cFirstName_ID = acfn.ID
+                            left join  Atom_cLastName acln on ap.Atom_cLastName_ID = acln.ID
+                            inner join  Stock s on dpiscis.Stock_ID = s.ID
+                            inner join  PurchasePrice_Item ppi on s.PurchasePrice_Item_ID = ppi.ID and ppi.StockTake_ID = " + StockTake_ID.ToString();
+                        dt_DocProformaInvoice_ShopC_Item_of_StockTake.Rows.Clear();
+                        if (DBSync.DBSync.ReadDataTable(ref dt_DocProformaInvoice_ShopC_Item_of_StockTake, sql, ref Err))
+                        {
+
+                            for (int i = 0; i < iCount; i++)
+                            {
+                                ID xstock_id = tf.set_ID(dt_Stock_Of_Current_StockTake.Rows[i]["Stock_ID"]);
+                                DataRow[] drs_DocInvoice = dt_DocInvoice_ShopC_Item_of_StockTake.Select("Stock_ID=" + xstock_id.ToString());
+                                DataRow[] drs_DocProformaInvoice = dt_DocProformaInvoice_ShopC_Item_of_StockTake.Select("Stock_ID=" + xstock_id.ToString());
+
+                                int iCount1 = drs_DocInvoice.Length;
+                                int iCount2 = drs_DocProformaInvoice.Length;
+                                if (iCount1 + iCount2 > 0)
+                                {
+                                    //array_Doc_ShopC_Item[i] = new Doc_ShopC_Item(xstock_id,
+                                    //                                             drs_DocInvoice,
+                                    //                                             drs_DocProformaInvoice);
+                                }
+                                else
+                                {
+                                    array_Doc_ShopC_Item[i] = null;
+                                }
+                            }
+                            return true;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:TangentaDB.f_Stock.cs:Get_OfStockTake:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB.f_Stock.cs:Get_OfStockTake:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+                else
+                {
+                    array_Doc_ShopC_Item = null;
+                    return true;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB.f_Stock.cs:Get_OfStockTake:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+
 
         internal static bool GetQuantity(ID stock_ID, ref decimal_v dQuantityInStock_v, Transaction transaction)
         {

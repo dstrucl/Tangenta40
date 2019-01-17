@@ -123,7 +123,7 @@ namespace ShopC_Forms
         }
 
 
-        internal void DoPaint(Item_Data idata, Basket xBasket)
+        internal void DoPaint(Item_Data idata, BasketConsumption xBasket)
         {
             if (idata != null)
             {

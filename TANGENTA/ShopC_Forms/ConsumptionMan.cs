@@ -19,10 +19,18 @@ namespace ShopC_Forms
 
         public static Form MainForm = null;
 
+        public LoginControl.LMOUser m_LMOUser = null;
         //public static Door doorFor1 = null;
+        private int m_FinancialYear = 0;
+        public int FinancialYear
+        {
+            get
+            {
+                return m_FinancialYear;
+            }
+        }
 
-
-        private UserControl usrc_DocumentMan = null;
+        private UserControl usrc_ConsumptionMan = null;
 
         public delegate void delegate_Control_SetMode(ConsumptionMan.eMode mode);
         private delegate_Control_SetMode delegate_control_SetMode = null;
@@ -57,12 +65,14 @@ namespace ShopC_Forms
             }
         }
 
+        public List<ConsumptionType> List_ConsumptionType = new List<ConsumptionType>();
+
         //public SettingsUserValues mSettingsUserValues = null;
 
         //public LoginControl.LMOUser m_LMOUser = null;
 
         //public Door door = null;
-      
+
         public int timer_Login_MultiUsers_Countdown = 100;
 
         internal CtrlLayout cl_btn_New = null;
@@ -88,7 +98,7 @@ namespace ShopC_Forms
             {
                 //if (m_DocTyp == null)
                 //{
-                //    if (!this.DesignMode) LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:property DocTyp: DocTyp is not defined (m_DocInvoice = null)!");
+                //    if (!this.DesignMode) LogFile.Error.Show("ERROR:Tangenta:usrc_ConsumptionMan:property DocTyp: DocTyp is not defined (m_DocInvoice = null)!");
                 //}
                 return m_DocTyp;
             }
@@ -105,12 +115,12 @@ namespace ShopC_Forms
                     {
                         if (s.Length > 0)
                         {
-                            LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:property string DocTyp: DocTyp = " + s + " is not implemented!");
+                            LogFile.Error.Show("ERROR:Tangenta:usrc_ConsumptionMan:property string DocTyp: DocTyp = " + s + " is not implemented!");
                         }
                     }
                     else
                     {
-                       LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:property string DocTyp: DocTyp  value ==  null");
+                       LogFile.Error.Show("ERROR:Tangenta:usrc_ConsumptionMan:property string DocTyp: DocTyp  value ==  null");
                     }
                 }
             }
@@ -147,7 +157,7 @@ namespace ShopC_Forms
             string sNumber = null;
             if (bDraft)
             {
-                sNumber = FinancialYear.ToString() + "/" + ShopC.lng.s_Draft.s + " " + DraftNumber.ToString();
+                sNumber = FinancialYear.ToString() + "/" + lng.s_Draft.s + " " + DraftNumber.ToString();
             }
             else
             {
@@ -177,9 +187,9 @@ namespace ShopC_Forms
 
         internal void Cursor_Arrow()
         {
-            if (usrc_DocumentMan != null)
+            if (usrc_ConsumptionMan != null)
             {
-                Form parent_frm = Global.f.GetParentForm(usrc_DocumentMan);
+                Form parent_frm = Global.f.GetParentForm(usrc_ConsumptionMan);
                 if (parent_frm != null)
                 {
                     parent_frm.Cursor = Cursors.Arrow;
@@ -190,7 +200,7 @@ namespace ShopC_Forms
         public bool SetDocument(ID xCurrent_Doc_ID, Transaction transaction)
         {
 
-            int iRowsCount = Delegate_control_TableOfDocuments_Init(this, false, true, this.mSettingsUserValues.FinancialYear, null);
+            int iRowsCount = Delegate_control_TableOfDocuments_Init(this, false, true, FinancialYear, null);
 
 
             if (!Delegate_Control_DocumentEditor_Init(xCurrent_Doc_ID))
@@ -211,234 +221,53 @@ namespace ShopC_Forms
             string sManagerMode = TangentaProperties.Properties.Settings.Default.eManagerMode;
             if ((sManagerMode.Contains("Shops")) && (sManagerMode.Contains("InvoiceTable")))
             {
-                Mode = DocumentMan.eMode.Shops_and_InvoiceTable;
+                Mode = ConsumptionMan.eMode.Shops_and_InvoiceTable;
             }
             else if (sManagerMode.Equals("Shops"))
             {
-                Mode = DocumentMan.eMode.Shops;
+                Mode = ConsumptionMan.eMode.Shops;
             }
             else if (sManagerMode.Equals("InvoiceTable"))
             {
-                Mode = DocumentMan.eMode.InvoiceTable;
+                Mode = ConsumptionMan.eMode.InvoiceTable;
             }
             else
             {
-                LogFile.Error.Show("ERROR:usrc_DocumentMan:SetInitialMode:TangentaProperties.Properties.Settings.Default.eManagerMode may have only these values:\"Shops\",\"InvoiceTable\" or \"Shops@InvoiceTable\"");
-                Mode = DocumentMan.eMode.Shops_and_InvoiceTable;
+                LogFile.Error.Show("ERROR:usrc_ConsumptionMan:SetInitialMode:TangentaProperties.Properties.Settings.Default.eManagerMode may have only these values:\"Shops\",\"InvoiceTable\" or \"Shops@InvoiceTable\"");
+                Mode = ConsumptionMan.eMode.Shops_and_InvoiceTable;
             }
 
             Delegate_Control_SetInitialMode();
         }
 
-        public void Cmb_FinancialYear_SelectedIndexChanged(ComboBox cmb_FinancialYear)
-        {
-            System.Data.DataRowView drv = (System.Data.DataRowView)cmb_FinancialYear.SelectedItem;
-            if (drv["FinancialYear"] is int)
-            {
-                int iFinancialYear = (int)drv["FinancialYear"];
-                if (iFinancialYear != mSettingsUserValues.FinancialYear)
-                {
-                    mSettingsUserValues.FinancialYear = iFinancialYear;
-                    SetFinancialYears(cmb_FinancialYear);
-                    Delegate_control_TableOfDocuments_Init(this, false, false, mSettingsUserValues.FinancialYear, null);
-                }
-            }
-        }
+       
 
 
-        private bool SetFinancialYears(ComboBox cmb_FinancialYear)
-        {
-            int Default_FinancialYear = mSettingsUserValues.FinancialYear;
-            if (GlobalData.SetFinancialYears(cmb_FinancialYear, ref dt_FinancialYears, IsDocInvoice, IsDocProformaInvoice, ref Default_FinancialYear))
-            {
-                mSettingsUserValues.FinancialYear = Default_FinancialYear;
-                return true;
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:Init:GlobalData.SetFinancialYears Failed!");
-                return false;
-            }
-        }
+       
 
         public void DocInvoiceSaved(ID docInvoice_id)
         {
-            //SetMode(DocumentMan.eMode.Shops_and_InvoiceTable);
+            //SetMode(ConsumptionMan.eMode.Shops_and_InvoiceTable);
 
             ID Doc_ID_to_show_v = null;
             if (ID.Validate(docInvoice_id))
             {
                 Doc_ID_to_show_v = new ID(docInvoice_id);
             }
-            this.Delegate_control_TableOfDocuments_Init(this, false, false, mSettingsUserValues.FinancialYear, Doc_ID_to_show_v);
+            this.Delegate_control_TableOfDocuments_Init(this, false, false, FinancialYear, Doc_ID_to_show_v);
             m_LMOUser.ReloadAdministratorsAndUserManagers();
         }
 
         public void DocProformaInvoiceSaved(ID docProformaInvoice_id)
         {
-           // SetMode(DocumentMan.eMode.Shops_and_InvoiceTable);
+           // SetMode(ConsumptionMan.eMode.Shops_and_InvoiceTable);
             ID Doc_ID_to_show = null;
             if (ID.Validate(docProformaInvoice_id))
             {
                 Doc_ID_to_show = new ID(docProformaInvoice_id);
             }
-            this.Delegate_control_TableOfDocuments_Init(this, false, false, mSettingsUserValues.FinancialYear, Doc_ID_to_show);
+            this.Delegate_control_TableOfDocuments_Init(this, false, false, FinancialYear, Doc_ID_to_show);
             m_LMOUser.ReloadAdministratorsAndUserManagers();
         }
-
-        private void SaveSplitControlsSpliterDistance(SettingsUserValues xSettingsUserValues)
-        {
-            //if (SplitContainer1_spd > 0)
-            //{
-            //    mSettingsUserValues.DocumentMan_SplitControl1_splitterdistance = SplitContainer1_spd;
-            //}
-            //if (this.m_usrc_DocumentEditor != null)
-            //{
-            //    this.m_usrc_DocumentEditor.SaveSplitControlsSpliterDistance(xSettingsUserValues);
-            //}
-        }
-
-        public static bool GetWorkPeriod(Form parentfrm, Startup.Startup myStartup, object oData, NavigationButtons.Navigation xnav, Transaction transaction, ref string Err)
-        {
-            if (OperationMode.MultiUser)
-            {
-                bool bCancel = false;
-                TSettings.LoginControl1.Init(parentfrm,
-                                                LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
-                                                DBSync.DBSync.Con,
-                                                null,
-                                                LanguageControl.DynSettings.LanguageID,
-                                                false,
-                                                ref bCancel
-                                                );
-
-
-                //myStartup.eNextStep++;
-                if (TSettings.Login_MultipleUsers)
-                {
-                    if (TSettings.LoginControl1.Login_MultipleUsers_ShowControlAtStartup(xnav, TangentaProperties.Properties.Settings.Default.ShowAdministratorsInMultiuserLogin))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                        return false;
-                    }
-                }
-                else
-                {
-                    if (TSettings.LoginControl1.Login_SingleUser(xnav))
-                    {
-                        myOrg.m_myOrg_Office.m_myOrg_Person = myOrg.m_myOrg_Office.Find_myOrg_Person(TSettings.LoginControl1.awp.LMO1User.myOrganisation_Person_ID);
-                        if (myOrg.m_myOrg_Office.m_myOrg_Person != null)
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            LogFile.Error.Show("ERROR:Tangenta:usrc_DocumentMan:GetWorkPeriod:myOrg.m_myOrg_Office.m_myOrg_Person==null");
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                        return false;
-                    }
-                }
-            }
-            else // Single user
-            {
-                //this.usrc_loginControl1.Visible = false;
-                ID myOrganisation_Person_SingleUser_ID = f_myOrganisation_Person.myOrganisation_Person_SingleUser_ID();
-                if (ID.Validate(myOrganisation_Person_SingleUser_ID))
-                {
-                    bool bCancel = false;
-                    TSettings.LoginControl1.Init(parentfrm,
-                                                    LoginControl.LoginCtrl.eDataTableCreationMode.AWP,
-                                                    DBSync.DBSync.Con,
-                                                    null,
-                                                    LanguageControl.DynSettings.LanguageID,
-                                                    true,
-                                                    ref bCancel
-                                                    );
-                    TSettings.LMO1User.myOrganisation_Person_ID = myOrganisation_Person_SingleUser_ID;
-                    ID xAtom_myOrganisation_Person_ID = null;
-                    string_v office_v = null;
-                    if (!f_Atom_myOrganisation_Person.Get(TSettings.LMO1User.myOrganisation_Person_ID, ref xAtom_myOrganisation_Person_ID, ref office_v, transaction))
-                    {
-                        return false;
-                    }
-                    TSettings.LMO1User.Atom_myOrganisation_Person_ID = xAtom_myOrganisation_Person_ID;
-
-
-                    if (Startup.Startup.bFirstTimeInstallation)
-                    {
-                        ID xAtom_WorkPeriod_ID = null;
-                        if (LoginControl.LoginCtrl.GetWorkPeriodEx(TSettings.LMO1User, ref xAtom_WorkPeriod_ID, transaction))
-
-                        {
-                            TSettings.LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
-                            return true;
-                        }
-                        else
-                        {
-                            LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        if (OperationMode.SingleUserLoginAsAdministrator)
-                        {
-                            if (doorFor1 == null)
-                            {
-                                doorFor1 = new Door(TSettings.LMO1User);
-                            }
-                            if (doorFor1.DoLoginAsAdministrator(parentfrm))
-                            {
-                                ID xAtom_WorkPeriod_ID = null;
-                                if (LoginControl.LoginCtrl.GetWorkPeriodEx(TSettings.LMO1User, ref xAtom_WorkPeriod_ID, transaction))
-                                {
-                                    TSettings.LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
-                                    return true;
-                                }
-                                else
-                                {
-                                    LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
-                                    return false;
-                                }
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            ID xAtom_WorkPeriod_ID = null;
-                            if (LoginControl.LoginCtrl.GetWorkPeriodEx(TSettings.LMO1User, ref xAtom_WorkPeriod_ID, transaction))
-                            {
-                                TSettings.LMO1User.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
-                                return true;
-                            }
-                            else
-                            {
-                                LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
-                                //myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                                return false;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    // myOrganisation_Person_SingleUser_ID is not valid !
-                    return false;
-                }
-            }
-        }
-
     }
 }

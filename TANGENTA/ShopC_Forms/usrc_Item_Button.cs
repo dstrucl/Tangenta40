@@ -286,13 +286,13 @@ namespace ShopC_Forms
         {
             if (m_usrc_Atom_ItemsList != null)
             {
-                if (m_usrc_Atom_ItemsList.m_ShopBC != null)
+                if (m_usrc_Atom_ItemsList.ConsE != null)
                 {
-                    if (m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc != null)
+                    if (m_usrc_Atom_ItemsList.ConsE.m_CurrentConsumption != null)
                     {
-                        if (m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket != null)
+                        if (m_usrc_Atom_ItemsList.ConsE.m_CurrentConsumption.m_Basket != null)
                         {
-                            Doc_ShopC_Item dsci_in_Basket = m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Contains(m_Item_Data);
+                            TangentaDB.Consumption_ShopC_Item dsci_in_Basket = m_usrc_Atom_ItemsList.ConsE.m_CurrentConsumption.m_Basket.Contains(m_Item_Data);
                             int xStart = x0_pic_Item_Left;
                             switch (xeMode)
                             {
@@ -371,13 +371,13 @@ namespace ShopC_Forms
                                             //uItemFactory.Left = uItemStock.Left + uItemStock.Width + 10;
                                         }
                                     }
-                                    this.BackColor = Colors.ItemFromStock.BackColor;
-                                    this.ForeColor = Colors.ItemFromStock.ForeColor;
+                                    //this.BackColor = Colors.ItemFromStock.BackColor;
+                                    //this.ForeColor = Colors.ItemFromStock.ForeColor;
                                     break;
 
                                 case eMode.STOCK:
-                                    this.BackColor = Colors.ItemFromStock.BackColor;
-                                    this.ForeColor = Colors.ItemFromStock.ForeColor;
+                                    //this.BackColor = Colors.ItemFromStock.BackColor;
+                                    //this.ForeColor = Colors.ItemFromStock.ForeColor;
                                     break;
 
                                 case eMode.FACTORY:
@@ -423,8 +423,8 @@ namespace ShopC_Forms
                                         }
                                     }
                                     //m_Arrangement.Set(0, uItemFactory, nmUpDn_FactoryQuantity, m_usrc_Atom_ItemsList.m_InvoiceDB.m_CurrentInvoice.m_Basket.Contains(m_Item_Data));
-                                    this.BackColor = Colors.ItemFromFactory.BackColor;
-                                    this.ForeColor = Colors.ItemFromFactory.ForeColor;
+                                    //this.BackColor = Colors.ItemFromFactory.BackColor;
+                                    //this.ForeColor = Colors.ItemFromFactory.ForeColor;
 
                                     break;
                             }
@@ -510,7 +510,7 @@ namespace ShopC_Forms
         //private void uItemStock_Click(object sender, EventArgs e)
         //{
         //    Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
-        //    m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
+        //    m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentConsumption.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentConsumption.Doc_ID,
         //                                                                this,
         //                                                                m_Item_Data,
         //                                                                uItemFactory.Value,
@@ -536,7 +536,7 @@ namespace ShopC_Forms
         //        if (EditStock_AvoidStock())
         //        {
         //            Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
-        //            //m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
+        //            //m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentConsumption.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentConsumption.Doc_ID,
         //            //                                                               this,
         //            //                                                               m_Item_Data,
         //            //                                                               uItemFactory.Value,
@@ -556,7 +556,7 @@ namespace ShopC_Forms
         //    else
         //    {
         //        Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
-        //        //m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
+        //        //m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentConsumption.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentConsumption.Doc_ID,
         //        //                                                                this,
         //        //                                                                m_Item_Data,
         //        //                                                                uItemFactory.Value,

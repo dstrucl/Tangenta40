@@ -217,7 +217,7 @@ namespace ShopC_Forms
                             {
                                 if (rdb_Invoice.Checked)
                                 {
-                                    dgvx_Doc_ShopC_Item_Source.DataSource = null;
+                                    dgvx_TangentaDB_Consumption_ShopC_Item_Source.DataSource = null;
                                     if (dtShopCItemsSource != null)
                                     {
                                         dtShopCItemsSource.Dispose();
@@ -225,8 +225,8 @@ namespace ShopC_Forms
                                     }
                                     if (f_DocInvoice_ShopC_Item_Source.Get(docInvoice_ShopC_Item_ID, ref dtShopCItemsSource))
                                     {
-                                        dgvx_Doc_ShopC_Item_Source.DataSource = dtShopCItemsSource;
-                                        lbl_dgvx_Doc_ShopC_Item_Source.Text = "Source for Item:\"" + item_Unique_name_v.v + "\"";
+                                        dgvx_TangentaDB_Consumption_ShopC_Item_Source.DataSource = dtShopCItemsSource;
+                                        lbl_dgvx_TangentaDB_Consumption_ShopC_Item_Source.Text = "Source for Item:\"" + item_Unique_name_v.v + "\"";
                                     }
                                 }
                             }
@@ -392,7 +392,7 @@ namespace ShopC_Forms
                     {
                         if (rdb_Invoice.Checked)
                         {
-                            dgvx_Doc_ShopC_Item_Source.DataSource = null;
+                            dgvx_TangentaDB_Consumption_ShopC_Item_Source.DataSource = null;
                             if (dtShopCItemsSource!=null)
                             {
                                 dtShopCItemsSource.Dispose();
@@ -400,8 +400,8 @@ namespace ShopC_Forms
                             }
                             if (f_DocInvoice_ShopC_Item_Source.Get(docInvoice_ShopC_Item_ID, ref dtShopCItemsSource))
                             {
-                                dgvx_Doc_ShopC_Item_Source.DataSource = dtShopCItemsSource;
-                                lbl_dgvx_Doc_ShopC_Item_Source.Text = "Source for Item:\"" + item_Unique_name_v.v + "\"";
+                                dgvx_TangentaDB_Consumption_ShopC_Item_Source.DataSource = dtShopCItemsSource;
+                                lbl_dgvx_TangentaDB_Consumption_ShopC_Item_Source.Text = "Source for Item:\"" + item_Unique_name_v.v + "\"";
                             }
                         }
                     }

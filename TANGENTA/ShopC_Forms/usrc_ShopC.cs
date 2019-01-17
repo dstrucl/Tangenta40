@@ -57,8 +57,8 @@ namespace ShopC_Forms
 
         private ID m_Atom_WorkPeriod_ID = null;
         private DataTable dt_Item = new DataTable();
-        private TangentaDB.ShopABC m_ShopBC = null;
-        private DBTablesAndColumnNamesOfDocInvoice DBtcn = null;
+        private ConsumptionEditor m_ConsumptionEditor = null;
+        private DBTablesAndColumnNamesOfConsumption DBtcn = null;
         public NavigationButtons.Navigation nav = null;
         private string m_DocTyp = "";
 
@@ -80,7 +80,7 @@ namespace ShopC_Forms
 
         public string DocTyp
         {
-            get { return m_ShopBC.DocTyp; }
+            get { return m_ConsumptionEditor.DocTyp; }
         }
         public bool IsDocInvoice
         {
@@ -156,8 +156,8 @@ namespace ShopC_Forms
         }
 
         public void Init(ID xAtom_WorkPeriod_ID,
-                        TangentaDB.ShopABC x_ShopBC,
-                        DBTablesAndColumnNamesOfDocInvoice xDBtcn,
+                        ConsumptionEditor x_ShopBC,
+                        DBTablesAndColumnNamesOfConsumption xDBtcn,
                         string ShopsInUse,
                         bool bAutomaticSelectionOfItemFromStock,
                         bool bExclusivelySellFromStock,
@@ -166,14 +166,14 @@ namespace ShopC_Forms
         {
             m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             m_bExclusivelySellFromStock = bExclusivelySellFromStock;
-            m_ShopBC = x_ShopBC;
+            m_ConsumptionEditor = x_ShopBC;
             DBtcn = xDBtcn;
             m_usrc_Item_selected = x_usrc_Item_selected;
             m_usrc_Item_selected.Init(this.m_usrc_ItemList);
             if (DBtcn == null)
             {
                 LogFile.Error.Show("ERROR:usrc_ShopC:Init:DBtcn == null!");
-                DBtcn = new DBTablesAndColumnNamesOfDocInvoice();
+                DBtcn = new DBTablesAndColumnNamesOfConsumption();
             }
 
             lng.s_ShopC_Name.Text(lbl_ShopC_Name);
@@ -192,7 +192,7 @@ namespace ShopC_Forms
 
         private void M_usrc_Item_selected_event_SetItemQuantityInBasket(usrc_Item_selected xusrc_Item_selected,
             usrc_Atom_Item xusrc_Atom_Item,
-            Doc_ShopC_Item xdsci,
+            TangentaDB.Consumption_ShopC_Item xdsci,
             Item_Data idata,
             usrc_ItemList xusrc_ItemList,
             usrc_Item xusrc_Item)
@@ -200,7 +200,7 @@ namespace ShopC_Forms
             if (xdsci != null)
             {
                 Form_SetItemQuantityInBasket frm_SetItemQuantityInBasket = null;
-                frm_SetItemQuantityInBasket = new Form_SetItemQuantityInBasket(m_ShopBC, xusrc_Item_selected,
+                frm_SetItemQuantityInBasket = new Form_SetItemQuantityInBasket(m_ConsumptionEditor, xusrc_Item_selected,
                  xusrc_Atom_Item,
                  xdsci,
                  idata,
@@ -437,7 +437,7 @@ namespace ShopC_Forms
 
         //public bool proc_Select_ShopC_Item_from_Stock(string DocTyp,
         //                                              DataTable dt_ShopC_Item_in_Stock,
-        //                                              Doc_ShopC_Item xdsci,
+        //                                              TangentaDB.Consumption_ShopC_Item xdsci,
         //                                              decimal dStockQuantity,
         //                                              decimal dFromFactoryQuantity,
         //                                              ref decimal dQuantitySelectedFromStock,
@@ -487,7 +487,7 @@ namespace ShopC_Forms
         //                //        continue;
         //                //    }
         //                //}
-        //                Doc_ShopC_Item_Source xdsciS = new Doc_ShopC_Item_Source();
+        //                TangentaDB.Consumption_ShopC_Item_Source xdsciS = new TangentaDB.Consumption_ShopC_Item_Source();
 
         //                xdsciS.Stock_ID = tf.set_ID(dr["Stock_ID"]);
 
@@ -504,7 +504,7 @@ namespace ShopC_Forms
 
         //    if (dFromFactoryQuantity > 0)
         //    {
-        //        Doc_ShopC_Item_Source xdsciS = new Doc_ShopC_Item_Source();
+        //        TangentaDB.Consumption_ShopC_Item_Source xdsciS = new TangentaDB.Consumption_ShopC_Item_Source();
         //        xdsciS.Stock_ID = null;
         //        xdsciS.dQuantity = dFromFactoryQuantity;
         //        DateTime dtNow = DateTime.Now;
@@ -569,7 +569,7 @@ namespace ShopC_Forms
             }
 
             decimal count_in_baskets = 0;
-            if (m_ShopBC.CountInBaskets(ref count_in_baskets))
+            if (m_ConsumptionEditor.CountInBaskets(ref count_in_baskets))
             {
                 if (count_in_baskets == 0)
                 {
@@ -590,7 +590,7 @@ namespace ShopC_Forms
         {
 
             decimal count_in_baskets = 0;
-            if (m_ShopBC.CountInBaskets(ref count_in_baskets))
+            if (m_ConsumptionEditor.CountInBaskets(ref count_in_baskets))
             {
                 if (count_in_baskets == 0)
                 {

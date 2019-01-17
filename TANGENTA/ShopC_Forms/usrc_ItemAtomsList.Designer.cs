@@ -35,7 +35,7 @@ namespace ShopC_Forms
             this.lbl_InvoiceInfo = new System.Windows.Forms.Label();
             this.ContextMenuStrip_DocInfo = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.showTablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.usrc_Item_InsidePageHandler_ItemAtomList = new usrc_Item_InsidePageHandler_Doc_ShopC_Item();
+            this.usrc_Item_InsidePageHandler_ItemAtomList = new usrc_Item_InsidePageHandler_TangentaDB<Consumption_ShopC_Item>();
             this.ContextMenuStrip_DocInfo.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,7 +90,7 @@ namespace ShopC_Forms
             this.usrc_Item_InsidePageHandler_ItemAtomList.SelectedIndex = -1;
             this.usrc_Item_InsidePageHandler_ItemAtomList.Size = new System.Drawing.Size(395, 236);
             this.usrc_Item_InsidePageHandler_ItemAtomList.TabIndex = 11;
-            this.usrc_Item_InsidePageHandler_ItemAtomList.SelectionChanged += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler<TangentaDB.Doc_ShopC_Item>.delegate_SelectionChanged(this.Usrc_Item_InsidePageHandler1_SelectionChanged);
+            this.usrc_Item_InsidePageHandler_ItemAtomList.SelectionChanged += new usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler<TangentaDB.Consumption_ShopC_Item>.delegate_SelectionChanged(this.Usrc_Item_InsidePageHandler1_SelectionChanged);
             this.usrc_Item_InsidePageHandler_ItemAtomList.Resize += new System.EventHandler(this.usrc_Item_InsidePageHandler_ItemAtomList_Resize);
             // 
             // usrc_Atom_ItemsList1366x768
@@ -113,6 +113,6 @@ namespace ShopC_Forms
         private System.Windows.Forms.Label lbl_InvoiceInfo;
         private System.Windows.Forms.ContextMenuStrip ContextMenuStrip_DocInfo;
         private System.Windows.Forms.ToolStripMenuItem showTablesToolStripMenuItem;
-        internal usrc_Item_InsidePageHandler_Doc_ShopC_Item usrc_Item_InsidePageHandler_ItemAtomList;
+        internal usrc_Item_InsidePageHandler_TangentaDB<Consumption_ShopC_Item> usrc_Item_InsidePageHandler_ItemAtomList;
     }
 }

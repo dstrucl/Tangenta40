@@ -27,7 +27,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_Item1366x768));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_Item));
             this.lbl_Item_UniqueName = new System.Windows.Forms.Label();
             this.lbl_InStock = new System.Windows.Forms.Label();
             this.lbl_Price = new System.Windows.Forms.Label();
