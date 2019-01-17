@@ -24,6 +24,10 @@ namespace ShopC_Forms
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_Group1 = new ltext(new string[] { "Group 1", "Skupina 1" });
+        public static ltext s_Group2 = new ltext(new string[] { "Group 2", "Skupina 2" });
+        public static ltext s_Group3 = new ltext(new string[] { "Group 3", "Skupina 3" });
+
         public static ltext s_Are_Sure_To_Remove_All_From_Basket = new ltext(new string[] { "Are you sure to remove all items from basket ?", "Ste prepričani, da želite prestaviti vse artikle nazaj iz košare?" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtomsList.cs
 
         public static ltext s_StornoConsumption = new ltext(new string[] { "STORNO", "Stornacija porabe" });
@@ -397,8 +401,20 @@ namespace ShopC_Forms
         public static ltext s_PurchasePricePerUnitDiscount = new ltext(new string[]{"Purchase price per unit Discount",
                                                                 "Nabavna cena na enoto Popust"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
 
+        
+
+        public static ltext s_PurchasePriceWithoutVAT = new ltext(new string[]{"Price without VAT unit",
+                                                                "Cena je brez davka"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+
+        public static ltext s_PurchasePricePerUnitWithDiscount = new ltext(new string[]{"Purchase price with discount",
+                                                                "Nabavna cena s popustom"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+
         public static ltext s_PurchasePricePerUnit = new ltext(new string[]{"Purchase price per unit",
                                                                 "Nabavna cena na enoto"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+
+        public static ltext s_PurchaseDiscount = new ltext(new string[]{"Purchase icount",
+                                                                "Pubust pri nabavna ceni"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+
 
         public static ltext s_PurchasePriceDate = new ltext(new string[]{"Purchase price date",
                                                                          "Datum nabavne cene"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs

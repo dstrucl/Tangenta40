@@ -66,6 +66,73 @@ namespace TangentaDB
             }
         }
 
+        public static bool GetItemDataWidthPurchasePrices(ref DataTable dt_Item, ref int iCount)
+        {
+            SQLTable tbl_Item = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Item));
+
+            string sql_Item = @"select
+              i.ID,
+              i.Name AS Item_Name,
+              i.UniqueName AS Item_UniqueName,
+			  ipg1.Name as Group1,
+			  ipg2.Name as Group2,
+			  ipg3.Name as Group3,
+			  pp.PurchasePricePerUnit as PurchasePricePerUnit,
+              pp.Discount as PurchaseDiscount,
+              t.Name as TaxationName,
+              pp.PriceWithoutVAT as PurchasePriceWithoutVAT,
+              im.Image_Hash AS Item_Image_Image_Hash,
+              im.Image_Data AS Item_Image_Image_Data,
+              i.Code AS Item_Code,
+              i.ToOffer AS Item_ToOffer,
+              u.Name as Unit_Name,
+              u.Symbol as Unit_Symbol,
+              u.DecimalPlaces as Unit_DecimalPlaces,
+              ex.ExpectedShelfLifeInDays,
+              ex.SaleBeforeExpiryDateInDays,
+              ex.DiscardBeforeExpiryDateInDays,
+              ex.ExpiryDescription,
+              wa.WarrantyDuration,
+              wa.WarrantyDurationType,
+              wa.WarrantyConditions
+             From Item i
+			    inner join PurchasePrice_Item ppi on  ppi.Item_ID = i.ID
+				inner join PurchasePrice pp on ppi.PurchasePrice_ID = pp.ID
+                inner join Taxation t on pp.Taxation_ID = t.ID
+                INNER JOIN Unit u ON i.Unit_ID = u.ID
+				left join Item_ParentGroup1 ipg1 on i.Item_ParentGroup1_ID = ipg1.ID
+				left join Item_ParentGroup2 ipg2 on ipg1.Item_ParentGroup2_ID = ipg2.ID
+				left join Item_ParentGroup3 ipg3 on ipg2.Item_ParentGroup3_ID = ipg3.ID
+                LEFT JOIN Item_Image im ON i.Item_Image_ID = im.ID
+                LEFT JOIN Expiry ex ON i.Expiry_ID = ex.ID
+                LEFT JOIN Warranty wa ON i.Warranty_ID = wa.ID
+				where i.Item_ParentGroup1_ID is not null
+				order by ipg2.name desc, i.UniqueName asc
+            ";
+
+            string Err = null;
+            if (dt_Item == null)
+            {
+                dt_Item = new DataTable();
+            }
+            else
+            {
+                dt_Item.Clear();
+                dt_Item.Columns.Clear();
+            }
+            if (DBSync.DBSync.ReadDataTable(ref dt_Item, sql_Item, ref Err))
+            {
+                iCount = dt_Item.Rows.Count;
+                return true;
+
+            }
+            else
+            {
+                LogFile.Error.Show("Error Load Item data:" + Err);
+                return false;
+            }
+        }
+
         public static bool Get(string Name,
                                string UniqueName,
                                bool bToOffer,

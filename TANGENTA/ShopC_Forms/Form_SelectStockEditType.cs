@@ -87,9 +87,15 @@ namespace ShopC_Forms
 
         private void btn_Inventura_Click(object sender, EventArgs e)
         {
-            Form_Inventura frm_inventura = new Form_Inventura();
+            Form_ViewStock frm_inventura = new Form_ViewStock();
             frm_inventura.ShowDialog(this);
 
+        }
+
+        private void btn_PurchasePricesPerItem_Click(object sender, EventArgs e)
+        {
+            Form_View_PurchasePricesPerItem frm_PurchasePricesPerItem = new Form_View_PurchasePricesPerItem();
+            frm_PurchasePricesPerItem.ShowDialog(this);
         }
     }
 }

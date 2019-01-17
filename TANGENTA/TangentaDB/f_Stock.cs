@@ -689,6 +689,76 @@ namespace TangentaDB
             }
         }
 
+        public static bool GetItemInStock(ID Item_ID, ref DataTable dt_ShopC_Item_In_Stock, string order_by)
+        {
+            string Err = null;
+            if (dt_ShopC_Item_In_Stock == null)
+            {
+                dt_ShopC_Item_In_Stock = new DataTable();
+            }
+            else
+            {
+                dt_ShopC_Item_In_Stock.Dispose();
+                dt_ShopC_Item_In_Stock = new DataTable();
+            }
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_Item_ID = "@par_Item_ID";
+            SQL_Parameter par_Item_ID = new SQL_Parameter(spar_Item_ID, false, Item_ID);
+            lpar.Add(par_Item_ID);
+
+            string sql = @"select 
+                                  s.ImportTime as Stock_ImportTime,
+                                  s.dQuantity as Stock_dQuantity,
+                                  s.ExpiryDate as Stock_Expiry_Date,
+                                  pp.PurchasePricePerUnit as PurchasePricePerUnit,
+                                  pp.Discount as PurchaseDiscount,
+                                  pp.PriceWithoutVAT as PurchasePriceWithoutVAT,
+                                  t.Name as TaxationName,
+                                  s.Stock_AddressLevel1_ID,
+                                  s.Description as Stock_Description,
+                                  i.UniqueName as Item_UniqueName,
+                                  i.Name as Item_Name,
+                                  i.Code as Item_Code,
+                                  i.barcode as Item_barcode,
+                                  stk.Name as StockTake_Name,
+                                  stk.StockTake_Date,
+                                  org.Name as Supplier_Organisation_Name,
+                                  cfn.FirstName as Supplier_Person_FirstName,
+                                  cln.LastName as Supplier_Person_LastName,
+                                  cgsmp.GsmNumber as Supplier_Person_GsmNumber,
+                                  cemailp.Email as Supplier_Person_Email,
+                                  u.Symbol as UnitSymbol,
+                                  s.PurchasePrice_Item_ID as  Stock_PurchasePrice_Item_ID,
+                                  s.ID as Stock_ID
+                                  from Stock s
+                                  inner join PurchasePrice_Item ppi on ppi.ID = s.PurchasePrice_Item_ID
+                                  inner join Item i on ppi.Item_ID = i.ID
+                                  inner join Unit u on i.Unit_ID = u.ID
+                                  inner join PurchasePrice pp on ppi.PurchasePrice_ID = pp.ID
+                                  inner join Taxation t on pp.Taxation_ID = t.ID
+                                  inner join StockTake stk on ppi.StockTake_ID = stk.ID
+                                  left join Supplier sup on stk.Supplier_ID = sup.ID
+                                  left join Contact con on sup.Contact_ID = con.ID
+                                  left join OrganisationData orgd on con.OrganisationData_ID = orgd.ID
+                                  left join Organisation org on orgd.Organisation_ID = org.ID
+                                  left join Person per on con.Person_ID = per.ID
+                                  left join cFirstName cfn on per.cFirstName_ID = cfn.ID
+                                  left join cLastName cln on per.cLastName_ID = cln.ID
+                                  left join PersonData perd on perd.Person_ID = per.ID
+                                  left join cGsmNumber_Person cgsmp on perd.cGsmNumber_Person_ID = cgsmp.ID
+                                  left join cEmail_Person cemailp on perd.cEmail_Person_ID = cemailp.ID
+                                  where ppi.Item_ID = " + spar_Item_ID
+                                  + " and s.dQuantity > 0 " + order_by; //order by Stock_Expiry_Date asc";
+            if (DBSync.DBSync.ReadDataTable(ref dt_ShopC_Item_In_Stock, sql, lpar, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB.f_Stock.GetItemInStock:slq=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
         public static decimal GetQuantityInStock(DataTable dtShopCItemInStock)
         {
             int icount = dtShopCItemInStock.Rows.Count;
@@ -725,6 +795,15 @@ namespace TangentaDB
             return dPriceValueInStock;
         }
 
+        //CREATE TABLE PurchasePrice( ID,
+        //                            PurchasePricePerUnit
+        //                            Currency_ID,
+        //                            Taxation_ID, 
+        //                            PurchasePriceDate,
+        //                            Discount
+        //                            PriceWithoutVAT
+        //                            VATCanNotBeDeducted)
+
         public static bool GetStock(ref DataTable dtStock)
         {
             string Err = null;
@@ -755,12 +834,19 @@ namespace TangentaDB
                                   cln.LastName as Supplier_Person_LastName,
                                   cgsmp.GsmNumber as Supplier_Person_GsmNumber,
                                   cemailp.Email as Supplier_Person_Email,
-                                  u.Symbol as UnitSymbol
+                                  u.Symbol as UnitSymbol,
+                                  pp.PurchasePricePerUnit as PurchasePricePerUnit,
+                                  pp.PurchasePriceDate as PurchasePriceDate,
+                                  pp.Discount as PurchaseDiscount,
+                                  pp.PriceWithoutVAT as PriceWithoutVAT,
+                                  pp.VATCanNotBeDeducted as VATCanNotBeDeducted,
+                                  t.Name as TaxationName
                                   from Stock s
                                   inner join PurchasePrice_Item ppi on ppi.ID = s.PurchasePrice_Item_ID
                                   inner join Item i on ppi.Item_ID = i.ID
                                   inner join Unit u on i.Unit_ID = u.ID
                                   inner join PurchasePrice pp on ppi.PurchasePrice_ID = pp.ID
+                                  inner join Taxation t on pp.Taxation_ID = t.ID
                                   inner join StockTake stk on ppi.StockTake_ID = stk.ID
                                   left join Supplier sup on stk.Supplier_ID = sup.ID
                                   left join Contact con on sup.Contact_ID = con.ID
@@ -783,6 +869,73 @@ namespace TangentaDB
                 return false;
             }
         }
+
+        public static bool GetStockOrderBy(ref DataTable dtStock, string order_by)
+        {
+            string Err = null;
+            if (dtStock == null)
+            {
+                dtStock = new DataTable();
+            }
+            else
+            {
+                dtStock.Dispose();
+                dtStock = new DataTable();
+            }
+            string sql = @"select s.ID as Stock_ID,
+                                  i.UniqueName as Item_UniqueName,
+                                  s.ImportTime as Stock_ImportTime,
+                                  s.dQuantity as Stock_dQuantity,
+                                  s.ExpiryDate as Stock_Expiry_Date,
+                                  s.PurchasePrice_Item_ID as  Stock_PurchasePrice_Item_ID,
+                                  s.Stock_AddressLevel1_ID,
+                                  s.Description as Stock_Description,
+                                  i.Name as Item_Name,
+                                  i.Code as Item_Code,
+                                  i.barcode as Item_barcode,
+                                  stk.Name as StockTake_Name,
+                                  stk.StockTake_Date,
+                                  org.Name as Supplier_Organisation_Name,
+                                  cfn.FirstName as Supplier_Person_FirstName,
+                                  cln.LastName as Supplier_Person_LastName,
+                                  cgsmp.GsmNumber as Supplier_Person_GsmNumber,
+                                  cemailp.Email as Supplier_Person_Email,
+                                  u.Symbol as UnitSymbol,
+                                  pp.PurchasePricePerUnit as PurchasePricePerUnit,
+                                  pp.PurchasePriceDate as PurchasePriceDate,
+                                  pp.Discount as PurchaseDiscount,
+                                  pp.PriceWithoutVAT as PriceWithoutVAT,
+                                  pp.VATCanNotBeDeducted as VATCanNotBeDeducted,
+                                  t.Name as TaxationName
+                                  from Stock s
+                                  inner join PurchasePrice_Item ppi on ppi.ID = s.PurchasePrice_Item_ID
+                                  inner join Item i on ppi.Item_ID = i.ID
+                                  inner join Unit u on i.Unit_ID = u.ID
+                                  inner join PurchasePrice pp on ppi.PurchasePrice_ID = pp.ID
+                                  inner join Taxation t on pp.Taxation_ID = t.ID
+                                  inner join StockTake stk on ppi.StockTake_ID = stk.ID
+                                  left join Supplier sup on stk.Supplier_ID = sup.ID
+                                  left join Contact con on sup.Contact_ID = con.ID
+                                  left join OrganisationData orgd on con.OrganisationData_ID = orgd.ID
+                                  left join Organisation org on orgd.Organisation_ID = org.ID
+                                  left join Person per on con.Person_ID = per.ID
+                                  left join cFirstName cfn on per.cFirstName_ID = cfn.ID
+                                  left join cLastName cln on per.cLastName_ID = cln.ID
+                                  left join PersonData perd on perd.Person_ID = per.ID
+                                  left join cGsmNumber_Person cgsmp on perd.cGsmNumber_Person_ID = cgsmp.ID
+                                  left join cEmail_Person cemailp on perd.cEmail_Person_ID = cemailp.ID
+                                 " + order_by;
+            if (DBSync.DBSync.ReadDataTable(ref dtStock, sql, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB.f_Stock.GetStock:slq=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
 
         public static bool GetStock(ref DataTable dtStock, string item_unique_name)
         {

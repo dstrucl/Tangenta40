@@ -72,6 +72,12 @@
     <Compile Include="Form_Select_TimeSpan.Designer.cs">
       <DependentUpon>Form_Select_TimeSpan.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_View_PurchasePricesPerItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_View_PurchasePricesPerItem.Designer.cs">
+      <DependentUpon>Form_View_PurchasePricesPerItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_VODxml_OPAL_FilesPreview.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -218,11 +224,11 @@
     </Compile>
     <Compile Include="OwnUseAddOn.cs" />
     <Compile Include="WriteOffAddOn.cs" />
-    <Compile Include="Form_Inventura.cs">
+    <Compile Include="Form_ViewStock.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Inventura.Designer.cs">
-      <DependentUpon>Form_Inventura.cs</DependentUpon>
+    <Compile Include="Form_ViewStock.Designer.cs">
+      <DependentUpon>Form_ViewStock.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_ItemAtom_View.cs">
       <SubType>Form</SubType>
@@ -366,6 +372,9 @@
     <EmbeddedResource Include="Form_Select_TimeSpan.resx">
       <DependentUpon>Form_Select_TimeSpan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_View_PurchasePricesPerItem.resx">
+      <DependentUpon>Form_View_PurchasePricesPerItem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_VODxml_OPAL_FilesPreview.resx">
       <DependentUpon>Form_VODxml_OPAL_FilesPreview.cs</DependentUpon>
     </EmbeddedResource>
@@ -375,8 +384,8 @@
     <EmbeddedResource Include="Form_WriteOff_AddOn.resx">
       <DependentUpon>Form_WriteOff_AddOn.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Inventura.resx">
-      <DependentUpon>Form_Inventura.cs</DependentUpon>
+    <EmbeddedResource Include="Form_ViewStock.resx">
+      <DependentUpon>Form_ViewStock.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ItemAtom_View.resx">
       <DependentUpon>Form_ItemAtom_View.cs</DependentUpon>

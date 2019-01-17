@@ -33,6 +33,7 @@
             this.btn_EditItemsInStock = new System.Windows.Forms.Button();
             this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.btn_Inventura = new System.Windows.Forms.Button();
+            this.btn_PurchasePricesPerItem = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_EditStockTakeItems
@@ -49,9 +50,9 @@
             // btn_EditItemsInStock
             // 
             this.btn_EditItemsInStock.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_EditItemsInStock.Location = new System.Drawing.Point(352, 4);
+            this.btn_EditItemsInStock.Location = new System.Drawing.Point(170, 3);
             this.btn_EditItemsInStock.Name = "btn_EditItemsInStock";
-            this.btn_EditItemsInStock.Size = new System.Drawing.Size(167, 81);
+            this.btn_EditItemsInStock.Size = new System.Drawing.Size(145, 81);
             this.btn_EditItemsInStock.TabIndex = 2;
             this.btn_EditItemsInStock.Text = "btn_EditItemsInStock";
             this.btn_EditItemsInStock.UseVisualStyleBackColor = false;
@@ -59,7 +60,7 @@
             // 
             // usrc_Help1
             // 
-            this.usrc_Help1.Location = new System.Drawing.Point(525, 12);
+            this.usrc_Help1.Location = new System.Drawing.Point(356, 3);
             this.usrc_Help1.Name = "usrc_Help1";
             this.usrc_Help1.Size = new System.Drawing.Size(35, 51);
             this.usrc_Help1.TabIndex = 3;
@@ -67,19 +68,31 @@
             // btn_Inventura
             // 
             this.btn_Inventura.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Inventura.Location = new System.Drawing.Point(166, 4);
+            this.btn_Inventura.Location = new System.Drawing.Point(3, 102);
             this.btn_Inventura.Name = "btn_Inventura";
-            this.btn_Inventura.Size = new System.Drawing.Size(167, 81);
+            this.btn_Inventura.Size = new System.Drawing.Size(147, 81);
             this.btn_Inventura.TabIndex = 4;
-            this.btn_Inventura.Text = "Inventura";
+            this.btn_Inventura.Text = "Trenutne zaloge";
             this.btn_Inventura.UseVisualStyleBackColor = false;
             this.btn_Inventura.Click += new System.EventHandler(this.btn_Inventura_Click);
+            // 
+            // btn_PurchasePricesPerItem
+            // 
+            this.btn_PurchasePricesPerItem.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_PurchasePricesPerItem.Location = new System.Drawing.Point(170, 102);
+            this.btn_PurchasePricesPerItem.Name = "btn_PurchasePricesPerItem";
+            this.btn_PurchasePricesPerItem.Size = new System.Drawing.Size(147, 81);
+            this.btn_PurchasePricesPerItem.TabIndex = 5;
+            this.btn_PurchasePricesPerItem.Text = "Nabavne Cene Artiklov";
+            this.btn_PurchasePricesPerItem.UseVisualStyleBackColor = false;
+            this.btn_PurchasePricesPerItem.Click += new System.EventHandler(this.btn_PurchasePricesPerItem_Click);
             // 
             // Form_SelectStockEditType
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(576, 102);
+            this.ClientSize = new System.Drawing.Size(406, 222);
+            this.Controls.Add(this.btn_PurchasePricesPerItem);
             this.Controls.Add(this.btn_Inventura);
             this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_EditItemsInStock);
@@ -100,5 +113,6 @@
         private System.Windows.Forms.Button btn_EditItemsInStock;
         private HUDCMS.usrc_Help usrc_Help1;
         private System.Windows.Forms.Button btn_Inventura;
+        private System.Windows.Forms.Button btn_PurchasePricesPerItem;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace ShopC_Forms
 {
-    partial class Form_Inventura
+    partial class Form_View_PurchasePricesPerItem
     {
         /// <summary>
         /// Required designer variable.
@@ -28,14 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Inventura));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_View_PurchasePricesPerItem));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lbl_StockItems = new System.Windows.Forms.Label();
             this.btn_Print = new System.Windows.Forms.Button();
             this.dgvx_Items_in_Stock = new DataGridView_2xls.DataGridView2xls();
+            this.txt_Item_UniqueName = new System.Windows.Forms.TextBox();
             this.lbl_StockOfItem = new System.Windows.Forms.Label();
             this.dgvx_SingleItemStockData = new DataGridView_2xls.DataGridView2xls();
-            this.txt_Item_UniqueName = new System.Windows.Forms.TextBox();
+            this.btn_Export_toFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -54,6 +55,7 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.splitContainer1.Panel1.Controls.Add(this.btn_Export_toFile);
             this.splitContainer1.Panel1.Controls.Add(this.lbl_StockItems);
             this.splitContainer1.Panel1.Controls.Add(this.btn_Print);
             this.splitContainer1.Panel1.Controls.Add(this.dgvx_Items_in_Stock);
@@ -103,12 +105,20 @@
             this.dgvx_Items_in_Stock.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvx_Items_in_Stock.DataGridViewWithRowNumber = false;
             this.dgvx_Items_in_Stock.Location = new System.Drawing.Point(3, 59);
-            this.dgvx_Items_in_Stock.MultiSelect = false;
             this.dgvx_Items_in_Stock.Name = "dgvx_Items_in_Stock";
             this.dgvx_Items_in_Stock.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvx_Items_in_Stock.ShowRowErrors = false;
             this.dgvx_Items_in_Stock.Size = new System.Drawing.Size(442, 478);
             this.dgvx_Items_in_Stock.TabIndex = 0;
+            // 
+            // txt_Item_UniqueName
+            // 
+            this.txt_Item_UniqueName.Location = new System.Drawing.Point(6, 29);
+            this.txt_Item_UniqueName.Multiline = true;
+            this.txt_Item_UniqueName.Name = "txt_Item_UniqueName";
+            this.txt_Item_UniqueName.ReadOnly = true;
+            this.txt_Item_UniqueName.Size = new System.Drawing.Size(441, 49);
+            this.txt_Item_UniqueName.TabIndex = 4;
             // 
             // lbl_StockOfItem
             // 
@@ -134,29 +144,31 @@
             this.dgvx_SingleItemStockData.MultiSelect = false;
             this.dgvx_SingleItemStockData.Name = "dgvx_SingleItemStockData";
             this.dgvx_SingleItemStockData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_SingleItemStockData.Size = new System.Drawing.Size(449, 439);
+            this.dgvx_SingleItemStockData.Size = new System.Drawing.Size(447, 439);
             this.dgvx_SingleItemStockData.TabIndex = 1;
             // 
-            // txt_Item_UniqueName
+            // btn_Export_toFile
             // 
-            this.txt_Item_UniqueName.Location = new System.Drawing.Point(6, 29);
-            this.txt_Item_UniqueName.Multiline = true;
-            this.txt_Item_UniqueName.Name = "txt_Item_UniqueName";
-            this.txt_Item_UniqueName.ReadOnly = true;
-            this.txt_Item_UniqueName.Size = new System.Drawing.Size(441, 49);
-            this.txt_Item_UniqueName.TabIndex = 4;
+            this.btn_Export_toFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Export_toFile.Location = new System.Drawing.Point(162, 15);
+            this.btn_Export_toFile.Name = "btn_Export_toFile";
+            this.btn_Export_toFile.Size = new System.Drawing.Size(124, 38);
+            this.btn_Export_toFile.TabIndex = 3;
+            this.btn_Export_toFile.Text = "Izvozi";
+            this.btn_Export_toFile.UseVisualStyleBackColor = true;
+            this.btn_Export_toFile.Click += new System.EventHandler(this.btn_Export_toFile_Click);
             // 
-            // Form_Inventura
+            // Form_View_PurchasePricesPerItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(913, 540);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form_Inventura";
+            this.Name = "Form_View_PurchasePricesPerItem";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form_Inventura";
-            this.Load += new System.EventHandler(this.Form_Inventura_Load);
+            this.Text = "Stock view per Item";
+            this.Load += new System.EventHandler(this.Form_ViewStock_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
@@ -177,5 +189,6 @@
         private System.Windows.Forms.Label lbl_StockItems;
         private System.Windows.Forms.Label lbl_StockOfItem;
         private System.Windows.Forms.TextBox txt_Item_UniqueName;
+        private System.Windows.Forms.Button btn_Export_toFile;
     }
 }

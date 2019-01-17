@@ -13,14 +13,14 @@ using TangentaPrint;
 
 namespace ShopC_Forms
 {
-    public partial class Form_Inventura : Form
+    public partial class Form_ViewStock : Form
     {
         private DataTable dtItems = null;
         private int itemscount = 0;
         private DataTable dtStockOfItem = null;
         private DataTable dtItemInStock = null;
         private DataTable dtShopCItemInStock = null;
-        public Form_Inventura()
+        public Form_ViewStock()
         {
             InitializeComponent();
             lng.s_InventoryOfStock.Text(this);
@@ -28,7 +28,7 @@ namespace ShopC_Forms
             lng.s_lbl_StockOfItem.Text(lbl_StockOfItem);
         }
 
-        private void Form_Inventura_Load(object sender, EventArgs e)
+        private void Form_ViewStock_Load(object sender, EventArgs e)
         {
             dtStockOfItem = new DataTable();
             DataColumn dcol_Item_ID = new DataColumn("Item_ID", typeof(long));
