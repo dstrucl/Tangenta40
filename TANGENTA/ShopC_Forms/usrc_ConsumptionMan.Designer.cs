@@ -31,28 +31,18 @@ namespace ShopC_Forms
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_ConsumptionMan));
-            this.cmb_DocType = new System.Windows.Forms.ComboBox();
             this.cmb_FinancialYear = new System.Windows.Forms.ComboBox();
             this.lbl_FinancialYear = new System.Windows.Forms.Label();
             this.btn_SelectPanels = new System.Windows.Forms.Button();
             this.m_usrc_Help = new HUDCMS.usrc_Help();
             this.btn_Exit = new System.Windows.Forms.Button();
-            this.usrc_loginControl1 = new LoginControl.usrc_LoginCtrl();
-            this.btn_Settings = new System.Windows.Forms.Button();
             this.timer_Login_MultiUser = new System.Windows.Forms.Timer(this.components);
-            this.m_usrc_TableOfConsumption = new usrc_TableOfConsumption();
-            this.m_usrc_ConsumptionEditor = new usrc_ConsumptionEditor();
-            this.usrc_DocIssue1 = new usrc_DocIssue();
+            this.m_usrc_TableOfConsumption = new ShopC_Forms.usrc_TableOfConsumption();
+            this.m_usrc_ConsumptionEditor = new ShopC_Forms.usrc_ConsumptionEditor();
+            this.usrc_DocIssue1 = new ShopC_Forms.usrc_DocIssue();
+            this.btn_Settings = new System.Windows.Forms.Button();
+            this.cmb_DocType = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
-            // 
-            // cmb_DocType
-            // 
-            this.cmb_DocType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.cmb_DocType.FormattingEnabled = true;
-            this.cmb_DocType.Location = new System.Drawing.Point(3, 6);
-            this.cmb_DocType.Name = "cmb_DocType";
-            this.cmb_DocType.Size = new System.Drawing.Size(164, 28);
-            this.cmb_DocType.TabIndex = 25;
             // 
             // cmb_FinancialYear
             // 
@@ -106,24 +96,6 @@ namespace ShopC_Forms
             this.btn_Exit.UseVisualStyleBackColor = false;
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
-            // usrc_loginControl1
-            // 
-            this.usrc_loginControl1.Location = new System.Drawing.Point(34, 40);
-            this.usrc_loginControl1.Margin = new System.Windows.Forms.Padding(4);
-            this.usrc_loginControl1.Name = "usrc_loginControl1";
-            this.usrc_loginControl1.Size = new System.Drawing.Size(320, 33);
-            this.usrc_loginControl1.TabIndex = 37;
-            // 
-            // btn_Settings
-            // 
-            this.btn_Settings.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Settings.Image = ((System.Drawing.Image)(resources.GetObject("btn_Settings.Image")));
-            this.btn_Settings.Location = new System.Drawing.Point(255, 701);
-            this.btn_Settings.Name = "btn_Settings";
-            this.btn_Settings.Size = new System.Drawing.Size(33, 64);
-            this.btn_Settings.TabIndex = 34;
-            this.btn_Settings.UseVisualStyleBackColor = false;
-            // 
             // timer_Login_MultiUser
             // 
             this.timer_Login_MultiUser.Interval = 1000;
@@ -133,28 +105,31 @@ namespace ShopC_Forms
             // 
             this.m_usrc_TableOfConsumption.BackColor = System.Drawing.Color.Linen;
             this.m_usrc_TableOfConsumption.ConsM = null;
-            this.m_usrc_TableOfConsumption.Location = new System.Drawing.Point(0, 77);
+            this.m_usrc_TableOfConsumption.Location = new System.Drawing.Point(0, 50);
             this.m_usrc_TableOfConsumption.Name = "m_usrc_TableOfConsumption";
-            this.m_usrc_TableOfConsumption.Size = new System.Drawing.Size(357, 603);
+            this.m_usrc_TableOfConsumption.Size = new System.Drawing.Size(357, 630);
             this.m_usrc_TableOfConsumption.TabIndex = 39;
-            this.m_usrc_TableOfConsumption.SelectedInvoiceChanged += new usrc_TableOfConsumption.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
+            this.m_usrc_TableOfConsumption.SelectedInvoiceChanged += new ShopC_Forms.usrc_TableOfConsumption.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
             // 
             // m_usrc_ConsumptionEditor
             // 
+            this.m_usrc_ConsumptionEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_usrc_ConsumptionEditor.BackColor = System.Drawing.Color.Gainsboro;
             this.m_usrc_ConsumptionEditor.Location = new System.Drawing.Point(360, 0);
             this.m_usrc_ConsumptionEditor.Margin = new System.Windows.Forms.Padding(2);
             this.m_usrc_ConsumptionEditor.Name = "m_usrc_ConsumptionEditor";
-            this.m_usrc_ConsumptionEditor.Size = new System.Drawing.Size(1006, 768);
+            this.m_usrc_ConsumptionEditor.Size = new System.Drawing.Size(713, 768);
             this.m_usrc_ConsumptionEditor.TabIndex = 40;
-            this.m_usrc_ConsumptionEditor.New_Click += new usrc_ConsumptionEditor.delegate_New_Click(this.btn_New_Click);
-            this.m_usrc_ConsumptionEditor.SetTotalColor += new usrc_ConsumptionEditor.delegate_SetTotalColor(this.m_usrc_ConsumptionEditor_SetTotalColor);
-            this.m_usrc_ConsumptionEditor.SetTotal += new usrc_ConsumptionEditor.delegate_SetTotal(this.m_usrc_ConsumptionEditor_SetTotal);
-            this.m_usrc_ConsumptionEditor.SetBtnIssueLabel += new usrc_ConsumptionEditor.delegate_SetBtnIssueLabel(this.m_usrc_ConsumptionEditor_SetBtnIssueLabel);
-            this.m_usrc_ConsumptionEditor.SetBtnIssueVisible += new usrc_ConsumptionEditor.delegate_SetBtnIssueVisible(this.m_usrc_ConsumptionEditor_SetBtnIssueVisible);
-            this.m_usrc_ConsumptionEditor.Storno += new usrc_ConsumptionEditor.delegate_Storno(this.m_usrc_Invoice_Storno);
-            this.m_usrc_ConsumptionEditor.aa_DocInvoiceSaved += new usrc_ConsumptionEditor.delegate_DocInvoiceSaved(this.m_usrc_Invoice_DocInvoiceSaved);
-            this.m_usrc_ConsumptionEditor.aa_DocProformaInvoiceSaved += new usrc_ConsumptionEditor.delegate_DocProformaInvoiceSaved(this.m_usrc_Invoice_DocProformaInvoiceSaved);
+            this.m_usrc_ConsumptionEditor.New_Click += new ShopC_Forms.usrc_ConsumptionEditor.delegate_New_Click(this.btn_New_Click);
+            this.m_usrc_ConsumptionEditor.SetTotalColor += new ShopC_Forms.usrc_ConsumptionEditor.delegate_SetTotalColor(this.m_usrc_ConsumptionEditor_SetTotalColor);
+            this.m_usrc_ConsumptionEditor.SetTotal += new ShopC_Forms.usrc_ConsumptionEditor.delegate_SetTotal(this.m_usrc_ConsumptionEditor_SetTotal);
+            this.m_usrc_ConsumptionEditor.SetBtnIssueLabel += new ShopC_Forms.usrc_ConsumptionEditor.delegate_SetBtnIssueLabel(this.m_usrc_ConsumptionEditor_SetBtnIssueLabel);
+            this.m_usrc_ConsumptionEditor.SetBtnIssueVisible += new ShopC_Forms.usrc_ConsumptionEditor.delegate_SetBtnIssueVisible(this.m_usrc_ConsumptionEditor_SetBtnIssueVisible);
+            this.m_usrc_ConsumptionEditor.Storno += new ShopC_Forms.usrc_ConsumptionEditor.delegate_Storno(this.m_usrc_Invoice_Storno);
+            this.m_usrc_ConsumptionEditor.aa_DocInvoiceSaved += new ShopC_Forms.usrc_ConsumptionEditor.delegate_DocInvoiceSaved(this.m_usrc_Invoice_DocInvoiceSaved);
+            this.m_usrc_ConsumptionEditor.aa_DocProformaInvoiceSaved += new ShopC_Forms.usrc_ConsumptionEditor.delegate_DocProformaInvoiceSaved(this.m_usrc_Invoice_DocProformaInvoiceSaved);
             // 
             // usrc_DocIssue1
             // 
@@ -169,16 +144,34 @@ namespace ShopC_Forms
             this.usrc_DocIssue1.Total = "SKUPAJ";
             this.usrc_DocIssue1.TotalColor = System.Drawing.SystemColors.ControlText;
             this.usrc_DocIssue1.Visible = false;
-            this.usrc_DocIssue1.DoClick += new usrc_DocIssue.delegate_Click(this.usrc_DocIssue1_DoClick);
+            this.usrc_DocIssue1.DoClick += new ShopC_Forms.usrc_DocIssue.delegate_Click(this.usrc_DocIssue1_DoClick);
             // 
-            // usrc_DocumentMan1366x768
+            // btn_Settings
+            // 
+            this.btn_Settings.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_Settings.Image = ((System.Drawing.Image)(resources.GetObject("btn_Settings.Image")));
+            this.btn_Settings.Location = new System.Drawing.Point(255, 701);
+            this.btn_Settings.Name = "btn_Settings";
+            this.btn_Settings.Size = new System.Drawing.Size(33, 64);
+            this.btn_Settings.TabIndex = 34;
+            this.btn_Settings.UseVisualStyleBackColor = false;
+            // 
+            // cmb_DocType
+            // 
+            this.cmb_DocType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cmb_DocType.FormattingEnabled = true;
+            this.cmb_DocType.Location = new System.Drawing.Point(3, 6);
+            this.cmb_DocType.Name = "cmb_DocType";
+            this.cmb_DocType.Size = new System.Drawing.Size(164, 28);
+            this.cmb_DocType.TabIndex = 25;
+            // 
+            // usrc_ConsumptionMan
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.usrc_DocIssue1);
             this.Controls.Add(this.cmb_DocType);
             this.Controls.Add(this.lbl_FinancialYear);
-            this.Controls.Add(this.usrc_loginControl1);
             this.Controls.Add(this.m_usrc_ConsumptionEditor);
             this.Controls.Add(this.cmb_FinancialYear);
             this.Controls.Add(this.m_usrc_TableOfConsumption);
@@ -186,13 +179,12 @@ namespace ShopC_Forms
             this.Controls.Add(this.m_usrc_Help);
             this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.btn_Settings);
-            this.Name = "usrc_DocumentMan1366x768";
-            this.Size = new System.Drawing.Size(1366, 768);
+            this.Name = "usrc_ConsumptionMan";
+            this.Size = new System.Drawing.Size(1073, 784);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
-        private System.Windows.Forms.ComboBox cmb_DocType;
         private System.Windows.Forms.ComboBox cmb_FinancialYear;
         private System.Windows.Forms.Label lbl_FinancialYear;
         #endregion
@@ -200,11 +192,11 @@ namespace ShopC_Forms
         public System.Windows.Forms.Button btn_SelectPanels;
         private HUDCMS.usrc_Help m_usrc_Help;
         private System.Windows.Forms.Button btn_Exit;
-        internal LoginControl.usrc_LoginCtrl usrc_loginControl1;
-        private System.Windows.Forms.Button btn_Settings;
         private System.Windows.Forms.Timer timer_Login_MultiUser;
         public usrc_TableOfConsumption m_usrc_TableOfConsumption;
         public usrc_ConsumptionEditor m_usrc_ConsumptionEditor;
         private usrc_DocIssue usrc_DocIssue1;
+        private System.Windows.Forms.Button btn_Settings;
+        private System.Windows.Forms.ComboBox cmb_DocType;
     }
 }

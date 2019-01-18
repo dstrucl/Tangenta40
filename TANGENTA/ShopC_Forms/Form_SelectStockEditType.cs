@@ -16,6 +16,8 @@ namespace ShopC_Forms
 {
     public partial class Form_SelectStockEditType : Form
     {
+        private Form_OwnUse frm_OwnUse = null;
+
         public delegate bool delegate_CheckIfAdministrator();
         public event delegate_CheckIfAdministrator CheckIfAdministrator = null ;
 
@@ -96,6 +98,15 @@ namespace ShopC_Forms
         {
             Form_View_PurchasePricesPerItem frm_PurchasePricesPerItem = new Form_View_PurchasePricesPerItem();
             frm_PurchasePricesPerItem.ShowDialog(this);
+        }
+
+        private void btn_Form_OwnUse_Click(object sender, EventArgs e)
+        {
+            if (frm_OwnUse==null)
+            {
+                frm_OwnUse = new Form_OwnUse();
+            }
+            frm_OwnUse.Show();
         }
     }
 }

@@ -35,11 +35,11 @@ namespace ShopC_Forms
             this.txt_Number = new System.Windows.Forms.TextBox();
             this.lbl_Number = new System.Windows.Forms.Label();
             this.chk_Storno = new System.Windows.Forms.CheckBox();
-            this.btn_Show_Shops = new System.Windows.Forms.Button();
-            this.m_usrc_ShopC = new usrc_ShopC();
+            this.usrc_Consumption_AddOn1 = new ShopC_Forms.usrc_Consumption_AddOn();
+            this.m_usrc_ShopC = new ShopC_Forms.usrc_ShopC();
             this.btn_New = new System.Windows.Forms.Button();
-            this.usrc_Item_selected1 = new usrc_Item_selected();
-            this.usrc_DocIssue1 = new usrc_DocIssue();
+            this.usrc_Item_selected1 = new ShopC_Forms.usrc_Item_selected();
+            this.usrc_DocIssue1 = new ShopC_Forms.usrc_DocIssue();
             this.SuspendLayout();
             // 
             // txt_Number
@@ -74,38 +74,27 @@ namespace ShopC_Forms
             this.chk_Storno.UseVisualStyleBackColor = true;
             this.chk_Storno.CheckedChanged += new System.EventHandler(this.chk_Storno_CheckedChanged);
             // 
-            // btn_Show_Shops
+            // usrc_Consumption_AddOn1
             // 
-            this.btn_Show_Shops.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Show_Shops.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Show_Shops.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Show_Shops.Location = new System.Drawing.Point(868, 685);
-            this.btn_Show_Shops.Name = "btn_Show_Shops";
-            this.btn_Show_Shops.Size = new System.Drawing.Size(68, 82);
-            this.btn_Show_Shops.TabIndex = 41;
-            this.btn_Show_Shops.Text = "trgovine";
-            this.btn_Show_Shops.UseVisualStyleBackColor = false;           
-            // 
-            // usrc_AddOn1
-            // 
-            this.usrc_AddOn1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_AddOn1.BackColor = System.Drawing.Color.LemonChiffon;
-            this.usrc_AddOn1.Location = new System.Drawing.Point(159, 689);
-            this.usrc_AddOn1.Name = "usrc_AddOn1";
-            this.usrc_AddOn1.Size = new System.Drawing.Size(177, 79);
-            this.usrc_AddOn1.TabIndex = 40;
+            this.usrc_Consumption_AddOn1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.usrc_Consumption_AddOn1.BackColor = System.Drawing.Color.LemonChiffon;
+            this.usrc_Consumption_AddOn1.Location = new System.Drawing.Point(159, 689);
+            this.usrc_Consumption_AddOn1.Name = "usrc_Consumption_AddOn1";
+            this.usrc_Consumption_AddOn1.Size = new System.Drawing.Size(177, 79);
+            this.usrc_Consumption_AddOn1.TabIndex = 40;
             // 
             // m_usrc_ShopC
             // 
-            this.m_usrc_ShopC.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.m_usrc_ShopC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.m_usrc_ShopC.AutomaticSelectionOfItemsFromStock = true;
             this.m_usrc_ShopC.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.m_usrc_ShopC.ExclusivelySellFromStock = false;
-            this.m_usrc_ShopC.Location = new System.Drawing.Point(0, 360);
+            this.m_usrc_ShopC.Location = new System.Drawing.Point(6, 34);
             this.m_usrc_ShopC.Margin = new System.Windows.Forms.Padding(4);
             this.m_usrc_ShopC.Name = "m_usrc_ShopC";
-            this.m_usrc_ShopC.Size = new System.Drawing.Size(1006, 320);
+            this.m_usrc_ShopC.Size = new System.Drawing.Size(1000, 637);
             this.m_usrc_ShopC.TabIndex = 46;
             // 
             // btn_New
@@ -125,7 +114,8 @@ namespace ShopC_Forms
             // 
             // usrc_Item_selected1
             // 
-            this.usrc_Item_selected1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Item_selected1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_Item_selected1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(249)))), ((int)(((byte)(166)))));
             this.usrc_Item_selected1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.usrc_Item_selected1.Location = new System.Drawing.Point(338, 679);
@@ -136,7 +126,7 @@ namespace ShopC_Forms
             // 
             // usrc_DocIssue1
             // 
-            this.usrc_DocIssue1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_DocIssue1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.usrc_DocIssue1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("usrc_DocIssue1.BackgroundImage")));
             this.usrc_DocIssue1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.usrc_DocIssue1.BtnIssueLabel = "Issue";
@@ -147,22 +137,21 @@ namespace ShopC_Forms
             this.usrc_DocIssue1.TabIndex = 50;
             this.usrc_DocIssue1.Total = "SKUPAJ";
             this.usrc_DocIssue1.TotalColor = System.Drawing.SystemColors.ControlText;
-            this.usrc_DocIssue1.DoClick += new usrc_DocIssue.delegate_Click(this.btn_Issue_Click);
+            this.usrc_DocIssue1.DoClick += new ShopC_Forms.usrc_DocIssue.delegate_Click(this.btn_Issue_Click);
             // 
-            // usrc_DocumentEditor
+            // usrc_ConsumptionEditor
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.Controls.Add(this.usrc_DocIssue1);
             this.Controls.Add(this.usrc_Item_selected1);
             this.Controls.Add(this.btn_New);
             this.Controls.Add(this.m_usrc_ShopC);
-            this.Controls.Add(this.btn_Show_Shops);
-            this.Controls.Add(this.usrc_AddOn1);
+            this.Controls.Add(this.usrc_Consumption_AddOn1);
             this.Controls.Add(this.chk_Storno);
             this.Controls.Add(this.lbl_Number);
             this.Controls.Add(this.txt_Number);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "usrc_DocumentEditor";
+            this.Name = "usrc_ConsumptionEditor";
             this.Size = new System.Drawing.Size(1006, 768);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -174,8 +163,7 @@ namespace ShopC_Forms
         private System.Windows.Forms.TextBox txt_Number;
         private System.Windows.Forms.Label lbl_Number;
         private System.Windows.Forms.CheckBox chk_Storno;
-        internal usrc_Consumption_AddOn usrc_AddOn1;
-        public System.Windows.Forms.Button btn_Show_Shops;
+        internal usrc_Consumption_AddOn usrc_Consumption_AddOn1;
         internal usrc_ShopC m_usrc_ShopC;
         internal System.Windows.Forms.Button btn_New;
         private usrc_Item_selected usrc_Item_selected1;

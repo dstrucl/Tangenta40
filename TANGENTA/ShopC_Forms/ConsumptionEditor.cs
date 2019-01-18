@@ -77,7 +77,6 @@ namespace ShopC_Forms
         public delegate void delegate_control_chk_Storno_Check(bool bcheck);
 
         public Form MainForm = null;
-        public Button btn_Show_Shops = null;
 
         public LoginControl.LMOUser m_LMOUser = null;
 
@@ -954,7 +953,6 @@ namespace ShopC_Forms
 
 
         public bool Init(Form pform,
-                          Button xbtnShowShops,
                           ID document_ID,
                           ref ID ShopB_pricelist_ID,
                           ref ID ShopC_pricelist_ID,
@@ -962,7 +960,6 @@ namespace ShopC_Forms
                           Transaction transaction)
         {
             this.MainForm = pform;
-            this.btn_Show_Shops = xbtnShowShops;
             if (DBtcn == null)
             {
                 DBtcn = new DBTablesAndColumnNamesOfConsumption();

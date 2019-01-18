@@ -294,7 +294,7 @@ namespace ShopC_Forms
             }
             doCurrent_delegates = new ConsumptionEditor.DoCurrent_delegates(
                                    xusrc_PriceListC,
-                                   this.usrc_AddOn1.Show,
+                                   this.usrc_Consumption_AddOn1.Show,
                                    this.AddHandler,
                                    this.RemoveHandler,
                                    this.set_InvoiceNumberText,
@@ -400,7 +400,7 @@ namespace ShopC_Forms
             //chk_Head.Checked = DocE.mSettingsUserValues.InvoiceHeaderChecked;
             //chk_Head.CheckedChanged += chk_Head_CheckedChanged;
             //splitContainer2.Panel1Collapsed = !chk_Head.Checked;
-            usrc_AddOn1.Init(this, this.ConsM);
+            usrc_Consumption_AddOn1.Init(this, this.ConsM);
 
             SetOperationMode();
             return true;
@@ -448,7 +448,6 @@ namespace ShopC_Forms
 
             Transaction transaction_DocE_Init = DBSync.DBSync.NewTransaction("DocE.Init");
             if (ConsE.Init(pform,
-                            this.btn_Show_Shops,
                             Document_ID,
                             ref m_usrc_ShopB_usrc_PriceList1_ID,
                             ref m_usrc_ShopC_m_usrc_PriceList1_ID,

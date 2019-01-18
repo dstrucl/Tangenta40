@@ -231,41 +231,41 @@ namespace TangentaDB
             TangentaTableClass.SQL_Database_Tables_Definition td = DBSync.DBSync.DB_for_Tangenta.mt;
 
 
-            SQLTable tbl_myOrganisation = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation));
-            SQLTable tbl_myOrganisation_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation_Person));
-            SQLTable tbl_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Person));
-            SQLTable tbl_Atom_myOrganisation = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myOrganisation));
-            SQLTable tbl_Atom_myOrganisation_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myOrganisation_Person));
-            SQLTable tbl_DocInvoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice));
-            SQLTable tbl_Atom_Customer_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Customer_Person));
-            SQLTable tbl_Atom_Customer_Org = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Customer_Org));
-            SQLTable tbl_TermsOfPayment = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TermsOfPayment));
-            SQLTable tbl_Taxation = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Taxation));
-            SQLTable tbl_ShopBItem = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(SimpleItem));
-            SQLTable tbl_ShopBItem_Image = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(SimpleItem_Image));
-            SQLTable tbl_Atom_ShopBItem = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_SimpleItem));
-            SQLTable tbl_Atom_ShopBItem_Name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_SimpleItem_Name));
-            SQLTable tbl_Atom_ShopBItem_Image = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_SimpleItem_Image));
-            SQLTable tbl_Atom_Taxation = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Taxation));
+            SQLTable tbl_myOrganisation = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.myOrganisation));
+            SQLTable tbl_myOrganisation_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.myOrganisation_Person));
+            SQLTable tbl_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Person));
+            SQLTable tbl_Atom_myOrganisation = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Atom_myOrganisation));
+            SQLTable tbl_Atom_myOrganisation_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Atom_myOrganisation_Person));
+            SQLTable tbl_DocInvoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.DocInvoice));
+            SQLTable tbl_Atom_Customer_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Atom_Customer_Person));
+            SQLTable tbl_Atom_Customer_Org = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Atom_Customer_Org));
+            SQLTable tbl_TermsOfPayment = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.TermsOfPayment));
+            SQLTable tbl_Taxation = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Taxation));
+            SQLTable tbl_ShopBItem = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.SimpleItem));
+            SQLTable tbl_ShopBItem_Image = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.SimpleItem_Image));
+            SQLTable tbl_Atom_ShopBItem = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Atom_SimpleItem));
+            SQLTable tbl_Atom_ShopBItem_Name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Atom_SimpleItem_Name));
+            SQLTable tbl_Atom_ShopBItem_Image = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Atom_SimpleItem_Image));
+            SQLTable tbl_Atom_Taxation = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Atom_Taxation));
 
-            SQLTable tbl_cStreetName_Org = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(cStreetName_Org));
-            SQLTable tbl_cHouseNumber_Org = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(cHouseNumber_Org));
-            SQLTable tbl_cZIP_Org = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(cZIP_Org));
-            SQLTable tbl_cCity_Org = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(cCity_Org));
-            SQLTable tbl_cCountry_Org = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(cCountry_Org));
-            SQLTable tbl_cState_Org = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(cState_Org));
+            SQLTable tbl_cStreetName_Org = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.cStreetName_Org));
+            SQLTable tbl_cHouseNumber_Org = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.cHouseNumber_Org));
+            SQLTable tbl_cZIP_Org = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.cZIP_Org));
+            SQLTable tbl_cCity_Org = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.cCity_Org));
+            SQLTable tbl_cCountry_Org = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.cCountry_Org));
+            SQLTable tbl_cState_Org = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.cState_Org));
 
-            SQLTable tbl_cAddress_Org = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(cAddress_Org));
+            SQLTable tbl_cAddress_Org = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.cAddress_Org));
 
-            SQLTable tbl_Atom_Item_Name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Item_Name));
-            SQLTable tbl_Atom_Item_barcode = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Item_barcode));
-            SQLTable tbl_Atom_Item_Description = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Item_Description));
-            SQLTable tbl_Atom_Item_Image = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Item_Image));
-            SQLTable tbl_Atom_Item_ImageLib = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Item_ImageLib));
-            SQLTable tbl_Atom_Warranty = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Warranty));
-            SQLTable tbl_Atom_Item = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Item));
-            SQLTable tbl_Atom_Expiry = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Expiry));
-            SQLTable tbl_DocInvoice_Atom_Item_Stock = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice_ShopC_Item));
+            SQLTable tbl_Atom_Item_Name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Atom_Item_Name));
+            SQLTable tbl_Atom_Item_barcode = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Atom_Item_barcode));
+            SQLTable tbl_Atom_Item_Description = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Atom_Item_Description));
+            SQLTable tbl_Atom_Item_Image = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Atom_Item_Image));
+            SQLTable tbl_Atom_Item_ImageLib = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Atom_Item_ImageLib));
+            SQLTable tbl_Atom_Warranty = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Atom_Warranty));
+            SQLTable tbl_Atom_Item = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Atom_Item));
+            SQLTable tbl_Atom_Expiry = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Atom_Expiry));
+            SQLTable tbl_DocInvoice_Atom_Item_Stock = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.DocInvoice_ShopC_Item));
 
             stbl_myOrganisation_TableName = tbl_myOrganisation.TableName;
 

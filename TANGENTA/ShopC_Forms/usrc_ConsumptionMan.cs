@@ -44,7 +44,7 @@ namespace ShopC_Forms
             internal int usrc_TransactionControl1_Top;
             internal int usrc_TableOfDocuments_Width;
         }
-        private Defpos defpos = null;
+        //private Defpos defpos = null;
         internal Form m_Form_Document = null;
         
         public new bool Visible
@@ -191,33 +191,30 @@ namespace ShopC_Forms
         public usrc_ConsumptionMan()
         {
             InitializeComponent();
-            defpos = new Defpos();
-            defpos.usrc_ConsumptionEditor_Left = m_usrc_ConsumptionEditor.Left;
-            defpos.usrc_ConsumptionEditor_Width = m_usrc_ConsumptionEditor.Width;
-            defpos.cmb_DocType_Left = this.cmb_DocType.Left;
-            defpos.cmb_DocType_Top = this.cmb_DocType.Top;
-            defpos.lbl_FinancialYear_Left = this.lbl_FinancialYear.Left;
-            defpos.lbl_FinancialYear_Top = this.lbl_FinancialYear.Top;
-            defpos.cmb_FinancialYear_Left = this.cmb_FinancialYear.Left;
-            defpos.cmb_FinancialYear_Top = this.cmb_FinancialYear.Top;
-            defpos.usrc_loginControl1_Left = this.usrc_loginControl1.Left;
-            defpos.usrc_loginControl1_Width = this.usrc_loginControl1.Width;
-            defpos.usrc_loginControl1_Top = this.usrc_loginControl1.Top;
-            defpos.usrc_TableOfDocuments_Width = this.m_usrc_TableOfConsumption.Width;
+            //defpos = new Defpos();
+            //defpos.usrc_ConsumptionEditor_Left = m_usrc_ConsumptionEditor.Left;
+            //defpos.usrc_ConsumptionEditor_Width = m_usrc_ConsumptionEditor.Width;
+            //defpos.cmb_DocType_Left = this.cmb_DocType.Left;
+            //defpos.cmb_DocType_Top = this.cmb_DocType.Top;
+            //defpos.lbl_FinancialYear_Left = this.lbl_FinancialYear.Left;
+            //defpos.lbl_FinancialYear_Top = this.lbl_FinancialYear.Top;
+            //defpos.cmb_FinancialYear_Left = this.cmb_FinancialYear.Left;
+            //defpos.cmb_FinancialYear_Top = this.cmb_FinancialYear.Top;
+            //defpos.usrc_TableOfDocuments_Width = this.m_usrc_TableOfConsumption.Width;
 
-            //if (Startup.CommandLineParam.bTransactionMonitor)
-            //{
-            //    this.usrc_TransactionControl1.DataBase_TransactionsLog = DBSync.DBSync.DB_for_Tangenta.DB_TransactionsLog;
-            //    this.usrc_TransactionControl1.Visible = true;
-            //}
-            //else
-            //{
-            //    this.usrc_TransactionControl1.DataBase_TransactionsLog = null;
-            //    this.usrc_TransactionControl1.Visible = false;
-            //}
+            ////if (Startup.CommandLineParam.bTransactionMonitor)
+            ////{
+            ////    this.usrc_TransactionControl1.DataBase_TransactionsLog = DBSync.DBSync.DB_for_Tangenta.DB_TransactionsLog;
+            ////    this.usrc_TransactionControl1.Visible = true;
+            ////}
+            ////else
+            ////{
+            ////    this.usrc_TransactionControl1.DataBase_TransactionsLog = null;
+            ////    this.usrc_TransactionControl1.Visible = false;
+            ////}
    
             lng.s_Year.Text(lbl_FinancialYear);
-            m_usrc_ConsumptionEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
+            //m_usrc_ConsumptionEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
             ConsM = new ConsumptionMan(SetMode, TableOfDocuments_Init, Control_ConsumptionEditor_Init,SetInitialMode);
         }
 
@@ -264,15 +261,13 @@ namespace ShopC_Forms
 
                 m_usrc_ConsumptionEditor.Left = 0;
                 m_usrc_ConsumptionEditor.Width = this.Width;
-                m_usrc_ConsumptionEditor.Set_ConsumptionMan_eMode_Shops(defpos.usrc_ConsumptionEditor_Left,
-                                                                          defpos.usrc_loginControl1_Left + defpos.usrc_loginControl1_Width - defpos.usrc_TransactionControl1_Left);
-                //this.usrc_TransactionControl1.Top = this.cmb_DocType.Top;
+                //m_usrc_ConsumptionEditor.Set_ConsumptionMan_eMode_Shops(defpos.usrc_ConsumptionEditor_Left,
+                //                                                          defpos.usrc_loginControl1_Left + defpos.usrc_loginControl1_Width - defpos.usrc_TransactionControl1_Left);
+                ////this.usrc_TransactionControl1.Top = this.cmb_DocType.Top;
                 //this.usrc_TransactionControl1.Left = this.cmb_FinancialYear.Left + this.cmb_FinancialYear.Width + 5;
                 //this.usrc_loginControl1.Left = this.usrc_TransactionControl1.Left + this.usrc_TransactionControl1.Width + 5;
-                this.usrc_loginControl1.Top = this.cmb_DocType.Top;
                 this.cmb_DocType.BringToFront();
                 //this.usrc_TransactionControl1.BringToFront();
-                this.usrc_loginControl1.BringToFront();
                 this.lbl_FinancialYear.BringToFront();
                 this.cmb_FinancialYear.BringToFront();
                 btn_Exit.BringToFront();
@@ -296,20 +291,18 @@ namespace ShopC_Forms
             else
             {
                 
-                m_usrc_ConsumptionEditor.Left = defpos.usrc_ConsumptionEditor_Left;
-                m_usrc_ConsumptionEditor.Width = defpos.usrc_ConsumptionEditor_Width;
-                m_usrc_ConsumptionEditor.Set_ConsumptionMan_eMode_Shops_and_InvoiceTable();
-                this.cmb_DocType.Left = defpos.cmb_DocType_Left;
-                this.cmb_DocType.Top = defpos.cmb_DocType_Top;
-                this.lbl_FinancialYear.Left = defpos.lbl_FinancialYear_Left;
-                this.lbl_FinancialYear.Top = defpos.lbl_FinancialYear_Top;
-                this.cmb_FinancialYear.Left = defpos.cmb_FinancialYear_Left;
-                this.cmb_FinancialYear.Top = defpos.cmb_FinancialYear_Top;
+                //m_usrc_ConsumptionEditor.Left = defpos.usrc_ConsumptionEditor_Left;
+                //m_usrc_ConsumptionEditor.Width = defpos.usrc_ConsumptionEditor_Width;
+                //m_usrc_ConsumptionEditor.Set_ConsumptionMan_eMode_Shops_and_InvoiceTable();
+                //this.cmb_DocType.Left = defpos.cmb_DocType_Left;
+                //this.cmb_DocType.Top = defpos.cmb_DocType_Top;
+                //this.lbl_FinancialYear.Left = defpos.lbl_FinancialYear_Left;
+                //this.lbl_FinancialYear.Top = defpos.lbl_FinancialYear_Top;
+                //this.cmb_FinancialYear.Left = defpos.cmb_FinancialYear_Left;
+                //this.cmb_FinancialYear.Top = defpos.cmb_FinancialYear_Top;
                 //this.usrc_TransactionControl1.Left = defpos.usrc_TransactionControl1_Left;
                 //this.usrc_TransactionControl1.Top = defpos.usrc_TransactionControl1_Top;
-                this.usrc_loginControl1.Left = defpos.usrc_loginControl1_Left;
-                this.usrc_loginControl1.Top = defpos.usrc_loginControl1_Top;
-                this.m_usrc_TableOfConsumption.Width = defpos.usrc_TableOfDocuments_Width;
+                //this.m_usrc_TableOfConsumption.Width = defpos.usrc_TableOfDocuments_Width;
                 this.m_usrc_TableOfConsumption.Visible = true;
                 m_usrc_ConsumptionEditor.Visible = true;
                 this.m_usrc_ConsumptionEditor.DoRefresh();
@@ -449,39 +442,7 @@ namespace ShopC_Forms
             m_usrc_ConsumptionEditor.WizzardShow_usrc_Invoice_Head_Visible(bvisible);
         }
 
-        internal void WizzardShow_InvoiceTable_Visible(bool bvisible)
-        {
-            if (bvisible)
-            {
-                SetMode(ConsumptionMan.eMode.Shops_and_InvoiceTable);
-            }
-            else
-            {
-                SetMode(ConsumptionMan.eMode.Shops);
-            }
-            if (LayoutChanged!=null)
-            {
-                LayoutChanged();
-            }
-            this.Refresh();
-        }
-
-        internal void WizzardShow_DocInvoice(string xDocInvoice)
-        {
-            if (xDocInvoice.Equals(GlobalData.const_DocProformaInvoice))
-            {
-                cmb_DocType.SelectedIndex = 1;
-            }
-            else if (xDocInvoice.Equals(GlobalData.const_DocInvoice))
-            {
-                cmb_DocType.SelectedIndex = 0;
-            }
-            this.Refresh();
-            if (LayoutChanged != null)
-            {
-                LayoutChanged();
-            }
-        }
+       
 
         //private bool SetFinancialYears()
         //{
