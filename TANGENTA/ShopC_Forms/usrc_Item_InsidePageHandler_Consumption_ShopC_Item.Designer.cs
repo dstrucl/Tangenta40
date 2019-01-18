@@ -1,6 +1,6 @@
 ﻿namespace ShopC_Forms
 {
-    partial class usrc_Item_InsidePageHandler_TangentaDB<Consumption_ShopC_Item>
+    partial class usrc_Item_InsidePageHandler_Consumption_ShopC_Item
     {
         /// <summary> 
         /// Required designer variable.

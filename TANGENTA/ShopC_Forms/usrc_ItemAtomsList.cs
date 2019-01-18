@@ -115,7 +115,7 @@ namespace ShopC_Forms
             return false;
         }
 
-        private void Usrc_Item_InsidePageHandler1_Paint(Control ctrl, object oData, int index, usrc_Item_InsidePageHandler<TangentaDB.Consumption_ShopC_Item>.eMode xmode)
+        private void Usrc_Item_InsidePageHandler1_Paint(Control ctrl, object oData, int index, usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode xmode)
         {
             if (oData is TangentaDB.Consumption_ShopC_Item)
             {
@@ -174,7 +174,7 @@ namespace ShopC_Forms
             }
         }
 
-        private void Usrc_Item_InsidePageHandler1_FillControl(Control ctrl, object oData, usrc_Item_InsidePageHandler<TangentaDB.Consumption_ShopC_Item>.eMode emode)
+        private void Usrc_Item_InsidePageHandler1_FillControl(Control ctrl, object oData, usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode emode)
         {
             if (oData is TangentaDB.Consumption_ShopC_Item)
             {
@@ -235,7 +235,7 @@ namespace ShopC_Forms
         {
             if (RemoveItem(dsci))
             {
-                usrc_Item_InsidePageHandler_ItemAtomList.Init(this.ConsE.m_CurrentConsumption.m_Basket.Basket_Consumption_ShopC_Item_LIST, usrc_Item_InsidePageHandler<TangentaDB.Consumption_ShopC_Item>.eMode.EDIT);
+                usrc_Item_InsidePageHandler_ItemAtomList.Init(this.ConsE.m_CurrentConsumption.m_Basket.Basket_Consumption_ShopC_Item_LIST, usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode.EDIT);
                 usrc_Item_InsidePageHandler_ItemAtomList.ShowPage(0);
                 if (this.Parent is usrc_ShopC)
                 {
@@ -261,10 +261,10 @@ namespace ShopC_Forms
 
         internal void ShowBasket(string xItemUniqueName,object oidata, Control oidata_control)
         {
-            usrc_Item_InsidePageHandler<TangentaDB.Consumption_ShopC_Item>.eMode emode = usrc_Item_InsidePageHandler<TangentaDB.Consumption_ShopC_Item>.eMode.EDIT;
+            usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode emode = usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode.EDIT;
             if (!ConsE.m_CurrentConsumption.bDraft)
             {
-                emode = usrc_Item_InsidePageHandler<TangentaDB.Consumption_ShopC_Item>.eMode.VIEW;
+                emode = usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode.VIEW;
             }
             this.usrc_Item_InsidePageHandler_ItemAtomList.Init(ConsE.m_CurrentConsumption.m_Basket.Basket_Consumption_ShopC_Item_LIST,emode);
             object odata = null;
@@ -272,7 +272,7 @@ namespace ShopC_Forms
             int index = this.usrc_Item_InsidePageHandler_ItemAtomList.FindItem(xItemUniqueName, ref odata, ref ctrl);
             if (index >= 0)
             {
-                this.usrc_Item_InsidePageHandler_ItemAtomList.SelectObject(index,usrc_Item_InsidePageHandler<TangentaDB.Consumption_ShopC_Item>.eSelection.ON_REMOTE);
+                this.usrc_Item_InsidePageHandler_ItemAtomList.SelectObject(index, usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eSelection.ON_REMOTE);
                 if (SelectionChanged != null)
                 {
                     SelectionChanged(ctrl,index, odata, oidata, oidata_control);
@@ -283,10 +283,10 @@ namespace ShopC_Forms
 
         internal void SetCurrentInvoice_SelectedItems()
         {
-            usrc_Item_InsidePageHandler<TangentaDB.Consumption_ShopC_Item>.eMode emode = usrc_Item_InsidePageHandler<TangentaDB.Consumption_ShopC_Item>.eMode.EDIT;
+            usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode emode = usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode.EDIT;
             if (!ConsE.m_CurrentConsumption.bDraft)
             {
-                emode = usrc_Item_InsidePageHandler<TangentaDB.Consumption_ShopC_Item>.eMode.VIEW;
+                emode = usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode.VIEW;
             }
             string sinfo = "";
             if (ConsE.m_CurrentConsumption.bDraft)

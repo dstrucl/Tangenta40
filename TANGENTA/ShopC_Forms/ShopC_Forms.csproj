@@ -192,11 +192,11 @@
     <Compile Include="usrc_Item_InsidePageGroupHandler_Item_Data.Designer.cs">
       <DependentUpon>usrc_Item_InsidePageGroupHandler_Item_Data.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_Item_InsidePageHandler_Doc_ShopC_Item.cs">
+    <Compile Include="usrc_Item_InsidePageHandler_Consumption_ShopC_Item.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_Item_InsidePageHandler_Doc_ShopC_Item.Designer.cs">
-      <DependentUpon>usrc_Item_InsidePageHandler_Doc_ShopC_Item.cs</DependentUpon>
+    <Compile Include="usrc_Item_InsidePageHandler_Consumption_ShopC_Item.Designer.cs">
+      <DependentUpon>usrc_Item_InsidePageHandler_Consumption_ShopC_Item.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_Item_TextSearch.cs">
       <SubType>UserControl</SubType>

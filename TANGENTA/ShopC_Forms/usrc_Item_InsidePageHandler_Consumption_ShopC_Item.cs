@@ -12,9 +12,10 @@ using usrc_Item_InsidePage_Handler;
 
 namespace ShopC_Forms
 {
-    public partial class usrc_Item_InsidePageHandler_TangentaDB<Consumption_ShopC_Item> : usrc_Item_InsidePageHandler<TangentaDB.Consumption_ShopC_Item>
+    
+    public partial class usrc_Item_InsidePageHandler_Consumption_ShopC_Item : usrc_Item_InsidePageHandler<Doc_ShopC_Item>
     {
-        public usrc_Item_InsidePageHandler_TangentaDB()
+        public usrc_Item_InsidePageHandler_Consumption_ShopC_Item()
         {
             InitializeComponent();
         }

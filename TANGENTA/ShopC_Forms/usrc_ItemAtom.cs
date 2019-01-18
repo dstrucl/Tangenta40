@@ -119,10 +119,10 @@ namespace ShopC_Forms
 
         }
 
-        internal void DoPaint(TangentaDB.Consumption_ShopC_Item xdsci, usrc_Item_InsidePageHandler<TangentaDB.Consumption_ShopC_Item>.eMode emode)
+        internal void DoPaint(TangentaDB.Consumption_ShopC_Item xdsci, usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode emode)
         {
             m_dsci = xdsci;
-            if (emode== usrc_Item_InsidePageHandler<TangentaDB.Consumption_ShopC_Item>.eMode.EDIT)
+            if (emode== usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode.EDIT)
             {
                 btn_RemoveFromBasket.Visible = true;
             }
