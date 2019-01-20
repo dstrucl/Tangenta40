@@ -48,11 +48,17 @@
     <Compile Include="ConsumptionMan.cs" />
     <Compile Include="CurrentConsumption.cs" />
     <Compile Include="ConsumptionType.cs" />
-    <Compile Include="Form_OwnUse.cs">
+    <Compile Include="Form_Consumption.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_OwnUse.Designer.cs">
-      <DependentUpon>Form_OwnUse.cs</DependentUpon>
+    <Compile Include="Form_Consumption.Designer.cs">
+      <DependentUpon>Form_Consumption.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_NewConsumption.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_NewConsumption.Designer.cs">
+      <DependentUpon>Form_NewConsumption.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_OwnUse_AddOn.cs">
       <SubType>Form</SubType>
@@ -366,8 +372,11 @@
     <Compile Include="XML_Izpis_Postavka.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form_OwnUse.resx">
-      <DependentUpon>Form_OwnUse.cs</DependentUpon>
+    <EmbeddedResource Include="Form_Consumption.resx">
+      <DependentUpon>Form_Consumption.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_NewConsumption.resx">
+      <DependentUpon>Form_NewConsumption.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_OwnUse_AddOn.resx">
       <DependentUpon>Form_OwnUse_AddOn.cs</DependentUpon>

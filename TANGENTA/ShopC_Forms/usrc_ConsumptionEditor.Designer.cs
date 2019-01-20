@@ -106,7 +106,7 @@ namespace ShopC_Forms
             this.btn_New.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_New.Location = new System.Drawing.Point(756, 685);
             this.btn_New.Name = "btn_New";
-            this.btn_New.Size = new System.Drawing.Size(111, 82);
+            this.btn_New.Size = new System.Drawing.Size(176, 82);
             this.btn_New.TabIndex = 48;
             this.btn_New.Text = "Nov";
             this.btn_New.UseVisualStyleBackColor = false;

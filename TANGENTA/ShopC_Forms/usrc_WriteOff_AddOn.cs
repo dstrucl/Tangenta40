@@ -93,11 +93,11 @@ namespace ShopC_Forms
             m_usrc_Consumption_AddOn = x_usrc_AddOn;
             if (m_bPrint)
             {
-                lng.s_Consumption_Issue.Text(this.btn_Invoice_Issue);
+                lng.s_Consumption_Issue.Text(this.btn_Consumption_Issue);
             }
             else
             {
-                this.btn_Invoice_Issue.Text = lng.s_OK.s;
+                this.btn_Consumption_Issue.Text = lng.s_OK.s;
             }
 
             if (AddOnWriteOff.Get(m_usrc_Consumption_AddOn.ConsM.ConsE.m_CurrentConsumption.Doc_ID))
@@ -276,7 +276,7 @@ namespace ShopC_Forms
         //    }
         //}
 
-        private void btn_Issue_Click(object sender, EventArgs e)
+        private void btn_Consumption_Issue_Click(object sender, EventArgs e)
         {
            
             //if (AddOnDI.MyIssueDate == null)

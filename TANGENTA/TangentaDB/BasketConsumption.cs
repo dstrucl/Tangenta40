@@ -90,7 +90,7 @@ namespace TangentaDB
         {
             string Err = null;
             string sql_select_Consumption_ShopC_Item = null;
-            if (xDocTyp.Equals(GlobalData.const_Consumption))
+            if (xDocTyp.Equals(GlobalData.const_ConsumptionAll))
             {
                 sql_select_Consumption_ShopC_Item =
                 //@"
@@ -613,7 +613,7 @@ namespace TangentaDB
                     
                     if (dsci.dQuantity_all==0)
                     {
-                        if (docTyp.Equals(GlobalData.const_Consumption))
+                        if (docTyp.Equals(GlobalData.const_ConsumptionAll))
                         {
                             if (!f_Consumption_ShopC_Item.Delete(dsci.Consumption_ShopC_Item_ID, transaction))
                             {
@@ -917,7 +917,7 @@ namespace TangentaDB
                 LogFile.Error.Show("ERROR:Basket.cs:Basket:RemoveFactory:xDocTyp = null not implemented.");
                 return false;
             }
-            else if (xDocTyp.Equals(GlobalData.const_Consumption))
+            else if (xDocTyp.Equals(GlobalData.const_ConsumptionAll))
             {
                 sql = @"select dsci.ID from Consumption_ShopC_Item  dsci
                                   inner join Consumption_ShopC_Item_Source dsciS on dsciS.Consumption_ShopC_Item_ID = dsci.ID
@@ -966,7 +966,7 @@ namespace TangentaDB
                     }
 
                     string sql_Delete_Consumption_Atom_Item_Stock = null;
-                    if (xDocTyp.Equals(GlobalData.const_Consumption))
+                    if (xDocTyp.Equals(GlobalData.const_ConsumptionAll))
                     {
                         sql_Delete_Consumption_Atom_Item_Stock = "delete from Consumption_ShopC_Item_Source where Stock_ID is null and  Consumption_ShopC_Item_ID in " + s_in_ID_list;
                     }
@@ -994,7 +994,7 @@ namespace TangentaDB
                                     RemoveFactory_from_list(xdsci);
                                     if (xdsci.dQuantity_all==0)
                                     {
-                                        if (xDocTyp.Equals(GlobalData.const_Consumption))
+                                        if (xDocTyp.Equals(GlobalData.const_ConsumptionAll))
                                         {
                                             if (f_Consumption_ShopC_Item.Delete(xdsci.Consumption_ShopC_Item_ID, transaction))
                                             {

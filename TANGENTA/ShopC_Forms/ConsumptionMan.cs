@@ -66,6 +66,10 @@ namespace ShopC_Forms
         }
 
         public List<ConsumptionType> List_ConsumptionType = new List<ConsumptionType>();
+        public ConsumptionType Consumption_WriteOff = null;
+        public ConsumptionType Consumption_OwnUse = null;
+        public ConsumptionType Consumption_All = null;
+
 
         //public SettingsUserValues mSettingsUserValues = null;
 
@@ -90,9 +94,9 @@ namespace ShopC_Forms
         public DataTable dt_FinancialYears = new DataTable();
 
 
-        private string m_DocTyp = null;
+        private string m_ConsumptionTyp = null;
 
-        public string DocTyp
+        public string ConsumptionTyp
         {
             get
             {
@@ -100,14 +104,14 @@ namespace ShopC_Forms
                 //{
                 //    if (!this.DesignMode) LogFile.Error.Show("ERROR:Tangenta:usrc_ConsumptionMan:property DocTyp: DocTyp is not defined (m_DocInvoice = null)!");
                 //}
-                return m_DocTyp;
+                return m_ConsumptionTyp;
             }
             set
             {
                 string s = value;
-                if (s.Equals(GlobalData.const_DocInvoice) || s.Equals(GlobalData.const_DocProformaInvoice))
+                if (s.Equals(GlobalData.const_ConsumptionAll) || s.Equals(GlobalData.const_ConsumptionWriteOff) || s.Equals(GlobalData.const_ConsumptionOwnUse))
                 {
-                    m_DocTyp = s;
+                    m_ConsumptionTyp = s;
                 }
                 else
                 {
@@ -129,22 +133,33 @@ namespace ShopC_Forms
         public bool IsWriteOff
         {
             get
-            { return DocTyp.Equals(GlobalData.const_WriteOff); }
+            { return ConsumptionTyp.Equals(GlobalData.const_ConsumptionWriteOff); }
         }
 
         public bool IsOwnUse
         {
             get
-            { return DocTyp.Equals(GlobalData.const_OwnUse); }
+            { return ConsumptionTyp.Equals(GlobalData.const_ConsumptionOwnUse); }
         }
 
+        public bool IsAll
+        {
+            get
+            { return ConsumptionTyp.Equals(GlobalData.const_ConsumptionAll); }
+        }
 
         public ConsumptionMan(delegate_Control_SetMode xdelegate_control_SetMode,
                           delegate_Control_TableOfDocuments_Init xdelegate_control_TableOfDocuments_Init,
                           delegate_Control_DocumentEditor_Init xdelegate_Control_DocumentEditor_Init,
-                          delegate_Control_SetInitialMode xdelegate_Control_SetInitialMode
-            )
+                          delegate_Control_SetInitialMode xdelegate_Control_SetInitialMode,
+                          LoginControl.LMOUser xlmoUser,
+                          int iFinancialYear,
+                          string consumptiontype)
         {
+            this.m_LMOUser = xlmoUser;
+            this.m_FinancialYear = iFinancialYear;
+            this.m_ConsumptionTyp = consumptiontype;
+
             delegate_control_SetMode = xdelegate_control_SetMode;
             Delegate_control_TableOfDocuments_Init = xdelegate_control_TableOfDocuments_Init;
             Delegate_Control_DocumentEditor_Init = xdelegate_Control_DocumentEditor_Init;

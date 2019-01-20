@@ -30,8 +30,8 @@ namespace ShopC_Forms
         public delegate void delegate_Cancel();
         public event delegate_Cancel Cancel;
 
-        public delegate void delegate_Issue();
-        public event delegate_Issue Issue;
+        public delegate bool delegate_Issue(ShopC_Forms.OwnUseAddOn ownuse_add_on, Transaction transaction);
+        public event delegate_Issue Issue = null;
 
         private OwnUseAddOn m_AddOwnUse = null;
         private OwnUseAddOn AddOnOwnUse
@@ -100,58 +100,75 @@ namespace ShopC_Forms
                 this.btn_Invoice_Issue.Text = lng.s_OK.s;
             }
 
-            if (AddOnOwnUse.Get(m_usrc_Consumption_AddOn.ConsM.ConsE.m_CurrentConsumption.Doc_ID))
+            AddOnOwnUse.GetReasonTable();
+            AddOnOwnUse.GetDescriptionTable();
+            cmb_Reason.DataSource = AddOnOwnUse.dtOwnUseReason;
+            cmb_Reason.DisplayMember = "Name";
+            cmb_Reason.ValueMember = "ID";
+
+            cmb_Description.DataSource = AddOnOwnUse.dtOwnUseDescription;
+            cmb_Reason.DisplayMember = "Name";
+            cmb_Reason.ValueMember = "ID";
+
+            if (ID.Validate(m_usrc_Consumption_AddOn.ConsM.ConsE.m_CurrentConsumption.Doc_ID))
             {
-                //if (AddOnDI.MyIssueDate != null)
-                //{
-                //    dtP_DateOfIssue.Value = AddOnDI.MyIssueDate.Date;
-                //}
+                if (AddOnOwnUse.Get(m_usrc_Consumption_AddOn.ConsM.ConsE.m_CurrentConsumption.Doc_ID))
+                {
+                    //if (AddOnDI.MyIssueDate != null)
+                    //{
+                    //    dtP_DateOfIssue.Value = AddOnDI.MyIssueDate.Date;
+                    //}
 
-                //if (AddOnDI.MyPaymentDeadline != null)
-                //{
-                //    dtP_PaymentDeadline.Value = AddOnDI.MyPaymentDeadline.Date;
-                //}
+                    //if (AddOnDI.MyPaymentDeadline != null)
+                    //{
+                    //    dtP_PaymentDeadline.Value = AddOnDI.MyPaymentDeadline.Date;
+                    //}
 
-                //if (AddOnDI.MyMethodOfPayment_DI != null)
-                //{
-                //    switch (AddOnDI.MyMethodOfPayment_DI.eType)
-                //    {
-                //        case GlobalData.ePaymentType.CASH:
-                //            rdb_Cash.Checked = true;
-                //            break;
-                //        case GlobalData.ePaymentType.CARD:
-                //            rdb_CARD.Checked = true;
-                //            break;
-                //        case GlobalData.ePaymentType.CASH_OR_CARD:
-                //            rdb_Cash.Checked = true;
-                //            break;
-                //        case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
-                //            rdb_BankAccountTransfer.Checked = true;
-                //            txt_BankAccount.Text = SetBankAccountText();
-                //            Enable_BankAccountTransfer(true);
-                //            break;
-                //    }
-                //}
-                //if (AddOnDI.MyTermsOfPayment == null)
-                //{
-                //    // set default value !
-                //    AddOnDI.MyTermsOfPayment = new DocInvoice_AddOn.TermsOfPayment();
-                //    AddOnDI.MyTermsOfPayment.GetDefault();
-                //    if (AddOnDI.MyTermsOfPayment.Description.Length > 0)
-                //    {
-                //        txt_PaymantConditionsDescription.Text = AddOnDI.MyTermsOfPayment.Description;
-                //    }
-                //}
-                //else
-                //{
-                //    txt_PaymantConditionsDescription.Text = AddOnDI.MyTermsOfPayment.Description;
-                //}
+                    //if (AddOnDI.MyMethodOfPayment_DI != null)
+                    //{
+                    //    switch (AddOnDI.MyMethodOfPayment_DI.eType)
+                    //    {
+                    //        case GlobalData.ePaymentType.CASH:
+                    //            rdb_Cash.Checked = true;
+                    //            break;
+                    //        case GlobalData.ePaymentType.CARD:
+                    //            rdb_CARD.Checked = true;
+                    //            break;
+                    //        case GlobalData.ePaymentType.CASH_OR_CARD:
+                    //            rdb_Cash.Checked = true;
+                    //            break;
+                    //        case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
+                    //            rdb_BankAccountTransfer.Checked = true;
+                    //            txt_BankAccount.Text = SetBankAccountText();
+                    //            Enable_BankAccountTransfer(true);
+                    //            break;
+                    //    }
+                    //}
+                    //if (AddOnDI.MyTermsOfPayment == null)
+                    //{
+                    //    // set default value !
+                    //    AddOnDI.MyTermsOfPayment = new DocInvoice_AddOn.TermsOfPayment();
+                    //    AddOnDI.MyTermsOfPayment.GetDefault();
+                    //    if (AddOnDI.MyTermsOfPayment.Description.Length > 0)
+                    //    {
+                    //        txt_PaymantConditionsDescription.Text = AddOnDI.MyTermsOfPayment.Description;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    txt_PaymantConditionsDescription.Text = AddOnDI.MyTermsOfPayment.Description;
+                    //}
 
-                return true;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
-                return false;
+                return true;
             }
         }
 
@@ -275,37 +292,35 @@ namespace ShopC_Forms
         private void btn_Issue_Click(object sender, EventArgs e)
         {
            
-            //if (AddOnDI.MyIssueDate == null)
-            //{
-            //    AddOnDI.MyIssueDate = new DocInvoice_AddOn.IssueDate();
-            //}
-            //AddOnDI.MyIssueDate.Date = dtP_DateOfIssue.Value;
+            if (m_AddOwnUse.MyIssueDate == null)
+            {
+                m_AddOwnUse.MyIssueDate = new OwnUseAddOn.IssueDate();
+            }
+            m_AddOwnUse.MyIssueDate.Date = dtP_DateOfIssue.Value;
 
-            //AddOnDI.MyPaymentDeadline = null;
-            //if (AddOnDI.MyMethodOfPayment_DI != null)
-            //{
-            //    if (AddOnDI.MyMethodOfPayment_DI.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
-            //    {
-            //        if (AddOnDI.MyPaymentDeadline == null)
-            //        {
-            //            AddOnDI.MyPaymentDeadline = new DocInvoice_AddOn.PaymentDeadline();
-            //        }
-            //        AddOnDI.MyPaymentDeadline.Date = dtP_PaymentDeadline.Value;
-            //    }
-            //}
 
             ltext ltMsg = null;
             //AddOnDI.m_NoticeText = this.usrc_Notice1.NoticeText;
             if (AddOnOwnUse.Completed(ref ltMsg))
             {
-                Transaction transaction_usrc_DocInvoice_AddOn_Set = DBSync.DBSync.NewTransaction("usrc_Consumption_AddOn_Set");
-                if (AddOnOwnUse.Set(m_usrc_Consumption_AddOn.ConsM.ConsE.m_CurrentConsumption.Doc_ID, transaction_usrc_DocInvoice_AddOn_Set))
+                Transaction transaction_usrc_DocInvoice_AddOn_Set = DBSync.DBSync.NewTransaction("usrc_OwnUse_AddOn.btn_Issue_Click");
+                if (AddOnOwnUse.Set(transaction_usrc_DocInvoice_AddOn_Set))
                 {
-                    if (transaction_usrc_DocInvoice_AddOn_Set.Commit())
+                    if (Issue != null)
                     {
-                        if (Issue != null)
+                       if (Issue(AddOnOwnUse, transaction_usrc_DocInvoice_AddOn_Set))
                         {
-                            Issue();
+                            transaction_usrc_DocInvoice_AddOn_Set.Commit();
+                        }
+                       else
+                        {
+                            transaction_usrc_DocInvoice_AddOn_Set.Rollback();
+                        }
+                    }
+                    else
+                    {
+                        if (transaction_usrc_DocInvoice_AddOn_Set.Commit())
+                        {
                         }
                     }
                 }

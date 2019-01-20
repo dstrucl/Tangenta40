@@ -33,13 +33,13 @@
             this.lbl_Sum_All = new System.Windows.Forms.Label();
             this.lbl_Sum_WithoutTax = new System.Windows.Forms.Label();
             this.lbl_Sum_Tax = new System.Windows.Forms.Label();
-            this.dgvx_XInvoice = new DataGridView_2xls.DataGridView2xls();
+            this.dgvx_XConsumption = new DataGridView_2xls.DataGridView2xls();
             this.lbl_Payment1 = new System.Windows.Forms.Label();
             this.lbl_Payment2 = new System.Windows.Forms.Label();
             this.btn_Print = new System.Windows.Forms.Button();
             this.btn_TimeSpan = new System.Windows.Forms.Button();
             this.lbl_SelectionDescription = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvx_XInvoice)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvx_XConsumption)).BeginInit();
             this.SuspendLayout();
             // 
             // lbl_From_To
@@ -80,14 +80,14 @@
             // 
             // dgvx_XInvoice
             // 
-            this.dgvx_XInvoice.AllowUserToAddRows = false;
-            this.dgvx_XInvoice.AllowUserToDeleteRows = false;
-            this.dgvx_XInvoice.AllowUserToOrderColumns = true;
-            this.dgvx_XInvoice.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgvx_XConsumption.AllowUserToAddRows = false;
+            this.dgvx_XConsumption.AllowUserToDeleteRows = false;
+            this.dgvx_XConsumption.AllowUserToOrderColumns = true;
+            this.dgvx_XConsumption.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvx_XInvoice.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvx_XInvoice.DataGridViewWithRowNumber = true;
+            this.dgvx_XConsumption.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvx_XConsumption.DataGridViewWithRowNumber = true;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -95,17 +95,17 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvx_XInvoice.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvx_XInvoice.Location = new System.Drawing.Point(4, 59);
-            this.dgvx_XInvoice.Name = "dgvx_XInvoice";
-            this.dgvx_XInvoice.ReadOnly = true;
-            this.dgvx_XInvoice.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvx_XInvoice.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_XInvoice.Size = new System.Drawing.Size(826, 544);
-            this.dgvx_XInvoice.TabIndex = 0;
-            this.dgvx_XInvoice.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvx_XInvoice_CellFormatting);
-            this.dgvx_XInvoice.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvx_XInvoice_CellMouseDown);
-            this.dgvx_XInvoice.Sorted += new System.EventHandler(this.dgvx_XInvoice_Sorted);
+            this.dgvx_XConsumption.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvx_XConsumption.Location = new System.Drawing.Point(4, 59);
+            this.dgvx_XConsumption.Name = "dgvx_XConsumption";
+            this.dgvx_XConsumption.ReadOnly = true;
+            this.dgvx_XConsumption.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvx_XConsumption.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvx_XConsumption.Size = new System.Drawing.Size(826, 544);
+            this.dgvx_XConsumption.TabIndex = 0;
+            this.dgvx_XConsumption.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvx_XConsumption_CellFormatting);
+            this.dgvx_XConsumption.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvx_XConsumption_CellMouseDown);
+            this.dgvx_XConsumption.Sorted += new System.EventHandler(this.dgvx_XConsumption_Sorted);
             // 
             // lbl_Payment1
             // 
@@ -169,17 +169,17 @@
             this.Controls.Add(this.lbl_Sum_All);
             this.Controls.Add(this.btn_TimeSpan);
             this.Controls.Add(this.lbl_From_To);
-            this.Controls.Add(this.dgvx_XInvoice);
+            this.Controls.Add(this.dgvx_XConsumption);
             this.Name = "usrc_TableOfDocuments";
             this.Size = new System.Drawing.Size(831, 604);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvx_XInvoice)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvx_XConsumption)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private DataGridView_2xls.DataGridView2xls dgvx_XInvoice;
+        private DataGridView_2xls.DataGridView2xls dgvx_XConsumption;
         private System.Windows.Forms.Button btn_TimeSpan;
         private System.Windows.Forms.Button btn_Print;
         internal System.Windows.Forms.Label lbl_From_To;

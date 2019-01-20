@@ -55,7 +55,7 @@ namespace ShopC
         /// </summary>
         public event delegate_After_Atom_Item_Remove After_Atom_Item_Remove = null;
 
-        private ID m_Atom_WorkPeriod_ID = null;
+        private LoginControl.LMOUser lmoUser = null;
         DataTable dt_Item = new DataTable();
         private TangentaDB.ShopABC m_ShopBC = null;
         private DBTablesAndColumnNamesOfDocInvoice DBtcn = null;
@@ -162,7 +162,7 @@ namespace ShopC
             DoPaint();
         }
 
-        public void Init(ID xAtom_WorkPeriod_ID,
+        public void Init(LoginControl.LMOUser xlmoUser,
                         TangentaDB.ShopABC xm_InvoiceDB,
                         DBTablesAndColumnNamesOfDocInvoice xDBtcn,
                         string ShopsInUse,
@@ -170,7 +170,7 @@ namespace ShopC
                         bool bExclusivelySellFromStock)
 
         {
-            m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
+            lmoUser = xlmoUser;
             m_bExclusivelySellFromStock = bExclusivelySellFromStock;
             m_ShopBC = xm_InvoiceDB;
             this.chk_AutomaticSelectionOfItemFromStock.Checked = bAutomaticSelectionOfItemFromStock;
@@ -184,8 +184,8 @@ namespace ShopC
 
             lng.s_ShopC_Name.Text(lbl_ShopC_Name);
             lbl_ShopC_Name.Visible = true;
-            this.usrc_Atom_ItemsList.Init(m_Atom_WorkPeriod_ID, usrc_ItemList, xm_InvoiceDB, xDBtcn);
-            this.usrc_ItemList.Init(m_Atom_WorkPeriod_ID, xm_InvoiceDB, xDBtcn, this, m_bExclusivelySellFromStock);
+            this.usrc_Atom_ItemsList.Init(lmoUser.Atom_WorkPeriod_ID, usrc_ItemList, xm_InvoiceDB, xDBtcn);
+            this.usrc_ItemList.Init(lmoUser.Atom_WorkPeriod_ID, xm_InvoiceDB, xDBtcn, this, m_bExclusivelySellFromStock);
 
             this.usrc_ItemList.ItemAdded += new usrc_ItemList.delegate_ItemAdded(usrc_ItemList_ItemAdded);
             this.usrc_Atom_ItemsList.After_Atom_Item_Remove += new usrc_Atom_ItemsList.delegate_After_Atom_Item_Remove(usrc_Atom_ItemsList_After_Atom_Item_Remove);
@@ -297,7 +297,12 @@ namespace ShopC
 
         private bool EditStock(NavigationButtons.Navigation xnav)
         {
-            Form_SelectStockEditType frmSelectStockEditType = new Form_SelectStockEditType(m_Atom_WorkPeriod_ID, xnav);
+            int financialYear = 0;
+            if (m_ShopBC.m_CurrentDoc != null)
+            {
+                financialYear = m_ShopBC.m_CurrentDoc.FinancialYear;
+            }
+            Form_SelectStockEditType frmSelectStockEditType = new Form_SelectStockEditType(lmoUser, financialYear, xnav);
             frmSelectStockEditType.CheckIfAdministrator += FrmSelectStockEditType_CheckIfAdministrator;
             if (frmSelectStockEditType.ShowDialog(this) == DialogResult.OK)
             {

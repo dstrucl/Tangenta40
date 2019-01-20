@@ -81,11 +81,11 @@ namespace ShopC_Forms
         {
             if (IsWriteOff)
             {
-                return Get_WriteOff_AddOn(ConsM.ConsE.ConsumptionData.AddOnWriteOff, xbPrint);
+                return Get_WriteOff_AddOn(ConsM.ConsE.MyConsumptionData.AddOnWriteOff, xbPrint);
             }
             else if (IsDocOwnUse)
             {
-                return Get_OwnUse_AddOn(ConsM.ConsE.ConsumptionData.AddOnOwnUse, xbPrint);
+                return Get_OwnUse_AddOn(ConsM.ConsE.MyConsumptionData.AddOnOwnUse, xbPrint);
             }
             else
             {
@@ -120,14 +120,14 @@ namespace ShopC_Forms
         {
             if (IsWriteOff)
             {
-                if (ConsM.ConsE.ConsumptionData.AddOnWriteOff.Get(ID))
+                if (ConsM.ConsE.MyConsumptionData.AddOnWriteOff.Get(ID))
                 {
                     DisplayAddOn();
                 }
             }
             else if (IsDocOwnUse)
             {
-                if (ConsM.ConsE.ConsumptionData.AddOnOwnUse.Get(ID))
+                if (ConsM.ConsE.MyConsumptionData.AddOnOwnUse.Get(ID))
                 {
                     DisplayAddOn();
                 }
@@ -139,9 +139,9 @@ namespace ShopC_Forms
             string txt = "";
             if (IsWriteOff)
             {
-                if (ConsM.ConsE.ConsumptionData.AddOnWriteOff.MyIssueDate != null)
+                if (ConsM.ConsE.MyConsumptionData.AddOnWriteOff.MyIssueDate != null)
                 {
-                    txt += lng.s_IssueDate.s + ":" + ConsM.ConsE.ConsumptionData.AddOnWriteOff.MyIssueDate.Date.ToShortDateString() + "\r\n";
+                    txt += lng.s_IssueDate.s + ":" + ConsM.ConsE.MyConsumptionData.AddOnWriteOff.MyIssueDate.Date.ToShortDateString() + "\r\n";
                 }
                 //if (ConsM.ConsE.InvoiceData.AddOnDI.MyMethodOfPayment_DI != null)
                 //{
@@ -175,9 +175,9 @@ namespace ShopC_Forms
             }
             else if (IsDocOwnUse)
             {
-                if (ConsM.ConsE.ConsumptionData.AddOnOwnUse.MyIssueDate != null)
+                if (ConsM.ConsE.MyConsumptionData.AddOnOwnUse.MyIssueDate != null)
                 {
-                    txt += lng.s_IssueDate.s + ":" + ConsM.ConsE.ConsumptionData.AddOnOwnUse.MyIssueDate.Date.Date.ToShortDateString() + "\r\n";
+                    txt += lng.s_IssueDate.s + ":" + ConsM.ConsE.MyConsumptionData.AddOnOwnUse.MyIssueDate.Date.Date.ToShortDateString() + "\r\n";
                 }
                 //if (ConsM.DocE.InvoiceData.AddOnDPI.m_Duration != null)
                 //{

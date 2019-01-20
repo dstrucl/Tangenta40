@@ -27,6 +27,9 @@ namespace ShopC_Forms
 {
     public partial class usrc_ConsumptionEditor : UserControl
     {
+        public delegate bool delegate_Issue(ShopC_Forms.OwnUseAddOn ownuse_add_on, Transaction transaction);
+        public event delegate_Issue Issue = null;
+
         internal class Defpos
         {
             internal int lbl_Number_Left;
@@ -80,16 +83,16 @@ namespace ShopC_Forms
         public int ShopC_default_H = -1;
 
 
-        public bool IsDocInvoice
+        public bool IsWriteOff
         {
             get
-            { return ConsE.DocTyp.Equals(GlobalData.const_DocInvoice); }
+            { return ConsE.DocTyp.Equals(GlobalData.const_ConsumptionWriteOff); }
         }
 
-        public bool IsDocProformaInvoice
+        public bool IsOwnUse
         {
             get
-            { return ConsE.DocTyp.Equals(GlobalData.const_DocProformaInvoice); }
+            { return ConsE.DocTyp.Equals(GlobalData.const_ConsumptionOwnUse); }
         }
 
 
@@ -153,7 +156,7 @@ namespace ShopC_Forms
             //    m_usrc_ShopC.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
             //    m_usrc_ShopC.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
             //}
-            m_usrc_ShopC.Init(ConsE.m_LMOUser.Atom_WorkPeriod_ID,
+            m_usrc_ShopC.Init(ConsE.m_LMOUser,
                                       ConsE,
                                       ConsE.DBtcn,
                                       null,
@@ -443,19 +446,15 @@ namespace ShopC_Forms
         public bool Init(ID Document_ID)
         {
             Form pform = Global.f.GetParentForm(this);
-            ID m_usrc_ShopB_usrc_PriceList1_ID = null;
-            ID m_usrc_ShopC_m_usrc_PriceList1_ID = null;
 
-            Transaction transaction_DocE_Init = DBSync.DBSync.NewTransaction("DocE.Init");
+            Transaction transaction_ConsE_Init = DBSync.DBSync.NewTransaction("ConsE.Init");
             if (ConsE.Init(pform,
                             Document_ID,
-                            ref m_usrc_ShopB_usrc_PriceList1_ID,
-                            ref m_usrc_ShopC_m_usrc_PriceList1_ID,
                             doCurrent_delegates,
-                            transaction_DocE_Init
+                            transaction_ConsE_Init
                             ))
             {
-                if (transaction_DocE_Init.Commit())
+                if (transaction_ConsE_Init.Commit())
                 {
                     //this.usrc_Customer.aa_Customer_Person_Changed += new usrc_Customer.delegate_Customer_Person_Changed(this.usrc_Customer_Customer_Person_Changed);
                     //this.usrc_Customer.aa_Customer_Org_Changed += new usrc_Customer.delegate_Customer_Org_Changed(this.usrc_Customer_Customer_Org_Changed);
@@ -486,7 +485,7 @@ namespace ShopC_Forms
             }
             else
             {
-                transaction_DocE_Init.Rollback();
+                transaction_ConsE_Init.Rollback();
                 return false;
             }
         }
@@ -607,27 +606,37 @@ namespace ShopC_Forms
         
 
 
-        public void SetNewDraft(LMOUser xLMOUser, string DocTyp, int xFinancialYear,xCurrency xcurrency, ID Atom_Currency_ID)
+        public void SetNewDraft(LMOUser xLMOUser,
+                                string consumptionTyp,
+                                Form_NewConsumption.e_NewConsumption xe_NewConsumption,
+                                int xFinancialYear,
+                                xCurrency xcurrency,
+                                ID Atom_Currency_ID)
         {
             Form pform = Global.f.GetParentForm(this);
             ConsE.SetNewDraft(pform,
                             xLMOUser,
-                            DocTyp,
+                            consumptionTyp,
+                            xe_NewConsumption,
                             xFinancialYear,
                             xcurrency,
                             Atom_Currency_ID,
-                            //workArea,
                             this.SetMode,
                             this.set_InvoiceNumberText
                             );
         }
 
-        private bool SetNewConsumptionDraft(LMOUser xLMOUser,  int FinancialYear, xCurrency xcurrency, ID xAtom_Currency_ID)
+        private bool SetNewConsumptionDraft(LMOUser xLMOUser,
+                                            Form_NewConsumption.e_NewConsumption xe_NewConsumption,
+                                            int FinancialYear,
+                                            xCurrency xcurrency,
+                                            ID xAtom_Currency_ID)
         {
             Form pform = Global.f.GetParentForm(this);
             return ConsE.SetNewConsumptionDraft(
                             pform,
                             xLMOUser,
+                            xe_NewConsumption,
                             FinancialYear,
                             xcurrency,
                             xAtom_Currency_ID,
@@ -659,6 +668,32 @@ namespace ShopC_Forms
         private void usrc_ShopB_ItemUpdated(ID ID, DataTable dt_SelectedSimpleItem)
         {
             get_price_sum();
+        }
+
+        internal bool GetOwnUseData(usrc_ConsumptionMan usrc_ConsumptionMan)
+        {
+            Form_OwnUse_AddOn frm_OwnUse_AddOn = new Form_OwnUse_AddOn(ConsE.MyConsumptionData.AddOnOwnUse, false, this.usrc_Consumption_AddOn1);
+            frm_OwnUse_AddOn.Issue += Frm_OwnUse_AddOn_Issue;
+            if (frm_OwnUse_AddOn.ShowDialog() == DialogResult.OK)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool Frm_OwnUse_AddOn_Issue(OwnUseAddOn ownuse_add_on, Transaction transaction)
+        {
+            if (Issue!=null)
+            {
+                return Issue(ownuse_add_on, transaction);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void usrc_ShopB_ExtraDiscount(ID ID, DataTable dt_SelectedSimpleItem)

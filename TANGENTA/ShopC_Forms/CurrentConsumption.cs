@@ -39,7 +39,7 @@ namespace ShopC_Forms
 
         public InvoiceData.eType m_eType = InvoiceData.eType.UNKNOWN;
 
-        public ShopABC m_InvoiceDB = null;
+        public ConsumptionEditor m_CosnumptionEditor = null;
 
         public string sql_Price_Item_Stock_template = null;
 
@@ -52,7 +52,7 @@ namespace ShopC_Forms
         public ShopShelfConsumption m_ShopShelf = null;
         public BasketConsumption m_Basket = null;
 
-        DBTablesAndColumnNamesOfDocInvoice DBtcn = null;
+        DBTablesAndColumnNamesOfConsumption DBtcn = null;
 
         public int FinancialYear;
         public int NumberInFinancialYear;
@@ -84,7 +84,7 @@ namespace ShopC_Forms
 
         public ID Atom_Customer_Person_ID = null;
         public ID Atom_Customer_Org_ID = null;
-        public bool bDraft = false;
+        public bool bDraft = true;
         public bool m_Exist = false;
         public bool Exist
         {
@@ -105,9 +105,9 @@ namespace ShopC_Forms
         
        }
 
-        public CurrentConsumption(ShopABC xInvoiceDB, DBTablesAndColumnNamesOfDocInvoice xDBtcn)
+        public CurrentConsumption(ConsumptionEditor xInvoiceDB, DBTablesAndColumnNamesOfConsumption xDBtcn)
         {
-            m_InvoiceDB = xInvoiceDB;
+            m_CosnumptionEditor = xInvoiceDB;
             DBtcn = xDBtcn;
 
             dtCurrent_Invoice = new DataTable();
@@ -198,7 +198,7 @@ namespace ShopC_Forms
                     }
                 }
             }
-            m_InvoiceDB.Set_dgv_selected_ShopB_Items_Columns(dgv_SelectedSimpleItems);
+            //m_CosnumptionEditor.Set_dgv_selected_ShopB_Items_Columns(dgv_SelectedSimpleItems);
 
         }
 
@@ -640,7 +640,7 @@ namespace ShopC_Forms
                 ID TermsOfPayment_ID = tf.set_ID(dt_ProfInv.Rows[0]["TermsOfPayment_ID"]);
                 ID MethodOfPayment_DI_ID = tf.set_ID(dt_ProfInv.Rows[0]["MethodOfPayment_DI_ID"]);
                 int iNewNumberInFinancialYear = -1;
-                GetNewNumberInFinancialYear(GlobalData.const_Consumption, ElectronicDevice_Name, ref iNewNumberInFinancialYear);
+                GetNewNumberInFinancialYear(GlobalData.const_ConsumptionAll, ElectronicDevice_Name, ref iNewNumberInFinancialYear);
                 int_v iNewNumberInFinancialYear_v = new int_v(iNewNumberInFinancialYear);
 
                 ID Storno_Invoice_ID = new ID(Doc_ID);
@@ -687,7 +687,7 @@ namespace ShopC_Forms
                                                             'STORNO'
                                                             )";
 
-                if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Storno_Consumption_ID, ref Err, GlobalData.const_Consumption))
+                if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Storno_Consumption_ID, ref Err, GlobalData.const_ConsumptionAll))
                 {
 
                     string spar_DocumentInvoice_ID = "@par_DocumentInvoice_ID";
@@ -818,15 +818,18 @@ namespace ShopC_Forms
         {
             int iCount = 0;
             string Err = null;
-            string sql = "select '"+xDocTyp+"_ShopA_Item' as "+xDocTyp+"_ShopA_Item, count(ID) AS " + xDocTyp + "_Items_Count from " + xDocTyp + "_ShopA_Item where " + xDocTyp + "_ID = " + Doc_ID.ToString()
-                        + " UNION ALL select '" + xDocTyp + "_ShopB_Item' as " + xDocTyp + "_ShopB_Item,count(ID) AS " + xDocTyp + "_Items_Count from " + xDocTyp + "_ShopB_Item where " + xDocTyp + "_ID = " + Doc_ID.ToString()
-                        + " UNION ALL select '" + xDocTyp + "_ShopC_Item' as " + xDocTyp + "_ShopC_Item,count(ID) AS " + xDocTyp + "_Items_Count from " + xDocTyp + "_ShopC_Item where " + xDocTyp + "_ID = " + Doc_ID.ToString();
+            xDocTyp = "Consumption";
+            //string sql = "select '"+xDocTyp+"_ShopA_Item' as "+xDocTyp+"_ShopA_Item, count(ID) AS " + xDocTyp + "_Items_Count from " + xDocTyp + "_ShopA_Item where " + xDocTyp + "_ID = " + Doc_ID.ToString()
+            //            + " UNION ALL select '" + xDocTyp + "_ShopB_Item' as " + xDocTyp + "_ShopB_Item,count(ID) AS " + xDocTyp + "_Items_Count from " + xDocTyp + "_ShopB_Item where " + xDocTyp + "_ID = " + Doc_ID.ToString()
+            //            + " UNION ALL select '" + xDocTyp + "_ShopC_Item' as " + xDocTyp + "_ShopC_Item,count(ID) AS " + xDocTyp + "_Items_Count from " + xDocTyp + "_ShopC_Item where " + xDocTyp + "_ID = " + Doc_ID.ToString();
+
+            string sql = "select '" + xDocTyp + "_ShopC_Item' as " + xDocTyp + "_ShopC_Item,count(ID) AS " + xDocTyp + "_Items_Count from " + xDocTyp + "_ShopC_Item where " + xDocTyp + "_ID = " + Doc_ID.ToString();
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
-                    iCount = Convert.ToInt32(dt.Rows[0][xDocTyp + "_Items_Count"]) + Convert.ToInt32(dt.Rows[1][xDocTyp + "_Items_Count"]) + Convert.ToInt32(dt.Rows[2][xDocTyp + "_Items_Count"]);
+                    iCount = Convert.ToInt32(dt.Rows[0][xDocTyp + "_Items_Count"]);
                 }
             }
             else

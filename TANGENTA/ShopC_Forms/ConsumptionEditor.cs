@@ -82,7 +82,9 @@ namespace ShopC_Forms
 
         public xUnitList m_xUnitList = null;
 
-        private ConsumptionMan ConsM = null;
+        internal ConsumptionMan ConsM = null;
+
+        public DataTable dtPurchasePrice_Item = null;
 
         TangentaTableClass.SQL_Database_Tables_Definition td = null;
 
@@ -210,7 +212,7 @@ namespace ShopC_Forms
         public CurrentConsumption m_CurrentConsumption = null;
 
         private ConsumptionData m_ConsumptionData = null;
-        public ConsumptionData ConsumptionData
+        public ConsumptionData MyConsumptionData
         {
             get
             {
@@ -240,6 +242,7 @@ namespace ShopC_Forms
         public ConsumptionEditor(ConsumptionMan xdocman)
         {
             ConsM = xdocman;
+            m_CurrentConsumption = new CurrentConsumption(this,DBtcn);
         }
 
 
@@ -255,7 +258,7 @@ namespace ShopC_Forms
         {
             get
             {
-                return ConsM.DocTyp;
+                return ConsM.ConsumptionTyp;
             }
         }
 
@@ -786,7 +789,7 @@ namespace ShopC_Forms
                             {
                                 return;
                             }
-                            if (!xdelegate_control_Check_WriteOff_AddOn(ConsumptionData.AddOnWriteOff))//if (!usrc_AddOn1.Check_Consumption_AddOn(DocE.m_InvoiceData.AddOnDI))
+                            if (!xdelegate_control_Check_WriteOff_AddOn(MyConsumptionData.AddOnWriteOff))//if (!usrc_AddOn1.Check_Consumption_AddOn(DocE.m_InvoiceData.AddOnDI))
                             {
                                 return;
                             }
@@ -819,11 +822,11 @@ namespace ShopC_Forms
                     else
                     {
                         //Print existing invoice
-                        ConsumptionData.Consumption_ID = m_CurrentConsumption.Doc_ID;
+                        MyConsumptionData.Consumption_ID = m_CurrentConsumption.Doc_ID;
                         Transaction transaction_m_InvoiceData_Read_Consumption = DBSync.DBSync.NewTransaction("m_InvoiceData.Read_Consumption");
                         if (ConsM.IsWriteOff)
                         {
-                            if (ConsumptionData.Read_Consumption(transaction_m_InvoiceData_Read_Consumption)) // read Proforma Invoice again from DataBase
+                            if (MyConsumptionData.Read_Consumption(transaction_m_InvoiceData_Read_Consumption)) // read Proforma Invoice again from DataBase
                             { // print invoice if you wish
                                 if (transaction_m_InvoiceData_Read_Consumption.Commit())
                                 {
@@ -839,7 +842,7 @@ namespace ShopC_Forms
                         }
                         else
                         {
-                            if (ConsumptionData.Read_Consumption(transaction_m_InvoiceData_Read_Consumption)) // read Proforma Invoice again from DataBase
+                            if (MyConsumptionData.Read_Consumption(transaction_m_InvoiceData_Read_Consumption)) // read Proforma Invoice again from DataBase
                             {
                                 if (transaction_m_InvoiceData_Read_Consumption.Commit())
                                 {
@@ -927,7 +930,7 @@ namespace ShopC_Forms
 
         internal string GetDocType()
         {
-            return ConsM.DocTyp;
+            return ConsM.ConsumptionTyp;
         }
 
         private void usrc_PriceList_Ask_To_Update(Form pForm, usrc_PriceList usrc_PriceList1, char chShop, DataTable dt_ShopB_Item_NotIn_PriceList)
@@ -954,8 +957,6 @@ namespace ShopC_Forms
 
         public bool Init(Form pform,
                           ID document_ID,
-                          ref ID ShopB_pricelist_ID,
-                          ref ID ShopC_pricelist_ID,
                           ConsumptionEditor.DoCurrent_delegates doCurrent_delegates,
                           Transaction transaction)
         {
@@ -964,13 +965,13 @@ namespace ShopC_Forms
             {
                 DBtcn = new DBTablesAndColumnNamesOfConsumption();
             }
-            if (ConsumptionData == null)
+            if (MyConsumptionData == null)
             {
-                ConsumptionData = new ConsumptionData(GetDocType, document_ID, GlobalData.ElectronicDevice_Name);
+                MyConsumptionData = new ConsumptionData(GetDocType, document_ID, GlobalData.ElectronicDevice_Name);
             }
             else
             {
-                ConsumptionData.Consumption_ID = document_ID;
+                MyConsumptionData.Consumption_ID = document_ID;
             }
 
             string showshops = TangentaProperties.Properties.Settings.Default.eShowShops;
@@ -994,86 +995,88 @@ namespace ShopC_Forms
 
 
 
-            if (GetPriceList_ShopC(ref ShopC_pricelist_ID, doCurrent_delegates.m_usrc_PriceListC))
+            if (GetPurchasePriceList_ShopC(ref dtPurchasePrice_Item))
             {
-                DataTable dt_ShopC_Item_NotIn_PriceList = new DataTable();
-                if (f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Item_NotIn_PriceList))
-                {
-                    if (dt_ShopC_Item_NotIn_PriceList.Rows.Count > 0)
-                    {
-                        usrc_PriceList_Ask_To_Update(pform, doCurrent_delegates.m_usrc_PriceListC, 'C', dt_ShopC_Item_NotIn_PriceList);
-                        //if (PriseLists.usrc_PriceList.Ask_To_Update('C', dt_ShopC_Item_NotIn_PriceList, this))
-                        //{
-                        //    if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this))
-                        //    {
-                        //        bool bPriceListChanged = false;
-                        //        this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
-                        //    }
-                        //}
-                    }
-                    else
-                    {
-                        bool bEdit = false;
-                        f_PriceList.CheckPriceUndefined_ShopC(ref bEdit);
-                        if (bEdit)
-                        {
-                            //bool bPriceListChanged = false;
-                            //this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true,xnav, ref bPriceListChanged);
-                        }
-                    }
-                }
+                //DataTable dt_ShopC_Item_NotIn_PriceList = new DataTable();
+                //if (f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Item_NotIn_PriceList))
+                //{
+                //    if (dt_ShopC_Item_NotIn_PriceList.Rows.Count > 0)
+                //    {
+                //        usrc_PriceList_Ask_To_Update(pform, doCurrent_delegates.m_usrc_PriceListC, 'C', dt_ShopC_Item_NotIn_PriceList);
+                //        //if (PriseLists.usrc_PriceList.Ask_To_Update('C', dt_ShopC_Item_NotIn_PriceList, this))
+                //        //{
+                //        //    if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this))
+                //        //    {
+                //        //        bool bPriceListChanged = false;
+                //        //        this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
+                //        //    }
+                //        //}
+                //    }
+                //    else
+                //    {
+                //        bool bEdit = false;
+                //        f_PriceList.CheckPriceUndefined_ShopC(ref bEdit);
+                //        if (bEdit)
+                //        {
+                //            //bool bPriceListChanged = false;
+                //            //this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true,xnav, ref bPriceListChanged);
+                //        }
+                //    }
+                //}
 
                 //if (this.m_usrc_ShopC.usrc_ItemList.Get_Price_Item_Stock_Data(this.m_usrc_ShopC.usrc_PriceList1.ID))
-                if (doCurrent_delegates.m_delegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data(ShopC_pricelist_ID))
-                {
-                    if (TSettings.bStartup)
-                    {
-                        TSettings.bStartup = false;
+                //if (doCurrent_delegates.m_delegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data(ShopC_pricelist_ID))
+                //{
+                //    if (TSettings.bStartup)
+                //    {
+                //        TSettings.bStartup = false;
 
-                        if (DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.TextValue.Equals("1"))
-                        {
-                            return this.DoCurrent(document_ID, doCurrent_delegates, transaction); //xdelegate_control_DoCurrent(document_ID, transaction);
-                        }
-                        else
-                        {
-                            return true;
-                        }
-                    }
-                    else
-                    {
-                        return this.DoCurrent(document_ID, doCurrent_delegates, transaction);
-                    }
-                }
-                else
-                {
-                    return false;
-                }
+                //        if (DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.TextValue.Equals("1"))
+                //        {
+                //            return this.DoCurrent(document_ID, doCurrent_delegates, transaction); //xdelegate_control_DoCurrent(document_ID, transaction);
+                //        }
+                //        else
+                //        {
+                //            return true;
+                //        }
+                //    }
+                //    else
+                //    {
+                //        return this.DoCurrent(document_ID, doCurrent_delegates, transaction);
+                //    }
+                //}
+                //else
+                //{
+                //    return false;
+                //}
+                return true;
             }
             else
             {
                 return false;
             }
-            if (ID.Validate(document_ID))
-            {
-                return this.DoCurrent(document_ID, doCurrent_delegates, transaction);
-            }
-            else
-            {
-                return true;
-            }
+            //if (ID.Validate(document_ID))
+            //{
+            //    return this.DoCurrent(document_ID, doCurrent_delegates, transaction);
+            //}
+            //else
+            //{
+            //    return true;
+            //}
         }
 
-        private bool GetPriceList_ShopC(ref ID price_list_ID, usrc_PriceList usrc_PriceListC)
+        private bool GetPurchasePriceList_ShopC(ref DataTable xdtPurchasePrice_Item)
         {
-            string Err = null;
-            bool bGet = true;
-            NavigationButtons.Navigation nav_PriceList = new NavigationButtons.Navigation(null);
-            nav_PriceList.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+            //string Err = null;
+            //bool bGet = true;
+            //NavigationButtons.Navigation nav_PriceList = new NavigationButtons.Navigation(null);
+            //nav_PriceList.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+            return f_PurchasePrice_Item.GetTable(ref xdtPurchasePrice_Item);
             //if (!usrc_PriceListC.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopC, PropertiesUser.ShopsInUse_Get(mSettingsUserValues), ref price_list_ID, ref Err))
             //{
             //    bGet = false;
             //}
-            return bGet;
+            //return bGet;
         }
 
 
@@ -1102,13 +1105,13 @@ namespace ShopC_Forms
 
                     ID Consumption_ID = null;
                     // save doc Invoice 
-                    if (ConsumptionData.SaveConsumption(ref Consumption_ID, TSettings.CashierActivity, GlobalData.ElectronicDevice_Name, m_LMOUser.Atom_WorkPeriod_ID, transaction))
+                    if (MyConsumptionData.SaveConsumption(ref Consumption_ID, TSettings.CashierActivity, GlobalData.ElectronicDevice_Name, m_LMOUser.Atom_WorkPeriod_ID, transaction))
                     {
 
                         m_CurrentConsumption.Doc_ID = Consumption_ID;
 
                         // read saved doc Invoice again !
-                        if (ConsumptionData.Read_Consumption(transaction))
+                        if (MyConsumptionData.Read_Consumption(transaction))
                         {
                             xdelegate_ConsumptionSaved(m_CurrentConsumption.Doc_ID);
                             Printing_Consumption(pform, transaction);// Printing_Consumption();
@@ -1128,11 +1131,11 @@ namespace ShopC_Forms
                 {
                     ID Consumption_ID = null;
                     // save doc Invoice 
-                    if (ConsumptionData.SaveConsumptionOwnUse(ref Consumption_ID, GlobalData.ElectronicDevice_Name, m_LMOUser.Atom_WorkPeriod_ID, transaction))
+                    if (MyConsumptionData.SaveConsumptionOwnUse(ref Consumption_ID, GlobalData.ElectronicDevice_Name, m_LMOUser.Atom_WorkPeriod_ID, transaction))
                     {
                         m_CurrentConsumption.Doc_ID = Consumption_ID;
                         // read saved doc Invoice again !
-                        if (ConsumptionData.Read_Consumption(transaction))
+                        if (MyConsumptionData.Read_Consumption(transaction))
                         {
                             xdelegate_DocProformaInvoiceSaved(m_CurrentConsumption.Doc_ID);
                             Printing_Consumption(pform, transaction);// Printing_Consumption();
@@ -1164,16 +1167,18 @@ namespace ShopC_Forms
         public void SetNewDraft(Form pform,
                                 LMOUser xLMOUser,
                                 string DocTyp,
+                                Form_NewConsumption.e_NewConsumption xe_NewConsumption,
                                 int xFinancialYear,
                                 xCurrency xcurrency,
                                 ID Atom_Currency_ID,
                                 delegate_control_SetMode xdelegate_control_SetMode,
                                 delegate_control_InvoiceNumber_Text xdelegate_control_InvoiceNumber_Text)
         {
-            if (DocTyp.Equals(GlobalData.const_Consumption) || DocTyp.Equals(GlobalData.const_DocProformaInvoice))
+            if (DocTyp.Equals(GlobalData.const_ConsumptionAll) || DocTyp.Equals(GlobalData.const_ConsumptionWriteOff) || DocTyp.Equals(GlobalData.const_ConsumptionOwnUse))
             {
                 if (SetNewConsumptionDraft(pform,
                                         xLMOUser,
+                                        xe_NewConsumption,
                                         xFinancialYear,
                                         xcurrency,
                                         Atom_Currency_ID,
@@ -1190,6 +1195,7 @@ namespace ShopC_Forms
 
         public bool SetNewConsumptionDraft(Form pform,
                                         LMOUser xLMOUser,
+                                        Form_NewConsumption.e_NewConsumption xe_NewConsumption,
                                         int FinancialYear,
                                         xCurrency xcurrency,
                                         ID xAtom_Currency_ID,
@@ -1205,14 +1211,23 @@ namespace ShopC_Forms
 
             if (myOrg.m_myOrg_Office.m_myOrg_Person == null)
             {
-                LogFile.Error.Show("ERROR:SetInvoiceDraft:Can not find my oragnisation person!");
+                LogFile.Error.Show("ERROR:SetNewConsumptionDraft:Can not find my oragnisation person!");
                 return false;
             }
 
-            Transaction transaction_SetNewInvoiceDraft = DBSync.DBSync.NewTransaction("SetNewInvoiceDraft");
-            if (SetNewDraft_Consumption(m_LMOUser.Atom_WorkPeriod_ID, FinancialYear, xcurrency, xAtom_Currency_ID, pform, ref Consumption_ID, myOrg.m_myOrg_Office.m_myOrg_Person.ID, DocTyp, GlobalData.ElectronicDevice_Name, ref Err, transaction_SetNewInvoiceDraft))
+            Transaction transaction_SetNewConsumptionDraft = DBSync.DBSync.NewTransaction("SetNewConsumptionDraft");
+            if (SetNewDraft_Consumption(m_LMOUser.Atom_WorkPeriod_ID,
+                                        xe_NewConsumption,
+                                        FinancialYear,
+                                        xcurrency,
+                                        xAtom_Currency_ID,
+                                        pform,
+                                        ref Consumption_ID,
+                                        myOrg.m_myOrg_Office.m_myOrg_Person.ID,
+                                        GlobalData.ElectronicDevice_Name,
+                                        ref Err, transaction_SetNewConsumptionDraft))
             {
-                if (transaction_SetNewInvoiceDraft.Commit())
+                if (transaction_SetNewConsumptionDraft.Commit())
                 {
                     if (ID.Validate(m_CurrentConsumption.Doc_ID))
                     {
@@ -1229,20 +1244,20 @@ namespace ShopC_Forms
             }
             else
             {
-                transaction_SetNewInvoiceDraft.Rollback();
-                LogFile.Error.Show("ERROR:SetInvoiceDraft:Err=" + Err);
+                transaction_SetNewConsumptionDraft.Rollback();
+                LogFile.Error.Show("ERROR:SetNewConsumptionDraft:Err=" + Err);
                 return false;
             }
         }
 
         public bool SetNewDraft_Consumption(ID xAtom_WorkPeriod_ID,
+                                Form_NewConsumption.e_NewConsumption xe_NewConsumption,
                                 int iFinancialYear,
                                 xCurrency xcurrency,
                                 ID xAtom_Currency_ID,
                                 Control pParent,
                                 ref ID DocInvoice_ID,
                                 ID myOrganisation_Person_ID,
-                                string DocTyp,
                                 string ElectronicDevice_Name,
                                 ref string Err,
                                 Transaction transaction
@@ -1261,20 +1276,20 @@ namespace ShopC_Forms
             if (xcurrency.CurrencyCode == 978)
             {
                 // invoice Number for Euro
-                sql = @"select " + DBSync.DBSync.sTop(iLimit) + "di.DraftNumber from " + DocTyp + " di " +
+                sql = @"select " + DBSync.DBSync.sTop(iLimit) + "di.DraftNumber from Consumption di " +
                           "\r\n inner join Atom_Currency acur on di.Atom_Currency_ID = acur.ID " +
-                          "\r\n inner join JOURNAL_" + DocTyp + " jdi on jdi." + DocTyp + "_ID = di.ID " +
-                          "\r\n inner join JOURNAL_" + DocTyp + "_TYPE jdit on jdi.JOURNAL_" + DocTyp + "_TYPE_ID = jdit.ID " +
+                          "\r\n inner join JOURNAL_Consumption jdi on jdi.Consumption_ID = di.ID " +
+                          "\r\n inner join JOURNAL_Consumption_TYPE jdit on jdi.JOURNAL_Consumption_TYPE_ID = jdit.ID " +
                           "\r\n inner join Atom_WorkPeriod awp on jdi.Atom_WorkPeriod_ID = awp.ID " +
                           "\r\n inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID " +
                           "\r\n where aed.Name = " + spar_ElectronicDevice_Name + " and acur.CurrencyCode = 978 order by aed.Name asc, DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
             }
             else
             {
-                sql = @"select " + DBSync.DBSync.sTop(iLimit) + "di.DraftNumber from " + DocTyp + " di " +
+                sql = @"select " + DBSync.DBSync.sTop(iLimit) + "di.DraftNumber from Consumption di " +
                           "\r\n inner join Atom_Currency acur on di.Atom_Currency_ID = acur.ID " +
-                          "\r\n inner join JOURNAL_" + DocTyp + " jdi on jdi." + DocTyp + "_ID = di.ID " +
-                          "\r\n inner join JOURNAL_" + DocTyp + "_TYPE jdit on jdi.JOURNAL_" + DocTyp + "_TYPE_ID = jdit.ID " +
+                          "\r\n inner join JOURNAL_Consumption jdi on jdi.Consumption_ID = di.ID " +
+                          "\r\n inner join JOURNAL_Consumption_TYPE jdit on jdi.JOURNAL_Consumption_TYPE_ID = jdit.ID " +
                           "\r\n inner join Atom_WorkPeriod awp on jdi.Atom_WorkPeriod_ID = awp.ID " +
                           "\r\n inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID " +
                           "\r\n where aed.Name = " + spar_ElectronicDevice_Name + " and acur.CurrencyCode <> 978 order by aed.Name asc, DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
@@ -1282,7 +1297,7 @@ namespace ShopC_Forms
 
             if (!DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
             {
-                LogFile.Error.Show("ERROR:TangentaDB:SetNewDraft:sql=" + sql + "\r\nErr=" + Err);
+                LogFile.Error.Show("ERROR:ShopC_Forms:SetNewDraft_Consumption:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
             if (dt.Rows.Count > 0)
@@ -1297,7 +1312,7 @@ namespace ShopC_Forms
 
             dt.Clear();
             dt.Columns.Clear();
-            sql = @"select " + DBSync.DBSync.sTop(iLimit) + "ID,DraftNumber from " + DocTyp + " where FinancialYear = " + iFinancialYear.ToString() + " order by DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
+            sql = @"select " + DBSync.DBSync.sTop(iLimit) + "ID,DraftNumber from Consumption where FinancialYear = " + iFinancialYear.ToString() + " order by DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
                 if (dt.Rows.Count == 1)
@@ -1309,89 +1324,60 @@ namespace ShopC_Forms
                     }
                     catch (Exception ex)
                     {
-                        LogFile.Error.Show("ERROR:TangentaDB:SetNewDraft: ID is not defined in " + DocTyp + "! Exception =" + ex.Message);
+                        LogFile.Error.Show("ERROR:ShopC_Forms:SetNewDraft_Consumption: ID is not defined in " + DocTyp + "! Exception =" + ex.Message);
                         return false;
                     }
                 }
 
-                ID Atom_myOrganisation_Person_ID = null;
-                m_CurrentConsumption.FinancialYear = iFinancialYear;
-                m_CurrentConsumption.DraftNumber = xDraftNumber;
-                string_v office_name = null;
-                if (f_Atom_myOrganisation_Person.Get(myOrganisation_Person_ID, ref Atom_myOrganisation_Person_ID, ref office_name, transaction))
+            m_CurrentConsumption.FinancialYear = iFinancialYear;
+            m_CurrentConsumption.DraftNumber = xDraftNumber;
+                //**TODO
+                string sql_SetDraftDocInvoice = null;
+                sql_SetDraftDocInvoice = "insert into Consumption "
+                + "("
+                    + DBtcn.GetName(td.m_DocInvoice.FinancialYear.GetType()) + ","
+                    + DBtcn.GetName(td.m_DocInvoice.DraftNumber.GetType()) + ","
+                    + DBtcn.GetName(td.m_DocInvoice.Draft.GetType()) + ","
+                    + "Atom_Currency_ID,"
+                    + DBtcn.GetName(td.m_DocInvoice.Storno.GetType())
+                + @") values ( "
+                    + m_CurrentConsumption.FinancialYear.ToString() + ","
+                    + m_CurrentConsumption.DraftNumber.ToString() + ","
+                    + "1,"
+                    + xAtom_Currency_ID.ToString() + ","
+                    + "0"
+                    + ")";
+
+                ID xConsumption_ID = null;
+                if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con, sql_SetDraftDocInvoice, null, ref xConsumption_ID, ref Err, DocTyp))
                 {
-                    //**TODO
-                    string sql_SetDraftDocInvoice = null;
-                    if (ConsM.IsWriteOff)
+                    switch (xe_NewConsumption)
                     {
-                        sql_SetDraftDocInvoice = "insert into " + DocTyp
-                        + "("
-                            + DBtcn.GetName(td.m_DocInvoice.FinancialYear.GetType()) + ","
-                            + DBtcn.GetName(td.m_DocInvoice.DraftNumber.GetType()) + ","
-                            + DBtcn.GetName(td.m_DocInvoice.Draft.GetType()) + ","
-                            + "Atom_Currency_ID,"
-                            + DBtcn.GetName(td.m_DocInvoice.Storno.GetType())
-                        + @") values ( "
-                            + m_CurrentConsumption.FinancialYear.ToString() + ","
-                            + m_CurrentConsumption.DraftNumber.ToString() + ","
-                            + "1,"
-                            + xAtom_Currency_ID.ToString() + ","
-                            + "0"
-                            + ")";
-                    }
-                    else if (ConsM.IsOwnUse)
-                    {
-                        sql_SetDraftDocInvoice = "insert into " + DocTyp
-                        + "("
-                            + DBtcn.GetName(td.m_DocInvoice.FinancialYear.GetType()) + ","
-                            + DBtcn.GetName(td.m_DocInvoice.DraftNumber.GetType()) + ","
-                            + DBtcn.GetName(td.m_DocInvoice.Draft.GetType()) + ","
-                            + "Atom_Currency_ID"
-                        + @") values ( "
-                            + m_CurrentConsumption.FinancialYear.ToString() + ","
-                            + m_CurrentConsumption.DraftNumber.ToString() + ","
-                            + "1,"
-                            + xAtom_Currency_ID.ToString()
-                            + ")";
-                    }
-                    else
-                    {
-                        Err = "ERROR:SetDraft:DocInvoice" + DocTyp + " not implemented.";
-                        LogFile.Error.Show(Err);
-                        return false;
-                    }
-                    ID xDoc_ID = null;
-                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con, sql_SetDraftDocInvoice, null, ref xDoc_ID, ref Err, DocTyp))
-                    {
-                        this.m_CurrentConsumption.Doc_ID = xDoc_ID;
+                        case Form_NewConsumption.e_NewConsumption.New_Empty_OwnUse:
 
 
-                        ID Journal_Consumption_ID = null;
-                        if (ConsM.IsWriteOff)
-                        {
-                            return f_Journal_Consumption.Write(this.m_CurrentConsumption.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionDraftTime.ID, null, ref Journal_Consumption_ID, transaction);
-                        }
-                        else if (ConsM.IsOwnUse)
-                        {
-                            DateTime_v dt_v = new DateTime_v(DateTime.Now);
-                            return f_Journal_Consumption.Write(this.m_CurrentConsumption.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionDraftTime.ID, null, ref Journal_Consumption_ID, transaction);
-                        }
-                        else
-                        {
-                            Err = "ERROR:SetDraft:DocInvoice" + DocTyp + " not implemented.";
-                            LogFile.Error.Show(Err);
+
+                            break;
+                        case Form_NewConsumption.e_NewConsumption.New_Empty_WriteOff:
+
+
+                            break;
+
+                        default:
+                            LogFile.Error.Show("ERROR:ShopC_Forms:SetNewDraft_Consumption:" + xe_NewConsumption.ToString() +" is not implemented! ");
                             return false;
-                        }
                     }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:SetDraft:" + DocTyp + ":\r\nErr=" + Err);
-                        return false;
-                    }
+
+                    this.m_CurrentConsumption.Doc_ID = xConsumption_ID;
+
+
+                    ID Journal_Consumption_ID = null;
+                    return f_Journal_Consumption.Write(this.m_CurrentConsumption.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionDraftTime.ID, null, ref Journal_Consumption_ID, transaction);
+
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:SetDraft:f_Atom_myOrganisation_Person.Get() failed!");
+                    LogFile.Error.Show("ERROR:SetDraft:" + DocTyp + ":\r\nErr=" + Err);
                     return false;
                 }
 

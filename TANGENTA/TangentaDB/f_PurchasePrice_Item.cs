@@ -341,5 +341,180 @@ namespace TangentaDB
             }
             return false;
         }
+
+        public static bool GetTable(ref DataTable xdtPurchasePrice_Item)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+            string sql = @"SELECT PurchasePrice_Item.ID,
+             PurchasePrice_Item_$_i.UniqueName AS PurchasePrice_Item_$_i_$$UniqueName,
+             PurchasePrice_Item_$_i_$_ipg1.Name AS PurchasePrice_Item_$_i_$_ipg1_$$Name,
+             PurchasePrice_Item_$_i_$_ipg1_$_ipg2.Name AS PurchasePrice_Item_$_i_$_ipg1_$_ipg2_$$Name,
+             PurchasePrice_Item_$_i_$_ipg1_$_ipg2_$_ipg3.Name AS PurchasePrice_Item_$_i_$_ipg1_$_ipg2_$_ipg3_$$Name,
+             PurchasePrice_Item_$_st.Draft AS PurchasePrice_Item_$_st_$$Draft,
+             PurchasePrice_Item_$_i_$_u.Name AS PurchasePrice_Item_$_i_$_u_$$Name,
+             PurchasePrice_Item_$_i.Code AS PurchasePrice_Item_$_i_$$Code,
+             PurchasePrice_Item_$_i_$_exp.ID AS PurchasePrice_Item_$_i_$_exp_$$ID,
+             PurchasePrice_Item_$_i.ToOffer AS PurchasePrice_Item_$_i_$$ToOffer,
+             PurchasePrice_Item_$_pp.ID AS PurchasePrice_Item_$_pp_$$ID,
+             PurchasePrice_Item_$_pp.PurchasePricePerUnit AS PurchasePrice_Item_$_pp_$$PurchasePricePerUnit,
+             PurchasePrice_Item_$_pp_$_tax.Name AS PurchasePrice_Item_$_pp_$_tax_$$Name,
+             PurchasePrice_Item_$_pp_$_tax.Rate AS PurchasePrice_Item_$_pp_$_tax_$$Rate,
+             PurchasePrice_Item_$_pp.PurchasePriceDate AS PurchasePrice_Item_$_pp_$$PurchasePriceDate,
+             PurchasePrice_Item_$_pp.Discount AS PurchasePrice_Item_$_pp_$$Discount,
+             PurchasePrice_Item_$_pp.PriceWithoutVAT AS PurchasePrice_Item_$_pp_$$PriceWithoutVAT,
+             PurchasePrice_Item_$_pp.VATCanNotBeDeducted AS PurchasePrice_Item_$_pp_$$VATCanNotBeDeducted,
+             PurchasePrice_Item_$_st.Name AS PurchasePrice_Item_$_st_$$Name,
+             PurchasePrice_Item_$_st.StockTake_Date AS PurchasePrice_Item_$_st_$$StockTake_Date,
+             PurchasePrice_Item_$_st.StockTakePriceTotal AS PurchasePrice_Item_$_st_$$StockTakePriceTotal,
+             PurchasePrice_Item_$_st.StockTakePriceTotalWithVAT AS PurchasePrice_Item_$_st_$$StockTakePriceTotalWithVAT,
+             PurchasePrice_Item_$_st_$_ref.ReferenceNote AS PurchasePrice_Item_$_st_$_ref_$$ReferenceNote,
+             PurchasePrice_Item_$_st_$_ref.ReferenceDate AS PurchasePrice_Item_$_st_$_ref_$$ReferenceDate,
+             PurchasePrice_Item_$_st.Description AS PurchasePrice_Item_$_st_$$Description,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org.Name AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org_$$Name,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org.Tax_ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org_$$Tax_ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org.Registration_ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org_$$Registration_ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org.TaxPayer AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org_$$TaxPayer,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org_$_cmt1.Comment AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org_$_cmt1_$$Comment,
+ 
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_orgt.OrganisationTYPE AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_orgt_$$OrganisationTYPE,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cstrnorg.StreetName AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cstrnorg_$$StreetName,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_chounorg.HouseNumber AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccitorg.City AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccitorg_$$City,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cziporg.ZIP AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cziporg_$$ZIP,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccouorg.Country AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccouorg_$$Country,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccouorg.Country_ISO_3166_a2 AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a2,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccouorg.Country_ISO_3166_a3 AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a3,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccouorg.Country_ISO_3166_num AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccouorg_$$Country_ISO_3166_num,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cstorg.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cstorg_$$ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cstorg.State AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cstorg_$$State,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cphnnorg.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cphnnorg_$$ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cphnnorg.PhoneNumber AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cphnnorg_$$PhoneNumber,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cfaxnorg.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cfaxnorg_$$ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cfaxnorg.FaxNumber AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cfaxnorg_$$FaxNumber,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cemailorg.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cemailorg_$$ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cemailorg.Email AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cemailorg_$$Email,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_chomepgorg.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_chomepgorg_$$ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_chomepgorg.HomePage AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_chomepgorg_$$HomePage,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_logo.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_logo_$$ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_logo.Image_Hash AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_logo_$$Image_Hash,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_logo.Image_Data AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_logo_$$Image_Data,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_logo.Description AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_logo_$$Description,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_per.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_per_$$ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_per.Gender AS PurchasePrice_Item_$_st_$_sup_$_c_$_per_$$Gender,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_per_$_cfn.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_per_$_cfn_$$ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_per_$_cfn.FirstName AS PurchasePrice_Item_$_st_$_sup_$_c_$_per_$_cfn_$$FirstName,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_per_$_cln.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_per_$_cln_$$ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_per_$_cln.LastName AS PurchasePrice_Item_$_st_$_sup_$_c_$_per_$_cln_$$LastName,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_per.DateOfBirth AS PurchasePrice_Item_$_st_$_sup_$_c_$_per_$$DateOfBirth,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_per.Tax_ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_per_$$Tax_ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_per.Registration_ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_per_$$Registration_ID,
+ 
+             PurchasePrice_Item_$_pp_$_Cur.ID AS PurchasePrice_Item_$_pp_$_Cur_$$ID,
+             PurchasePrice_Item_$_pp_$_Cur.Abbreviation AS PurchasePrice_Item_$_pp_$_Cur_$$Abbreviation,
+             PurchasePrice_Item_$_pp_$_Cur.Name AS PurchasePrice_Item_$_pp_$_Cur_$$Name,
+             PurchasePrice_Item_$_pp_$_Cur.Symbol AS PurchasePrice_Item_$_pp_$_Cur_$$Symbol,
+             PurchasePrice_Item_$_pp_$_Cur.CurrencyCode AS PurchasePrice_Item_$_pp_$_Cur_$$CurrencyCode,
+             PurchasePrice_Item_$_pp_$_Cur.DecimalPlaces AS PurchasePrice_Item_$_pp_$_Cur_$$DecimalPlaces,
+            PurchasePrice_Item_$_st_$_ref_$_refimg.Image_Hash AS PurchasePrice_Item_$_st_$_ref_$_refimg_$$Image_Hash,
+             PurchasePrice_Item_$_st_$_ref_$_refimg.Image_Data AS PurchasePrice_Item_$_st_$_ref_$_refimg_$$Image_Data,
+ 
+             PurchasePrice_Item_$_i.Name AS PurchasePrice_Item_$_i_$$Name,
+             PurchasePrice_Item_$_i.barcode AS PurchasePrice_Item_$_i_$$barcode,
+             PurchasePrice_Item_$_i.Description AS PurchasePrice_Item_$_i_$$Description,
+             PurchasePrice_Item_$_i_$_iimg.Image_Hash AS PurchasePrice_Item_$_i_$_iimg_$$Image_Hash,
+             PurchasePrice_Item_$_i_$_iimg.Image_Data AS PurchasePrice_Item_$_i_$_iimg_$$Image_Data,
+             PurchasePrice_Item_$_i_$_u.Symbol AS PurchasePrice_Item_$_i_$_u_$$Symbol,
+             PurchasePrice_Item_$_i_$_u.DecimalPlaces AS PurchasePrice_Item_$_i_$_u_$$DecimalPlaces,
+             PurchasePrice_Item_$_i_$_u.StorageOption AS PurchasePrice_Item_$_i_$_u_$$StorageOption,
+             PurchasePrice_Item_$_i_$_u.Description AS PurchasePrice_Item_$_i_$_u_$$Description,
+             PurchasePrice_Item_$_i_$_exp.ExpectedShelfLifeInDays AS PurchasePrice_Item_$_i_$_exp_$$ExpectedShelfLifeInDays,
+             PurchasePrice_Item_$_i_$_exp.SaleBeforeExpiryDateInDays AS PurchasePrice_Item_$_i_$_exp_$$SaleBeforeExpiryDateInDays,
+             PurchasePrice_Item_$_i_$_exp.DiscardBeforeExpiryDateInDays AS PurchasePrice_Item_$_i_$_exp_$$DiscardBeforeExpiryDateInDays,
+             PurchasePrice_Item_$_i_$_exp.ExpiryDescription AS PurchasePrice_Item_$_i_$_exp_$$ExpiryDescription,
+             PurchasePrice_Item_$_i_$_wrty.WarrantyDuration AS PurchasePrice_Item_$_i_$_wrty_$$WarrantyDuration,
+             PurchasePrice_Item_$_i_$_wrty.WarrantyDurationType AS PurchasePrice_Item_$_i_$_wrty_$$WarrantyDurationType,
+             PurchasePrice_Item_$_i_$_wrty.WarrantyConditions AS PurchasePrice_Item_$_i_$_wrty_$$WarrantyConditions,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org_$_cmt1.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org_$_cmt1_$$ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_orgt.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_orgt_$$ID,
+ 
+ 
+             PurchasePrice_Item_$_i.ID AS PurchasePrice_Item_$_i_$$ID,
+             PurchasePrice_Item_$_i_$_u.ID AS PurchasePrice_Item_$_i_$_u_$$ID,
+             PurchasePrice_Item_$_i_$_ipg1.ID AS PurchasePrice_Item_$_i_$_ipg1_$$ID,
+             PurchasePrice_Item_$_i_$_ipg1_$_ipg2.ID AS PurchasePrice_Item_$_i_$_ipg1_$_ipg2_$$ID,
+             PurchasePrice_Item_$_i_$_ipg1_$_ipg2_$_ipg3.ID AS PurchasePrice_Item_$_i_$_ipg1_$_ipg2_$_ipg3_$$ID,
+             PurchasePrice_Item_$_pp_$_tax.ID AS PurchasePrice_Item_$_pp_$_tax_$$ID,
+             PurchasePrice_Item_$_st.ID AS PurchasePrice_Item_$_st_$$ID,
+             PurchasePrice_Item_$_i_$_iimg.ID AS PurchasePrice_Item_$_i_$_iimg_$$ID,
+             PurchasePrice_Item_$_i_$_wrty.ID AS PurchasePrice_Item_$_i_$_wrty_$$ID,
+             PurchasePrice_Item_$_st_$_ref.ID AS PurchasePrice_Item_$_st_$_ref_$$ID,
+             PurchasePrice_Item_$_st_$_ref_$_refimg.ID AS PurchasePrice_Item_$_st_$_ref_$_refimg_$$ID,
+             PurchasePrice_Item_$_st_$_sup.ID AS PurchasePrice_Item_$_st_$_sup_$$ID,
+             PurchasePrice_Item_$_st_$_sup_$_c.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$$ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$$ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org_$$ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$$ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cstrnorg.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cstrnorg_$$ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_chounorg.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_chounorg_$$ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccitorg.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccitorg_$$ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cziporg.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cziporg_$$ID,
+             PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccouorg.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccouorg_$$ID
+ 
+ 
+            FROM PurchasePrice_Item 
+            INNER JOIN Item PurchasePrice_Item_$_i ON PurchasePrice_Item.Item_ID = PurchasePrice_Item_$_i.ID 
+            INNER JOIN Unit PurchasePrice_Item_$_i_$_u ON PurchasePrice_Item_$_i.Unit_ID = PurchasePrice_Item_$_i_$_u.ID 
+            LEFT JOIN Item_ParentGroup1 PurchasePrice_Item_$_i_$_ipg1 ON PurchasePrice_Item_$_i.Item_ParentGroup1_ID = PurchasePrice_Item_$_i_$_ipg1.ID 
+            LEFT JOIN Item_ParentGroup2 PurchasePrice_Item_$_i_$_ipg1_$_ipg2 ON PurchasePrice_Item_$_i_$_ipg1.Item_ParentGroup2_ID = PurchasePrice_Item_$_i_$_ipg1_$_ipg2.ID 
+            LEFT JOIN Item_ParentGroup3 PurchasePrice_Item_$_i_$_ipg1_$_ipg2_$_ipg3 ON PurchasePrice_Item_$_i_$_ipg1_$_ipg2.Item_ParentGroup3_ID = PurchasePrice_Item_$_i_$_ipg1_$_ipg2_$_ipg3.ID 
+            LEFT JOIN Item_Image PurchasePrice_Item_$_i_$_iimg ON PurchasePrice_Item_$_i.Item_Image_ID = PurchasePrice_Item_$_i_$_iimg.ID 
+            LEFT JOIN Expiry PurchasePrice_Item_$_i_$_exp ON PurchasePrice_Item_$_i.Expiry_ID = PurchasePrice_Item_$_i_$_exp.ID 
+            LEFT JOIN Warranty PurchasePrice_Item_$_i_$_wrty ON PurchasePrice_Item_$_i.Warranty_ID = PurchasePrice_Item_$_i_$_wrty.ID 
+            INNER JOIN PurchasePrice PurchasePrice_Item_$_pp ON PurchasePrice_Item.PurchasePrice_ID = PurchasePrice_Item_$_pp.ID 
+            INNER JOIN Currency PurchasePrice_Item_$_pp_$_Cur ON PurchasePrice_Item_$_pp.Currency_ID = PurchasePrice_Item_$_pp_$_Cur.ID 
+            INNER JOIN Taxation PurchasePrice_Item_$_pp_$_tax ON PurchasePrice_Item_$_pp.Taxation_ID = PurchasePrice_Item_$_pp_$_tax.ID 
+            INNER JOIN StockTake PurchasePrice_Item_$_st ON PurchasePrice_Item.StockTake_ID = PurchasePrice_Item_$_st.ID 
+            INNER JOIN Reference PurchasePrice_Item_$_st_$_ref ON PurchasePrice_Item_$_st.Reference_ID = PurchasePrice_Item_$_st_$_ref.ID 
+            LEFT JOIN Reference_Image PurchasePrice_Item_$_st_$_ref_$_refimg ON PurchasePrice_Item_$_st_$_ref.Reference_Image_ID = PurchasePrice_Item_$_st_$_ref_$_refimg.ID 
+            INNER JOIN Supplier PurchasePrice_Item_$_st_$_sup ON PurchasePrice_Item_$_st.Supplier_ID = PurchasePrice_Item_$_st_$_sup.ID 
+            INNER JOIN Contact PurchasePrice_Item_$_st_$_sup_$_c ON PurchasePrice_Item_$_st_$_sup.Contact_ID = PurchasePrice_Item_$_st_$_sup_$_c.ID 
+            LEFT JOIN OrganisationData PurchasePrice_Item_$_st_$_sup_$_c_$_orgd ON PurchasePrice_Item_$_st_$_sup_$_c.OrganisationData_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd.ID 
+            LEFT JOIN Organisation PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd.Organisation_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org.ID 
+            LEFT JOIN Comment1 PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org_$_cmt1 ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org.Comment1_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org_$_cmt1.ID 
+            LEFT JOIN cOrgTYPE PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_orgt ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd.cOrgTYPE_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_orgt.ID 
+            LEFT JOIN cAddress_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd.cAddress_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg.ID 
+            LEFT JOIN cStreetName_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cstrnorg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg.cStreetName_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cstrnorg.ID 
+            LEFT JOIN cHouseNumber_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_chounorg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg.cHouseNumber_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_chounorg.ID 
+            LEFT JOIN cCity_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccitorg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg.cCity_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccitorg.ID 
+            LEFT JOIN cZIP_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cziporg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg.cZIP_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cziporg.ID 
+            LEFT JOIN cCountry_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccouorg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg.cCountry_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccouorg.ID 
+            LEFT JOIN cState_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cstorg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg.cState_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cstorg.ID 
+            LEFT JOIN cPhoneNumber_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cphnnorg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd.cPhoneNumber_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cphnnorg.ID 
+            LEFT JOIN cFaxNumber_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cfaxnorg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd.cFaxNumber_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cfaxnorg.ID 
+            LEFT JOIN cEmail_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cemailorg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd.cEmail_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cemailorg.ID 
+            LEFT JOIN cHomePage_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_chomepgorg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd.cHomePage_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_chomepgorg.ID 
+            LEFT JOIN Logo PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_logo ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd.Logo_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_logo.ID 
+            LEFT JOIN Person PurchasePrice_Item_$_st_$_sup_$_c_$_per ON PurchasePrice_Item_$_st_$_sup_$_c.Person_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_per.ID 
+            LEFT JOIN cFirstName PurchasePrice_Item_$_st_$_sup_$_c_$_per_$_cfn ON PurchasePrice_Item_$_st_$_sup_$_c_$_per.cFirstName_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_per_$_cfn.ID 
+            LEFT JOIN cLastName PurchasePrice_Item_$_st_$_sup_$_c_$_per_$_cln ON PurchasePrice_Item_$_st_$_sup_$_c_$_per.cLastName_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_per_$_cln.ID 
+            ";
+            string err = null;
+            if (xdtPurchasePrice_Item!=null)
+            {
+                xdtPurchasePrice_Item.Dispose();
+                xdtPurchasePrice_Item = null;
+            }
+            xdtPurchasePrice_Item = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref xdtPurchasePrice_Item, sql, lpar, ref err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_PurchasePrice_Item:GetTable:sql = " + sql + "\r\nErr=" + err);
+                return false;
+            }
+        }
     }
 }

@@ -58,7 +58,7 @@ namespace ShopC_Forms
 
         public eType m_eType = eType.UNKNOWN;
 
-        public string GetInvoiceNumberString()
+        public string GetConsumptionNumberString()
         {
             string sED = "";
             if (Electronic_Device_Name_v != null)
@@ -87,19 +87,17 @@ namespace ShopC_Forms
 
         public ID Consumption_Reference_ID = null;
 
-        public bool bInvoiceStorno = false;
+        public bool bConsumptionStorno = false;
         public DateTime_v StornoIssueDate_v = null;
-        public bool_v Invoice_Storno_v = null;
+        public bool_v Consumption_Storno_v = null;
         public string_v Atom_WorkArea_Name_v = null;
-        public string_v Invoice_Reference_Type_v = null;
+        public string_v Consumption_Reference_Type_v = null;
 
 
 
         //public FURS_Response_data FURS_Response_Data = null;
 
         public DataTable dt_Consumption = new DataTable();
-        public DataTable dt_ShopB_Items = new DataTable();
-        public DataTable dt_ShopA_Items = new DataTable();
 
 
 
@@ -129,10 +127,10 @@ namespace ShopC_Forms
 
         public UniversalInvoice.Organisation CustomerOrganisation = null;
         public UniversalInvoice.Person CustomerPerson = null;
-        public UniversalInvoice.Person Invoice_Author = null;
+        public UniversalInvoice.Person Consumption_Author = null;
         public UniversalInvoice.ItemSold[] ItemsSold = null;
         public UniversalInvoice.GeneralToken GeneralToken = null;
-        public UniversalInvoice.InvoiceToken InvoiceToken = null;
+        public UniversalInvoice.InvoiceToken ConsumptionToken = null;
 
         public string_v My_Organisation_Person_FirstName_v = null;
         public string_v My_Organisation_Person_LastName_v = null;
@@ -177,7 +175,7 @@ namespace ShopC_Forms
             get { 
                     if (m_delegate_ConsumptionType != null)
                     {
-                        return m_delegate_ConsumptionType().Equals(GlobalData.const_WriteOff);
+                        return m_delegate_ConsumptionType().Equals(GlobalData.const_ConsumptionWriteOff);
                     }
                     else
                     {
@@ -192,7 +190,7 @@ namespace ShopC_Forms
             {
                 if (m_delegate_ConsumptionType != null)
                 {
-                    return m_delegate_ConsumptionType().Equals(GlobalData.const_OwnUse);
+                    return m_delegate_ConsumptionType().Equals(GlobalData.const_ConsumptionOwnUse);
                 }
                 else
                 {
@@ -235,11 +233,11 @@ namespace ShopC_Forms
         public void Set_NumberInFinancialYear(int xNumberInFinancialYear)
         {
             NumberInFinancialYear = xNumberInFinancialYear;
-            if (InvoiceToken==null)
+            if (ConsumptionToken==null)
             {
-                InvoiceToken = new UniversalInvoice.InvoiceToken(IsWriteOff);
+                ConsumptionToken = new UniversalInvoice.InvoiceToken(IsWriteOff);
             }
-            InvoiceToken.tInvoiceNumber.Set(NumberInFinancialYear.ToString());
+            ConsumptionToken.tInvoiceNumber.Set(NumberInFinancialYear.ToString());
         }
 
    
@@ -265,7 +263,7 @@ namespace ShopC_Forms
             }
             else
             {
-                return new StringBuilder("WARNING:TangentaDB:InvoiceData:CreateHTML_PagePaperPrintingOutput:Document has no items!");
+                return new StringBuilder("WARNING:TangentaDB:ConsumptionData:CreateHTML_PagePaperPrintingOutput:Document has no items!");
             }
 
             for (i = 0; i < iCount; i++)
@@ -556,103 +554,6 @@ namespace ShopC_Forms
             }
         }
 
-        public void Fill_Sold_ShopA_ItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count, bool bInvoiceStorno)
-        {
-            int i;
-            int end_index = start_index + count;
-            int j = 0;
-            for (i = start_index; i < end_index; i++)
-            {
-                DataRow dr = dt_ShopA_Items.Rows[j];
-
-                decimal Discount = 0;
-                object oDiscount = dr[Consumption + "_ShopA_Item_$$Discount"];
-                if (oDiscount is decimal)
-                {
-                    Discount = (decimal)oDiscount;
-                }
-
-
-                decimal TotalDiscount = Discount;
-
-                decimal RetailSimpleItemPriceWithDiscount = 0;
-                object o_RetailSimpleItemPriceWithDiscount = dr[Consumption+"_ShopA_Item_$$EndPriceWithDiscountAndTax"];
-                if (o_RetailSimpleItemPriceWithDiscount.GetType() == typeof(decimal))
-                {
-                    RetailSimpleItemPriceWithDiscount = (decimal)o_RetailSimpleItemPriceWithDiscount;
-                }
-
-                string sUnitName = "";
-                object oUnitName = dr[Consumption+"_ShopA_Item_$_aisha_$_u_$$Name"];
-                if (oUnitName is string)
-                {
-                    sUnitName = (string)oUnitName;
-                }
-
-                decimal dQuantity = -1;
-                object oQuantity = dr[Consumption+"_ShopA_Item_$$dQuantity"];
-                if (oQuantity is decimal)
-                {
-                    dQuantity = (decimal)oQuantity;
-                }
-
-                decimal TaxPrice = -1;
-                object oTaxPrice = dr[Consumption+"_ShopA_Item_$$TAX"];
-                if (oTaxPrice is decimal)
-                {
-                    TaxPrice = (decimal)oTaxPrice;
-                }
-                decimal price_without_tax = RetailSimpleItemPriceWithDiscount - TaxPrice;
-
-                decimal taxation_rate = DBTypes.tf._set_decimal(dr[Consumption+"_ShopA_Item_$_aisha_$_tax_$$Rate"]);
-                decimal tax_price = DBTypes.tf._set_decimal(dr[Consumption+"_ShopA_Item_$$TAX"]);
-                string tax_name = DBTypes.tf._set_string(dr[Consumption+"_ShopA_Item_$_aisha_$_tax_$$Name"]);
-                if (bInvoiceStorno)
-                {
-                    taxSum.Add(-tax_price, -price_without_tax, tax_name, taxation_rate);
-                }
-                else
-                { 
-                    taxSum.Add(tax_price, price_without_tax, tax_name, taxation_rate);
-                }
-
-                decimal dRetailPricePerUnitWithDiscount = 0;
-                if (dr[Consumption+"_ShopA_Item_$$PricePerUnit"] is decimal)
-                {
-                    dRetailPricePerUnitWithDiscount = decimal.Round((decimal)dr[Consumption+"_ShopA_Item_$$PricePerUnit"] * (1 - Discount), Currency.DecimalPlaces);
-                }
-
-                decimal dprice_without_tax = DBTypes.tf._set_decimal(price_without_tax);
-                decimal dEndPriceWithDiscountAndTax = DBTypes.tf._set_decimal(dr[Consumption+"_ShopA_Item_$$EndPriceWithDiscountAndTax"]);
-                if (bInvoiceStorno)
-                {
-                    tax_price = tax_price * -1;
-                    dprice_without_tax = dprice_without_tax * -1;
-                    dEndPriceWithDiscountAndTax = dEndPriceWithDiscountAndTax * -1;
-                }
-
-                ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lng.s_Shop_C,
-                                                             DBTypes.tf._set_string(dr[Consumption+"_ShopA_Item_$_aisha_$$Name"]),
-                                                             DBTypes.tf._set_decimal(dr[Consumption+"_ShopA_Item_$$PricePerUnit"]),
-                                                             sUnitName, 
-                                                             dRetailPricePerUnitWithDiscount,
-                                                             tax_name,
-                                                             dQuantity,
-                                                             DBTypes.tf._set_decimal(dr[Consumption+"_ShopA_Item_$$Discount"]),
-                                                             DBTypes.tf._set_decimal(0),
-                                                             DBTypes.tf._set_string(Currency.Symbol),
-                                                             taxation_rate,
-                                                             DBTypes.tf._set_decimal(TotalDiscount),
-                                                             dprice_without_tax,
-                                                             tax_price,
-                                                             dEndPriceWithDiscountAndTax
-                                                            );
-
-                j++;
-            }
-
-        }
-
         public void AddOn_Get()
         {
             if (IsWriteOff)
@@ -665,21 +566,21 @@ namespace ShopC_Forms
             }
             else
             {
-                LogFile.Error.Show("ERROR:TangentaDB:InvoiceData:AddOn_Get():Document type not implemented!");
+                LogFile.Error.Show("ERROR:TangentaDB:ConsumptionData:AddOn_Get():Document type not implemented!");
             }
         }
 
         public bool SaveConsumptionOwnUse(ref ID Consumption_ID,string ElectronicDevice_Name,ID xAtom_WorkPeriod_ID, Transaction transaction)
         {
             int xNumberInFinancialYear = -1;
-            DateTime_v InvoiceTime_v = new DateTime_v();
-            InvoiceTime_v.v = DateTime.Now;
+            DateTime_v ConsumptionTime_v = new DateTime_v();
+            ConsumptionTime_v.v = DateTime.Now;
             bool bRet= m_CurrentConsumption.SaveConsumptionOwnUse(Consumption,ref Consumption_ID, AddOnOwnUse, ElectronicDevice_Name, ref xNumberInFinancialYear, transaction);
             if (bRet)
             {
                 Consumption_ID = Consumption_ID;
                 this.Set_NumberInFinancialYear(xNumberInFinancialYear);
-                this.SetInvoiceTime(InvoiceTime_v, xAtom_WorkPeriod_ID, transaction);
+                this.SetConsumptionTime(ConsumptionTime_v, xAtom_WorkPeriod_ID, transaction);
             }
             return bRet;
         }
@@ -694,24 +595,18 @@ namespace ShopC_Forms
             {
                 Consumption_ID = Consumption_ID;
                 this.Set_NumberInFinancialYear(xNumberInFinancialYear);
-                DateTime_v InvoiceTime_v = new DateTime_v(AddOnWriteOff.MyIssueDate.Date);
-                this.SetInvoiceTime(InvoiceTime_v, xAtom_WorkPeriod_ID, transaction);
+                DateTime_v ConsumptionTime_v = new DateTime_v(AddOnWriteOff.MyIssueDate.Date);
+                this.SetConsumptionTime(ConsumptionTime_v, xAtom_WorkPeriod_ID, transaction);
             }
             return bRet;
         }
 
-        public bool SetInvoiceTime(DateTime_v issue_time,ID xAtom_WorkPeriod_ID, Transaction transaction)
+        public bool SetConsumptionTime(DateTime_v issue_time,ID xAtom_WorkPeriod_ID, Transaction transaction)
         {
             bool bRet = false;
-            if (IsWriteOff)
-            {
+           
                 bRet = m_CurrentConsumption.SetConsumptionTime(issue_time, xAtom_WorkPeriod_ID, transaction);
-            }
-            else
-            {
-                bRet = m_CurrentConsumption.SetDocProformaInvoiceTime(issue_time, xAtom_WorkPeriod_ID, transaction);
-
-            }
+           
 
             if (bRet)
             {
@@ -721,40 +616,40 @@ namespace ShopC_Forms
                     string stime = LanguageControl.DynSettings.SetLanguageDateTimeString(IssueDate_v.v);
 
                                 
-                    InvoiceToken.tDateOfIssue.Set(stime);
+                    ConsumptionToken.tDateOfIssue.Set(stime);
                     if (IsWriteOff)
                     {
-                        //if (InvoiceToken.tDateOfMaturity == null)
+                        //if (ConsumptionToken.tDateOfMaturity == null)
                         //{
-                        //    InvoiceToken.tDateOfMaturity = new TemplateToken(lng.st_Invoice, lng.st_DateOfMaturity, null, null);
+                        //    ConsumptionToken.tDateOfMaturity = new TemplateToken(lng.st_Consumption, lng.st_DateOfMaturity, null, null);
                         //}
 
                         //if (AddOnWriteOff.MyPaymentDeadline != null)
                         //{
                          
                         //    stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnWriteOff.MyPaymentDeadline.Date);
-                        //    InvoiceToken.tDateOfMaturity.Set(stime);
+                        //    ConsumptionToken.tDateOfMaturity.Set(stime);
                         //}
                         //else
                         //{
-                        //    InvoiceToken.tDateOfMaturity.Set("");
+                        //    ConsumptionToken.tDateOfMaturity.Set("");
                         //}
                     }
                     if (IsOwnUse)
                     {
-                        //if (InvoiceToken.tOfferValidUntil==null)
+                        //if (ConsumptionToken.tOfferValidUntil==null)
                         //{
-                        //    InvoiceToken.tOfferValidUntil = new TemplateToken(lng.st_ProformaInvoice, lng.st_OfferValidUntil, null, null);
+                        //    ConsumptionToken.tOfferValidUntil = new TemplateToken(lng.st_ProformaConsumption, lng.st_OfferValidUntil, null, null);
                         //}
                         //stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnDPI.m_Duration.ValidUntil(IssueDate_v.v));
-                        //InvoiceToken.tOfferValidUntil.Set(stime);
+                        //ConsumptionToken.tOfferValidUntil.Set(stime);
                     }
                    
                     return true;
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:InvoiceData:SetInvoiceTime:issue_time==null!");
+                    LogFile.Error.Show("ERROR:ConsumptionData:SetConsumptionTime:issue_time==null!");
                     return false;
                 }
             }
@@ -764,7 +659,7 @@ namespace ShopC_Forms
             }
         }
 
-        public void Fill_Sold_ShopC_ItemsData(List<TangentaDB.Consumption_ShopC_Item> xConsumption_ShopC_Item_Data_LIST, ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count,bool bInvoiceStorno)
+        public void Fill_Sold_ShopC_ItemsData(List<TangentaDB.Consumption_ShopC_Item> xConsumption_ShopC_Item_Data_LIST, ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count,bool bConsumptionStorno)
         {
 
             int i;
@@ -800,7 +695,7 @@ namespace ShopC_Forms
                 decimal tax_price = ItemsTaxPrice;
                 string tax_name = xdsci.Atom_Taxation_Name_v.v;
 
-                if (bInvoiceStorno)
+                if (bConsumptionStorno)
                 {
                     taxSum.Add(-tax_price, -ItemsNetPrice, tax_name, taxation_rate);
                 }
@@ -813,7 +708,7 @@ namespace ShopC_Forms
                 decimal dRetailItemsPriceWithDiscount = DBTypes.tf._set_decimal(RetailItemsPriceWithDiscount);
                 tax_price = DBTypes.tf._set_decimal(ItemsTaxPrice);
                 decimal dprice_without_tax = DBTypes.tf._set_decimal(ItemsNetPrice);
-                if (bInvoiceStorno)
+                if (bConsumptionStorno)
                 {
                     tax_price = tax_price * -1;
                     dprice_without_tax = dprice_without_tax * -1;
@@ -906,9 +801,9 @@ namespace ShopC_Forms
                             jpi.EventTime,
                             jpit.Name as JOURNAL_Consumption_Type_Name,
                             pi.Storno,
-                            pi.Invoice_Reference_Type,
+                            pi.Consumption_Reference_Type,
                             awa.Name as Atom_WorkArea_Name,
-                            pi.Invoice_Reference_ID
+                            pi.Consumption_Reference_ID
                             from JOURNAL_Consumption jpi
                             inner join JOURNAL_Consumption_Type jpit on jpi.JOURNAL_Consumption_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionStornoTime.ID.ToString() + @"))
                             inner join Consumption pi on jpi.Consumption_ID = pi.ID
@@ -953,7 +848,7 @@ namespace ShopC_Forms
                 else if (IsOwnUse)
                 {
                     sql = @"select
-                                pi.ID as DocProformaInvoice_ID,
+                                pi.ID as DocProformaConsumption_ID,
                                 pi.FinancialYear,
                                 pi.NumberInFinancialYear,
                                 pi.Draft,
@@ -999,10 +894,10 @@ namespace ShopC_Forms
                                 acusorg.ID as Atom_Customer_Org_ID,
                                 acusper.ID as Atom_Customer_Person_ID,
                                 jpi.EventTime,
-                                jpit.Name as JOURNAL_DocProformaInvoice_Type_Name
-                                from JOURNAL_DocProformaInvoice jpi
-                                inner join JOURNAL_DocProformaInvoice_Type jpit on jpi.JOURNAL_DocProformaInvoice_Type_ID = jpit.ID and (jpit.ID = " + GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID.ToString() + @")
-                                inner join DocProformaInvoice pi on jpi.DocProformaInvoice_ID = pi.ID
+                                jpit.Name as JOURNAL_DocProformaConsumption_Type_Name
+                                from JOURNAL_DocProformaConsumption jpi
+                                inner join JOURNAL_DocProformaConsumption_Type jpit on jpi.JOURNAL_DocProformaConsumption_Type_ID = jpit.ID and (jpit.ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionDraftTime.ID.ToString() + @")
+                                inner join DocProformaConsumption pi on jpi.DocProformaConsumption_ID = pi.ID
                                 inner join Atom_Currency acur on pi.Atom_Currency_ID = acur.ID
                                 inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
                                 inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
@@ -1014,7 +909,7 @@ namespace ShopC_Forms
                                 inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                 inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
                                 left join Atom_Comment1 acmt1 on ao.Atom_Comment1_ID = acmt1.ID
-                                left join DocProformaInvoiceAddOn piao on piao.DocProformaInvoice_ID = pi.ID
+                                left join DocProformaConsumptionAddOn piao on piao.DocProformaConsumption_ID = pi.ID
                                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
                                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
                                 left join MethodOfPayment_DPI mptdpi on mptdpi.ID = piao.MethodOfPayment_DPI_ID
@@ -1041,7 +936,7 @@ namespace ShopC_Forms
             }
             else
             {
-                LogFile.Error.Show("ERROR:InvoiceData:Read_Consumption:Consumption=" + Consumption + " not implemented.");
+                LogFile.Error.Show("ERROR:ConsumptionData:Read_Consumption:Consumption=" + Consumption + " not implemented.");
                 return false;
             }
 
@@ -1074,9 +969,9 @@ namespace ShopC_Forms
                                 return false;
                             }
                             Atom_WorkArea_Name_v = DBTypes.tf.set_string(dt_Consumption.Rows[0]["Atom_WorkArea_Name"]);
-                            Invoice_Storno_v = DBTypes.tf.set_bool(dt_Consumption.Rows[0]["Storno"]);
-                            Invoice_Reference_Type_v = DBTypes.tf.set_string(dt_Consumption.Rows[0]["Invoice_Reference_Type"]);
-                            Consumption_Reference_ID = DBTypes.tf.set_ID(dt_Consumption.Rows[0]["Invoice_Reference_ID"]);
+                            Consumption_Storno_v = DBTypes.tf.set_bool(dt_Consumption.Rows[0]["Storno"]);
+                            Consumption_Reference_Type_v = DBTypes.tf.set_string(dt_Consumption.Rows[0]["Consumption_Reference_Type"]);
+                            Consumption_Reference_ID = DBTypes.tf.set_ID(dt_Consumption.Rows[0]["Consumption_Reference_ID"]);
                         }
                         else
                         {
@@ -1101,11 +996,11 @@ namespace ShopC_Forms
                                     {
                                         if (EventName_v != null)
                                         {
-                                            if (EventName_v.v.Equals("InvoiceTime"))
+                                            if (EventName_v.v.Equals("ConsumptionTime"))
                                             {
                                                 this.m_eType = eType.INVOICE;
                                             }
-                                            else if (EventName_v.v.Equals("InvoiceStornoTime"))
+                                            else if (EventName_v.v.Equals("ConsumptionStornoTime"))
                                             {
                                                 this.m_eType = eType.STORNO;
                                                 StornoIssueDate_v = EventTime_v.Clone();
@@ -1123,19 +1018,19 @@ namespace ShopC_Forms
                                                             }
                                                             else
                                                             {
-                                                                LogFile.Error.Show("ERROR:InvoiceData:Read_Consumption:this error should not happen! EventTime for InvoiceTime must be defined!");
+                                                                LogFile.Error.Show("ERROR:ConsumptionData:Read_Consumption:this error should not happen! EventTime for ConsumptionTime must be defined!");
                                                             }
 
                                                         }
                                                         else
                                                         {
-                                                            LogFile.Error.Show("ERROR:InvoiceData:Read_Consumption:sql=" + sql + "\r\nERR=" + Err);
+                                                            LogFile.Error.Show("ERROR:ConsumptionData:Read_Consumption:sql=" + sql + "\r\nERR=" + Err);
                                                         }
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    LogFile.Error.Show("ERROR:InvoiceData:Read_Consumption:this error should not happen! Consumption_Reference_ID_v must be defined!");
+                                                    LogFile.Error.Show("ERROR:ConsumptionData:Read_Consumption:this error should not happen! Consumption_Reference_ID_v must be defined!");
                                                 }
                                             }
                                             else
@@ -1152,13 +1047,13 @@ namespace ShopC_Forms
                                                             IssueDate_v = DBTypes.tf.set_DateTime(dt.Rows[0]["EventTime"]);
                                                             if (dt.Rows.Count != 1)
                                                             {
-                                                                LogFile.Error.Show("ERROR:InvoiceData:Read_Consumption:this error should not happen! EventTime for InvoiceTime must be defined!");
+                                                                LogFile.Error.Show("ERROR:ConsumptionData:Read_Consumption:this error should not happen! EventTime for ConsumptionTime must be defined!");
                                                             }
                                                         }
                                                     }
                                                     else
                                                     {
-                                                        LogFile.Error.Show("ERROR:InvoiceData:Read_Consumption:sql=" + sql + "\r\nERR=" + Err);
+                                                        LogFile.Error.Show("ERROR:ConsumptionData:Read_Consumption:sql=" + sql + "\r\nERR=" + Err);
                                                     }
                                                 }
                                                 this.m_eType = eType.UNKNOWN;
@@ -1167,14 +1062,14 @@ namespace ShopC_Forms
                                         }
                                         else
                                         {
-                                            LogFile.Error.Show("ERROR:InvoiceData:Read_Consumption:this error should not happen! EventName must be defined!");
+                                            LogFile.Error.Show("ERROR:ConsumptionData:Read_Consumption:this error should not happen! EventName must be defined!");
                                         }
                                     }
                                     else if (IsOwnUse)
                                     {
                                         if (EventName_v != null)
                                         {
-                                            if (EventName_v.v.Equals("ProformaInvoiceTime"))
+                                            if (EventName_v.v.Equals("ProformaConsumptionTime"))
                                             {
                                                 this.m_eType = eType.INVOICE;
                                                 this.IssueDate_v = EventTime_v.Clone();
@@ -1184,7 +1079,7 @@ namespace ShopC_Forms
                                                 if (IssueDate_v == null)
                                                 {
 
-                                                    sql = "select EventTime from JOURNAL_DocProformaInvoice where DocProformaInvoice_ID = " + Consumption_ID.ToString() + " and JOURNAL_DocProformaInvoice_Type_ID = " + GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceTime.ID.ToString();
+                                                    sql = "select EventTime from JOURNAL_Consumption where Consumption_ID = " + Consumption_ID.ToString() + " and JOURNAL_DocProformaConsumption_Type_ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionTime.ID.ToString();
                                                     DataTable dt = new DataTable();
                                                     if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                                     {
@@ -1194,13 +1089,13 @@ namespace ShopC_Forms
                                                         }
                                                         else
                                                         {
-                                                            LogFile.Error.Show("ERROR:InvoiceData:Read_Consumption:this error should not happen! EventTime for InvoiceTime must be defined!");
+                                                            LogFile.Error.Show("ERROR:ConsumptionData:Read_Consumption:this error should not happen! EventTime for ConsumptionTime must be defined!");
                                                         }
 
                                                     }
                                                     else
                                                     {
-                                                        LogFile.Error.Show("ERROR:InvoiceData:Read_Consumption:sql=" + sql + "\r\nERR=" + Err);
+                                                        LogFile.Error.Show("ERROR:ConsumptionData:Read_Consumption:sql=" + sql + "\r\nERR=" + Err);
                                                     }
                                                 }
 
@@ -1210,12 +1105,12 @@ namespace ShopC_Forms
                                         }
                                         else
                                         {
-                                            LogFile.Error.Show("ERROR:InvoiceData:Read_Consumption:this error should not happen! EventName must be defined!");
+                                            LogFile.Error.Show("ERROR:ConsumptionData:Read_Consumption:this error should not happen! EventName must be defined!");
                                         }
                                     }
                                     else
                                     {
-                                        LogFile.Error.Show("ERROR:InvoiceData:Read_Consumption:Consumption="+Consumption+" not implemented.");
+                                        LogFile.Error.Show("ERROR:ConsumptionData:Read_Consumption:Consumption="+Consumption+" not implemented.");
                                     }
                                 }
                             else
@@ -1226,17 +1121,17 @@ namespace ShopC_Forms
 
                         if (IsWriteOff)
                         {
-                            if (Invoice_Reference_Type_v != null)
+                            if (Consumption_Reference_Type_v != null)
                             {
-                                if (Invoice_Reference_Type_v.v.Equals("STORNO"))
+                                if (Consumption_Reference_Type_v.v.Equals("STORNO"))
                                 {
                                     if (ID.Validate(Consumption_Reference_ID))
                                     {
-                                        bInvoiceStorno = true;
+                                        bConsumptionStorno = true;
                                     }
                                     else
                                     {
-                                        LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_DocProformaInvoice:DocProformaInvoice_Reference_ID_v can not be null when Invoice_Reference_Type_v equals 'STORNO'");
+                                        LogFile.Error.Show("ERROR:usrc_Consumption_Preview:Read_DocProformaConsumption:DocProformaConsumption_Reference_ID_v can not be null when Consumption_Reference_Type_v equals 'STORNO'");
                                     }
                                 }
                             }
@@ -1249,7 +1144,7 @@ namespace ShopC_Forms
 
                         if (IsWriteOff)
                         {
-                            if (bInvoiceStorno)
+                            if (bConsumptionStorno)
                             {
                                 if (GrossSum > 0) GrossSum = GrossSum * -1;
                                 if (taxsum > 0) taxsum = taxsum * -1;
@@ -1257,7 +1152,7 @@ namespace ShopC_Forms
                             }
                         }
 
-                        //byte[] barr_logoData = (byte[])dt_DocProformaInvoice.Rows[0]["Logo_Data"];
+                        //byte[] barr_logoData = (byte[])dt_DocProformaConsumption.Rows[0]["Logo_Data"];
                         MyOrganisation = new UniversalInvoice.Organisation(lng.st_My, DBTypes.tf._set_string(dt_Consumption.Rows[0]["Name"]),
                                                                    DBTypes.tf._set_string(dt_Consumption.Rows[0]["Tax_ID"]),
                                                                    DBTypes.tf._set_string(dt_Consumption.Rows[0]["Registration_ID"]),
@@ -1287,7 +1182,7 @@ namespace ShopC_Forms
                         ID xAtom_Person_ID = tf.set_ID(dt_Consumption.Rows[0]["Atom_Person_ID"]);
                         if (ID.Validate(xAtom_Person_ID))
                         {
-                            Invoice_Author = f_Atom_Person.GetData(lng.st_IssuerOfConsumption, xAtom_Person_ID);
+                            Consumption_Author = f_Atom_Person.GetData(lng.st_IssuerOfConsumption, xAtom_Person_ID);
                         }
 
                         if (IsWriteOff)
@@ -1305,83 +1200,74 @@ namespace ShopC_Forms
                             }
                         }
 
-                            List<TangentaDB.Consumption_ShopC_Item> xDocProformaInvoice_ShopC_Item_Data_LIST = new List<TangentaDB.Consumption_ShopC_Item>();
+                            List<TangentaDB.Consumption_ShopC_Item> xDocProformaConsumption_ShopC_Item_Data_LIST = new List<TangentaDB.Consumption_ShopC_Item>();
                             if (this.m_eType == eType.STORNO)
                             {
-                                if (!m_CurrentConsumption.m_Basket.Read_Consumption_ShopC_Item_Table(Consumption,xDoc_ID, ref xDocProformaInvoice_ShopC_Item_Data_LIST, transaction))
+                                if (!m_CurrentConsumption.m_Basket.Read_Consumption_ShopC_Item_Table(Consumption,xDoc_ID, ref xDocProformaConsumption_ShopC_Item_Data_LIST, transaction))
                                 {
                                     return false;
                                 }
                             }
                             else
                             {
-                                xDocProformaInvoice_ShopC_Item_Data_LIST = m_CurrentConsumption.m_Basket.Basket_Consumption_ShopC_Item_LIST;
+                                xDocProformaConsumption_ShopC_Item_Data_LIST = m_CurrentConsumption.m_Basket.Basket_Consumption_ShopC_Item_LIST;
                             }
 
 
-                            int iCountShopAItemsSold = dt_ShopA_Items.Rows.Count;
-                            int iCountShopBItemsSold = dt_ShopB_Items.Rows.Count;
 
-                            int iCountShopCItemsSold = xDocProformaInvoice_ShopC_Item_Data_LIST.Count;
+                            int iCountShopCItemsSold = xDocProformaConsumption_ShopC_Item_Data_LIST.Count;
 
-                            ItemsSold = new UniversalInvoice.ItemSold[iCountShopAItemsSold + iCountShopBItemsSold + iCountShopCItemsSold];
+                            ItemsSold = new UniversalInvoice.ItemSold[iCountShopCItemsSold];
                             taxSum = new StaticLib.TaxSum();
 
 
-                            if (IsWriteOff)
-                            {
-                                Fill_Sold_ShopC_ItemsData(xDocProformaInvoice_ShopC_Item_Data_LIST, lng.st_WriteOff, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, bInvoiceStorno);
-                            }
-                            else if (IsOwnUse)
-                            {
-                                Fill_Sold_ShopC_ItemsData(xDocProformaInvoice_ShopC_Item_Data_LIST, lng.st_OwnUse, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, false);
-                            }
+                            Fill_Sold_ShopC_ItemsData(xDocProformaConsumption_ShopC_Item_Data_LIST, lng.st_WriteOff, ref ItemsSold,0, iCountShopCItemsSold, bConsumptionStorno);
                             GeneralToken = new UniversalInvoice.GeneralToken();
-                            InvoiceToken = new UniversalInvoice.InvoiceToken(IsWriteOff);
+                            ConsumptionToken = new UniversalInvoice.InvoiceToken(IsWriteOff);
 
-                            InvoiceToken.tFiscalYear.Set(FinancialYear.ToString());
-                            InvoiceToken.tInvoiceNumber.Set(NumberInFinancialYear.ToString());
-                            InvoiceToken.tCashier.Set(Electronic_Device_Name_v.v);
+                            ConsumptionToken.tFiscalYear.Set(FinancialYear.ToString());
+                            ConsumptionToken.tInvoiceNumber.Set(NumberInFinancialYear.ToString());
+                            ConsumptionToken.tCashier.Set(Electronic_Device_Name_v.v);
 
                             if (IsWriteOff)
                             {
-                                InvoiceToken.tStorno.Set("");
-                                if (bInvoiceStorno)
+                                ConsumptionToken.tStorno.Set("");
+                                if (bConsumptionStorno)
                                 {
-                                    InvoiceToken.tStorno.Set(lng.s_STORNO.s);
+                                    ConsumptionToken.tStorno.Set(lng.s_STORNO.s);
                                 }
 
                             //PrintCopyInfo = GetPrintCopyInfo(Consumption_ID);
-                            //InvoiceToken.tCopyPrintInfo.Set(PrintCopyInfo);
+                            //ConsumptionToken.tCopyPrintInfo.Set(PrintCopyInfo);
                         }
 
                         if (!Draft)
                             {
                                 string stime = LanguageControl.DynSettings.SetLanguageDateTimeString(IssueDate_v.v);
-                                InvoiceToken.tDateOfIssue.Set(stime);
+                                ConsumptionToken.tDateOfIssue.Set(stime);
                                 if (IsWriteOff)
                                 {
                                     //if (AddOnWriteOff.MyPaymentDeadline != null)
                                     //{
                                     //    stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnWriteOff.MyPaymentDeadline.Date);
-                                    //    InvoiceToken.tDateOfMaturity.Set(stime);
+                                    //    ConsumptionToken.tDateOfMaturity.Set(stime);
                                     //}
                                     //else
                                     //{
-                                    //    InvoiceToken.tDateOfMaturity.Set("");
+                                    //    ConsumptionToken.tDateOfMaturity.Set("");
                                     //}
                                 }
                                 else
                                 {
                                     //stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnDPI.m_Duration.ValidUntil(IssueDate_v.v));
-                                    //InvoiceToken.tOfferValidUntil.Set(stime);
+                                    //ConsumptionToken.tOfferValidUntil.Set(stime);
                                 }
                             }
                             return true;
                     }
                     catch (Exception ex)
                     {
-                        LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_DocProformaInvoice:Exception=" + ex.Message);
+                        LogFile.Error.Show("ERROR:usrc_Consumption_Preview:Read_DocProformaConsumption:Exception=" + ex.Message);
                         return false;
                     }
                 }
@@ -1389,23 +1275,28 @@ namespace ShopC_Forms
                 {
                     if (dt_Consumption.Rows.Count == 0)
                     {
-                        //no invoices or ProformaInvoices
-                        LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_DocProformaInvoice:dt_DocProformaInvoice.Rows.Count == 0  for DocProformaInvoice_ID=" + Consumption_ID.ToString() + "!\r\nsql = " + sql);
+                        //no invoices or ProformaConsumptions
+                        LogFile.Error.Show("ERROR:usrc_Consumption_Preview:Read_DocProformaConsumption:dt_DocProformaConsumption.Rows.Count == 0  for DocProformaConsumption_ID=" + Consumption_ID.ToString() + "!\r\nsql = " + sql);
                         return false;
                     }
                     else
                     {
-                        //more than one invoice or ProformaInvoice
-                        LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_DocProformaInvoice:dt_DocProformaInvoice.Rows.Count != 1! for DocProformaInvoice_ID=" + Consumption_ID.ToString() + "!\r\nsql = " + sql);
+                        //more than one invoice or ProformaConsumption
+                        LogFile.Error.Show("ERROR:usrc_Consumption_Preview:Read_DocProformaConsumption:dt_DocProformaConsumption.Rows.Count != 1! for DocProformaConsumption_ID=" + Consumption_ID.ToString() + "!\r\nsql = " + sql);
                         return false;
                     }
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_DocProformaInvoice:Err=" + Err);
+                LogFile.Error.Show("ERROR:usrc_Consumption_Preview:Read_DocProformaConsumption:Err=" + Err);
                 return false;
             }
+        }
+
+        internal bool Issue(OwnUseAddOn ownuse_add_on, Transaction transaction)
+        {
+            if (f_Consumption.Get
         }
 
         //private string GetPrintCopyInfo(ID Consumption_ID)
@@ -1435,16 +1326,16 @@ namespace ShopC_Forms
                 s += "\r\n" + tt.lt.s;
             }
 
-            foreach (UniversalInvoice.TemplateToken tt in this.InvoiceToken.list)
+            foreach (UniversalInvoice.TemplateToken tt in this.ConsumptionToken.list)
             {
                 s += "\r\n" + tt.lt.s;
             }
 
             if (IsWriteOff)
             {
-                //if (AddOnWriteOff.m_FURS.Invoice_FURS_Token != null)
+                //if (AddOnWriteOff.m_FURS.Consumption_FURS_Token != null)
                 //{
-                //    foreach (UniversalInvoice.TemplateToken tt in AddOnWriteOff.m_FURS.Invoice_FURS_Token.list)
+                //    foreach (UniversalInvoice.TemplateToken tt in AddOnWriteOff.m_FURS.Consumption_FURS_Token.list)
                 //    {
                 //        s += "\r\n" + tt.lt.s;
                 //    }
@@ -1484,9 +1375,9 @@ namespace ShopC_Forms
                 s += "\r\n" + tt.lt.s;
             }
 
-            if (this.Invoice_Author != null)
+            if (this.Consumption_Author != null)
             {
-                foreach (UniversalInvoice.TemplateToken tt in this.Invoice_Author.token.list)
+                foreach (UniversalInvoice.TemplateToken tt in this.Consumption_Author.token.list)
                 {
                     s += "\r\n" + tt.lt.s;
                 }
@@ -1567,39 +1458,39 @@ namespace ShopC_Forms
             }
 
             string stime = LanguageControl.DynSettings.SetLanguageDateTimeString(IssueDate_v.v); 
-            InvoiceToken.tDateOfIssue.Set(stime);
+            ConsumptionToken.tDateOfIssue.Set(stime);
 
             if (IsWriteOff)
             {
                 //if (AddOnWriteOff.MyPaymentDeadline != null)
                 //{
                 //    stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnWriteOff.MyPaymentDeadline.Date);
-                //    InvoiceToken.tDateOfMaturity.Set(stime);
+                //    ConsumptionToken.tDateOfMaturity.Set(stime);
                 //}
                 //else
                 //{
-                //    InvoiceToken.tDateOfMaturity.Set("");
+                //    ConsumptionToken.tDateOfMaturity.Set("");
                 //}
                 if (AddOnWriteOff.m_NoticeText!=null)
                 {
-                    InvoiceToken.tNotice.Set(AddOnWriteOff.m_NoticeText);
+                    ConsumptionToken.tNotice.Set(AddOnWriteOff.m_NoticeText);
                 }
                 else
                 {
-                    InvoiceToken.tNotice.Set("");
+                    ConsumptionToken.tNotice.Set("");
                 }
             }
             else
             {
                 //stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnOwnUse.m_Duration.ValidUntil(IssueDate_v.v));
-                //InvoiceToken.tOfferValidUntil.Set(stime);
+                //ConsumptionToken.tOfferValidUntil.Set(stime);
                 //if (AddOnDPI.m_NoticeText != null)
                 //{
-                //    InvoiceToken.tNotice.Set(AddOnDPI.m_NoticeText);
+                //    ConsumptionToken.tNotice.Set(AddOnDPI.m_NoticeText);
                 //}
                 //else
                 //{
-                //    InvoiceToken.tNotice.Set("");
+                //    ConsumptionToken.tNotice.Set("");
                 //}
 
             }
@@ -1660,28 +1551,28 @@ namespace ShopC_Forms
             //    sBankName = "";
             //}
 
-            InvoiceToken.tPaymentType.Set(sMethodOfPayment);
-            InvoiceToken.tPaymentToBankAccount.Set(sBankAccount);
-            InvoiceToken.tPaymentToBankName.Set(sBankName);
+            ConsumptionToken.tPaymentType.Set(sMethodOfPayment);
+            ConsumptionToken.tPaymentToBankAccount.Set(sBankAccount);
+            ConsumptionToken.tPaymentToBankName.Set(sBankName);
 
-            InvoiceToken.tPaymentType.Replace(ref html_doc_template);
-            InvoiceToken.tPaymentToBankAccount.Replace(ref html_doc_template);
-            InvoiceToken.tPaymentToBankName.Replace(ref html_doc_template);
+            ConsumptionToken.tPaymentType.Replace(ref html_doc_template);
+            ConsumptionToken.tPaymentToBankAccount.Replace(ref html_doc_template);
+            ConsumptionToken.tPaymentToBankName.Replace(ref html_doc_template);
             if (IsWriteOff)
             {
-                InvoiceToken.tStorno.Replace(ref html_doc_template);
-                InvoiceToken.tCopyPrintInfo.Replace(ref html_doc_template);
+                ConsumptionToken.tStorno.Replace(ref html_doc_template);
+                ConsumptionToken.tCopyPrintInfo.Replace(ref html_doc_template);
             }
-            InvoiceToken.tFiscalYear.Replace(ref html_doc_template);
-            InvoiceToken.tInvoiceNumber.Replace(ref html_doc_template);
-            InvoiceToken.tIssuerOfInvoice.Replace(ref html_doc_template);
+            ConsumptionToken.tFiscalYear.Replace(ref html_doc_template);
+            ConsumptionToken.tInvoiceNumber.Replace(ref html_doc_template);
+            ConsumptionToken.tIssuerOfInvoice.Replace(ref html_doc_template);
 
-            InvoiceToken.tCashier.Replace(ref html_doc_template);
-            InvoiceToken.tNotice.Replace(ref html_doc_template);
+            ConsumptionToken.tCashier.Replace(ref html_doc_template);
+            ConsumptionToken.tNotice.Replace(ref html_doc_template);
 
-            Invoice_Author.token.tFirstName.Replace(ref html_doc_template);
-            Invoice_Author.token.tLastName.Replace(ref html_doc_template);
-            Invoice_Author.token.tTaxID.Replace(ref html_doc_template);
+            Consumption_Author.token.tFirstName.Replace(ref html_doc_template);
+            Consumption_Author.token.tLastName.Replace(ref html_doc_template);
+            Consumption_Author.token.tTaxID.Replace(ref html_doc_template);
 
             if (CustomerOrganisation != null)
             {
@@ -1733,17 +1624,17 @@ namespace ShopC_Forms
                 }
             }
 
-            InvoiceToken.tDateOfIssue.Replace(ref html_doc_template);
+            ConsumptionToken.tDateOfIssue.Replace(ref html_doc_template);
           
 
             if (IsWriteOff)
             {
-                InvoiceToken.tDateOfMaturity.Replace(ref html_doc_template);
+                ConsumptionToken.tDateOfMaturity.Replace(ref html_doc_template);
                
             }
             else
             {
-                InvoiceToken.tOfferValidUntil.Replace(ref html_doc_template);
+                ConsumptionToken.tOfferValidUntil.Replace(ref html_doc_template);
             }
             int start_index = 0;
             int iStartIndexOf_style = -1;
@@ -1770,13 +1661,13 @@ namespace ShopC_Forms
                 PrintingElement_List.pagenumber.html = html_doc_template.ToString().Substring(iStartIndexOfPageNumbers, iEndIndexOfPageNumbers - iStartIndexOfPageNumbers+1);
             }
 
-            int iStartIndexOfInvoiceTop = -1;
-            int iEndIndexOfInvoiceTop = -1;
+            int iStartIndexOfConsumptionTop = -1;
+            int iEndIndexOfConsumptionTop = -1;
 
-            if (GetHtmlElementByTagNameAndClassName(ref html_doc_template, start_index, ref iStartIndexOfInvoiceTop, ref iEndIndexOfInvoiceTop, "div", "invoicetop"))
+            if (GetHtmlElementByTagNameAndClassName(ref html_doc_template, start_index, ref iStartIndexOfConsumptionTop, ref iEndIndexOfConsumptionTop, "div", "invoicetop"))
             {
                 PrintingElement_List.doctop = new HTML_PrintingElement();
-                PrintingElement_List.doctop.html = html_doc_template.ToString().Substring(iStartIndexOfInvoiceTop, iEndIndexOfInvoiceTop - iStartIndexOfInvoiceTop + 1);
+                PrintingElement_List.doctop.html = html_doc_template.ToString().Substring(iStartIndexOfConsumptionTop, iEndIndexOfConsumptionTop - iStartIndexOfConsumptionTop + 1);
             }
             else
             {
@@ -1877,14 +1768,14 @@ namespace ShopC_Forms
 
                     tCurrency.Replace(ref html_doc_template);
 
-                    InvoiceToken.tSumNetPrice.Set(NetSum.ToString());
-                    InvoiceToken.tSumNetPrice.Replace(ref html_doc_template);
+                    ConsumptionToken.tSumNetPrice.Set(NetSum.ToString());
+                    ConsumptionToken.tSumNetPrice.Replace(ref html_doc_template);
 
 
                     //string s_journal_invoice_type = lng.s_journal_invoice_type_Print.s;
                     //string s_journal_invoice_description = Program.ReceiptPrinter.PrinterName;
                     //long journal_Consumption_id = -1;
-                    //f_Journal_DocProformaInvoice.Write(m_usrc_Print.DocProformaInvoice_ID, Program.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_Consumption_id);
+                    //f_Journal_DocProformaConsumption.Write(m_usrc_Print.DocProformaConsumption_ID, Program.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_Consumption_id);
                     int iStartIndexOf_NetSum = -1;
                     int iEndIndexOf_NetSum = -1;
                     if (GetHtmlElementByTagNameAndClassName(ref html_doc_template, ipos, ref iStartIndexOf_NetSum, ref iEndIndexOf_NetSum, "tr", "totalneto"))
@@ -1915,11 +1806,11 @@ namespace ShopC_Forms
                             ipos = itr_taxsum_start;
                             foreach (StaticLib.Tax tax in taxSum.TaxList)
                             {
-                                InvoiceToken.tTaxRateName.Set(tax.Name);
-                                InvoiceToken.tSumTax.Set(tax.TaxAmount.ToString());
+                                ConsumptionToken.tTaxRateName.Set(tax.Name);
+                                ConsumptionToken.tSumTax.Set(tax.TaxAmount.ToString());
                                 StringBuilder sb_TaxSum = new StringBuilder(tr_TaxSum, tr_TaxSum.Length*3);
-                                InvoiceToken.tTaxRateName.Replace(ref sb_TaxSum);
-                                InvoiceToken.tSumTax.Replace(ref sb_TaxSum);
+                                ConsumptionToken.tTaxRateName.Replace(ref sb_TaxSum);
+                                ConsumptionToken.tSumTax.Replace(ref sb_TaxSum);
                                 html_doc_template.Insert(ipos, sb_TaxSum.ToString());
                                 if (PrintingElement_List.taxsum==null)
                                 {
@@ -1930,8 +1821,8 @@ namespace ShopC_Forms
                                 PrintingElement_List.taxsum.Add(html_taxsum);
                                 ipos += sb_TaxSum.Length;
                             }
-                            InvoiceToken.tTotalSum.Set(GrossSum.ToString());
-                            InvoiceToken.tTotalSum.Replace(ref html_doc_template);
+                            ConsumptionToken.tTotalSum.Set(GrossSum.ToString());
+                            ConsumptionToken.tTotalSum.Replace(ref html_doc_template);
 
                             int iStartIndexOf_GrossSum = -1;
                             int iEndIndexOf_GrossSum = -1;
@@ -1953,15 +1844,15 @@ namespace ShopC_Forms
                             {
                                 
                             }
-                            int iStartIndexOf_InvoiceBottom = -1;
-                            int iEndIndexOf_InvoiceBottom = -1;
-                            if (GetHtmlElementByTagNameAndClassName(ref html_doc_template, ipos, ref iStartIndexOf_InvoiceBottom, ref iEndIndexOf_InvoiceBottom, "div", "invoicebottom"))
+                            int iStartIndexOf_ConsumptionBottom = -1;
+                            int iEndIndexOf_ConsumptionBottom = -1;
+                            if (GetHtmlElementByTagNameAndClassName(ref html_doc_template, ipos, ref iStartIndexOf_ConsumptionBottom, ref iEndIndexOf_ConsumptionBottom, "div", "invoicebottom"))
                             {
                                 if (PrintingElement_List.docbottom == null)
                                 {
                                     PrintingElement_List.docbottom = new HTML_PrintingElement();
                                 }
-                                PrintingElement_List.docbottom.html = html_doc_template.ToString().Substring(iStartIndexOf_InvoiceBottom, iEndIndexOf_InvoiceBottom - iStartIndexOf_InvoiceBottom + 1);
+                                PrintingElement_List.docbottom.html = html_doc_template.ToString().Substring(iStartIndexOf_ConsumptionBottom, iEndIndexOf_ConsumptionBottom - iStartIndexOf_ConsumptionBottom + 1);
                             }
                             else
                             {
@@ -2012,7 +1903,7 @@ namespace ShopC_Forms
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:TangentaDB:InvoiceDate:GetElementStartTag:HTML syntax error: End of html tag not found!");
+                    LogFile.Error.Show("ERROR:TangentaDB:ConsumptionDate:GetElementStartTag:HTML syntax error: End of html tag not found!");
                     return false;
                 }
             }
@@ -2034,7 +1925,7 @@ namespace ShopC_Forms
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:TangentaDB:InvoiceDate:GetElementEndTag:HTML syntax error: End of html tag not found!");
+                    LogFile.Error.Show("ERROR:TangentaDB:ConsumptionDate:GetElementEndTag:HTML syntax error: End of html tag not found!");
                     return false;
                 }
             }
@@ -2068,13 +1959,13 @@ namespace ShopC_Forms
                     }
                     else
                     {
-                        LogFile.Error.Show("WARNING:TangentaDB:InvoiceDate:GetElementStartByClass:HTML syntax error: No \" at the end of class attribute!");
+                        LogFile.Error.Show("WARNING:TangentaDB:ConsumptionDate:GetElementStartByClass:HTML syntax error: No \" at the end of class attribute!");
                         return false;
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:TangentaDB:InvoiceDate:GetElementStartByClass:HTML syntax error: No \" after class attribute!");
+                    LogFile.Error.Show("ERROR:TangentaDB:ConsumptionDate:GetElementStartByClass:HTML syntax error: No \" after class attribute!");
                     return false;
                 }
             }

@@ -3057,7 +3057,7 @@ namespace TangentaDataBaseDef
             t_JOURNAL_Consumption_Type = new SQLTable((Object)new JOURNAL_Consumption_Type(), "jct", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_JOURNAL_Consumption_Type);
             t_JOURNAL_Consumption_Type.AddColumn((Object)mt.m_JOURNAL_Consumption_Type.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_JOURNAL_Consumption_Type.AddColumn((Object)mt.m_JOURNAL_Consumption_Type.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Type Name", "Ime"));
-            t_JOURNAL_Consumption_Type.AddColumn((Object)mt.m_JOURNAL_Consumption_Type.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
+            t_JOURNAL_Consumption_Type.AddColumn((Object)mt.m_JOURNAL_Consumption_Type.Description, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
             m_DBTables.DBT.items.Add(t_JOURNAL_Consumption_Type);
 
             /* 269 */
@@ -3065,8 +3065,8 @@ namespace TangentaDataBaseDef
             t_JOURNAL_Consumption = new SQLTable((Object)new JOURNAL_Consumption(), "jc", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_JOURNAL_Consumption);
             t_JOURNAL_Consumption.AddColumn((Object)mt.m_JOURNAL_Consumption.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_JOURNAL_Consumption.AddColumn((Object)mt.m_JOURNAL_Consumption.m_JOURNAL_Consumption_Type, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Journal event invoice ID", "Dogodek račun ID"));
-            t_JOURNAL_Consumption.AddColumn((Object)mt.m_JOURNAL_Consumption.m_Consumption, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Consumption ID", "Poraba ID"));
-            t_JOURNAL_Consumption.AddColumn((Object)mt.m_JOURNAL_Consumption.EventTime, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Event time", "Čas dogodka"));
+            t_JOURNAL_Consumption.AddColumn((Object)mt.m_JOURNAL_Consumption.m_Consumption, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Consumption ID", "Poraba ID"));
+            t_JOURNAL_Consumption.AddColumn((Object)mt.m_JOURNAL_Consumption.EventTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Event time", "Čas dogodka"));
             t_JOURNAL_Consumption.AddColumn((Object)mt.m_JOURNAL_Consumption.m_Atom_WorkPeriod, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Work shift ID", "Šiht ID"));
             m_DBTables.DBT.items.Add(t_JOURNAL_Consumption);
 

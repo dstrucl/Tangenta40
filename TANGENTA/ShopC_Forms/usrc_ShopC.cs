@@ -55,7 +55,7 @@ namespace ShopC_Forms
         /// </summary>
         public event delegate_After_Atom_Item_Remove After_Atom_Item_Remove = null;
 
-        private ID m_Atom_WorkPeriod_ID = null;
+        private LoginControl.LMOUser lmoUser = null;
         private DataTable dt_Item = new DataTable();
         private ConsumptionEditor m_ConsumptionEditor = null;
         private DBTablesAndColumnNamesOfConsumption DBtcn = null;
@@ -155,8 +155,8 @@ namespace ShopC_Forms
             Reset();
         }
 
-        public void Init(ID xAtom_WorkPeriod_ID,
-                        ConsumptionEditor x_ShopBC,
+        public void Init(LoginControl.LMOUser xlmoUser,
+                        ConsumptionEditor x_consE,
                         DBTablesAndColumnNamesOfConsumption xDBtcn,
                         string ShopsInUse,
                         bool bAutomaticSelectionOfItemFromStock,
@@ -164,9 +164,9 @@ namespace ShopC_Forms
                         usrc_Item_selected x_usrc_Item_selected)
 
         {
-            m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
+            lmoUser = xlmoUser;
             m_bExclusivelySellFromStock = bExclusivelySellFromStock;
-            m_ConsumptionEditor = x_ShopBC;
+            m_ConsumptionEditor = x_consE;
             DBtcn = xDBtcn;
             m_usrc_Item_selected = x_usrc_Item_selected;
             m_usrc_Item_selected.Init(this.m_usrc_ItemList);
@@ -178,8 +178,8 @@ namespace ShopC_Forms
 
             lng.s_ShopC_Name.Text(lbl_ShopC_Name);
             lbl_ShopC_Name.Visible = true;
-            this.m_usrc_Atom_ItemsList.Init(m_Atom_WorkPeriod_ID,m_usrc_ItemList, x_ShopBC, xDBtcn);
-            this.m_usrc_ItemList.Init(m_Atom_WorkPeriod_ID,x_ShopBC, xDBtcn, this,m_usrc_Atom_ItemsList, m_bExclusivelySellFromStock);
+            this.m_usrc_Atom_ItemsList.Init(lmoUser.Atom_WorkPeriod_ID,m_usrc_ItemList, x_consE, xDBtcn);
+            this.m_usrc_ItemList.Init(lmoUser.Atom_WorkPeriod_ID, x_consE, xDBtcn, this,m_usrc_Atom_ItemsList, m_bExclusivelySellFromStock);
 
             this.m_usrc_ItemList.ItemAdded += new usrc_ItemList.delegate_ItemAdded(usrc_ItemList_ItemAdded);
             this.m_usrc_Atom_ItemsList.After_Atom_Item_Remove += new usrc_Atom_ItemsList.delegate_After_Atom_Item_Remove(usrc_Atom_ItemsList_After_Atom_Item_Remove);
@@ -349,7 +349,7 @@ namespace ShopC_Forms
 
         private bool EditStock(NavigationButtons.Navigation xnav)
         {
-            Form_SelectStockEditType frmSelectStockEditType = new Form_SelectStockEditType(m_Atom_WorkPeriod_ID,xnav);
+            Form_SelectStockEditType frmSelectStockEditType = new Form_SelectStockEditType(lmoUser,m_ConsumptionEditor.ConsM.FinancialYear, xnav);
             frmSelectStockEditType.CheckIfAdministrator += FrmSelectStockEditType_CheckIfAdministrator;
             if (frmSelectStockEditType.ShowDialog(this) == DialogResult.OK)
             {

@@ -194,7 +194,7 @@ namespace Tangenta
             //    m_usrc_ShopC1366x768.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
             //    m_usrc_ShopC1366x768.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
             //}
-            m_usrc_ShopC1366x768.Init(DocE.m_LMOUser.Atom_WorkPeriod_ID,
+            m_usrc_ShopC1366x768.Init(DocE.m_LMOUser,
                                       DocE.m_ShopABC,
                                       DocE.DBtcn,
                                       PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),
@@ -380,7 +380,7 @@ namespace Tangenta
             {
                 m_usrc_ShopA1366x768.Init(DocE.m_ShopABC, DocE.DBtcn);
                 m_usrc_ShopB1366x768.Init(DocE.m_ShopABC, DocE.DBtcn, PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues));
-                m_usrc_ShopC1366x768.Init(DocE.m_LMOUser.Atom_WorkPeriod_ID,
+                m_usrc_ShopC1366x768.Init(DocE.m_LMOUser,
                                           DocE.m_ShopABC,
                                           DocE.DBtcn,
                                           PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues),

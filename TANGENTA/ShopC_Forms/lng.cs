@@ -24,6 +24,21 @@ namespace ShopC_Forms
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        
+        public static ltext s_Form_WriteOff_AddOn = new ltext(new string[] { "Write off data", "Podatki o odpisu" });
+
+        public static ltext s_btn_New_Empty_OwnUse = new ltext(new string[] { "New own useconsumption", "Nova lastna poraba" });
+
+        public static ltext s_btn_New_Empty_WriteOff = new ltext(new string[] { "New write off ", "Nov odpis zalog" });
+
+        public static ltext s_New_Consumption = new ltext(new string[] { "New consumption", "New consumption" });
+        
+        public static ltext s_Total = new ltext(new string[] { "TOTAL", "SKUPAJ" });
+
+        public static ltext s_WriteOff = new ltext(new string[] { "Write off", "Odpis" });
+        public static ltext s_OwnUse = new ltext(new string[] { "Own consumption", "Lastna poraba" });
+        public static ltext s_AllConsumption = new ltext(new string[] { "All consumption", "Vsa poraba" });
+
         public static ltext s_Group1 = new ltext(new string[] { "Group 1", "Skupina 1" });
         public static ltext s_Group2 = new ltext(new string[] { "Group 2", "Skupina 2" });
         public static ltext s_Group3 = new ltext(new string[] { "Group 3", "Skupina 3" });
@@ -167,7 +182,7 @@ namespace ShopC_Forms
         public static ltext s_Consumption_Issue = new ltext(new string[] { "Issue an consumption", "Izdaj porabo" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_DocProformaInvoice_AddOn .cs
 
 
-        public static ltext s_PaymentOfInvoiceAndPrint = new ltext(new string[] { "Payment and Print", "Način plačila in izdaja računa" });   // referenced in C:\Tangenta40\TANGENTA\ShopC_Forms\Form_Consumption__AddOn.cs
+        public static ltext s_OwnUse_Data = new ltext(new string[] { "Own Use Data", "Podatki o lastni porabi" });   // referenced in C:\Tangenta40\TANGENTA\ShopC_Forms\Form_Consumption__AddOn.cs
 
         public static ltext s_AvoidStock = new ltext(new string[] { "Not from stock", "Mimo zaloge" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_Select_Item_From_Stock.cs
 

@@ -38,6 +38,12 @@ namespace ShopC_Forms
             this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.lbl_WriteOffDescription = new System.Windows.Forms.Label();
             this.txt_Description = new System.Windows.Forms.TextBox();
+            this.lbl_OwnUse_Reason_Name = new System.Windows.Forms.Label();
+            this.cmb_Reason = new System.Windows.Forms.ComboBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lbl_OwnUse_Reason_Description = new System.Windows.Forms.Label();
+            this.cmb_Description = new System.Windows.Forms.ComboBox();
+            this.lbl_Description_Name = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btn_Invoice_Issue
@@ -46,7 +52,7 @@ namespace ShopC_Forms
             this.btn_Invoice_Issue.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Invoice_Issue.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Invoice_Issue.ForeColor = System.Drawing.Color.Black;
-            this.btn_Invoice_Issue.Location = new System.Drawing.Point(20, 267);
+            this.btn_Invoice_Issue.Location = new System.Drawing.Point(8, 549);
             this.btn_Invoice_Issue.Name = "btn_Invoice_Issue";
             this.btn_Invoice_Issue.Size = new System.Drawing.Size(398, 65);
             this.btn_Invoice_Issue.TabIndex = 7;
@@ -61,7 +67,7 @@ namespace ShopC_Forms
             this.btn_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Cancel.ForeColor = System.Drawing.Color.Black;
             this.btn_Cancel.Image = ((System.Drawing.Image)(resources.GetObject("btn_Cancel.Image")));
-            this.btn_Cancel.Location = new System.Drawing.Point(590, 280);
+            this.btn_Cancel.Location = new System.Drawing.Point(595, 562);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(115, 52);
             this.btn_Cancel.TabIndex = 12;
@@ -96,30 +102,98 @@ namespace ShopC_Forms
             // 
             // lbl_WriteOffDescription
             // 
+            this.lbl_WriteOffDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbl_WriteOffDescription.AutoSize = true;
             this.lbl_WriteOffDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_WriteOffDescription.Location = new System.Drawing.Point(17, 54);
+            this.lbl_WriteOffDescription.Location = new System.Drawing.Point(5, 362);
             this.lbl_WriteOffDescription.Name = "lbl_WriteOffDescription";
-            this.lbl_WriteOffDescription.Size = new System.Drawing.Size(150, 16);
+            this.lbl_WriteOffDescription.Size = new System.Drawing.Size(152, 16);
             this.lbl_WriteOffDescription.TabIndex = 25;
-            this.lbl_WriteOffDescription.Text = "Write Off Description";
+            this.lbl_WriteOffDescription.Text = "Own Use Description";
             // 
             // txt_Description
             // 
-            this.txt_Description.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.txt_Description.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_Description.Location = new System.Drawing.Point(19, 73);
+            this.txt_Description.Location = new System.Drawing.Point(3, 392);
             this.txt_Description.Multiline = true;
             this.txt_Description.Name = "txt_Description";
-            this.txt_Description.Size = new System.Drawing.Size(686, 188);
+            this.txt_Description.Size = new System.Drawing.Size(704, 129);
             this.txt_Description.TabIndex = 26;
             // 
-            // usrc_WriteOff_AddOn
+            // lbl_OwnUse_Reason_Name
+            // 
+            this.lbl_OwnUse_Reason_Name.AutoSize = true;
+            this.lbl_OwnUse_Reason_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_OwnUse_Reason_Name.Location = new System.Drawing.Point(5, 61);
+            this.lbl_OwnUse_Reason_Name.Name = "lbl_OwnUse_Reason_Name";
+            this.lbl_OwnUse_Reason_Name.Size = new System.Drawing.Size(172, 16);
+            this.lbl_OwnUse_Reason_Name.TabIndex = 27;
+            this.lbl_OwnUse_Reason_Name.Text = "Own Use Reason Name";
+            // 
+            // cmb_Reason
+            // 
+            this.cmb_Reason.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmb_Reason.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_Reason.FormattingEnabled = true;
+            this.cmb_Reason.Location = new System.Drawing.Point(6, 80);
+            this.cmb_Reason.Name = "cmb_Reason";
+            this.cmb_Reason.Size = new System.Drawing.Size(701, 32);
+            this.cmb_Reason.TabIndex = 28;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.Location = new System.Drawing.Point(0, 145);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(707, 135);
+            this.textBox1.TabIndex = 29;
+            // 
+            // lbl_OwnUse_Reason_Description
+            // 
+            this.lbl_OwnUse_Reason_Description.AutoSize = true;
+            this.lbl_OwnUse_Reason_Description.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_OwnUse_Reason_Description.Location = new System.Drawing.Point(0, 126);
+            this.lbl_OwnUse_Reason_Description.Name = "lbl_OwnUse_Reason_Description";
+            this.lbl_OwnUse_Reason_Description.Size = new System.Drawing.Size(210, 16);
+            this.lbl_OwnUse_Reason_Description.TabIndex = 30;
+            this.lbl_OwnUse_Reason_Description.Text = "Own Use Reason Description";
+            // 
+            // cmb_Description
+            // 
+            this.cmb_Description.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmb_Description.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_Description.FormattingEnabled = true;
+            this.cmb_Description.Location = new System.Drawing.Point(3, 318);
+            this.cmb_Description.Name = "cmb_Description";
+            this.cmb_Description.Size = new System.Drawing.Size(704, 32);
+            this.cmb_Description.TabIndex = 32;
+            // 
+            // lbl_Description_Name
+            // 
+            this.lbl_Description_Name.AutoSize = true;
+            this.lbl_Description_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Description_Name.Location = new System.Drawing.Point(3, 299);
+            this.lbl_Description_Name.Name = "lbl_Description_Name";
+            this.lbl_Description_Name.Size = new System.Drawing.Size(197, 16);
+            this.lbl_Description_Name.TabIndex = 31;
+            this.lbl_Description_Name.Text = "Own Use Description Name";
+            // 
+            // usrc_OwnUse_AddOn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.cmb_Description);
+            this.Controls.Add(this.lbl_Description_Name);
+            this.Controls.Add(this.lbl_OwnUse_Reason_Description);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.cmb_Reason);
+            this.Controls.Add(this.lbl_OwnUse_Reason_Name);
             this.Controls.Add(this.txt_Description);
             this.Controls.Add(this.lbl_WriteOffDescription);
             this.Controls.Add(this.usrc_Help1);
@@ -128,8 +202,8 @@ namespace ShopC_Forms
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.btn_Invoice_Issue);
             this.ForeColor = System.Drawing.Color.Black;
-            this.Name = "usrc_WriteOff_AddOn";
-            this.Size = new System.Drawing.Size(720, 345);
+            this.Name = "usrc_OwnUse_AddOn";
+            this.Size = new System.Drawing.Size(717, 627);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -143,5 +217,11 @@ namespace ShopC_Forms
         private usrc_Help usrc_Help1;
         private System.Windows.Forms.Label lbl_WriteOffDescription;
         private System.Windows.Forms.TextBox txt_Description;
+        private System.Windows.Forms.Label lbl_OwnUse_Reason_Name;
+        private System.Windows.Forms.ComboBox cmb_Reason;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label lbl_OwnUse_Reason_Description;
+        private System.Windows.Forms.ComboBox cmb_Description;
+        private System.Windows.Forms.Label lbl_Description_Name;
     }
 }

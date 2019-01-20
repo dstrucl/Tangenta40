@@ -54,7 +54,7 @@ namespace ShopC_Forms
         public eMode Mode = eMode.All;
 
         public string sFromTo_Suffix = "";
-        public DataTable dt_XInvoice = new DataTable();
+        public DataTable dt_XConsumption = new DataTable();
 
         private int m_iCurrentSelectedRow = -1;
 
@@ -67,20 +67,11 @@ namespace ShopC_Forms
             }
         }
 
-        private int iColIndex_DocInvoice_Draft = -1;
-        private int iColIndex_DocInvoice_IssueDate = -1;
-        private int iColIndex_DocProformaInvoice_IssueDate = -1;
-        private int iColIndex_DocInvoice_Invoice_Storno = -1;
-        private int iColIndex_DocInvoice_Invoice_StornoReason = -1;
-        private int iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue = -1;
-        private int iColIndex_DocInvoice_FSI_SLO_ID = -1;
-        private int iColIndex_DocInvoice_FSI_SLO_EOR = -1;
-        private int iColIndex_DocInvoice_FSI_SLO_SalesBookInvoice_InvoiceNumber = -1;
-        private int iColIndex_DocInvoice_PaymentType_Name = -1;
-        private int iColIndex_DocInvoice_PaymentType_Identification = -1;
+        private int iColIndex_Consumption_Draft = -1;
+        private int iColIndex_Consumption_IssueDate = -1;
+        private int iColIndex_Consumption_Storno = -1;
+        private int iColIndex_Consumption_StornoReason = -1;
 
-
-        //private bool bIgnoreChangeSelectionEvent = false;
 
         private ConsumptionMan consM = null;
 
@@ -96,13 +87,13 @@ namespace ShopC_Forms
             }
         }
 
-        public string DocTyp
+        public string ConsumptionTyp
         {
             get
             {
                 if (consM != null)
                 {
-                    return consM.DocTyp;
+                    return consM.ConsumptionTyp;
                 }
                 else
                 {
@@ -111,61 +102,60 @@ namespace ShopC_Forms
             }
         }
 
-        public bool IsDocInvoice
+        public bool IsConsumptionWriteOff
         {
             get
-            { return DocTyp.Equals(GlobalData.const_DocInvoice); }
+            { return ConsumptionTyp.Equals(GlobalData.const_ConsumptionWriteOff); }
         }
 
-        public bool IsDocProformaInvoice
+        public bool IsConsumptionOwnUse
         {
             get
-            { return DocTyp.Equals(GlobalData.const_DocProformaInvoice); }
+            { return ConsumptionTyp.Equals(GlobalData.const_ConsumptionOwnUse); }
         }
 
-        public ID Current_Doc_ID
+        public bool IsConsumptionAll
+        {
+            get
+            { return ConsumptionTyp.Equals(GlobalData.const_ConsumptionAll); }
+        }
+
+        public ID Current_Consumption_ID
         {
             get {
                     if (iCurrentSelectedRow >= 0)
                     {
-                        if (dt_XInvoice.Rows.Count > 0)
+                        if (dt_XConsumption.Rows.Count > 0)
                         {
-                            if (iCurrentSelectedRow < dt_XInvoice.Rows.Count)
+                            if (iCurrentSelectedRow < dt_XConsumption.Rows.Count)
                             {
                                 ID id = null;
-                                if (IsDocInvoice)
-                                {
-                                    id = tf.set_ID(dt_XInvoice.Rows[iCurrentSelectedRow]["JOURNAL_DocInvoice_$_dinv_$$ID"]);
-                                }
-                                else if (IsDocProformaInvoice)
-                                {
-                                    id = tf.set_ID(dt_XInvoice.Rows[iCurrentSelectedRow]["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"]);
-                                }
+                                id = tf.set_ID(dt_XConsumption.Rows[iCurrentSelectedRow]["JOURNAL_Consumption_$_cs_$$ID"]);
                                 return id;
                             }
                         }
                     }
 
-                    if (m_LMOUser != null)
-                    {
-                        string sDataSource = DBSync.DBSync.DataSource;
-                        ID xDoc_ID = null;
-                        ID xCurrent_Doc_ID = null;
-                        if (ID.Validate(m_LMOUser.myOrganisation_Person_ID))
-                        {
-                            if (f_Current_Doc_ID.GetLast(DocTyp, sDataSource, m_LMOUser.myOrganisation_Person_ID, myOrg.m_myOrg_Office.ElectronicDevice_ID, ref xDoc_ID, ref xCurrent_Doc_ID))
-                            {
-                                if (ID.Validate(xDoc_ID))
-                                {
-                                    iCurrentSelectedRow = FindRow(xDoc_ID);
-                                    if (iCurrentSelectedRow >= 0)
-                                    {
-                                        return xDoc_ID;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    //if (m_LMOUser != null)
+                    //{
+                    //    string sDataSource = DBSync.DBSync.DataSource;
+                    //    ID xDoc_ID = null;
+                    //    ID xCurrent_Doc_ID = null;
+                    //    if (ID.Validate(m_LMOUser.myOrganisation_Person_ID))
+                    //    {
+                    //        if (f_Current_Doc_ID.GetLast(ConsumptionTyp, sDataSource, m_LMOUser.myOrganisation_Person_ID, myOrg.m_myOrg_Office.ElectronicDevice_ID, ref xDoc_ID, ref xCurrent_Doc_ID))
+                    //        {
+                    //            if (ID.Validate(xDoc_ID))
+                    //            {
+                    //                iCurrentSelectedRow = FindRow(xDoc_ID);
+                    //                if (iCurrentSelectedRow >= 0)
+                    //                {
+                    //                    return xDoc_ID;
+                    //                }
+                    //            }
+                    //        }
+                    //    }
+                    //}
                     return ID.Invalid;
                 }
         }
@@ -174,14 +164,14 @@ namespace ShopC_Forms
         {
             if (ID.Validate(xDoc_ID))
             {
-                foreach (DataRow dr in dt_XInvoice.Rows)
+                foreach (DataRow dr in dt_XConsumption.Rows)
                 {
-                    ID xid = tf.set_ID(dr["JOURNAL_" + DocTyp + "_$_dinv_$$ID"]);
+                    ID xid = tf.set_ID(dr["JOURNAL_" + ConsumptionTyp + "_$_cs_$$ID"]);
                     if (ID.Validate(xid))
                     {
                         if (xDoc_ID.Equals(xid))
                         {
-                            int ix = dt_XInvoice.Rows.IndexOf(dr);
+                            int ix = dt_XConsumption.Rows.IndexOf(dr);
                             return ix;
                         }
                     }
@@ -194,7 +184,7 @@ namespace ShopC_Forms
         public usrc_TableOfConsumption()
         {
             InitializeComponent();
-            ExtensionMethods.DoubleBuffered(this.dgvx_XInvoice, true);
+            ExtensionMethods.DoubleBuffered(this.dgvx_XConsumption, true);
             dtStartTime = DateTime.Now;
             dtEndTime = DateTime.Now;
             lbl_From_To.Text = lng.s_AllData.s;
@@ -209,19 +199,19 @@ namespace ShopC_Forms
             m_LMOUser = xLMOUser;
         }
 
-        public void Activate_dgvx_XInvoice_SelectionChanged()
+        public void Activate_dgvx_XConsumption_SelectionChanged()
         {
-            dgvx_XInvoice.ClearSelection();
-            this.dgvx_XInvoice.SelectionChanged += this.dgvx_XInvoice_SelectionChanged;
-            dgvx_XInvoice.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvx_XConsumption.ClearSelection();
+            this.dgvx_XConsumption.SelectionChanged += this.dgvx_XConsumption_SelectionChanged;
+            dgvx_XConsumption.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             //dgvx_XInvoice.MultiSelect = false;
-            if (dt_XInvoice.Rows.Count>0)
+            if (dt_XConsumption.Rows.Count>0)
             {
                 if (iCurrentSelectedRow>=0)
                 {
-                    if (iCurrentSelectedRow< dt_XInvoice.Rows.Count)
+                    if (iCurrentSelectedRow< dt_XConsumption.Rows.Count)
                     {
-                        dgvx_XInvoice.Rows[iCurrentSelectedRow].Selected = true;
+                        dgvx_XConsumption.Rows[iCurrentSelectedRow].Selected = true;
                     }
                 }
             }
@@ -265,36 +255,26 @@ namespace ShopC_Forms
             m_bInvoice = bInvoice;
             int iRowsCount = -1;
             iCurrentSelectedRow = -1;
-            string s_JOURNAL_DocInvoice_Type_ID_InvoiceDraftTime = GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString();
-            string s_JOURNAL_DocInvoice_Type_ID_InvoiceStornoTime = GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString();
-            string s_JOURNAL_DocInvoice_Type_ID_ProformaInvoiceDraftTime = GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID.ToString();
+            string s_JOURNAL_Consumption_Type_ID_ConsumptionDraftTime = GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionDraftTime.ID.ToString();
+            string s_JOURNAL_Consumption_Type_ID_ConsumptionStornoTime = GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionStornoTime.ID.ToString();
+            string s_JOURNAL_Consumption_Type_ID_ConsumptionTime = GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionTime.ID.ToString();
 
 
-            if (IsDocInvoice)
+            if (IsConsumptionWriteOff)
             {
-                if (bInvoice)
-                {
-                    cond = " where JOURNAL_DocInvoice_$_dinv.ID is not null ";
-                }
-                else
-                {
-                    cond = " where JOURNAL_DocInvoice_$_dinv.ID is null ";
-                }
+                    cond = " where woao.IssueDate is not null ";
             }
-            else if (IsDocProformaInvoice)
+            else if (IsConsumptionOwnUse)
             {
-                if (bInvoice)
-                {
-                    cond = " where JOURNAL_DocProformaInvoice_$_dpinv.ID is not null ";
-                }
-                else
-                {
-                    cond = " where JOURNAL_DocProformaInvoice_$_dpinv.ID is null ";
-                }
+                    cond = " where ouao.IssueDate is not null  ";
+            }
+            else if (IsConsumptionAll)
+            {
+                cond = "";
             }
             else
             {
-                LogFile.Error.Show("ERROR:usrc_InvoiceTable:Init_Invoice:DocTyp=" + DocTyp + " not implemented");
+                LogFile.Error.Show("ERROR:usrc_InvoiceTable:Init_Invoice:DocTyp=" + ConsumptionTyp + " not implemented");
                 return -1;
             }
 
@@ -302,8 +282,8 @@ namespace ShopC_Forms
 
             if (ExtraCondition!=null)
             {
-                s_JOURNAL_DocInvoice_Type_ID_InvoiceDraftTime = GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID.ToString();
-                s_JOURNAL_DocInvoice_Type_ID_InvoiceStornoTime = GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString();
+                s_JOURNAL_Consumption_Type_ID_ConsumptionDraftTime = GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionTime.ID.ToString();
+                s_JOURNAL_Consumption_Type_ID_ConsumptionStornoTime = GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionStornoTime.ID.ToString();
                 cond += " and " + ExtraCondition;
             }
             else
@@ -313,14 +293,7 @@ namespace ShopC_Forms
 
             if (iFinancialYear > 0)
             {
-                if (IsDocInvoice)
-                {
-                    cond += " and JOURNAL_DocInvoice_$_dinv.FinancialYear = " + iFinancialYear.ToString();
-                }
-                else if (IsDocProformaInvoice)
-                {
-                    cond += " and JOURNAL_DocProformaInvoice_$_dpinv.FinancialYear = " + iFinancialYear.ToString();
-                }
+                cond += " and JOURNAL_Consumption_$_cs.FinancialYear = " + iFinancialYear.ToString();
             }
 
 
@@ -339,11 +312,11 @@ namespace ShopC_Forms
 
             if ((m_LMOUser.IsAdministrator)||(m_LMOUser.IsUserManager))
             {
-                if (IsDocInvoice)
+                if (IsConsumptionWriteOff)
                 {
                     lng.s_lbl_SelectionDescription_AllInvoices.Text(lbl_SelectionDescription);
                 }
-                else if (IsDocProformaInvoice)
+                else if (IsConsumptionOwnUse)
                 {
                     lng.s_lbl_SelectionDescription_AllProformaInvoices.Text(lbl_SelectionDescription);
                 }
@@ -373,34 +346,34 @@ namespace ShopC_Forms
                 SQL_Parameter par_ElectronicDeviceName = new SQL_Parameter(spar_ElectronicDeviceName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, m_LMOUser.Atom_ElectronicDevice_Name);
                 lpar_ExtraCondition.Add(par_ElectronicDeviceName);
 
-                if (IsDocInvoice)
-                {
-                    if (spar_TaxID != null)
-                    {
-                        cond_Atom_myOrganisation_Person = " and JOURNAL_DocInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDeviceName
-                             + " and JOURNAL_DocInvoice_$_awperiod_$_aed_$_aoffice.ShortName = " + spar_OfficeShortName
-                             + " and JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Tax_ID = " + spar_TaxID;
-                    }
-                    else
-                    {
-                        cond_Atom_myOrganisation_Person = " and JOURNAL_DocInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDeviceName
-                             + " and JOURNAL_DocInvoice_$_awperiod_$_aed_$_aoffice.ShortName = " + spar_OfficeShortName;
-                    }
-                }
-                else if (IsDocProformaInvoice)
-                {
-                    if (spar_TaxID != null)
-                    {
-                        cond_Atom_myOrganisation_Person = " and JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDeviceName
-                         + " and JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_aoffice.ShortName = " + spar_OfficeShortName
-                         + " and JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.Tax_ID = " + spar_TaxID;
-                    }
-                    else
-                    {
-                        cond_Atom_myOrganisation_Person = " and JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDeviceName
-                         + " and JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_aoffice.ShortName = " + spar_OfficeShortName;
-                    }
-                }
+                //if (IsConsumptionWriteOff)
+                //{
+                //    if (spar_TaxID != null)
+                //    {
+                //        cond_Atom_myOrganisation_Person = " and JOURNAL_Consumption_$_awperiod_$_aed.Name = " + spar_ElectronicDeviceName
+                //             + " and JOURNAL_Consumption_$_awperiod_$_aed_$_aoffice.ShortName = " + spar_OfficeShortName
+                //             + " and JOURNAL_Consumption_$_awperiod_$_amcper_$_aper.Tax_ID = " + spar_TaxID;
+                //    }
+                //    else
+                //    {
+                //        cond_Atom_myOrganisation_Person = " and JOURNAL_Consumption_$_awperiod_$_aed.Name = " + spar_ElectronicDeviceName
+                //             + " and JOURNAL_Consumption_$_awperiod_$_aed_$_aoffice.ShortName = " + spar_OfficeShortName;
+                //    }
+                //}
+                //else if (IsConsumptionOwnUse)
+                //{
+                //    if (spar_TaxID != null)
+                //    {
+                //        cond_Atom_myOrganisation_Person = " and JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDeviceName
+                //         + " and JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_aoffice.ShortName = " + spar_OfficeShortName
+                //         + " and JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.Tax_ID = " + spar_TaxID;
+                //    }
+                //    else
+                //    {
+                //        cond_Atom_myOrganisation_Person = " and JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDeviceName
+                //         + " and JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_aoffice.ShortName = " + spar_OfficeShortName;
+                //    }
+                //}
 
 
                 cond += cond_Atom_myOrganisation_Person;
@@ -419,340 +392,127 @@ namespace ShopC_Forms
                         }
                     }
                 }
-                if (IsDocInvoice)
+
+                if (IsConsumptionWriteOff)
                 {
                     lng.s_lbl_SelectionDescription_AllInvoicesOfUser.Text(lbl_SelectionDescription, s_myorg_person);
                 }
-                else if (IsDocProformaInvoice)
+                else if (IsConsumptionOwnUse)
                 {
                     lng.s_lbl_SelectionDescription_AllProformaInvoices.Text(lbl_SelectionDescription, s_myorg_person);
                 }
             }
 
-            if (IsDocInvoice)
+            sql = @"SELECT 
+            JOURNAL_Consumption_$_cs.FinancialYear AS JOURNAL_Consumption_$_cs_$$FinancialYear,
+            JOURNAL_Consumption_$_cs.NumberInFinancialYear AS JOURNAL_Consumption_$_cs_$$NumberInFinancialYear,
+            JOURNAL_Consumption_$_cs.Draft AS JOURNAL_Consumption_$_cs_$$Draft,
+            JOURNAL_Consumption_$_cs.DraftNumber AS JOURNAL_Consumption_$_cs_$$DraftNumber,
+            JOURNAL_Consumption_$_cs.NetSum AS JOURNAL_Consumption_$_cs_$$NetSum,
+            JOURNAL_Consumption_$_cs.EndSum AS JOURNAL_Consumption_$_cs_$$EndSum,
+            JOURNAL_Consumption_$_cs.TaxSum AS JOURNAL_Consumption_$_cs_$$TaxSum,
+            JOURNAL_Consumption_$_cs.GrossSum AS JOURNAL_Consumption_$_cs_$$GrossSum,
+            JOURNAL_Consumption_$_cs.Storno AS JOURNAL_Consumption_$_cs_$$Storno,
+            JOURNAL_Consumption.EventTime AS JOURNAL_Consumption_$$EventTime,
+            JOURNAL_Consumption_$_awperiod_$_aed.Name AS JOURNAL_Consumption_$_awperiod_$_aed_$$Name,
+            JOURNAL_Consumption_$_awperiod_$_aed_$_aoffice.Name AS JOURNAL_Consumption_$_awperiod_$_aed_$_aoffice_$$Name,
+            JOURNAL_Consumption_$_awperiod_$_aed_$_aoffice.ShortName AS JOURNAL_Consumption_$_awperiod_$_aed_$_aoffice_$$ShortName,
+            JOURNAL_Consumption_$_awperiod.LoginTime AS JOURNAL_Consumption_$_awperiod_$$LoginTime,
+            JOURNAL_Consumption_$_awperiod.LogoutTime AS JOURNAL_Consumption_$_awperiod_$$LogoutTime,
+            JOURNAL_Consumption_$_awperiod_$_awperiodt.Name AS JOURNAL_Consumption_$_awperiod_$_awperiodt_$$Name,
+            JOURNAL_Consumption_$_awperiod_$_awperiodt.Description AS JOURNAL_Consumption_$_awperiod_$_awperiodt_$$Description,
+
+            woao.IssueDate as IssueDate_WriteOff,
+            wor.Name as WriteOff_ReasonName,
+            wor.Description as WriteOff_ReasonDescription,
+            ouao.IssueDate as IssueDate_OwnUse,
+            our.Name as OwnUse_ReasonName,
+            our.Description as OwnUse_ReasonDescription,
+
+            JOURNAL_Consumption_$_cs_$_cst.Name AS JOURNAL_Consumption_$_cs_$_cst_$$Name,
+            JOURNAL_Consumption_$_cs_$_cst.Description AS JOURNAL_Consumption_$_cs_$_cst_$$Description,
+            JOURNAL_Consumption_$_cs.Consumption_Reference_ID AS JOURNAL_Consumption_$_cs_$$Consumption_Reference_ID,
+            JOURNAL_Consumption_$_cs.Consumption_Reference_Type AS JOURNAL_Consumption_$_cs_$$Consumption_Reference_Type,
+
+            JOURNAL_Consumption_$_cs_$_acur.Name AS JOURNAL_Consumption_$_cs_$_acur_$$Name,
+            JOURNAL_Consumption_$_cs_$_acur.Abbreviation AS JOURNAL_Consumption_$_cs_$_acur_$$Abbreviation,
+            JOURNAL_Consumption_$_cs_$_acur.Symbol AS JOURNAL_Consumption_$_cs_$_acur_$$Symbol,
+            JOURNAL_Consumption_$_cs_$_acur.CurrencyCode AS JOURNAL_Consumption_$_cs_$_acur_$$CurrencyCode,
+            JOURNAL_Consumption_$_cs_$_acur.DecimalPlaces AS JOURNAL_Consumption_$_cs_$_acur_$$DecimalPlaces,
+            JOURNAL_Consumption_$_jct.Name AS JOURNAL_Consumption_$_jct_$$Name,
+            JOURNAL_Consumption_$_jct.Description AS JOURNAL_Consumption_$_jct_$$Description,
+
+            JOURNAL_Consumption_$_cs.ID AS JOURNAL_Consumption_$_cs_$$ID,
+            JOURNAL_Consumption_$_awperiod_$_awperiodt.ID AS JOURNAL_Consumption_$_awperiod_$_awperiodt_$$ID,
+            JOURNAL_Consumption_$_awperiod_$_aed_$_aoffice.ID AS JOURNAL_Consumption_$_awperiod_$_aed_$_aoffice_$$ID,
+            JOURNAL_Consumption_$_cs_$_cst.ID AS JOURNAL_Consumption_$_cs_$_cst_$$ID,
+            JOURNAL_Consumption_$_awperiod.ID AS JOURNAL_Consumption_$_awperiod_$$ID,
+            JOURNAL_Consumption_$_awperiod_$_aed.ID AS JOURNAL_Consumption_$_awperiod_$_aed_$$ID,
+            JOURNAL_Consumption_$_cs_$_acur.ID AS JOURNAL_Consumption_$_cs_$_acur_$$ID,
+            JOURNAL_Consumption_$_jct.ID AS JOURNAL_Consumption_$_jct_$$ID,
+            JOURNAL_Consumption.ID
+
+            FROM JOURNAL_Consumption
+            INNER JOIN JOURNAL_Consumption_Type JOURNAL_Consumption_$_jct ON JOURNAL_Consumption.JOURNAL_Consumption_Type_ID = JOURNAL_Consumption_$_jct.ID
+            INNER JOIN Consumption JOURNAL_Consumption_$_cs ON JOURNAL_Consumption.Consumption_ID = JOURNAL_Consumption_$_cs.ID
+            left join WriteOffAddOn woao on woao.Consumption_ID = JOURNAL_Consumption_$_cs.ID
+            left join WriteOffReason wor on wor.ID = woao.WriteOffReason_ID
+            left join OwnUseAddOn ouao on ouao.Consumption_ID = JOURNAL_Consumption_$_cs.ID
+            left join OwnUseReason our on our.ID = ouao.OwnUseReason_ID
+            LEFT JOIN Atom_Currency JOURNAL_Consumption_$_cs_$_acur ON JOURNAL_Consumption_$_cs.Atom_Currency_ID = JOURNAL_Consumption_$_cs_$_acur.ID
+            LEFT JOIN ConsumptionType JOURNAL_Consumption_$_cs_$_cst ON JOURNAL_Consumption_$_cs.ConsumptionType_ID = JOURNAL_Consumption_$_cs_$_cst.ID
+            LEFT JOIN Atom_WorkPeriod JOURNAL_Consumption_$_awperiod ON JOURNAL_Consumption.Atom_WorkPeriod_ID = JOURNAL_Consumption_$_awperiod.ID
+            LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_Consumption_$_awperiod_$_awperiodt ON JOURNAL_Consumption_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_Consumption_$_awperiod_$_awperiodt.ID 
+            LEFT JOIN Atom_ElectronicDevice JOURNAL_Consumption_$_awperiod_$_aed ON JOURNAL_Consumption_$_awperiod.Atom_ElectronicDevice_ID = JOURNAL_Consumption_$_awperiod_$_aed.ID 
+            LEFT JOIN Atom_Office JOURNAL_Consumption_$_awperiod_$_aed_$_aoffice ON JOURNAL_Consumption_$_awperiod_$_aed.Atom_Office_ID = JOURNAL_Consumption_$_awperiod_$_aed_$_aoffice.ID 
+            ";
+
+            if (dt_XConsumption != null)
             {
-                string sAtom_WorkArea_Name = "";
-                string sAtom_WorkArea_Join = "";
-                if (TSettings.UseWorkAreas)
-                {
-                    sAtom_WorkArea_Join = @" LEFT JOIN DocInvoice_Atom_WorkArea diawa ON diawa.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID 
-                                             LEFT JOIN Atom_WorkArea awa ON diawa.Atom_WorkArea_ID = awa.ID ";
-                    sAtom_WorkArea_Name = " awa.Name as Atom_WorkArea_Name,";
-                }
-                if (TSettings.b_FVI_SLO)
-                {
-                    sql = @"SELECT " +
-                    sAtom_WorkArea_Name +
-                    @"JOURNAL_DocInvoice_$_dinv.NumberInFinancialYear AS JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear,
-                    JOURNAL_DocInvoice_$_dinv.GrossSum AS JOURNAL_DocInvoice_$_dinv_$$GrossSum,
-                    JOURNAL_DocInvoice_$_dinv.FinancialYear AS JOURNAL_DocInvoice_$_dinv_$$FinancialYear,
-                    diao.IssueDate as IssueDate,
-                    JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn.FirstName AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn_$$FirstName,
-                    JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln.LastName AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln_$$LastName,
-                    pt.Identification AS PaymentType_Identification,
-                    pt.Name AS PaymentType_Name,
-                    JOURNAL_DocInvoice_$_dinv.NetSum AS JOURNAL_DocInvoice_$_dinv_$$NetSum,
-                    JOURNAL_DocInvoice_$_dinv.TaxSum AS JOURNAL_DocInvoice_$_dinv_$$TaxSum,
-                    JOURNAL_DocInvoice.EventTime AS JOURNAL_DocInvoice_$$EventTime,
-                    JOURNAL_DocInvoice_$_dinv.Draft AS JOURNAL_DocInvoice_$_dinv_$$Draft,
-                    JOURNAL_DocInvoice_$_dinv.DraftNumber AS JOURNAL_DocInvoice_$_dinv_$$DraftNumber,
-                    JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_agsmnper.GsmNumber AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_agsmnper_$$GsmNumber,
-                    JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aphnnper.PhoneNumber AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aphnnper_$$PhoneNumber,
-                    JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aemailper.Email AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aemailper_$$Email,
-                    JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.DateOfBirth AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$$DateOfBirth,
-                    JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.Name AS JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg_$$Name,
-                    JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.Tax_ID AS JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg_$$Tax_ID,
-                    JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.Registration_ID AS JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg_$$Registration_ID,
-                    JOURNAL_DocInvoice_$_dinv.Paid AS JOURNAL_DocInvoice_$_dinv_$$Paid,
-                    JOURNAL_DocInvoice_$_dinv.Storno AS JOURNAL_DocInvoice_$_dinv_$$Storno,
-                    JOURNAL_DocInvoice_$_dinv.Discount AS JOURNAL_DocInvoice_$_dinv_$$Discount,
-                    JOURNAL_DocInvoice_$_dinv.EndSum AS JOURNAL_DocInvoice_$_dinv_$$EndSum,
-                    JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn.FirstName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
-                    JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln.LastName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
-                    JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.Name AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$$Name,
-                    JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.ShortName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$$ShortName,
-                    JOURNAL_DocInvoice_$_awperiod_$_aed.Name as JOURNAL_DocInvoice_$_awperiod_$_aed_$$Name,
-                    JOURNAL_DocInvoice_$_dinv_$_fvisres.UniqueInvoiceID AS EOR,
-                    JOURNAL_DocInvoice_$_dinv_$_fvisres.BarCodeValue As JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue,
-                    JOURNAL_DocInvoice_$_dinv_$_fvisbi.InvoiceNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$InvoiceNumber,
-                    JOURNAL_DocInvoice_$_dinv_$_fvisbi.SetNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$SetNumber,
-                    JOURNAL_DocInvoice_$_dinv_$_fvisbi.SerialNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$SerialNumber,
-                    sn.Name  as StornoReason,
-                    JOURNAL_DocInvoice_$_dinv.ID AS JOURNAL_DocInvoice_$_dinv_$$ID, 
-                    JOURNAL_DocInvoice_$_jpinvt.ID AS JOURNAL_DocInvoice_$_jpinvt_$$ID,
-                    JOURNAL_DocInvoice_$_dinv_$_fvisres.ID AS JOURNAL_DocInvoice_$_dinv_$_fvisres_$$ID,
-                    JOURNAL_DocInvoice_$_dinv_$_fvisbi.ID AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$ID
-                    FROM JOURNAL_DocInvoice
-                    INNER JOIN JOURNAL_DocInvoice_Type JOURNAL_DocInvoice_$_jpinvt ON JOURNAL_DocInvoice.JOURNAL_DocInvoice_Type_ID = JOURNAL_DocInvoice_$_jpinvt.ID
-                    INNER JOIN DocInvoice JOURNAL_DocInvoice_$_dinv ON JOURNAL_DocInvoice.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
-                    LEFT JOIN StornoReason sr ON sr.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
-                    LEFT JOIN StornoName sn ON sr.StornoName_ID = sn.ID
-                    LEFT JOIN Atom_Customer_Person JOURNAL_DocInvoice_$_dinv_$_acusper ON JOURNAL_DocInvoice_$_dinv.Atom_Customer_Person_ID = JOURNAL_DocInvoice_$_dinv_$_acusper.ID
-                    LEFT JOIN Atom_Person JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper ON JOURNAL_DocInvoice_$_dinv_$_acusper.Atom_Person_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.ID
-                    LEFT JOIN Atom_cFirstName JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn ON JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.Atom_cFirstName_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn.ID
-                    LEFT JOIN Atom_cLastName JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln ON JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.Atom_cLastName_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln.ID
-                    LEFT JOIN Atom_cGsmNumber_Person JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_agsmnper ON JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.Atom_cGsmNumber_Person_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_agsmnper.ID
-                    LEFT JOIN Atom_cPhoneNumber_Person JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aphnnper ON JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.Atom_cPhoneNumber_Person_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aphnnper.ID
-                    LEFT JOIN Atom_cEmail_Person JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aemailper ON JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.Atom_cEmail_Person_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aemailper.ID
-                    LEFT JOIN Atom_cCardType_Person JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acardtper ON JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.Atom_cCardType_Person_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acardtper.ID
-                    LEFT JOIN Atom_PersonImage JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aperimg ON JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.Atom_PersonImage_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aperimg.ID
-                    LEFT JOIN Atom_Customer_Org JOURNAL_DocInvoice_$_dinv_$_acusorg ON JOURNAL_DocInvoice_$_dinv.Atom_Customer_Org_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg.ID
-                    LEFT JOIN Atom_Organisation JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg ON JOURNAL_DocInvoice_$_dinv_$_acusorg.Atom_Organisation_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.ID
-                    LEFT JOIN DocInvoiceAddOn diao ON diao.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
-                    LEFT JOIN TermsOfPayment topay ON diao.TermsOfPayment_ID = topay.ID
-                    LEFT JOIN MethodOfPayment_DI mtpdi ON diao.MethodOfPayment_DI_ID = mtpdi.ID
-                    LEFT JOIN PaymentType pt ON mtpdi.PaymentType_ID = pt.ID
-                    LEFT JOIN FVI_SLO_Response JOURNAL_DocInvoice_$_dinv_$_fvisres ON JOURNAL_DocInvoice_$_dinv_$_fvisres.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID 
-                    LEFT JOIN FVI_SLO_SalesBookInvoice JOURNAL_DocInvoice_$_dinv_$_fvisbi ON JOURNAL_DocInvoice_$_dinv_$_fvisbi.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
-                    INNER JOIN Atom_WorkPeriod JOURNAL_DocInvoice_$_awperiod ON JOURNAL_DocInvoice.Atom_WorkPeriod_ID = JOURNAL_DocInvoice_$_awperiod.ID
-                    INNER JOIN Atom_myOrganisation_Person JOURNAL_DocInvoice_$_awperiod_$_amcper ON JOURNAL_DocInvoice_$_awperiod.Atom_myOrganisation_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper.ID
-                    INNER JOIN Atom_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper ON JOURNAL_DocInvoice_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.ID
-                    INNER JOIN Atom_cFirstName JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cFirstName_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn.ID
-                    LEFT JOIN Atom_cLastName JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cLastName_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln.ID
-                    LEFT JOIN Atom_cGsmNumber_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_agsmnper ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cGsmNumber_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_agsmnper.ID
-                    LEFT JOIN Atom_cPhoneNumber_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_aphnnper ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cPhoneNumber_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_aphnnper.ID
-                    LEFT JOIN Atom_cEmail_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_aemailper ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cEmail_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_aemailper.ID
-                    LEFT JOIN Atom_cCardType_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acardtper ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cCardType_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acardtper.ID
-                    LEFT JOIN Atom_PersonImage JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_aperimg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_PersonImage_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_aperimg.ID
-                    INNER JOIN Atom_Office JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice ON JOURNAL_DocInvoice_$_awperiod_$_amcper.Atom_Office_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.ID
-                    INNER JOIN Atom_myOrganisation JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.Atom_myOrganisation_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc.ID
-                    INNER JOIN Atom_OrganisationData JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc.Atom_OrganisationData_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.ID
-                    INNER JOIN Atom_Organisation JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.Atom_Organisation_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg.ID
-                    LEFT JOIN cPhoneNumber_Org JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cphnnorg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cPhoneNumber_Org_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cphnnorg.ID
-                    LEFT JOIN cFaxNumber_Org JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cfaxnorg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cFaxNumber_Org_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cfaxnorg.ID
-                    LEFT JOIN cEmail_Org JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cemailorg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cEmail_Org_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cemailorg.ID
-                    LEFT JOIN cHomePage_Org JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_chomepgorg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cHomePage_Org_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_chomepgorg.ID
-                    LEFT JOIN cOrgTYPE JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_orgt ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cOrgTYPE_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_orgt.ID
-                    LEFT JOIN Atom_Logo JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_alogo ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.Atom_Logo_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_alogo.ID
-                    INNER JOIN Atom_ElectronicDevice JOURNAL_DocInvoice_$_awperiod_$_aed ON JOURNAL_DocInvoice_$_awperiod.Atom_ElectronicDevice_ID = JOURNAL_DocInvoice_$_awperiod_$_aed.ID
-                    INNER JOIN Atom_Office JOURNAL_DocInvoice_$_awperiod_$_aed_$_aoffice ON JOURNAL_DocInvoice_$_awperiod_$_aed.Atom_Office_ID = JOURNAL_DocInvoice_$_awperiod_$_aed_$_aoffice.ID
-                    INNER JOIN Atom_Computer JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp ON JOURNAL_DocInvoice_$_awperiod_$_aed.Atom_Computer_ID = JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp.ID
-                    LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOURNAL_DocInvoice_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_DocInvoice_$_awperiod_$_awperiodt.ID
-                    "
-                    + sAtom_WorkArea_Join
-                    + cond + " and ((JOURNAL_DocInvoice_$_jpinvt.ID = " 
-                    + s_JOURNAL_DocInvoice_Type_ID_InvoiceDraftTime + ")or(JOURNAL_DocInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_InvoiceStornoTime 
-                    + ")) and  JOURNAL_DocInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDevice_Name 
-                    + " order by JOURNAL_DocInvoice_$_dinv_$$FinancialYear desc,JOURNAL_DocInvoice_$_dinv_$$Draft desc, JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear desc, JOURNAL_DocInvoice_$_dinv_$$DraftNumber desc";
-                }
-                else
-                {
-                    sql = @"SELECT " +
-                    sAtom_WorkArea_Name +
-                  @"JOURNAL_DocInvoice_$_dinv.NumberInFinancialYear AS JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear,
-                    JOURNAL_DocInvoice_$_dinv.GrossSum AS JOURNAL_DocInvoice_$_dinv_$$GrossSum,
-                    JOURNAL_DocInvoice_$_dinv.FinancialYear AS JOURNAL_DocInvoice_$_dinv_$$FinancialYear,
-                    diao.IssueDate as IssueDate,
-                    JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn.FirstName AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn_$$FirstName,
-                    JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln.LastName AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln_$$LastName,
-                    pt.Identification AS PaymentType_Identification,
-                    pt.Name AS PaymentType_Name,
-                    JOURNAL_DocInvoice_$_dinv.NetSum AS JOURNAL_DocInvoice_$_dinv_$$NetSum,
-                    JOURNAL_DocInvoice_$_dinv.TaxSum AS JOURNAL_DocInvoice_$_dinv_$$TaxSum,
-                    JOURNAL_DocInvoice.EventTime AS JOURNAL_DocInvoice_$$EventTime,
-                    JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_agsmnper.GsmNumber AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_agsmnper_$$GsmNumber,
-                    JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aphnnper.PhoneNumber AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aphnnper_$$PhoneNumber,
-                    JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aemailper.Email AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aemailper_$$Email,
-                    JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.DateOfBirth AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$$DateOfBirth,
-                    JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.Name AS JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg_$$Name,
-                    JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.Tax_ID AS JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg_$$Tax_ID,
-                    JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.Registration_ID AS JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg_$$Registration_ID,
-                    JOURNAL_DocInvoice_$_dinv.Paid AS JOURNAL_DocInvoice_$_dinv_$$Paid,
-                    JOURNAL_DocInvoice_$_dinv.Storno AS JOURNAL_DocInvoice_$_dinv_$$Storno,
-                    JOURNAL_DocInvoice_$_dinv.Discount AS JOURNAL_DocInvoice_$_dinv_$$Discount,
-                    JOURNAL_DocInvoice_$_dinv.EndSum AS JOURNAL_DocInvoice_$_dinv_$$EndSum,
-                    JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn.FirstName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
-                    JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln.LastName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
-                    JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.Name AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$$Name,
-                    JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.ShortName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$$ShortName,
-                    JOURNAL_DocInvoice_$_awperiod_$_aed.Name as JOURNAL_DocInvoice_$_awperiod_$_aed_$$Name,
-                    JOURNAL_DocInvoice_$_dinv.Draft AS JOURNAL_DocInvoice_$_dinv_$$Draft,
-                    JOURNAL_DocInvoice_$_dinv.DraftNumber AS JOURNAL_DocInvoice_$_dinv_$$DraftNumber,
-                    sn.Name as StornoReason,
-                    JOURNAL_DocInvoice_$_dinv.ID AS JOURNAL_DocInvoice_$_dinv_$$ID, 
-                    JOURNAL_DocInvoice_$_jpinvt.ID AS JOURNAL_DocInvoice_$_jpinvt_$$ID
-                    FROM JOURNAL_DocInvoice
-                    INNER JOIN JOURNAL_DocInvoice_Type JOURNAL_DocInvoice_$_jpinvt ON JOURNAL_DocInvoice.JOURNAL_DocInvoice_Type_ID = JOURNAL_DocInvoice_$_jpinvt.ID
-                    INNER JOIN DocInvoice JOURNAL_DocInvoice_$_dinv ON JOURNAL_DocInvoice.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
-                    LEFT JOIN StornoReason sr ON sr.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
-                    LEFT JOIN StornoName sn ON sr.StornoName_ID = sn.ID
-                    LEFT JOIN Atom_Customer_Person JOURNAL_DocInvoice_$_dinv_$_acusper ON JOURNAL_DocInvoice_$_dinv.Atom_Customer_Person_ID = JOURNAL_DocInvoice_$_dinv_$_acusper.ID
-                    LEFT JOIN Atom_Person JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper ON JOURNAL_DocInvoice_$_dinv_$_acusper.Atom_Person_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.ID
-                    LEFT JOIN Atom_cFirstName JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn ON JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.Atom_cFirstName_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn.ID
-                    LEFT JOIN Atom_cLastName JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln ON JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.Atom_cLastName_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln.ID
-                    LEFT JOIN Atom_cGsmNumber_Person JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_agsmnper ON JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.Atom_cGsmNumber_Person_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_agsmnper.ID
-                    LEFT JOIN Atom_cPhoneNumber_Person JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aphnnper ON JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.Atom_cPhoneNumber_Person_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aphnnper.ID
-                    LEFT JOIN Atom_cEmail_Person JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aemailper ON JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.Atom_cEmail_Person_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aemailper.ID
-                    LEFT JOIN Atom_cCardType_Person JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acardtper ON JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.Atom_cCardType_Person_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acardtper.ID
-                    LEFT JOIN Atom_PersonImage JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aperimg ON JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.Atom_PersonImage_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aperimg.ID
-                    LEFT JOIN Atom_Customer_Org JOURNAL_DocInvoice_$_dinv_$_acusorg ON JOURNAL_DocInvoice_$_dinv.Atom_Customer_Org_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg.ID
-                    LEFT JOIN Atom_Organisation JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg ON JOURNAL_DocInvoice_$_dinv_$_acusorg.Atom_Organisation_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.ID
-                    LEFT JOIN DocInvoiceAddOn diao ON diao.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
-                    LEFT JOIN TermsOfPayment topay ON diao.TermsOfPayment_ID = topay.ID
-                    LEFT JOIN MethodOfPayment_DI mtpdi ON diao.MethodOfPayment_DI_ID = mtpdi.ID
-                    LEFT JOIN PaymentType pt ON mtpdi.PaymentType_ID = pt.ID
-                    INNER JOIN Atom_WorkPeriod JOURNAL_DocInvoice_$_awperiod ON JOURNAL_DocInvoice.Atom_WorkPeriod_ID = JOURNAL_DocInvoice_$_awperiod.ID
-                    INNER JOIN Atom_myOrganisation_Person JOURNAL_DocInvoice_$_awperiod_$_amcper ON JOURNAL_DocInvoice_$_awperiod.Atom_myOrganisation_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper.ID
-                    INNER JOIN Atom_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper ON JOURNAL_DocInvoice_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.ID
-                    INNER JOIN Atom_cFirstName JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cFirstName_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn.ID
-                    LEFT JOIN Atom_cLastName JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cLastName_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln.ID
-                    LEFT JOIN Atom_cGsmNumber_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_agsmnper ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cGsmNumber_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_agsmnper.ID
-                    LEFT JOIN Atom_cPhoneNumber_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_aphnnper ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cPhoneNumber_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_aphnnper.ID
-                    LEFT JOIN Atom_cEmail_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_aemailper ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cEmail_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_aemailper.ID
-                    LEFT JOIN Atom_cCardType_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acardtper ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cCardType_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acardtper.ID
-                    LEFT JOIN Atom_PersonImage JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_aperimg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_PersonImage_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_aperimg.ID
-                    INNER JOIN Atom_Office JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice ON JOURNAL_DocInvoice_$_awperiod_$_amcper.Atom_Office_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.ID
-                    INNER JOIN Atom_myOrganisation JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.Atom_myOrganisation_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc.ID
-                    INNER JOIN Atom_OrganisationData JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc.Atom_OrganisationData_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.ID
-                    INNER JOIN Atom_Organisation JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.Atom_Organisation_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg.ID
-                    LEFT JOIN cPhoneNumber_Org JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cphnnorg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cPhoneNumber_Org_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cphnnorg.ID
-                    LEFT JOIN cFaxNumber_Org JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cfaxnorg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cFaxNumber_Org_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cfaxnorg.ID
-                    LEFT JOIN cEmail_Org JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cemailorg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cEmail_Org_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cemailorg.ID
-                    LEFT JOIN cHomePage_Org JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_chomepgorg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cHomePage_Org_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_chomepgorg.ID
-                    LEFT JOIN cOrgTYPE JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_orgt ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cOrgTYPE_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_orgt.ID
-                    LEFT JOIN Atom_Logo JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_alogo ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.Atom_Logo_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_alogo.ID
-                    INNER JOIN Atom_ElectronicDevice JOURNAL_DocInvoice_$_awperiod_$_aed ON JOURNAL_DocInvoice_$_awperiod.Atom_ElectronicDevice_ID = JOURNAL_DocInvoice_$_awperiod_$_aed.ID
-                    INNER JOIN Atom_Office JOURNAL_DocInvoice_$_awperiod_$_aed_$_aoffice ON JOURNAL_DocInvoice_$_awperiod_$_aed.Atom_Office_ID = JOURNAL_DocInvoice_$_awperiod_$_aed_$_aoffice.ID
-                    INNER JOIN Atom_Computer JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp ON JOURNAL_DocInvoice_$_awperiod_$_aed.Atom_Computer_ID = JOURNAL_DocInvoice_$_awperiod_$_aed_$_acomp.ID
-                    LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOURNAL_DocInvoice_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_DocInvoice_$_awperiod_$_awperiodt.ID
-                    "
-                    + sAtom_WorkArea_Join
-                    + cond +
-                    " and ((JOURNAL_DocInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_InvoiceDraftTime + ")or(JOURNAL_DocInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_InvoiceStornoTime
-                    + ")) and  JOURNAL_DocInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDevice_Name
-                    + " order by JOURNAL_DocInvoice_$_dinv.FinancialYear desc,JOURNAL_DocInvoice_$_dinv_$$Draft desc, JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear desc, JOURNAL_DocInvoice_$_dinv_$$DraftNumber desc";
-                }
-            }
-            else if (IsDocProformaInvoice)
-            {
-                sql = @"SELECT
-                JOURNAL_DocProformaInvoice_$_dpinv.NumberInFinancialYear AS JOURNAL_DocProformaInvoice_$_dpinv_$$NumberInFinancialYear,
-                JOURNAL_DocProformaInvoice_$_dpinv.GrossSum AS JOURNAL_DocProformaInvoice_$_dpinv_$$GrossSum,
-                dpiao.IssueDate as IssueDate,
-                JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acfn.FirstName AS JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acfn_$$FirstName,
-                JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acln.LastName AS JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acln_$$LastName,
-                pt.Identification AS PaymentType_Identification,
-                pt.Name AS PaymentType_Name,
-                JOURNAL_DocProformaInvoice_$_dpinv.NetSum AS JOURNAL_DocProformaInvoice_$_dpinv_$$NetSum,
-                JOURNAL_DocProformaInvoice_$_dpinv.TaxSum AS JOURNAL_DocProformaInvoice_$_dpinv_$$TaxSum,
-                JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_agsmnper.GsmNumber AS JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_agsmnper_$$GsmNumber,
-                JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_aphnnper.PhoneNumber AS JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_aphnnper_$$PhoneNumber,
-                JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_aemailper.Email AS JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_aemailper_$$Email,
-                JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper.DateOfBirth AS JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$$DateOfBirth,
-                JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$_aorg.Name AS JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$_aorg_$$Name,
-                JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$_aorg.Tax_ID AS JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$_aorg_$$Tax_ID,
-                JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$_aorg.Registration_ID AS JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$_aorg_$$Registration_ID,
-                JOURNAL_DocProformaInvoice_$_dpinv.Discount AS JOURNAL_DocProformaInvoice_$_dpinv_$$Discount,
-                JOURNAL_DocProformaInvoice_$_dpinv.EndSum AS JOURNAL_DocProformaInvoice_$_dpinv_$$EndSum,
-                JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn.FirstName AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
-                JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln.LastName AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
-                JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice.Name AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$$Name,
-                JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice.ShortName AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$$ShortName,
-                JOURNAL_DocProformaInvoice_$_dpinv.FinancialYear AS JOURNAL_DocProformaInvoice_$_dpinv_$$FinancialYear,
-                JOURNAL_DocProformaInvoice.EventTime AS JOURNAL_DocProformaInvoice_$$EventTime,
-                JOURNAL_DocProformaInvoice_$_dpinv.Draft AS JOURNAL_DocProformaInvoice_$_dpinv_$$Draft,
-                JOURNAL_DocProformaInvoice_$_dpinv.DraftNumber AS JOURNAL_DocProformaInvoice_$_dpinv_$$DraftNumber,
-                JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Name AS JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$$Name,
-                JOURNAL_DocProformaInvoice_$_dpinv.ID AS JOURNAL_DocProformaInvoice_$_dpinv_$$ID, 
-                JOURNAL_DocProformaInvoice_$_jpinvt.ID AS JOURNAL_DocProformaInvoice_$_jpinvt_$$ID
-                FROM JOURNAL_DocProformaInvoice
-                INNER JOIN JOURNAL_DocProformaInvoice_Type JOURNAL_DocProformaInvoice_$_jpinvt ON JOURNAL_DocProformaInvoice.JOURNAL_DocProformaInvoice_Type_ID = JOURNAL_DocProformaInvoice_$_jpinvt.ID
-                INNER JOIN DocProformaInvoice JOURNAL_DocProformaInvoice_$_dpinv ON JOURNAL_DocProformaInvoice.DocProformaInvoice_ID = JOURNAL_DocProformaInvoice_$_dpinv.ID
-                LEFT JOIN Atom_Customer_Person JOURNAL_DocProformaInvoice_$_dpinv_$_acusper ON JOURNAL_DocProformaInvoice_$_dpinv.Atom_Customer_Person_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusper.ID
-                LEFT JOIN Atom_Person JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper ON JOURNAL_DocProformaInvoice_$_dpinv_$_acusper.Atom_Person_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper.ID
-                LEFT JOIN Atom_cFirstName JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acfn ON JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper.Atom_cFirstName_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acfn.ID
-                LEFT JOIN Atom_cLastName JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acln ON JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper.Atom_cLastName_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acln.ID
-                LEFT JOIN Atom_cGsmNumber_Person JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_agsmnper ON JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper.Atom_cGsmNumber_Person_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_agsmnper.ID
-                LEFT JOIN Atom_cPhoneNumber_Person JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_aphnnper ON JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper.Atom_cPhoneNumber_Person_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_aphnnper.ID
-                LEFT JOIN Atom_cEmail_Person JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_aemailper ON JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper.Atom_cEmail_Person_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_aemailper.ID
-                LEFT JOIN Atom_cCardType_Person JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acardtper ON JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper.Atom_cCardType_Person_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acardtper.ID
-                LEFT JOIN Atom_PersonImage JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_aperimg ON JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper.Atom_PersonImage_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_aperimg.ID
-                LEFT JOIN Atom_Customer_Org JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg ON JOURNAL_DocProformaInvoice_$_dpinv.Atom_Customer_Org_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg.ID
-                LEFT JOIN Atom_Organisation JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$_aorg ON JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg.Atom_Organisation_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$_aorg.ID
-                LEFT JOIN DocProformaInvoiceAddOn dpiao on dpiao.DocProformaInvoice_ID = JOURNAL_DocProformaInvoice_$_dpinv.ID
-                LEFT JOIN TermsOfPayment topay ON dpiao.TermsOfPayment_ID = topay.ID
-                LEFT JOIN MethodOfPayment_DPI mtpdpi ON dpiao.MethodOfPayment_DPI_ID = mtpdpi.ID
-                LEFT JOIN PaymentType pt ON mtpdpi.PaymentType_ID = pt.ID
-                INNER JOIN Atom_WorkPeriod JOURNAL_DocProformaInvoice_$_awperiod ON JOURNAL_DocProformaInvoice.Atom_WorkPeriod_ID = JOURNAL_DocProformaInvoice_$_awperiod.ID
-                INNER JOIN Atom_myOrganisation_Person JOURNAL_DocProformaInvoice_$_awperiod_$_amcper ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_myOrganisation_Person_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.ID
-                INNER JOIN Atom_Person JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.ID
-                INNER JOIN Atom_cFirstName JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.Atom_cFirstName_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn.ID
-                LEFT JOIN Atom_cLastName JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.Atom_cLastName_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln.ID
-                LEFT JOIN Atom_cGsmNumber_Person JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_agsmnper ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.Atom_cGsmNumber_Person_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_agsmnper.ID
-                LEFT JOIN Atom_cPhoneNumber_Person JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_aphnnper ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.Atom_cPhoneNumber_Person_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_aphnnper.ID
-                LEFT JOIN Atom_cEmail_Person JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_aemailper ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.Atom_cEmail_Person_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_aemailper.ID
-                LEFT JOIN Atom_cCardType_Person JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acardtper ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.Atom_cCardType_Person_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acardtper.ID
-                LEFT JOIN Atom_PersonImage JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_aperimg ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.Atom_PersonImage_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_aperimg.ID
-                INNER JOIN Atom_Office JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.Atom_Office_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice.ID
-                INNER JOIN Atom_myOrganisation JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice.Atom_myOrganisation_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc.ID
-                INNER JOIN Atom_OrganisationData JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc.Atom_OrganisationData_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.ID
-                INNER JOIN Atom_Organisation JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.Atom_Organisation_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg.ID
-                LEFT JOIN cPhoneNumber_Org JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cphnnorg ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cPhoneNumber_Org_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cphnnorg.ID
-                LEFT JOIN cFaxNumber_Org JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cfaxnorg ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cFaxNumber_Org_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cfaxnorg.ID
-                LEFT JOIN cEmail_Org JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cemailorg ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cEmail_Org_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cemailorg.ID
-                LEFT JOIN cHomePage_Org JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_chomepgorg ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cHomePage_Org_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_chomepgorg.ID
-                LEFT JOIN cOrgTYPE JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_orgt ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cOrgTYPE_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_orgt.ID
-                LEFT JOIN Atom_Logo JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_alogo ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.Atom_Logo_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_alogo.ID
-                INNER JOIN Atom_ElectronicDevice JOURNAL_DocProformaInvoice_$_awperiod_$_aed ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_ElectronicDevice_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_aed.ID
-                INNER JOIN Atom_Office JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_aoffice ON JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Atom_Office_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_aoffice.ID
-                INNER JOIN Atom_Computer JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_acomp ON JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Atom_Computer_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_aed_$_acomp.ID
-                LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocProformaInvoice_$_awperiod_$_awperiodt ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_awperiodt.ID
-                " + cond 
-                + " and (JOURNAL_DocProformaInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_ProformaInvoiceDraftTime 
-                + ") and  JOURNAL_DocProformaInvoice_$_awperiod_$_aed.Name = " + spar_ElectronicDevice_Name +
-                " order by JOURNAL_DocProformaInvoice_$_dpinv.FinancialYear desc,JOURNAL_DocProformaInvoice_$_dpinv.Draft desc, JOURNAL_DocProformaInvoice_$_dpinv_$$NumberInFinancialYear desc, JOURNAL_DocProformaInvoice_$_dpinv_$$DraftNumber desc";
-            }
-            //bIgnoreChangeSelectionEvent = true;
-            if (dt_XInvoice != null)
-            {
-                dt_XInvoice.Dispose();
-                dt_XInvoice = null;
-                dt_XInvoice = new DataTable();
+                dt_XConsumption.Dispose();
+                dt_XConsumption = null;
+                dt_XConsumption = new DataTable();
             }
             else
             {
-                dt_XInvoice = new DataTable();
+                dt_XConsumption = new DataTable();
             }
             
             string Err = null;
-            iColIndex_DocInvoice_Draft = -1;
-            iColIndex_DocInvoice_Invoice_Storno = -1;
-            iColIndex_DocInvoice_Invoice_StornoReason = -1;
-            dgvx_XInvoice.DataSource = null;
-            bool bRes = DBSync.DBSync.ReadDataTable(ref dt_XInvoice, sql, lpar_ExtraCondition, ref Err);
+            iColIndex_Consumption_Draft = -1;
+            iColIndex_Consumption_Storno = -1;
+            //iColIndex_Consumption_StornoReason = -1;
+            dgvx_XConsumption.DataSource = null;
+            bool bRes = DBSync.DBSync.ReadDataTable(ref dt_XConsumption, sql, lpar_ExtraCondition, ref Err);
             if (bRes)
             {
-                dgvx_XInvoice.DataSource = dt_XInvoice;
+                dgvx_XConsumption.DataSource = dt_XConsumption;
 
                 if (!bNew)
                 {
-                    DataGridViewSelectedRowCollection dgvxc = dgvx_XInvoice.SelectedRows;
+                    DataGridViewSelectedRowCollection dgvxc = dgvx_XConsumption.SelectedRows;
                     if (dgvxc.Count > 0)
                     {
                         DataGridViewRow dgvr = dgvxc[0];
-                        iCurrentSelectedRow = dgvx_XInvoice.Rows.IndexOf(dgvr);
+                        iCurrentSelectedRow = dgvx_XConsumption.Rows.IndexOf(dgvr);
                     }
                 }
 
-                if (IsDocInvoice)
-                {
-                    iColIndex_DocInvoice_Draft = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$Draft");
-                    iColIndex_DocInvoice_Invoice_Storno = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$Storno");
-                    iColIndex_DocInvoice_Invoice_StornoReason = dt_XInvoice.Columns.IndexOf("StornoReason");
-                    iColIndex_DocInvoice_IssueDate = dt_XInvoice.Columns.IndexOf("IssueDate");
-                    dgvx_XInvoice.Columns[iColIndex_DocInvoice_IssueDate].HeaderText = lng.s_IssueDate.s;
-                    dgvx_XInvoice.Columns[iColIndex_DocInvoice_Invoice_StornoReason].HeaderText = lng.s_StornoReason.s;
+                    iColIndex_Consumption_Draft = dt_XConsumption.Columns.IndexOf("JOURNAL_Consumption_$_cs_$$Draft");
+                    iColIndex_Consumption_Storno = dt_XConsumption.Columns.IndexOf("JOURNAL_Consumption_$_cs_$$Storno");
+                    //iColIndex_Consumption_StornoReason = dt_XConsumption.Columns.IndexOf("StornoReason");
+                    //iColIndex_Consumption_IssueDate = dt_XConsumption.Columns.IndexOf("IssueDate");
+                    //dgvx_XConsumption.Columns[iColIndex_Consumption_IssueDate].HeaderText = lng.s_IssueDate.s;
+                    //dgvx_XConsumption.Columns[iColIndex_Consumption_StornoReason].HeaderText = lng.s_StornoReason.s;
 
-                    iColIndex_DocInvoice_PaymentType_Identification = dt_XInvoice.Columns.IndexOf("PaymentType_Identification");
-                    iColIndex_DocInvoice_PaymentType_Name = dt_XInvoice.Columns.IndexOf("PaymentType_Name");
+                 
 
-                    dgvx_XInvoice.Columns[iColIndex_DocInvoice_PaymentType_Identification].Visible = false;
-
+                 
 
                     SetLabels();
-                    SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice)));
-                    tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_XInvoice, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
-                    iRowsCount = dt_XInvoice.Rows.Count;
+                    SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(JOURNAL_Consumption)));
+                    tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_XConsumption, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
+                    iRowsCount = dt_XConsumption.Rows.Count;
                     if (!bNew)
                     {
                         if (iRowsCount > 0)
@@ -763,21 +523,21 @@ namespace ShopC_Forms
                                 if (!TangentaProperties.Properties.Settings.Default.Current_DataBase.Equals(sdb))
                                 {
                                     TangentaProperties.Properties.Settings.Default.Current_DataBase = sdb;
-                                    //TangentaProperties.Properties.Settings.Default.Current_DocInvoice_ID = "";
+                                    //TangentaProperties.Properties.Settings.Default.Current_Consumption_ID = "";
                                     TangentaProperties.Properties.Settings.Default.Save();
                                 }
                             }
                             if (iCurrentSelectedRow >= 0)
                             {
-                                dgvx_XInvoice.Rows[iCurrentSelectedRow].Selected = true;
+                                dgvx_XConsumption.Rows[iCurrentSelectedRow].Selected = true;
                             }
-                            else if (false /*TangentaProperties.Properties.Settings.Default.Current_DocInvoice_ID.Length > 0*/)
+                            else if (false /*TangentaProperties.Properties.Settings.Default.Current_Consumption_ID.Length > 0*/)
                             {
-                                DataRow[] dr_Current = dt_XInvoice.Select("JOURNAL_DocInvoice_$_dinv_$$ID = " /*+ TangentaProperties.Properties.Settings.Default.Current_DocInvoice_ID*/);
+                                DataRow[] dr_Current = dt_XConsumption.Select("JOURNAL_Consumption_$_cs_$$ID = " /*+ TangentaProperties.Properties.Settings.Default.Current_Consumption_ID*/);
                                 if (dr_Current.Count() > 0)
                                 {
-                                    iCurrentSelectedRow = dt_XInvoice.Rows.IndexOf(dr_Current[0]);
-                                    dgvx_XInvoice.Rows[iCurrentSelectedRow].Selected = true;
+                                    iCurrentSelectedRow = dt_XConsumption.Rows.IndexOf(dr_Current[0]);
+                                    dgvx_XConsumption.Rows[iCurrentSelectedRow].Selected = true;
                                 }
                                 else
                                 {
@@ -791,61 +551,61 @@ namespace ShopC_Forms
                         }
                     }
                     //bIgnoreChangeSelectionEvent = false;
-                }
-                else if (IsDocProformaInvoice)
-                {
-                    iColIndex_DocInvoice_Draft = dt_XInvoice.Columns.IndexOf("JOURNAL_DocProformaInvoice_$_dpinv_$$Draft");
-                    iColIndex_DocInvoice_PaymentType_Identification = dt_XInvoice.Columns.IndexOf("PaymentType_Identification");
-                    iColIndex_DocInvoice_PaymentType_Name = dt_XInvoice.Columns.IndexOf("PaymentType_Name");
-                    iColIndex_DocProformaInvoice_IssueDate = dt_XInvoice.Columns.IndexOf("IssueDate");
-                    dgvx_XInvoice.Columns[iColIndex_DocProformaInvoice_IssueDate].HeaderText = lng.s_IssueDate.s;
+                //}
+                //else if (IsOwnUse)
+                //{
+                //    iColIndex_Consumption_Draft = dt_XConsumption.Columns.IndexOf("JOURNAL_DocProformaInvoice_$_dpinv_$$Draft");
+                //    iColIndex_Consumption_PaymentType_Identification = dt_XConsumption.Columns.IndexOf("PaymentType_Identification");
+                //    iColIndex_Consumption_PaymentType_Name = dt_XConsumption.Columns.IndexOf("PaymentType_Name");
+                //    iColIndex_DocProformaInvoice_IssueDate = dt_XConsumption.Columns.IndexOf("IssueDate");
+                //    dgvx_XConsumption.Columns[iColIndex_DocProformaInvoice_IssueDate].HeaderText = lng.s_IssueDate.s;
 
-                    dgvx_XInvoice.Columns[iColIndex_DocInvoice_PaymentType_Identification].Visible = false;
+                //    dgvx_XConsumption.Columns[iColIndex_Consumption_PaymentType_Identification].Visible = false;
 
-                    SetLabels();
-                    SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocProformaInvoice)));
-                    tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_XInvoice, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
-                    iRowsCount = dt_XInvoice.Rows.Count;
-                    if (!bNew)
-                    {
-                        if (iRowsCount > 0)
-                        {
-                            string sdb = DBSync.DBSync.DataBase;
-                            if (sdb != null)
-                            {
-                                if (!TangentaProperties.Properties.Settings.Default.Current_DataBase.Equals(sdb))
-                                {
-                                    TangentaProperties.Properties.Settings.Default.Current_DataBase = sdb;
-                                    //TangentaProperties.Properties.Settings.Default.Current_DocProformaInvoice_ID = "";
-                                    TangentaProperties.Properties.Settings.Default.Save();
-                                }
-                            }
-                            if (iCurrentSelectedRow >= 0)
-                            {
-                                dgvx_XInvoice.Rows[iCurrentSelectedRow].Selected = true;
-                            }
-                            else if (false /*TangentaProperties.Properties.Settings.Default.Current_DocProformaInvoice_ID.Length>0*/)
-                            {
-                                ID my_Current_DocProformaInvoice_ID = new ID(1/*TangentaProperties.Properties.Settings.Default.Current_DocProformaInvoice_ID*/);
-                                DataRow[] dr_Current = dt_XInvoice.Select("JOURNAL_DocProformaInvoice_$_dpinv_$$ID = " + my_Current_DocProformaInvoice_ID.ToString());
-                                if (dr_Current.Count() > 0)
-                                {
-                                    iCurrentSelectedRow = dt_XInvoice.Rows.IndexOf(dr_Current[0]);
-                                    dgvx_XInvoice.Rows[iCurrentSelectedRow].Selected = true;
-                                }
-                                else
-                                {
-                                    iCurrentSelectedRow = 0;
-                                }
-                            }
-                            else
-                            {
-                                iCurrentSelectedRow = 0;
-                            }
-                        }
-                    }
-                    //bIgnoreChangeSelectionEvent = false;
-                }
+                //    SetLabels();
+                //    SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocProformaInvoice)));
+                //    tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_XConsumption, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
+                //    iRowsCount = dt_XConsumption.Rows.Count;
+                //    if (!bNew)
+                //    {
+                //        if (iRowsCount > 0)
+                //        {
+                //            string sdb = DBSync.DBSync.DataBase;
+                //            if (sdb != null)
+                //            {
+                //                if (!TangentaProperties.Properties.Settings.Default.Current_DataBase.Equals(sdb))
+                //                {
+                //                    TangentaProperties.Properties.Settings.Default.Current_DataBase = sdb;
+                //                    //TangentaProperties.Properties.Settings.Default.Current_DocProformaInvoice_ID = "";
+                //                    TangentaProperties.Properties.Settings.Default.Save();
+                //                }
+                //            }
+                //            if (iCurrentSelectedRow >= 0)
+                //            {
+                //                dgvx_XConsumption.Rows[iCurrentSelectedRow].Selected = true;
+                //            }
+                //            else if (false /*TangentaProperties.Properties.Settings.Default.Current_DocProformaInvoice_ID.Length>0*/)
+                //            {
+                //                ID my_Current_DocProformaInvoice_ID = new ID(1/*TangentaProperties.Properties.Settings.Default.Current_DocProformaInvoice_ID*/);
+                //                DataRow[] dr_Current = dt_XConsumption.Select("JOURNAL_DocProformaInvoice_$_dpinv_$$ID = " + my_Current_DocProformaInvoice_ID.ToString());
+                //                if (dr_Current.Count() > 0)
+                //                {
+                //                    iCurrentSelectedRow = dt_XConsumption.Rows.IndexOf(dr_Current[0]);
+                //                    dgvx_XConsumption.Rows[iCurrentSelectedRow].Selected = true;
+                //                }
+                //                else
+                //                {
+                //                    iCurrentSelectedRow = 0;
+                //                }
+                //            }
+                //            else
+                //            {
+                //                iCurrentSelectedRow = 0;
+                //            }
+                //        }
+                //    }
+                //    //bIgnoreChangeSelectionEvent = false;
+                //}
             }
             else
             {
@@ -857,20 +617,20 @@ namespace ShopC_Forms
 
         public void BeforeRemove()
         {
-            this.dgvx_XInvoice.SelectionChanged -= dgvx_XInvoice_SelectionChanged;
-            this.dgvx_XInvoice.DataSource = null;
-            this.Controls.Remove(dgvx_XInvoice);
-            dgvx_XInvoice.Dispose();
-            this.dt_XInvoice.Clear();
-            this.dt_XInvoice.Columns.Clear();
+            this.dgvx_XConsumption.SelectionChanged -= dgvx_XConsumption_SelectionChanged;
+            this.dgvx_XConsumption.DataSource = null;
+            this.Controls.Remove(dgvx_XConsumption);
+            dgvx_XConsumption.Dispose();
+            this.dt_XConsumption.Clear();
+            this.dt_XConsumption.Columns.Clear();
             this.iCurrentSelectedRow = -1;
         }
 
         public void Clear()
         {
-            this.dgvx_XInvoice.DataSource = null;
-            this.dt_XInvoice.Clear();
-            this.dt_XInvoice.Columns.Clear();
+            this.dgvx_XConsumption.DataSource = null;
+            this.dt_XConsumption.Clear();
+            this.dt_XConsumption.Columns.Clear();
             this.iCurrentSelectedRow = -1;
         }
 
@@ -878,26 +638,26 @@ namespace ShopC_Forms
         {
             decimal sum = 0;
             int iColDraft = -1;
-            if (IsDocInvoice)
+            if (IsConsumptionWriteOff)
             {
-                iColDraft = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$Draft");
+                iColDraft = dt_XConsumption.Columns.IndexOf("JOURNAL_Consumption_$_cs_$$Draft");
             }
-            else if (IsDocProformaInvoice)
+            else if (IsConsumptionOwnUse)
             {
-                iColDraft = dt_XInvoice.Columns.IndexOf("JOURNAL_DocProformaInvoice_$_dpinv_$$Draft");
+                iColDraft = dt_XConsumption.Columns.IndexOf("JOURNAL_DocProformaInvoice_$_dpinv_$$Draft");
             }
-            int iCol = dt_XInvoice.Columns.IndexOf(ColumnName);
-            int iCount = dt_XInvoice.Rows.Count;
+            int iCol = dt_XConsumption.Columns.IndexOf(ColumnName);
+            int iCount = dt_XConsumption.Rows.Count;
             int i = 0;
             for (i=0;i<iCount;i++)
             {
-                if ((bool)dt_XInvoice.Rows[i][iColDraft])
+                if ((bool)dt_XConsumption.Rows[i][iColDraft])
                 {
                     continue;
                 }
                 else
                 { 
-                    sum += (decimal)dt_XInvoice.Rows[i][iCol];
+                    sum += (decimal)dt_XConsumption.Rows[i][iCol];
                 }
             }
             return sum;
@@ -908,32 +668,32 @@ namespace ShopC_Forms
             int iColDraft = -1;
             int iCol = -1;
             int iColPayment = -1;
-            if (IsDocInvoice)
+            if (IsConsumptionWriteOff)
             {
-                iColDraft = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$Draft");
-                iCol = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$GrossSum");
-                iColPayment = dt_XInvoice.Columns.IndexOf("PaymentType_Identification");
+                iColDraft = dt_XConsumption.Columns.IndexOf("JOURNAL_Consumption_$_cs_$$Draft");
+                iCol = dt_XConsumption.Columns.IndexOf("JOURNAL_Consumption_$_cs_$$GrossSum");
+                iColPayment = dt_XConsumption.Columns.IndexOf("PaymentType_Identification");
             }
-            else if (IsDocProformaInvoice)
+            else if (IsConsumptionOwnUse)
             {
-                iColDraft = dt_XInvoice.Columns.IndexOf("JOURNAL_DocProformaInvoice_$_dpinv_$$Draft");
-                iCol = dt_XInvoice.Columns.IndexOf("JOURNAL_DocProformaInvoice_$_dpinv_$$GrossSum");
-                iColPayment = dt_XInvoice.Columns.IndexOf("PaymentType_Identification");
+                iColDraft = dt_XConsumption.Columns.IndexOf("JOURNAL_DocProformaInvoice_$_dpinv_$$Draft");
+                iCol = dt_XConsumption.Columns.IndexOf("JOURNAL_DocProformaInvoice_$_dpinv_$$GrossSum");
+                iColPayment = dt_XConsumption.Columns.IndexOf("PaymentType_Identification");
             }
 
-            int iCount = dt_XInvoice.Rows.Count;
+            int iCount = dt_XConsumption.Rows.Count;
             int i = 0;
             for (i = 0; i < iCount; i++)
             {
-                if ((bool)dt_XInvoice.Rows[i][iColDraft])
+                if ((bool)dt_XConsumption.Rows[i][iColDraft])
                 {
                     continue;
                 }
                 else
                 {
-                    if (dt_XInvoice.Rows[i][iColPayment] is string)
+                    if (dt_XConsumption.Rows[i][iColPayment] is string)
                     {
-                        xSumPaymentList.Add((decimal)dt_XInvoice.Rows[i][iCol], (string)dt_XInvoice.Rows[i][iColPayment]);
+                        xSumPaymentList.Add((decimal)dt_XConsumption.Rows[i][iCol], (string)dt_XConsumption.Rows[i][iColPayment]);
                     }
                 }
             }
@@ -941,7 +701,7 @@ namespace ShopC_Forms
 
         private void SetLabels()
         {
-            if (dt_XInvoice.Rows.Count>0)
+            if (dt_XConsumption.Rows.Count>0)
             { 
                 string currency_symbol = GlobalData.BaseCurrency.Symbol;
                 SumPaymentList xSumPaymentList = new SumPaymentList();
@@ -958,13 +718,13 @@ namespace ShopC_Forms
                 decimal gross_sum = 0;
                 decimal net_sum = 0;
                 decimal tax_sum = 0;
-                if (IsDocInvoice)
+                if (IsConsumptionWriteOff)
                 {
-                    gross_sum = Sum("JOURNAL_DocInvoice_$_dinv_$$GrossSum");
-                    net_sum = Sum("JOURNAL_DocInvoice_$_dinv_$$NetSum");
-                    tax_sum = Sum("JOURNAL_DocInvoice_$_dinv_$$TaxSum");
+                    gross_sum = Sum("JOURNAL_Consumption_$_cs_$$GrossSum");
+                    net_sum = Sum("JOURNAL_Consumption_$_cs_$$NetSum");
+                    tax_sum = Sum("JOURNAL_Consumption_$_cs_$$TaxSum");
                 }
-                else if (IsDocProformaInvoice)
+                else if (IsConsumptionOwnUse)
                 {
                     gross_sum = Sum("JOURNAL_DocProformaInvoice_$_dpinv_$$GrossSum");
                     net_sum = Sum("JOURNAL_DocProformaInvoice_$_dpinv_$$NetSum");
@@ -994,21 +754,21 @@ namespace ShopC_Forms
             {
                 if (SelectedInvoiceChanged != null)
                 {
-                    DataGridViewSelectedCellCollection dgvCellCollection = this.dgvx_XInvoice.SelectedCells;
+                    DataGridViewSelectedCellCollection dgvCellCollection = this.dgvx_XConsumption.SelectedCells;
                     if (dgvCellCollection.Count >= 1)
                     {
                         //lbl_test_sender_type.Text = "Count:" + dgvCellCollection.Count.ToString() + " CellType=" + dgvCellCollection[0].GetType().ToString() + " ValueType" + dgvCellCollection[0].Value.GetType().ToString() + " Value=" + dgvCellCollection[0].Value.ToString() + " Column Name = " + dgvCellCollection[0].OwningColumn.Name;
-                        if (IsDocInvoice)
+                        if (IsConsumptionWriteOff)
                         {
-                            if (dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocInvoice_$_dinv_$$ID"].Value is long)
+                            if (dgvCellCollection[0].OwningRow.Cells["JOURNAL_Consumption_$_cs_$$ID"].Value is long)
                             {
-                                ID Identity = tf.set_ID(dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocInvoice_$_dinv_$$ID"].Value);
+                                ID Identity = tf.set_ID(dgvCellCollection[0].OwningRow.Cells["JOURNAL_Consumption_$_cs_$$ID"].Value);
                                 this.iCurrentSelectedRow = dgvCellCollection[0].RowIndex;
                                 SelectedInvoiceChanged(Identity, bInitialise);
                                 return;
                             }
                         }
-                        else if (IsDocProformaInvoice)
+                        else if (IsConsumptionOwnUse)
                         {
                             if (dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"].Value is long)
                             {
@@ -1030,31 +790,31 @@ namespace ShopC_Forms
         {
             if (ID.Validate(Doc_ID_to_show))
             {
-                if (IsDocInvoice)
+                if (IsConsumptionWriteOff)
                 {
-                    DataRow[] drs = dt_XInvoice.Select("JOURNAL_DocInvoice_$_dinv_$$ID = " + Doc_ID_to_show.ToString());
+                    DataRow[] drs = dt_XConsumption.Select("JOURNAL_Consumption_$_cs_$$ID = " + Doc_ID_to_show.ToString());
                     if (drs.Count() > 0)
                     {
-                        dgvx_XInvoice.ClearSelection();
-                        int iRow = dt_XInvoice.Rows.IndexOf(drs[0]);
-                        dgvx_XInvoice.Rows[iRow].Selected = true;
-                        dgvx_XInvoice.CurrentCell = dgvx_XInvoice.Rows[iRow].Cells[0];
+                        dgvx_XConsumption.ClearSelection();
+                        int iRow = dt_XConsumption.Rows.IndexOf(drs[0]);
+                        dgvx_XConsumption.Rows[iRow].Selected = true;
+                        dgvx_XConsumption.CurrentCell = dgvx_XConsumption.Rows[iRow].Cells[0];
                     }
                 }
                 else
                 {
-                    DataRow[] drs = dt_XInvoice.Select("JOURNAL_DocProformaInvoice_$_dpinv_$$ID = " + Doc_ID_to_show.ToString());
+                    DataRow[] drs = dt_XConsumption.Select("JOURNAL_DocProformaInvoice_$_dpinv_$$ID = " + Doc_ID_to_show.ToString());
                     if (drs.Count() > 0)
                     {
-                        dgvx_XInvoice.ClearSelection();
-                        int iRow = dt_XInvoice.Rows.IndexOf(drs[0]);
-                        dgvx_XInvoice.Rows[iRow].Selected = true;
-                        dgvx_XInvoice.CurrentCell = dgvx_XInvoice.Rows[iRow].Cells[0];
+                        dgvx_XConsumption.ClearSelection();
+                        int iRow = dt_XConsumption.Rows.IndexOf(drs[0]);
+                        dgvx_XConsumption.Rows[iRow].Selected = true;
+                        dgvx_XConsumption.CurrentCell = dgvx_XConsumption.Rows[iRow].Cells[0];
                     }
                 }
             }
         }
-        private void dgvx_XInvoice_SelectionChanged(object sender, EventArgs e)
+        private void dgvx_XConsumption_SelectionChanged(object sender, EventArgs e)
         {
             //if (!bIgnoreChangeSelectionEvent)
             //{
@@ -1115,8 +875,8 @@ namespace ShopC_Forms
 
         private void SetTimeSpanParam_Ex(DateTime xdtStartTime,DateTime xdtEndTime)
         {
-            string sparam1 = "@par_DocInvoiceTime_Start";
-            string sparam2 = "@par_DocInvoiceTime_End";
+            string sparam1 = "@par_ConsumptionTime_Start";
+            string sparam2 = "@par_ConsumptionTime_End";
             dtStartTime = new DateTime(xdtStartTime.Year, xdtStartTime.Month, xdtStartTime.Day);
             dtEndTime = new DateTime(xdtEndTime.Year, xdtEndTime.Month, xdtEndTime.Day); ;
             lpar_ExtraCondition = null;
@@ -1126,11 +886,11 @@ namespace ShopC_Forms
             DateTime dtNextDay = NextDay(dtEndTime);
             SQL_Parameter par2 = new SQL_Parameter(sparam2, SQL_Parameter.eSQL_Parameter.Datetime, false, dtNextDay);
             lpar_ExtraCondition.Add(par2);
-            if (IsDocInvoice)
+            if (IsConsumptionWriteOff)
             {
-                ExtraCondition = " (JOURNAL_DocInvoice_$$EventTime >= " + sparam1 + ") and ( JOURNAL_DocInvoice_$$EventTime < " + sparam2 + ") ";
+                ExtraCondition = " (JOURNAL_Consumption_$$EventTime >= " + sparam1 + ") and ( JOURNAL_Consumption_$$EventTime < " + sparam2 + ") ";
             }
-            else if (IsDocProformaInvoice)
+            else if (IsConsumptionOwnUse)
             {
                 ExtraCondition = " (JOURNAL_DocProformaInvoice_$$EventTime >= " + sparam1 + ") and ( JOURNAL_DocProformaInvoice_$$EventTime < " + sparam2 + ") ";
             }
@@ -1192,17 +952,17 @@ namespace ShopC_Forms
             }
         }
 
-        private void dgvx_XInvoice_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void dgvx_XConsumption_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
 
             DataGridView dgv = (DataGridView)sender;
             if (e.RowIndex>=0)
             {
-                if (IsDocInvoice)
+                if (IsConsumptionWriteOff)
                 {
-                    if ((iColIndex_DocInvoice_Draft >= 0) && (iColIndex_DocInvoice_Invoice_Storno >= 0))
+                    if ((iColIndex_Consumption_Draft >= 0) && (iColIndex_Consumption_Storno >= 0))
                     {
-                        if ((bool)dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Draft])
+                        if ((bool)dt_XConsumption.Rows[e.RowIndex][iColIndex_Consumption_Draft])
                         {
                             e.CellStyle.BackColor = ColorDraft;
                             DataGridViewRow row = dgv.Rows[e.RowIndex];
@@ -1215,33 +975,18 @@ namespace ShopC_Forms
                             row.Height = 20;
                             e.CellStyle.BackColor = Color.White;
                           
-                            if (TSettings.b_FVI_SLO)
-                            {
-                                if (dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_FSI_SLO_EOR] is string)
-                                {
-                                    e.CellStyle.BackColor = ColorFurs_InvoiceConfirmed;
-                                  
-                                }
-                                else
-                                {
-                                    if (!(dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_FSI_SLO_ID] is System.DBNull))
-                                    {
-                                        e.CellStyle.BackColor = ColorFurs_SalesBookInvoiceNotConfirmed;
-                                    }
-                                }
-                            }
-                            if (IsStorno(dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Invoice_Storno]))
+                            if (IsStorno(dt_XConsumption.Rows[e.RowIndex][iColIndex_Consumption_Storno]))
                             {
                                 e.CellStyle.BackColor = ColorStorno;
                             }
                         }
                     }
                 }
-                else if (IsDocProformaInvoice)
+                else if (IsConsumptionOwnUse)
                 {
-                    if (iColIndex_DocInvoice_Draft >= 0)
+                    if (iColIndex_Consumption_Draft >= 0)
                     {
-                        if ((bool)dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Draft])
+                        if ((bool)dt_XConsumption.Rows[e.RowIndex][iColIndex_Consumption_Draft])
                         {
                             e.CellStyle.BackColor = ColorDraft;
                         } 
@@ -1272,40 +1017,40 @@ namespace ShopC_Forms
             frm_print.ShowDialog();
         }
 
-        private void dgvx_XInvoice_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        private void dgvx_XConsumption_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             //If a column header was clicked
             if ((e.RowIndex == -1)&&(e.ColumnIndex>=0))
             {
                 //And a row is selected
-                if (!(dgvx_XInvoice.SelectedRows.Count == 0))
+                if (!(dgvx_XConsumption.SelectedRows.Count == 0))
                 {
                     //Record the unique value from the column called "Name"
                     string cellid = null;
-                    if (IsDocInvoice)
+                    if (IsConsumptionWriteOff)
                     {
-                        cellid = "JOURNAL_DocInvoice_$_dinv_$$ID";
+                        cellid = "JOURNAL_Consumption_$_cs_$$ID";
                     }
                     else
                     {
                         cellid = "JOURNAL_DocProformaInvoice_$_dpinv_$$ID";
                     }
-                    dgSortingSelectedItem_ID = (long)dgvx_XInvoice.SelectedRows[0].Cells[cellid].Value;
+                    dgSortingSelectedItem_ID = (long)dgvx_XConsumption.SelectedRows[0].Cells[cellid].Value;
                 }
             }
         }
 
-        private void dgvx_XInvoice_Sorted(object sender, EventArgs e)
+        private void dgvx_XConsumption_Sorted(object sender, EventArgs e)
         {
             if (dgSortingSelectedItem_ID >= 0)
             {
-                foreach (DataGridViewRow dgRow in dgvx_XInvoice.Rows)
+                foreach (DataGridViewRow dgRow in dgvx_XConsumption.Rows)
                 {
                     //Locate the row after the sort
                     string cellid = null;
-                    if (IsDocInvoice)
+                    if (IsConsumptionWriteOff)
                     {
-                        cellid = "JOURNAL_DocInvoice_$_dinv_$$ID";
+                        cellid = "JOURNAL_Consumption_$_cs_$$ID";
                     }
                     else
                     {
@@ -1315,11 +1060,11 @@ namespace ShopC_Forms
                     if ((long)dgRow.Cells[cellid].Value == dgSortingSelectedItem_ID)
                     {
                         //Clear the datagridview selections
-                        dgvx_XInvoice.ClearSelection();
+                        dgvx_XConsumption.ClearSelection();
                         //Select the row at its new position
                         dgRow.Selected = true;
                         //Set currentcell using the 1st cell of the row in its new position
-                        dgvx_XInvoice.CurrentCell = dgRow.Cells[0];
+                        dgvx_XConsumption.CurrentCell = dgRow.Cells[0];
                         //Exit the routine
                         break;
                     }

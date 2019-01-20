@@ -23,6 +23,9 @@ namespace ShopC_Forms
 {
     public partial class Form_OwnUse_AddOn : Form
     {
+        public delegate bool delegate_Issue(ShopC_Forms.OwnUseAddOn ownuse_add_on, Transaction transaction);
+        public event delegate_Issue Issue = null;
+
         public string m_sPaymentMethod = null;
         public string m_sAmountReceived = null;
         public string m_sToReturn = null;
@@ -48,7 +51,7 @@ namespace ShopC_Forms
             this.AddOnOwnUse = x_OwnUse_AddOn;
             m_usrc_AddOn = x_usrc_AddOn;
             m_bPrint = x_bPrint;
-            this.Text = lng.s_PaymentOfInvoiceAndPrint.s;
+            this.Text = lng.s_OwnUse_Data.s;
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)
@@ -77,10 +80,24 @@ namespace ShopC_Forms
             DialogResult = DialogResult.Cancel;
         }
 
-        private void m_usrc_Payment_Issue()
+        private bool m_usrc_OwnUseAddOn_Issue(ShopC_Forms.OwnUseAddOn ownUseAddOn, Transaction transaction)
         {
-            this.Close();
-            DialogResult = DialogResult.OK;
+            bool bres = false;
+            if (Issue!=null)
+            {
+                bres = Issue(ownUseAddOn, transaction);
+            }
+            if (bres)
+            {
+                this.Close();
+                DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                this.Close();
+                DialogResult = DialogResult.Abort;
+            }
+            return bres;
         }
     }
 }

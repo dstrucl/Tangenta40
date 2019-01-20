@@ -89,7 +89,7 @@ namespace ShopC_Forms
             }
             if (bDoPrint)
             {
-                PrintReport printreport = new PrintReport(m_usrc_ConsumptionTable.dt_XInvoice, 
+                PrintReport printreport = new PrintReport(m_usrc_ConsumptionTable.dt_XConsumption, 
                                                           sfromtomode, dtStart_v, dtEnd_v,
                                                           chk_Details.Checked);
                 printreport.Print();
@@ -157,7 +157,7 @@ namespace ShopC_Forms
             }
             if (bDoPrint)
             {
-                PrintReport printreport = new PrintReport(m_usrc_ConsumptionTable.dt_XInvoice,
+                PrintReport printreport = new PrintReport(m_usrc_ConsumptionTable.dt_XConsumption,
                                                           sfromtomode, dtStart_v, dtEnd_v,
                                                           chk_Details.Checked);
                 printreport.Save(this);

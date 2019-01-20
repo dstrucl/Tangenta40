@@ -672,7 +672,7 @@ namespace TangentaDB
             this.Set(xData);
             this.Consumption_ID = doc_ID;
 
-            if (doc_type.Equals(GlobalData.const_Consumption))
+            if (doc_type.Equals(GlobalData.const_ConsumptionAll))
             {
                 if (f_Consumption_ShopC_Item.Insert(doc_ID, Atom_Price_Item_ID, xData.ExtraDiscount,ref this.Consumption_ShopC_Item_ID, transaction))
                 {

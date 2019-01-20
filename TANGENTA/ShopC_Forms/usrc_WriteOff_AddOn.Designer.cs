@@ -30,8 +30,8 @@ namespace ShopC_Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_OwnUse_AddOn));
-            this.btn_Invoice_Issue = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_WriteOff_AddOn));
+            this.btn_Consumption_Issue = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.dtP_DateOfIssue = new System.Windows.Forms.DateTimePicker();
             this.lbl_DateOfIssue = new System.Windows.Forms.Label();
@@ -40,19 +40,19 @@ namespace ShopC_Forms
             this.txt_Description = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // btn_Invoice_Issue
+            // btn_Consumption_Issue
             // 
-            this.btn_Invoice_Issue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_Invoice_Issue.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Invoice_Issue.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Invoice_Issue.ForeColor = System.Drawing.Color.Black;
-            this.btn_Invoice_Issue.Location = new System.Drawing.Point(20, 267);
-            this.btn_Invoice_Issue.Name = "btn_Invoice_Issue";
-            this.btn_Invoice_Issue.Size = new System.Drawing.Size(398, 65);
-            this.btn_Invoice_Issue.TabIndex = 7;
-            this.btn_Invoice_Issue.Text = "Issue";
-            this.btn_Invoice_Issue.UseVisualStyleBackColor = false;
-            this.btn_Invoice_Issue.Click += new System.EventHandler(this.btn_Issue_Click);
+            this.btn_Consumption_Issue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_Consumption_Issue.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_Consumption_Issue.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_Consumption_Issue.ForeColor = System.Drawing.Color.Black;
+            this.btn_Consumption_Issue.Location = new System.Drawing.Point(20, 267);
+            this.btn_Consumption_Issue.Name = "btn_Consumption_Issue";
+            this.btn_Consumption_Issue.Size = new System.Drawing.Size(398, 65);
+            this.btn_Consumption_Issue.TabIndex = 7;
+            this.btn_Consumption_Issue.Text = "Issue";
+            this.btn_Consumption_Issue.UseVisualStyleBackColor = false;
+            this.btn_Consumption_Issue.Click += new System.EventHandler(this.btn_Consumption_Issue_Click);
             // 
             // btn_Cancel
             // 
@@ -126,7 +126,7 @@ namespace ShopC_Forms
             this.Controls.Add(this.lbl_DateOfIssue);
             this.Controls.Add(this.dtP_DateOfIssue);
             this.Controls.Add(this.btn_Cancel);
-            this.Controls.Add(this.btn_Invoice_Issue);
+            this.Controls.Add(this.btn_Consumption_Issue);
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "usrc_WriteOff_AddOn";
             this.Size = new System.Drawing.Size(720, 345);
@@ -136,7 +136,7 @@ namespace ShopC_Forms
         }
 
         #endregion
-        private System.Windows.Forms.Button btn_Invoice_Issue;
+        private System.Windows.Forms.Button btn_Consumption_Issue;
         private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.DateTimePicker dtP_DateOfIssue;
         private System.Windows.Forms.Label lbl_DateOfIssue;

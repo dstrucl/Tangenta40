@@ -1,6 +1,6 @@
 ﻿namespace ShopC_Forms
 {
-    partial class Form_OwnUse
+    partial class Form_Consumption
     {
         /// <summary>
         /// Required designer variable.
@@ -35,20 +35,20 @@
             // 
             this.usrc_ConsumptionMan1.BackColor = System.Drawing.SystemColors.Control;
             this.usrc_ConsumptionMan1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_ConsumptionMan1.DocTyp = null;
             this.usrc_ConsumptionMan1.Location = new System.Drawing.Point(0, 0);
             this.usrc_ConsumptionMan1.Name = "usrc_ConsumptionMan1";
             this.usrc_ConsumptionMan1.Size = new System.Drawing.Size(1203, 544);
             this.usrc_ConsumptionMan1.TabIndex = 0;
             // 
-            // Form_OwnUse
+            // Form_Consumption
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1203, 544);
             this.Controls.Add(this.usrc_ConsumptionMan1);
-            this.Name = "Form_OwnUse";
+            this.Name = "Form_Consumption";
             this.Text = "Form_OwnUse";
+            this.Load += new System.EventHandler(this.Form_Consumption_Load);
             this.ResumeLayout(false);
 
         }

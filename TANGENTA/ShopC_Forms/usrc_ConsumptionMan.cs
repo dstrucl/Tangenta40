@@ -27,23 +27,23 @@ namespace ShopC_Forms
 {
     public partial class usrc_ConsumptionMan : UserControl
     {
-        internal class Defpos
-        {
-            internal int usrc_ConsumptionEditor_Left = 0;
-            internal int usrc_ConsumptionEditor_Width = 0;
-            internal int cmb_DocType_Left;
-            internal int cmb_DocType_Top;
-            internal int lbl_FinancialYear_Left;
-            internal int lbl_FinancialYear_Top;
-            internal int cmb_FinancialYear_Left;
-            internal int cmb_FinancialYear_Top;
-            internal int usrc_loginControl1_Left;
-            internal int usrc_loginControl1_Top;
-            internal int usrc_loginControl1_Width;
-            internal int usrc_TransactionControl1_Left;
-            internal int usrc_TransactionControl1_Top;
-            internal int usrc_TableOfDocuments_Width;
-        }
+        //internal class Defpos
+        //{
+        //    internal int usrc_ConsumptionEditor_Left = 0;
+        //    internal int usrc_ConsumptionEditor_Width = 0;
+        //    internal int cmb_DocType_Left;
+        //    internal int cmb_DocType_Top;
+        //    internal int lbl_FinancialYear_Left;
+        //    internal int lbl_FinancialYear_Top;
+        //    internal int cmb_FinancialYear_Left;
+        //    internal int cmb_FinancialYear_Top;
+        //    internal int usrc_loginControl1_Left;
+        //    internal int usrc_loginControl1_Top;
+        //    internal int usrc_loginControl1_Width;
+        //    internal int usrc_TransactionControl1_Left;
+        //    internal int usrc_TransactionControl1_Top;
+        //    internal int usrc_TableOfDocuments_Width;
+        //}
         //private Defpos defpos = null;
         internal Form m_Form_Document = null;
         
@@ -71,12 +71,7 @@ namespace ShopC_Forms
         {
             get
             {
-                return ConsM.DocTyp;
-            }
-            set
-            {
-                string s = value;
-                ConsM.DocTyp = s;
+                return ConsM.ConsumptionTyp;
             }
         }
 
@@ -215,7 +210,7 @@ namespace ShopC_Forms
    
             lng.s_Year.Text(lbl_FinancialYear);
             //m_usrc_ConsumptionEditor.LayoutChanged += M_usrc_Invoice_LayoutChanged;
-            ConsM = new ConsumptionMan(SetMode, TableOfDocuments_Init, Control_ConsumptionEditor_Init,SetInitialMode);
+           
         }
 
         internal bool Control_ConsumptionEditor_Init(ID xdoc_ID)
@@ -266,7 +261,7 @@ namespace ShopC_Forms
                 ////this.usrc_TransactionControl1.Top = this.cmb_DocType.Top;
                 //this.usrc_TransactionControl1.Left = this.cmb_FinancialYear.Left + this.cmb_FinancialYear.Width + 5;
                 //this.usrc_loginControl1.Left = this.usrc_TransactionControl1.Left + this.usrc_TransactionControl1.Width + 5;
-                this.cmb_DocType.BringToFront();
+                this.cmb_ConsumptionType.BringToFront();
                 //this.usrc_TransactionControl1.BringToFront();
                 this.lbl_FinancialYear.BringToFront();
                 this.cmb_FinancialYear.BringToFront();
@@ -312,7 +307,7 @@ namespace ShopC_Forms
 
         private void Set_cmb_DocType()
         {
-            if (this.cmb_DocType == null)
+            if (this.cmb_ConsumptionType == null)
             {
                 LogFile.LogFile.WriteDEBUG("usrc_ConsumptionMan.cs:Init():this.cmb_InvoiceType == null");
             }
@@ -321,77 +316,89 @@ namespace ShopC_Forms
                 LogFile.LogFile.WriteDEBUG("usrc_ConsumptionMan.cs:Init():this.cmb_InvoiceType != null");
             }
 
-            this.cmb_DocType.SelectedIndexChanged -= new System.EventHandler(this.cmb_InvoiceType_SelectedIndexChanged);
+            this.cmb_ConsumptionType.SelectedIndexChanged -= new System.EventHandler(this.cmb_InvoiceType_SelectedIndexChanged);
 
 
-            string sLastDocInvoiceType = null;
+            ConsM.ConsumptionTyp = GlobalData.const_ConsumptionAll;
 
-            LogFile.LogFile.WriteDEBUG("usrc_ConsumptionMan.cs:Init():before if (Program.RunAs == null)");
+            //string sLastConsumptionType = null;
 
-            if (TSettings.RunAs == null)
-            {
-                //sLastDocInvoiceType =  PropertiesUser.LastDocType_Get(ConsM.mSettingsUserValues);
-                if (sLastDocInvoiceType.Equals(GlobalData.const_DocInvoice) || sLastDocInvoiceType.Equals(GlobalData.const_DocProformaInvoice))
-                {
-                    TSettings.RunAs = sLastDocInvoiceType;
-                }
-                else
-                {
-                    TSettings.RunAs = GlobalData.const_DocInvoice;
-                }
+            //LogFile.LogFile.WriteDEBUG("usrc_ConsumptionMan.cs:Init():before if (Program.RunAs == null)");
 
-            }
-            else
-            {
-                sLastDocInvoiceType = TSettings.RunAs;
-            }
+            //if (TSettings.RunAs == null)
+            //{
+            //    //sLastDocInvoiceType =  PropertiesUser.LastDocType_Get(ConsM.mSettingsUserValues);
+            //    if (sLastDocInvoiceType.Equals(GlobalData.const_DocInvoice) || sLastDocInvoiceType.Equals(GlobalData.const_DocProformaInvoice))
+            //    {
+            //        TSettings.RunAs = sLastDocInvoiceType;
+            //    }
+            //    else
+            //    {
+            //        TSettings.RunAs = GlobalData.const_DocInvoice;
+            //    }
+
+            //}
+            //else
+            //{
+            //    sLastDocInvoiceType = TSettings.RunAs;
+            //}
 
 
-            if (sLastDocInvoiceType.Equals(GlobalData.const_DocInvoice))
-            {
-                ConsM.DocTyp = sLastDocInvoiceType;
-            }
-            else if (sLastDocInvoiceType.Equals(GlobalData.const_DocProformaInvoice))
-            {
-                ConsM.DocTyp = sLastDocInvoiceType;
-            }
-            else
-            {
-                ConsM.DocTyp = GlobalData.const_DocProformaInvoice;
-                //PropertiesUser.LastDocType_Set(ConsM.mSettingsUserValues, ConsM.DocTyp);
-              
-            }
+            //if (sLastDocInvoiceType.Equals(GlobalData.const_DocInvoice))
+            //{
+            //    ConsM.ConsumptionTyp = sLastDocInvoiceType;
+            //}
+            //else if (sLastDocInvoiceType.Equals(GlobalData.const_DocProformaInvoice))
+            //{
+            //    ConsM.ConsumptionTyp = sLastDocInvoiceType;
+            //}
+            //else
+            //{
+            //    ConsM.ConsumptionTyp = GlobalData.const_DocProformaInvoice;
+            //    //PropertiesUser.LastDocType_Set(ConsM.mSettingsUserValues, ConsM.DocTyp);
 
-            if (ConsM.m_LMOUser.HasLoginControlRole(new string[] { LoginControl.AWP.ROLE_Administrator, LoginControl.AWP.ROLE_WriteInvoice }))
-            {
-                //ConsM.DocType_DocInvoice = new DocType(lng.s_Invoice.s, GlobalData.const_DocInvoice);
-                //ConsM.List_ConsumptionType.Add(ConsM.DocType_DocInvoice);
-            }
+            //}
 
-            if (ConsM.m_LMOUser.HasLoginControlRole(new string[] { LoginControl.AWP.ROLE_Administrator, LoginControl.AWP.ROLE_WriteProformaInvoice }))
-            {
-            //    ConsM.DocType_DocProformaInvoice = new DocType(lng.s_DocProformaInvoice.s, GlobalData.const_DocProformaInvoice);
-            //    ConsM.List_ConsumptionType.Add(ConsM.DocType_DocProformaInvoice);
-            }
+            //if (ConsM.m_LMOUser.HasLoginControlRole(new string[] { LoginControl.AWP.ROLE_Administrator, LoginControl.AWP.ROLE_WriteInvoice }))
+            //{
+            //    //ConsM.DocType_DocInvoice = new DocType(lng.s_Invoice.s, GlobalData.const_DocInvoice);
+            //    //ConsM.List_ConsumptionType.Add(ConsM.DocType_DocInvoice);
+            //}
+
+            //if (ConsM.m_LMOUser.HasLoginControlRole(new string[] { LoginControl.AWP.ROLE_Administrator, LoginControl.AWP.ROLE_WriteProformaInvoice }))
+            //{
+            ////    ConsM.DocType_DocProformaInvoice = new DocType(lng.s_DocProformaInvoice.s, GlobalData.const_DocProformaInvoice);
+            ////    ConsM.List_ConsumptionType.Add(ConsM.DocType_DocProformaInvoice);
+            //}
+
+            ConsM.Consumption_All = new ConsumptionType(lng.s_AllConsumption.s, GlobalData.const_ConsumptionAll);
+            ConsM.List_ConsumptionType.Add(ConsM.Consumption_All);
+
+            ConsM.Consumption_WriteOff = new ConsumptionType(lng.s_WriteOff.s, GlobalData.const_ConsumptionWriteOff);
+            ConsM.List_ConsumptionType.Add(ConsM.Consumption_WriteOff);
+
+            ConsM.Consumption_OwnUse = new ConsumptionType(lng.s_OwnUse.s, GlobalData.const_ConsumptionOwnUse);
+            ConsM.List_ConsumptionType.Add(ConsM.Consumption_OwnUse);
+
 
             if (ConsM.List_ConsumptionType.Count>0)
             {
-                this.cmb_DocType.DataSource = null;
-                this.cmb_DocType.DataSource = ConsM.List_ConsumptionType;
-                this.cmb_DocType.DisplayMember = "DocType_Text_in_language";
-                this.cmb_DocType.ValueMember = "Typ";
+                this.cmb_ConsumptionType.DataSource = null;
+                this.cmb_ConsumptionType.DataSource = ConsM.List_ConsumptionType;
+                this.cmb_ConsumptionType.DisplayMember = "ConsumptionType_Text_in_language";
+                this.cmb_ConsumptionType.ValueMember = "Typ";
                 if (ConsM.List_ConsumptionType.Count > 1)
                 {
-                    this.cmb_DocType.Enabled = true;
+                    this.cmb_ConsumptionType.Enabled = true;
                 }
                 else
                 {
-                    this.cmb_DocType.Enabled = false;
+                    this.cmb_ConsumptionType.Enabled = false;
                 }
             }
             else
             {
-                this.cmb_DocType.Enabled = false;
+                this.cmb_ConsumptionType.Enabled = false;
             }
 
             Set_cmb_InvoiceType_selected_index();
@@ -399,7 +406,7 @@ namespace ShopC_Forms
 
         internal bool InitMan()
         {
-            LogFile.LogFile.WriteDEBUG("usrc_ConsumptionMan.cs:Init():start!");
+            //LogFile.LogFile.WriteDEBUG("usrc_ConsumptionMan.cs:Init():start!");
             //Program.Cursor_Wait();
 
             Set_cmb_DocType();
@@ -425,7 +432,7 @@ namespace ShopC_Forms
                 return false;
             }
 
-            this.cmb_DocType.SelectedIndexChanged += new System.EventHandler(this.cmb_InvoiceType_SelectedIndexChanged);
+            this.cmb_ConsumptionType.SelectedIndexChanged += new System.EventHandler(this.cmb_InvoiceType_SelectedIndexChanged);
             SetColor();
 
             //Program.Cursor_Arrow();
@@ -466,17 +473,17 @@ namespace ShopC_Forms
 
         private void Set_cmb_InvoiceType_selected_index()
         {
-            if (this.cmb_DocType.Items.Count > 1)
+            if (this.cmb_ConsumptionType.Items.Count > 1)
             {
                 int idx = find_cmb_DataType_Index(this.m_usrc_ConsumptionEditor.ConsE.DocTyp);
                 if (idx >= 0)
                 {
                     this.m_usrc_ConsumptionEditor.btn_New.Enabled = true;
-                    this.cmb_DocType.SelectedIndex = idx;
+                    this.cmb_ConsumptionType.SelectedIndex = idx;
                     //SetFinancialYears();
                 }
             }
-            else if (this.cmb_DocType.Items.Count == 1)
+            else if (this.cmb_ConsumptionType.Items.Count == 1)
             {
                 this.m_usrc_ConsumptionEditor.btn_New.Enabled = true;
                 //string xDoxtyp = ((DocType)this.cmb_DocType.Items[0]).Typ;
@@ -486,21 +493,21 @@ namespace ShopC_Forms
             else
             {
                 cmb_FinancialYear.Enabled = false;
-                this.cmb_DocType.Enabled = false;
+                this.cmb_ConsumptionType.Enabled = false;
                 this.m_usrc_ConsumptionEditor.btn_New.Enabled = false;
             }
         }
 
         private int find_cmb_DataType_Index(string ConsTyp)
         {
-            if (this.cmb_DocType.Items!=null)
+            if (this.cmb_ConsumptionType.Items!=null)
             {
-                int iCount = this.cmb_DocType.Items.Count;
+                int iCount = this.cmb_ConsumptionType.Items.Count;
                 if (iCount >  0)
                 {
                     for (int i=0;i<iCount;i++)
                     {
-                        if (((ConsumptionType)this.cmb_DocType.Items[i]).Typ.Equals(ConsTyp))
+                        if (((ConsumptionType)this.cmb_ConsumptionType.Items[i]).Typ.Equals(ConsTyp))
                         {
                             return i;
                         }
@@ -513,7 +520,7 @@ namespace ShopC_Forms
 
         internal bool SetDocument(Transaction transaction)
         {
-            return ConsM.SetDocument(this.m_usrc_TableOfConsumption.Current_Doc_ID, transaction);
+            return ConsM.SetDocument(this.m_usrc_TableOfConsumption.Current_Consumption_ID, transaction);
         }
 
       
@@ -577,73 +584,105 @@ namespace ShopC_Forms
 
         private void btn_New_Click(object sender, EventArgs e)
         {
-            if (this.Visible && TSettings.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
+            Form_NewConsumption frm_new = new Form_NewConsumption(this, this.ConsM,this.m_usrc_ConsumptionEditor.usrc_DocIssue1.Total);
+            frm_new.ShowDialog(this);
+            switch (frm_new.eNewConsumptionResult)
+            {
+                case Form_NewConsumption.e_NewConsumption.New_Empty_OwnUse:
+                    if (this.m_usrc_ConsumptionEditor.GetOwnUseData(this))
+                    {
+                        New_Empty_Consumption(Form_NewConsumption.e_NewConsumption.New_Empty_OwnUse);
+                    }
+                    break;
+            }
+            //if (this.Visible && TSettings.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
 
-            if (this.Visible && TSettings.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
-                    //Form_NewDocument frm_new = new Form_NewDocument(this, this.ConsM, ConsM.mSettingsUserValues,this.m_usrc_ConsumptionEditor.usrc_DocIssue1.Total);
-                    //frm_new.ShowDialog(this);
-                    //if (this.Visible && TSettings.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
-                    //switch (frm_new.eNewDocumentResult)
-                    //{
-                    //    case Form_NewDocument.e_NewDocument.New_Empty:
-                    //        New_Empty_Doc(frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID, null);
-                    //        break;
+            //if (this.Visible && TSettings.Login_MultipleUsers) timer_Login_MultiUser.Enabled = false;
+            //Form_NewDocument frm_new = new Form_NewDocument(this, this.ConsM, ConsM.mSettingsUserValues,this.m_usrc_ConsumptionEditor.usrc_DocIssue1.Total);
+            //frm_new.ShowDialog(this);
+            //if (this.Visible && TSettings.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
+            //switch (frm_new.eNewDocumentResult)
+            //{
+            //    case Form_NewDocument.e_NewDocument.New_Empty:
+            //        New_Empty_Doc(frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID, null);
+            //        break;
 
-                    //    case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
-                    //        Transaction transaction_usrc_ConsumptionEditor_New_Copy_Of_SameDocType = DBSync.DBSync.NewTransaction("usrc_ConsumptionEditor.New_Copy_Of_SameDocType");
-                    //        if (New_Copy_Of_SameDocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID, transaction_usrc_ConsumptionEditor_New_Copy_Of_SameDocType))
-                    //        {
-                    //            transaction_usrc_ConsumptionEditor_New_Copy_Of_SameDocType.Commit();
-                    //        }
-                    //        else
-                    //        {
-                    //            transaction_usrc_ConsumptionEditor_New_Copy_Of_SameDocType.Rollback();
-                    //        }
-                    //        break;
-                    //    case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
-                    //        Transaction transaction_usrc_ConsumptionEditor_New_Copy_To_Another_DocType = DBSync.DBSync.NewTransaction("usrc_ConsumptionEditor.New_Copy_To_Another_DocType");
-                    //        if (New_Copy_To_Another_DocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID, transaction_usrc_ConsumptionEditor_New_Copy_To_Another_DocType))
-                    //        {
-                    //            transaction_usrc_ConsumptionEditor_New_Copy_To_Another_DocType.Commit();
-                    //        }
-                    //        else
-                    //        {
-                    //            transaction_usrc_ConsumptionEditor_New_Copy_To_Another_DocType.Rollback();
-                    //        }
-                    //        break;
-                    //}
+            //    case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
+            //        Transaction transaction_usrc_ConsumptionEditor_New_Copy_Of_SameDocType = DBSync.DBSync.NewTransaction("usrc_ConsumptionEditor.New_Copy_Of_SameDocType");
+            //        if (New_Copy_Of_SameDocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID, transaction_usrc_ConsumptionEditor_New_Copy_Of_SameDocType))
+            //        {
+            //            transaction_usrc_ConsumptionEditor_New_Copy_Of_SameDocType.Commit();
+            //        }
+            //        else
+            //        {
+            //            transaction_usrc_ConsumptionEditor_New_Copy_Of_SameDocType.Rollback();
+            //        }
+            //        break;
+            //    case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
+            //        Transaction transaction_usrc_ConsumptionEditor_New_Copy_To_Another_DocType = DBSync.DBSync.NewTransaction("usrc_ConsumptionEditor.New_Copy_To_Another_DocType");
+            //        if (New_Copy_To_Another_DocType(frm_new.FinancialYear, frm_new.usrc_Currency1.Currency, frm_new.usrc_Currency1.Atom_Currency_ID, transaction_usrc_ConsumptionEditor_New_Copy_To_Another_DocType))
+            //        {
+            //            transaction_usrc_ConsumptionEditor_New_Copy_To_Another_DocType.Commit();
+            //        }
+            //        else
+            //        {
+            //            transaction_usrc_ConsumptionEditor_New_Copy_To_Another_DocType.Rollback();
+            //        }
+            //        break;
+            //}
         }
 
-        private void New_Empty_Doc(xCurrency currency,ID xAtom_Currency_ID)
+        private void New_Empty_Consumption(Form_NewConsumption.e_NewConsumption xe_NewConsumption)
         {
-            //Program.Cursor_Wait();
-            //if (cmb_DocType.SelectedItem is DocType)
-            //{
-            //    DocType xDocType = (DocType)cmb_DocType.SelectedItem;
-            //    ConsM.DocTyp  = xDocType.Typ;
-            //    if (cmb_FinancialYear.SelectedItem is System.Data.DataRowView)
-            //    {
-            //        System.Data.DataRowView drv = (System.Data.DataRowView)cmb_FinancialYear.SelectedItem;
-            //        int FinancialYear = (int)drv.Row.ItemArray[0];
-            //        Program.Cursor_Arrow();
-            //        if (Check_NumberOfMonthAfterNewYearToAllowCreateNewInvoice(FinancialYear))
-            //        {
-            //            Program.Cursor_Wait();
-            //            m_usrc_ConsumptionEditor.SetNewDraft(ConsM.m_LMOUser, ConsM.DocTyp, FinancialYear, currency, xAtom_Currency_ID, workArea);
-            //            DateTime dtStart = DateTime.Now;
-            //            DateTime dtEnd = DateTime.Now;
-            //            m_usrc_TableOfConsumption.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
-            //            m_usrc_TableOfConsumption.Init(ConsM, true, false, FinancialYear /*Properties.Settings.Default.FinancialYear*/, null);
-            //            ConsM.m_LMOUser.ReloadAdministratorsAndUserManagers();
-            //        }
-            //    }
-            //    else
-            //    {
-            //        Program.Cursor_Arrow();
-            //        LogFile.Error.Show("ERROR:usrc_ConsumptionMan:btn_New_Click:cmb_FinancialYear.SelectedItem is not type of System.Data.DataRowView but is type of " + cmb_FinancialYear.SelectedItem.GetType().ToString());
-            //    }
-            //}
-            //Program.Cursor_Arrow();
+            //this.Cursor_Wait();
+
+            if (cmb_ConsumptionType.SelectedItem is ConsumptionType)
+            {
+                ConsumptionType xConsumptionType = (ConsumptionType)cmb_ConsumptionType.SelectedItem;
+                ConsM.ConsumptionTyp = xConsumptionType.Typ;
+
+                ID xAtom_Currency_ID = null;
+                Transaction transaction_usrc_ConsumptionMan_New_Empty_Consumption_f_Atom_Currency_Get = DBSync.DBSync.NewTransaction("usrc_ConsumptionMan.New_Empty_Consumption.f_Atom_Currency.Get");
+                if (f_Atom_Currency.Get(GlobalData.BaseCurrency.ID, ref xAtom_Currency_ID, transaction_usrc_ConsumptionMan_New_Empty_Consumption_f_Atom_Currency_Get))
+                {
+                    transaction_usrc_ConsumptionMan_New_Empty_Consumption_f_Atom_Currency_Get.Commit();
+                }
+                else
+                {
+                    transaction_usrc_ConsumptionMan_New_Empty_Consumption_f_Atom_Currency_Get.Rollback();
+                }
+
+                m_usrc_ConsumptionEditor.SetNewDraft(ConsM.m_LMOUser,
+                                                     ConsM.ConsumptionTyp,
+                                                     xe_NewConsumption,
+                                                     ConsM.FinancialYear,
+                                                     GlobalData.BaseCurrency, 
+                                                     xAtom_Currency_ID);
+
+                //    if (cmb_FinancialYear.SelectedItem is System.Data.DataRowView)
+                //    {
+                //        System.Data.DataRowView drv = (System.Data.DataRowView)cmb_FinancialYear.SelectedItem;
+                //        int FinancialYear = (int)drv.Row.ItemArray[0];
+                //        //Program.Cursor_Arrow();
+                //        if (Check_NumberOfMonthAfterNewYearToAllowCreateNewInvoice(FinancialYear))
+                //        {
+                //            Program.Cursor_Wait();
+                //            m_usrc_ConsumptionEditor.SetNewDraft(ConsM.m_LMOUser, ConsM.DocTyp, FinancialYear, currency, xAtom_Currency_ID, workArea);
+                ////            DateTime dtStart = DateTime.Now;
+                ////            DateTime dtEnd = DateTime.Now;
+                ////            m_usrc_TableOfConsumption.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
+                ////            m_usrc_TableOfConsumption.Init(ConsM, true, false, FinancialYear /*Properties.Settings.Default.FinancialYear*/, null);
+                ////            ConsM.m_LMOUser.ReloadAdministratorsAndUserManagers();
+                ////        }
+                ////    }
+                ////    else
+                ////    {
+                ////        Program.Cursor_Arrow();
+                ////        LogFile.Error.Show("ERROR:usrc_ConsumptionMan:btn_New_Click:cmb_FinancialYear.SelectedItem is not type of System.Data.DataRowView but is type of " + cmb_FinancialYear.SelectedItem.GetType().ToString());
+                ////    }
+                ////}
+                ////Program.Cursor_Arrow();
+            }
         }
 
 
@@ -689,7 +728,7 @@ namespace ShopC_Forms
             {
                 xShopC_Data_Item_List.Clear();
             }
-            if (this.m_usrc_ConsumptionEditor.ConsE.m_CurrentConsumption.m_Basket.Read_Consumption_ShopC_Item_Table(ConsM.DocTyp, this.m_usrc_ConsumptionEditor.ConsE.m_CurrentConsumption.Doc_ID, ref xShopC_Data_Item_List, transaction))
+            if (this.m_usrc_ConsumptionEditor.ConsE.m_CurrentConsumption.m_Basket.Read_Consumption_ShopC_Item_Table(ConsM.ConsumptionTyp, this.m_usrc_ConsumptionEditor.ConsE.m_CurrentConsumption.Doc_ID, ref xShopC_Data_Item_List, transaction))
             {
                 if (xdt_ShopB_Items == null)
                 {
@@ -914,14 +953,14 @@ namespace ShopC_Forms
             if (this.Visible && TSettings.Login_MultipleUsers) timer_Login_MultiUser.Enabled = true;
         }
 
-        internal void Activate_dgvx_XInvoice_SelectionChanged()
+        internal void Activate_dgvx_XConsumption_SelectionChanged()
         {
-            this.m_usrc_TableOfConsumption.Activate_dgvx_XInvoice_SelectionChanged();
+            this.m_usrc_TableOfConsumption.Activate_dgvx_XConsumption_SelectionChanged();
         }
 
         private void SetDocInvoiceOrDocPoformaInvoice()
         {
-            TSettings.RunAs = ConsM.DocTyp;
+            TSettings.RunAs = ConsM.ConsumptionTyp;
 
             this.m_usrc_TableOfConsumption.Clear();
 
@@ -953,13 +992,13 @@ namespace ShopC_Forms
         private void cmb_InvoiceType_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Program.Cursor_Wait();
-            switch (cmb_DocType.SelectedIndex)
+            switch (cmb_ConsumptionType.SelectedIndex)
             {
                 case 0: // usrc_Invoice.enum_Invoice.TaxInvoice:
-                    ConsM.DocTyp = GlobalData.const_DocInvoice;
+                    ConsM.ConsumptionTyp = GlobalData.const_DocInvoice;
                     break;
                 case 1: // usrc_Invoice.enum_Invoice.ProformaInvoice:
-                    ConsM.DocTyp = GlobalData.const_DocProformaInvoice;
+                    ConsM.ConsumptionTyp = GlobalData.const_DocProformaInvoice;
 
                     break;
             }
@@ -1000,25 +1039,30 @@ namespace ShopC_Forms
             //}
         }
 
-        internal bool Initialise(Form main_Form, LoginControl.LMOUser xLMOUser)
+        internal bool Initialise(Form main_Form, LoginControl.LMOUser xLMOUser,int financialYear,string consumptiontype)
         {
-            //ConsM.mSettingsUserValues = ((SettingsUser)xLMOUser.oSettings).mSettingsUserValues;
             m_Form_Document = main_Form;
-            ConsM.m_LMOUser = xLMOUser;
-            //ConsM.door = new Door(ConsM.m_LMOUser);
-            //this.usrc_loginControl1.Bind(main_Form.loginControl1, xLMOUser);
-            //this.usrc_FVI_SLO1.Bind(m_Form_Document.fvI_SLO1);
+            ConsM = new ConsumptionMan(SetMode, TableOfDocuments_Init, Control_ConsumptionEditor_Init, SetInitialMode, xLMOUser, financialYear, consumptiontype);
+
             this.m_usrc_TableOfConsumption.Bind(ConsM.m_LMOUser);
-            return m_usrc_ConsumptionEditor.Initialise(ConsM, ConsM.m_LMOUser);
+            if (m_usrc_ConsumptionEditor.Initialise(ConsM, ConsM.m_LMOUser))
+            {
+                m_usrc_ConsumptionEditor.Issue += M_usrc_ConsumptionEditor_Issue;
+                return true;
+            }
+            return false;
+
         }
 
+        private bool M_usrc_ConsumptionEditor_Issue(OwnUseAddOn ownuse_add_on, Transaction transaction)
+        {
+            return this.ConsM.ConsE.MyConsumptionData.Issue(ownuse_add_on, transaction);
+            
+        }
 
         internal bool Init()
         {
-            string Err = null;
-            m_usrc_TableOfConsumption.ConsM = this.ConsM;
-            return true;
-
+            return InitMan();
         }
 
 
@@ -1026,7 +1070,7 @@ namespace ShopC_Forms
         {
             if (Exit_Click != null)
             {
-                Exit_Click(ConsM.DocTyp, this.m_usrc_TableOfConsumption.Current_Doc_ID, ConsM.m_LMOUser, LoginControl.LoginCtrl.eExitReason.NORMAL);
+                Exit_Click(ConsM.ConsumptionTyp, this.m_usrc_TableOfConsumption.Current_Consumption_ID, ConsM.m_LMOUser, LoginControl.LoginCtrl.eExitReason.NORMAL);
             }
         }
 
@@ -1034,7 +1078,7 @@ namespace ShopC_Forms
         {
             if (Exit_Click != null)
             {
-                Exit_Click(ConsM.DocTyp, this.m_usrc_TableOfConsumption.Current_Doc_ID, ConsM.m_LMOUser, eres);
+                Exit_Click(ConsM.ConsumptionTyp, this.m_usrc_TableOfConsumption.Current_Consumption_ID, ConsM.m_LMOUser, eres);
             }
         }
 
@@ -1090,7 +1134,7 @@ namespace ShopC_Forms
             }
             else
             {
-                Exit_Click(ConsM.DocTyp, this.m_usrc_TableOfConsumption.Current_Doc_ID, ConsM.m_LMOUser, LoginControl.LoginCtrl.eExitReason.NORMAL);
+                Exit_Click(ConsM.ConsumptionTyp, this.m_usrc_TableOfConsumption.Current_Consumption_ID, ConsM.m_LMOUser, LoginControl.LoginCtrl.eExitReason.NORMAL);
             }
         }
 

@@ -41,7 +41,7 @@ namespace ShopC_Forms
             this.m_usrc_ConsumptionEditor = new ShopC_Forms.usrc_ConsumptionEditor();
             this.usrc_DocIssue1 = new ShopC_Forms.usrc_DocIssue();
             this.btn_Settings = new System.Windows.Forms.Button();
-            this.cmb_DocType = new System.Windows.Forms.ComboBox();
+            this.cmb_ConsumptionType = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // cmb_FinancialYear
@@ -156,21 +156,21 @@ namespace ShopC_Forms
             this.btn_Settings.TabIndex = 34;
             this.btn_Settings.UseVisualStyleBackColor = false;
             // 
-            // cmb_DocType
+            // cmb_ConsumptionType
             // 
-            this.cmb_DocType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.cmb_DocType.FormattingEnabled = true;
-            this.cmb_DocType.Location = new System.Drawing.Point(3, 6);
-            this.cmb_DocType.Name = "cmb_DocType";
-            this.cmb_DocType.Size = new System.Drawing.Size(164, 28);
-            this.cmb_DocType.TabIndex = 25;
+            this.cmb_ConsumptionType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cmb_ConsumptionType.FormattingEnabled = true;
+            this.cmb_ConsumptionType.Location = new System.Drawing.Point(3, 6);
+            this.cmb_ConsumptionType.Name = "cmb_ConsumptionType";
+            this.cmb_ConsumptionType.Size = new System.Drawing.Size(164, 28);
+            this.cmb_ConsumptionType.TabIndex = 25;
             // 
             // usrc_ConsumptionMan
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.usrc_DocIssue1);
-            this.Controls.Add(this.cmb_DocType);
+            this.Controls.Add(this.cmb_ConsumptionType);
             this.Controls.Add(this.lbl_FinancialYear);
             this.Controls.Add(this.m_usrc_ConsumptionEditor);
             this.Controls.Add(this.cmb_FinancialYear);
@@ -197,6 +197,6 @@ namespace ShopC_Forms
         public usrc_ConsumptionEditor m_usrc_ConsumptionEditor;
         private usrc_DocIssue usrc_DocIssue1;
         private System.Windows.Forms.Button btn_Settings;
-        private System.Windows.Forms.ComboBox cmb_DocType;
+        private System.Windows.Forms.ComboBox cmb_ConsumptionType;
     }
 }

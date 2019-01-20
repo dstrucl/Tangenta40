@@ -48,7 +48,7 @@ namespace ShopC_Forms
             this.AddOnWriteOff = x_WriteOffAddOn;
             m_usrc_AddOn = x_usrc_AddOn;
             m_bPrint = x_bPrint;
-            this.Text = lng.s_PaymentOfInvoiceAndPrint.s;
+           lng.s_Form_WriteOff_AddOn.Text(this);
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)
