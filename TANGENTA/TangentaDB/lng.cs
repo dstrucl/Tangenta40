@@ -23,6 +23,8 @@ namespace TangentaDB
         {
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name); 
         }
+        public static ltext s_OwnUse = new ltext(new string[] { "Own use", "Lastna poraba" });
+        public static ltext s_WriteOff = new ltext(new string[] { "Write off", "Odpis" });
 
         public static ltext s_ImportType_not_defined = new ltext(new string[] { "Not used", "Ni v uporabi" });
         public static ltext s_ImportType_PurchasePrices = new ltext(new string[] { "Import prices from purchase prices", "Uvozi cene iz nabavnih cen" });
@@ -149,6 +151,19 @@ namespace TangentaDB
         public static ltext s_ProformaInvoiceDraftTime_description = new ltext(new string[] { "Proforma Invoice Draft Time", "Čas izdelave osnutka pred-računa" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\JOURNAL_DocProformaInvoice_Type_definitions .cs
 
         public static ltext s_ProformaInvoiceTime_description = new ltext(new string[] { "Proforma Invoice Time", "Čas izdaje pred-računa" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\JOURNAL_DocProformaInvoice_Type_definitions .cs
+
+        public static ltext s_ConsumptionOwnUseDraftTime_description = new ltext(new string[] { "Consumption Own Use Draft Time", "Čas izdelave osnutka lastne porabe" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\JOURNAL_DocInvoice_Type_definitions.cs
+
+        public static ltext s_ConsumptionOwnUseTime_description = new ltext(new string[] { "Consumption Own Use Time", "Čas izdaje lastne porabe" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\JOURNAL_DocInvoice_Type_definitions.cs
+
+        public static ltext s_ConsumptionOwnUseStornoTime_description = new ltext(new string[] { "Consumption Own Use STORNO Time", "Čas stornacije lastne porabe" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\JOURNAL_DocInvoice_Type_definitions.cs
+
+        public static ltext s_ConsumptionWriteOffDraftTime_description = new ltext(new string[] { "Consumption Write Off Draft Time", "Čas izdelave osnutka odpisa" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\JOURNAL_DocInvoice_Type_definitions.cs
+
+        public static ltext s_ConsumptionWriteOffTime_description = new ltext(new string[] { "Consumption Write Off Time", "Čas izdaje odpisa" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\JOURNAL_DocInvoice_Type_definitions.cs
+
+        public static ltext s_ConsumptionWriteOffStornoTime_description = new ltext(new string[] { "Consumption Own Use STORNO Time", "Čas stornacije odpisa" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\JOURNAL_DocInvoice_Type_definitions.cs
+
 
         public static ltext s_InvoiceDraftTime_description = new ltext(new string[] { "Invoice Draft Time", "Čas izdelave osnutka računa" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDB\JOURNAL_DocInvoice_Type_definitions.cs
 

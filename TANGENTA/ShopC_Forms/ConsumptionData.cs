@@ -805,7 +805,7 @@ namespace ShopC_Forms
                             awa.Name as Atom_WorkArea_Name,
                             pi.Consumption_Reference_ID
                             from JOURNAL_Consumption jpi
-                            inner join JOURNAL_Consumption_Type jpit on jpi.JOURNAL_Consumption_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionStornoTime.ID.ToString() + @"))
+                            inner join JOURNAL_Consumption_Type jpit on jpi.JOURNAL_Consumption_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseStornoTime.ID.ToString() + @"))
                             inner join Consumption pi on jpi.Consumption_ID = pi.ID
                             inner join Atom_Currency acur on pi.Atom_Currency_ID = acur.ID
                             inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
@@ -896,7 +896,7 @@ namespace ShopC_Forms
                                 jpi.EventTime,
                                 jpit.Name as JOURNAL_DocProformaConsumption_Type_Name
                                 from JOURNAL_DocProformaConsumption jpi
-                                inner join JOURNAL_DocProformaConsumption_Type jpit on jpi.JOURNAL_DocProformaConsumption_Type_ID = jpit.ID and (jpit.ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionDraftTime.ID.ToString() + @")
+                                inner join JOURNAL_DocProformaConsumption_Type jpit on jpi.JOURNAL_DocProformaConsumption_Type_ID = jpit.ID and (jpit.ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseDraftTime.ID.ToString() + @")
                                 inner join DocProformaConsumption pi on jpi.DocProformaConsumption_ID = pi.ID
                                 inner join Atom_Currency acur on pi.Atom_Currency_ID = acur.ID
                                 inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
@@ -1008,7 +1008,7 @@ namespace ShopC_Forms
                                                 {
                                                     if (IssueDate_v == null)
                                                     {
-                                                        sql = "select EventTime from JOURNAL_Consumption where Consumption_ID = " + Consumption_Reference_ID.ToString() + " and JOURNAL_Consumption_Type_ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionTime.ID.ToString();
+                                                        sql = "select EventTime from JOURNAL_Consumption where Consumption_ID = " + Consumption_Reference_ID.ToString() + " and JOURNAL_Consumption_Type_ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseTime.ID.ToString();
                                                         DataTable dt = new DataTable();
                                                         if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                                         {
@@ -1038,7 +1038,7 @@ namespace ShopC_Forms
                                                 if (IssueDate_v == null)
                                                 {
 
-                                                    sql = "select EventTime from JOURNAL_Consumption where Consumption_ID = " + Consumption_ID.ToString() + " and JOURNAL_Consumption_Type_ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionTime.ID.ToString();
+                                                    sql = "select EventTime from JOURNAL_Consumption where Consumption_ID = " + Consumption_ID.ToString() + " and JOURNAL_Consumption_Type_ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseTime.ID.ToString();
                                                     DataTable dt = new DataTable();
                                                     if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                                     {
@@ -1079,7 +1079,7 @@ namespace ShopC_Forms
                                                 if (IssueDate_v == null)
                                                 {
 
-                                                    sql = "select EventTime from JOURNAL_Consumption where Consumption_ID = " + Consumption_ID.ToString() + " and JOURNAL_DocProformaConsumption_Type_ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionTime.ID.ToString();
+                                                    sql = "select EventTime from JOURNAL_Consumption where Consumption_ID = " + Consumption_ID.ToString() + " and JOURNAL_DocProformaConsumption_Type_ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseTime.ID.ToString();
                                                     DataTable dt = new DataTable();
                                                     if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                                     {
@@ -1294,9 +1294,38 @@ namespace ShopC_Forms
             }
         }
 
-        internal bool Issue(OwnUseAddOn ownuse_add_on, Transaction transaction)
+        internal bool Issue(ID xAtom_WorkPeriod_ID,
+                            int financialYear,
+                            ID xAtom_Currency_ID,
+                            OwnUseAddOn ownuse_add_on,
+                            ref ID consumption_ID,
+                            ref int draftNumber,
+                            Transaction transaction)
         {
-            if (f_Consumption.Get
+
+            if (f_Consumption.SetNewDraft_Consumption(xAtom_WorkPeriod_ID,
+                                                      f_Consumption.eConsumptionType.OwnUse,
+                                                      financialYear,
+                                                      GlobalData.BaseCurrency,
+                                                      xAtom_Currency_ID,
+                                                      ref consumption_ID,
+                                                      ref draftNumber,
+                                                      transaction
+                                                      ))
+            {
+                if (ownuse_add_on.Set(consumption_ID,transaction))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
 
         //private string GetPrintCopyInfo(ID Consumption_ID)

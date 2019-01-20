@@ -30,7 +30,7 @@ namespace ShopC_Forms
         }
 
         private string reasonName = null;
-        private string ReasonName
+        public string ReasonName
         {
             get
             {
@@ -43,7 +43,7 @@ namespace ShopC_Forms
         }
 
         private string reasonDescription = null;
-        private string ReasonDescription
+        public string ReasonDescription
         {
             get
             {
@@ -57,7 +57,7 @@ namespace ShopC_Forms
 
 
         private string descriptionName = null;
-        private string DescriptionName
+        public string DescriptionName
         {
             get
             {
@@ -69,7 +69,7 @@ namespace ShopC_Forms
             }
         }
         private string descriptionDescription = null;
-        private string DescriptionDescription
+        public string DescriptionDescription
         {
             get
             {
@@ -222,7 +222,7 @@ namespace ShopC_Forms
             }
         }
 
-        public bool Set(Transaction transaction)
+        public bool Set(ID consumption_ID,Transaction transaction)
 
         {
             if (f_OwnUseAddOn.Get(MyIssueDate.Date,
@@ -230,6 +230,7 @@ namespace ShopC_Forms
                                 reasonDescription,
                                 descriptionName,
                                 descriptionDescription,
+                                consumption_ID,
                                 ref OwnUseDescription_ID,
                                 ref OwnUseReason_ID,
                                 ref OwnUseAddOn_ID,

@@ -588,10 +588,11 @@ namespace ShopC_Forms
             frm_new.ShowDialog(this);
             switch (frm_new.eNewConsumptionResult)
             {
-                case Form_NewConsumption.e_NewConsumption.New_Empty_OwnUse:
+                case f_Consumption.eConsumptionType.OwnUse:
                     if (this.m_usrc_ConsumptionEditor.GetOwnUseData(this))
                     {
-                        New_Empty_Consumption(Form_NewConsumption.e_NewConsumption.New_Empty_OwnUse);
+
+                        New_Empty_Consumption(f_Consumption.eConsumptionType.OwnUse);
                     }
                     break;
             }
@@ -632,7 +633,7 @@ namespace ShopC_Forms
             //}
         }
 
-        private void New_Empty_Consumption(Form_NewConsumption.e_NewConsumption xe_NewConsumption)
+        private void New_Empty_Consumption(f_Consumption.eConsumptionType xeConsumptionType)
         {
             //this.Cursor_Wait();
 
@@ -654,7 +655,7 @@ namespace ShopC_Forms
 
                 m_usrc_ConsumptionEditor.SetNewDraft(ConsM.m_LMOUser,
                                                      ConsM.ConsumptionTyp,
-                                                     xe_NewConsumption,
+                                                     xeConsumptionType,
                                                      ConsM.FinancialYear,
                                                      GlobalData.BaseCurrency, 
                                                      xAtom_Currency_ID);
@@ -1056,8 +1057,28 @@ namespace ShopC_Forms
 
         private bool M_usrc_ConsumptionEditor_Issue(OwnUseAddOn ownuse_add_on, Transaction transaction)
         {
-            return this.ConsM.ConsE.MyConsumptionData.Issue(ownuse_add_on, transaction);
-            
+            ID x_atom_currency_ID = null;
+            if (!f_Atom_Currency.Get(GlobalData.BaseCurrency.ID,ref x_atom_currency_ID,transaction))
+            {
+                return false;
+            }
+            ID consumption_ID = null;
+            int draftNumber = 0;
+            if (this.ConsM.ConsE.MyConsumptionData.Issue(ConsM.m_LMOUser.Atom_WorkPeriod_ID,
+                                                            ConsM.FinancialYear,
+                                                            x_atom_currency_ID,
+                                                            ownuse_add_on,
+                                                            ref consumption_ID,
+                                                            ref draftNumber,
+                                                            transaction))
+            {
+                this.ConsM.ConsE.m_CurrentConsumption.Doc_ID = consumption_ID;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         internal bool Init()

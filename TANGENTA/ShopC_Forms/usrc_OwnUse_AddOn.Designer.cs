@@ -37,10 +37,10 @@ namespace ShopC_Forms
             this.lbl_DateOfIssue = new System.Windows.Forms.Label();
             this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.lbl_WriteOffDescription = new System.Windows.Forms.Label();
-            this.txt_Description = new System.Windows.Forms.TextBox();
+            this.txt_DescriptionDescription = new System.Windows.Forms.TextBox();
             this.lbl_OwnUse_Reason_Name = new System.Windows.Forms.Label();
             this.cmb_Reason = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txt_ReasonDescription = new System.Windows.Forms.TextBox();
             this.lbl_OwnUse_Reason_Description = new System.Windows.Forms.Label();
             this.cmb_Description = new System.Windows.Forms.ComboBox();
             this.lbl_Description_Name = new System.Windows.Forms.Label();
@@ -111,15 +111,15 @@ namespace ShopC_Forms
             this.lbl_WriteOffDescription.TabIndex = 25;
             this.lbl_WriteOffDescription.Text = "Own Use Description";
             // 
-            // txt_Description
+            // txt_DescriptionDescription
             // 
-            this.txt_Description.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.txt_DescriptionDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_Description.Location = new System.Drawing.Point(3, 392);
-            this.txt_Description.Multiline = true;
-            this.txt_Description.Name = "txt_Description";
-            this.txt_Description.Size = new System.Drawing.Size(704, 129);
-            this.txt_Description.TabIndex = 26;
+            this.txt_DescriptionDescription.Location = new System.Drawing.Point(3, 392);
+            this.txt_DescriptionDescription.Multiline = true;
+            this.txt_DescriptionDescription.Name = "txt_DescriptionDescription";
+            this.txt_DescriptionDescription.Size = new System.Drawing.Size(704, 129);
+            this.txt_DescriptionDescription.TabIndex = 26;
             // 
             // lbl_OwnUse_Reason_Name
             // 
@@ -142,15 +142,15 @@ namespace ShopC_Forms
             this.cmb_Reason.Size = new System.Drawing.Size(701, 32);
             this.cmb_Reason.TabIndex = 28;
             // 
-            // textBox1
+            // txt_ReasonDescription
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txt_ReasonDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(0, 145);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(707, 135);
-            this.textBox1.TabIndex = 29;
+            this.txt_ReasonDescription.Location = new System.Drawing.Point(0, 145);
+            this.txt_ReasonDescription.Multiline = true;
+            this.txt_ReasonDescription.Name = "txt_ReasonDescription";
+            this.txt_ReasonDescription.Size = new System.Drawing.Size(707, 135);
+            this.txt_ReasonDescription.TabIndex = 29;
             // 
             // lbl_OwnUse_Reason_Description
             // 
@@ -191,10 +191,10 @@ namespace ShopC_Forms
             this.Controls.Add(this.cmb_Description);
             this.Controls.Add(this.lbl_Description_Name);
             this.Controls.Add(this.lbl_OwnUse_Reason_Description);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txt_ReasonDescription);
             this.Controls.Add(this.cmb_Reason);
             this.Controls.Add(this.lbl_OwnUse_Reason_Name);
-            this.Controls.Add(this.txt_Description);
+            this.Controls.Add(this.txt_DescriptionDescription);
             this.Controls.Add(this.lbl_WriteOffDescription);
             this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.lbl_DateOfIssue);
@@ -216,10 +216,10 @@ namespace ShopC_Forms
         private System.Windows.Forms.Label lbl_DateOfIssue;
         private usrc_Help usrc_Help1;
         private System.Windows.Forms.Label lbl_WriteOffDescription;
-        private System.Windows.Forms.TextBox txt_Description;
+        private System.Windows.Forms.TextBox txt_DescriptionDescription;
         private System.Windows.Forms.Label lbl_OwnUse_Reason_Name;
         private System.Windows.Forms.ComboBox cmb_Reason;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txt_ReasonDescription;
         private System.Windows.Forms.Label lbl_OwnUse_Reason_Description;
         private System.Windows.Forms.ComboBox cmb_Description;
         private System.Windows.Forms.Label lbl_Description_Name;

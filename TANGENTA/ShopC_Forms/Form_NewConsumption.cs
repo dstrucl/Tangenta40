@@ -25,13 +25,13 @@ namespace ShopC_Forms
         internal HUDCMS.HelpWizzardTagDC[] TagDCs = null;
 
 
-        public enum e_NewConsumption { New_Empty_OwnUse, New_Empty_WriteOff,UNKNOWN}
 
         private Control parentControl = null;
 
         private ConsumptionMan consM = null;
 
-        public e_NewConsumption eNewConsumptionResult = e_NewConsumption.UNKNOWN;
+        public f_Consumption.eConsumptionType eNewConsumptionResult = f_Consumption.eConsumptionType.UNKNOWN;
+
         public int FinancialYear = -1;
 
         //private Form_NewConsumption_WizzardForHelp frm_NewConsumption_WizzardForHelp = null;
@@ -132,14 +132,14 @@ namespace ShopC_Forms
         }
         private void btn_New_Empty_OwnUse_Click(object sender, EventArgs e)
         {
-            eNewConsumptionResult = e_NewConsumption.New_Empty_OwnUse;
+            eNewConsumptionResult = f_Consumption.eConsumptionType.OwnUse;
             this.Close();
             DialogResult = DialogResult.OK;
         }
 
         private void btn_New_Empty_WriteOff_Click(object sender, EventArgs e)
         {
-            eNewConsumptionResult = e_NewConsumption.New_Empty_WriteOff;
+            eNewConsumptionResult = f_Consumption.eConsumptionType.WriteOff;
             this.Close();
             DialogResult = DialogResult.OK;
         }

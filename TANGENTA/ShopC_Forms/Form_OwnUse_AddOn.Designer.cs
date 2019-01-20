@@ -42,8 +42,7 @@
             this.m_usrc_OwnUse_AddOn.Name = "m_usrc_OwnUse_AddOn";
             this.m_usrc_OwnUse_AddOn.Size = new System.Drawing.Size(712, 657);
             this.m_usrc_OwnUse_AddOn.TabIndex = 1;
-            this.m_usrc_OwnUse_AddOn.Cancel += new usrc_OwnUse_AddOn.delegate_Cancel(this.m_usrc_Payment_Cancel);
-            this.m_usrc_OwnUse_AddOn.Issue += new usrc_OwnUse_AddOn.delegate_Issue(this.m_usrc_Payment_Issue);
+            this.m_usrc_OwnUse_AddOn.Issue += new usrc_OwnUse_AddOn.delegate_Issue(this.m_usrc_OwnUseAddOn_Issue);
             // 
             // Form_OwnUse_AddOn
             // 

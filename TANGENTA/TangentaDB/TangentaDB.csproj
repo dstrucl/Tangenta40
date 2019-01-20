@@ -111,8 +111,9 @@
     <Compile Include="f_Atom_cHouseNumber_Person.cs" />
     <Compile Include="f_Consumption_ShopC_Item.cs" />
     <Compile Include="f_Consumption_ShopC_Item_Source.cs" />
-    <Compile Include="f_DocInvoice - Copy.cs" />
+    <Compile Include="f_Consumption.cs" />
     <Compile Include="f_OwnUseDescription.cs" />
+    <Compile Include="f_ConsumptionType.cs" />
     <Compile Include="f_OwnUseReason.cs" />
     <Compile Include="f_OwnUseAddOn.cs" />
     <Compile Include="f_WriteOffReason.cs" />

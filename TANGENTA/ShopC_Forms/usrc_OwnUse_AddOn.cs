@@ -304,30 +304,22 @@ namespace ShopC_Forms
             if (AddOnOwnUse.Completed(ref ltMsg))
             {
                 Transaction transaction_usrc_DocInvoice_AddOn_Set = DBSync.DBSync.NewTransaction("usrc_OwnUse_AddOn.btn_Issue_Click");
-                if (AddOnOwnUse.Set(transaction_usrc_DocInvoice_AddOn_Set))
+                AddOnOwnUse.ReasonName = this.cmb_Reason.Text;
+                AddOnOwnUse.ReasonDescription = this.txt_ReasonDescription.Text;
+                AddOnOwnUse.DescriptionName = this.cmb_Description.Text;
+                AddOnOwnUse.DescriptionDescription = this.txt_DescriptionDescription.Text;
+                if (Issue != null)
                 {
-                    if (Issue != null)
+                    if (Issue(AddOnOwnUse, transaction_usrc_DocInvoice_AddOn_Set))
                     {
-                       if (Issue(AddOnOwnUse, transaction_usrc_DocInvoice_AddOn_Set))
-                        {
-                            transaction_usrc_DocInvoice_AddOn_Set.Commit();
-                        }
-                       else
-                        {
-                            transaction_usrc_DocInvoice_AddOn_Set.Rollback();
-                        }
+                        transaction_usrc_DocInvoice_AddOn_Set.Commit();
                     }
                     else
                     {
-                        if (transaction_usrc_DocInvoice_AddOn_Set.Commit())
-                        {
-                        }
+                        transaction_usrc_DocInvoice_AddOn_Set.Rollback();
                     }
                 }
-                else
-                {
-                    transaction_usrc_DocInvoice_AddOn_Set.Rollback();
-                }
+                
             }
             else
             {

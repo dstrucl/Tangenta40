@@ -16,6 +16,7 @@ namespace TangentaDB
                               string reasonDescription,
                               string descriptionName,
                               string descriptionDescription,
+                              ID consumption_ID,
                               ref ID ownUseReason_ID,
                               ref ID ownUseDescription_ID,
                              ref ID ownUseAddOn_ID,
@@ -34,6 +35,10 @@ namespace TangentaDB
                     SQL_Parameter par_tOwnUseIssueTime = new SQL_Parameter(spar_tOwnUseIssueTime,SQL_Parameter.eSQL_Parameter.Datetime, false, tOwnUseIssueTime);
                     lpar.Add(par_tOwnUseIssueTime);
 
+                    string spar_Consumption_ID = "@par_Consumption_ID";
+                    SQL_Parameter par_Consumption_ID = new SQL_Parameter(spar_Consumption_ID, false, consumption_ID);
+                    lpar.Add(par_Consumption_ID);
+
                     string spar_OwnUseReason_ID = "@par_OwnUseReason_ID";
                     SQL_Parameter par_OwnUseReason_ID = new SQL_Parameter(spar_OwnUseReason_ID, false, ownUseReason_ID);
                     lpar.Add(par_OwnUseReason_ID);
@@ -43,7 +48,7 @@ namespace TangentaDB
                     lpar.Add(par_OwnUseDescription_ID);
 
 
-                    string sql = "select ID from OwnUseAddOn where OwnUseReason_ID = " + spar_OwnUseReason_ID+" and OwnUseDescription_ID = " + spar_OwnUseDescription_ID;
+                    string sql = "select ID from OwnUseAddOn where OwnUseReason_ID = " + spar_OwnUseReason_ID+" and OwnUseDescription_ID = " + spar_OwnUseDescription_ID + " and Consumption_ID = "+ spar_Consumption_ID;
                     DataTable dt = new DataTable();
                     if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
                     {
@@ -54,7 +59,7 @@ namespace TangentaDB
                         }
                         else
                         {
-                            sql = "insert into OwnUseAddOn (IssueDate,  OwnUseReason_ID,OwnUseDescription_ID) values ("+spar_tOwnUseIssueTime+"," + spar_OwnUseReason_ID + "," + spar_OwnUseDescription_ID+")";
+                            sql = "insert into OwnUseAddOn (IssueDate,Consumption_ID,  OwnUseReason_ID,OwnUseDescription_ID) values (" + spar_tOwnUseIssueTime+"," + spar_Consumption_ID + ","+spar_OwnUseReason_ID + "," + spar_OwnUseDescription_ID+")";
                             if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con, sql, lpar, ref ownUseReason_ID, ref Err, "OwnUseAddOn"))
                             {
                                 return true;

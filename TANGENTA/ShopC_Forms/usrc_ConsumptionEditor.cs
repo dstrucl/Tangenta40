@@ -608,7 +608,7 @@ namespace ShopC_Forms
 
         public void SetNewDraft(LMOUser xLMOUser,
                                 string consumptionTyp,
-                                Form_NewConsumption.e_NewConsumption xe_NewConsumption,
+                                f_Consumption.eConsumptionType xeConsumptionType,
                                 int xFinancialYear,
                                 xCurrency xcurrency,
                                 ID Atom_Currency_ID)
@@ -617,7 +617,7 @@ namespace ShopC_Forms
             ConsE.SetNewDraft(pform,
                             xLMOUser,
                             consumptionTyp,
-                            xe_NewConsumption,
+                            xeConsumptionType,
                             xFinancialYear,
                             xcurrency,
                             Atom_Currency_ID,
@@ -627,7 +627,7 @@ namespace ShopC_Forms
         }
 
         private bool SetNewConsumptionDraft(LMOUser xLMOUser,
-                                            Form_NewConsumption.e_NewConsumption xe_NewConsumption,
+                                            f_Consumption.eConsumptionType xeConsumptionType,
                                             int FinancialYear,
                                             xCurrency xcurrency,
                                             ID xAtom_Currency_ID)
@@ -636,7 +636,7 @@ namespace ShopC_Forms
             return ConsE.SetNewConsumptionDraft(
                             pform,
                             xLMOUser,
-                            xe_NewConsumption,
+                            xeConsumptionType,
                             FinancialYear,
                             xcurrency,
                             xAtom_Currency_ID,

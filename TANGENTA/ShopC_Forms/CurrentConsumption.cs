@@ -88,6 +88,7 @@ namespace ShopC_Forms
         public bool m_Exist = false;
         public bool Exist
         {
+
             get { return m_Exist; }
 
             set {
@@ -555,7 +556,7 @@ namespace ShopC_Forms
             {
                 ID Journal_Consumption_ID = null;
               
-                return f_Journal_Consumption.Write(this.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionTime.ID, issue_time, ref Journal_Consumption_ID, transaction);
+                return f_Journal_Consumption.Write(this.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseTime.ID, issue_time, ref Journal_Consumption_ID, transaction);
               
             }
             else
@@ -742,7 +743,7 @@ namespace ShopC_Forms
                                 DateTime_v issue_time = new DateTime_v(DateTime.Now);
                                 retissue_time = issue_time.v;
 
-                                if (f_Journal_Consumption.Write(Storno_Consumption_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionStornoTime.ID, issue_time, ref Journal_Consumption_ID, transaction))
+                                if (f_Journal_Consumption.Write(Storno_Consumption_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseStornoTime.ID, issue_time, ref Journal_Consumption_ID, transaction))
                                 {
                                     return true;
                                 }

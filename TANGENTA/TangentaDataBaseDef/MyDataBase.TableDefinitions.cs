@@ -3037,19 +3037,19 @@ namespace TangentaDataBaseDef
             t_WriteOffAddOn = new SQLTable((Object)new WriteOffAddOn(), "woao", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_WriteOffAddOn);
             t_WriteOffAddOn.AddColumn((Object)mt.m_WriteOffAddOn.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_WriteOffAddOn.AddColumn((Object)mt.m_WriteOffAddOn.IssueDate, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Write-off date", "Datum odpisa"));
-            t_WriteOffAddOn.AddColumn((Object)mt.m_WriteOffAddOn.m_Consumption, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Consumption ID", "Poraba ID"));
+            t_WriteOffAddOn.AddColumn((Object)mt.m_WriteOffAddOn.m_Consumption, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Consumption ID", "Poraba ID"));
             t_WriteOffAddOn.AddColumn((Object)mt.m_WriteOffAddOn.m_WriteOffReason, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Write-off reason ID", "Razlog odpisa ID"));
-            t_WriteOffAddOn.AddColumn((Object)mt.m_WriteOffAddOn.m_Doc_ImageLib, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Image ID", "Slika ID"));
+            t_WriteOffAddOn.AddColumn((Object)mt.m_WriteOffAddOn.m_Doc_ImageLib, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Image ID", "Slika ID"));
             m_DBTables.DBT.items.Add(t_WriteOffAddOn);
 
             /* 267 */
             t_OwnUseAddOn = new SQLTable((Object)new OwnUseAddOn(), "ouao", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_OwnUseAddOn);
             t_OwnUseAddOn.AddColumn((Object)mt.m_OwnUseAddOn.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_OwnUseAddOn.AddColumn((Object)mt.m_OwnUseAddOn.IssueDate, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Own consumption date", "Lastna poraba odpis"));
-            t_OwnUseAddOn.AddColumn((Object)mt.m_OwnUseAddOn.m_Consumption, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Consumption ID", "Poraba ID"));
+            t_OwnUseAddOn.AddColumn((Object)mt.m_OwnUseAddOn.m_Consumption, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Consumption ID", "Poraba ID"));
             t_OwnUseAddOn.AddColumn((Object)mt.m_OwnUseAddOn.m_OwnUseReason, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Write-off reason ID", "Razlog odpisa ID"));
-            t_OwnUseAddOn.AddColumn((Object)mt.m_OwnUseAddOn.m_OwnUseDescription, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Write-off reason ID", "Razlog odpisa ID"));
-            t_OwnUseAddOn.AddColumn((Object)mt.m_OwnUseAddOn.m_Doc_ImageLib, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Image ID", "Slika ID"));
+            t_OwnUseAddOn.AddColumn((Object)mt.m_OwnUseAddOn.m_OwnUseDescription, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Write-off reason ID", "Razlog odpisa ID"));
+            t_OwnUseAddOn.AddColumn((Object)mt.m_OwnUseAddOn.m_Doc_ImageLib, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Image ID", "Slika ID"));
             m_DBTables.DBT.items.Add(t_OwnUseAddOn);
 
             /* 268 */
