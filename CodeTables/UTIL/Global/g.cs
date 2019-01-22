@@ -66,5 +66,14 @@ namespace Global
             }
         }
 
+  
+
+        public static void DataGridCollumnVisible(DataGridView dgv, bool v)
+        {
+            foreach (DataGridViewColumn dgvc in dgv.Columns)
+            {
+                dgvc.Visible = v;
+            }
+        }
     }
 }

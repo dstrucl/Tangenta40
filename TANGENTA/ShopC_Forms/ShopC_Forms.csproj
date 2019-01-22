@@ -539,6 +539,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\CalenderColumn\CalenderColumn.csproj">
+      <Project>{fb790dbd-d8b9-4bb6-933b-5899bb0b645c}</Project>
+      <Name>CalenderColumn</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\ColorSetings\ColorSettings.csproj">
       <Project>{7246E94A-782C-4F4D-B3A4-09B34C9975B6}</Project>
       <Name>ColorSettings</Name>

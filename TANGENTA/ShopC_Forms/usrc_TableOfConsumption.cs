@@ -28,6 +28,7 @@ namespace ShopC_Forms
 {
     public partial class usrc_TableOfConsumption : UserControl
     {
+       
         private LMOUser m_LMOUser = null;
 
         public enum eMode { All, Today, ThisWeek, LastWeek, ThisMonth, LastMonth, ThisYear, LastYear,ForDay, TimeSpan };
@@ -71,6 +72,7 @@ namespace ShopC_Forms
         private int iColIndex_Consumption_IssueDate = -1;
         private int iColIndex_Consumption_Storno = -1;
         private int iColIndex_Consumption_StornoReason = -1;
+        private int idgvxColIndex_IssueDate = -1;
 
 
         private ConsumptionMan consM = null;
@@ -185,6 +187,8 @@ namespace ShopC_Forms
         {
             InitializeComponent();
             ExtensionMethods.DoubleBuffered(this.dgvx_XConsumption, true);
+         
+
             dtStartTime = DateTime.Now;
             dtEndTime = DateTime.Now;
             lbl_From_To.Text = lng.s_AllData.s;
@@ -249,6 +253,8 @@ namespace ShopC_Forms
 
             return iRowsCount;
         }
+
+     
 
         private int Init_Consumption(bool bInvoice, bool bNew, int iFinancialYear)
         {
@@ -404,6 +410,7 @@ namespace ShopC_Forms
             }
 
             sql = @"SELECT 
+            JOURNAL_Consumption_$_jct.Name AS JOURNAL_Consumption_$_jct_$$Name,
             JOURNAL_Consumption_$_cs.FinancialYear AS JOURNAL_Consumption_$_cs_$$FinancialYear,
             JOURNAL_Consumption_$_cs.NumberInFinancialYear AS JOURNAL_Consumption_$_cs_$$NumberInFinancialYear,
             JOURNAL_Consumption_$_cs.Draft AS JOURNAL_Consumption_$_cs_$$Draft,
@@ -439,7 +446,7 @@ namespace ShopC_Forms
             JOURNAL_Consumption_$_cs_$_acur.Symbol AS JOURNAL_Consumption_$_cs_$_acur_$$Symbol,
             JOURNAL_Consumption_$_cs_$_acur.CurrencyCode AS JOURNAL_Consumption_$_cs_$_acur_$$CurrencyCode,
             JOURNAL_Consumption_$_cs_$_acur.DecimalPlaces AS JOURNAL_Consumption_$_cs_$_acur_$$DecimalPlaces,
-            JOURNAL_Consumption_$_jct.Name AS JOURNAL_Consumption_$_jct_$$Name,
+         
             JOURNAL_Consumption_$_jct.Description AS JOURNAL_Consumption_$_jct_$$Description,
 
             JOURNAL_Consumption_$_cs.ID AS JOURNAL_Consumption_$_cs_$$ID,
@@ -498,62 +505,76 @@ namespace ShopC_Forms
                     }
                 }
 
-                    iColIndex_Consumption_Draft = dt_XConsumption.Columns.IndexOf("JOURNAL_Consumption_$_cs_$$Draft");
-                    iColIndex_Consumption_Storno = dt_XConsumption.Columns.IndexOf("JOURNAL_Consumption_$_cs_$$Storno");
-                    //iColIndex_Consumption_StornoReason = dt_XConsumption.Columns.IndexOf("StornoReason");
-                    //iColIndex_Consumption_IssueDate = dt_XConsumption.Columns.IndexOf("IssueDate");
-                    //dgvx_XConsumption.Columns[iColIndex_Consumption_IssueDate].HeaderText = lng.s_IssueDate.s;
-                    //dgvx_XConsumption.Columns[iColIndex_Consumption_StornoReason].HeaderText = lng.s_StornoReason.s;
+                iColIndex_Consumption_Draft = dt_XConsumption.Columns.IndexOf("JOURNAL_Consumption_$_cs_$$Draft");
+                iColIndex_Consumption_Storno = dt_XConsumption.Columns.IndexOf("JOURNAL_Consumption_$_cs_$$Storno");
+
+                //iColIndex_Consumption_StornoReason = dt_XConsumption.Columns.IndexOf("StornoReason");
+                //iColIndex_Consumption_IssueDate = dt_XConsumption.Columns.IndexOf("IssueDate");
+                //dgvx_XConsumption.Columns[iColIndex_Consumption_IssueDate].HeaderText = lng.s_IssueDate.s;
+                //dgvx_XConsumption.Columns[iColIndex_Consumption_StornoReason].HeaderText = lng.s_StornoReason.s;
 
                  
 
                  
 
-                    SetLabels();
-                    SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(JOURNAL_Consumption)));
-                    tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_XConsumption, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
-                    iRowsCount = dt_XConsumption.Rows.Count;
-                    if (!bNew)
+                SetLabels();
+                
+                SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(JOURNAL_Consumption)));
+                tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_XConsumption, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
+                Global.g.DataGridCollumnVisible(dgvx_XConsumption,false);
+
+                dgvx_XConsumption.Columns["JOURNAL_Consumption_$_jct_$$Name"].DisplayIndex = 1;
+                dgvx_XConsumption.Columns["JOURNAL_Consumption_$_jct_$$Name"].Visible = true;
+                if (dgvx_XConsumption.Columns.Contains("IssueDate"))
+                {
+                    idgvxColIndex_IssueDate = dgvx_XConsumption.Columns.IndexOf(dgvx_XConsumption.Columns["IssueDate"]);
+                }
+                else
+                {
+                    DataGridViewColumn dgvc_IssueDate = new CalenderColumn.CalendarColumn();
+                    dgvc_IssueDate.Name = "IssueDate";
+                    idgvxColIndex_IssueDate =dgvx_XConsumption.Columns.Add(dgvc_IssueDate);
+                    dgvx_XConsumption.Columns["IssueDate"].DisplayIndex = 2;
+                    dgvx_XConsumption.Columns["IssueDate"].Visible = true;
+                    dgvx_XConsumption.Columns["IssueDate"].HeaderText = lng.s_IssueDate.s;
+                }
+              
+
+                iRowsCount = dt_XConsumption.Rows.Count;
+                for (int i=0;i< iRowsCount;i++)
+                {
+                    DataRow dr = dt_XConsumption.Rows[i];
+                    DateTime_v IssueDate_WriteOff_v = tf.set_DateTime(dr["IssueDate_WriteOff"]);
+                    if (IssueDate_WriteOff_v != null)
                     {
-                        if (iRowsCount > 0)
+                        dgvx_XConsumption.Rows[i].Cells[idgvxColIndex_IssueDate].Value = IssueDate_WriteOff_v.v;
+                    }
+                    else
+                    {
+                        DateTime_v IssueDate_OwnUse_v = tf.set_DateTime(dr["IssueDate_OwnUse"]);
+                        if (IssueDate_OwnUse_v != null)
                         {
-                            string sdb = DBSync.DBSync.DataBase;
-                            if (sdb != null)
-                            {
-                                if (!TangentaProperties.Properties.Settings.Default.Current_DataBase.Equals(sdb))
-                                {
-                                    TangentaProperties.Properties.Settings.Default.Current_DataBase = sdb;
-                                    //TangentaProperties.Properties.Settings.Default.Current_Consumption_ID = "";
-                                    TangentaProperties.Properties.Settings.Default.Save();
-                                }
-                            }
-                            if (iCurrentSelectedRow >= 0)
-                            {
-                                dgvx_XConsumption.Rows[iCurrentSelectedRow].Selected = true;
-                            }
-                            else if (false /*TangentaProperties.Properties.Settings.Default.Current_Consumption_ID.Length > 0*/)
-                            {
-                                DataRow[] dr_Current = dt_XConsumption.Select("JOURNAL_Consumption_$_cs_$$ID = " /*+ TangentaProperties.Properties.Settings.Default.Current_Consumption_ID*/);
-                                if (dr_Current.Count() > 0)
-                                {
-                                    iCurrentSelectedRow = dt_XConsumption.Rows.IndexOf(dr_Current[0]);
-                                    dgvx_XConsumption.Rows[iCurrentSelectedRow].Selected = true;
-                                }
-                                else
-                                {
-                                    iCurrentSelectedRow = 0;
-                                }
-                            }
-                            else
-                            {
-                                iCurrentSelectedRow = 0;
-                            }
+                            dgvx_XConsumption.Rows[i].Cells[idgvxColIndex_IssueDate].Value = IssueDate_OwnUse_v.v;
                         }
                     }
-                    //bIgnoreChangeSelectionEvent = false;
-                //}
-                //else if (IsOwnUse)
-                //{
+                }
+
+                if (!bNew)
+                {
+                    if (iRowsCount > 0)
+                    {
+                        if (iCurrentSelectedRow >= 0)
+                        {
+                            dgvx_XConsumption.Rows[iCurrentSelectedRow].Selected = true;
+                        }
+                        else
+                        {
+                            iCurrentSelectedRow = 0;
+                        }
+                    }
+                }
+                //bIgnoreChangeSelectionEvent = false;
+               
                 //    iColIndex_Consumption_Draft = dt_XConsumption.Columns.IndexOf("JOURNAL_DocProformaInvoice_$_dpinv_$$Draft");
                 //    iColIndex_Consumption_PaymentType_Identification = dt_XConsumption.Columns.IndexOf("PaymentType_Identification");
                 //    iColIndex_Consumption_PaymentType_Name = dt_XConsumption.Columns.IndexOf("PaymentType_Name");
@@ -604,7 +625,7 @@ namespace ShopC_Forms
                 //            }
                 //        }
                 //    }
-                //    //bIgnoreChangeSelectionEvent = false;
+                //bIgnoreChangeSelectionEvent = false;
                 //}
             }
             else
@@ -638,15 +659,11 @@ namespace ShopC_Forms
         {
             decimal sum = 0;
             int iColDraft = -1;
-            if (IsConsumptionWriteOff)
-            {
-                iColDraft = dt_XConsumption.Columns.IndexOf("JOURNAL_Consumption_$_cs_$$Draft");
-            }
-            else if (IsConsumptionOwnUse)
-            {
-                iColDraft = dt_XConsumption.Columns.IndexOf("JOURNAL_DocProformaInvoice_$_dpinv_$$Draft");
-            }
+           
+            iColDraft = dt_XConsumption.Columns.IndexOf("JOURNAL_Consumption_$_cs_$$Draft");
+          
             int iCol = dt_XConsumption.Columns.IndexOf(ColumnName);
+
             int iCount = dt_XConsumption.Rows.Count;
             int i = 0;
             for (i=0;i<iCount;i++)
@@ -663,73 +680,21 @@ namespace ShopC_Forms
             return sum;
         }
 
-        private void SumPayments(SumPaymentList xSumPaymentList)
-        {
-            int iColDraft = -1;
-            int iCol = -1;
-            int iColPayment = -1;
-            if (IsConsumptionWriteOff)
-            {
-                iColDraft = dt_XConsumption.Columns.IndexOf("JOURNAL_Consumption_$_cs_$$Draft");
-                iCol = dt_XConsumption.Columns.IndexOf("JOURNAL_Consumption_$_cs_$$GrossSum");
-                iColPayment = dt_XConsumption.Columns.IndexOf("PaymentType_Identification");
-            }
-            else if (IsConsumptionOwnUse)
-            {
-                iColDraft = dt_XConsumption.Columns.IndexOf("JOURNAL_DocProformaInvoice_$_dpinv_$$Draft");
-                iCol = dt_XConsumption.Columns.IndexOf("JOURNAL_DocProformaInvoice_$_dpinv_$$GrossSum");
-                iColPayment = dt_XConsumption.Columns.IndexOf("PaymentType_Identification");
-            }
-
-            int iCount = dt_XConsumption.Rows.Count;
-            int i = 0;
-            for (i = 0; i < iCount; i++)
-            {
-                if ((bool)dt_XConsumption.Rows[i][iColDraft])
-                {
-                    continue;
-                }
-                else
-                {
-                    if (dt_XConsumption.Rows[i][iColPayment] is string)
-                    {
-                        xSumPaymentList.Add((decimal)dt_XConsumption.Rows[i][iCol], (string)dt_XConsumption.Rows[i][iColPayment]);
-                    }
-                }
-            }
-        }
 
         private void SetLabels()
         {
             if (dt_XConsumption.Rows.Count>0)
             { 
                 string currency_symbol = GlobalData.BaseCurrency.Symbol;
-                SumPaymentList xSumPaymentList = new SumPaymentList();
-                SumPayments(xSumPaymentList);
-                if (xSumPaymentList.SumPayment_List.Count > 0)
-                {
-                    lbl_Payment1.Text = xSumPaymentList.SumPayment_List[0].PaymentType + " = " + xSumPaymentList.SumPayment_List[0].Sum.ToString() + " " + currency_symbol;
-                }
-                if (xSumPaymentList.SumPayment_List.Count > 1)
-                {
-                    lbl_Payment2.Text = xSumPaymentList.SumPayment_List[1].PaymentType + " = " + xSumPaymentList.SumPayment_List[1].Sum.ToString() + " " + currency_symbol;
-                }
 
                 decimal gross_sum = 0;
                 decimal net_sum = 0;
                 decimal tax_sum = 0;
-                if (IsConsumptionWriteOff)
-                {
-                    gross_sum = Sum("JOURNAL_Consumption_$_cs_$$GrossSum");
-                    net_sum = Sum("JOURNAL_Consumption_$_cs_$$NetSum");
-                    tax_sum = Sum("JOURNAL_Consumption_$_cs_$$TaxSum");
-                }
-                else if (IsConsumptionOwnUse)
-                {
-                    gross_sum = Sum("JOURNAL_DocProformaInvoice_$_dpinv_$$GrossSum");
-                    net_sum = Sum("JOURNAL_DocProformaInvoice_$_dpinv_$$NetSum");
-                    tax_sum = Sum("JOURNAL_DocProformaInvoice_$_dpinv_$$TaxSum");
-                }
+              
+                gross_sum = Sum("JOURNAL_Consumption_$_cs_$$GrossSum");
+                net_sum = Sum("JOURNAL_Consumption_$_cs_$$NetSum");
+                tax_sum = Sum("JOURNAL_Consumption_$_cs_$$TaxSum");
+                
                 lbl_Sum_All.Text = lng.s_Sum_All.s + gross_sum.ToString() + " " + currency_symbol;
                 lbl_Sum_Tax.Text = lng.s_Sum_Tax.s + tax_sum.ToString() + " " + currency_symbol; ;
                 lbl_Sum_WithoutTax.Text = lng.s_Sum_WithoutTax.s + net_sum.ToString() + " " + currency_symbol; 
