@@ -212,13 +212,13 @@ namespace ShopC_Forms
             }
         }
 
-        public bool SetDocument(ID xCurrent_Doc_ID, Transaction transaction)
+        public bool SetDocument(ID xCurrent_Consumption_ID, Transaction transaction)
         {
 
             int iRowsCount = Delegate_control_TableOfDocuments_Init(this, false, true, FinancialYear, null);
 
 
-            if (!Delegate_Control_DocumentEditor_Init(xCurrent_Doc_ID))
+            if (!Delegate_Control_DocumentEditor_Init(xCurrent_Consumption_ID))
             {
                 Cursor_Arrow();
                 return false;

@@ -226,7 +226,7 @@ namespace ShopC_Forms
                           bool bNew,
                           bool bInitialise_usrc_Invoice,
                           int iFinancialYear,
-                          ID Doc_ID_To_show)
+                          ID Consumption_ID_To_show)
         {
             consM = xdocM;
 
@@ -239,17 +239,24 @@ namespace ShopC_Forms
 
             int iRowsCount = -1;
             iRowsCount = Init_Consumption(true, bNew, iFinancialYear);
-            if (bNew)
+            if (iRowsCount>0)
             {
-                ShowOrEditSelectedRow(false);
-            }
-            else
-            {
-                if (ID.Validate(Doc_ID_To_show))
+                if (ID.Validate(Current_Consumption_ID))
                 {
-                    ShowOrEditSelectedRow(Doc_ID_To_show);
+                    ShowOrEditSelectedRow(Current_Consumption_ID);
                 }
             }
+            //if (bNew)
+            //{
+            //    ShowOrEditSelectedRow(false);
+            //}
+            //else
+            //{
+            //    if (ID.Validate(Doc_ID_To_show))
+            //    {
+            //        ShowOrEditSelectedRow(Doc_ID_To_show);
+            //    }
+            //}
 
             return iRowsCount;
         }
@@ -723,25 +730,12 @@ namespace ShopC_Forms
                     if (dgvCellCollection.Count >= 1)
                     {
                         //lbl_test_sender_type.Text = "Count:" + dgvCellCollection.Count.ToString() + " CellType=" + dgvCellCollection[0].GetType().ToString() + " ValueType" + dgvCellCollection[0].Value.GetType().ToString() + " Value=" + dgvCellCollection[0].Value.ToString() + " Column Name = " + dgvCellCollection[0].OwningColumn.Name;
-                        if (IsConsumptionWriteOff)
+                        if (dgvCellCollection[0].OwningRow.Cells["JOURNAL_Consumption_$_cs_$$ID"].Value is long)
                         {
-                            if (dgvCellCollection[0].OwningRow.Cells["JOURNAL_Consumption_$_cs_$$ID"].Value is long)
-                            {
-                                ID Identity = tf.set_ID(dgvCellCollection[0].OwningRow.Cells["JOURNAL_Consumption_$_cs_$$ID"].Value);
-                                this.iCurrentSelectedRow = dgvCellCollection[0].RowIndex;
-                                SelectedInvoiceChanged(Identity, bInitialise);
-                                return;
-                            }
-                        }
-                        else if (IsConsumptionOwnUse)
-                        {
-                            if (dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"].Value is long)
-                            {
-                                ID Identity = tf.set_ID(dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"].Value);
-                                this.iCurrentSelectedRow = dgvCellCollection[0].RowIndex;
-                                SelectedInvoiceChanged(Identity, bInitialise);
-                                return;
-                            }
+                            ID Identity = tf.set_ID(dgvCellCollection[0].OwningRow.Cells["JOURNAL_Consumption_$_cs_$$ID"].Value);
+                            this.iCurrentSelectedRow = dgvCellCollection[0].RowIndex;
+                            SelectedInvoiceChanged(Identity, bInitialise);
+                            return;
                         }
 
                     }
@@ -751,31 +745,17 @@ namespace ShopC_Forms
         }
 
 
-        private void ShowOrEditSelectedRow(ID Doc_ID_to_show)
+        private void ShowOrEditSelectedRow(ID Consumption_ID_to_show)
         {
-            if (ID.Validate(Doc_ID_to_show))
+            if (ID.Validate(Consumption_ID_to_show))
             {
-                if (IsConsumptionWriteOff)
+                DataRow[] drs = dt_XConsumption.Select("JOURNAL_Consumption_$_cs_$$ID = " + Consumption_ID_to_show.ToString());
+                if (drs.Count() > 0)
                 {
-                    DataRow[] drs = dt_XConsumption.Select("JOURNAL_Consumption_$_cs_$$ID = " + Doc_ID_to_show.ToString());
-                    if (drs.Count() > 0)
-                    {
-                        dgvx_XConsumption.ClearSelection();
-                        int iRow = dt_XConsumption.Rows.IndexOf(drs[0]);
-                        dgvx_XConsumption.Rows[iRow].Selected = true;
-                        dgvx_XConsumption.CurrentCell = dgvx_XConsumption.Rows[iRow].Cells[0];
-                    }
-                }
-                else
-                {
-                    DataRow[] drs = dt_XConsumption.Select("JOURNAL_DocProformaInvoice_$_dpinv_$$ID = " + Doc_ID_to_show.ToString());
-                    if (drs.Count() > 0)
-                    {
-                        dgvx_XConsumption.ClearSelection();
-                        int iRow = dt_XConsumption.Rows.IndexOf(drs[0]);
-                        dgvx_XConsumption.Rows[iRow].Selected = true;
-                        dgvx_XConsumption.CurrentCell = dgvx_XConsumption.Rows[iRow].Cells[0];
-                    }
+                    dgvx_XConsumption.ClearSelection();
+                    int iRow = dt_XConsumption.Rows.IndexOf(drs[0]);
+                    dgvx_XConsumption.Rows[iRow].Selected = true;
+                    dgvx_XConsumption.CurrentCell = dgvx_XConsumption.Rows[iRow].Cells[0];
                 }
             }
         }

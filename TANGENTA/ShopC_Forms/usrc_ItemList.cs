@@ -84,12 +84,6 @@ namespace ShopC_Forms
 
         
 
-        private bool m_bExclusivelySellFromStock = false;
-        public bool ExclusivelySellFromStock
-        {
-            get { return m_bExclusivelySellFromStock; }
-            set { m_bExclusivelySellFromStock = value; }
-        }
 
         public string[] s_name_Group = null;
 
@@ -308,18 +302,13 @@ namespace ShopC_Forms
                            ConsumptionEditor xconsE,
                            DBTablesAndColumnNamesOfConsumption xDBtcn, 
                            usrc_ShopC x_usrc_ItemMan,
-                           usrc_Atom_ItemsList x_usrc_Atom_ItemsList,
-                           bool xbExclusivelySellFromStock)
+                           usrc_Atom_ItemsList x_usrc_Atom_ItemsList)
         {
             m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             m_consE = xconsE;
             m_usrc_ItemMan = x_usrc_ItemMan;
             DBtcn = xDBtcn;
-            //            this.m_usrc_Item_Group_Handler.ShopName = lng.s_ShopC_Name.s;
             m_usrc_Atom_ItemsList = x_usrc_Atom_ItemsList;
-            m_bExclusivelySellFromStock = xbExclusivelySellFromStock;
-            //frmplus = new Form_plus();
-            //frmplus.Owner = Global.f.GetParentForm(this);
         }
 
 

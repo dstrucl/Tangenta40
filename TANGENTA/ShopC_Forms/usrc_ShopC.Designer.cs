@@ -49,7 +49,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.m_usrc_ItemList.BackColor = System.Drawing.Color.YellowGreen;
-            this.m_usrc_ItemList.ExclusivelySellFromStock = false;
             this.m_usrc_ItemList.Location = new System.Drawing.Point(360, 0);
             this.m_usrc_ItemList.Margin = new System.Windows.Forms.Padding(4);
             this.m_usrc_ItemList.Name = "m_usrc_ItemList";

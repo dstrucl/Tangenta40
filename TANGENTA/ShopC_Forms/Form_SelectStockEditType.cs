@@ -105,6 +105,13 @@ namespace ShopC_Forms
 
         private void btn_Form_OwnUse_Click(object sender, EventArgs e)
         {
+            if (frm_OwnUse!=null)
+            {
+                if (frm_OwnUse.IsDisposed)
+                {
+                    frm_OwnUse = null;
+                }
+            }
             if (frm_OwnUse==null)
             {
                 frm_OwnUse = new Form_Consumption(lmoUser, financialYear,GlobalData.const_ConsumptionOwnUse);

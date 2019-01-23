@@ -159,9 +159,6 @@ namespace ShopC_Forms
             m_usrc_ShopC.Init(ConsE.m_LMOUser,
                                       ConsE,
                                       ConsE.DBtcn,
-                                      null,
-                                      TangentaProperties.Properties.Settings.Default.AutomaticSelectionOfItemFromStock,
-                                      OperationMode.ShopC_ExclusivelySellFromStock,
                                       this.usrc_Item_selected1);
 
             m_usrc_ShopC.Dock = DockStyle.None;
@@ -289,7 +286,6 @@ namespace ShopC_Forms
             defpos.lbl_Number_Top = lbl_Number.Top;
             defpos.txt_Number_Left= txt_Number.Left;
             defpos.txt_Number_Top = txt_Number.Top;
-            usrc_PriceList xusrc_PriceListB = null;
             usrc_PriceList xusrc_PriceListC = null;
             if (this.m_usrc_ShopC != null)
             {
@@ -469,6 +465,8 @@ namespace ShopC_Forms
                     //m_usrc_ShopB.aa_ItemAdded += usrc_ShopB_ItemAdded;
                     //m_usrc_ShopB.aa_ItemRemoved += usrc_ShopB_ItemRemoved;
                     //m_usrc_ShopB.aa_ItemUpdated += usrc_ShopB_ItemUpdated;
+
+                    m_usrc_ShopC.Init(this.ConsE.m_LMOUser,this.ConsE, this.ConsE.DBtcn, this.usrc_Item_selected1);
 
                     m_usrc_ShopC.CheckAccessPriceList += M_usrcCheckPriceListAccess;
                     m_usrc_ShopC.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;

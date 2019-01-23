@@ -33,8 +33,9 @@ namespace ShopC_Forms
 
         private usrc_ItemList m_usrc_ItemList = null;
 
-
+        
         public ConsumptionEditor ConsE;
+
         private DBTablesAndColumnNamesOfConsumption DBtcn;
 
         public delegate void delegate_After_Atom_Item_Remove();

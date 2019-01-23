@@ -90,7 +90,6 @@ namespace ShopC_Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.m_usrc_ShopC.AutomaticSelectionOfItemsFromStock = true;
             this.m_usrc_ShopC.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.m_usrc_ShopC.ExclusivelySellFromStock = false;
             this.m_usrc_ShopC.Location = new System.Drawing.Point(6, 34);
             this.m_usrc_ShopC.Margin = new System.Windows.Forms.Padding(4);
             this.m_usrc_ShopC.Name = "m_usrc_ShopC";

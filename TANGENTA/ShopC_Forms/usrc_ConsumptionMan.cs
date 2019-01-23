@@ -222,9 +222,9 @@ namespace ShopC_Forms
                  bool bNew,
                  bool bInitialise_usrc_Invoice,
                  int iFinancialYear,
-                 ID Doc_ID_To_show)
+                 ID Consumption_ID_To_show)
         {
-            return this.m_usrc_TableOfConsumption.Init(xdocM, bNew, bInitialise_usrc_Invoice, iFinancialYear, Doc_ID_To_show);
+            return this.m_usrc_TableOfConsumption.Init(xdocM, bNew, bInitialise_usrc_Invoice, iFinancialYear, Consumption_ID_To_show);
         }
 
         private void M_usrc_Invoice_LayoutChanged()
@@ -436,6 +436,7 @@ namespace ShopC_Forms
             SetColor();
 
             //Program.Cursor_Arrow();
+           // this.m_usrc_ConsumptionEditor.Init(ID.Invalid);
             return bRes;
         }
 

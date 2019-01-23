@@ -395,11 +395,11 @@ namespace ShopC_Forms
 
             if (ID.Validate(ID))
             {
-                cond = " where  JOURNAL_Consumption_$_dinv.ID = " + ID.ToString();
+                cond = " where  JOURNAL_Consumption_$_cs.ID = " + ID.ToString();
             }
             else if (bDraft)
             {
-                cond = " where JOURNAL_Consumption_$_dinv.Draft = 1 ";
+                cond = " where JOURNAL_Consumption_$_cs.Draft = 1 ";
             }
             else
             {
@@ -443,45 +443,44 @@ namespace ShopC_Forms
                     JOURNAL_Consumption_$_awperiod_$_amcper_$_aper_$_acln.LastName AS JOURNAL_Consumption_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
                     JOURNAL_Consumption_$_awperiod_$_amcper.Job AS JOURNAL_Consumption_$_awperiod_$_amcper_$$Job,
                     JOURNAL_Consumption_$_awperiod_$_amcper.Description AS JOURNAL_Consumption_$_awperiod_$_amcper_$$Description,
-                    JOURNAL_Consumption_$_dinv.ID AS JOURNAL_Consumption_$_dinv_$$ID,
+                    JOURNAL_Consumption_$_cs.ID AS JOURNAL_Consumption_$_cs_$$ID,
                     JOURNAL_Consumption_$_awperiod_$_amcper.ID AS JOURNAL_Consumption_$_awperiod_$_amcper_$$ID,
-                    JOURNAL_Consumption_$_dinv.FinancialYear AS JOURNAL_Consumption_$_dinv_$$FinancialYear,
-                    JOURNAL_Consumption_$_dinv.NumberInFinancialYear AS JOURNAL_Consumption_$_dinv_$$NumberInFinancialYear,
-                    JOURNAL_Consumption_$_dinv.Draft AS JOURNAL_Consumption_$_dinv_$$Draft,
-                    JOURNAL_Consumption_$_dinv.DraftNumber AS JOURNAL_Consumption_$_dinv_$$DraftNumber,
-                    JOURNAL_Consumption_$_dinv_$_acusper.ID AS JOURNAL_Consumption_$_dinv_$_acusper_$$ID,
-                    JOURNAL_Consumption_$_dinv_$_acusorg.ID AS JOURNAL_Consumption_$_dinv_$_acusorg_$$ID,
-                    JOURNAL_Consumption_$_dinv.NetSum AS JOURNAL_Consumption_$_dinv_$$NetSum,
-                    JOURNAL_Consumption_$_dinv.Discount AS JOURNAL_Consumption_$_dinv_$$Discount,
-                    JOURNAL_Consumption_$_dinv.EndSum AS JOURNAL_Consumption_$_dinv_$$EndSum,
-                    JOURNAL_Consumption_$_dinv.TaxSum AS JOURNAL_Consumption_$_dinv_$$TaxSum,
-                    JOURNAL_Consumption_$_dinv.GrossSum AS JOURNAL_Consumption_$_dinv_$$GrossSum,
+                    JOURNAL_Consumption_$_cs.FinancialYear AS JOURNAL_Consumption_$_cs_$$FinancialYear,
+                    JOURNAL_Consumption_$_cs.NumberInFinancialYear AS JOURNAL_Consumption_$_cs_$$NumberInFinancialYear,
+                    JOURNAL_Consumption_$_cs.Draft AS JOURNAL_Consumption_$_cs_$$Draft,
+                    JOURNAL_Consumption_$_cs.DraftNumber AS JOURNAL_Consumption_$_cs_$$DraftNumber,
+                    JOURNAL_Consumption_$_cs.NetSum AS JOURNAL_Consumption_$_cs_$$NetSum,
+                    JOURNAL_Consumption_$_cs.EndSum AS JOURNAL_Consumption_$_cs_$$EndSum,
+                    JOURNAL_Consumption_$_cs.TaxSum AS JOURNAL_Consumption_$_cs_$$TaxSum,
+                    JOURNAL_Consumption_$_cs.GrossSum AS JOURNAL_Consumption_$_cs_$$GrossSum,
+					woao.IssueDate as IssueDate_WriteOff,
+					wor.Name as WriteOff_ReasonName,
+					wor.Description as WriteOff_ReasonDescription,
+					ouao.IssueDate as IssueDate_OwnUse,
+					our.Name as OwnUse_ReasonName,
+					our.Description as OwnUse_ReasonDescription,
                     acur.ID as Atom_Currency_ID,
                     acur.Name as CurrencyName,
                     acur.Abbreviation as CurrencyAbbreviation,
                     acur.Symbol as CurrencySymbol,
                     acur.CurrencyCode as CurrencyCode,
                     acur.DecimalPlaces as CurrencyDecimalPlaces,
-                    diao.Atom_Warranty_ID,
-                    aw.WarrantyDurationType,
-                    aw.WarrantyDuration,
-                    aw.WarrantyConditions,
-                    diao.TermsOfPayment_ID,
-                    diao.PaymentDeadline,
-                    mtpdi.ID as MethodOfPayment_DI_ID,
-                    pt.Identification as PaymentType_Identification,
-                    JOURNAL_Consumption_$_dinv.Paid AS JOURNAL_Consumption_$_dinv_$$Paid,
-                    JOURNAL_Consumption_$_dinv.Storno AS JOURNAL_Consumption_$_dinv_$$Storno,
-                    JOURNAL_Consumption_$_dinv.Invoice_Reference_ID AS JOURNAL_Consumption_$_dinv_$$Invoice_Reference_ID,
-                    JOURNAL_Consumption_$_dinv.Invoice_Reference_Type AS JOURNAL_Consumption_$_dinv_$$Invoice_Reference_Type,
+                    JOURNAL_Consumption_$_cs.Storno AS JOURNAL_Consumption_$_cs_$$Storno,
+                    JOURNAL_Consumption_$_cs.Consumption_Reference_ID AS JOURNAL_Consumption_$_cs_$$Consumption_Reference_ID,
+                    JOURNAL_Consumption_$_cs.Consumption_Reference_Type AS JOURNAL_Consumption_$_cs_$$Consumption_Reference_Type,
                     JOURNAL_Consumption.EventTime
                     FROM JOURNAL_Consumption 
-                    INNER JOIN JOURNAL_Consumption_Type JOURNAL_Consumption_$_jpinvt ON JOURNAL_Consumption.JOURNAL_Consumption_Type_ID = JOURNAL_Consumption_$_jpinvt.ID
-                    LEFT JOIN Consumption JOURNAL_Consumption_$_dinv ON JOURNAL_Consumption.Consumption_ID = JOURNAL_Consumption_$_dinv.ID 
-                                                                        and (((JOURNAL_Consumption_$_jpinvt.Name='InvoiceDraftTime') and (JOURNAL_Consumption_$_dinv.Draft=1))
-                                                                            or(((JOURNAL_Consumption_$_jpinvt.Name='InvoiceTime') or  (JOURNAL_Consumption_$_jpinvt.Name='InvoiceStornoTime')or  (JOURNAL_Consumption_$_jpinvt.Name='Storno*'))
-                                                                                and (JOURNAL_Consumption_$_dinv.Draft=0)))
-                    INNER JOIN Atom_Currency acur ON acur.ID = JOURNAL_Consumption_$_dinv.Atom_Currency_ID
+                    INNER JOIN JOURNAL_Consumption_Type JOURNAL_Consumption_$_cst ON JOURNAL_Consumption.JOURNAL_Consumption_Type_ID = JOURNAL_Consumption_$_cst.ID
+                    LEFT JOIN Consumption JOURNAL_Consumption_$_cs ON JOURNAL_Consumption.Consumption_ID = JOURNAL_Consumption_$_cs.ID 
+                                                                        and ((((JOURNAL_Consumption_$_cst.Name='ConsumptionOwnUseDraftTime')or(JOURNAL_Consumption_$_cst.Name='ConsumptionWriteOffDraftTime')) and (JOURNAL_Consumption_$_cs.Draft=1))
+																		
+                                                                            or(((JOURNAL_Consumption_$_cst.Name='ConsumptionOwnUseTime') 
+																			or (JOURNAL_Consumption_$_cst.Name='ConsumptionWriteOffTime') 
+																			or (JOURNAL_Consumption_$_cst.Name='ConsumptionOwnUseStornoTime')
+																			or (JOURNAL_Consumption_$_cst.Name='ConsumptionWriteOffDraftTimeStornoTime')
+																			or  (JOURNAL_Consumption_$_cst.Name='Storno*'))
+                                                                                and (JOURNAL_Consumption_$_cs.Draft=0)))
+                    INNER JOIN Atom_Currency acur ON acur.ID = JOURNAL_Consumption_$_cs.Atom_Currency_ID
                     LEFT JOIN Atom_WorkPeriod JOURNAL_Consumption_$_awperiod ON JOURNAL_Consumption.Atom_WorkPeriod_ID = JOURNAL_Consumption_$_awperiod.ID
                     LEFT JOIN Atom_ElectronicDevice JOURNAL_Consumption_$_awperiod_$_aed ON JOURNAL_Consumption_$_awperiod.Atom_ElectronicDevice_ID = JOURNAL_Consumption_$_awperiod_$_aed.ID
                     Left JOIN Atom_Office JOURNAL_Consumption_$_awperiod_$_aed_$_aoffice ON JOURNAL_Consumption_$_awperiod_$_aed.Atom_Office_ID = JOURNAL_Consumption_$_awperiod_$_aed_$_aoffice.ID
@@ -490,17 +489,10 @@ namespace ShopC_Forms
                     LEFT JOIN Atom_Person JOURNAL_Consumption_$_awperiod_$_amcper_$_aper ON JOURNAL_Consumption_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_Consumption_$_awperiod_$_amcper_$_aper.ID
                     LEFT JOIN Atom_cFirstName JOURNAL_Consumption_$_awperiod_$_amcper_$_aper_$_acfn ON JOURNAL_Consumption_$_awperiod_$_amcper_$_aper.Atom_cFirstName_ID = JOURNAL_Consumption_$_awperiod_$_amcper_$_aper_$_acfn.ID
                     LEFT JOIN Atom_cLastName JOURNAL_Consumption_$_awperiod_$_amcper_$_aper_$_acln ON JOURNAL_Consumption_$_awperiod_$_amcper_$_aper.Atom_cLastName_ID = JOURNAL_Consumption_$_awperiod_$_amcper_$_aper_$_acln.ID
-                    LEFT JOIN Atom_Customer_Person JOURNAL_Consumption_$_dinv_$_acusper ON JOURNAL_Consumption_$_dinv.Atom_Customer_Person_ID = JOURNAL_Consumption_$_dinv_$_acusper.ID
-                    LEFT JOIN Atom_Person JOURNAL_Consumption_$_dinv_$_acusper_$_aper ON JOURNAL_Consumption_$_dinv_$_acusper.Atom_Person_ID = JOURNAL_Consumption_$_dinv_$_acusper_$_aper.ID
-                    LEFT JOIN Atom_cFirstName JOURNAL_Consumption_$_dinv_$_acusper_$_aper_$_acfn ON JOURNAL_Consumption_$_dinv_$_acusper_$_aper.Atom_cFirstName_ID = JOURNAL_Consumption_$_dinv_$_acusper_$_aper_$_acfn.ID
-                    LEFT JOIN Atom_cLastName JOURNAL_Consumption_$_dinv_$_acusper_$_aper_$_acln ON JOURNAL_Consumption_$_dinv_$_acusper_$_aper.Atom_cLastName_ID = JOURNAL_Consumption_$_dinv_$_acusper_$_aper_$_acln.ID
-                    LEFT JOIN Atom_Customer_Org JOURNAL_Consumption_$_dinv_$_acusorg ON JOURNAL_Consumption_$_dinv.Atom_Customer_Org_ID = JOURNAL_Consumption_$_dinv_$_acusorg.ID
-                    LEFT JOIN Atom_Organisation JOURNAL_Consumption_$_dinv_$_acusorg_$_aorg ON JOURNAL_Consumption_$_dinv_$_acusorg.Atom_Organisation_ID = JOURNAL_Consumption_$_dinv_$_acusorg_$_aorg.ID
-					left join ConsumptionAddOn diao on diao.Consumption_ID = JOURNAL_Consumption_$_dinv.ID
-                    left join TermsOfPayment topay on diao.TermsOfPayment_ID = topay.id
-                    left join MethodOfPayment_DI mtpdi on diao.MethodOfPayment_DI_ID = mtpdi.id
-                    left join PaymentType pt on mtpdi.PaymentType_ID = pt.ID
-                    left join Atom_Warranty aw on diao.Atom_Warranty_ID = aw.ID
+                    left join WriteOffAddOn woao on woao.Consumption_ID = JOURNAL_Consumption_$_cs.ID
+					left join WriteOffReason wor on wor.ID = woao.WriteOffReason_ID
+					left join OwnUseAddOn ouao on ouao.Consumption_ID = JOURNAL_Consumption_$_cs.ID
+					left join OwnUseReason our on our.ID = ouao.OwnUseReason_ID
                     " + cond;
 
 
@@ -515,8 +507,8 @@ namespace ShopC_Forms
                 if (m_CurrentConsumption.dtCurrent_Invoice.Rows.Count > 0)
                 {
                     m_CurrentConsumption.Exist = true;
-                    m_CurrentConsumption.bDraft = (bool)m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_dinv_$$Draft"];
-                    m_CurrentConsumption.Doc_ID = tf.set_ID(m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_dinv_$$ID"]);
+                    m_CurrentConsumption.bDraft = (bool)m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$Draft"];
+                    m_CurrentConsumption.Doc_ID = tf.set_ID(m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$ID"]);
                     m_CurrentConsumption.EventTime = (DateTime)m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["EventTime"];
 
                     if (m_CurrentConsumption.Atom_Currency_ID == null)
@@ -536,18 +528,15 @@ namespace ShopC_Forms
                     m_CurrentConsumption.Currency.CurrencyCode = (int)m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["CurrencyCode"];
                     m_CurrentConsumption.Currency.DecimalPlaces = (int)m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["CurrencyDecimalPlaces"];
 
-                    m_CurrentConsumption.TInvoice.StornoConsumption_ID = tf.set_ID(m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_dinv_$$Invoice_Reference_ID"]);
+                    m_CurrentConsumption.TInvoice.StornoConsumption_ID = tf.set_ID(m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$Consumption_Reference_ID"]);
 
-                    m_CurrentConsumption.TInvoice.Invoice_Reference_Type_v = tf.set_string(m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_dinv_$$Invoice_Reference_Type"]);
-                    m_CurrentConsumption.TInvoice.bStorno_v = tf.set_bool(m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_dinv_$$Storno"]);
+                    m_CurrentConsumption.TInvoice.Invoice_Reference_Type_v = tf.set_string(m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$Consumption_Reference_Type"]);
+                    m_CurrentConsumption.TInvoice.bStorno_v = tf.set_bool(m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$Storno"]);
 
-                    m_CurrentConsumption.FinancialYear = (int)m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_dinv_$$FinancialYear"];
+                    m_CurrentConsumption.FinancialYear = (int)m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$FinancialYear"];
 
-                    m_CurrentConsumption.Atom_Customer_Person_ID = tf.set_ID(m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_dinv_$_acusper_$$ID"]);
-
-                    m_CurrentConsumption.Atom_Customer_Org_ID = tf.set_ID(m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_dinv_$_acusorg_$$ID"]);
-
-                    object oNumberInFinancialYear = m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_dinv_$$NumberInFinancialYear"];
+             
+                    object oNumberInFinancialYear = m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$NumberInFinancialYear"];
                     if (oNumberInFinancialYear is int)
                     {
                         m_CurrentConsumption.NumberInFinancialYear = (int)oNumberInFinancialYear;
@@ -557,12 +546,12 @@ namespace ShopC_Forms
                         m_CurrentConsumption.NumberInFinancialYear = -1;
                     }
 
-                    m_CurrentConsumption.DraftNumber = (int)m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_dinv_$$DraftNumber"];
+                    m_CurrentConsumption.DraftNumber = (int)m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$DraftNumber"];
 
                     ID xConsumption_ID = m_CurrentConsumption.Doc_ID;
                     if (m_CurrentConsumption.TInvoice.StornoConsumption_ID != null)
                     {
-                        decimal_v dGrossSum_v = tf.set_decimal(m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_dinv_$$GrossSum"]);
+                        decimal_v dGrossSum_v = tf.set_decimal(m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$GrossSum"]);
                         if (dGrossSum_v != null)
                         {
                             if (dGrossSum_v.v < 0)
@@ -1254,34 +1243,7 @@ namespace ShopC_Forms
 
         
 
-        public void Customer_Person_Changed(ID Customer_Person_ID,
-                                            delegate_control_usrc_Customer_Show_Customer_Person xdelegate_control_usrc_Customer_Show_Customer_Person,
-                                            delegate_Customer_Person_Changed xdelegate_Customer_Person_Changed
-                                            )
-        {
-            ID Atom_Customer_Person_ID = null;
-            Transaction transaction_Customer_Person_Changed = DBSync.DBSync.NewTransaction("Customer_Person_Changed");
-            if (m_CurrentConsumption.Update_Customer_Person(DocTyp, Customer_Person_ID, ref Atom_Customer_Person_ID, transaction_Customer_Person_Changed))
-            {
-                if (ID.Validate(Atom_Customer_Person_ID))
-                {
-                    if (!transaction_Customer_Person_Changed.Commit())
-                    {
-                        return;
-                    }
-                    //xdelegate_control_usrc_Customer_Show_Customer_Person(m_CurrentConsumption);// usrc_Customer.Show_Customer_Person(m_ShopABC.m_CurrentConsumption);
-                    //xdelegate_Customer_Person_Changed(Customer_Person_ID);
-                }
-                else
-                {
-                    transaction_Customer_Person_Changed.Rollback();
-                }
-            }
-            else
-            {
-                transaction_Customer_Person_Changed.Rollback();
-            }
-        }
+       
 
         public bool Storno_CheckedChanged(Form pform,
                                             bool chk_Storno_Checked,

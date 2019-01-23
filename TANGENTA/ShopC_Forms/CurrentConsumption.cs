@@ -82,8 +82,8 @@ namespace ShopC_Forms
         public CurrentConsumption.ProformaInvoice PInvoice = new CurrentConsumption.ProformaInvoice();
 
 
-        public ID Atom_Customer_Person_ID = null;
-        public ID Atom_Customer_Org_ID = null;
+        //public ID Atom_Customer_Person_ID = null;
+        //public ID Atom_Customer_Org_ID = null;
         public bool bDraft = true;
         public bool m_Exist = false;
         public bool Exist
@@ -305,22 +305,7 @@ namespace ShopC_Forms
             }
         }
 
-        public bool Update_Customer_Remove(string xDocTyp, Transaction transaction)
-        {
-            string sql = "update "+ xDocTyp + " set Atom_Customer_Org_ID = null,Atom_Customer_Person_ID = null where ID = " + this.Doc_ID.ToString();
-            string Err = null;
-            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
-            {
-                this.Atom_Customer_Org_ID = null;
-                this.Atom_Customer_Person_ID = null;
-                return true;
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:CurrentInvoice:Update_Customer_Remove:\r\nsql=" + sql + "\r\nErr=" + Err);
-                return false;
-            }
-        }
+      
 
 
         public bool Remove_usrc_Atom_Item_Factory_Items(Transaction transaction)
@@ -494,58 +479,9 @@ namespace ShopC_Forms
             return GetNewNumberInFinancialYear(xDocTyp, ElectronicDevice_Name,ref NumberInFinancialYear);
         }
 
-        public bool Update_Customer_Person(string xDocTyp, ID Customer_Person_ID, ref ID xAtom_Customer_Person_ID, Transaction transaction)
-        {
-            if (f_Atom_Customer_Person.Get(Customer_Person_ID, ref xAtom_Customer_Person_ID, transaction))
-            {
-                if (ID.Validate(xAtom_Customer_Person_ID))
-                {
-                    string sql = "update "+xDocTyp+" set Atom_Customer_Person_ID = " + xAtom_Customer_Person_ID.ToString() + ",Atom_Customer_Org_ID = null where ID = " + this.Doc_ID.ToString();
-                    string Err = null;
-                    if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
-                    {
-                        if (Atom_Customer_Person_ID == null)
-                        {
-                            Atom_Customer_Person_ID = new ID();
-                        }
-                        Atom_Customer_Person_ID = xAtom_Customer_Person_ID;
-                        Atom_Customer_Org_ID = null;
-                        return true;
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:CurrentInvoice:Update_Customer_Person:\r\nsql=" + sql + "\r\nErr=" + Err);
-                    }
-                }
-            }
-            return false;
-        }
+    
 
-        public bool Update_Customer_Org(string xDocTyp,ID Customer_Org_ID, ref ID xAtom_Customer_Org_ID, Transaction transaction)
-        {
-            if (f_Atom_Customer_Org.Get(Customer_Org_ID, ref xAtom_Customer_Org_ID, transaction))
-            {
-                if (ID.Validate(xAtom_Customer_Org_ID))
-                {
-                    string sql = "update "+xDocTyp+" set Atom_Customer_Org_ID = " + xAtom_Customer_Org_ID.ToString() + ",Atom_Customer_Person_ID = null where ID = " + this.Doc_ID.ToString();
-                    string Err = null;
-                    if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null, ref Err))
-                    {
-                        if (Atom_Customer_Org_ID == null)
-                        {
-                            Atom_Customer_Org_ID = new ID();
-                        }
-                        Atom_Customer_Org_ID.Set(xAtom_Customer_Org_ID);
-                        return true;
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:CurrentInvoice:Update_Customer_Org:\r\nsql=" + sql + "\r\nErr=" + Err);
-                    }
-                }
-            }
-            return false;
-        }
+        
 
 
 

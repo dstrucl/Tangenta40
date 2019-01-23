@@ -95,28 +95,7 @@ namespace ShopC_Forms
         }
 
 
-        private bool m_bExclusivelySellFromStock = false;
-        public bool ExclusivelySellFromStock
-        {
-            get { return m_bExclusivelySellFromStock; }
-            set { m_bExclusivelySellFromStock = value; }
-        }
 
-
-        //public int NumberOfGroupLevels
-        //{
-        //    get
-        //    {
-        //        if (this.usrc_ItemList != null)
-        //        {
-        //           // return usrc_ItemList.NumberOfGroupLevels;
-        //        }
-        //        else
-        //        {
-        //            return 0;
-        //        }
-        //    }
-        //}
 
 
         public usrc_ShopC()
@@ -158,14 +137,10 @@ namespace ShopC_Forms
         public void Init(LoginControl.LMOUser xlmoUser,
                         ConsumptionEditor x_consE,
                         DBTablesAndColumnNamesOfConsumption xDBtcn,
-                        string ShopsInUse,
-                        bool bAutomaticSelectionOfItemFromStock,
-                        bool bExclusivelySellFromStock,
                         usrc_Item_selected x_usrc_Item_selected)
 
         {
             lmoUser = xlmoUser;
-            m_bExclusivelySellFromStock = bExclusivelySellFromStock;
             m_ConsumptionEditor = x_consE;
             DBtcn = xDBtcn;
             m_usrc_Item_selected = x_usrc_Item_selected;
@@ -179,7 +154,7 @@ namespace ShopC_Forms
             lng.s_ShopC_Name.Text(lbl_ShopC_Name);
             lbl_ShopC_Name.Visible = true;
             this.m_usrc_Atom_ItemsList.Init(lmoUser.Atom_WorkPeriod_ID,m_usrc_ItemList, x_consE, xDBtcn);
-            this.m_usrc_ItemList.Init(lmoUser.Atom_WorkPeriod_ID, x_consE, xDBtcn, this,m_usrc_Atom_ItemsList, m_bExclusivelySellFromStock);
+            this.m_usrc_ItemList.Init(lmoUser.Atom_WorkPeriod_ID, x_consE, xDBtcn, this,m_usrc_Atom_ItemsList);
 
             this.m_usrc_ItemList.ItemAdded += new usrc_ItemList.delegate_ItemAdded(usrc_ItemList_ItemAdded);
             this.m_usrc_Atom_ItemsList.After_Atom_Item_Remove += new usrc_Atom_ItemsList.delegate_After_Atom_Item_Remove(usrc_Atom_ItemsList_After_Atom_Item_Remove);
@@ -275,7 +250,7 @@ namespace ShopC_Forms
 
         public void Reset()
         {
-            //this.usrc_ItemList.Reset();
+            //this.m_usrc_ItemList.Reset();
         }
 
         public void Clear()
