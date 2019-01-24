@@ -643,23 +643,23 @@ namespace ShopC_Forms
                 ConsumptionType xConsumptionType = (ConsumptionType)cmb_ConsumptionType.SelectedItem;
                 ConsM.ConsumptionTyp = xConsumptionType.Typ;
 
-                ID xAtom_Currency_ID = null;
-                Transaction transaction_usrc_ConsumptionMan_New_Empty_Consumption_f_Atom_Currency_Get = DBSync.DBSync.NewTransaction("usrc_ConsumptionMan.New_Empty_Consumption.f_Atom_Currency.Get");
-                if (f_Atom_Currency.Get(GlobalData.BaseCurrency.ID, ref xAtom_Currency_ID, transaction_usrc_ConsumptionMan_New_Empty_Consumption_f_Atom_Currency_Get))
-                {
-                    transaction_usrc_ConsumptionMan_New_Empty_Consumption_f_Atom_Currency_Get.Commit();
-                }
-                else
-                {
-                    transaction_usrc_ConsumptionMan_New_Empty_Consumption_f_Atom_Currency_Get.Rollback();
-                }
+                //ID xAtom_Currency_ID = null;
+                //Transaction transaction_usrc_ConsumptionMan_New_Empty_Consumption_f_Atom_Currency_Get = DBSync.DBSync.NewTransaction("usrc_ConsumptionMan.New_Empty_Consumption.f_Atom_Currency.Get");
+                //if (f_Atom_Currency.Get(GlobalData.BaseCurrency.ID, ref xAtom_Currency_ID, transaction_usrc_ConsumptionMan_New_Empty_Consumption_f_Atom_Currency_Get))
+                //{
+                //    transaction_usrc_ConsumptionMan_New_Empty_Consumption_f_Atom_Currency_Get.Commit();
+                //}
+                //else
+                //{
+                //    transaction_usrc_ConsumptionMan_New_Empty_Consumption_f_Atom_Currency_Get.Rollback();
+                //}
 
-                m_usrc_ConsumptionEditor.SetNewDraft(ConsM.m_LMOUser,
-                                                     ConsM.ConsumptionTyp,
-                                                     xeConsumptionType,
-                                                     ConsM.FinancialYear,
-                                                     GlobalData.BaseCurrency, 
-                                                     xAtom_Currency_ID);
+                //m_usrc_ConsumptionEditor.SetNewDraft(ConsM.m_LMOUser,
+                //                                     ConsM.ConsumptionTyp,
+                //                                     xeConsumptionType,
+                //                                     ConsM.FinancialYear,
+                //                                     GlobalData.BaseCurrency, 
+                //                                     xAtom_Currency_ID);
 
                 //    if (cmb_FinancialYear.SelectedItem is System.Data.DataRowView)
                 //    {

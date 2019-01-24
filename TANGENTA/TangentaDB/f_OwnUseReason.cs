@@ -53,14 +53,14 @@ namespace TangentaDB
             }
 
             string sql = @"select ID, Description from OwnUseReason
-                                                where " + scond_Name+ " and "+ scond_Description;
+                                                where " + scond_Name;
 
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
                     ownUseReason_ID = tf.set_ID(dt.Rows[0]["ID"]);
-                    string ownUseReasonDescription = tf._set_string(dt.Rows[0]["ID"]);
+                    string ownUseReasonDescription = tf._set_string(dt.Rows[0]["Description"]);
                     if ((ownUseReasonDescription == null) && (description == null))
                     {
                         return true;
@@ -126,10 +126,9 @@ namespace TangentaDB
                 dtOwnUseReason.Dispose();
                 dtOwnUseReason = null;
             }
-            else
-            {
-                dtOwnUseReason = new DataTable();
-            }
+            
+            dtOwnUseReason = new DataTable();
+            
 
             if (DBSync.DBSync.ReadDataTable(ref dtOwnUseReason, sql,  ref Err))
             {

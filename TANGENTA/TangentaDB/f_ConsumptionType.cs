@@ -60,7 +60,7 @@ namespace TangentaDB
                 if (dt.Rows.Count > 0)
                 {
                     consumptionType_ID = tf.set_ID(dt.Rows[0]["ID"]);
-                    string ownUseReasonDescription = tf._set_string(dt.Rows[0]["ID"]);
+                    string ownUseReasonDescription = tf._set_string(dt.Rows[0]["Description"]);
                     if ((ownUseReasonDescription == null) && (description == null))
                     {
                         return true;

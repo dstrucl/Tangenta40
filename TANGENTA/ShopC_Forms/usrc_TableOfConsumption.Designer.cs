@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_TableOfConsumption));
             this.lbl_From_To = new System.Windows.Forms.Label();
             this.lbl_Sum_All = new System.Windows.Forms.Label();
             this.lbl_Sum_WithoutTax = new System.Windows.Forms.Label();
@@ -78,7 +79,7 @@
             this.lbl_Sum_Tax.TabIndex = 5;
             this.lbl_Sum_Tax.Text = "Sum Tax";
             // 
-            // dgvx_XInvoice
+            // dgvx_XConsumption
             // 
             this.dgvx_XConsumption.AllowUserToAddRows = false;
             this.dgvx_XConsumption.AllowUserToDeleteRows = false;
@@ -98,7 +99,6 @@
             this.dgvx_XConsumption.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvx_XConsumption.Location = new System.Drawing.Point(4, 59);
             this.dgvx_XConsumption.Name = "dgvx_XConsumption";
-            this.dgvx_XConsumption.ReadOnly = true;
             this.dgvx_XConsumption.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvx_XConsumption.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvx_XConsumption.Size = new System.Drawing.Size(826, 544);
@@ -129,7 +129,7 @@
             // 
             this.btn_Print.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Print.CausesValidation = false;
-            this.btn_Print.Image = TangentaResources.Properties.Resources.Print;
+            this.btn_Print.Image = ((System.Drawing.Image)(resources.GetObject("btn_Print.Image")));
             this.btn_Print.Location = new System.Drawing.Point(65, 4);
             this.btn_Print.Name = "btn_Print";
             this.btn_Print.Size = new System.Drawing.Size(55, 51);
@@ -140,7 +140,7 @@
             // btn_TimeSpan
             // 
             this.btn_TimeSpan.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_TimeSpan.Image = TangentaResources.Properties.Resources.TimeSpan;
+            this.btn_TimeSpan.Image = ((System.Drawing.Image)(resources.GetObject("btn_TimeSpan.Image")));
             this.btn_TimeSpan.Location = new System.Drawing.Point(3, 4);
             this.btn_TimeSpan.Name = "btn_TimeSpan";
             this.btn_TimeSpan.Size = new System.Drawing.Size(55, 51);
@@ -157,7 +157,7 @@
             this.lbl_SelectionDescription.TabIndex = 9;
             this.lbl_SelectionDescription.Text = "Selection Description: All invoices or invoices of single user";
             // 
-            // usrc_TableOfDocuments
+            // usrc_TableOfConsumption
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.Controls.Add(this.lbl_SelectionDescription);
@@ -170,7 +170,7 @@
             this.Controls.Add(this.btn_TimeSpan);
             this.Controls.Add(this.lbl_From_To);
             this.Controls.Add(this.dgvx_XConsumption);
-            this.Name = "usrc_TableOfDocuments";
+            this.Name = "usrc_TableOfConsumption";
             this.Size = new System.Drawing.Size(831, 604);
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_XConsumption)).EndInit();
             this.ResumeLayout(false);

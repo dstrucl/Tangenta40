@@ -35,7 +35,7 @@ namespace CalenderColumn
             : base()
         {
             // Use the short date format.
-            this.Style.Format = "d";
+            this.Style.Format = "dd.MM.yyyy hh:mm:ss";
         }
 
         public override void InitializeEditingControl(int rowIndex, object
@@ -94,7 +94,8 @@ namespace CalenderColumn
 
         public CalendarEditingControl()
         {
-            this.Format = DateTimePickerFormat.Short;
+            this.Format = DateTimePickerFormat.Custom;
+            this.CustomFormat = "dd.MM.yyyy hh:mm:ss";
         }
 
         // Implements the IDataGridViewEditingControl.EditingControlFormattedValue 

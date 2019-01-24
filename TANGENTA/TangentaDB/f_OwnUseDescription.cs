@@ -59,16 +59,16 @@ namespace TangentaDB
                 if (dt.Rows.Count > 0)
                 {
                     ownUseDescription_ID = tf.set_ID(dt.Rows[0]["ID"]);
-                    string ownUseReasonDescription = tf._set_string(dt.Rows[0]["ID"]);
-                    if ((ownUseReasonDescription == null) && (description == null))
+                    string ownUseDescriptionDescription = tf._set_string(dt.Rows[0]["Description"]);
+                    if ((ownUseDescriptionDescription == null) && (description == null))
                     {
                         return true;
                     }
                     else
                     {
-                        if ((ownUseReasonDescription != null) && (description != null))
+                        if ((ownUseDescriptionDescription != null) && (description != null))
                         {
-                            if (ownUseReasonDescription.Equals(description))
+                            if (ownUseDescriptionDescription.Equals(description))
                             {
                                 return true;
                             }

@@ -417,7 +417,9 @@ namespace ShopC_Forms
             }
 
             sql = @"SELECT 
-            JOURNAL_Consumption_$_jct.Name AS JOURNAL_Consumption_$_jct_$$Name,
+
+            JOURNAL_Consumption_$_cs_$_cst.Name AS JOURNAL_Consumption_$_cs_$_cst_$$Name,
+            JOURNAL_Consumption_$_cs_$_cst.Description AS JOURNAL_Consumption_$_cs_$_cst_$$Description,
             JOURNAL_Consumption_$_cs.FinancialYear AS JOURNAL_Consumption_$_cs_$$FinancialYear,
             JOURNAL_Consumption_$_cs.NumberInFinancialYear AS JOURNAL_Consumption_$_cs_$$NumberInFinancialYear,
             JOURNAL_Consumption_$_cs.Draft AS JOURNAL_Consumption_$_cs_$$Draft,
@@ -454,6 +456,7 @@ namespace ShopC_Forms
             JOURNAL_Consumption_$_cs_$_acur.CurrencyCode AS JOURNAL_Consumption_$_cs_$_acur_$$CurrencyCode,
             JOURNAL_Consumption_$_cs_$_acur.DecimalPlaces AS JOURNAL_Consumption_$_cs_$_acur_$$DecimalPlaces,
          
+            JOURNAL_Consumption_$_jct.Name AS JOURNAL_Consumption_$_jct_$$Name,
             JOURNAL_Consumption_$_jct.Description AS JOURNAL_Consumption_$_jct_$$Description,
 
             JOURNAL_Consumption_$_cs.ID AS JOURNAL_Consumption_$_cs_$$ID,
@@ -529,9 +532,10 @@ namespace ShopC_Forms
                 SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(JOURNAL_Consumption)));
                 tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_XConsumption, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
                 Global.g.DataGridCollumnVisible(dgvx_XConsumption,false);
-
-                dgvx_XConsumption.Columns["JOURNAL_Consumption_$_jct_$$Name"].DisplayIndex = 1;
-                dgvx_XConsumption.Columns["JOURNAL_Consumption_$_jct_$$Name"].Visible = true;
+                DataGridViewColumn dgvc_ConsumptionType_Name = dgvx_XConsumption.Columns["JOURNAL_Consumption_$_cs_$_cst_$$Name"];
+                dgvc_ConsumptionType_Name.DisplayIndex = 1;
+                dgvc_ConsumptionType_Name.Visible = true;
+                dgvc_ConsumptionType_Name.ReadOnly = true;
                 if (dgvx_XConsumption.Columns.Contains("IssueDate"))
                 {
                     idgvxColIndex_IssueDate = dgvx_XConsumption.Columns.IndexOf(dgvx_XConsumption.Columns["IssueDate"]);
@@ -541,11 +545,17 @@ namespace ShopC_Forms
                     DataGridViewColumn dgvc_IssueDate = new CalenderColumn.CalendarColumn();
                     dgvc_IssueDate.Name = "IssueDate";
                     idgvxColIndex_IssueDate =dgvx_XConsumption.Columns.Add(dgvc_IssueDate);
-                    dgvx_XConsumption.Columns["IssueDate"].DisplayIndex = 2;
-                    dgvx_XConsumption.Columns["IssueDate"].Visible = true;
-                    dgvx_XConsumption.Columns["IssueDate"].HeaderText = lng.s_IssueDate.s;
+                    DataGridViewColumn dgvxc_IssueDate = dgvx_XConsumption.Columns["IssueDate"];
+                    dgvxc_IssueDate.DisplayIndex = 2;
+                    dgvxc_IssueDate.Visible = true;
+                    dgvxc_IssueDate.HeaderText = lng.s_IssueDate.s;
+                    dgvxc_IssueDate.ReadOnly = false;
                 }
-              
+
+                DataGridViewColumn dgvxc_DraftNumber = dgvx_XConsumption.Columns["JOURNAL_Consumption_$_cs_$$DraftNumber"];
+                dgvxc_DraftNumber.DisplayIndex = 3;
+                dgvxc_DraftNumber.Visible = true;
+                dgvxc_DraftNumber.ReadOnly = true;
 
                 iRowsCount = dt_XConsumption.Rows.Count;
                 for (int i=0;i< iRowsCount;i++)
@@ -972,14 +982,9 @@ namespace ShopC_Forms
                 {
                     //Record the unique value from the column called "Name"
                     string cellid = null;
-                    if (IsConsumptionWriteOff)
-                    {
-                        cellid = "JOURNAL_Consumption_$_cs_$$ID";
-                    }
-                    else
-                    {
-                        cellid = "JOURNAL_DocProformaInvoice_$_dpinv_$$ID";
-                    }
+                  
+                    cellid = "JOURNAL_Consumption_$_cs_$$ID";
+                   
                     dgSortingSelectedItem_ID = (long)dgvx_XConsumption.SelectedRows[0].Cells[cellid].Value;
                 }
             }
