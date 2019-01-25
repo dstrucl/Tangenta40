@@ -23,15 +23,15 @@ using ShopC_Forms;
 
 namespace ShopC_Forms
 {
-    public partial class usrc_Atom_ItemsList : UserControl
+    public partial class usrc_Atom_CItemsList : UserControl
     {
         public ID m_Atom_WorkPeriod_ID = null;
 
-        public usrc_Atom_Item[] usrc_Atom_Item_array = null;
+        public usrc_Atom_CItem[] usrc_Atom_Item_array = null;
 
         public int yPosLast = 5;
 
-        private usrc_ItemList m_usrc_ItemList = null;
+        private usrc_CItemList m_usrc_ItemList = null;
 
         
         public ConsumptionEditor ConsE;
@@ -88,7 +88,7 @@ namespace ShopC_Forms
             m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
         }
 
-        public usrc_Atom_ItemsList()
+        public usrc_Atom_CItemsList()
         {
             InitializeComponent();
             default_usrc_Item_InsidePageHandler_ItemAtomList_Width = usrc_Item_InsidePageHandler_ItemAtomList.Width;
@@ -116,14 +116,14 @@ namespace ShopC_Forms
             return false;
         }
 
-        private void Usrc_Item_InsidePageHandler1_Paint(Control ctrl, object oData, int index, usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode xmode)
+        private void Usrc_Item_InsidePageHandler1_Paint(Control ctrl, object oData, int index, usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode xmode)
         {
             if (oData is TangentaDB.Consumption_ShopC_Item)
             {
                 TangentaDB.Consumption_ShopC_Item dsci = (TangentaDB.Consumption_ShopC_Item)oData;
-                if (ctrl is usrc_Atom_Item)
+                if (ctrl is usrc_Atom_CItem)
                 {
-                    usrc_Atom_Item xusrc_Atom_Item = (usrc_Atom_Item)ctrl;
+                    usrc_Atom_CItem xusrc_Atom_Item = (usrc_Atom_CItem)ctrl;
                     xusrc_Atom_Item.DoPaint(dsci, xmode);
                 }
             }
@@ -163,9 +163,9 @@ namespace ShopC_Forms
 
         private void Usrc_Item_InsidePageHandler1_SelectControl(Control ctrl, object oData, int index, bool selected)
         {
-            if (ctrl is usrc_Atom_Item)
+            if (ctrl is usrc_Atom_CItem)
             {
-                usrc_Atom_Item xusrc_Atom_Item = (usrc_Atom_Item)ctrl;
+                usrc_Atom_CItem xusrc_Atom_Item = (usrc_Atom_CItem)ctrl;
                 xusrc_Atom_Item.SelectControl(oData, selected);
 
                 if (oData is TangentaDB.Consumption_ShopC_Item)
@@ -175,14 +175,14 @@ namespace ShopC_Forms
             }
         }
 
-        private void Usrc_Item_InsidePageHandler1_FillControl(Control ctrl, object oData, usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode emode)
+        private void Usrc_Item_InsidePageHandler1_FillControl(Control ctrl, object oData, usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode emode)
         {
             if (oData is TangentaDB.Consumption_ShopC_Item)
             {
                 TangentaDB.Consumption_ShopC_Item dsci = (TangentaDB.Consumption_ShopC_Item)oData;
-                if (ctrl is usrc_Atom_Item)
+                if (ctrl is usrc_Atom_CItem)
                 {
-                    usrc_Atom_Item xusrc_Atom_Item = (usrc_Atom_Item)ctrl;
+                    usrc_Atom_CItem xusrc_Atom_Item = (usrc_Atom_CItem)ctrl;
                     xusrc_Atom_Item.DoPaint(dsci, emode);
                 }
             }
@@ -190,7 +190,7 @@ namespace ShopC_Forms
 
         private void Usrc_Item_InsidePageHandler1_CreateControl(ref Control ctrl)
         {
-            usrc_Atom_Item xusrc_Atom_Item = new usrc_Atom_Item();
+            usrc_Atom_CItem xusrc_Atom_Item = new usrc_Atom_CItem();
             xusrc_Atom_Item.btn_RemoveClick += Xusrc_Atom_Item_btn_RemoveClick;
             ctrl = xusrc_Atom_Item;
         }
@@ -236,7 +236,7 @@ namespace ShopC_Forms
         {
             if (RemoveItem(dsci))
             {
-                usrc_Item_InsidePageHandler_ItemAtomList.Init(this.ConsE.m_CurrentConsumption.m_Basket.Basket_Consumption_ShopC_Item_LIST, usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode.EDIT);
+                usrc_Item_InsidePageHandler_ItemAtomList.Init(this.ConsE.m_CurrentConsumption.m_Basket.Basket_Consumption_ShopC_Item_LIST, usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode.EDIT);
                 usrc_Item_InsidePageHandler_ItemAtomList.ShowPage(0);
                 if (this.Parent is usrc_ShopC)
                 {
@@ -250,7 +250,7 @@ namespace ShopC_Forms
         }
 
         internal void Init(ID xAtom_WorkPeriod_ID,
-                           usrc_ItemList x_usrc_ItemList,
+                           usrc_CItemList x_usrc_ItemList,
                            ConsumptionEditor xconsE, 
                            DBTablesAndColumnNamesOfConsumption xDBtcn)
         {
@@ -262,10 +262,10 @@ namespace ShopC_Forms
 
         internal void ShowBasket(string xItemUniqueName,object oidata, Control oidata_control)
         {
-            usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode emode = usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode.EDIT;
+            usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode emode = usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode.EDIT;
             if (!ConsE.m_CurrentConsumption.bDraft)
             {
-                emode = usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode.VIEW;
+                emode = usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode.VIEW;
             }
             this.usrc_Item_InsidePageHandler_ItemAtomList.Init(ConsE.m_CurrentConsumption.m_Basket.Basket_Consumption_ShopC_Item_LIST,emode);
             object odata = null;
@@ -273,21 +273,20 @@ namespace ShopC_Forms
             int index = this.usrc_Item_InsidePageHandler_ItemAtomList.FindItem(xItemUniqueName, ref odata, ref ctrl);
             if (index >= 0)
             {
-                this.usrc_Item_InsidePageHandler_ItemAtomList.SelectObject(index, usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eSelection.ON_REMOTE);
+                this.usrc_Item_InsidePageHandler_ItemAtomList.SelectObject(index, usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eSelection.ON_REMOTE);
                 if (SelectionChanged != null)
                 {
                     SelectionChanged(ctrl,index, odata, oidata, oidata_control);
                 }
             }
-            //this.usrc_Item_InsidePageHandler1.ShowPage(0);
         }
 
         internal void SetCurrentInvoice_SelectedItems()
         {
-            usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode emode = usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode.EDIT;
+            usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode emode = usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode.EDIT;
             if (!ConsE.m_CurrentConsumption.bDraft)
             {
-                emode = usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode.VIEW;
+                emode = usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode.VIEW;
             }
             string sinfo = "";
             if (ConsE.m_CurrentConsumption.bDraft)
@@ -335,7 +334,7 @@ namespace ShopC_Forms
 
         private void m_usrc_Item_PageHandler_ShowObject(int Item_id_index, object o_data, object o_usrc, bool bVisible)
         {
-            usrc_Atom_Item usrc_atom_item = (usrc_Atom_Item)o_usrc;
+            usrc_Atom_CItem usrc_atom_item = (usrc_Atom_CItem)o_usrc;
             if (bVisible)
             {
                 TangentaDB.Consumption_ShopC_Item dsci = (TangentaDB.Consumption_ShopC_Item)o_data;

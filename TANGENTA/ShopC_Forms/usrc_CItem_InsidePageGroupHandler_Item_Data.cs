@@ -7,15 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using usrc_Item_InsidePageGroup_Handler;
 using TangentaDB;
-using usrc_Item_InsidePage_Handler;
+using usrc_Item_InsideGroup_Handler;
 
 namespace ShopC_Forms
 {
-    
-    public partial class usrc_Item_InsidePageHandler_Consumption_ShopC_Item : usrc_Item_InsidePageHandler<Consumption_ShopC_Item>
+    public partial class usrc_CItem_InsidePageGroupHandler_Item_Data : usrcG_Item_InsidePageGroupHandler<Item_Data>
     {
-        public usrc_Item_InsidePageHandler_Consumption_ShopC_Item()
+        public usrc_CItem_InsidePageGroupHandler_Item_Data()
         {
             InitializeComponent();
         }

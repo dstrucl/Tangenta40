@@ -2,7 +2,7 @@
 
 namespace ShopC_Forms
 {
-    partial class usrc_ItemList
+    partial class usrc_CItemList
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,8 +30,8 @@ namespace ShopC_Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.usrc_Item_TextSearch1 = new ShopC_Forms.usrc_Item_TextSearch();
-            this.usrc_Item_InsidePageGroupHandler1 = new ShopC_Forms.usrc_Item_InsidePageGroupHandler_Item_Data();
+            this.usrc_Item_TextSearch1 = new ShopC_Forms.usrc_CItem_TextSearch();
+            this.usrc_Item_InsidePageGroupHandler1 = new ShopC_Forms.usrc_CItem_InsidePageGroupHandler_Item_Data();
             this.chk_SelectFromStock = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
@@ -84,8 +84,8 @@ namespace ShopC_Forms
         }
 
         #endregion
-        private usrc_Item_TextSearch usrc_Item_TextSearch1;
-        private usrc_Item_InsidePageGroupHandler_Item_Data usrc_Item_InsidePageGroupHandler1;
+        private usrc_CItem_TextSearch usrc_Item_TextSearch1;
+        private usrc_CItem_InsidePageGroupHandler_Item_Data usrc_Item_InsidePageGroupHandler1;
         private System.Windows.Forms.CheckBox chk_SelectFromStock;
     }
 }

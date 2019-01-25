@@ -25,7 +25,7 @@ using DynEditControls;
 
 namespace ShopC_Forms
 {
-    public partial class usrc_Item : UserControl
+    public partial class usrc_CItem : UserControl
     {
 
         public new event EventHandler<EventArgs> Click;
@@ -79,7 +79,7 @@ namespace ShopC_Forms
 
         public NavigationButtons.Navigation nav = null;
 
-        public usrc_Item()
+        public usrc_CItem()
         {
             InitializeComponent();
         }

@@ -765,7 +765,7 @@ namespace ShopC_Forms
                     dgvx_XConsumption.ClearSelection();
                     int iRow = dt_XConsumption.Rows.IndexOf(drs[0]);
                     dgvx_XConsumption.Rows[iRow].Selected = true;
-                    dgvx_XConsumption.CurrentCell = dgvx_XConsumption.Rows[iRow].Cells[0];
+                    dgvx_XConsumption.CurrentCell = dgvx_XConsumption.Rows[iRow].Cells["JOURNAL_Consumption_$_cs_$_cst_$$Name"];
                 }
             }
         }

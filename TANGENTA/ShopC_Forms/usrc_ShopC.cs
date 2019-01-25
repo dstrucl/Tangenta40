@@ -62,7 +62,7 @@ namespace ShopC_Forms
         public NavigationButtons.Navigation nav = null;
         private string m_DocTyp = "";
 
-        private usrc_Item_selected m_usrc_Item_selected = null;
+        private usrc_CItem_selected m_usrc_Item_selected = null;
 
         private bool m_bAutomaticSelectionOfItemsFromStock = true;
         public bool AutomaticSelectionOfItemsFromStock
@@ -137,7 +137,7 @@ namespace ShopC_Forms
         public void Init(LoginControl.LMOUser xlmoUser,
                         ConsumptionEditor x_consE,
                         DBTablesAndColumnNamesOfConsumption xDBtcn,
-                        usrc_Item_selected x_usrc_Item_selected)
+                        usrc_CItem_selected x_usrc_Item_selected)
 
         {
             lmoUser = xlmoUser;
@@ -156,8 +156,8 @@ namespace ShopC_Forms
             this.m_usrc_Atom_ItemsList.Init(lmoUser.Atom_WorkPeriod_ID,m_usrc_ItemList, x_consE, xDBtcn);
             this.m_usrc_ItemList.Init(lmoUser.Atom_WorkPeriod_ID, x_consE, xDBtcn, this,m_usrc_Atom_ItemsList);
 
-            this.m_usrc_ItemList.ItemAdded += new usrc_ItemList.delegate_ItemAdded(usrc_ItemList_ItemAdded);
-            this.m_usrc_Atom_ItemsList.After_Atom_Item_Remove += new usrc_Atom_ItemsList.delegate_After_Atom_Item_Remove(usrc_Atom_ItemsList_After_Atom_Item_Remove);
+            this.m_usrc_ItemList.ItemAdded += new usrc_CItemList.delegate_ItemAdded(usrc_ItemList_ItemAdded);
+            this.m_usrc_Atom_ItemsList.After_Atom_Item_Remove += new usrc_Atom_CItemsList.delegate_After_Atom_Item_Remove(usrc_Atom_ItemsList_After_Atom_Item_Remove);
             this.m_usrc_Atom_ItemsList.SelectionChanged += M_usrc_Atom_ItemsList_SelectionChanged;
 
             m_usrc_Item_selected.event_SetItemQuantityInBasket += M_usrc_Item_selected_event_SetItemQuantityInBasket;
@@ -165,12 +165,12 @@ namespace ShopC_Forms
             SetColor();
         }
 
-        private void M_usrc_Item_selected_event_SetItemQuantityInBasket(usrc_Item_selected xusrc_Item_selected,
-            usrc_Atom_Item xusrc_Atom_Item,
+        private void M_usrc_Item_selected_event_SetItemQuantityInBasket(usrc_CItem_selected xusrc_Item_selected,
+            usrc_Atom_CItem xusrc_Atom_Item,
             TangentaDB.Consumption_ShopC_Item xdsci,
             Item_Data idata,
-            usrc_ItemList xusrc_ItemList,
-            usrc_Item xusrc_Item)
+            usrc_CItemList xusrc_ItemList,
+            usrc_CItem xusrc_Item)
         {
             if (xdsci != null)
             {

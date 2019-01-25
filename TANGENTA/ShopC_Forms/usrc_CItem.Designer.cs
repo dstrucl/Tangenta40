@@ -1,6 +1,6 @@
 ﻿namespace ShopC_Forms
 {
-    partial class usrc_Item
+    partial class usrc_CItem
     {
         /// <summary> 
         /// Required designer variable.
@@ -27,7 +27,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_Item));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_CItem));
             this.lbl_Item_UniqueName = new System.Windows.Forms.Label();
             this.lbl_InStock = new System.Windows.Forms.Label();
             this.lbl_Price = new System.Windows.Forms.Label();

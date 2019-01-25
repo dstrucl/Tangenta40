@@ -38,7 +38,7 @@ namespace ShopC_Forms
             this.usrc_Consumption_AddOn1 = new ShopC_Forms.usrc_Consumption_AddOn();
             this.m_usrc_ShopC = new ShopC_Forms.usrc_ShopC();
             this.btn_New = new System.Windows.Forms.Button();
-            this.usrc_Item_selected1 = new ShopC_Forms.usrc_Item_selected();
+            this.usrc_Item_selected1 = new ShopC_Forms.usrc_CItem_selected();
             this.usrc_DocIssue1 = new ShopC_Forms.usrc_DocIssue();
             this.SuspendLayout();
             // 
@@ -165,7 +165,7 @@ namespace ShopC_Forms
         internal usrc_Consumption_AddOn usrc_Consumption_AddOn1;
         internal usrc_ShopC m_usrc_ShopC;
         internal System.Windows.Forms.Button btn_New;
-        private usrc_Item_selected usrc_Item_selected1;
+        private usrc_CItem_selected usrc_Item_selected1;
         public usrc_DocIssue usrc_DocIssue1;
     }
 }

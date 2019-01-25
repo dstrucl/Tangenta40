@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ShopC_Forms
 {
-    public partial class usrc_Item_TextSearch : UserControl
+    public partial class usrc_CItem_TextSearch : UserControl
     {
-        public usrc_Item_TextSearch()
+        public usrc_CItem_TextSearch()
         {
             InitializeComponent();
         }

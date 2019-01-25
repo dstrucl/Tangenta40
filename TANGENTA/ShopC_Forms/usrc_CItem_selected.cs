@@ -25,7 +25,7 @@ using DynEditControls;
 
 namespace ShopC_Forms
 {
-    public partial class usrc_Item_selected : UserControl
+    public partial class usrc_CItem_selected : UserControl
     {
 
 
@@ -36,17 +36,17 @@ namespace ShopC_Forms
         private TangentaDB.Consumption_ShopC_Item dsci = null;
         private Item_Data itemdata = null;
 
-        private usrc_Atom_Item m_usrc_Atom_Item = null;
-        private usrc_Item m_usrc_Item = null;
-        private usrc_ItemList m_usrc_ItemList = null;
+        private usrc_Atom_CItem m_usrc_Atom_Item = null;
+        private usrc_CItem m_usrc_Item = null;
+        private usrc_CItemList m_usrc_ItemList = null;
 
 
-        public delegate void delegate_SetItemQuantityInBasket(usrc_Item_selected xusrc_Item_selected,
-                                                              usrc_Atom_Item xusrc_Atom_Item,
+        public delegate void delegate_SetItemQuantityInBasket(usrc_CItem_selected xusrc_Item_selected,
+                                                              usrc_Atom_CItem xusrc_Atom_Item,
                                                               TangentaDB.Consumption_ShopC_Item xdsci,
                                                               Item_Data idata,
-                                                              usrc_ItemList xusrc_ItemList,
-                                                              usrc_Item xusrc_Item
+                                                              usrc_CItemList xusrc_ItemList,
+                                                              usrc_CItem xusrc_Item
                                                               );
 
         public event delegate_SetItemQuantityInBasket event_SetItemQuantityInBasket = null;
@@ -55,7 +55,7 @@ namespace ShopC_Forms
         bool disposed = false;
 
 
-        public usrc_Item_selected()
+        public usrc_CItem_selected()
         {
             InitializeComponent();
             //Color color = Color.FromArgb(255 - this.BackColor.R, 255 - this.BackColor.G, 255 - this.BackColor.B);
@@ -83,7 +83,7 @@ namespace ShopC_Forms
             lbl_VAT.Text = "";
         }
 
-        public void Init(usrc_ItemList x_usrc_ItemList)
+        public void Init(usrc_CItemList x_usrc_ItemList)
         {
             m_usrc_ItemList = x_usrc_ItemList;
         }
@@ -142,18 +142,18 @@ namespace ShopC_Forms
             if (oxdsci is TangentaDB.Consumption_ShopC_Item)
             {
                 dsci = (TangentaDB.Consumption_ShopC_Item)oxdsci;
-                if (ctrl_appisd is usrc_Atom_Item)
+                if (ctrl_appisd is usrc_Atom_CItem)
                 {
-                    m_usrc_Atom_Item = (usrc_Atom_Item)ctrl_appisd;
+                    m_usrc_Atom_Item = (usrc_Atom_CItem)ctrl_appisd;
                 }
                 if (oitemdata is Item_Data)
                 {
                     itemdata = (Item_Data)oitemdata;
                 }
 
-                if (ctrl_itemdata is usrc_Item)
+                if (ctrl_itemdata is usrc_CItem)
                 {
-                    m_usrc_Item = (usrc_Item)ctrl_itemdata;
+                    m_usrc_Item = (usrc_CItem)ctrl_itemdata;
                 }
 
                 this.lbl_Item.Text = dsci.Atom_Item_UniqueName_v.v;

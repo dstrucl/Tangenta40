@@ -31,12 +31,12 @@ namespace ShopC_Forms
         private decimal last_usrc_nmUpDn_FromStock_Value = 0;
 
         private ConsumptionEditor m_ConsE = null;
-        private usrc_Item_selected m_usrc_Item_selected = null;
-        private usrc_Atom_Item m_usrc_Atom_Item = null;
+        private usrc_CItem_selected m_usrc_Item_selected = null;
+        private usrc_Atom_CItem m_usrc_Atom_Item = null;
         private TangentaDB.Consumption_ShopC_Item dsci = null;
         private Item_Data idata = null;
-        private usrc_ItemList m_usrc_ItemList = null;
-        private usrc_Item m_usrc_Item = null;
+        private usrc_CItemList m_usrc_ItemList = null;
+        private usrc_CItem m_usrc_Item = null;
 
 
         public delegate void delegate_ExitClick();
@@ -273,12 +273,12 @@ namespace ShopC_Forms
         }
 
         internal void Init(ConsumptionEditor xconsE,
-                           usrc_Item_selected x_usrc_Item_selected,
-                           usrc_Atom_Item x_usrc_Atom_Item,
+                           usrc_CItem_selected x_usrc_Item_selected,
+                           usrc_Atom_CItem x_usrc_Atom_Item,
                            TangentaDB.Consumption_ShopC_Item xdsci,
                            Item_Data xidata,
-                           usrc_ItemList xusrc_ItemList,
-                           usrc_Item xusrc_Item)
+                           usrc_CItemList xusrc_ItemList,
+                           usrc_CItem xusrc_Item)
         {
             m_ConsE = xconsE;
             m_usrc_Item_selected = x_usrc_Item_selected;

@@ -590,10 +590,12 @@ namespace ShopC_Forms
             switch (frm_new.eNewConsumptionResult)
             {
                 case f_Consumption.eConsumptionType.OwnUse:
+                case f_Consumption.eConsumptionType.WriteOff:
                     if (this.m_usrc_ConsumptionEditor.GetOwnUseData(this))
                     {
+                        m_usrc_TableOfConsumption.Init(ConsM, true, false, ConsM.FinancialYear /*Properties.Settings.Default.FinancialYear*/, null);
 
-                        New_Empty_Consumption(f_Consumption.eConsumptionType.OwnUse);
+                    //    New_Empty_Consumption(f_Consumption.eConsumptionType.OwnUse);
                     }
                     break;
             }
@@ -638,10 +640,34 @@ namespace ShopC_Forms
         {
             //this.Cursor_Wait();
 
+            //    if (cmb_FinancialYear.SelectedItem is System.Data.DataRowView)
+            //    {
+            //        System.Data.DataRowView drv = (System.Data.DataRowView)cmb_FinancialYear.SelectedItem;
+            //        int FinancialYear = (int)drv.Row.ItemArray[0];
+            //        //Program.Cursor_Arrow();
+            //        if (Check_NumberOfMonthAfterNewYearToAllowCreateNewInvoice(FinancialYear))
+            //        {
+            //            Program.Cursor_Wait();
+            //            m_usrc_ConsumptionEditor.SetNewDraft(ConsM.m_LMOUser, ConsM.DocTyp, FinancialYear, currency, xAtom_Currency_ID, workArea);
+            ////            DateTime dtStart = DateTime.Now;
+            ////            DateTime dtEnd = DateTime.Now;
+            ////            m_usrc_TableOfConsumption.SetTimeSpanParam(usrc_TableOfDocuments.eMode.All, dtStart, dtEnd);
+            ////            m_usrc_TableOfConsumption.Init(ConsM, true, false, FinancialYear /*Properties.Settings.Default.FinancialYear*/, null);
+            ////            ConsM.m_LMOUser.ReloadAdministratorsAndUserManagers();
+            ////        }
+            ////    }
+            ////    else
+            ////    {
+            ////        Program.Cursor_Arrow();
+            ////        LogFile.Error.Show("ERROR:usrc_ConsumptionMan:btn_New_Click:cmb_FinancialYear.SelectedItem is not type of System.Data.DataRowView but is type of " + cmb_FinancialYear.SelectedItem.GetType().ToString());
+            ////    }
+
             if (cmb_ConsumptionType.SelectedItem is ConsumptionType)
             {
                 ConsumptionType xConsumptionType = (ConsumptionType)cmb_ConsumptionType.SelectedItem;
                 ConsM.ConsumptionTyp = xConsumptionType.Typ;
+
+
 
                 //ID xAtom_Currency_ID = null;
                 //Transaction transaction_usrc_ConsumptionMan_New_Empty_Consumption_f_Atom_Currency_Get = DBSync.DBSync.NewTransaction("usrc_ConsumptionMan.New_Empty_Consumption.f_Atom_Currency.Get");

@@ -23,7 +23,7 @@ using ShopC_Forms;
 
 namespace ShopC_Forms
 {
-    public partial class usrc_ItemList : UserControl
+    public partial class usrc_CItemList : UserControl
     {
         private ID m_Atom_WorkPeriod_ID = null;
         //private Form_plus frmplus = null;
@@ -92,8 +92,8 @@ namespace ShopC_Forms
 
         public usrc_ShopC m_usrc_ItemMan = null;
 
-        public usrc_Item[] usrc_Item_aray = null;
-        usrc_Atom_ItemsList m_usrc_Atom_ItemsList = null;
+        public usrc_CItem[] usrc_Item_aray = null;
+        usrc_Atom_CItemsList m_usrc_Atom_ItemsList = null;
 
         ConsumptionEditor m_consE;
         DBTablesAndColumnNamesOfConsumption DBtcn;
@@ -101,7 +101,7 @@ namespace ShopC_Forms
 
 
 
-        public usrc_ItemList()
+        public usrc_CItemList()
         {
             InitializeComponent();
 
@@ -199,9 +199,9 @@ namespace ShopC_Forms
 
                 if (bRes)
                 {
-                    if (ctrl is usrc_Item)
+                    if (ctrl is usrc_CItem)
                     {
-                        ((usrc_Item)ctrl).DoPaint(xData, m_consE.m_CurrentConsumption.m_Basket);
+                        ((usrc_CItem)ctrl).DoPaint(xData, m_consE.m_CurrentConsumption.m_Basket);
                     }
 
 
@@ -240,9 +240,9 @@ namespace ShopC_Forms
             if (oData is Item_Data)
             {
                 Item_Data idata = (Item_Data)oData;
-                if (ctrl is usrc_Item)
+                if (ctrl is usrc_CItem)
                 {
-                    usrc_Item xusrc_Item = (usrc_Item)ctrl;
+                    usrc_CItem xusrc_Item = (usrc_CItem)ctrl;
                     xusrc_Item.SelectControl(idata, selected);
                 }
             }
@@ -266,9 +266,9 @@ namespace ShopC_Forms
             if (oData is Item_Data)
             {
                 Item_Data idata = (Item_Data)oData;
-                if (ctrl is usrc_Item)
+                if (ctrl is usrc_CItem)
                 {
-                    usrc_Item xusrc_Item = (usrc_Item)ctrl;
+                    usrc_CItem xusrc_Item = (usrc_CItem)ctrl;
 
                     xusrc_Item.DoPaint(idata, m_consE.m_CurrentConsumption.m_Basket);
                 }
@@ -277,7 +277,7 @@ namespace ShopC_Forms
 
         private void Usrc_Item_InsidePageGroupHandler1_CreateControl(ref Control ctrl)
         {
-            usrc_Item xusrc_Item = new usrc_Item();
+            usrc_CItem xusrc_Item = new usrc_CItem();
             ctrl = xusrc_Item;
         }
 
@@ -302,7 +302,7 @@ namespace ShopC_Forms
                            ConsumptionEditor xconsE,
                            DBTablesAndColumnNamesOfConsumption xDBtcn, 
                            usrc_ShopC x_usrc_ItemMan,
-                           usrc_Atom_ItemsList x_usrc_Atom_ItemsList)
+                           usrc_Atom_CItemsList x_usrc_Atom_ItemsList)
         {
             m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
             m_consE = xconsE;

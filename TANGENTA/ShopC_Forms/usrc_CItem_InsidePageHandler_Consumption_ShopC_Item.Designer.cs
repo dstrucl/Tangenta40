@@ -1,6 +1,6 @@
 ﻿namespace ShopC_Forms
 {
-    partial class usrc_Item_InsidePageGroupHandler_Item_Data
+    partial class usrc_CItem_InsidePageHandler_Consumption_ShopC_Item
     {
         /// <summary> 
         /// Required designer variable.

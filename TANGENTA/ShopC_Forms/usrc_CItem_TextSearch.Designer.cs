@@ -1,6 +1,6 @@
 ﻿namespace ShopC_Forms
 {
-    partial class usrc_Item_TextSearch
+    partial class usrc_CItem_TextSearch
     {
         /// <summary> 
         /// Required designer variable.

@@ -1,6 +1,6 @@
 ﻿namespace ShopC_Forms
 {
-     partial class usrc_Atom_Item_View
+     partial class usrc_Atom_CItem_View
     {
         /// <summary> 
         /// Required designer variable.

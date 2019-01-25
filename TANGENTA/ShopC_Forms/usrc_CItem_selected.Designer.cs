@@ -1,6 +1,6 @@
 ﻿namespace ShopC_Forms
 {
-    partial class usrc_Item_selected
+    partial class usrc_CItem_selected
     {
         /// <summary> 
         /// Required designer variable.

@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.lbl_ShopC_Name = new System.Windows.Forms.Label();
-            this.m_usrc_ItemList = new usrc_ItemList();
-            this.m_usrc_Atom_ItemsList = new usrc_Atom_ItemsList();
+            this.m_usrc_ItemList = new usrc_CItemList();
+            this.m_usrc_Atom_ItemsList = new usrc_Atom_CItemsList();
             this.m_usrc_PriceList1 = new PriseLists.usrc_PriceList();
             this.SuspendLayout();
             // 
@@ -55,8 +55,8 @@
             this.m_usrc_ItemList.NumberOfItemsPerPage = 10;
             this.m_usrc_ItemList.Size = new System.Drawing.Size(646, 280);
             this.m_usrc_ItemList.TabIndex = 24;
-            this.m_usrc_ItemList.Stock_Click += new usrc_ItemList.delegate_Stock_Click(this.m_usrc_ItemList_Stock_Click);
-            this.m_usrc_ItemList.Items_Click += new usrc_ItemList.delegate_Items_Click(this.m_usrc_ItemList_Items_Click);
+            this.m_usrc_ItemList.Stock_Click += new usrc_CItemList.delegate_Stock_Click(this.m_usrc_ItemList_Stock_Click);
+            this.m_usrc_ItemList.Items_Click += new usrc_CItemList.delegate_Items_Click(this.m_usrc_ItemList_Items_Click);
             // 
             // m_usrc_Atom_ItemsList
             // 
@@ -96,8 +96,8 @@
 
         #endregion
         private System.Windows.Forms.Label lbl_ShopC_Name;
-        public usrc_Atom_ItemsList m_usrc_Atom_ItemsList;
-        public usrc_ItemList m_usrc_ItemList;
+        public usrc_Atom_CItemsList m_usrc_Atom_ItemsList;
+        public usrc_CItemList m_usrc_ItemList;
         public PriseLists.usrc_PriceList m_usrc_PriceList1;
     }
 }

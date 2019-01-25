@@ -21,14 +21,14 @@ using DBConnectionControl40;
 namespace ShopC_Forms
 {
 
-    public partial class usrc_Atom_Item_View : UserControl
+    public partial class usrc_Atom_CItem_View : UserControl
     {
         private TangentaDB.ShopABC m_InvoiceDB = null;
         private ID m_Atom_Item_ID = null;
         private List<TangentaDB.Consumption_ShopC_Item> dsci_List = new List<TangentaDB.Consumption_ShopC_Item>();
         private DataTable dt_DocInvoice_Atom_Item_Stock_view = new DataTable();
         private Color Color_null;
-        public usrc_Atom_Item_View()
+        public usrc_Atom_CItem_View()
         {
             InitializeComponent();
             Color_null = Color.DarkGray;

@@ -20,7 +20,7 @@ using usrc_Item_InsidePage_Handler;
 
 namespace ShopC_Forms
 {
-    public partial class usrc_Atom_Item : UserControl
+    public partial class usrc_Atom_CItem : UserControl
     {
         public TangentaDB.Consumption_ShopC_Item m_dsci = null;
 
@@ -55,7 +55,7 @@ namespace ShopC_Forms
             base.OnClick(e);
         }
 
-        public usrc_Atom_Item()
+        public usrc_Atom_CItem()
         {
             InitializeComponent();
         }
@@ -119,10 +119,10 @@ namespace ShopC_Forms
 
         }
 
-        internal void DoPaint(TangentaDB.Consumption_ShopC_Item xdsci, usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode emode)
+        internal void DoPaint(TangentaDB.Consumption_ShopC_Item xdsci, usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode emode)
         {
             m_dsci = xdsci;
-            if (emode== usrc_Item_InsidePageHandler_Consumption_ShopC_Item.eMode.EDIT)
+            if (emode== usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode.EDIT)
             {
                 btn_RemoveFromBasket.Visible = true;
             }

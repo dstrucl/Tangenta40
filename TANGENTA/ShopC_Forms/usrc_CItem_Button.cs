@@ -26,7 +26,7 @@ using ShopC_Forms;
 
 namespace ShopC_Forms
 {
-    public partial class usrc_Item_Button : UserControl
+    public partial class usrc_CItem_Button : UserControl
     {
         //public delegate void delegate_ItemAdded2Basket();
         //public event delegate_ItemAdded2Basket ItemAdded2Basket = null;
@@ -70,11 +70,11 @@ namespace ShopC_Forms
         public enum eMode { STOCK, FACTORY, STOCK_AND_FACTORY,NONE }
         public eMode Mode = eMode.STOCK_AND_FACTORY;
 
-        public usrc_Atom_ItemsList m_usrc_Atom_ItemsList = null;
-        public usrc_ItemList m_usrc_ItemList = null;
+        public usrc_Atom_CItemsList m_usrc_Atom_ItemsList = null;
+        public usrc_CItemList m_usrc_ItemList = null;
 
         public decimal ExtraDiscount = 0;
-        public usrc_Atom_Item m_usrc_Atom_Item = null;
+        public usrc_Atom_CItem m_usrc_Atom_Item = null;
         private Color DefaultColor = Color.Gray;
 
         private int x0_pic_Item_Left = 0;
@@ -90,12 +90,12 @@ namespace ShopC_Forms
 
         public NavigationButtons.Navigation nav = null;
 
-        public usrc_Item_Button()
+        public usrc_CItem_Button()
         {
             InitializeComponent();
         }
 
-        public usrc_Item_Button(ID xAtom_WorkPeriod_ID)
+        public usrc_CItem_Button(ID xAtom_WorkPeriod_ID)
         {
             InitializeComponent();
             m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
@@ -271,7 +271,7 @@ namespace ShopC_Forms
             }
             Set_btn_Discount_Text();
         }
-        internal void DoPaint(TangentaDB.Item_Data xItem_Data, string[] s_name_Group,usrc_Atom_ItemsList x_usrc_Atom_ItemsList)
+        internal void DoPaint(TangentaDB.Item_Data xItem_Data, string[] s_name_Group,usrc_Atom_CItemsList x_usrc_Atom_ItemsList)
         {
             m_Item_Data = xItem_Data;
             m_Item_Data.m_s_name_Group = s_name_Group;
