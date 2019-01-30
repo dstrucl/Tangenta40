@@ -30,6 +30,9 @@ namespace ShopB
     {
         public enum eMode { VIEW, EDIT };
 
+        public delegate string delegate_Get_DocType();
+        private delegate_Get_DocType m_delegate_Get_DocType = null;
+
         public delegate bool delegate_CheckAccessPriceList();
         public event delegate_CheckAccessPriceList CheckAccessPriceList = null;
 
@@ -52,16 +55,23 @@ namespace ShopB
         DBTablesAndColumnNamesOfDocInvoice DBtcn = null;
 
 
-        private string m_DocTyp = "";
 
-        public string DocTyp
+
+        private string DocTyp
         {
-            get { return m_DocTyp; }
-            set
+            get
             {
-                m_DocTyp = value;
+                if (m_delegate_Get_DocType != null)
+                {
+                    return m_delegate_Get_DocType();
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
+
         public bool IsDocInvoice
         {
             get
@@ -115,8 +125,10 @@ namespace ShopB
             this.ForeColor = Colors.ShopB.ForeColor;
         }
 
-        public void Init(ShopABC x_InvoiceDB, DBTablesAndColumnNamesOfDocInvoice xDBtcn, string shops_in_use)
+        public void Init(ShopABC x_InvoiceDB, DBTablesAndColumnNamesOfDocInvoice xDBtcn, string shops_in_use, delegate_Get_DocType xdelegate_Get_DocType)
         {
+            m_delegate_Get_DocType = xdelegate_Get_DocType;
+
             if (DBtcn == null)
             {
                DBtcn = new DBTablesAndColumnNamesOfDocInvoice();

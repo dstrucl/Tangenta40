@@ -97,7 +97,6 @@ namespace Tangenta
             this.m_usrc_ShopB1366x768.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.m_usrc_ShopB1366x768.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.m_usrc_ShopB1366x768.DocTyp = "";
             this.m_usrc_ShopB1366x768.Location = new System.Drawing.Point(0, 220);
             this.m_usrc_ShopB1366x768.Name = "m_usrc_ShopB1366x768";
             this.m_usrc_ShopB1366x768.Size = new System.Drawing.Size(1006, 140);

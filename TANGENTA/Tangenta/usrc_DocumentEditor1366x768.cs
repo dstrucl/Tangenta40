@@ -358,7 +358,7 @@ namespace Tangenta
         private void Init_ShopB()
 
         {
-            m_usrc_ShopB1366x768.Init(DocE.m_ShopABC, DocE.DBtcn, PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues));
+            m_usrc_ShopB1366x768.Init(DocE.m_ShopABC, DocE.DBtcn, PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues), returnDocTyp);
 
             m_usrc_ShopB1366x768.Dock = DockStyle.None;
 
@@ -372,6 +372,11 @@ namespace Tangenta
 
         }
 
+        private string returnDocTyp()
+        {
+            return DocE.DocTyp;
+        }
+
         private bool bInitShops = true;
 
         internal void Set_ShowShops(string showShops)
@@ -379,7 +384,7 @@ namespace Tangenta
             if (bInitShops)
             {
                 m_usrc_ShopA1366x768.Init(DocE.m_ShopABC, DocE.DBtcn);
-                m_usrc_ShopB1366x768.Init(DocE.m_ShopABC, DocE.DBtcn, PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues));
+                m_usrc_ShopB1366x768.Init(DocE.m_ShopABC, DocE.DBtcn, PropertiesUser.ShopsInUse_Get(DocE.mSettingsUserValues), returnDocTyp);
                 m_usrc_ShopC1366x768.Init(DocE.m_LMOUser,
                                           DocE.m_ShopABC,
                                           DocE.DBtcn,
@@ -733,7 +738,6 @@ namespace Tangenta
                     m_usrc_ShopA1366x768.aa_ItemRemoved += M_usrc_ShopA_aa_ItemRemoved;
                     m_usrc_ShopA1366x768.EditUnits += M_usrc_ShopA_EditUnits;
 
-                    m_usrc_ShopB1366x768.DocTyp = DocE.DocTyp;
                     m_usrc_ShopB1366x768.aa_ExtraDiscount += usrc_ShopB_ExtraDiscount;
                     m_usrc_ShopB1366x768.aa_ItemAdded += usrc_ShopB_ItemAdded;
                     m_usrc_ShopB1366x768.aa_ItemRemoved += usrc_ShopB_ItemRemoved;
