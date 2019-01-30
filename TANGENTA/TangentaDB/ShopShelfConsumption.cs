@@ -191,10 +191,28 @@ namespace TangentaDB
             return null;
         }
 
-        private void ListOfItems_Set(DataTable dtPurchasePriceItem)
+        private void ListOfItems_Set(DataTable dtPurchasePriceItem, string[] s_name_Group)
         {
             ListOfCItems.Clear();
-            foreach (DataRow dr in dtPurchasePriceItem.Rows)
+            string s1g = "s1_name is null";
+            if (s_name_Group[0] != null)
+            {
+                s1g = "s1_name = '"+ s_name_Group[0]+"'";
+            }
+            string s2g = "s2_name is null";
+            if (s_name_Group[1] != null)
+            {
+                s2g = "s2_name = '" + s_name_Group[1] + "'";
+            }
+            string s3g = "s3_name is null";
+            if (s_name_Group[2] != null)
+            {
+                s3g = "s3_name = '" + s_name_Group[2] + "'";
+            }
+
+            DataRow[] drs = dtPurchasePriceItem.Select(s1g + " and " + s2g + " and " + s3g);
+
+            foreach (DataRow dr in drs)
             {
                 CItem_Data xItem_Data = new CItem_Data();
                 xItem_Data.Set_Price_Item_Stock(dr);
@@ -274,7 +292,7 @@ namespace TangentaDB
         {
           
                 m_cpis.Set(dtPurchasePriceItem);
-                ListOfItems_Set(dtPurchasePriceItem);
+                ListOfItems_Set(dtPurchasePriceItem, s_name_Group);
 
                 dt_Price_Item_Group.Clear();
                 dt_Price_Item_Group.Columns.Clear();
@@ -317,37 +335,79 @@ namespace TangentaDB
         ///</returns>
         public bool GetGroupsTable()
         {
-            string sql = @"select 
-              s1.Name as s1_name,
-              s2.Name as s2_name,
-              s3.Name as s3_name
-              from Price_Item
-              Inner Join PriceList on Price_Item.PriceList_ID = PriceList.ID
-              Inner Join Item ptm on Price_Item.Item_ID = ptm.ID
-              Inner Join Unit on ptm.Unit_ID = Unit.ID
-              Inner Join Taxation on Price_Item.Taxation_ID =  Taxation.ID
-              Left Join PurchasePrice_Item putm on putm.Item_ID = ptm.ID
-              Left Join PurchasePrice on putm.PurchasePrice_ID = PurchasePrice.ID
-              Left Join Item_Image on ptm.Item_Image_ID = Item_Image.ID
-              Left Join Expiry on ptm.Expiry_ID = Expiry.ID
-              Left Join Warranty on ptm.Warranty_ID = Warranty.ID
-              left Join Stock on   putm.ID = Stock.PurchasePrice_Item_ID
-              left Join StockTake on putm.StockTake_ID = StockTake.ID 
-              left Join Supplier on StockTake.Supplier_ID =Supplier.ID 
-              left Join Contact on Supplier.Contact_ID =Contact.ID 
-              left Join OrganisationData on Contact.OrganisationData_ID =OrganisationData.ID 
-              left Join Organisation on OrganisationData.Organisation_ID =Organisation.ID 
-              left Join cAddress_Org on OrganisationData.cAddress_Org_ID = cAddress_Org.ID
-              left Join cStreetName_Org on cAddress_Org.cStreetName_Org_ID = cStreetName_Org.ID
-              left Join cHouseNumber_Org on cAddress_Org.cHouseNumber_Org_ID = cHouseNumber_Org.ID
-              left Join cCity_Org on cAddress_Org.cCity_Org_ID = cCity_Org.ID
-              left Join cZIP_Org on cAddress_Org.cZIP_Org_ID = cZIP_Org.ID
-              left Join cCountry_Org on cAddress_Org.cCountry_Org_ID = cCountry_Org.ID
-              left Join cState_Org on cAddress_Org.cState_Org_ID = cState_Org.ID
-              left Join Item_ParentGroup1 s1 ON ptm.Item_ParentGroup1_ID = s1.ID
-              left Join Item_ParentGroup2 s2 ON s1.Item_ParentGroup2_ID = s2.ID
-              left Join Item_ParentGroup3 s3 ON s2.Item_ParentGroup3_ID = s3.ID
-		       group by s1.Name,s2.Name,s3.Name";
+            string sql = @"  SELECT 
+             PurchasePrice_Item_$_i_$_ipg1.Name AS s1_name,
+             PurchasePrice_Item_$_i_$_ipg1_$_ipg2.Name AS s2_name,
+             PurchasePrice_Item_$_i_$_ipg1_$_ipg2_$_ipg3.Name AS s3_name
+            FROM PurchasePrice_Item 
+            INNER JOIN Item PurchasePrice_Item_$_i ON PurchasePrice_Item.Item_ID = PurchasePrice_Item_$_i.ID 
+            INNER JOIN Unit PurchasePrice_Item_$_i_$_u ON PurchasePrice_Item_$_i.Unit_ID = PurchasePrice_Item_$_i_$_u.ID 
+            LEFT JOIN Item_ParentGroup1 PurchasePrice_Item_$_i_$_ipg1 ON PurchasePrice_Item_$_i.Item_ParentGroup1_ID = PurchasePrice_Item_$_i_$_ipg1.ID 
+            LEFT JOIN Item_ParentGroup2 PurchasePrice_Item_$_i_$_ipg1_$_ipg2 ON PurchasePrice_Item_$_i_$_ipg1.Item_ParentGroup2_ID = PurchasePrice_Item_$_i_$_ipg1_$_ipg2.ID 
+            LEFT JOIN Item_ParentGroup3 PurchasePrice_Item_$_i_$_ipg1_$_ipg2_$_ipg3 ON PurchasePrice_Item_$_i_$_ipg1_$_ipg2.Item_ParentGroup3_ID = PurchasePrice_Item_$_i_$_ipg1_$_ipg2_$_ipg3.ID 
+            LEFT JOIN Item_Image PurchasePrice_Item_$_i_$_iimg ON PurchasePrice_Item_$_i.Item_Image_ID = PurchasePrice_Item_$_i_$_iimg.ID 
+            LEFT JOIN Expiry PurchasePrice_Item_$_i_$_exp ON PurchasePrice_Item_$_i.Expiry_ID = PurchasePrice_Item_$_i_$_exp.ID 
+            LEFT JOIN Warranty PurchasePrice_Item_$_i_$_wrty ON PurchasePrice_Item_$_i.Warranty_ID = PurchasePrice_Item_$_i_$_wrty.ID 
+            INNER JOIN PurchasePrice PurchasePrice_Item_$_pp ON PurchasePrice_Item.PurchasePrice_ID = PurchasePrice_Item_$_pp.ID 
+            INNER JOIN Currency PurchasePrice_Item_$_pp_$_Cur ON PurchasePrice_Item_$_pp.Currency_ID = PurchasePrice_Item_$_pp_$_Cur.ID 
+            INNER JOIN Taxation PurchasePrice_Item_$_pp_$_tax ON PurchasePrice_Item_$_pp.Taxation_ID = PurchasePrice_Item_$_pp_$_tax.ID 
+            INNER JOIN StockTake PurchasePrice_Item_$_st ON PurchasePrice_Item.StockTake_ID = PurchasePrice_Item_$_st.ID 
+            INNER JOIN Reference PurchasePrice_Item_$_st_$_ref ON PurchasePrice_Item_$_st.Reference_ID = PurchasePrice_Item_$_st_$_ref.ID 
+            LEFT JOIN Reference_Image PurchasePrice_Item_$_st_$_ref_$_refimg ON PurchasePrice_Item_$_st_$_ref.Reference_Image_ID = PurchasePrice_Item_$_st_$_ref_$_refimg.ID 
+            INNER JOIN Supplier PurchasePrice_Item_$_st_$_sup ON PurchasePrice_Item_$_st.Supplier_ID = PurchasePrice_Item_$_st_$_sup.ID 
+            INNER JOIN Contact PurchasePrice_Item_$_st_$_sup_$_c ON PurchasePrice_Item_$_st_$_sup.Contact_ID = PurchasePrice_Item_$_st_$_sup_$_c.ID 
+            LEFT JOIN OrganisationData PurchasePrice_Item_$_st_$_sup_$_c_$_orgd ON PurchasePrice_Item_$_st_$_sup_$_c.OrganisationData_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd.ID 
+            LEFT JOIN Organisation PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd.Organisation_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org.ID 
+            LEFT JOIN Comment1 PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org_$_cmt1 ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org.Comment1_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org_$_cmt1.ID 
+            LEFT JOIN cOrgTYPE PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_orgt ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd.cOrgTYPE_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_orgt.ID 
+            LEFT JOIN cAddress_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd.cAddress_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg.ID 
+            LEFT JOIN cStreetName_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cstrnorg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg.cStreetName_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cstrnorg.ID 
+            LEFT JOIN cHouseNumber_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_chounorg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg.cHouseNumber_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_chounorg.ID 
+            LEFT JOIN cCity_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccitorg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg.cCity_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccitorg.ID 
+            LEFT JOIN cZIP_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cziporg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg.cZIP_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cziporg.ID 
+            LEFT JOIN cCountry_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccouorg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg.cCountry_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccouorg.ID 
+            LEFT JOIN cState_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cstorg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg.cState_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cstorg.ID 
+            LEFT JOIN cPhoneNumber_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cphnnorg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd.cPhoneNumber_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cphnnorg.ID 
+            LEFT JOIN cFaxNumber_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cfaxnorg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd.cFaxNumber_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cfaxnorg.ID 
+            LEFT JOIN cEmail_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cemailorg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd.cEmail_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cemailorg.ID 
+            LEFT JOIN cHomePage_Org PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_chomepgorg ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd.cHomePage_Org_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_chomepgorg.ID 
+            LEFT JOIN Logo PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_logo ON PurchasePrice_Item_$_st_$_sup_$_c_$_orgd.Logo_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_logo.ID 
+            LEFT JOIN Person PurchasePrice_Item_$_st_$_sup_$_c_$_per ON PurchasePrice_Item_$_st_$_sup_$_c.Person_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_per.ID 
+            LEFT JOIN cFirstName PurchasePrice_Item_$_st_$_sup_$_c_$_per_$_cfn ON PurchasePrice_Item_$_st_$_sup_$_c_$_per.cFirstName_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_per_$_cfn.ID 
+            LEFT JOIN cLastName PurchasePrice_Item_$_st_$_sup_$_c_$_per_$_cln ON PurchasePrice_Item_$_st_$_sup_$_c_$_per.cLastName_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_per_$_cln.ID 
+			left join Stock s on PurchasePrice_Item.ID = s.PurchasePrice_Item_ID
+			group by PurchasePrice_Item_$_i_$_ipg1.Name,PurchasePrice_Item_$_i_$_ipg1_$_ipg2.Name,PurchasePrice_Item_$_i_$_ipg1_$_ipg2_$_ipg3.Name";
+         //   string sql = @"select 
+         //     s1.Name as s1_name,
+         //     s2.Name as s2_name,
+         //     s3.Name as s3_name
+         //     from Price_Item
+         //     Inner Join PriceList on Price_Item.PriceList_ID = PriceList.ID
+         //     Inner Join Item ptm on Price_Item.Item_ID = ptm.ID
+         //     Inner Join Unit on ptm.Unit_ID = Unit.ID
+         //     Inner Join Taxation on Price_Item.Taxation_ID =  Taxation.ID
+         //     Left Join PurchasePrice_Item putm on putm.Item_ID = ptm.ID
+         //     Left Join PurchasePrice on putm.PurchasePrice_ID = PurchasePrice.ID
+         //     Left Join Item_Image on ptm.Item_Image_ID = Item_Image.ID
+         //     Left Join Expiry on ptm.Expiry_ID = Expiry.ID
+         //     Left Join Warranty on ptm.Warranty_ID = Warranty.ID
+         //     left Join Stock on   putm.ID = Stock.PurchasePrice_Item_ID
+         //     left Join StockTake on putm.StockTake_ID = StockTake.ID 
+         //     left Join Supplier on StockTake.Supplier_ID =Supplier.ID 
+         //     left Join Contact on Supplier.Contact_ID =Contact.ID 
+         //     left Join OrganisationData on Contact.OrganisationData_ID =OrganisationData.ID 
+         //     left Join Organisation on OrganisationData.Organisation_ID =Organisation.ID 
+         //     left Join cAddress_Org on OrganisationData.cAddress_Org_ID = cAddress_Org.ID
+         //     left Join cStreetName_Org on cAddress_Org.cStreetName_Org_ID = cStreetName_Org.ID
+         //     left Join cHouseNumber_Org on cAddress_Org.cHouseNumber_Org_ID = cHouseNumber_Org.ID
+         //     left Join cCity_Org on cAddress_Org.cCity_Org_ID = cCity_Org.ID
+         //     left Join cZIP_Org on cAddress_Org.cZIP_Org_ID = cZIP_Org.ID
+         //     left Join cCountry_Org on cAddress_Org.cCountry_Org_ID = cCountry_Org.ID
+         //     left Join cState_Org on cAddress_Org.cState_Org_ID = cState_Org.ID
+         //     left Join Item_ParentGroup1 s1 ON ptm.Item_ParentGroup1_ID = s1.ID
+         //     left Join Item_ParentGroup2 s2 ON s1.Item_ParentGroup2_ID = s2.ID
+         //     left Join Item_ParentGroup3 s3 ON s2.Item_ParentGroup3_ID = s3.ID
+		       //group by s1.Name,s2.Name,s3.Name";
             dt_Price_Item_Group.Clear();
             dt_Price_Item_Group.Rows.Clear();
             dt_Price_Item_Group.Columns.Clear();

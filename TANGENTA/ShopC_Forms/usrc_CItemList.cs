@@ -251,7 +251,7 @@ namespace ShopC_Forms
         private bool Usrc_Item_InsidePageGroupHandler1_LoadItemsList(string[] groups, ref List<CItem_Data> list)
         {
             string[] sreversgroup = usrc_Item_InsideGroupHandler.reversegroup(groups);
-
+            //string[] sreversgroup = groups;
            if (m_consE.CurrentCons.m_ShopShelf.Load(m_consE.dtPurchasePrice_Item, sreversgroup))
            {
                 list = m_consE.CurrentCons.m_ShopShelf.ListOfCItems;
