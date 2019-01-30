@@ -44,7 +44,7 @@ namespace TangentaPrint
         {
 
             m_InvoiceData = xInvoiceData;
-            DocInvoice_ID = m_InvoiceData.m_ShopABC.m_CurrentDoc.Doc_ID;
+            DocInvoice_ID = m_InvoiceData.m_ShopABC.CurrentDocument.Doc_ID;
             lbl_Invoice_value.Text = InvoiceNumber;
             if (m_InvoiceData.IsDocInvoice)
             {

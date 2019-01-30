@@ -225,9 +225,9 @@ namespace ShopC
         public bool Get_Price_Item_Stock_Data(ID PriceList_ID)
         {
             m_PriceList_ID = PriceList_ID;
-            if (m_ShopBC.m_CurrentDoc.m_ShopShelf.GetGroupsTable(PriceList_ID))
+            if (m_ShopBC.CurrentDocument.m_ShopShelf.GetGroupsTable(PriceList_ID))
             {
-                if (m_usrc_Item_Group_Handler.Set_Groups(m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group))
+                if (m_usrc_Item_Group_Handler.Set_Groups(m_ShopBC.CurrentDocument.m_ShopShelf.dt_Price_Item_Group))
                 {
                     splitContainer1.Panel2Collapsed = false;
                     string Err = null;
@@ -242,22 +242,22 @@ namespace ShopC
                         StaticLib.Func.SetSplitContainerValue(splitContainer1, splitContainer1.Width - 82, ref Err);
                     }
 
-                    if (m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group.Rows.Count > 0)
+                    if (m_ShopBC.CurrentDocument.m_ShopShelf.dt_Price_Item_Group.Rows.Count > 0)
                     {
                         string s1_name = null;
                         string s2_name = null;
                         string s3_name = null;
-                        if (m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s1_name"] is string)
+                        if (m_ShopBC.CurrentDocument.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s1_name"] is string)
                         {
-                            s1_name = (string)m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s1_name"];
+                            s1_name = (string)m_ShopBC.CurrentDocument.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s1_name"];
                         }
-                        if (m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s2_name"] is string)
+                        if (m_ShopBC.CurrentDocument.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s2_name"] is string)
                         {
-                            s2_name = (string)m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s2_name"];
+                            s2_name = (string)m_ShopBC.CurrentDocument.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s2_name"];
                         }
-                        if (m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s3_name"] is string)
+                        if (m_ShopBC.CurrentDocument.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s3_name"] is string)
                         {
-                            s3_name = (string)m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s3_name"];
+                            s3_name = (string)m_ShopBC.CurrentDocument.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s3_name"];
                         }
 
                         string[] sGroup = new string[] { s1_name, s2_name, s3_name };
@@ -326,19 +326,19 @@ namespace ShopC
         {
             if (s_name != null)
             {
-                if (m_ShopBC.m_CurrentDoc.m_ShopShelf.Load(m_PriceList_ID, s_name))
+                if (m_ShopBC.CurrentDocument.m_ShopShelf.Load(m_PriceList_ID, s_name))
                 {
                     lbl_GroupPath.Text = m_usrc_Item_Group_Handler.GroupPath;
-                    m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentDoc.m_ShopShelf.ListOfItems, 5, usrc_Item_aray);
+                    m_usrc_Item_PageHandler.Init(m_ShopBC.CurrentDocument.m_ShopShelf.ListOfItems, 5, usrc_Item_aray);
                 }
             }
             else
             {
                 string[] xs_name = new string[] { null, null, null };
-                if (m_ShopBC.m_CurrentDoc.m_ShopShelf.Load(m_PriceList_ID, xs_name))
+                if (m_ShopBC.CurrentDocument.m_ShopShelf.Load(m_PriceList_ID, xs_name))
                 {
                     lbl_GroupPath.Text = m_usrc_Item_Group_Handler.GroupPath;
-                    m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentDoc.m_ShopShelf.ListOfItems, 5, usrc_Item_aray);
+                    m_usrc_Item_PageHandler.Init(m_ShopBC.CurrentDocument.m_ShopShelf.ListOfItems, 5, usrc_Item_aray);
                 }
             }
         }
@@ -362,7 +362,7 @@ namespace ShopC
             sGroupArr[1] = xdsci.s2_name;
             sGroupArr[2] = xdsci.s3_name;
             m_usrc_Item_Group_Handler.Select(sGroupArr);
-            int index = m_ShopBC.m_CurrentDoc.m_ShopShelf.GetIndex(xdsci);
+            int index = m_ShopBC.CurrentDocument.m_ShopShelf.GetIndex(xdsci);
             if (index >= 0)
             {
                 m_usrc_Item_PageHandler.Show(index);

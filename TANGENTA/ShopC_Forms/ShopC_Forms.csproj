@@ -222,11 +222,11 @@
     <Compile Include="usrc_SetItemQuantityInBasket.Designer.cs">
       <DependentUpon>usrc_SetItemQuantityInBasket.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_ShopC.cs">
+    <Compile Include="usrc_ConsumptionShopC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_ShopC.Designer.cs">
-      <DependentUpon>usrc_ShopC.cs</DependentUpon>
+    <Compile Include="usrc_ConsumptionShopC.Designer.cs">
+      <DependentUpon>usrc_ConsumptionShopC.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_TableOfConsumption.cs">
       <SubType>UserControl</SubType>
@@ -524,8 +524,8 @@
     <EmbeddedResource Include="usrc_SetItemQuantityInBasket.resx">
       <DependentUpon>usrc_SetItemQuantityInBasket.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_ShopC.resx">
-      <DependentUpon>usrc_ShopC.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_ConsumptionShopC.resx">
+      <DependentUpon>usrc_ConsumptionShopC.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_StockEditForSelectedStockTake.resx">

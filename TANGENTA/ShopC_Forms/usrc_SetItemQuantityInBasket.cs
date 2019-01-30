@@ -34,7 +34,7 @@ namespace ShopC_Forms
         private usrc_CItem_selected m_usrc_Item_selected = null;
         private usrc_Atom_CItem m_usrc_Atom_Item = null;
         private TangentaDB.Consumption_ShopC_Item dsci = null;
-        private Item_Data idata = null;
+        private CItem_Data idata = null;
         private usrc_CItemList m_usrc_ItemList = null;
         private usrc_CItem m_usrc_Item = null;
 
@@ -92,7 +92,7 @@ namespace ShopC_Forms
         private void ChangeQuantitiesInDB()
         {
             // first stock items !
-            decimal dallstocks = dsci.dQuantity_FromStock + idata.dQuantity_OfStockItems;
+            decimal dallstocks = dsci.dQuantity_FromStock + idata.dQuantity_OfCStockItems;
             decimal dToTakeFromStock = usrc_nmUpDn_FromStock.Value;
             decimal dToTakeFromFactory = usrc_nmUpDn_FromFactory.Value;
             if (dToTakeFromStock <= dallstocks)
@@ -125,11 +125,11 @@ namespace ShopC_Forms
 
                     if (m_usrc_ItemList.SelectItemsFromStockDialog)
                     {
-                        bresFromStock = m_ConsE.m_CurrentConsumption.m_Basket.Add2Basket(ref dsci,m_ConsE.DocTyp, m_ConsE.m_CurrentConsumption.m_Doc_ID, dadd_QuantityFromStock, idata, this.m_usrc_ItemList.Select_Items_From_Stock_Dialog);
+                        bresFromStock = m_ConsE.CurrentCons.m_Basket.Add2Basket(ref dsci,m_ConsE.DocTyp, m_ConsE.CurrentCons.m_Doc_ID, dadd_QuantityFromStock, idata, this.m_usrc_ItemList.Select_Items_From_Stock_Dialog);
                     }
                     else
                     {
-                        bresFromStock = m_ConsE.m_CurrentConsumption.m_Basket.Add2Basket(ref dsci, m_ConsE.DocTyp, m_ConsE.m_CurrentConsumption.m_Doc_ID, dadd_QuantityFromStock, idata, null);
+                        bresFromStock = m_ConsE.CurrentCons.m_Basket.Add2Basket(ref dsci, m_ConsE.DocTyp, m_ConsE.CurrentCons.m_Doc_ID, dadd_QuantityFromStock, idata, null);
                     }
                 }
                 else
@@ -138,8 +138,8 @@ namespace ShopC_Forms
                     if (dToTakeFromStock <= dsci.dQuantity_FromStock)
                     {
                         Transaction transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_RemoveFromBasket_And_put_back_to_Stock = DBSync.DBSync.NewTransaction("usrc_SetItemQuantityInBasket.ChangeQuantitiesInDB.RemoveFromBasket_And_put_back_to_Stock");
-                        bresFromStock = m_ConsE.m_CurrentConsumption.m_Basket.RemoveFromBasket_And_put_back_to_Stock(m_ConsE.DocTyp,
-                                                                                                              m_ConsE.m_CurrentConsumption.m_Doc_ID,
+                        bresFromStock = m_ConsE.CurrentCons.m_Basket.RemoveFromBasket_And_put_back_to_Stock(m_ConsE.DocTyp,
+                                                                                                              m_ConsE.CurrentCons.m_Doc_ID,
                                                                                                               dRemoveAndPutBack2Stock,
                                                                                                               idata,
                                                                                                               transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_RemoveFromBasket_And_put_back_to_Stock);
@@ -157,28 +157,28 @@ namespace ShopC_Forms
                 }
 
 
-                bool bresFromFactory = true;
+                //bool bresFromFactory = true;
 
-                Transaction transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory = DBSync.DBSync.NewTransaction("usrc_SetItemQuantityInBasket.ChangeQuantitiesInDB.SetFactory");
-                bresFromFactory = m_ConsE.m_CurrentConsumption.m_Basket.SetFactory(m_ConsE.DocTyp,
-                                                                            m_ConsE.m_CurrentConsumption.m_Doc_ID,
-                                                                            dToTakeFromFactory,
-                                                                            idata,
-                                                                            transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory);
+                //Transaction transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory = DBSync.DBSync.NewTransaction("usrc_SetItemQuantityInBasket.ChangeQuantitiesInDB.SetFactory");
+                //bresFromFactory = m_ConsE.CurrentCons.m_Basket.SetFactory(m_ConsE.DocTyp,
+                //                                                            m_ConsE.CurrentCons.m_Doc_ID,
+                //                                                            dToTakeFromFactory,
+                //                                                            idata,
+                //                                                            transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory);
 
-                if (bresFromFactory)
-                {
-                    transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory.Commit();
-                }
-                else
-                {
-                    transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory.Rollback();
-                    return;
-                }
-                if (bresFromStock && bresFromFactory)
+                //if (bresFromFactory)
+                //{
+                //    transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory.Commit();
+                //}
+                //else
+                //{
+                //    transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory.Rollback();
+                //    return;
+                //}
+                if (bresFromStock/* && bresFromFactory*/)
                 {
                     m_usrc_Atom_Item.DoRefresh();
-                    m_usrc_Item.DoPaint(idata, m_ConsE.m_CurrentConsumption.m_Basket);
+                    m_usrc_Item.DoPaint(idata, m_ConsE.CurrentCons.m_Basket);
                     m_usrc_Item_selected.DoPaint(dsci, m_usrc_Atom_Item, idata, m_usrc_Item);
                 }
 
@@ -219,7 +219,7 @@ namespace ShopC_Forms
                                 string stax_name,
                                 string squantity_taken_from,
                                 decimal xv_remains_in_stock,
-                                Item_Data xdata
+                                CItem_Data xdata
                                 )
                                 
         {
@@ -254,7 +254,7 @@ namespace ShopC_Forms
                 unmupdn3.label3.BackColor = Color.PeachPuff;
                 unmupdn3.Label3 = lng.s_StockShort.s+":" + LanguageControl.DynSettings.SetLanguageDecimalString(xv_remains_in_stock, iunit_decimal_places, sunit_symbol);
                 unmupdn3.Label4 = lng.s_Tax.s + ":" + stax_name + "," + sTaxPrice;// + " " + lng.s_lbl_PriceWithoutVAT.s + ":" + sNetPrice;
-                if ((dsci.dQuantity_FromStock == 0) && (idata.dQuantity_OfStockItems == 0))
+                if ((dsci.dQuantity_FromStock == 0) && (idata.dQuantity_OfCStockItems == 0))
                 {
                     unmupdn3.Enabled = false;
                 }
@@ -276,7 +276,7 @@ namespace ShopC_Forms
                            usrc_CItem_selected x_usrc_Item_selected,
                            usrc_Atom_CItem x_usrc_Atom_Item,
                            TangentaDB.Consumption_ShopC_Item xdsci,
-                           Item_Data xidata,
+                           CItem_Data xidata,
                            usrc_CItemList xusrc_ItemList,
                            usrc_CItem xusrc_Item)
         {
@@ -337,7 +337,7 @@ namespace ShopC_Forms
 
             usrc_nmUpDn_FromStock.Value = dsci.dQuantity_FromStock;
             last_usrc_nmUpDn_FromStock_Value = usrc_nmUpDn_FromStock.Value;
-            dv_remains_in_stock = idata.dQuantity_OfStockItems;
+            dv_remains_in_stock = idata.dQuantity_OfCStockItems;
             set_NmUpDn(usrc_nmUpDn_FromStock, unitsymbol, taxation_name, lng.s_FromStock.s, dv_remains_in_stock,idata);
 
             usrc_nmUpDn_FromFactory.Value = dsci.dQuantity_FromFactory;

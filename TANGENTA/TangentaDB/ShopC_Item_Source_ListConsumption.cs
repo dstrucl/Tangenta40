@@ -192,7 +192,7 @@ namespace TangentaDB
             return false;
         }
 
-        internal bool RemoveSources(string docTyp, Item_Data xdata, Transaction transaction)
+        internal bool RemoveSources(string docTyp, CItem_Data xdata, Transaction transaction)
         {
            foreach (Consumption_ShopC_Item_Source xdsciS in dsciS_list)
            {
@@ -221,7 +221,7 @@ namespace TangentaDB
 
         }
 
-        internal bool RemoveStockSources(string docTyp, Item_Data xdata,decimal dQuantity_To_Put_back_inStock, Transaction transaction)
+        internal bool RemoveStockSources(string docTyp, CItem_Data xdata,decimal dQuantity_To_Put_back_inStock, Transaction transaction)
         {
             foreach (Consumption_ShopC_Item_Source xdsciS in dsciS_list)
             {
@@ -236,7 +236,7 @@ namespace TangentaDB
                             {
                                 
                                 dQuantity_To_Put_back_inStock = dQuantity_To_Put_back_inStock - dQuantityToPutBack2Stock;
-                               Stock_Data xstd = xdata.Find_Stock_Data(xdsciS.Stock_ID);
+                               CStock_Data xstd = xdata.Find_Stock_Data(xdsciS.Stock_ID);
                                 if (xstd!=null)
                                 {
                                     if (xstd.dQuantity_v==null)
@@ -261,7 +261,7 @@ namespace TangentaDB
                         {
                             if (xdsciS.SendBackToStock(docTyp, dQuantity_To_Put_back_inStock, null, transaction))
                             {
-                                Stock_Data xstd = xdata.Find_Stock_Data(xdsciS.Stock_ID);
+                                CStock_Data xstd = xdata.Find_Stock_Data(xdsciS.Stock_ID);
                                 if (xstd != null)
                                 {
                                     if (xstd.dQuantity_v == null)
@@ -315,7 +315,7 @@ namespace TangentaDB
             
         }
 
-        internal Consumption_ShopC_Item_Source Find(Stock_Data stdx)
+        internal Consumption_ShopC_Item_Source Find(CStock_Data stdx)
         {
             foreach (Consumption_ShopC_Item_Source dsciSx in this.dsciS_list)
             {

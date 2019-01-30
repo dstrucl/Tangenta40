@@ -24,7 +24,7 @@ using ShopC_Forms;
 
 namespace ShopC_Forms
 {
-    public partial class usrc_ShopC: UserControl
+    public partial class usrc_ConsumptionShopC: UserControl
     {
         /// <summary>
         /// eMode eMode { VIEW, EDIT }: VIEW mode is for closed documents (invoices, proforma invoices etc..)
@@ -98,7 +98,7 @@ namespace ShopC_Forms
 
 
 
-        public usrc_ShopC()
+        public usrc_ConsumptionShopC()
         {
             InitializeComponent();
             this.m_usrc_Atom_ItemsList.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Bottom;
@@ -168,7 +168,7 @@ namespace ShopC_Forms
         private void M_usrc_Item_selected_event_SetItemQuantityInBasket(usrc_CItem_selected xusrc_Item_selected,
             usrc_Atom_CItem xusrc_Atom_Item,
             TangentaDB.Consumption_ShopC_Item xdsci,
-            Item_Data idata,
+            CItem_Data idata,
             usrc_CItemList xusrc_ItemList,
             usrc_CItem xusrc_Item)
         {
@@ -263,34 +263,6 @@ namespace ShopC_Forms
             this.m_usrc_Atom_ItemsList.SetCurrentInvoice_SelectedItems();
         }
 
-        private void btn_Stock_Click(object sender, EventArgs e)
-        {
-            if (CheckAccessStock!=null)
-            {
-                if (!CheckAccessStock())
-                {
-                    return;
-                }
-            }
-
-            decimal count_in_baskets = 0;
-            if (CountInBaskets(ref count_in_baskets))
-            {
-                if (count_in_baskets == 0)
-                {
-                    if (EditStock(nav))
-                    {
-                        m_usrc_ItemList.Get_Price_Item_Stock_Data(PriceList_ID);
-                        Reset();
-                    }
-                }
-                else
-                {
-                    XMessage.Box.Show(this, lng.s_YouCanNotEditStockUntilAllBasketsAreEmpty, "", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
-                }
-
-            }
-        }
 
         public void Set_DocumentMan_eMode_Shops()
         {
@@ -345,57 +317,6 @@ namespace ShopC_Forms
             }
         }
 
-        public bool EditItem(NavigationButtons.Navigation xnav)
-        {
-            SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item)));
-            Form_ShopC_Item_Edit edt_Item_dlg = new Form_ShopC_Item_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
-                                                            tbl_Item,
-                                                            "Item_$$Code desc", xnav);
-            edt_Item_dlg.ShowDialog(Global.f.GetParentForm(this));
-
-            if (edt_Item_dlg.List_of_Inserted_Items_ID.Count > 0)
-            {
-                DataTable dt_ShopC_Items_NotIn_PriceList = new DataTable();
-                if (f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Items_NotIn_PriceList))
-                {
-                    if (dt_ShopC_Items_NotIn_PriceList.Rows.Count > 0)
-                    {
-                        Transaction transaction_usrc_ShopC_EditItem_Insert_ShopC_Items_in_PriceList = DBSync.DBSync.NewTransaction("usrc_ShopC.EditItem.Insert_ShopC_Items_in_PriceList");
-                        if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Items_NotIn_PriceList,
-                                                                        this,
-                                                                        transaction_usrc_ShopC_EditItem_Insert_ShopC_Items_in_PriceList))
-                        {
-                            if (transaction_usrc_ShopC_EditItem_Insert_ShopC_Items_in_PriceList.Commit())
-                            {
-                                bool bPriceListChanged = false;
-                                this.m_usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
-                            }
-                        }
-                        else
-                        {
-                            transaction_usrc_ShopC_EditItem_Insert_ShopC_Items_in_PriceList.Rollback();
-                        }
-                    }
-                    else
-                    {
-                        bool bEdit = false;
-                        f_PriceList.CheckPriceUndefined_ShopC(ref bEdit);
-                        if (bEdit)
-                        {
-                            bool bPriceListChanged = false;
-                            this.m_usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
-                        }
-                    }
-                }
-            }
-            if (edt_Item_dlg.Changed)
-            {
-                m_usrc_ItemList.Get_Price_Item_Stock_Data(this.m_usrc_PriceList1.ID);
-            }
-
-            return edt_Item_dlg.Changed;
-        }
-
         private bool FrmSelectStockEditType_CheckIfAdministrator()
         {
             if (CheckIfAdministrator!=null)
@@ -405,10 +326,6 @@ namespace ShopC_Forms
             return true;
         }
 
-        private void usrc_PriceList1_PriceListChanged(ID xPriceList_ID)
-        {
-            m_usrc_ItemList.Get_Price_Item_Stock_Data(xPriceList_ID);
-        }
 
         //public bool proc_Select_ShopC_Item_from_Stock(string DocTyp,
         //                                              DataTable dt_ShopC_Item_in_Stock,
@@ -533,57 +450,7 @@ namespace ShopC_Forms
             return f_Item.GetItemData(ref dt_Item, ref iCountItemData);
         }
 
-        private void m_usrc_ItemList_Stock_Click()
-        {
-            if (CheckAccessStock != null)
-            {
-                if (!CheckAccessStock())
-                {
-                    return;
-                }
-            }
-
-            decimal count_in_baskets = 0;
-            if (m_ConsumptionEditor.CountInBaskets(ref count_in_baskets))
-            {
-                if (count_in_baskets == 0)
-                {
-                    if (EditStock(nav))
-                    {
-                        m_usrc_ItemList.Get_Price_Item_Stock_Data(PriceList_ID);
-                        Reset();
-                    }
-                }
-                else
-                {
-                    XMessage.Box.Show(this, lng.s_YouCanNotEditStockUntilAllBasketsAreEmpty, "", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
-                }
-            }
-        }
-
-        private void m_usrc_ItemList_Items_Click()
-        {
-
-            decimal count_in_baskets = 0;
-            if (m_ConsumptionEditor.CountInBaskets(ref count_in_baskets))
-            {
-                if (count_in_baskets == 0)
-                {
-                    NavigationButtons.Navigation nav_EditItem = new NavigationButtons.Navigation(null);
-                    nav_EditItem.bDoModal = true;
-                    nav_EditItem.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-                    if (EditItem(nav_EditItem))
-                    {
-                        m_usrc_ItemList.Get_Price_Item_Stock_Data(PriceList_ID);
-                    }
-                }
-                else
-                {
-                    XMessage.Box.Show(this, lng.s_YouCanNotEditItemsUntilAllBasketsAreEmpty, "", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
-                }
-
-            }
-        }
+       
         public void DoRefresh()
         {
            

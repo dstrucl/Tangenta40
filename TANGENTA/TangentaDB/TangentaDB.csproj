@@ -84,6 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasketConsumption.cs" />
+    <Compile Include="CItem_Data.cs" />
+    <Compile Include="Columns_PurchsePrice_CItem_Stock.cs" />
+    <Compile Include="CStock_Data.cs" />
     <Compile Include="DBTablesAndColumnNamesOfConsumption.cs" />
     <Compile Include="Consumption_ShopC_Item.cs" />
     <Compile Include="Doc_ShopC_Item.cs" />

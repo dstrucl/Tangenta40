@@ -311,7 +311,7 @@ namespace TangentaCore
                               transaction
                              ))
             {
-                if (m_ShopABC.m_CurrentDoc.ShowDraftButtons())
+                if (m_ShopABC.CurrentDocument.ShowDraftButtons())
                 {
                     if (doCurrentDelegates.m_delegate_control_SetDraftButtons!=null)
                     { 
@@ -326,7 +326,7 @@ namespace TangentaCore
                         doCurrentDelegates.m_delegate_control_SetViewButtons();
                     }
                 }
-                doCurrentDelegates.m_delegate_control_Show_Customer(m_ShopABC.m_CurrentDoc);
+                doCurrentDelegates.m_delegate_control_Show_Customer(m_ShopABC.CurrentDocument);
                 doCurrentDelegates.m_delegate_control_AddOn_Show(xID);
                 return true;
             }
@@ -361,13 +361,13 @@ namespace TangentaCore
                             doCurrent_delegates.m_delegate_control_lbl_Sum_ForeColor,
                             doCurrent_delegates.m_delegate_control_lbl_Sum_Text
                             );
-                if (m_ShopABC.m_CurrentDoc.bDraft)
+                if (m_ShopABC.CurrentDocument.bDraft)
                 {
                     doCurrent_delegates.m_delegate_control_AddHandler();
                 }
                 else
                 {
-                    if (m_ShopABC.m_CurrentDoc.Exist)
+                    if (m_ShopABC.CurrentDocument.Exist)
                     {
                         doCurrent_delegates.m_delegate_control_RemoveHandler();
                     }
@@ -450,8 +450,8 @@ namespace TangentaCore
                           ref Err,
                           transaction)) // try to get draft
             {
-                xdelegate_control_InvoiceNumber_Text(DocumentMan.GetInvoiceNumber(m_ShopABC.m_CurrentDoc.bDraft, m_ShopABC.m_CurrentDoc.FinancialYear, m_ShopABC.m_CurrentDoc.NumberInFinancialYear, m_ShopABC.m_CurrentDoc.DraftNumber));
-                if (m_ShopABC.m_CurrentDoc.bDraft)
+                xdelegate_control_InvoiceNumber_Text(DocumentMan.GetInvoiceNumber(m_ShopABC.CurrentDocument.bDraft, m_ShopABC.CurrentDocument.FinancialYear, m_ShopABC.CurrentDocument.NumberInFinancialYear, m_ShopABC.CurrentDocument.DraftNumber));
+                if (m_ShopABC.CurrentDocument.bDraft)
                 {
                     SetMode(DocumentEditor.emode.edit_eDocumentType, xdelegate_control_SetMode);
                     if (xdelegate_control_SetCurrentInvoice_SelectedShopB_Items != null)
@@ -478,9 +478,9 @@ namespace TangentaCore
                     if (DocM.IsDocInvoice)
                     {
                         xdelegate_control_ShowStornoCheckBox(true);// this.chk_Storno.Visible = true;
-                        if (m_ShopABC.m_CurrentDoc.TInvoice.bStorno_v != null)
+                        if (m_ShopABC.CurrentDocument.TInvoice.bStorno_v != null)
                         {
-                            xdelegate_control_SetStornoCheckBox(m_ShopABC.m_CurrentDoc.TInvoice.bStorno_v.v);// this.chk_Storno.Checked = m_ShopABC.m_CurrentDoc.TInvoice.bStorno_v.v;
+                            xdelegate_control_SetStornoCheckBox(m_ShopABC.CurrentDocument.TInvoice.bStorno_v.v);// this.chk_Storno.Checked = m_ShopABC.m_CurrentDoc.TInvoice.bStorno_v.v;
                         }
                         else
                         {
@@ -517,7 +517,7 @@ namespace TangentaCore
                                   ref Err,
                                   transaction)) // Get invoice with Invoice_ID
                 {
-                    xdelegate_control_InvoiceNumber_Text(DocumentMan.GetInvoiceNumber(m_ShopABC.m_CurrentDoc.bDraft, m_ShopABC.m_CurrentDoc.FinancialYear, m_ShopABC.m_CurrentDoc.NumberInFinancialYear, m_ShopABC.m_CurrentDoc.DraftNumber));// this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.m_CurrentDoc.bDraft, m_ShopABC.m_CurrentDoc.FinancialYear, m_ShopABC.m_CurrentDoc.NumberInFinancialYear, m_ShopABC.m_CurrentDoc.DraftNumber);//
+                    xdelegate_control_InvoiceNumber_Text(DocumentMan.GetInvoiceNumber(m_ShopABC.CurrentDocument.bDraft, m_ShopABC.CurrentDocument.FinancialYear, m_ShopABC.CurrentDocument.NumberInFinancialYear, m_ShopABC.CurrentDocument.DraftNumber));// this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.m_CurrentDoc.bDraft, m_ShopABC.m_CurrentDoc.FinancialYear, m_ShopABC.m_CurrentDoc.NumberInFinancialYear, m_ShopABC.m_CurrentDoc.DraftNumber);//
 
                     if (xdelegate_control_ShopC_Clear != null)
                     {
@@ -600,9 +600,9 @@ namespace TangentaCore
             decimal dsum_TaxSum_Basket = 0;
             decimal dsum_NetSum_Basket = 0;
 
-            if (m_ShopABC.m_CurrentDoc.m_Basket!=null)
+            if (m_ShopABC.CurrentDocument.m_Basket!=null)
             {
-                m_ShopABC.m_CurrentDoc.m_Basket.GetPriceSum(ref dsum_GrossSum_Basket, ref dsum_TaxSum_Basket, ref dsum_NetSum_Basket, ref TaxSum);
+                m_ShopABC.CurrentDocument.m_Basket.GetPriceSum(ref dsum_GrossSum_Basket, ref dsum_TaxSum_Basket, ref dsum_NetSum_Basket, ref TaxSum);
             }
             dsum_GrossSum += dsum_GrossSum_Basket;
             dsum_TaxSum += dsum_TaxSum_Basket;
@@ -622,7 +622,7 @@ namespace TangentaCore
             string sGrossSum = "";
             if (DocM.IsDocInvoice)
             {
-                if (m_ShopABC.m_CurrentDoc.TInvoice.StornoDocInvoice_ID == null)
+                if (m_ShopABC.CurrentDocument.TInvoice.StornoDocInvoice_ID == null)
                 {
                     sGrossSum = dsum_GrossSum.ToString();
                     xdelegate_control_lbl_Sum_ForeColor(Color.Black);// this.lbl_Sum.ForeColor = Color.Black;
@@ -630,7 +630,7 @@ namespace TangentaCore
                 else
                 {
                     sGrossSum = dsum_GrossSum.ToString();
-                    decimal_v dGrossSum_v = tf.set_decimal(m_ShopABC.m_CurrentDoc.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$GrossSum"]);
+                    decimal_v dGrossSum_v = tf.set_decimal(m_ShopABC.CurrentDocument.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$GrossSum"]);
                     if (dGrossSum_v != null)
                     {
                         if (dGrossSum_v.v < 0)
@@ -663,11 +663,11 @@ namespace TangentaCore
         {
             if (m_ShopABC != null)
             {
-                if (m_ShopABC.m_CurrentDoc != null)
+                if (m_ShopABC.CurrentDocument != null)
                 {
-                    if (m_ShopABC.m_CurrentDoc.Exist)
+                    if (m_ShopABC.CurrentDocument.Exist)
                     {
-                        if (m_ShopABC.m_CurrentDoc.bDraft)
+                        if (m_ShopABC.CurrentDocument.bDraft)
                         {
 
                             if ((TSettings.RecordCashierActivity) && (TSettings.CashierState == TangentaDB.CashierActivity.eCashierState.CLOSED))
@@ -715,7 +715,7 @@ namespace TangentaCore
 
                             if (IssueDocument(pform,this,xdelegate_DocInvoiceSaved, xdelegate_DocProformaInvoiceSaved, transaction_DocumentEditor_IssueDocument))
                             {
-                                if (xdelegate_control_DoCurrent(m_ShopABC.m_CurrentDoc.Doc_ID, transaction_DocumentEditor_IssueDocument))// DoCurrent(m_ShopABC.m_CurrentDoc.Doc_ID);
+                                if (xdelegate_control_DoCurrent(m_ShopABC.CurrentDocument.Doc_ID, transaction_DocumentEditor_IssueDocument))// DoCurrent(m_ShopABC.m_CurrentDoc.Doc_ID);
                                 {
                                     if (!transaction_DocumentEditor_IssueDocument.Commit())
                                     {
@@ -736,7 +736,7 @@ namespace TangentaCore
                         else
                         {
                             //Print existing invoice
-                            InvoiceData.DocInvoice_ID = m_ShopABC.m_CurrentDoc.Doc_ID;
+                            InvoiceData.DocInvoice_ID = m_ShopABC.CurrentDocument.Doc_ID;
                             Transaction transaction_m_InvoiceData_Read_DocInvoice = DBSync.DBSync.NewTransaction("m_InvoiceData.Read_DocInvoice");
                             if (DocM.IsDocInvoice)
                             {
@@ -1117,7 +1117,7 @@ namespace TangentaCore
             //ProgramDiagnostic.Diagnostic.Clear();
             //ProgramDiagnostic.Diagnostic.Meassure("Before fs.UpdatePriceInDraft", "?");
             
-            if (fs.UpdatePriceInDraft(DocTyp, m_ShopABC.m_CurrentDoc.Doc_ID, GrossSum, TaxSum.Value,NetSum, transaction))
+            if (fs.UpdatePriceInDraft(DocTyp, m_ShopABC.CurrentDocument.Doc_ID, GrossSum, TaxSum.Value,NetSum, transaction))
             {
                 if (DocM.IsDocInvoice)
                 {
@@ -1128,7 +1128,7 @@ namespace TangentaCore
                     if (InvoiceData.SaveDocInvoice(ref DocInvoice_ID, TSettings.CashierActivity, GlobalData.ElectronicDevice_Name, m_LMOUser.Atom_WorkPeriod_ID, transaction))
                     {
 
-                        m_ShopABC.m_CurrentDoc.Doc_ID = DocInvoice_ID;
+                        m_ShopABC.CurrentDocument.Doc_ID = DocInvoice_ID;
 
                         if (TSettings.b_FVI_SLO)
                         {
@@ -1146,7 +1146,7 @@ namespace TangentaCore
                         // read saved doc Invoice again !
                         if (InvoiceData.Read_DocInvoice(transaction))
                         {
-                            xdelegate_DocInvoiceSaved(m_ShopABC.m_CurrentDoc.Doc_ID);
+                            xdelegate_DocInvoiceSaved(m_ShopABC.CurrentDocument.Doc_ID);
                             Printing_DocInvoice(pform, transaction);// Printing_DocInvoice();
                             return true;
                         }
@@ -1166,11 +1166,11 @@ namespace TangentaCore
                     // save doc Invoice 
                     if (InvoiceData.SaveDocProformaInvoice(ref DocInvoice_ID, GlobalData.ElectronicDevice_Name, m_LMOUser.Atom_WorkPeriod_ID,transaction))
                     {
-                        m_ShopABC.m_CurrentDoc.Doc_ID = DocInvoice_ID;
+                        m_ShopABC.CurrentDocument.Doc_ID = DocInvoice_ID;
                         // read saved doc Invoice again !
                         if (InvoiceData.Read_DocInvoice(transaction))
                         {
-                            xdelegate_DocProformaInvoiceSaved(m_ShopABC.m_CurrentDoc.Doc_ID);
+                            xdelegate_DocProformaInvoiceSaved(m_ShopABC.CurrentDocument.Doc_ID);
                             Printing_DocInvoice(pform, transaction);// Printing_DocInvoice();
                             return true;
                         }
@@ -1333,9 +1333,9 @@ namespace TangentaCore
             {
                 if (transaction_SetNewInvoiceDraft.Commit())
                 {
-                    if (ID.Validate(m_ShopABC.m_CurrentDoc.Doc_ID))
+                    if (ID.Validate(m_ShopABC.CurrentDocument.Doc_ID))
                     {
-                        xdelegate_control_InvoiceNumber_Text(m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "/" + m_ShopABC.m_CurrentDoc.DraftNumber.ToString()); // this.txt_Number.Text = DocE.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "/" + DocE.m_ShopABC.m_CurrentDoc.DraftNumber.ToString();
+                        xdelegate_control_InvoiceNumber_Text(m_ShopABC.CurrentDocument.FinancialYear.ToString() + "/" + m_ShopABC.CurrentDocument.DraftNumber.ToString()); // this.txt_Number.Text = DocE.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "/" + DocE.m_ShopABC.m_CurrentDoc.DraftNumber.ToString();
                         xdelegate_control_SetMode(DocumentEditor.emode.edit_eDocumentType);// SetMode(DocumentEditor.emode.edit_eDocumentType);
                     }
 
@@ -1362,7 +1362,7 @@ namespace TangentaCore
         {
             ID Atom_Customer_Person_ID = null;
             Transaction transaction_Customer_Person_Changed = DBSync.DBSync.NewTransaction("Customer_Person_Changed");
-            if (m_ShopABC.m_CurrentDoc.Update_Customer_Person(DocTyp, Customer_Person_ID, ref Atom_Customer_Person_ID, transaction_Customer_Person_Changed))
+            if (m_ShopABC.CurrentDocument.Update_Customer_Person(DocTyp, Customer_Person_ID, ref Atom_Customer_Person_ID, transaction_Customer_Person_Changed))
             {
                 if (ID.Validate(Atom_Customer_Person_ID))
                 {
@@ -1370,7 +1370,7 @@ namespace TangentaCore
                     {
                         return;
                     }
-                    xdelegate_control_usrc_Customer_Show_Customer_Person(m_ShopABC.m_CurrentDoc);// usrc_Customer.Show_Customer_Person(m_ShopABC.m_CurrentDoc);
+                    xdelegate_control_usrc_Customer_Show_Customer_Person(m_ShopABC.CurrentDocument);// usrc_Customer.Show_Customer_Person(m_ShopABC.m_CurrentDoc);
                     xdelegate_Customer_Person_Changed(Customer_Person_ID);
                 }
                 else
@@ -1401,9 +1401,9 @@ namespace TangentaCore
                 bool bstorno = false;
                 if (DocM.IsDocInvoice)
                 {
-                    if (m_ShopABC.m_CurrentDoc.TInvoice.bStorno_v != null)
+                    if (m_ShopABC.CurrentDocument.TInvoice.bStorno_v != null)
                     {
-                        bstorno = m_ShopABC.m_CurrentDoc.TInvoice.bStorno_v.v;
+                        bstorno = m_ShopABC.CurrentDocument.TInvoice.bStorno_v.v;
                     }
                 }
 
@@ -1413,11 +1413,11 @@ namespace TangentaCore
                     {
                         if (MessageBox.Show(pform, lng.s_Invoice.s + ": " + stxt_Number + "\r\n" + lng.s_AreYouSureToStornoThisInvoice.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
-                            Form_Storno frm_storno_dlg = new Form_Storno(m_ShopABC.m_CurrentDoc.Doc_ID);
+                            Form_Storno frm_storno_dlg = new Form_Storno(m_ShopABC.CurrentDocument.Doc_ID);
 
                             if (frm_storno_dlg.ShowDialog() == DialogResult.Yes)
                             {
-                                stornoReferenceInvoiceNumber = m_ShopABC.m_CurrentDoc.NumberInFinancialYear.ToString();
+                                stornoReferenceInvoiceNumber = m_ShopABC.CurrentDocument.NumberInFinancialYear.ToString();
                                 stornoReferenceInvoiceIssueDateTime = frm_storno_dlg.m_InvoiceTime;
                                 string sInvoiceToStorno = frm_storno_dlg.m_sInvoiceToStorno;
                                 if (MessageBox.Show(pform, sInvoiceToStorno + "\r\n" + lng.s_AreYouSureToStornoThisInvoice.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
@@ -1426,7 +1426,7 @@ namespace TangentaCore
                                     ID Storno_DocInvoice_ID = null;
                                     DateTime stornoInvoiceIssueDateTime = new DateTime();
                                     Transaction transaction_Storno = DBSync.DBSync.NewTransaction("Storno");
-                                    if (m_ShopABC.m_CurrentDoc.Storno(m_LMOUser.Atom_WorkPeriod_ID,
+                                    if (m_ShopABC.CurrentDocument.Storno(m_LMOUser.Atom_WorkPeriod_ID,
                                                                       ref Storno_DocInvoice_ID,
                                                                       true,
                                                                       GlobalData.ElectronicDevice_Name,
@@ -1525,16 +1525,16 @@ namespace TangentaCore
         {
             ID Atom_Customer_Org_ID = null;
             Transaction transaction_Customer_Org_Changed = DBSync.DBSync.NewTransaction("Customer_Org_Changed");
-            if (m_ShopABC.m_CurrentDoc.Update_Customer_Org(DocTyp, Customer_Org_ID, ref Atom_Customer_Org_ID, transaction_Customer_Org_Changed))
+            if (m_ShopABC.CurrentDocument.Update_Customer_Org(DocTyp, Customer_Org_ID, ref Atom_Customer_Org_ID, transaction_Customer_Org_Changed))
             {
-                m_ShopABC.m_CurrentDoc.Atom_Customer_Org_ID = Atom_Customer_Org_ID;
+                m_ShopABC.CurrentDocument.Atom_Customer_Org_ID = Atom_Customer_Org_ID;
                 if (ID.Validate(Atom_Customer_Org_ID))
                 {
                     if (!transaction_Customer_Org_Changed.Commit())
                     {
                         return;
                     }
-                    xdelegate_control_usrc_Customer_Show_Customer_Organisation(m_ShopABC.m_CurrentDoc);
+                    xdelegate_control_usrc_Customer_Show_Customer_Organisation(m_ShopABC.CurrentDocument);
                     //usrc_Customer.Show_Customer_Org(m_ShopABC.m_CurrentDoc);
                     xdelegate_Customer_Org_Changed(Customer_Org_ID);
                 }

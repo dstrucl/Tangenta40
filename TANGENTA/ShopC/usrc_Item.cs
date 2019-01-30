@@ -291,11 +291,11 @@ namespace ShopC
             {
                 if (m_usrc_Atom_ItemsList.m_ShopBC != null)
                 {
-                    if (m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc != null)
+                    if (m_usrc_Atom_ItemsList.m_ShopBC.CurrentDocument != null)
                     {
-                        if (m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket != null)
+                        if (m_usrc_Atom_ItemsList.m_ShopBC.CurrentDocument.m_Basket != null)
                         {
-                            Doc_ShopC_Item dsci_in_Basket = m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Contains(m_Item_Data);
+                            Doc_ShopC_Item dsci_in_Basket = m_usrc_Atom_ItemsList.m_ShopBC.CurrentDocument.m_Basket.Contains(m_Item_Data);
                             int xStart = x0_pic_Item_Left;
                             switch (xeMode)
                             {
@@ -516,9 +516,9 @@ namespace ShopC
 
             Doc_ShopC_Item dsci = null;
             Transaction transaction_usrc_Item_uItemStock_Click_m_Basket_Add2Basket = DBSync.DBSync.NewTransaction("usrc_Item_uItemStock_Click_m_Basket_Add2Basket");
-            if (m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(ref dsci,
+            if (m_usrc_Atom_ItemsList.m_ShopBC.CurrentDocument.m_Basket.Add2Basket(ref dsci,
                                                                             m_usrc_Atom_ItemsList.m_ShopBC.DocTyp,
-                                                                            m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
+                                                                            m_usrc_Atom_ItemsList.m_ShopBC.CurrentDocument.Doc_ID,
                                                                             uItemStock.Value,
                                                                             m_Item_Data,
                                                                             null))
@@ -546,9 +546,9 @@ namespace ShopC
                     Doc_ShopC_Item dsci = null;
                     Transaction transaction_usrc_Item_uItemFactory_Click_EditStock_AvoidStock_Add2BasketFromFactory = DBSync.DBSync.NewTransaction("usrc_Item.uItemFactory_Click.EditStock_AvoidStock.Add2BasketFromFactory");
 
-                    if (m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add2BasketFromFactory(ref dsci,
+                    if (m_usrc_Atom_ItemsList.m_ShopBC.CurrentDocument.m_Basket.Add2BasketFromFactory(ref dsci,
                                                                                                    m_usrc_Atom_ItemsList.m_ShopBC.DocTyp,
-                                                                                                   m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID,
+                                                                                                   m_usrc_Atom_ItemsList.m_ShopBC.CurrentDocument.Doc_ID,
                                                                                                    uItemFactory.Value,
                                                                                                    m_Item_Data,
                                                                                                    transaction_usrc_Item_uItemFactory_Click_EditStock_AvoidStock_Add2BasketFromFactory))
@@ -577,9 +577,9 @@ namespace ShopC
                 Doc_ShopC_Item dsci = null;
                 Transaction transaction_usrc_Item_uItemFactory_Click_Add2BasketFromFactory = DBSync.DBSync.NewTransaction("usrc_Item.uItemFactory_Click.Add2BasketFromFactory");
 
-                if (m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Add2BasketFromFactory(ref dsci,
+                if (m_usrc_Atom_ItemsList.m_ShopBC.CurrentDocument.m_Basket.Add2BasketFromFactory(ref dsci,
                                                                                                m_usrc_Atom_ItemsList.m_ShopBC.DocTyp,
-                                                                                               m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.Doc_ID, uItemFactory.Value,
+                                                                                               m_usrc_Atom_ItemsList.m_ShopBC.CurrentDocument.Doc_ID, uItemFactory.Value,
                                                                                                m_Item_Data,
                                                                                                transaction_usrc_Item_uItemFactory_Click_Add2BasketFromFactory))
                 {

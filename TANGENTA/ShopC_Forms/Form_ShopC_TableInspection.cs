@@ -92,7 +92,7 @@ namespace ShopC_Forms
                     foreach (DataGridViewRow dgvr in dgvx_ShopC_Docs.Rows)
                     {
                         ID xdoc_ID = tf.set_ID(dgvr.Cells[col_ID].Value);
-                        if (xdoc_ID.Equals(m_ShopABC.m_CurrentDoc.Doc_ID))
+                        if (xdoc_ID.Equals(m_ShopABC.CurrentDocument.Doc_ID))
                         {
                             dgvr.Selected = true;
                             dgvx_ShopC_Docs.CurrentCell = dgvr.Cells[0];

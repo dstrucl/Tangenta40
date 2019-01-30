@@ -179,96 +179,11 @@ namespace TangentaDB
             }
         }
 
-        //public static bool GetItems(ID currentDoc_ID,ID item_ID, ref DataTable dtShopCItems)
-        //{
-        //    //  string sql = @"select 
-        //    //                         disci.Consumption_ID,
-        //    //                         disci.ID as Consumption_ShopC_Item_ID,
-        //    //                         ai.UniqueName as Atom_Item_UniqueName,
-        //    //                         disci.dQuantity as dQuantity,
-        //    //                         disci.Stock_ID,
-        //    //                         i.UniqueName as Item_UniqueName,
-        //    //                         atax.Rate as TaxRate,
-        //    //                         disci.ExtraDiscount as ExtraDiscount,
-        //    //                         disci.RetailPriceWithDiscount as RetailPriceWithDiscount,
-        //    //                         disci.TaxPrice as TaxPrice,
-        //    //                         disci.Atom_Price_Item_ID as Atom_Price_Item_ID,
-        //    //                         disci.ExpiryDate as ExpiryDate,
-        //    //                         api.RetailPricePerUnit as api_RetailPricePerUnit,
-        //    //                         api.Discount as api_Discount,
-        //    //                         api.Atom_Taxation_ID as api_Atom_Taxation_ID,
-        //    //                         api.Atom_Item_ID as api_Atom_Item_ID, 
-        //    //                         api.Atom_PriceList_ID as api_Atom_PriceList_ID,
-        //    // s.ImportTime as Stock_ImportTime,
-        //    // s.dQuantity as Stock_dQuantity,
-        //    // s.ExpiryDate as Stock_ExpiryDate,
-        //    // s.PurchasePrice_Item_ID as PurchasePrice_Item_ID,
-        //    // s.Stock_AddressLevel1_ID as Stock_AddressLevel1_ID,
-        //    // s.Description  as Stock_Description,
-        //    //                         s.ExpiryDate as Stock_ExpiriyDate,
-        //    // ppi.Item_ID as ppi_Item_ID,
-        //    // ppi.PurchasePrice_ID as ppi_PurchasePrice_ID,
-        //    // ppi.StockTake_ID as ppi_StockTake_ID,
-        //    //                        st.Name as StockTakeName,
-        //    //                        st.StockTake_Date,
-        //    //                        disci.Stock_ID as Stock_ID
-        //    //                        from Consumption_ShopC_Item disci
-        //    //                        left join Stock s on disci.Stock_ID = s.ID
-        //    //                        left join JOURNAL_Stock js on js.Stock_ID = s.ID
-        //    //                        left join JOURNAL_Stock_Type jst on jst.ID = js.JOURNAL_Stock_Type_ID and jst.Name = 'New Stock Data'
-        //    //left join PurchasePrice_Item ppi on ppi.ID = s.PurchasePrice_Item_ID
-        //    //left join PurchasePrice pp on pp.ID = ppi_PurchasePrice_ID
-        //    //                        left join StockTake st on ppi.StockTake_ID = st.ID
-        //    //left join Item i on i.ID = ppi.Item_ID
-        //    //                        left join Atom_Price_Item api on disci.Atom_Price_Item_ID = api.ID
-        //    //                        left join Atom_Taxation atax on api.Atom_Taxation_ID = atax.ID
-        //    //                        left join Atom_Item ai on api.Atom_Item_ID = ai.ID
-        //    //                        left join Atom_PriceList apl on api.Atom_PriceList_ID = apl.ID
-        //    //                        where disci.Consumption_ID = " + currentDoc_ID.ToString() + " and ppi.Item_ID = "+ item_ID.ToString()
-        //    //                        + " order by js.EventTime asc";
-        //    string sql = @"select
-        //                           disci.ID as Consumption_ShopC_Item_ID,
-        //                           ai.UniqueName as Atom_Item_UniqueName,
-        //                           atax.Rate as TaxRate,
-        //                           api.RetailPricePerUnit as api_RetailPricePerUnit,
-        //                           api.Discount as api_Discount,
-        //                           api.Atom_Taxation_ID as api_Atom_Taxation_ID,
-        //                           api.Atom_Item_ID as api_Atom_Item_ID, 
-        //                           api.Atom_PriceList_ID as api_Atom_PriceList_ID
-        //                          from Consumption_ShopC_Item disci
-        //                          inner join Atom_Price_Item api on disci.Atom_Price_Item_ID = api.ID
-        //                         inner join Atom_Taxation atax on api.Atom_Taxation_ID = atax.ID
-        //                         inner join Atom_Item ai on api.Atom_Item_ID = ai.ID
-        //                         inner join Atom_PriceList apl on api.Atom_PriceList_ID = apl.ID
-        //                            where disci.Consumption_ID = " + currentDoc_ID.ToString() + " and ppi.Item_ID = " + item_ID.ToString();
-        //    //                        + " order by js.EventTime asc";
-
-        //    if (dtShopCItems == null)
-        //    {
-        //        dtShopCItems = new DataTable();
-        //    }
-        //    else
-        //    {
-        //        dtShopCItems.Dispose();
-        //        dtShopCItems = new DataTable();
-        //    }
-        //    string Err = null;
-        //    if (DBSync.DBSync.ReadDataTable(ref dtShopCItems, sql, ref Err))
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        LogFile.Error.Show("ERROR:TangentaDB:f_Consumption_ShopC_Item:GetItems:sql=" + sql + "\r\nErr" + Err);
-        //        return false;
-        //    }
-        //}
-
+      
      
 
-        public static bool Insert(ID docInvoice_ID,
-                                  ID atom_Price_Item_ID,
-                                  decimal extraDiscount,
+        public static bool Insert(ID cons_ID,
+                                  ID item_ID,
                                   ref ID Consumption_ShopC_Item_ID,
                                   Transaction transaction)
         {
@@ -276,28 +191,24 @@ namespace TangentaDB
 
 
             string spar_Consumption_ID = "@par_Consumption_ID";
-            SQL_Parameter par_Consumption_ID = new SQL_Parameter(spar_Consumption_ID, false, docInvoice_ID);
+            SQL_Parameter par_Consumption_ID = new SQL_Parameter(spar_Consumption_ID, false, cons_ID);
             lpar.Add(par_Consumption_ID);
 
-            string spar_atom_Price_Item_ID = "@par_atom_Price_Item_ID";
-            SQL_Parameter par_atom_Price_Item_ID = new SQL_Parameter(spar_atom_Price_Item_ID, false, atom_Price_Item_ID);
-            lpar.Add(par_atom_Price_Item_ID);
+            string spar_Item_ID = "@par_Item_ID";
+            SQL_Parameter par_Item_ID = new SQL_Parameter(spar_Item_ID, false, item_ID);
+            lpar.Add(par_Item_ID);
 
-            string spar_extraDiscount = "@par_extraDiscount";
-            SQL_Parameter par_extraDiscount = new SQL_Parameter(spar_extraDiscount,SQL_Parameter.eSQL_Parameter.Decimal, false, extraDiscount);
-            lpar.Add(par_extraDiscount);
+          
             
 
             string sql = @"insert into Consumption_ShopC_Item
                            (
                             Consumption_ID,
-                            Atom_Price_Item_ID,
-                            ExtraDiscount)
+                            Item_ID)
                             values
                             (
                             " + spar_Consumption_ID + @",
-                            " + spar_atom_Price_Item_ID + @",
-                            " + spar_extraDiscount + ")";
+                            " + spar_Item_ID + ")";
             string Err = null;
             if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Consumption_ShopC_Item_ID, ref Err, "Consumption_ShopC_Item"))
             {
@@ -310,9 +221,6 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(ID doc_ID, ID atom_Price_Item_ID, decimal extraDiscount, ref ID doc_ShopC_Item_ID)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

@@ -288,11 +288,11 @@ namespace ShopC_Forms
             {
                 if (m_usrc_Atom_ItemsList.ConsE != null)
                 {
-                    if (m_usrc_Atom_ItemsList.ConsE.m_CurrentConsumption != null)
+                    if (m_usrc_Atom_ItemsList.ConsE.CurrentCons != null)
                     {
-                        if (m_usrc_Atom_ItemsList.ConsE.m_CurrentConsumption.m_Basket != null)
+                        if (m_usrc_Atom_ItemsList.ConsE.CurrentCons.m_Basket != null)
                         {
-                            TangentaDB.Consumption_ShopC_Item dsci_in_Basket = m_usrc_Atom_ItemsList.ConsE.m_CurrentConsumption.m_Basket.Contains(m_Item_Data);
+                            TangentaDB.Consumption_ShopC_Item dsci_in_Basket = m_usrc_Atom_ItemsList.ConsE.CurrentCons.m_Basket.Contains(m_Item_Data);
                             int xStart = x0_pic_Item_Left;
                             switch (xeMode)
                             {
@@ -510,7 +510,7 @@ namespace ShopC_Forms
         //private void uItemStock_Click(object sender, EventArgs e)
         //{
         //    Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
-        //    m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentConsumption.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentConsumption.Doc_ID,
+        //    m_usrc_Atom_ItemsList.m_ShopBC.CurrentCons.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.CurrentCons.Doc_ID,
         //                                                                this,
         //                                                                m_Item_Data,
         //                                                                uItemFactory.Value,
@@ -536,7 +536,7 @@ namespace ShopC_Forms
         //        if (EditStock_AvoidStock())
         //        {
         //            Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
-        //            //m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentConsumption.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentConsumption.Doc_ID,
+        //            //m_usrc_Atom_ItemsList.m_ShopBC.CurrentCons.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.CurrentCons.Doc_ID,
         //            //                                                               this,
         //            //                                                               m_Item_Data,
         //            //                                                               uItemFactory.Value,
@@ -556,7 +556,7 @@ namespace ShopC_Forms
         //    else
         //    {
         //        Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
-        //        //m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentConsumption.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentConsumption.Doc_ID,
+        //        //m_usrc_Atom_ItemsList.m_ShopBC.CurrentCons.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.CurrentCons.Doc_ID,
         //        //                                                                this,
         //        //                                                                m_Item_Data,
         //        //                                                                uItemFactory.Value,

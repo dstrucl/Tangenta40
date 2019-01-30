@@ -120,7 +120,7 @@ namespace ShopC_Forms
         {
             get
             {
-                if (this.m_usrc_ShopC != null)
+                if (this.m_usrc_ConsumptionShopC != null)
                 {
                     //return m_usrc_ShopC.NumberOfGroupLevels;
                     return 0;
@@ -156,14 +156,14 @@ namespace ShopC_Forms
             //    m_usrc_ShopC.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
             //    m_usrc_ShopC.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
             //}
-            m_usrc_ShopC.Init(ConsE.m_LMOUser,
+            m_usrc_ConsumptionShopC.Init(ConsE.m_LMOUser,
                                       ConsE,
                                       ConsE.DBtcn,
                                       this.usrc_Item_selected1);
 
-            m_usrc_ShopC.Dock = DockStyle.None;
-            m_usrc_ShopC.ItemAdded += usrc_ShopC_ItemAdded;
-            m_usrc_ShopC.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
+            m_usrc_ConsumptionShopC.Dock = DockStyle.None;
+            m_usrc_ConsumptionShopC.ItemAdded += usrc_ShopC_ItemAdded;
+            m_usrc_ConsumptionShopC.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
         }
 
         private bool M_usrc_ShopC_CheckIfAdministrator()
@@ -191,7 +191,7 @@ namespace ShopC_Forms
             int idist = usrc_ConsumptionEditor_Left + usrc_TransactionLog_plus_usrc_LoginCtrl_width;
             this.lbl_Number.Left = defpos.lbl_Number_Left + idist;
             this.txt_Number.Left = defpos.txt_Number_Left + idist;
-            this.m_usrc_ShopC.Width = this.Width;
+            this.m_usrc_ConsumptionShopC.Width = this.Width;
             //this.m_usrc_ShopC.Set_ConsumptionMan_eMode_Shops();
         }
 
@@ -251,9 +251,9 @@ namespace ShopC_Forms
         {
             get
             {
-                if (m_usrc_ShopC != null)
+                if (m_usrc_ConsumptionShopC != null)
                 {
-                    return m_usrc_ShopC.m_usrc_PriceList1.ID;
+                    return m_usrc_ConsumptionShopC.m_usrc_PriceList1.ID;
                 }
                 else
                 {
@@ -287,9 +287,9 @@ namespace ShopC_Forms
             defpos.txt_Number_Left= txt_Number.Left;
             defpos.txt_Number_Top = txt_Number.Top;
             usrc_PriceList xusrc_PriceListC = null;
-            if (this.m_usrc_ShopC != null)
+            if (this.m_usrc_ConsumptionShopC != null)
             {
-                xusrc_PriceListC = this.m_usrc_ShopC.m_usrc_PriceList1;
+                xusrc_PriceListC = this.m_usrc_ConsumptionShopC.m_usrc_PriceList1;
             }
             doCurrent_delegates = new ConsumptionEditor.DoCurrent_delegates(
                                    xusrc_PriceListC,
@@ -298,21 +298,21 @@ namespace ShopC_Forms
                                    this.RemoveHandler,
                                    this.set_InvoiceNumberText,
                                    this.SetMode,
-                                   this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems,
+                                   this.m_usrc_ConsumptionShopC.SetCurrentInvoice_SelectedItems,
                                    this.chk_Storno_Show,
                                    this.chk_Storno_Check,
-                                   this.m_usrc_ShopC.Reset,
-                                   this.m_usrc_ShopC.Clear,
+                                   this.m_usrc_ConsumptionShopC.Reset,
+                                   this.m_usrc_ConsumptionShopC.Clear,
                                    this.btn_Issue_Show,
                                    this.lbl_Sum_ForeColor,
                                    this.lbl_Sum_Text,
-                                   this.m_usrc_ShopC.m_usrc_ItemList.Get_Price_Item_Stock_Data);
+                                   this.m_usrc_ConsumptionShopC.m_usrc_ItemList.Get_Price_Item_Stock_Data);
 
-            ShopC_default_X = this.m_usrc_ShopC.Left;
-            ShopC_default_Y = this.m_usrc_ShopC.Top;
+            ShopC_default_X = this.m_usrc_ConsumptionShopC.Left;
+            ShopC_default_Y = this.m_usrc_ConsumptionShopC.Top;
 
-            ShopC_default_W = this.m_usrc_ShopC.Width;
-            ShopC_default_H = this.m_usrc_ShopC.Height;
+            ShopC_default_W = this.m_usrc_ConsumptionShopC.Width;
+            ShopC_default_H = this.m_usrc_ConsumptionShopC.Height;
 
             //lng.s_Number.Text(lbl_Number);
             //btn_BuyerSelect.Text = lng.s_BuyerSelect.s;
@@ -333,11 +333,11 @@ namespace ShopC_Forms
             ConsE.m_mode = mode;
             if (mode == ConsumptionEditor.emode.edit_eDocumentType)
             {
-                this.m_usrc_ShopC.SetMode(usrc_ShopC.eMode.EDIT);
+                this.m_usrc_ConsumptionShopC.SetMode(usrc_ConsumptionShopC.eMode.EDIT);
             }
             else
             {
-                this.m_usrc_ShopC.SetMode(usrc_ShopC.eMode.VIEW);
+                this.m_usrc_ConsumptionShopC.SetMode(usrc_ConsumptionShopC.eMode.VIEW);
             }
 
             if (mode == ConsumptionEditor.emode.view_eDocumentType)
@@ -443,6 +443,8 @@ namespace ShopC_Forms
         {
             Form pform = Global.f.GetParentForm(this);
 
+            m_usrc_ConsumptionShopC.Init(this.ConsE.m_LMOUser, this.ConsE, this.ConsE.DBtcn, this.usrc_Item_selected1);
+
             Transaction transaction_ConsE_Init = DBSync.DBSync.NewTransaction("ConsE.Init");
             if (ConsE.Init(pform,
                             Document_ID,
@@ -466,14 +468,13 @@ namespace ShopC_Forms
                     //m_usrc_ShopB.aa_ItemRemoved += usrc_ShopB_ItemRemoved;
                     //m_usrc_ShopB.aa_ItemUpdated += usrc_ShopB_ItemUpdated;
 
-                    m_usrc_ShopC.Init(this.ConsE.m_LMOUser,this.ConsE, this.ConsE.DBtcn, this.usrc_Item_selected1);
+                   
+                    m_usrc_ConsumptionShopC.CheckAccessPriceList += M_usrcCheckPriceListAccess;
+                    m_usrc_ConsumptionShopC.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
+                    m_usrc_ConsumptionShopC.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
 
-                    m_usrc_ShopC.CheckAccessPriceList += M_usrcCheckPriceListAccess;
-                    m_usrc_ShopC.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
-                    m_usrc_ShopC.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
-
-                    m_usrc_ShopC.ItemAdded += usrc_ShopC_ItemAdded;
-                    m_usrc_ShopC.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
+                    m_usrc_ConsumptionShopC.ItemAdded += usrc_ShopC_ItemAdded;
+                    m_usrc_ConsumptionShopC.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
                     return true;
                 }
                 else
@@ -885,7 +886,7 @@ namespace ShopC_Forms
         {
             if (aa_DocProformaInvoiceSaved != null)
             {
-                aa_DocProformaInvoiceSaved(ConsE.m_CurrentConsumption.Doc_ID);
+                aa_DocProformaInvoiceSaved(ConsE.CurrentCons.Doc_ID);
             }
         }
 
@@ -1060,7 +1061,7 @@ namespace ShopC_Forms
         }
         public void DoRefresh()
         {
-            this.m_usrc_ShopC.DoRefresh();
+            this.m_usrc_ConsumptionShopC.DoRefresh();
         }
     }
 }

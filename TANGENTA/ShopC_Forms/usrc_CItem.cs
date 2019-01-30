@@ -59,13 +59,13 @@ namespace ShopC_Forms
             }
         }
 
-        public TangentaDB.Item_Data m_Item_Data = null;
+        public TangentaDB.CItem_Data m_Item_Data = null;
 
         bool disposed = false;
 
 
 
-        internal void SelectControl(Item_Data iData, bool selected)
+        internal void SelectControl(CItem_Data iData, bool selected)
         {
             if (selected)
             {
@@ -123,7 +123,7 @@ namespace ShopC_Forms
         }
 
 
-        internal void DoPaint(Item_Data idata, BasketConsumption xBasket)
+        internal void DoPaint(CItem_Data idata, BasketConsumption xBasket)
         {
             if (idata != null)
             {
@@ -145,7 +145,7 @@ namespace ShopC_Forms
                         this.picInBasket.Visible = false;
                     }
                 }
-                dAllStockQuantity = idata.dQuantity_OfStockItems;
+                dAllStockQuantity = idata.dQuantity_OfCStockItems;
 
                 string sunit = "";
                 if (idata.Unit_Symbol_v!=null)
@@ -166,9 +166,9 @@ namespace ShopC_Forms
                 }
 
                 decimal dRetailPricePerUnit = -1;
-                if (idata.RetailPricePerUnit_v!=null)
+                if (idata.PurchasePricePerUnit_v!=null)
                 {
-                    dRetailPricePerUnit = idata.RetailPricePerUnit_v.v;
+                    dRetailPricePerUnit = idata.PurchasePricePerUnit_v.v;
                     lbl_Price.Text = LanguageControl.DynSettings.SetLanguageCurrencyString(dRetailPricePerUnit, GlobalData.BaseCurrency.DecimalPlaces, GlobalData.BaseCurrency.Symbol);
                     lbl_Price.Visible = true;
                 }

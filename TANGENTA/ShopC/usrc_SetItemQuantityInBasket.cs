@@ -124,11 +124,11 @@ namespace ShopC
 
                     if (m_usrc_ItemList1366x768.SelectItemsFromStockDialog)
                     {
-                        bresFromStock = m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(ref dsci,m_ShopBC.DocTyp, m_ShopBC.m_CurrentDoc.m_Doc_ID, dadd_QuantityFromStock, idata, this.m_usrc_ItemList1366x768.Select_Items_From_Stock_Dialog);
+                        bresFromStock = m_ShopBC.CurrentDocument.m_Basket.Add2Basket(ref dsci,m_ShopBC.DocTyp, m_ShopBC.CurrentDocument.m_Doc_ID, dadd_QuantityFromStock, idata, this.m_usrc_ItemList1366x768.Select_Items_From_Stock_Dialog);
                     }
                     else
                     {
-                        bresFromStock = m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(ref dsci, m_ShopBC.DocTyp, m_ShopBC.m_CurrentDoc.m_Doc_ID, dadd_QuantityFromStock, idata, null);
+                        bresFromStock = m_ShopBC.CurrentDocument.m_Basket.Add2Basket(ref dsci, m_ShopBC.DocTyp, m_ShopBC.CurrentDocument.m_Doc_ID, dadd_QuantityFromStock, idata, null);
                     }
                 }
                 else
@@ -137,8 +137,8 @@ namespace ShopC
                     if (dToTakeFromStock <= dsci.dQuantity_FromStock)
                     {
                         Transaction transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_RemoveFromBasket_And_put_back_to_Stock = DBSync.DBSync.NewTransaction("usrc_SetItemQuantityInBasket.ChangeQuantitiesInDB.RemoveFromBasket_And_put_back_to_Stock");
-                        bresFromStock = m_ShopBC.m_CurrentDoc.m_Basket.RemoveFromBasket_And_put_back_to_Stock(m_ShopBC.DocTyp,
-                                                                                                              m_ShopBC.m_CurrentDoc.m_Doc_ID,
+                        bresFromStock = m_ShopBC.CurrentDocument.m_Basket.RemoveFromBasket_And_put_back_to_Stock(m_ShopBC.DocTyp,
+                                                                                                              m_ShopBC.CurrentDocument.m_Doc_ID,
                                                                                                               dRemoveAndPutBack2Stock,
                                                                                                               idata,
                                                                                                               transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_RemoveFromBasket_And_put_back_to_Stock);
@@ -159,8 +159,8 @@ namespace ShopC
                 bool bresFromFactory = true;
 
                 Transaction transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory = DBSync.DBSync.NewTransaction("usrc_SetItemQuantityInBasket.ChangeQuantitiesInDB.SetFactory");
-                bresFromFactory = m_ShopBC.m_CurrentDoc.m_Basket.SetFactory(m_ShopBC.DocTyp,
-                                                                            m_ShopBC.m_CurrentDoc.m_Doc_ID,
+                bresFromFactory = m_ShopBC.CurrentDocument.m_Basket.SetFactory(m_ShopBC.DocTyp,
+                                                                            m_ShopBC.CurrentDocument.m_Doc_ID,
                                                                             dToTakeFromFactory,
                                                                             idata,
                                                                             transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory);
@@ -177,7 +177,7 @@ namespace ShopC
                 if (bresFromStock && bresFromFactory)
                 {
                     m_usrc_Atom_Item1366x768.DoRefresh();
-                    m_usrc_Item1366x768.DoPaint(idata, m_ShopBC.m_CurrentDoc.m_Basket);
+                    m_usrc_Item1366x768.DoPaint(idata, m_ShopBC.CurrentDocument.m_Basket);
                     m_usrc_Item1366x768_selected.DoPaint(dsci, m_usrc_Atom_Item1366x768, idata, m_usrc_Item1366x768);
                 }
 

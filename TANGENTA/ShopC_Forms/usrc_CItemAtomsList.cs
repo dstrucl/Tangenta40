@@ -138,9 +138,9 @@ namespace ShopC_Forms
                 if (oData is TangentaDB.Consumption_ShopC_Item)
                 {
                     TangentaDB.Consumption_ShopC_Item dsci = (TangentaDB.Consumption_ShopC_Item)oData;
-                    if (this.Parent is usrc_ShopC)
+                    if (this.Parent is usrc_ConsumptionShopC)
                     {
-                        ((usrc_ShopC)this.Parent).m_usrc_ItemList.Select(dsci, dsci.Atom_Item_UniqueName_v.v, ref oidata,ref oxusrc_Item);
+                        ((usrc_ConsumptionShopC)this.Parent).m_usrc_ItemList.Select(dsci, dsci.Atom_Item_UniqueName_v.v, ref oidata,ref oxusrc_Item);
                         if (SelectionChanged!=null)
                         {
                             SelectionChanged(ctrl,index, oData,oidata, oxusrc_Item);
@@ -214,10 +214,10 @@ namespace ShopC_Forms
         public bool RemoveItem(TangentaDB.Consumption_ShopC_Item dsci)
         {
 
-            Item_Data xdata =this.ConsE.m_CurrentConsumption.m_ShopShelf.FindItem(dsci);
+            CItem_Data xdata =this.ConsE.CurrentCons.m_ShopShelf.FindItem(dsci);
             //if usrc_ItemList is showing different group of items to dsci then xdata=null
             Transaction transaction_usrc_ItemAtomsList_RemoveItem = DBSync.DBSync.NewTransaction("usrc_ItemAtomsList.RemoveItem");
-            if (this.ConsE.m_CurrentConsumption.m_Basket.RemoveItem(DocTyp, dsci, xdata, transaction_usrc_ItemAtomsList_RemoveItem))
+            if (this.ConsE.CurrentCons.m_Basket.RemoveItem(DocTyp, dsci, xdata, transaction_usrc_ItemAtomsList_RemoveItem))
             {
                 if (transaction_usrc_ItemAtomsList_RemoveItem.Commit())
                 {
@@ -236,11 +236,11 @@ namespace ShopC_Forms
         {
             if (RemoveItem(dsci))
             {
-                usrc_Item_InsidePageHandler_ItemAtomList.Init(this.ConsE.m_CurrentConsumption.m_Basket.Basket_Consumption_ShopC_Item_LIST, usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode.EDIT);
+                usrc_Item_InsidePageHandler_ItemAtomList.Init(this.ConsE.CurrentCons.m_Basket.Basket_Consumption_ShopC_Item_LIST, usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode.EDIT);
                 usrc_Item_InsidePageHandler_ItemAtomList.ShowPage(0);
-                if (this.Parent is usrc_ShopC)
+                if (this.Parent is usrc_ConsumptionShopC)
                 {
-                    ((usrc_ShopC)this.Parent).m_usrc_ItemList.DoRepaint();
+                    ((usrc_ConsumptionShopC)this.Parent).m_usrc_ItemList.DoRepaint();
                 }
                 if (After_Atom_Item_Remove != null)
                 {
@@ -263,11 +263,11 @@ namespace ShopC_Forms
         internal void ShowBasket(string xItemUniqueName,object oidata, Control oidata_control)
         {
             usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode emode = usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode.EDIT;
-            if (!ConsE.m_CurrentConsumption.bDraft)
+            if (!ConsE.CurrentCons.bDraft)
             {
                 emode = usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode.VIEW;
             }
-            this.usrc_Item_InsidePageHandler_ItemAtomList.Init(ConsE.m_CurrentConsumption.m_Basket.Basket_Consumption_ShopC_Item_LIST,emode);
+            this.usrc_Item_InsidePageHandler_ItemAtomList.Init(ConsE.CurrentCons.m_Basket.Basket_Consumption_ShopC_Item_LIST,emode);
             object odata = null;
             Control ctrl = null;
             int index = this.usrc_Item_InsidePageHandler_ItemAtomList.FindItem(xItemUniqueName, ref odata, ref ctrl);
@@ -284,28 +284,28 @@ namespace ShopC_Forms
         internal void SetCurrentInvoice_SelectedItems()
         {
             usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode emode = usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode.EDIT;
-            if (!ConsE.m_CurrentConsumption.bDraft)
+            if (!ConsE.CurrentCons.bDraft)
             {
                 emode = usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode.VIEW;
             }
             string sinfo = "";
-            if (ConsE.m_CurrentConsumption.bDraft)
+            if (ConsE.CurrentCons.bDraft)
             {
-                sinfo = myOrg.m_myOrg_Office.ShortName_v.v+"-"+ myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name+"-"+lng.s_Draft.s+":"+ ConsE.m_CurrentConsumption.DraftNumber.ToString()+"/"+ ConsE.m_CurrentConsumption.FinancialYear.ToString();
+                sinfo = myOrg.m_myOrg_Office.ShortName_v.v+"-"+ myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name+"-"+lng.s_Draft.s+":"+ ConsE.CurrentCons.DraftNumber.ToString()+"/"+ ConsE.CurrentCons.FinancialYear.ToString();
             }
             else
             {
                 bool bstorno = false;
-                if (ConsE.m_CurrentConsumption.TInvoice.bStorno_v!=null)
+                if (ConsE.CurrentCons.TInvoice.bStorno_v!=null)
                 {
-                    bstorno = ConsE.m_CurrentConsumption.TInvoice.bStorno_v.v;
+                    bstorno = ConsE.CurrentCons.TInvoice.bStorno_v.v;
                 }
                 if (bstorno)
                 {
                     sinfo = Tangenta_DefaultPrintTemplates.TemplatesLoader.SetInvoiceNumber(myOrg.m_myOrg_Office.ShortName_v.v,
                                                                                     myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name,
-                                                                                    ConsE.m_CurrentConsumption.NumberInFinancialYear,
-                                                                                    ConsE.m_CurrentConsumption.FinancialYear,
+                                                                                    ConsE.CurrentCons.NumberInFinancialYear,
+                                                                                    ConsE.CurrentCons.FinancialYear,
                                                                                     bstorno,
                                                                                     lng.s_StornoConsumption.s
                                                                                     );
@@ -314,8 +314,8 @@ namespace ShopC_Forms
                 {
                     sinfo = Tangenta_DefaultPrintTemplates.TemplatesLoader.SetInvoiceNumber(myOrg.m_myOrg_Office.ShortName_v.v,
                                                                                     myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name,
-                                                                                    ConsE.m_CurrentConsumption.NumberInFinancialYear,
-                                                                                    ConsE.m_CurrentConsumption.FinancialYear,
+                                                                                    ConsE.CurrentCons.NumberInFinancialYear,
+                                                                                    ConsE.CurrentCons.FinancialYear,
                                                                                     false,
                                                                                     null
                                                                                     );
@@ -326,7 +326,7 @@ namespace ShopC_Forms
 
             lbl_InvoiceInfo.Text = lng.s_DocInvoice.s + ":" + sinfo;
 
-            this.usrc_Item_InsidePageHandler_ItemAtomList.Init(ConsE.m_CurrentConsumption.m_Basket.Basket_Consumption_ShopC_Item_LIST, emode);
+            this.usrc_Item_InsidePageHandler_ItemAtomList.Init(ConsE.CurrentCons.m_Basket.Basket_Consumption_ShopC_Item_LIST, emode);
             this.usrc_Item_InsidePageHandler_ItemAtomList.ShowPage(0);
         }
 
@@ -353,17 +353,17 @@ namespace ShopC_Forms
 
         internal void AddFromStock(TangentaDB.Consumption_ShopC_Item dsci)
         {
-            //if (m_ShopBC.m_CurrentConsumption.Add_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp,ref appisd,true))
+            //if (m_ShopBC.CurrentCons.Add_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp,ref appisd,true))
             //{
-            //    int index = m_ShopBC.m_CurrentConsumption.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.IndexOf(appisd);
+            //    int index = m_ShopBC.CurrentCons.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.IndexOf(appisd);
             //}
         }
 
         internal void AddFromFactory(TangentaDB.Consumption_ShopC_Item dsci)
         {
-            //if (m_ShopBC.m_CurrentConsumption.Add_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp,ref appisd,false))
+            //if (m_ShopBC.CurrentCons.Add_DocInvoice_Atom_Price_Items_Stock(m_Atom_WorkPeriod_ID,DocTyp,ref appisd,false))
             //{
-            //    int index = m_ShopBC.m_CurrentConsumption.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.IndexOf(appisd);
+            //    int index = m_ShopBC.CurrentCons.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.IndexOf(appisd);
             //}
         }
 
@@ -373,8 +373,8 @@ namespace ShopC_Forms
             {
                 this.Cursor = Cursors.WaitCursor;
                 Transaction transaction_usrc_ItemAtomsList_btn_ClearAll_Click_Empty = DBSync.DBSync.NewTransaction("usrc_ItemAtomsList.btn_ClearAll_Click.Empty");
-                if (ConsE.m_CurrentConsumption.m_Basket.Empty(ConsE.m_CurrentConsumption.Doc_ID,
-                                                         DocTyp, ConsE.m_CurrentConsumption.m_ShopShelf,
+                if (ConsE.CurrentCons.m_Basket.Empty(ConsE.CurrentCons.Doc_ID,
+                                                         DocTyp, ConsE.CurrentCons.m_ShopShelf,
                                                          transaction_usrc_ItemAtomsList_btn_ClearAll_Click_Empty))
                 {
                     transaction_usrc_ItemAtomsList_btn_ClearAll_Click_Empty.Commit();

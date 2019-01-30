@@ -93,12 +93,12 @@ namespace ShopA
             }
             dt_Item_Price.Clear();
             this.dgvx_ShopA.DataSource = null;
-            ID xDocInvoice_ID = m_ShopABC.m_CurrentDoc.Doc_ID;
+            ID xDocInvoice_ID = m_ShopABC.CurrentDocument.Doc_ID;
             if (IsDocInvoice)
             {
-                if (ID.Validate(m_ShopABC.m_CurrentDoc.TInvoice.StornoDocInvoice_ID))
+                if (ID.Validate(m_ShopABC.CurrentDocument.TInvoice.StornoDocInvoice_ID))
                 {
-                    xDocInvoice_ID = m_ShopABC.m_CurrentDoc.TInvoice.StornoDocInvoice_ID;
+                    xDocInvoice_ID = m_ShopABC.CurrentDocument.TInvoice.StornoDocInvoice_ID;
                 }
             }
             if (dbfunc.Read_ShopA_Price_Item_Table(DocInvoice,xDocInvoice_ID, ref dt_Item_Price))
@@ -138,7 +138,7 @@ namespace ShopA
         {
             dt_Item_Price.Clear();
             this.dgvx_ShopA.DataSource = null;
-            if (dbfunc.Read_ShopA_Price_Item_Table(DocInvoice,m_ShopABC.m_CurrentDoc.Doc_ID,ref dt_Item_Price))
+            if (dbfunc.Read_ShopA_Price_Item_Table(DocInvoice,m_ShopABC.CurrentDocument.Doc_ID,ref dt_Item_Price))
             {
                 this.dgvx_ShopA.DataSource = dt_Item_Price;
                 if (t_DocInvoice_ShopA_Item==null)

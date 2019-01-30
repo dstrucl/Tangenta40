@@ -288,11 +288,11 @@ namespace ShopC
             {
                 if (m_usrc_Atom_ItemsList.m_ShopBC != null)
                 {
-                    if (m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc != null)
+                    if (m_usrc_Atom_ItemsList.m_ShopBC.CurrentDocument != null)
                     {
-                        if (m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket != null)
+                        if (m_usrc_Atom_ItemsList.m_ShopBC.CurrentDocument.m_Basket != null)
                         {
-                            Doc_ShopC_Item dsci_in_Basket = m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentDoc.m_Basket.Contains(m_Item_Data);
+                            Doc_ShopC_Item dsci_in_Basket = m_usrc_Atom_ItemsList.m_ShopBC.CurrentDocument.m_Basket.Contains(m_Item_Data);
                             int xStart = x0_pic_Item_Left;
                             switch (xeMode)
                             {

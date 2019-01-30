@@ -98,21 +98,21 @@ namespace ShopC_Forms
             string sNumber = null;
 
 
-            sNumber = consM.ConsE.m_CurrentConsumption.FinancialYear.ToString() + "-" + consM.ConsE.m_CurrentConsumption.NumberInFinancialYear.ToString();
+            sNumber = consM.ConsE.CurrentCons.FinancialYear.ToString() + "-" + consM.ConsE.CurrentCons.NumberInFinancialYear.ToString();
 
             string sInvoiceNumber = null;
             int ItemsCount = 0;
             string sumText = xsumText;
-            ItemsCount = consM.ConsE.m_CurrentConsumption.ItemsCount(consM.ConsumptionTyp);
-            if (consM.ConsE.m_CurrentConsumption.bDraft)
+            ItemsCount = consM.ConsE.CurrentCons.ItemsCount(consM.ConsumptionTyp);
+            if (consM.ConsE.CurrentCons.bDraft)
             {
                 sdraft = lng.s_Draft.s;
-                sInvoiceNumber = "(" + sdraft + " št.:" + consM.ConsE.m_CurrentConsumption.FinancialYear.ToString() + "-" + consM.ConsE.m_CurrentConsumption.DraftNumber.ToString()
+                sInvoiceNumber = "(" + sdraft + " št.:" + consM.ConsE.CurrentCons.FinancialYear.ToString() + "-" + consM.ConsE.CurrentCons.DraftNumber.ToString()
                                     + " " + lng.s_Total.s + " = " + sumText + ")";
             }
             else
             {
-                sInvoiceNumber = "(" + sdraft + " št.:" + consM.ConsE.m_CurrentConsumption.FinancialYear.ToString() + "-" + consM.ConsE.m_CurrentConsumption.NumberInFinancialYear.ToString()
+                sInvoiceNumber = "(" + sdraft + " št.:" + consM.ConsE.CurrentCons.FinancialYear.ToString() + "-" + consM.ConsE.CurrentCons.NumberInFinancialYear.ToString()
                 + " " + lng.s_Total.s + " = " + sumText + ")";
             }
 

@@ -100,7 +100,7 @@ namespace ShopC_Forms
                 this.btn_Consumption_Issue.Text = lng.s_OK.s;
             }
 
-            if (AddOnWriteOff.Get(m_usrc_Consumption_AddOn.ConsM.ConsE.m_CurrentConsumption.Doc_ID))
+            if (AddOnWriteOff.Get(m_usrc_Consumption_AddOn.ConsM.ConsE.CurrentCons.Doc_ID))
             {
                 //if (AddOnDI.MyIssueDate != null)
                 //{
@@ -303,7 +303,7 @@ namespace ShopC_Forms
             if (AddOnWriteOff.Completed(ref ltMsg))
             {
                 Transaction transaction_usrc_DocInvoice_AddOn_Set = DBSync.DBSync.NewTransaction("usrc_DocInvoice_AddOn_Set");
-                if (m_AddWriteOff.Set(m_usrc_Consumption_AddOn.ConsM.ConsE.m_CurrentConsumption.Doc_ID, transaction_usrc_DocInvoice_AddOn_Set))
+                if (m_AddWriteOff.Set(m_usrc_Consumption_AddOn.ConsM.ConsE.CurrentCons.Doc_ID, transaction_usrc_DocInvoice_AddOn_Set))
                 {
                     if (transaction_usrc_DocInvoice_AddOn_Set.Commit())
                     {

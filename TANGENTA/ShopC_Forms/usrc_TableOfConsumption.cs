@@ -241,9 +241,16 @@ namespace ShopC_Forms
             iRowsCount = Init_Consumption(true, bNew, iFinancialYear);
             if (iRowsCount>0)
             {
-                if (ID.Validate(Current_Consumption_ID))
+                if (ID.Validate(Consumption_ID_To_show))
                 {
-                    ShowOrEditSelectedRow(Current_Consumption_ID);
+                    ShowOrEditSelectedRow(Consumption_ID_To_show);
+                }
+                else
+                {
+                    if (ID.Validate(Current_Consumption_ID))
+                    {
+                        ShowOrEditSelectedRow(Current_Consumption_ID);
+                    }
                 }
             }
             //if (bNew)
@@ -532,10 +539,16 @@ namespace ShopC_Forms
                 SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(JOURNAL_Consumption)));
                 tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_XConsumption, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
                 Global.g.DataGridCollumnVisible(dgvx_XConsumption,false);
-                DataGridViewColumn dgvc_ConsumptionType_Name = dgvx_XConsumption.Columns["JOURNAL_Consumption_$_cs_$_cst_$$Name"];
-                dgvc_ConsumptionType_Name.DisplayIndex = 1;
-                dgvc_ConsumptionType_Name.Visible = true;
-                dgvc_ConsumptionType_Name.ReadOnly = true;
+                DataGridViewColumn dgvc_ConsumptionType_Description = dgvx_XConsumption.Columns["JOURNAL_Consumption_$_cs_$_cst_$$Description"];
+                dgvc_ConsumptionType_Description.DisplayIndex = 1;
+                dgvc_ConsumptionType_Description.Visible = true;
+                dgvc_ConsumptionType_Description.ReadOnly = true;
+
+                //DataGridViewColumn dgvc_ConsumptionType_Name = dgvx_XConsumption.Columns["JOURNAL_Consumption_$_cs_$_cst_$$Name"];
+                //dgvc_ConsumptionType_Name.DisplayIndex = 1;
+                //dgvc_ConsumptionType_Name.Visible = true;
+                //dgvc_ConsumptionType_Name.ReadOnly = true;
+
                 if (dgvx_XConsumption.Columns.Contains("IssueDate"))
                 {
                     idgvxColIndex_IssueDate = dgvx_XConsumption.Columns.IndexOf(dgvx_XConsumption.Columns["IssueDate"]);
@@ -556,6 +569,27 @@ namespace ShopC_Forms
                 dgvxc_DraftNumber.DisplayIndex = 3;
                 dgvxc_DraftNumber.Visible = true;
                 dgvxc_DraftNumber.ReadOnly = true;
+
+                DataGridViewColumn dgvxc_FinancialYear = dgvx_XConsumption.Columns["JOURNAL_Consumption_$_cs_$$FinancialYear"];
+                dgvxc_FinancialYear.DisplayIndex = 4;
+                dgvxc_FinancialYear.Visible = true;
+                dgvxc_FinancialYear.ReadOnly = true;
+
+                DataGridViewColumn dgvxc_NumberInFinancialYear = dgvx_XConsumption.Columns["JOURNAL_Consumption_$_cs_$$NumberInFinancialYear"];
+                dgvxc_NumberInFinancialYear.DisplayIndex = 5;
+                dgvxc_NumberInFinancialYear.Visible = true;
+                dgvxc_NumberInFinancialYear.ReadOnly = true;
+
+                DataGridViewColumn dgvxc_GrossSum = dgvx_XConsumption.Columns["JOURNAL_Consumption_$_cs_$$GrossSum"];
+                dgvxc_GrossSum.DisplayIndex = 6;
+                dgvxc_GrossSum.Visible = true;
+                dgvxc_GrossSum.ReadOnly = true;
+
+                DataGridViewColumn dgvxc_Storno = dgvx_XConsumption.Columns["JOURNAL_Consumption_$_cs_$$Storno"];
+                dgvxc_Storno.DisplayIndex = 7;
+                dgvxc_Storno.Visible = true;
+                dgvxc_Storno.ReadOnly = true;
+
 
                 iRowsCount = dt_XConsumption.Rows.Count;
                 for (int i=0;i< iRowsCount;i++)
@@ -765,7 +799,7 @@ namespace ShopC_Forms
                     dgvx_XConsumption.ClearSelection();
                     int iRow = dt_XConsumption.Rows.IndexOf(drs[0]);
                     dgvx_XConsumption.Rows[iRow].Selected = true;
-                    dgvx_XConsumption.CurrentCell = dgvx_XConsumption.Rows[iRow].Cells["JOURNAL_Consumption_$_cs_$_cst_$$Name"];
+                    dgvx_XConsumption.CurrentCell = dgvx_XConsumption.Rows[iRow].Cells["JOURNAL_Consumption_$_cs_$_cst_$$Description"];
                 }
             }
         }

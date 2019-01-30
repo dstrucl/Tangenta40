@@ -129,7 +129,7 @@ namespace TangentaCore
                 lng.s_OK.Text(this.btn_ProformaInvoice_Issue);
             }
 
-            if (m_AddOnDPI.Get(m_usrc_AddOn.docM.DocE.m_ShopABC.m_CurrentDoc.Doc_ID))
+            if (m_AddOnDPI.Get(m_usrc_AddOn.docM.DocE.m_ShopABC.CurrentDocument.Doc_ID))
             {
                 if (m_AddOnDPI.m_IssueDate != null)
                 {
@@ -344,7 +344,7 @@ namespace TangentaCore
             if (m_AddOnDPI.Completed(ref ltMsg))
             {
                 Transaction transaction_m_AddOnDPI_Set = DBSync.DBSync.NewTransaction("m_AddOnDPI_Set");
-                if (m_AddOnDPI.Set(m_usrc_AddOn.docM.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, ref ltMsg, transaction_m_AddOnDPI_Set))
+                if (m_AddOnDPI.Set(m_usrc_AddOn.docM.DocE.m_ShopABC.CurrentDocument.Doc_ID, ref ltMsg, transaction_m_AddOnDPI_Set))
                 {
                     if (!transaction_m_AddOnDPI_Set.Commit())
                     {

@@ -90,14 +90,14 @@ namespace ShopC_Forms
         public delegate void delegate_ItemAdded();
         public event delegate_ItemAdded ItemAdded = null;
 
-        public usrc_ShopC m_usrc_ItemMan = null;
+        public usrc_ConsumptionShopC m_usrc_ItemMan = null;
 
         public usrc_CItem[] usrc_Item_aray = null;
         usrc_Atom_CItemsList m_usrc_Atom_ItemsList = null;
 
         ConsumptionEditor m_consE;
         DBTablesAndColumnNamesOfConsumption DBtcn;
-        private ID m_PriceList_ID = null;
+
 
 
 
@@ -127,7 +127,7 @@ namespace ShopC_Forms
 
         
 
-        public bool Select_Items_From_Stock_Dialog(DataTable xdt_ShopC_Item_In_Stock, decimal dQuantityToTake, ref List<Stock_Data> taken_form_stock, ref decimal dQuantitySelected)
+        public bool Select_Items_From_Stock_Dialog(DataTable xdt_ShopC_Item_In_Stock, decimal dQuantityToTake, ref List<CStock_Data> taken_form_stock, ref decimal dQuantitySelected)
         {
             dQuantitySelected = 0;
             Form_Select_Item_From_Stock frm_select_item_from_stock = new Form_Select_Item_From_Stock(xdt_ShopC_Item_In_Stock, dQuantityToTake);
@@ -135,7 +135,7 @@ namespace ShopC_Forms
             {
                 if (taken_form_stock == null)
                 {
-                    taken_form_stock = new List<Stock_Data>();
+                    taken_form_stock = new List<CStock_Data>();
                 }
                 else
                 {
@@ -147,7 +147,7 @@ namespace ShopC_Forms
                     {
                         if (((decimal)dr["TakeFromStock"]) > 0)
                         {
-                            Stock_Data xstd = new Stock_Data();
+                            CStock_Data xstd = new CStock_Data();
                             xstd.dQuantity_Taken_v = new decimal_v(((decimal)dr["TakeFromStock"]));
                             dQuantitySelected += xstd.dQuantity_Taken_v.v;
                             xstd.dQuantity_v = new decimal_v((decimal)dr["Stock_dQuantity"]);
@@ -173,25 +173,25 @@ namespace ShopC_Forms
 
         private void add2Basket(decimal dQuantity2Add , Control ctrl, object oData, int index)
         {
-            if (oData is Item_Data)
+            if (oData is CItem_Data)
             {
-                Item_Data xData = (Item_Data)oData;
+                CItem_Data xData = (CItem_Data)oData;
                 bool bRes = false;
                 TangentaDB.Consumption_ShopC_Item dsci = null;
                 if (this.SelectItemsFromStockDialog)
                 {
-                    bRes = m_consE.m_CurrentConsumption.m_Basket.Add2Basket(ref dsci,
+                    bRes = m_consE.CurrentCons.m_Basket.Add2Basket(ref dsci,
                                                                      m_consE.DocTyp,
-                                                                     m_consE.m_CurrentConsumption.Doc_ID,
+                                                                     m_consE.CurrentCons.Doc_ID,
                                                                      dQuantity2Add,
                                                                      xData,
                                                                      Select_Items_From_Stock_Dialog);
                 }
                 else
                 {
-                    bRes = m_consE.m_CurrentConsumption.m_Basket.Add2Basket(ref dsci,
+                    bRes = m_consE.CurrentCons.m_Basket.Add2Basket(ref dsci,
                                                                      m_consE.DocTyp,
-                                                                     m_consE.m_CurrentConsumption.Doc_ID,
+                                                                     m_consE.CurrentCons.Doc_ID,
                                                                      dQuantity2Add,
                                                                      xData,
                                                                      null);
@@ -201,7 +201,7 @@ namespace ShopC_Forms
                 {
                     if (ctrl is usrc_CItem)
                     {
-                        ((usrc_CItem)ctrl).DoPaint(xData, m_consE.m_CurrentConsumption.m_Basket);
+                        ((usrc_CItem)ctrl).DoPaint(xData, m_consE.CurrentCons.m_Basket);
                     }
 
 
@@ -237,9 +237,9 @@ namespace ShopC_Forms
 
         private void Usrc_Item_InsidePageGroupHandler1_SelectControl(Control ctrl, object oData, int index, bool selected)
         {
-            if (oData is Item_Data)
+            if (oData is CItem_Data)
             {
-                Item_Data idata = (Item_Data)oData;
+                CItem_Data idata = (CItem_Data)oData;
                 if (ctrl is usrc_CItem)
                 {
                     usrc_CItem xusrc_Item = (usrc_CItem)ctrl;
@@ -248,29 +248,29 @@ namespace ShopC_Forms
             }
         }
 
-        private bool Usrc_Item_InsidePageGroupHandler1_LoadItemsList(string[] groups, ref List<Item_Data> list)
+        private bool Usrc_Item_InsidePageGroupHandler1_LoadItemsList(string[] groups, ref List<CItem_Data> list)
         {
             string[] sreversgroup = usrc_Item_InsideGroupHandler.reversegroup(groups);
 
-           if (m_consE.m_CurrentConsumption.m_ShopShelf.Load(m_PriceList_ID, sreversgroup))
-            {
-                list = m_consE.m_CurrentConsumption.m_ShopShelf.ListOfItems;
-                return true;
+           if (m_consE.CurrentCons.m_ShopShelf.Load(m_consE.dtPurchasePrice_Item, sreversgroup))
+           {
+                list = m_consE.CurrentCons.m_ShopShelf.ListOfCItems;
+              return true;
             }
             return false;
         }
 
 
-        private void Usrc_Item_InsidePageGroupHandler1_FillControl(Control ctrl, object oData, usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler<Item_Data>.eMode emode)
+        private void Usrc_Item_InsidePageGroupHandler1_FillControl(Control ctrl, object oData, usrc_Item_InsidePage_Handler.usrc_Item_InsidePageHandler<CItem_Data>.eMode emode)
         {
-            if (oData is Item_Data)
+            if (oData is CItem_Data)
             {
-                Item_Data idata = (Item_Data)oData;
+                CItem_Data idata = (CItem_Data)oData;
                 if (ctrl is usrc_CItem)
                 {
                     usrc_CItem xusrc_Item = (usrc_CItem)ctrl;
 
-                    xusrc_Item.DoPaint(idata, m_consE.m_CurrentConsumption.m_Basket);
+                    xusrc_Item.DoPaint(idata, m_consE.CurrentCons.m_Basket);
                 }
             }
         }
@@ -286,7 +286,7 @@ namespace ShopC_Forms
         {
             if (obj is Item_Data)
             {
-                Get_Price_Item_Stock_Data(((Item_Data)obj).PriceList_ID);
+                Get_Price_Item_Stock_Data(m_consE.dtPurchasePrice_Item);
             }
         }
 
@@ -294,14 +294,14 @@ namespace ShopC_Forms
         {
             if (obj is TangentaDB.Item_Data)
             {
-                Get_Price_Item_Stock_Data(((TangentaDB.Item_Data)obj).PriceList_ID);
+                Get_Price_Item_Stock_Data(m_consE.dtPurchasePrice_Item);
             }
         }
 
         internal void Init(ID xAtom_WorkPeriod_ID,
                            ConsumptionEditor xconsE,
                            DBTablesAndColumnNamesOfConsumption xDBtcn, 
-                           usrc_ShopC x_usrc_ItemMan,
+                           usrc_ConsumptionShopC x_usrc_ItemMan,
                            usrc_Atom_CItemsList x_usrc_Atom_ItemsList)
         {
             m_Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
@@ -312,12 +312,12 @@ namespace ShopC_Forms
         }
 
 
-        public bool Get_Price_Item_Stock_Data(ID xPriceList_ID)
+        public bool Get_Price_Item_Stock_Data(DataTable dtPurchasePrice)
         {
-            m_PriceList_ID = xPriceList_ID;
-            if (m_consE.m_CurrentConsumption.m_ShopShelf.GetGroupsTable(xPriceList_ID))
+            
+            if (m_consE.CurrentCons.m_ShopShelf.GetGroupsTable())
             {
-                usrc_Item_InsidePageGroupHandler1.Init(m_consE.m_CurrentConsumption.m_ShopShelf.dt_Price_Item_Group);
+                usrc_Item_InsidePageGroupHandler1.Init(m_consE.CurrentCons.m_ShopShelf.dt_Price_Item_Group);
                 return true;
             }
             return false;
@@ -325,9 +325,9 @@ namespace ShopC_Forms
 
         private bool usrc_Item_InsidePageGroupHandler1_InsidePageHandler_CompareWithString(object oData, string s)
         {
-            if (oData is Item_Data)
+            if (oData is CItem_Data)
             {
-                Item_Data idata = (Item_Data)oData;
+                CItem_Data idata = (CItem_Data)oData;
                 if (idata.Item_UniqueName_v!=null)
                 { 
                     return idata.Item_UniqueName_v.v.Equals(s);

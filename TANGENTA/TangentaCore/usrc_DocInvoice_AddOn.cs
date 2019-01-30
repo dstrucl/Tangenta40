@@ -100,7 +100,7 @@ namespace TangentaCore
                 this.btn_Invoice_Issue.Text = lng.s_OK.s;
             }
 
-            if (AddOnDI.Get(m_usrc_AddOn.docM.DocE.m_ShopABC.m_CurrentDoc.Doc_ID))
+            if (AddOnDI.Get(m_usrc_AddOn.docM.DocE.m_ShopABC.CurrentDocument.Doc_ID))
             {
                 if (AddOnDI.MyIssueDate != null)
                 {
@@ -303,7 +303,7 @@ namespace TangentaCore
             if (AddOnDI.Completed(ref ltMsg))
             {
                 Transaction transaction_usrc_DocInvoice_AddOn_Set = DBSync.DBSync.NewTransaction("usrc_DocInvoice_AddOn_Set");
-                if (m_AddOnDI.Set(m_usrc_AddOn.docM.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, transaction_usrc_DocInvoice_AddOn_Set))
+                if (m_AddOnDI.Set(m_usrc_AddOn.docM.DocE.m_ShopABC.CurrentDocument.Doc_ID, transaction_usrc_DocInvoice_AddOn_Set))
                 {
                     if (transaction_usrc_DocInvoice_AddOn_Set.Commit())
                     {

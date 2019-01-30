@@ -213,10 +213,10 @@ namespace ShopC
         public bool RemoveItem(Doc_ShopC_Item dsci)
         {
 
-            Item_Data xdata =this.m_ShopBC.m_CurrentDoc.m_ShopShelf.FindItem(dsci);
+            Item_Data xdata =this.m_ShopBC.CurrentDocument.m_ShopShelf.FindItem(dsci);
             //if usrc_ItemList1366x768 is showing different group of items to dsci then xdata=null
             Transaction transaction_usrc_ItemAtomsList1366x768_RemoveItem = DBSync.DBSync.NewTransaction("usrc_ItemAtomsList1366x768.RemoveItem");
-            if (this.m_ShopBC.m_CurrentDoc.m_Basket.RemoveItem(DocTyp, dsci, xdata, transaction_usrc_ItemAtomsList1366x768_RemoveItem))
+            if (this.m_ShopBC.CurrentDocument.m_Basket.RemoveItem(DocTyp, dsci, xdata, transaction_usrc_ItemAtomsList1366x768_RemoveItem))
             {
                 if (transaction_usrc_ItemAtomsList1366x768_RemoveItem.Commit())
                 {
@@ -235,7 +235,7 @@ namespace ShopC
         {
             if (RemoveItem(dsci))
             {
-                usrc_Item_InsidePageHandler_ItemAtomList.Init(this.m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST, usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode.EDIT);
+                usrc_Item_InsidePageHandler_ItemAtomList.Init(this.m_ShopBC.CurrentDocument.m_Basket.Basket_Doc_ShopC_Item_LIST, usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode.EDIT);
                 usrc_Item_InsidePageHandler_ItemAtomList.ShowPage(0);
                 if (this.Parent is usrc_ShopC1366x768)
                 {
@@ -262,11 +262,11 @@ namespace ShopC
         internal void ShowBasket(string xItemUniqueName,object oidata, Control oidata_control)
         {
             usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode emode = usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode.EDIT;
-            if (!m_ShopBC.m_CurrentDoc.bDraft)
+            if (!m_ShopBC.CurrentDocument.bDraft)
             {
                 emode = usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode.VIEW;
             }
-            this.usrc_Item_InsidePageHandler_ItemAtomList.Init(m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST,emode);
+            this.usrc_Item_InsidePageHandler_ItemAtomList.Init(m_ShopBC.CurrentDocument.m_Basket.Basket_Doc_ShopC_Item_LIST,emode);
             object odata = null;
             Control ctrl = null;
             int index = this.usrc_Item_InsidePageHandler_ItemAtomList.FindItem(xItemUniqueName, ref odata, ref ctrl);
@@ -284,28 +284,28 @@ namespace ShopC
         internal void SetCurrentInvoice_SelectedItems()
         {
             usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode emode = usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode.EDIT;
-            if (!m_ShopBC.m_CurrentDoc.bDraft)
+            if (!m_ShopBC.CurrentDocument.bDraft)
             {
                 emode = usrc_Item_InsidePageHandler<Doc_ShopC_Item>.eMode.VIEW;
             }
             string sinfo = "";
-            if (m_ShopBC.m_CurrentDoc.bDraft)
+            if (m_ShopBC.CurrentDocument.bDraft)
             {
-                sinfo = myOrg.m_myOrg_Office.ShortName_v.v+"-"+ myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name+"-"+lng.s_Draft.s+":"+ m_ShopBC.m_CurrentDoc.DraftNumber.ToString()+"/"+ m_ShopBC.m_CurrentDoc.FinancialYear.ToString();
+                sinfo = myOrg.m_myOrg_Office.ShortName_v.v+"-"+ myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name+"-"+lng.s_Draft.s+":"+ m_ShopBC.CurrentDocument.DraftNumber.ToString()+"/"+ m_ShopBC.CurrentDocument.FinancialYear.ToString();
             }
             else
             {
                 bool bstorno = false;
-                if (m_ShopBC.m_CurrentDoc.TInvoice.bStorno_v!=null)
+                if (m_ShopBC.CurrentDocument.TInvoice.bStorno_v!=null)
                 {
-                    bstorno = m_ShopBC.m_CurrentDoc.TInvoice.bStorno_v.v;
+                    bstorno = m_ShopBC.CurrentDocument.TInvoice.bStorno_v.v;
                 }
                 if (bstorno)
                 {
                     sinfo = Tangenta_DefaultPrintTemplates.TemplatesLoader.SetInvoiceNumber(myOrg.m_myOrg_Office.ShortName_v.v,
                                                                                     myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name,
-                                                                                    m_ShopBC.m_CurrentDoc.NumberInFinancialYear,
-                                                                                    m_ShopBC.m_CurrentDoc.FinancialYear,
+                                                                                    m_ShopBC.CurrentDocument.NumberInFinancialYear,
+                                                                                    m_ShopBC.CurrentDocument.FinancialYear,
                                                                                     bstorno,
                                                                                     lng.s_StornoInvoice.s
                                                                                     );
@@ -314,8 +314,8 @@ namespace ShopC
                 {
                     sinfo = Tangenta_DefaultPrintTemplates.TemplatesLoader.SetInvoiceNumber(myOrg.m_myOrg_Office.ShortName_v.v,
                                                                                     myOrg.m_myOrg_Office.m_myOrg_Office_ElectronicDevice.ElectronicDevice_Name,
-                                                                                    m_ShopBC.m_CurrentDoc.NumberInFinancialYear,
-                                                                                    m_ShopBC.m_CurrentDoc.FinancialYear,
+                                                                                    m_ShopBC.CurrentDocument.NumberInFinancialYear,
+                                                                                    m_ShopBC.CurrentDocument.FinancialYear,
                                                                                     false,
                                                                                     null
                                                                                     );
@@ -328,7 +328,7 @@ namespace ShopC
 
                 lbl_InvoiceInfo.Text = lng.s_DocInvoice.s + ":" + sinfo;
             }
-            this.usrc_Item_InsidePageHandler_ItemAtomList.Init(m_ShopBC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST, emode);
+            this.usrc_Item_InsidePageHandler_ItemAtomList.Init(m_ShopBC.CurrentDocument.m_Basket.Basket_Doc_ShopC_Item_LIST, emode);
             this.usrc_Item_InsidePageHandler_ItemAtomList.ShowPage(0);
         }
 
@@ -375,8 +375,8 @@ namespace ShopC
             {
                 this.Cursor = Cursors.WaitCursor;
                 Transaction transaction_usrc_ItemAtomsList1366x768_btn_ClearAll_Click_Empty = DBSync.DBSync.NewTransaction("usrc_ItemAtomsList1366x768.btn_ClearAll_Click.Empty");
-                if (m_ShopBC.m_CurrentDoc.m_Basket.Empty(m_ShopBC.m_CurrentDoc.Doc_ID,
-                                                         DocTyp, m_ShopBC.m_CurrentDoc.m_ShopShelf,
+                if (m_ShopBC.CurrentDocument.m_Basket.Empty(m_ShopBC.CurrentDocument.Doc_ID,
+                                                         DocTyp, m_ShopBC.CurrentDocument.m_ShopShelf,
                                                          transaction_usrc_ItemAtomsList1366x768_btn_ClearAll_Click_Empty))
                 {
                     transaction_usrc_ItemAtomsList1366x768_btn_ClearAll_Click_Empty.Commit();

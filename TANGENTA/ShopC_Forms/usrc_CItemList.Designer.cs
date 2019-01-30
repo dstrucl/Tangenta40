@@ -40,7 +40,7 @@ namespace ShopC_Forms
             this.usrc_Item_TextSearch1.BackColor = System.Drawing.Color.RosyBrown;
             this.usrc_Item_TextSearch1.Location = new System.Drawing.Point(3, 0);
             this.usrc_Item_TextSearch1.Name = "usrc_Item_TextSearch1";
-            this.usrc_Item_TextSearch1.Size = new System.Drawing.Size(380, 37);
+            this.usrc_Item_TextSearch1.Size = new System.Drawing.Size(155, 37);
             this.usrc_Item_TextSearch1.TabIndex = 16;
             // 
             // usrc_Item_InsidePageGroupHandler1
@@ -57,19 +57,19 @@ namespace ShopC_Forms
             this.usrc_Item_InsidePageGroupHandler1.Name = "usrc_Item_InsidePageGroupHandler1";
             this.usrc_Item_InsidePageGroupHandler1.Size = new System.Drawing.Size(640, 300);
             this.usrc_Item_InsidePageGroupHandler1.TabIndex = 17;
-            this.usrc_Item_InsidePageGroupHandler1.InsidePageHandler_CompareWithString += new usrc_Item_InsidePageGroup_Handler.usrcG_Item_InsidePageGroupHandler<TangentaDB.Item_Data>.deleagte_InsidePageHandler_CompareWithString(this.usrc_Item_InsidePageGroupHandler1_InsidePageHandler_CompareWithString);
+            this.usrc_Item_InsidePageGroupHandler1.InsidePageHandler_CompareWithString += new usrc_Item_InsidePageGroup_Handler.usrcG_Item_InsidePageGroupHandler<TangentaDB.CItem_Data>.deleagte_InsidePageHandler_CompareWithString(this.usrc_Item_InsidePageGroupHandler1_InsidePageHandler_CompareWithString);
             // 
             // chk_SelectFromStock
             // 
             this.chk_SelectFromStock.BackColor = System.Drawing.Color.LemonChiffon;
-            this.chk_SelectFromStock.Location = new System.Drawing.Point(389, 3);
+            this.chk_SelectFromStock.Location = new System.Drawing.Point(164, 3);
             this.chk_SelectFromStock.Name = "chk_SelectFromStock";
             this.chk_SelectFromStock.Size = new System.Drawing.Size(103, 31);
             this.chk_SelectFromStock.TabIndex = 24;
             this.chk_SelectFromStock.Text = "Stock Selection";
             this.chk_SelectFromStock.UseVisualStyleBackColor = false;
             // 
-            // usrc_ItemList
+            // usrc_CItemList
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.Color.YellowGreen;
@@ -77,7 +77,7 @@ namespace ShopC_Forms
             this.Controls.Add(this.usrc_Item_InsidePageGroupHandler1);
             this.Controls.Add(this.usrc_Item_TextSearch1);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "usrc_ItemList";
+            this.Name = "usrc_CItemList";
             this.Size = new System.Drawing.Size(646, 340);
             this.ResumeLayout(false);
 

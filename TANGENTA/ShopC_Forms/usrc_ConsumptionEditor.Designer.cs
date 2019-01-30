@@ -36,7 +36,7 @@ namespace ShopC_Forms
             this.lbl_Number = new System.Windows.Forms.Label();
             this.chk_Storno = new System.Windows.Forms.CheckBox();
             this.usrc_Consumption_AddOn1 = new ShopC_Forms.usrc_Consumption_AddOn();
-            this.m_usrc_ShopC = new ShopC_Forms.usrc_ShopC();
+            this.m_usrc_ConsumptionShopC = new ShopC_Forms.usrc_ConsumptionShopC();
             this.btn_New = new System.Windows.Forms.Button();
             this.usrc_Item_selected1 = new ShopC_Forms.usrc_CItem_selected();
             this.usrc_DocIssue1 = new ShopC_Forms.usrc_DocIssue();
@@ -85,16 +85,16 @@ namespace ShopC_Forms
             // 
             // m_usrc_ShopC
             // 
-            this.m_usrc_ShopC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.m_usrc_ConsumptionShopC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_usrc_ShopC.AutomaticSelectionOfItemsFromStock = true;
-            this.m_usrc_ShopC.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.m_usrc_ShopC.Location = new System.Drawing.Point(6, 34);
-            this.m_usrc_ShopC.Margin = new System.Windows.Forms.Padding(4);
-            this.m_usrc_ShopC.Name = "m_usrc_ShopC";
-            this.m_usrc_ShopC.Size = new System.Drawing.Size(1000, 637);
-            this.m_usrc_ShopC.TabIndex = 46;
+            this.m_usrc_ConsumptionShopC.AutomaticSelectionOfItemsFromStock = true;
+            this.m_usrc_ConsumptionShopC.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.m_usrc_ConsumptionShopC.Location = new System.Drawing.Point(6, 34);
+            this.m_usrc_ConsumptionShopC.Margin = new System.Windows.Forms.Padding(4);
+            this.m_usrc_ConsumptionShopC.Name = "m_usrc_ShopC";
+            this.m_usrc_ConsumptionShopC.Size = new System.Drawing.Size(1000, 637);
+            this.m_usrc_ConsumptionShopC.TabIndex = 46;
             // 
             // btn_New
             // 
@@ -144,7 +144,7 @@ namespace ShopC_Forms
             this.Controls.Add(this.usrc_DocIssue1);
             this.Controls.Add(this.usrc_Item_selected1);
             this.Controls.Add(this.btn_New);
-            this.Controls.Add(this.m_usrc_ShopC);
+            this.Controls.Add(this.m_usrc_ConsumptionShopC);
             this.Controls.Add(this.usrc_Consumption_AddOn1);
             this.Controls.Add(this.chk_Storno);
             this.Controls.Add(this.lbl_Number);
@@ -163,7 +163,7 @@ namespace ShopC_Forms
         private System.Windows.Forms.Label lbl_Number;
         private System.Windows.Forms.CheckBox chk_Storno;
         internal usrc_Consumption_AddOn usrc_Consumption_AddOn1;
-        internal usrc_ShopC m_usrc_ShopC;
+        internal usrc_ConsumptionShopC m_usrc_ConsumptionShopC;
         internal System.Windows.Forms.Button btn_New;
         private usrc_CItem_selected usrc_Item_selected1;
         public usrc_DocIssue usrc_DocIssue1;

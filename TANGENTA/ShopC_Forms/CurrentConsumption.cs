@@ -248,40 +248,40 @@ namespace ShopC_Forms
         }
 
 
-        public bool Get_Atom_Price_Item(ref TangentaDB.Consumption_ShopC_Item xdsci, Transaction transaction)
-        {
-            ID atom_Taxation_ID = null;
-            return f_Atom_Price_Item.Get(xdsci.Atom_Item_UniqueName_v.v,
-                                        xdsci.Atom_Item_Name_Name_v,
-                                        xdsci.Atom_Item_barcode_barcode_v,
-                                        xdsci.Atom_Item_Description_Description,
-                                        xdsci.Atom_Expiry_ExpectedShelfLifeInDays_v,
-                                        xdsci.Atom_Expiry_SaleBeforeExpiryDateInDays_v,
-                                        xdsci.Atom_Expiry_DiscardBeforeExpiryDateInDays_v,
-                                        xdsci.Atom_Expiry_ExpiryDescription,
-                                        xdsci.Atom_Warranty_WarrantyDurationType_v,
-                                        xdsci.Atom_Warranty_WarrantyDuration_v,
-                                        xdsci.Atom_Warranty_WarrantyConditions_v,
-                                        xdsci.Atom_Unit_Name_v,
-                                        xdsci.Atom_Unit_Symbol_v,
-                                        xdsci.Atom_Unit_DecimalPlaces_v,
-                                        xdsci.Atom_Unit_StorageOption_v,
-                                        xdsci.Atom_Unit_Description_v,
-                                        xdsci.Atom_PriceList_Name_v,
-                                        xdsci.Atom_Currency_Abbreviation_v,
-                                        xdsci.Atom_Currency_Name_v,
-                                        xdsci.Atom_Item_Image_Hash_v,
-                                        xdsci.Atom_Item_Image_Data_v,
-                                        new decimal_v(xdsci.RetailPricePerUnit),
-                                        new decimal_v(xdsci.Discount),
-                                        xdsci.Atom_Taxation_Name_v,
-                                        xdsci.Atom_Taxation_Rate_v,
-                                        ref atom_Taxation_ID,
-                                        ref xdsci.Atom_Item_ID,
-                                        ref xdsci.Atom_Price_Item_ID,
-                                        transaction
-                                        );
-        }
+        //public bool Get_Atom_Price_Item(ref TangentaDB.Consumption_ShopC_Item xdsci, Transaction transaction)
+        //{
+        //    ID atom_Taxation_ID = null;
+        //    return f_Atom_Price_Item.Get(xdsci.Atom_Item_UniqueName_v.v,
+        //                                xdsci.Atom_Item_Name_Name_v,
+        //                                xdsci.Atom_Item_barcode_barcode_v,
+        //                                xdsci.Atom_Item_Description_Description,
+        //                                xdsci.Atom_Expiry_ExpectedShelfLifeInDays_v,
+        //                                xdsci.Atom_Expiry_SaleBeforeExpiryDateInDays_v,
+        //                                xdsci.Atom_Expiry_DiscardBeforeExpiryDateInDays_v,
+        //                                xdsci.Atom_Expiry_ExpiryDescription,
+        //                                xdsci.Atom_Warranty_WarrantyDurationType_v,
+        //                                xdsci.Atom_Warranty_WarrantyDuration_v,
+        //                                xdsci.Atom_Warranty_WarrantyConditions_v,
+        //                                xdsci.Atom_Unit_Name_v,
+        //                                xdsci.Atom_Unit_Symbol_v,
+        //                                xdsci.Atom_Unit_DecimalPlaces_v,
+        //                                xdsci.Atom_Unit_StorageOption_v,
+        //                                xdsci.Atom_Unit_Description_v,
+        //                                xdsci.Atom_PriceList_Name_v,
+        //                                xdsci.Atom_Currency_Abbreviation_v,
+        //                                xdsci.Atom_Currency_Name_v,
+        //                                xdsci.Atom_Item_Image_Hash_v,
+        //                                xdsci.Atom_Item_Image_Data_v,
+        //                                new decimal_v(xdsci.RetailPricePerUnit),
+        //                                new decimal_v(xdsci.Discount),
+        //                                xdsci.Atom_Taxation_Name_v,
+        //                                xdsci.Atom_Taxation_Rate_v,
+        //                                ref atom_Taxation_ID,
+        //                                ref xdsci.Atom_Item_ID,
+        //                                ref xdsci.Atom_Price_Item_ID,
+        //                                transaction
+        //                                );
+        //}
 
         public bool ShowDraftButtons()
         {

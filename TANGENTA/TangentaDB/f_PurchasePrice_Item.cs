@@ -348,9 +348,13 @@ namespace TangentaDB
 
             string sql = @"SELECT PurchasePrice_Item.ID,
              PurchasePrice_Item_$_i.UniqueName AS PurchasePrice_Item_$_i_$$UniqueName,
-             PurchasePrice_Item_$_i_$_ipg1.Name AS PurchasePrice_Item_$_i_$_ipg1_$$Name,
-             PurchasePrice_Item_$_i_$_ipg1_$_ipg2.Name AS PurchasePrice_Item_$_i_$_ipg1_$_ipg2_$$Name,
-             PurchasePrice_Item_$_i_$_ipg1_$_ipg2_$_ipg3.Name AS PurchasePrice_Item_$_i_$_ipg1_$_ipg2_$_ipg3_$$Name,
+             PurchasePrice_Item_$_i_$_ipg1.Name AS s1_name,
+             PurchasePrice_Item_$_i_$_ipg1_$_ipg2.Name AS s2_name,
+             PurchasePrice_Item_$_i_$_ipg1_$_ipg2_$_ipg3.Name AS s3_name,
+			 s.ID as Stock_ID,
+			 s.dQuantity as Stock_dQuantity,
+			 s.ExpiryDate as Stock_ExpiryDate,
+			 s.ImportTime as Stock_ImportTime,
              PurchasePrice_Item_$_st.Draft AS PurchasePrice_Item_$_st_$$Draft,
              PurchasePrice_Item_$_i_$_u.Name AS PurchasePrice_Item_$_i_$_u_$$Name,
              PurchasePrice_Item_$_i.Code AS PurchasePrice_Item_$_i_$$Code,
@@ -371,6 +375,7 @@ namespace TangentaDB
              PurchasePrice_Item_$_st_$_ref.ReferenceNote AS PurchasePrice_Item_$_st_$_ref_$$ReferenceNote,
              PurchasePrice_Item_$_st_$_ref.ReferenceDate AS PurchasePrice_Item_$_st_$_ref_$$ReferenceDate,
              PurchasePrice_Item_$_st.Description AS PurchasePrice_Item_$_st_$$Description,
+			 PurchasePrice_Item_$_st.Draft as  PurchasePrice_Item_$_st_$$Draft,
              PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org.Name AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org_$$Name,
              PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org.Tax_ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org_$$Tax_ID,
              PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org.Registration_ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org_$$Registration_ID,
@@ -416,7 +421,7 @@ namespace TangentaDB
              PurchasePrice_Item_$_pp_$_Cur.Symbol AS PurchasePrice_Item_$_pp_$_Cur_$$Symbol,
              PurchasePrice_Item_$_pp_$_Cur.CurrencyCode AS PurchasePrice_Item_$_pp_$_Cur_$$CurrencyCode,
              PurchasePrice_Item_$_pp_$_Cur.DecimalPlaces AS PurchasePrice_Item_$_pp_$_Cur_$$DecimalPlaces,
-            PurchasePrice_Item_$_st_$_ref_$_refimg.Image_Hash AS PurchasePrice_Item_$_st_$_ref_$_refimg_$$Image_Hash,
+             PurchasePrice_Item_$_st_$_ref_$_refimg.Image_Hash AS PurchasePrice_Item_$_st_$_ref_$_refimg_$$Image_Hash,
              PurchasePrice_Item_$_st_$_ref_$_refimg.Image_Data AS PurchasePrice_Item_$_st_$_ref_$_refimg_$$Image_Data,
  
              PurchasePrice_Item_$_i.Name AS PurchasePrice_Item_$_i_$$Name,
@@ -428,6 +433,7 @@ namespace TangentaDB
              PurchasePrice_Item_$_i_$_u.DecimalPlaces AS PurchasePrice_Item_$_i_$_u_$$DecimalPlaces,
              PurchasePrice_Item_$_i_$_u.StorageOption AS PurchasePrice_Item_$_i_$_u_$$StorageOption,
              PurchasePrice_Item_$_i_$_u.Description AS PurchasePrice_Item_$_i_$_u_$$Description,
+			 PurchasePrice_Item_$_i_$_exp.ID AS PurchasePrice_Item_$_i_$_exp_$$ID,
              PurchasePrice_Item_$_i_$_exp.ExpectedShelfLifeInDays AS PurchasePrice_Item_$_i_$_exp_$$ExpectedShelfLifeInDays,
              PurchasePrice_Item_$_i_$_exp.SaleBeforeExpiryDateInDays AS PurchasePrice_Item_$_i_$_exp_$$SaleBeforeExpiryDateInDays,
              PurchasePrice_Item_$_i_$_exp.DiscardBeforeExpiryDateInDays AS PurchasePrice_Item_$_i_$_exp_$$DiscardBeforeExpiryDateInDays,
@@ -437,7 +443,7 @@ namespace TangentaDB
              PurchasePrice_Item_$_i_$_wrty.WarrantyConditions AS PurchasePrice_Item_$_i_$_wrty_$$WarrantyConditions,
              PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org_$_cmt1.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_org_$_cmt1_$$ID,
              PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_orgt.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_orgt_$$ID,
- 
+		    
  
              PurchasePrice_Item_$_i.ID AS PurchasePrice_Item_$_i_$$ID,
              PurchasePrice_Item_$_i_$_u.ID AS PurchasePrice_Item_$_i_$_u_$$ID,
@@ -460,7 +466,7 @@ namespace TangentaDB
              PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccitorg.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccitorg_$$ID,
              PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cziporg.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_cziporg_$$ID,
              PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccouorg.ID AS PurchasePrice_Item_$_st_$_sup_$_c_$_orgd_$_cadrorg_$_ccouorg_$$ID
- 
+
  
             FROM PurchasePrice_Item 
             INNER JOIN Item PurchasePrice_Item_$_i ON PurchasePrice_Item.Item_ID = PurchasePrice_Item_$_i.ID 
@@ -498,7 +504,7 @@ namespace TangentaDB
             LEFT JOIN Person PurchasePrice_Item_$_st_$_sup_$_c_$_per ON PurchasePrice_Item_$_st_$_sup_$_c.Person_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_per.ID 
             LEFT JOIN cFirstName PurchasePrice_Item_$_st_$_sup_$_c_$_per_$_cfn ON PurchasePrice_Item_$_st_$_sup_$_c_$_per.cFirstName_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_per_$_cfn.ID 
             LEFT JOIN cLastName PurchasePrice_Item_$_st_$_sup_$_c_$_per_$_cln ON PurchasePrice_Item_$_st_$_sup_$_c_$_per.cLastName_ID = PurchasePrice_Item_$_st_$_sup_$_c_$_per_$_cln.ID 
-            ";
+			left join Stock s on PurchasePrice_Item.ID = s.PurchasePrice_Item_ID";
             string err = null;
             if (xdtPurchasePrice_Item!=null)
             {

@@ -298,9 +298,9 @@ namespace ShopC
         private bool EditStock(NavigationButtons.Navigation xnav)
         {
             int financialYear = 0;
-            if (m_ShopBC.m_CurrentDoc != null)
+            if (m_ShopBC.CurrentDocument != null)
             {
-                financialYear = m_ShopBC.m_CurrentDoc.FinancialYear;
+                financialYear = m_ShopBC.CurrentDocument.FinancialYear;
             }
             Form_SelectStockEditType frmSelectStockEditType = new Form_SelectStockEditType(lmoUser, financialYear, xnav);
             frmSelectStockEditType.CheckIfAdministrator += FrmSelectStockEditType_CheckIfAdministrator;
@@ -430,7 +430,7 @@ namespace ShopC
                 {
                     Item_UniqueName = (string)dt_ShopC_Item_in_Stock.Rows[0]["Item_UniqueName"];
                 }
-                this.m_ShopBC.m_CurrentDoc.m_Basket.AutomaticSelectItems(dt_ShopC_Item_in_Stock,
+                this.m_ShopBC.CurrentDocument.m_Basket.AutomaticSelectItems(dt_ShopC_Item_in_Stock,
                                                                             dStockQuantity, 
                                                                             ref dQuantitySelectedFromStock, 
                                                                             ref UnitSymbol);

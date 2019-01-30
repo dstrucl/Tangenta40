@@ -253,13 +253,9 @@ namespace TangentaDB
             }
         }
 
-        public static bool Insert(ID doc_ShopC_Item_ID,
-                                  decimal xdQuantity,
-                                  decimal_v extraDiscount_v,
-                                  decimal retailPriceWithDiscount,
-                                  decimal taxPrice,
-                                  DateTime_v expiryDate_v,
+        public static bool Insert(ID cons_ShopC_Item_ID,
                                   ID stock_ID,
+                                  decimal xdQuantity,
                                   ref ID Consumption_ShopC_Item_Source_ID,
                                   Transaction transaction)
         {
@@ -269,35 +265,35 @@ namespace TangentaDB
             SQL_Parameter par_dQuantity = new SQL_Parameter(spar_dQuantity, SQL_Parameter.eSQL_Parameter.Decimal, false, xdQuantity);
             lpar.Add(par_dQuantity);
 
-            string sval_extraDiscount = "null";
-            if (extraDiscount_v != null)
-            {
-                string spar_extraDiscount = "@par_extraDiscount";
-                SQL_Parameter par_extraDiscount = new SQL_Parameter(spar_extraDiscount, SQL_Parameter.eSQL_Parameter.Decimal, false, extraDiscount_v.v);
-                lpar.Add(par_extraDiscount);
-                sval_extraDiscount = spar_extraDiscount;
-            }
+            //string sval_extraDiscount = "null";
+            //if (extraDiscount_v != null)
+            //{
+            //    string spar_extraDiscount = "@par_extraDiscount";
+            //    SQL_Parameter par_extraDiscount = new SQL_Parameter(spar_extraDiscount, SQL_Parameter.eSQL_Parameter.Decimal, false, extraDiscount_v.v);
+            //    lpar.Add(par_extraDiscount);
+            //    sval_extraDiscount = spar_extraDiscount;
+            //}
 
-            string spar_retailPriceWithDiscount = "@par_retailPriceWithDiscount";
-            SQL_Parameter par_retailPriceWithDiscount = new SQL_Parameter(spar_retailPriceWithDiscount, SQL_Parameter.eSQL_Parameter.Decimal, false, retailPriceWithDiscount);
-            lpar.Add(par_retailPriceWithDiscount);
+            //string spar_retailPriceWithDiscount = "@par_retailPriceWithDiscount";
+            //SQL_Parameter par_retailPriceWithDiscount = new SQL_Parameter(spar_retailPriceWithDiscount, SQL_Parameter.eSQL_Parameter.Decimal, false, retailPriceWithDiscount);
+            //lpar.Add(par_retailPriceWithDiscount);
 
-            string spar_taxPrice = "@par_taxPrice";
-            SQL_Parameter par_taxPrice = new SQL_Parameter(spar_taxPrice, SQL_Parameter.eSQL_Parameter.Decimal, false, taxPrice);
-            lpar.Add(par_taxPrice);
+            //string spar_taxPrice = "@par_taxPrice";
+            //SQL_Parameter par_taxPrice = new SQL_Parameter(spar_taxPrice, SQL_Parameter.eSQL_Parameter.Decimal, false, taxPrice);
+            //lpar.Add(par_taxPrice);
 
-            string spar_Doc_ShopC_Item_ID = "@par_Consumption_ShopC_Item_ID";
-            SQL_Parameter par_Doc_ShopC_Item_ID = new SQL_Parameter(spar_Doc_ShopC_Item_ID, false, doc_ShopC_Item_ID);
+            string spar_Consumption_ShopC_Item_ID = "@par_Consumption_ShopC_Item_ID";
+            SQL_Parameter par_Doc_ShopC_Item_ID = new SQL_Parameter(spar_Consumption_ShopC_Item_ID, false, cons_ShopC_Item_ID);
             lpar.Add(par_Doc_ShopC_Item_ID);
 
-            string sval_expiryDate = "null";
-            if (expiryDate_v!=null)
-            {
-                string spar_expiryDate = "@par_expiryDate";
-                SQL_Parameter par_expiryDate = new SQL_Parameter(spar_expiryDate,SQL_Parameter.eSQL_Parameter.Datetime, false, expiryDate_v.v);
-                lpar.Add(par_expiryDate);
-                sval_expiryDate = spar_expiryDate;
-            }
+            //string sval_expiryDate = "null";
+            //if (expiryDate_v!=null)
+            //{
+            //    string spar_expiryDate = "@par_expiryDate";
+            //    SQL_Parameter par_expiryDate = new SQL_Parameter(spar_expiryDate,SQL_Parameter.eSQL_Parameter.Datetime, false, expiryDate_v.v);
+            //    lpar.Add(par_expiryDate);
+            //    sval_expiryDate = spar_expiryDate;
+            //}
 
             string sval_stock_ID = "null";
             if (ID.Validate(stock_ID))
@@ -312,21 +308,14 @@ namespace TangentaDB
             string sql = @"insert into Consumption_ShopC_Item_Source
                            (
                             Consumption_ShopC_Item_ID,
-                            dQuantity,
-                            SourceDiscount,
-                            RetailPriceWithDiscount,
-                            TaxPrice,
-                            ExpiryDate,
-                            Stock_ID)
+                            Stock_ID,
+                            dQuantity
+                            )
                             values
                             (
-                            " + spar_Doc_ShopC_Item_ID + @",
-                            " + spar_dQuantity + @",
-                            0,
-                            " + spar_retailPriceWithDiscount + @",
-                            " + spar_taxPrice + @",
-                            " + sval_expiryDate + @",
-                            " + sval_stock_ID + @")";
+                            " + spar_Consumption_ShopC_Item_ID + @",
+                            " + sval_stock_ID + @",
+                            " + spar_dQuantity + ")";
             string Err = null;
             if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Consumption_ShopC_Item_Source_ID, ref Err, "Consumption_ShopC_Item_Source"))
             {
@@ -340,7 +329,7 @@ namespace TangentaDB
         }
 
        
-        internal static bool Update(ID doc_ShopC_Item_Source_ID, decimal dnewQuantity, decimal retailPriceWithDiscount, decimal taxPrice, Transaction transaction)
+        internal static bool Update(ID doc_ShopC_Item_Source_ID, decimal dnewQuantity, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -349,20 +338,12 @@ namespace TangentaDB
             lpar.Add(par_dQuantity);
 
 
-            string spar_retailPriceWithDiscount = "@par_retailPriceWithDiscount";
-            SQL_Parameter par_retailPriceWithDiscount = new SQL_Parameter(spar_retailPriceWithDiscount, SQL_Parameter.eSQL_Parameter.Decimal, false, retailPriceWithDiscount);
-            lpar.Add(par_retailPriceWithDiscount);
-
-            string spar_taxPrice = "@par_taxPrice";
-            SQL_Parameter par_taxPrice = new SQL_Parameter(spar_taxPrice, SQL_Parameter.eSQL_Parameter.Decimal, false, taxPrice);
-            lpar.Add(par_taxPrice);
+           
 
 
             string sql = @"update Consumption_ShopC_Item_Source set
                            
-                            dQuantity = " + spar_dQuantity + @",
-                            RetailPriceWithDiscount =" + spar_retailPriceWithDiscount + @",
-                            TaxPrice = " + spar_taxPrice + @" 
+                            dQuantity = " + spar_dQuantity + @" 
                             where ID = " + doc_ShopC_Item_Source_ID.ToString();
             string Err = null;
             if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar,  ref Err))

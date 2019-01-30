@@ -62,7 +62,8 @@ namespace ShopC
         private TangentaDB.ShopABC m_ShopBC = null;
         private DBTablesAndColumnNamesOfDocInvoice DBtcn = null;
         public NavigationButtons.Navigation nav = null;
-        private string m_DocTyp = "";
+
+        private Form_Consumption frm_Consumption = null;
 
         private usrc_Item1366x768_selected m_usrc_Item1366x768_selected = null;
 
@@ -352,9 +353,9 @@ namespace ShopC
         private bool EditStock(NavigationButtons.Navigation xnav)
         {
             int financialYear = 0;
-            if (m_ShopBC.m_CurrentDoc != null)
+            if (m_ShopBC.CurrentDocument != null)
             {
-                financialYear = m_ShopBC.m_CurrentDoc.FinancialYear;
+                financialYear = m_ShopBC.CurrentDocument.FinancialYear;
             }
             Form_SelectStockEditType frmSelectStockEditType = new Form_SelectStockEditType(lmoUser, financialYear,xnav);
             frmSelectStockEditType.CheckIfAdministrator += FrmSelectStockEditType_CheckIfAdministrator;
@@ -376,6 +377,30 @@ namespace ShopC
                 return false;
             }
         }
+
+        private void EditConsumption()
+        {
+            int financialYear = 0;
+            if (m_ShopBC.CurrentDocument != null)
+            {
+                financialYear = m_ShopBC.CurrentDocument.FinancialYear;
+            }
+            if (frm_Consumption != null)
+            {
+                if (frm_Consumption.IsDisposed)
+                {
+                    frm_Consumption = null;
+                }
+            }
+            if (frm_Consumption == null)
+            {
+                frm_Consumption = new Form_Consumption(lmoUser, financialYear, GlobalData.const_ConsumptionOwnUse);
+            }
+
+            frm_Consumption.Show(this);
+        }
+
+
 
         public bool EditItem(NavigationButtons.Navigation xnav)
         {
@@ -593,6 +618,8 @@ namespace ShopC
             }
         }
 
+
+
         private void m_usrc_ItemList1366x768_Items_Click()
         {
 
@@ -626,6 +653,35 @@ namespace ShopC
             this.m_usrc_Atom_ItemsList1366x768.usrc_Item_InsidePageHandler_ItemAtomList.Refresh();
             this.m_usrc_ItemList1366x768.DoRefresh();
             this.m_usrc_Atom_ItemsList1366x768.usrc_Item_InsidePageHandler_ItemAtomList.BringToFront();
+        }
+
+        private void m_usrc_ItemList1366x768_Consumption_Click()
+        {
+            if (CheckAccessStock != null)
+            {
+                if (!CheckAccessStock())
+                {
+                    return;
+                }
+            }
+
+            decimal count_in_baskets = 0;
+            if (m_ShopBC.CountInBaskets(ref count_in_baskets))
+            {
+                if (count_in_baskets == 0)
+                {
+                    EditConsumption();
+                    //if (EditConsumption())
+                    //{
+                    //    m_usrc_ItemList1366x768.Get_Price_Item_Stock_Data(PriceList_ID);
+                    //    Reset();
+                    //}
+                }
+                else
+                {
+                    XMessage.Box.Show(this, lng.s_YouCanNotEditStockUntilAllBasketsAreEmpty, "", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                }
+            }
         }
     }
 }

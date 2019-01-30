@@ -31,8 +31,14 @@ namespace ShopC
         public delegate void delegate_Stock_Click();
         public event delegate_Stock_Click Stock_Click;
 
+        public delegate void delegate_Consumption_Click();
+        public event delegate_Consumption_Click Consumption_Click;
+
         public delegate void delegate_Items_Click();
         public event delegate_Items_Click Items_Click;
+
+        private Form_Consumption frm_Consumption = null;
+
 
         public new bool Visible
         {
@@ -117,6 +123,9 @@ namespace ShopC
             usrc_Item_InsidePageGroupHandler1.SelectControl += Usrc_Item_InsidePageGroupHandler1_SelectControl;
             usrc_Item_InsidePageGroupHandler1.SelectionChanged += Usrc_Item_InsidePageGroupHandler1_SelectionChanged;
             usrc_Item_InsidePageGroupHandler1.ControlClick += Usrc_Item_InsidePageGroupHandler1_ControlClick;
+            lng.s_TakeOutFromStock.Text(this.btn_Consumption);
+            lng.s_Stock.Text(this.btn_Stock);
+            lng.s_Items.Text(this.btn_Items);
         }
 
         internal void Select(Doc_ShopC_Item xdsci, string s_ItemUniqueName)
@@ -186,18 +195,18 @@ namespace ShopC
                 Doc_ShopC_Item dsci = null;
                 if (this.SelectItemsFromStockDialog)
                 {
-                    bRes = m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(ref dsci,
+                    bRes = m_ShopBC.CurrentDocument.m_Basket.Add2Basket(ref dsci,
                                                                      m_ShopBC.DocTyp,
-                                                                     m_ShopBC.m_CurrentDoc.Doc_ID,
+                                                                     m_ShopBC.CurrentDocument.Doc_ID,
                                                                      dQuantity2Add,
                                                                      xData,
                                                                      Select_Items_From_Stock_Dialog);
                 }
                 else
                 {
-                    bRes = m_ShopBC.m_CurrentDoc.m_Basket.Add2Basket(ref dsci,
+                    bRes = m_ShopBC.CurrentDocument.m_Basket.Add2Basket(ref dsci,
                                                                      m_ShopBC.DocTyp,
-                                                                     m_ShopBC.m_CurrentDoc.Doc_ID,
+                                                                     m_ShopBC.CurrentDocument.Doc_ID,
                                                                      dQuantity2Add,
                                                                      xData,
                                                                      null);
@@ -207,7 +216,7 @@ namespace ShopC
                 {
                     if (ctrl is usrc_Item1366x768)
                     {
-                        ((usrc_Item1366x768)ctrl).DoPaint(xData, m_ShopBC.m_CurrentDoc.m_Basket);
+                        ((usrc_Item1366x768)ctrl).DoPaint(xData, m_ShopBC.CurrentDocument.m_Basket);
                     }
 
 
@@ -258,9 +267,9 @@ namespace ShopC
         {
             string[] sreversgroup = usrc_Item_InsideGroupHandler.reversegroup(groups);
 
-           if ( m_ShopBC.m_CurrentDoc.m_ShopShelf.Load(m_PriceList_ID, sreversgroup))
+           if ( m_ShopBC.CurrentDocument.m_ShopShelf.Load(m_PriceList_ID, sreversgroup))
             {
-                list = m_ShopBC.m_CurrentDoc.m_ShopShelf.ListOfItems;
+                list = m_ShopBC.CurrentDocument.m_ShopShelf.ListOfItems;
                 return true;
             }
             return false;
@@ -276,7 +285,7 @@ namespace ShopC
                 {
                     usrc_Item1366x768 xusrc_Item1366x768 = (usrc_Item1366x768)ctrl;
 
-                    xusrc_Item1366x768.DoPaint(idata, m_ShopBC.m_CurrentDoc.m_Basket);
+                    xusrc_Item1366x768.DoPaint(idata, m_ShopBC.CurrentDocument.m_Basket);
                 }
             }
         }
@@ -326,9 +335,9 @@ namespace ShopC
         public bool Get_Price_Item_Stock_Data(ID xPriceList_ID)
         {
             m_PriceList_ID = xPriceList_ID;
-            if (m_ShopBC.m_CurrentDoc.m_ShopShelf.GetGroupsTable(xPriceList_ID))
+            if (m_ShopBC.CurrentDocument.m_ShopShelf.GetGroupsTable(xPriceList_ID))
             {
-                usrc_Item_InsidePageGroupHandler1.Init(m_ShopBC.m_CurrentDoc.m_ShopShelf.dt_Price_Item_Group);
+                usrc_Item_InsidePageGroupHandler1.Init(m_ShopBC.CurrentDocument.m_ShopShelf.dt_Price_Item_Group);
                 return true;
             }
             return false;
@@ -366,6 +375,14 @@ namespace ShopC
         public void DoRefresh()
         {
             this.usrc_Item_InsidePageGroupHandler1.DoRefresh();
+        }
+
+        private void btn_Consumption_Click(object sender, EventArgs e)
+        {
+            if (Consumption_Click != null)
+            {
+                Consumption_Click();
+            }
         }
     }
 }

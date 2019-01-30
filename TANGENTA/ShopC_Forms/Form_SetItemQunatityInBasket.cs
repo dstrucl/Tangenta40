@@ -17,7 +17,7 @@ namespace ShopC_Forms
         private usrc_CItem_selected m_usrc_Item_selected = null;
         private usrc_Atom_CItem m_usrc_Atom_Item = null;
         private TangentaDB.Consumption_ShopC_Item m_dsci = null;
-        private Item_Data m_itemdata = null;
+        private CItem_Data m_itemdata = null;
         private usrc_CItem m_usrc_Item = null;
 
 
@@ -30,7 +30,7 @@ namespace ShopC_Forms
             usrc_CItem_selected xusrc_Item_selected,
             usrc_Atom_CItem xusrc_Atom_Item,
             TangentaDB.Consumption_ShopC_Item xdsci,
-            Item_Data idata,
+            CItem_Data idata,
             usrc_CItemList xusrc_ItemList,
             usrc_CItem xusrc_Item
             )

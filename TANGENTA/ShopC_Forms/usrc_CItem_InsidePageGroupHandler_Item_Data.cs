@@ -13,7 +13,7 @@ using usrc_Item_InsideGroup_Handler;
 
 namespace ShopC_Forms
 {
-    public partial class usrc_CItem_InsidePageGroupHandler_Item_Data : usrcG_Item_InsidePageGroupHandler<Item_Data>
+    public partial class usrc_CItem_InsidePageGroupHandler_Item_Data : usrcG_Item_InsidePageGroupHandler<CItem_Data>
     {
         public usrc_CItem_InsidePageGroupHandler_Item_Data()
         {

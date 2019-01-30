@@ -609,11 +609,11 @@ namespace Tangenta
             ID Doc_ID_to_show_v = null;
             if (m_usrc_DocumentEditor.DocE.m_ShopABC != null)
             {
-                if (m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc != null)
+                if (m_usrc_DocumentEditor.DocE.m_ShopABC.CurrentDocument != null)
                 {
-                    if (ID.Validate(m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID))
+                    if (ID.Validate(m_usrc_DocumentEditor.DocE.m_ShopABC.CurrentDocument.Doc_ID))
                     {
-                        Doc_ID_to_show_v = new ID(m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID);
+                        Doc_ID_to_show_v = new ID(m_usrc_DocumentEditor.DocE.m_ShopABC.CurrentDocument.Doc_ID);
                     }
                     this.m_usrc_TableOfDocuments.Init(DocM, false, false, DocM.mSettingsUserValues.FinancialYear, Doc_ID_to_show_v);
                 }
@@ -799,7 +799,7 @@ namespace Tangenta
             {
                 xShopC_Data_Item_List.Clear();
             }
-            if (this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.m_Basket.Read_Doc_ShopC_Item_Table(DocTyp, this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, ref xShopC_Data_Item_List, transaction))
+            if (this.m_usrc_DocumentEditor.DocE.m_ShopABC.CurrentDocument.m_Basket.Read_Doc_ShopC_Item_Table(DocTyp, this.m_usrc_DocumentEditor.DocE.m_ShopABC.CurrentDocument.Doc_ID, ref xShopC_Data_Item_List, transaction))
             {
                 if (xdt_ShopB_Items == null)
                 {
@@ -810,7 +810,7 @@ namespace Tangenta
                     xdt_ShopB_Items.Clear();
                     xdt_ShopB_Items.Columns.Clear();
                 }
-                if (this.m_usrc_DocumentEditor.DocE.m_ShopABC.Read_ShopB_Price_Item_Table(this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, ref xdt_ShopB_Items))
+                if (this.m_usrc_DocumentEditor.DocE.m_ShopABC.Read_ShopB_Price_Item_Table(this.m_usrc_DocumentEditor.DocE.m_ShopABC.CurrentDocument.Doc_ID, ref xdt_ShopB_Items))
                 {
                     if (xdt_ShopA_Items == null)
                     {
@@ -821,7 +821,7 @@ namespace Tangenta
                         xdt_ShopA_Items.Clear();
                         xdt_ShopA_Items.Columns.Clear();
                     }
-                    if (ShopA_dbfunc.dbfunc.Read_ShopA_Price_Item_Table(DocTyp, this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, ref xdt_ShopA_Items))
+                    if (ShopA_dbfunc.dbfunc.Read_ShopA_Price_Item_Table(DocTyp, this.m_usrc_DocumentEditor.DocE.m_ShopABC.CurrentDocument.Doc_ID, ref xdt_ShopA_Items))
                     {
                         return true;
                     }
@@ -836,9 +836,9 @@ namespace Tangenta
                                         DataTable xdt_ShopA_Items,
                                         Transaction transaction)
         {
-            if (ShopA_dbfunc.dbfunc.Write_ShopA_Price_Item_Table(DocTyp, this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, xdt_ShopA_Items, transaction))
+            if (ShopA_dbfunc.dbfunc.Write_ShopA_Price_Item_Table(DocTyp, this.m_usrc_DocumentEditor.DocE.m_ShopABC.CurrentDocument.Doc_ID, xdt_ShopA_Items, transaction))
             {
-                if (this.m_usrc_DocumentEditor.DocE.m_ShopABC.Copy_ShopB_Price_Item_Table(this.DocTyp, this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID, xdt_ShopB_Items, transaction))
+                if (this.m_usrc_DocumentEditor.DocE.m_ShopABC.Copy_ShopB_Price_Item_Table(this.DocTyp, this.m_usrc_DocumentEditor.DocE.m_ShopABC.CurrentDocument.Doc_ID, xdt_ShopB_Items, transaction))
                 {
                     //switch (this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.m_Basket.Copy_Doc_ShopC_Item(DocTyp,
                     //                                                                                                this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc,
@@ -1016,9 +1016,9 @@ namespace Tangenta
                 {
                     if (this.m_usrc_DocumentEditor.DocE.m_ShopABC!=null)
                     {
-                        if (this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc!=null)
+                        if (this.m_usrc_DocumentEditor.DocE.m_ShopABC.CurrentDocument!=null)
                         {
-                            this.m_usrc_TableOfDocuments.Init(DocM, false, false, DocM.mSettingsUserValues.FinancialYear, this.m_usrc_DocumentEditor.DocE.m_ShopABC.m_CurrentDoc.Doc_ID);
+                            this.m_usrc_TableOfDocuments.Init(DocM, false, false, DocM.mSettingsUserValues.FinancialYear, this.m_usrc_DocumentEditor.DocE.m_ShopABC.CurrentDocument.Doc_ID);
                             return;
                         }
                     }

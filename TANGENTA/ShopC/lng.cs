@@ -157,6 +157,9 @@ namespace ShopC
 
         public static ltext s_lbl_Item_Stock = new ltext(new string[] { "Stocks for item:", "Zaloge artikla:" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_StockItem_Edit.cs
 
+        public static ltext s_TakeOutFromStock = new ltext(new string[]{"Take out from stock",
+                                                "Ostali odjem\r\niz zaloge"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_StockItem_Edit.cs
+
         public static ltext s_Stock = new ltext(new string[]{"Stock",
                                                 "Zaloge"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_StockItem_Edit.cs
 

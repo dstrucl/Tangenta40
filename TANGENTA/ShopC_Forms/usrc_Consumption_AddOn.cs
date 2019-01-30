@@ -99,7 +99,7 @@ namespace ShopC_Forms
             Form_WriteOff_AddOn payment_frm = new Form_WriteOff_AddOn(x_WriteOffAddOn, xbPrint, this);
             if (payment_frm.ShowDialog() == DialogResult.OK)
             {
-                Show(ConsM.ConsE.m_CurrentConsumption.Doc_ID);
+                Show(ConsM.ConsE.CurrentCons.Doc_ID);
                 return true;
             }
             return false;
@@ -110,7 +110,7 @@ namespace ShopC_Forms
             Form_OwnUse_AddOn OwnUseAddOn_frm = new Form_OwnUse_AddOn(x_OwnUse_AddOn, xbPrint, this);
             if (OwnUseAddOn_frm.ShowDialog() == DialogResult.OK)
             {
-                Show(ConsM.ConsE.m_CurrentConsumption.Doc_ID);
+                Show(ConsM.ConsE.CurrentCons.Doc_ID);
                 return true;
             }
             return false;

@@ -110,9 +110,9 @@ namespace ShopC_Forms
             cmb_Reason.DisplayMember = "Name";
             cmb_Reason.ValueMember = "ID";
 
-            if (ID.Validate(m_usrc_Consumption_AddOn.ConsM.ConsE.m_CurrentConsumption.Doc_ID))
+            if (ID.Validate(m_usrc_Consumption_AddOn.ConsM.ConsE.CurrentCons.Doc_ID))
             {
-                if (AddOnOwnUse.Get(m_usrc_Consumption_AddOn.ConsM.ConsE.m_CurrentConsumption.Doc_ID))
+                if (AddOnOwnUse.Get(m_usrc_Consumption_AddOn.ConsM.ConsE.CurrentCons.Doc_ID))
                 {
                     //if (AddOnDI.MyIssueDate != null)
                     //{

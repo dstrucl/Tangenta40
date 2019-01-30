@@ -68,21 +68,21 @@ namespace TangentaCore
             string sNumber = null;
 
 
-            sNumber = m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + docM.DocE.m_ShopABC.m_CurrentDoc.NumberInFinancialYear.ToString();
+            sNumber = m_ShopABC.CurrentDocument.FinancialYear.ToString() + "-" + docM.DocE.m_ShopABC.CurrentDocument.NumberInFinancialYear.ToString();
 
             string sInvoiceNumber = null;
             int ItemsCount = 0;
             string sumText = xsumText;
-            ItemsCount = m_ShopABC.m_CurrentDoc.ItemsCount(docM.DocTyp);
-            if (docM.DocE.m_ShopABC.m_CurrentDoc.bDraft)
+            ItemsCount = m_ShopABC.CurrentDocument.ItemsCount(docM.DocTyp);
+            if (docM.DocE.m_ShopABC.CurrentDocument.bDraft)
             {
                 sdraft = lng.s_Draft.s;
-                sInvoiceNumber = "(" + sdraft + " št.:" + docM.DocE.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + docM.DocE.m_ShopABC.m_CurrentDoc.DraftNumber.ToString()
+                sInvoiceNumber = "(" + sdraft + " št.:" + docM.DocE.m_ShopABC.CurrentDocument.FinancialYear.ToString() + "-" + docM.DocE.m_ShopABC.CurrentDocument.DraftNumber.ToString()
                                     + " " + lng.s_Total.s + " = " + sumText + ")";
             }
             else
             {
-                sInvoiceNumber = "(" + sdraft + " št.:" + docM.DocE.m_ShopABC.m_CurrentDoc.FinancialYear.ToString() + "-" + docM.DocE.m_ShopABC.m_CurrentDoc.NumberInFinancialYear.ToString()
+                sInvoiceNumber = "(" + sdraft + " št.:" + docM.DocE.m_ShopABC.CurrentDocument.FinancialYear.ToString() + "-" + docM.DocE.m_ShopABC.CurrentDocument.NumberInFinancialYear.ToString()
                 + " " + lng.s_Total.s + " = " + sumText + ")";
             }
 

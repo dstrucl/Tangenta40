@@ -198,7 +198,7 @@ namespace Tangenta
         {
             if (aa_DocProformaInvoiceSaved != null)
             {
-                aa_DocProformaInvoiceSaved(DocE.m_ShopABC.m_CurrentDoc.Doc_ID);
+                aa_DocProformaInvoiceSaved(DocE.m_ShopABC.CurrentDocument.Doc_ID);
             }
         }
 
@@ -1486,7 +1486,7 @@ namespace Tangenta
         private bool usrc_Customer_aa_Customer_Removed(string xDoxTyp, Transaction transaction)
         {
             this.Cursor = Cursors.WaitCursor;
-            if (DocE.m_ShopABC.m_CurrentDoc.Update_Customer_Remove(xDoxTyp, transaction))
+            if (DocE.m_ShopABC.CurrentDocument.Update_Customer_Remove(xDoxTyp, transaction))
             {
                 this.Cursor = Cursors.Arrow;
                 return true;

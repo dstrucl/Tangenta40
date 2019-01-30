@@ -1,6 +1,6 @@
 ﻿namespace ShopC_Forms
 {
-    partial class usrc_ShopC
+    partial class usrc_ConsumptionShopC
     {
         /// <summary> 
         /// Required designer variable.
@@ -55,8 +55,6 @@
             this.m_usrc_ItemList.NumberOfItemsPerPage = 10;
             this.m_usrc_ItemList.Size = new System.Drawing.Size(646, 280);
             this.m_usrc_ItemList.TabIndex = 24;
-            this.m_usrc_ItemList.Stock_Click += new usrc_CItemList.delegate_Stock_Click(this.m_usrc_ItemList_Stock_Click);
-            this.m_usrc_ItemList.Items_Click += new usrc_CItemList.delegate_Items_Click(this.m_usrc_ItemList_Items_Click);
             // 
             // m_usrc_Atom_ItemsList
             // 

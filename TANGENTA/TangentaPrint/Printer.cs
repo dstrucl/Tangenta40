@@ -1566,17 +1566,17 @@ namespace TangentaPrint
                     return (int)o_Currency_DecimalPlaces;
                 }
             }
-            if (m_InvoiceData.m_ShopABC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST.Count > 0)
+            if (m_InvoiceData.m_ShopABC.CurrentDocument.m_Basket.Basket_Doc_ShopC_Item_LIST.Count > 0)
             {
-                object o_Data = m_InvoiceData.m_ShopABC.m_CurrentDoc.m_Basket.Basket_Doc_ShopC_Item_LIST[0];
+                object o_Data = m_InvoiceData.m_ShopABC.CurrentDocument.m_Basket.Basket_Doc_ShopC_Item_LIST[0];
                 if (o_Data is Doc_ShopC_Item)
                 {
                     return (int)((Doc_ShopC_Item)(o_Data)).Atom_Currency_DecimalPlaces_v.v;
                 }
             }
-            if (m_InvoiceData.m_ShopABC.m_CurrentDoc.m_Basket.dtDraft_Doc_Doc_ShopC_Item.Rows.Count > 0)
+            if (m_InvoiceData.m_ShopABC.CurrentDocument.m_Basket.dtDraft_Doc_Doc_ShopC_Item.Rows.Count > 0)
             {
-                object o_Currency_DecimalPlaces = m_InvoiceData.m_ShopABC.m_CurrentDoc.m_Basket.dtDraft_Doc_Doc_ShopC_Item.Rows[0]["Atom_Currency_DecimalPlaces"];
+                object o_Currency_DecimalPlaces = m_InvoiceData.m_ShopABC.CurrentDocument.m_Basket.dtDraft_Doc_Doc_ShopC_Item.Rows[0]["Atom_Currency_DecimalPlaces"];
                 if (o_Currency_DecimalPlaces.GetType() == typeof(int))
                 {
                     return (int)o_Currency_DecimalPlaces;

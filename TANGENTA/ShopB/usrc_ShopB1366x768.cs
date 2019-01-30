@@ -220,7 +220,7 @@ namespace ShopB
 
         public void SetCurrentInvoice_SelectedShopB_Items()
         {
-            m_InvoiceDB.m_CurrentDoc.Set_SelectedShopB_Items(DocTyp, dgv_SelectedShopB_Items, dt_SelectedShopBItem, dgv_ShopB_Items, dt_Price_ShopBItem);
+            m_InvoiceDB.CurrentDocument.Set_SelectedShopB_Items(DocTyp, dgv_SelectedShopB_Items, dt_SelectedShopBItem, dgv_ShopB_Items, dt_Price_ShopBItem);
         }
 
 
@@ -358,7 +358,7 @@ namespace ShopB
 
                     if (f_Atom_Price_ShopBItem.Get(DocTyp,
                                                     Price_ShopBItem_ID,
-                                                    m_InvoiceDB.m_CurrentDoc.Doc_ID,
+                                                    m_InvoiceDB.CurrentDocument.Doc_ID,
                                                     ref Atom_Price_ShopBItem_ID,
                                                     ref iCount,
                                                     ref RetailShopBItemPrice,
@@ -374,7 +374,7 @@ namespace ShopB
                     {
                         if (transaction_usrc_ShopB1366x768_ShopBItemSelect_f_Atom_Price_ShopBItem_Get.Commit())
                         {
-                            if (this.m_InvoiceDB.Read_ShopB_Price_Item_Table(m_InvoiceDB.m_CurrentDoc.Doc_ID, ref m_InvoiceDB.m_CurrentDoc.dtCurrent_Atom_Price_ShopBItem))
+                            if (this.m_InvoiceDB.Read_ShopB_Price_Item_Table(m_InvoiceDB.CurrentDocument.Doc_ID, ref m_InvoiceDB.CurrentDocument.dtCurrent_Atom_Price_ShopBItem))
                             {
                                 DataRow dr = dt_SelectedShopBItem.NewRow();
                                 dr[DBtcn.column_SelectedShopBItemPriceDiscount] = Discount;

@@ -79,7 +79,7 @@ namespace TangentaDB
         {
             if (xdQuantity == this.dQuantity)
             {
-                if (docType.Equals(GlobalData.const_DocInvoice))
+                if (docType.Equals(GlobalData.const_ConsumptionAll))
                 {
                     if (f_DocInvoice_ShopC_Item_Source.Delete(this.Consumption_ShopC_Item_Source_ID, transaction))
                     {
@@ -91,7 +91,7 @@ namespace TangentaDB
             else if (xdQuantity < this.dQuantity)
             {
                 decimal dnew_quantity_in_stock = this.dQuantity - xdQuantity;
-                if (docType.Equals(GlobalData.const_DocInvoice))
+                if (docType.Equals(GlobalData.const_ConsumptionAll))
                 {
                     if (f_DocInvoice_ShopC_Item_Source.UpdateQuantity(this.Consumption_ShopC_Item_Source_ID, dnew_quantity_in_stock,transaction))
                     {
@@ -108,7 +108,7 @@ namespace TangentaDB
             return false;
         }
 
-        internal bool SendBackToStock(string docType,decimal xdQuantity,Item_Data xdata, Transaction transaction)
+        internal bool SendBackToStock(string docType,decimal xdQuantity,CItem_Data xdata, Transaction transaction)
         {
             if (xdata != null)
             {

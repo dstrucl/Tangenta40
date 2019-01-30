@@ -571,11 +571,11 @@ namespace ShopC_Forms
             ID Doc_ID_to_show_v = null;
             if (m_usrc_ConsumptionEditor.ConsE != null)
             {
-                if (m_usrc_ConsumptionEditor.ConsE.m_CurrentConsumption != null)
+                if (m_usrc_ConsumptionEditor.ConsE.CurrentCons != null)
                 {
-                    if (ID.Validate(m_usrc_ConsumptionEditor.ConsE.m_CurrentConsumption.Doc_ID))
+                    if (ID.Validate(m_usrc_ConsumptionEditor.ConsE.CurrentCons.Doc_ID))
                     {
-                        Doc_ID_to_show_v = new ID(m_usrc_ConsumptionEditor.ConsE.m_CurrentConsumption.Doc_ID);
+                        Doc_ID_to_show_v = new ID(m_usrc_ConsumptionEditor.ConsE.CurrentCons.Doc_ID);
                     }
                     this.m_usrc_TableOfConsumption.Init(ConsM, false, false, ConsM.FinancialYear, Doc_ID_to_show_v);
                 }
@@ -593,7 +593,8 @@ namespace ShopC_Forms
                 case f_Consumption.eConsumptionType.WriteOff:
                     if (this.m_usrc_ConsumptionEditor.GetOwnUseData(this))
                     {
-                        m_usrc_TableOfConsumption.Init(ConsM, true, false, ConsM.FinancialYear /*Properties.Settings.Default.FinancialYear*/, null);
+                        ID consumption_ID = ConsM.ConsE.CurrentCons.Doc_ID;
+                        m_usrc_TableOfConsumption.Init(ConsM, true, false, ConsM.FinancialYear /*Properties.Settings.Default.FinancialYear*/, consumption_ID);
 
                     //    New_Empty_Consumption(f_Consumption.eConsumptionType.OwnUse);
                     }
@@ -756,7 +757,7 @@ namespace ShopC_Forms
             {
                 xShopC_Data_Item_List.Clear();
             }
-            if (this.m_usrc_ConsumptionEditor.ConsE.m_CurrentConsumption.m_Basket.Read_Consumption_ShopC_Item_Table(ConsM.ConsumptionTyp, this.m_usrc_ConsumptionEditor.ConsE.m_CurrentConsumption.Doc_ID, ref xShopC_Data_Item_List, transaction))
+            if (this.m_usrc_ConsumptionEditor.ConsE.CurrentCons.m_Basket.Read_Consumption_ShopC_Item_Table(ConsM.ConsumptionTyp, this.m_usrc_ConsumptionEditor.ConsE.CurrentCons.Doc_ID, ref xShopC_Data_Item_List, transaction))
             {
                 if (xdt_ShopB_Items == null)
                 {
@@ -778,22 +779,22 @@ namespace ShopC_Forms
                                         DataTable xdt_ShopA_Items,
                                         Transaction transaction)
         {
-            //if (ShopA_dbfunc.dbfunc.Write_ShopA_Price_Item_Table(ConsM.DocTyp, this.m_usrc_ConsumptionEditor.ConsE.m_CurrentConsumption.Doc_ID, xdt_ShopA_Items, transaction))
+            //if (ShopA_dbfunc.dbfunc.Write_ShopA_Price_Item_Table(ConsM.DocTyp, this.m_usrc_ConsumptionEditor.ConsE.CurrentCons.Doc_ID, xdt_ShopA_Items, transaction))
             //{
-            //    if (this.m_usrc_ConsumptionEditor.ConsE.m_ShopABC.Copy_ShopB_Price_Item_Table(ConsM.DocTyp, this.m_usrc_ConsumptionEditor.ConsE.m_CurrentConsumption.Doc_ID, xdt_ShopB_Items, transaction))
+            //    if (this.m_usrc_ConsumptionEditor.ConsE.m_ShopABC.Copy_ShopB_Price_Item_Table(ConsM.DocTyp, this.m_usrc_ConsumptionEditor.ConsE.CurrentCons.Doc_ID, xdt_ShopB_Items, transaction))
             //    {
-            //        //switch (this.m_usrc_ConsumptionEditor.ConsE.m_CurrentConsumption.m_Basket.Copy_TangentaDB.Consumption_ShopC_Item(DocM.DocTyp,
-            //        //                                                                                                this.m_usrc_ConsumptionEditor.ConsE.m_CurrentConsumption,
+            //        //switch (this.m_usrc_ConsumptionEditor.ConsE.CurrentCons.m_Basket.Copy_TangentaDB.Consumption_ShopC_Item(DocM.DocTyp,
+            //        //                                                                                                this.m_usrc_ConsumptionEditor.ConsE.CurrentCons,
             //        //                                                                                                xShopC_Data_Item_List,
             //        //                                                                                                this.m_usrc_ConsumptionEditor.m_usrc_ShopC1366x768.AutomaticSelectionOfItemsFromStock,
             //        //                                                                                                this.m_usrc_ConsumptionEditor.m_usrc_ShopC1366x768.proc_Select_ShopC_Item_from_Stock,
             //        //                                                                                                this.m_usrc_ConsumptionEditor.m_usrc_ShopC1366x768.proc_Item_Not_In_Offer))
             //        //{
             //        //    case TangentaDB.Basket.eCopy_TangentaDB.Consumption_ShopC_Item_Result.OK:
-            //        //        DocM.mSettingsUserValues.FinancialYear = this.m_usrc_ConsumptionEditor.ConsE.m_CurrentConsumption.FinancialYear;
-            //        //        m_usrc_TableOfDocuments.Init(DocM, true, false, this.m_usrc_ConsumptionEditor.ConsE.m_CurrentConsumption.FinancialYear, null);
+            //        //        DocM.mSettingsUserValues.FinancialYear = this.m_usrc_ConsumptionEditor.ConsE.CurrentCons.FinancialYear;
+            //        //        m_usrc_TableOfDocuments.Init(DocM, true, false, this.m_usrc_ConsumptionEditor.ConsE.CurrentCons.FinancialYear, null);
             //        //        cmb_FinancialYear.SelectedIndexChanged -= Cmb_FinancialYear_SelectedIndexChanged;
-            //        //        GlobalData.SelectFinancialYear(cmb_FinancialYear, this.m_usrc_ConsumptionEditor.ConsE.m_CurrentConsumption.FinancialYear);
+            //        //        GlobalData.SelectFinancialYear(cmb_FinancialYear, this.m_usrc_ConsumptionEditor.ConsE.CurrentCons.FinancialYear);
             //        //        cmb_FinancialYear.SelectedIndexChanged += Cmb_FinancialYear_SelectedIndexChanged;
             //        //        return true;
             //        //    case TangentaDB.Basket.eCopy_TangentaDB.Consumption_ShopC_Item_Result.ERROR_NO_ITEM_IN_DB:
@@ -1099,7 +1100,7 @@ namespace ShopC_Forms
                                                             ref draftNumber,
                                                             transaction))
             {
-                this.ConsM.ConsE.m_CurrentConsumption.Doc_ID = consumption_ID;
+                this.ConsM.ConsE.CurrentCons.Doc_ID = consumption_ID;
                 return true;
             }
             else

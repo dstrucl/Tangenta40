@@ -54,16 +54,12 @@ namespace ShopC_Forms
 
         public delegate void delegate_control_Set_ShowShops(string eShopsShow);
 
-        public delegate bool delegate_control_m_usrc_ShopB_usrc_PriceList1_Init(ID Currency_ID, usrc_PriceList_Edit.eShopType xeShopType, string ShopsInUse, ref ID price_list_id, ref string Err);
         public delegate bool delegate_control_m_usrc_ShopC_usrc_PriceList1_Init(ID Currency_ID, usrc_PriceList_Edit.eShopType xeShopType, string ShopsInUse, ref ID price_list_id, ref string Err);
 
         public delegate void delegate_control_usrc_PriceList_Ask_To_Update(char chShop, DataTable dt_ShopB_Item_NotIn_PriceList);
 
-        public delegate bool delegate_control_Get_Price_ShopBItem_Data(ref int iCount_Price_ShopBItem_Data, ID PriceList_id);
 
-        public delegate void delegate_control_m_usrc_ShopB_Set_dgv_SelectedShopB_Items();
-
-        public delegate bool delegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data(ID PriceList_ID);
+        public delegate bool delegate_control_m_usrc_ConsumptionShopC_usrc_ItemList_Get_PurchasePrice_Item_Stock_Data( DataTable dtPurchasePrices);
 
         public delegate void delegate_control_usrc_Customer_Show_Customer_Person(TangentaDB.CurrentDoc x_CurrentDoc);
 
@@ -106,7 +102,7 @@ namespace ShopC_Forms
             public delegate_control_btn_Issue_Show m_delegate_control_btn_Issue_Show;
             public delegate_control_lbl_Sum_ForeColor m_delegate_control_lbl_Sum_ForeColor;
             public delegate_control_lbl_Sum_Text m_delegate_control_lbl_Sum_Text;
-            public delegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data m_delegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data;
+            public delegate_control_m_usrc_ConsumptionShopC_usrc_ItemList_Get_PurchasePrice_Item_Stock_Data m_delegate_control_m_usrc_ConsumptionShopC_usrc_ItemList_Get_PurchasePrice_Item_Stock_Data;
 
             public DoCurrent_delegates(
                                         usrc_PriceList xusrc_PriceListC,
@@ -126,7 +122,7 @@ namespace ShopC_Forms
                                         delegate_control_btn_Issue_Show xdelegate_control_btn_Issue_Show,
                                         delegate_control_lbl_Sum_ForeColor xdelegate_control_lbl_Sum_ForeColor,
                                         delegate_control_lbl_Sum_Text xdelegate_control_lbl_Sum_Text,
-                                        delegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data xdelegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data)
+                                        delegate_control_m_usrc_ConsumptionShopC_usrc_ItemList_Get_PurchasePrice_Item_Stock_Data xdelegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data)
             {
                 m_usrc_PriceListC = xusrc_PriceListC;
                 //m_delegate_control_SetDraftButtons = xdelegate_control_SetDraftButtons;
@@ -144,7 +140,7 @@ namespace ShopC_Forms
                 m_delegate_control_btn_Issue_Show = xdelegate_control_btn_Issue_Show;
                 m_delegate_control_lbl_Sum_ForeColor = xdelegate_control_lbl_Sum_ForeColor;
                 m_delegate_control_lbl_Sum_Text = xdelegate_control_lbl_Sum_Text;
-                m_delegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data = xdelegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data;
+                m_delegate_control_m_usrc_ConsumptionShopC_usrc_ItemList_Get_PurchasePrice_Item_Stock_Data = xdelegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data;
             }
 
 
@@ -167,8 +163,7 @@ namespace ShopC_Forms
                                         delegate_control_btn_Issue_Show xdelegate_control_btn_Issue_Show,
                                         delegate_control_lbl_Sum_ForeColor xdelegate_control_lbl_Sum_ForeColor,
                                         delegate_control_lbl_Sum_Text xdelegate_control_lbl_Sum_Text,
-                                        delegate_control_Get_Price_ShopBItem_Data xdelegate_control_Get_Price_ShopBItem_Data,
-                                        delegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data xdelegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data)
+                                        delegate_control_m_usrc_ConsumptionShopC_usrc_ItemList_Get_PurchasePrice_Item_Stock_Data xdelegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data)
             {
                 m_usrc_PriceListC = xusrc_PriceListC;
                 m_delegate_control_SetDraftButtons = xdelegate_control_SetDraftButtons;
@@ -186,7 +181,7 @@ namespace ShopC_Forms
                 m_delegate_control_btn_Issue_Show = xdelegate_control_btn_Issue_Show;
                 m_delegate_control_lbl_Sum_ForeColor = xdelegate_control_lbl_Sum_ForeColor;
                 m_delegate_control_lbl_Sum_Text = xdelegate_control_lbl_Sum_Text;
-                m_delegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data = xdelegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data;
+                m_delegate_control_m_usrc_ConsumptionShopC_usrc_ItemList_Get_PurchasePrice_Item_Stock_Data = xdelegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data;
             }
         }
 
@@ -209,7 +204,18 @@ namespace ShopC_Forms
 
         public DBTablesAndColumnNamesOfConsumption DBtcn = new DBTablesAndColumnNamesOfConsumption();
 
-        public CurrentConsumption m_CurrentConsumption = null;
+        private CurrentConsumption m_CurrentCons = null;
+        public CurrentConsumption CurrentCons
+        {
+            get
+            {
+                return m_CurrentCons;
+            }
+            set
+            {
+                m_CurrentCons = value;
+            }
+        }
 
         private ConsumptionData m_ConsumptionData = null;
         public ConsumptionData MyConsumptionData
@@ -242,7 +248,7 @@ namespace ShopC_Forms
         public ConsumptionEditor(ConsumptionMan xdocman)
         {
             ConsM = xdocman;
-            m_CurrentConsumption = new CurrentConsumption(this,DBtcn);
+            CurrentCons = new CurrentConsumption(this,DBtcn);
         }
 
 
@@ -272,7 +278,7 @@ namespace ShopC_Forms
                               transaction
                              ))
             {
-                if (m_CurrentConsumption.ShowDraftButtons())
+                if (CurrentCons.ShowDraftButtons())
                 {
                     if (doCurrentDelegates.m_delegate_control_SetDraftButtons != null)
                     {
@@ -317,13 +323,13 @@ namespace ShopC_Forms
                             doCurrent_delegates.m_delegate_control_lbl_Sum_ForeColor,
                             doCurrent_delegates.m_delegate_control_lbl_Sum_Text
                             );
-                if (m_CurrentConsumption.bDraft)
+                if (CurrentCons.bDraft)
                 {
                     doCurrent_delegates.m_delegate_control_AddHandler();
                 }
                 else
                 {
-                    if (m_CurrentConsumption.Exist)
+                    if (CurrentCons.Exist)
                     {
                         doCurrent_delegates.m_delegate_control_RemoveHandler();
                     }
@@ -500,63 +506,63 @@ namespace ShopC_Forms
 
 
 
-            m_CurrentConsumption.dtCurrent_Invoice.Columns.Clear();
-            m_CurrentConsumption.dtCurrent_Invoice.Clear();
-            if (DBSync.DBSync.ReadDataTable(ref m_CurrentConsumption.dtCurrent_Invoice, sql_GetDraft, lpar, ref Err))
+            CurrentCons.dtCurrent_Invoice.Columns.Clear();
+            CurrentCons.dtCurrent_Invoice.Clear();
+            if (DBSync.DBSync.ReadDataTable(ref CurrentCons.dtCurrent_Invoice, sql_GetDraft, lpar, ref Err))
             {
-                if (m_CurrentConsumption.dtCurrent_Invoice.Rows.Count > 0)
+                if (CurrentCons.dtCurrent_Invoice.Rows.Count > 0)
                 {
-                    m_CurrentConsumption.Exist = true;
-                    m_CurrentConsumption.bDraft = (bool)m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$Draft"];
-                    m_CurrentConsumption.Doc_ID = tf.set_ID(m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$ID"]);
-                    m_CurrentConsumption.EventTime = (DateTime)m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["EventTime"];
+                    CurrentCons.Exist = true;
+                    CurrentCons.bDraft = (bool)CurrentCons.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$Draft"];
+                    CurrentCons.Doc_ID = tf.set_ID(CurrentCons.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$ID"]);
+                    CurrentCons.EventTime = (DateTime)CurrentCons.dtCurrent_Invoice.Rows[0]["EventTime"];
 
-                    if (m_CurrentConsumption.Atom_Currency_ID == null)
+                    if (CurrentCons.Atom_Currency_ID == null)
                     {
-                        m_CurrentConsumption.Atom_Currency_ID = new ID();
+                        CurrentCons.Atom_Currency_ID = new ID();
                     }
-                    m_CurrentConsumption.Atom_Currency_ID = tf.set_ID(m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["Atom_Currency_ID"]);
-                    if (m_CurrentConsumption.Currency == null)
+                    CurrentCons.Atom_Currency_ID = tf.set_ID(CurrentCons.dtCurrent_Invoice.Rows[0]["Atom_Currency_ID"]);
+                    if (CurrentCons.Currency == null)
                     {
-                        m_CurrentConsumption.Currency = new xCurrency();
+                        CurrentCons.Currency = new xCurrency();
                     }
 
-                    m_CurrentConsumption.Currency.ID = m_CurrentConsumption.Atom_Currency_ID;
-                    m_CurrentConsumption.Currency.Name = (string)m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["CurrencyName"];
-                    m_CurrentConsumption.Currency.Abbreviation = (string)m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["CurrencyAbbreviation"];
-                    m_CurrentConsumption.Currency.Symbol = (string)m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["CurrencySymbol"];
-                    m_CurrentConsumption.Currency.CurrencyCode = (int)m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["CurrencyCode"];
-                    m_CurrentConsumption.Currency.DecimalPlaces = (int)m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["CurrencyDecimalPlaces"];
+                    CurrentCons.Currency.ID = CurrentCons.Atom_Currency_ID;
+                    CurrentCons.Currency.Name = (string)CurrentCons.dtCurrent_Invoice.Rows[0]["CurrencyName"];
+                    CurrentCons.Currency.Abbreviation = (string)CurrentCons.dtCurrent_Invoice.Rows[0]["CurrencyAbbreviation"];
+                    CurrentCons.Currency.Symbol = (string)CurrentCons.dtCurrent_Invoice.Rows[0]["CurrencySymbol"];
+                    CurrentCons.Currency.CurrencyCode = (int)CurrentCons.dtCurrent_Invoice.Rows[0]["CurrencyCode"];
+                    CurrentCons.Currency.DecimalPlaces = (int)CurrentCons.dtCurrent_Invoice.Rows[0]["CurrencyDecimalPlaces"];
 
-                    m_CurrentConsumption.TInvoice.StornoConsumption_ID = tf.set_ID(m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$Consumption_Reference_ID"]);
+                    CurrentCons.TInvoice.StornoConsumption_ID = tf.set_ID(CurrentCons.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$Consumption_Reference_ID"]);
 
-                    m_CurrentConsumption.TInvoice.Invoice_Reference_Type_v = tf.set_string(m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$Consumption_Reference_Type"]);
-                    m_CurrentConsumption.TInvoice.bStorno_v = tf.set_bool(m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$Storno"]);
+                    CurrentCons.TInvoice.Invoice_Reference_Type_v = tf.set_string(CurrentCons.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$Consumption_Reference_Type"]);
+                    CurrentCons.TInvoice.bStorno_v = tf.set_bool(CurrentCons.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$Storno"]);
 
-                    m_CurrentConsumption.FinancialYear = (int)m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$FinancialYear"];
+                    CurrentCons.FinancialYear = (int)CurrentCons.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$FinancialYear"];
 
              
-                    object oNumberInFinancialYear = m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$NumberInFinancialYear"];
+                    object oNumberInFinancialYear = CurrentCons.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$NumberInFinancialYear"];
                     if (oNumberInFinancialYear is int)
                     {
-                        m_CurrentConsumption.NumberInFinancialYear = (int)oNumberInFinancialYear;
+                        CurrentCons.NumberInFinancialYear = (int)oNumberInFinancialYear;
                     }
                     else
                     {
-                        m_CurrentConsumption.NumberInFinancialYear = -1;
+                        CurrentCons.NumberInFinancialYear = -1;
                     }
 
-                    m_CurrentConsumption.DraftNumber = (int)m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$DraftNumber"];
+                    CurrentCons.DraftNumber = (int)CurrentCons.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$DraftNumber"];
 
-                    ID xConsumption_ID = m_CurrentConsumption.Doc_ID;
-                    if (m_CurrentConsumption.TInvoice.StornoConsumption_ID != null)
+                    ID xConsumption_ID = CurrentCons.Doc_ID;
+                    if (CurrentCons.TInvoice.StornoConsumption_ID != null)
                     {
-                        decimal_v dGrossSum_v = tf.set_decimal(m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$GrossSum"]);
+                        decimal_v dGrossSum_v = tf.set_decimal(CurrentCons.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$GrossSum"]);
                         if (dGrossSum_v != null)
                         {
                             if (dGrossSum_v.v < 0)
                             {
-                                xConsumption_ID = m_CurrentConsumption.TInvoice.StornoConsumption_ID;
+                                xConsumption_ID = CurrentCons.TInvoice.StornoConsumption_ID;
                             }
                         }
                     }
@@ -600,8 +606,8 @@ namespace ShopC_Forms
                           ref Err,
                           transaction)) // try to get draft
             {
-                xdelegate_control_InvoiceNumber_Text(ConsumptionMan.GetInvoiceNumber(m_CurrentConsumption.bDraft, m_CurrentConsumption.FinancialYear, m_CurrentConsumption.NumberInFinancialYear, m_CurrentConsumption.DraftNumber));
-                if (m_CurrentConsumption.bDraft)
+                xdelegate_control_InvoiceNumber_Text(ConsumptionMan.GetInvoiceNumber(CurrentCons.bDraft, CurrentCons.FinancialYear, CurrentCons.NumberInFinancialYear, CurrentCons.DraftNumber));
+                if (CurrentCons.bDraft)
                 {
                     SetMode(ConsumptionEditor.emode.edit_eDocumentType, xdelegate_control_SetMode);
                     if (xdelegate_control_SetCurrentInvoice_SelectedShopC_Items != null)
@@ -618,9 +624,9 @@ namespace ShopC_Forms
                     }
                     chk_Storno_CanBe_ManualyChanged = false;
                     xdelegate_control_ShowStornoCheckBox(true);// this.chk_Storno.Visible = true;
-                    if (m_CurrentConsumption.TInvoice.bStorno_v != null)
+                    if (CurrentCons.TInvoice.bStorno_v != null)
                     {
-                        xdelegate_control_SetStornoCheckBox(m_CurrentConsumption.TInvoice.bStorno_v.v);// this.chk_Storno.Checked = m_ShopABC.m_CurrentConsumption.TInvoice.bStorno_v.v;
+                        xdelegate_control_SetStornoCheckBox(CurrentCons.TInvoice.bStorno_v.v);// this.chk_Storno.Checked = m_ShopABC.CurrentCons.TInvoice.bStorno_v.v;
                     }
                     else
                     {
@@ -652,7 +658,7 @@ namespace ShopC_Forms
                                   ref Err,
                                   transaction)) // Get invoice with Invoice_ID
                 {
-                    xdelegate_control_InvoiceNumber_Text(ConsumptionMan.GetInvoiceNumber(m_CurrentConsumption.bDraft, m_CurrentConsumption.FinancialYear, m_CurrentConsumption.NumberInFinancialYear, m_CurrentConsumption.DraftNumber));// this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.m_CurrentConsumption.bDraft, m_ShopABC.m_CurrentConsumption.FinancialYear, m_ShopABC.m_CurrentConsumption.NumberInFinancialYear, m_ShopABC.m_CurrentConsumption.DraftNumber);//
+                    xdelegate_control_InvoiceNumber_Text(ConsumptionMan.GetInvoiceNumber(CurrentCons.bDraft, CurrentCons.FinancialYear, CurrentCons.NumberInFinancialYear, CurrentCons.DraftNumber));// this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.CurrentCons.bDraft, m_ShopABC.CurrentCons.FinancialYear, m_ShopABC.CurrentCons.NumberInFinancialYear, m_ShopABC.CurrentCons.DraftNumber);//
 
                     if (xdelegate_control_ShopC_Clear != null)
                     {
@@ -707,9 +713,9 @@ namespace ShopC_Forms
             decimal dsum_TaxSum_Basket = 0;
             decimal dsum_NetSum_Basket = 0;
 
-            if (m_CurrentConsumption.m_Basket != null)
+            if (CurrentCons.m_Basket != null)
             {
-                m_CurrentConsumption.m_Basket.GetPriceSum(ref dsum_GrossSum_Basket, ref dsum_TaxSum_Basket, ref dsum_NetSum_Basket, ref TaxSum);
+                CurrentCons.m_Basket.GetPriceSum(ref dsum_GrossSum_Basket, ref dsum_TaxSum_Basket, ref dsum_NetSum_Basket, ref TaxSum);
             }
             dsum_GrossSum += dsum_GrossSum_Basket;
             dsum_TaxSum += dsum_TaxSum_Basket;
@@ -727,7 +733,7 @@ namespace ShopC_Forms
             GrossSum = dsum_GrossSum;
             NetSum = dsum_NetSum;
             string sGrossSum = "";
-            if (m_CurrentConsumption.TInvoice.StornoConsumption_ID == null)
+            if (CurrentCons.TInvoice.StornoConsumption_ID == null)
             {
                 sGrossSum = dsum_GrossSum.ToString();
                 xdelegate_control_lbl_Sum_ForeColor(Color.Black);// this.lbl_Sum.ForeColor = Color.Black;
@@ -735,7 +741,7 @@ namespace ShopC_Forms
             else
             {
                 sGrossSum = dsum_GrossSum.ToString();
-                decimal_v dGrossSum_v = tf.set_decimal(m_CurrentConsumption.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_dinv_$$GrossSum"]);
+                decimal_v dGrossSum_v = tf.set_decimal(CurrentCons.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_dinv_$$GrossSum"]);
                 if (dGrossSum_v != null)
                 {
                     if (dGrossSum_v.v < 0)
@@ -759,11 +765,11 @@ namespace ShopC_Forms
                                     delegate_DocProformaInvoiceSaved xdelegate_DocProformaInvoiceSaved
                                     )
         {
-            if (m_CurrentConsumption != null)
+            if (CurrentCons != null)
             {
-                if (m_CurrentConsumption.Exist)
+                if (CurrentCons.Exist)
                 {
-                    if (m_CurrentConsumption.bDraft)
+                    if (CurrentCons.bDraft)
                     {
 
                         if ((TSettings.RecordCashierActivity) && (TSettings.CashierState == TangentaDB.CashierActivity.eCashierState.CLOSED))
@@ -790,7 +796,7 @@ namespace ShopC_Forms
 
                         if (IssueDocument(pform, this, xdelegate_ConsumptionSaved, xdelegate_DocProformaInvoiceSaved, transaction_ConsumptionEditor_IssueDocument))
                         {
-                            if (xdelegate_control_DoCurrent(m_CurrentConsumption.Doc_ID, transaction_ConsumptionEditor_IssueDocument))// DoCurrent(m_ShopABC.m_CurrentConsumption.Doc_ID);
+                            if (xdelegate_control_DoCurrent(CurrentCons.Doc_ID, transaction_ConsumptionEditor_IssueDocument))// DoCurrent(m_ShopABC.CurrentCons.Doc_ID);
                             {
                                 if (!transaction_ConsumptionEditor_IssueDocument.Commit())
                                 {
@@ -811,7 +817,7 @@ namespace ShopC_Forms
                     else
                     {
                         //Print existing invoice
-                        MyConsumptionData.Consumption_ID = m_CurrentConsumption.Doc_ID;
+                        MyConsumptionData.Consumption_ID = CurrentCons.Doc_ID;
                         Transaction transaction_m_InvoiceData_Read_Consumption = DBSync.DBSync.NewTransaction("m_InvoiceData.Read_Consumption");
                         if (ConsM.IsWriteOff)
                         {
@@ -984,66 +990,23 @@ namespace ShopC_Forms
 
 
 
-            if (GetPurchasePriceList_ShopC(ref dtPurchasePrice_Item))
+            if (GetPurchasePriceList_ShopC())
             {
-                //DataTable dt_ShopC_Item_NotIn_PriceList = new DataTable();
-                //if (f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Item_NotIn_PriceList))
-                //{
-                //    if (dt_ShopC_Item_NotIn_PriceList.Rows.Count > 0)
-                //    {
-                //        usrc_PriceList_Ask_To_Update(pform, doCurrent_delegates.m_usrc_PriceListC, 'C', dt_ShopC_Item_NotIn_PriceList);
-                //        //if (PriseLists.usrc_PriceList.Ask_To_Update('C', dt_ShopC_Item_NotIn_PriceList, this))
-                //        //{
-                //        //    if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this))
-                //        //    {
-                //        //        bool bPriceListChanged = false;
-                //        //        this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
-                //        //    }
-                //        //}
-                //    }
-                //    else
-                //    {
-                //        bool bEdit = false;
-                //        f_PriceList.CheckPriceUndefined_ShopC(ref bEdit);
-                //        if (bEdit)
-                //        {
-                //            //bool bPriceListChanged = false;
-                //            //this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true,xnav, ref bPriceListChanged);
-                //        }
-                //    }
-                //}
-
-                //if (this.m_usrc_ShopC.usrc_ItemList.Get_Price_Item_Stock_Data(this.m_usrc_ShopC.usrc_PriceList1.ID))
-                //if (doCurrent_delegates.m_delegate_control_m_usrc_ShopC_usrc_ItemList_Get_Price_Item_Stock_Data(ShopC_pricelist_ID))
-                //{
-                //    if (TSettings.bStartup)
-                //    {
-                //        TSettings.bStartup = false;
-
-                //        if (DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.TextValue.Equals("1"))
-                //        {
-                //            return this.DoCurrent(document_ID, doCurrent_delegates, transaction); //xdelegate_control_DoCurrent(document_ID, transaction);
-                //        }
-                //        else
-                //        {
-                //            return true;
-                //        }
-                //    }
-                //    else
-                //    {
-                //        return this.DoCurrent(document_ID, doCurrent_delegates, transaction);
-                //    }
-                //}
-                //else
-                //{
-                //    return false;
-                //}
-                return true;
+               
+                if (doCurrent_delegates.m_delegate_control_m_usrc_ConsumptionShopC_usrc_ItemList_Get_PurchasePrice_Item_Stock_Data(dtPurchasePrice_Item))
+                {
+                     return this.DoCurrent(document_ID, doCurrent_delegates, transaction);
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
                 return false;
             }
+
             //if (ID.Validate(document_ID))
             //{
             //    return this.DoCurrent(document_ID, doCurrent_delegates, transaction);
@@ -1054,18 +1017,15 @@ namespace ShopC_Forms
             //}
         }
 
-        private bool GetPurchasePriceList_ShopC(ref DataTable xdtPurchasePrice_Item)
+        private bool GetPurchasePriceList_ShopC()
         {
-            //string Err = null;
-            //bool bGet = true;
-            //NavigationButtons.Navigation nav_PriceList = new NavigationButtons.Navigation(null);
-            //nav_PriceList.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-            return f_PurchasePrice_Item.GetTable(ref xdtPurchasePrice_Item);
-            //if (!usrc_PriceListC.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopC, PropertiesUser.ShopsInUse_Get(mSettingsUserValues), ref price_list_ID, ref Err))
-            //{
-            //    bGet = false;
-            //}
-            //return bGet;
+            if (dtPurchasePrice_Item!=null)
+            {
+                dtPurchasePrice_Item.Dispose();
+                dtPurchasePrice_Item = null;
+            }
+            dtPurchasePrice_Item = new DataTable();
+            return f_PurchasePrice_Item.GetTable(ref dtPurchasePrice_Item);
         }
 
 
@@ -1086,7 +1046,7 @@ namespace ShopC_Forms
             //ProgramDiagnostic.Diagnostic.Clear();
             //ProgramDiagnostic.Diagnostic.Meassure("Before fs.UpdatePriceInDraft", "?");
 
-            if (fs.UpdatePriceInDraft(DocTyp, m_CurrentConsumption.Doc_ID, GrossSum, TaxSum.Value, NetSum, transaction))
+            if (fs.UpdatePriceInDraft(DocTyp, CurrentCons.Doc_ID, GrossSum, TaxSum.Value, NetSum, transaction))
             {
                 if (ConsM.IsWriteOff)
                 {
@@ -1097,12 +1057,12 @@ namespace ShopC_Forms
                     if (MyConsumptionData.SaveConsumption(ref Consumption_ID, TSettings.CashierActivity, GlobalData.ElectronicDevice_Name, m_LMOUser.Atom_WorkPeriod_ID, transaction))
                     {
 
-                        m_CurrentConsumption.Doc_ID = Consumption_ID;
+                        CurrentCons.Doc_ID = Consumption_ID;
 
                         // read saved doc Invoice again !
                         if (MyConsumptionData.Read_Consumption(transaction))
                         {
-                            xdelegate_ConsumptionSaved(m_CurrentConsumption.Doc_ID);
+                            xdelegate_ConsumptionSaved(CurrentCons.Doc_ID);
                             Printing_Consumption(pform, transaction);// Printing_Consumption();
                             return true;
                         }
@@ -1122,11 +1082,11 @@ namespace ShopC_Forms
                     // save doc Invoice 
                     if (MyConsumptionData.SaveConsumptionOwnUse(ref Consumption_ID, GlobalData.ElectronicDevice_Name, m_LMOUser.Atom_WorkPeriod_ID, transaction))
                     {
-                        m_CurrentConsumption.Doc_ID = Consumption_ID;
+                        CurrentCons.Doc_ID = Consumption_ID;
                         // read saved doc Invoice again !
                         if (MyConsumptionData.Read_Consumption(transaction))
                         {
-                            xdelegate_DocProformaInvoiceSaved(m_CurrentConsumption.Doc_ID);
+                            xdelegate_DocProformaInvoiceSaved(CurrentCons.Doc_ID);
                             Printing_Consumption(pform, transaction);// Printing_Consumption();
                             return true;
                         }
@@ -1216,13 +1176,13 @@ namespace ShopC_Forms
                                         ref draftNumber,
                                         transaction_SetNewConsumptionDraft))
             {
-                this.m_CurrentConsumption.DraftNumber = draftNumber;
-                this.m_CurrentConsumption.Doc_ID = Consumption_ID;
+                this.CurrentCons.DraftNumber = draftNumber;
+                this.CurrentCons.Doc_ID = Consumption_ID;
                 if (transaction_SetNewConsumptionDraft.Commit())
                 {
-                    if (ID.Validate(m_CurrentConsumption.Doc_ID))
+                    if (ID.Validate(CurrentCons.Doc_ID))
                     {
-                        xdelegate_control_InvoiceNumber_Text(m_CurrentConsumption.FinancialYear.ToString() + "/" + m_CurrentConsumption.DraftNumber.ToString()); // this.txt_Number.Text = DocE.m_ShopABC.m_CurrentConsumption.FinancialYear.ToString() + "/" + DocE.m_ShopABC.m_CurrentConsumption.DraftNumber.ToString();
+                        xdelegate_control_InvoiceNumber_Text(CurrentCons.FinancialYear.ToString() + "/" + CurrentCons.DraftNumber.ToString()); // this.txt_Number.Text = DocE.m_ShopABC.CurrentCons.FinancialYear.ToString() + "/" + DocE.m_ShopABC.CurrentCons.DraftNumber.ToString();
                         xdelegate_control_SetMode(ConsumptionEditor.emode.edit_eDocumentType);// SetMode(ConsumptionEditor.emode.edit_eDocumentType);
                     }
 
@@ -1262,9 +1222,9 @@ namespace ShopC_Forms
                 bool bstorno = false;
                 if (ConsM.IsWriteOff)
                 {
-                    if (m_CurrentConsumption.TInvoice.bStorno_v != null)
+                    if (CurrentCons.TInvoice.bStorno_v != null)
                     {
-                        bstorno = m_CurrentConsumption.TInvoice.bStorno_v.v;
+                        bstorno = CurrentCons.TInvoice.bStorno_v.v;
                     }
                 }
 
@@ -1274,11 +1234,11 @@ namespace ShopC_Forms
                     {
                         if (MessageBox.Show(pform, lng.s_Consumption.s + ": " + stxt_Number + "\r\n" + lng.s_AreYouSureToStornoThisConsumption.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
-                            //Form_Storno frm_storno_dlg = new Form_Storno(m_ShopABC.m_CurrentConsumption.Doc_ID);
+                            //Form_Storno frm_storno_dlg = new Form_Storno(m_ShopABC.CurrentCons.Doc_ID);
 
                             //if (frm_storno_dlg.ShowDialog() == DialogResult.Yes)
                             //{
-                            //    stornoReferenceInvoiceNumber = m_ShopABC.m_CurrentConsumption.NumberInFinancialYear.ToString();
+                            //    stornoReferenceInvoiceNumber = m_ShopABC.CurrentCons.NumberInFinancialYear.ToString();
                             //    stornoReferenceInvoiceIssueDateTime = frm_storno_dlg.m_InvoiceTime;
                             //    string sInvoiceToStorno = frm_storno_dlg.m_sInvoiceToStorno;
                             //    if (MessageBox.Show(pform, sInvoiceToStorno + "\r\n" + lng.s_AreYouSureToStornoThisInvoice.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
@@ -1287,7 +1247,7 @@ namespace ShopC_Forms
                             //        ID Storno_Consumption_ID = null;
                             //        DateTime stornoInvoiceIssueDateTime = new DateTime();
                             //        Transaction transaction_Storno = DBSync.DBSync.NewTransaction("Storno");
-                            //        if (m_ShopABC.m_CurrentConsumption.Storno(m_LMOUser.Atom_WorkPeriod_ID,
+                            //        if (m_ShopABC.CurrentCons.Storno(m_LMOUser.Atom_WorkPeriod_ID,
                             //                                          ref Storno_Consumption_ID,
                             //                                          true,
                             //                                          GlobalData.ElectronicDevice_Name,
@@ -1386,17 +1346,17 @@ namespace ShopC_Forms
         {
             ID Atom_Customer_Org_ID = null;
             Transaction transaction_Customer_Org_Changed = DBSync.DBSync.NewTransaction("Customer_Org_Changed");
-            //if (m_ShopABC.m_CurrentConsumption.Update_Customer_Org(DocTyp, Customer_Org_ID, ref Atom_Customer_Org_ID, transaction_Customer_Org_Changed))
+            //if (m_ShopABC.CurrentCons.Update_Customer_Org(DocTyp, Customer_Org_ID, ref Atom_Customer_Org_ID, transaction_Customer_Org_Changed))
             //{
-            //    m_ShopABC.m_CurrentConsumption.Atom_Customer_Org_ID = Atom_Customer_Org_ID;
+            //    m_ShopABC.CurrentCons.Atom_Customer_Org_ID = Atom_Customer_Org_ID;
             //    if (ID.Validate(Atom_Customer_Org_ID))
             //    {
             //        if (!transaction_Customer_Org_Changed.Commit())
             //        {
             //            return;
             //        }
-            //        xdelegate_control_usrc_Customer_Show_Customer_Organisation(m_ShopABC.m_CurrentConsumption);
-            //        //usrc_Customer.Show_Customer_Org(m_ShopABC.m_CurrentConsumption);
+            //        xdelegate_control_usrc_Customer_Show_Customer_Organisation(m_ShopABC.CurrentCons);
+            //        //usrc_Customer.Show_Customer_Org(m_ShopABC.CurrentCons);
             //        xdelegate_Customer_Org_Changed(Customer_Org_ID);
             //    }
             //    else

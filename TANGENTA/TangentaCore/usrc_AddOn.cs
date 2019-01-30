@@ -99,7 +99,7 @@ namespace TangentaCore
             Form_DocInvoice_AddOn payment_frm = new Form_DocInvoice_AddOn(x_DocInvoice_AddOn, xbPrint, this);
             if (payment_frm.ShowDialog() == DialogResult.OK)
             {
-                Show(docM.DocE.m_ShopABC.m_CurrentDoc.Doc_ID);
+                Show(docM.DocE.m_ShopABC.CurrentDocument.Doc_ID);
                 return true;
             }
             return false;
@@ -110,7 +110,7 @@ namespace TangentaCore
             Form_DocProformaInvoice_AddOn payment_frm = new Form_DocProformaInvoice_AddOn(m_DocProformaInvoice_AddOn, xbPrint, this);
             if (payment_frm.ShowDialog() == DialogResult.OK)
             {
-                Show(docM.DocE.m_ShopABC.m_CurrentDoc.Doc_ID);
+                Show(docM.DocE.m_ShopABC.CurrentDocument.Doc_ID);
                 return true;
             }
             return false;
