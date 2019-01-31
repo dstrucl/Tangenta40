@@ -21,8 +21,9 @@ namespace TangentaDB
         public ID Consumption_ShopC_Item_ID = null;
         public ID Stock_ID = null;
         public decimal dQuantity = 0;
-        public decimal SourceDiscount = 0;
-        public decimal RetailPriceWithDiscount = 0;
+        public decimal PurchasePricePerUnit_Discount = 0;
+        public decimal PurchasePricePerUnit = 0;
+        public decimal Taxation_Rate = 0;
         public decimal TaxPrice = 0;
         public DateTime_v ExpiryDate_v = null;
 
@@ -57,8 +58,8 @@ namespace TangentaDB
             Consumption_ShopC_Item_Source_ID = doc_ShopC_Item_Source_ID;
             Stock_ID = stock_ID;
             dQuantity = xdQuantity;
-            SourceDiscount = sourceDiscount;
-            RetailPriceWithDiscount = retailPriceWithDiscount;
+            PurchasePricePerUnit_Discount = sourceDiscount;
+            PurchasePricePerUnit = retailPriceWithDiscount;
             TaxPrice = taxPrice;
             ExpiryDate_v = expiryDate_v;
         }
@@ -81,7 +82,7 @@ namespace TangentaDB
             {
                 if (docType.Equals(GlobalData.const_ConsumptionAll))
                 {
-                    if (f_DocInvoice_ShopC_Item_Source.Delete(this.Consumption_ShopC_Item_Source_ID, transaction))
+                    if (f_Consumption_ShopC_Item_Source.Delete(this.Consumption_ShopC_Item_Source_ID, transaction))
                     {
                         this.dQuantity = 0;
                         return true;
@@ -176,7 +177,7 @@ namespace TangentaDB
         internal void Set(decimal dQuantity_FromFactory2Add, decimal retailPriceWithDiscount, decimal taxPrice)
         {
             this.dQuantity = dQuantity_FromFactory2Add;
-            this.RetailPriceWithDiscount = retailPriceWithDiscount;
+            this.PurchasePricePerUnit = retailPriceWithDiscount;
             this.TaxPrice = taxPrice;
         }
     }

@@ -155,9 +155,9 @@ namespace ShopC_Forms
                     m_usrc_Item = (usrc_CItem)ctrl_itemdata;
                 }
 
-                this.lbl_Item.Text = dsci.Atom_Item_UniqueName_v.v;
+                this.lbl_Item.Text = dsci.Item_UniqueName_v.v;
                 this.lbl_from_Stock.Text = lng.s_FromStock.s + ":" + dsci.dQuantity_FromStock.ToString();
-                 this.lbl_VAT.Text = lng.s_Taxation.s + ":" + dsci.Atom_Taxation_Name_v.v;
+                 this.lbl_VAT.Text = lng.s_Taxation.s + ":" + dsci.Taxation_Name_v.v;
             }
         }
         internal void FillControl(int index, object oxdsci,

@@ -74,14 +74,14 @@ namespace ShopC_Forms
 
         internal void DoRefresh()
         {
-            if (m_csci.Atom_Item_UniqueName_v != null)
+            if (m_csci.Item_UniqueName_v != null)
             {
-                this.Item_UniqueName = m_csci.Atom_Item_UniqueName_v.v;
+                this.Item_UniqueName = m_csci.Item_UniqueName_v.v;
             }
             string sunit = "";
-            if (m_csci.Atom_Unit_Symbol_v != null)
+            if (m_csci.Unit_Symbol_v != null)
             {
-                sunit = m_csci.Atom_Unit_Symbol_v.v;
+                sunit = m_csci.Unit_Symbol_v.v;
             }
 
          

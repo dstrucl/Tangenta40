@@ -29,11 +29,12 @@ namespace TangentaDB
                                   st.Name as StockTakeName,
                                   st.StockTake_Date
                                   from Consumption_ShopC_Item csci
-								  inner join  Consumption_ShopC_Item_Source cscis on cscis.Consumption_ShopC_Item_ID = csci.ID
+                                  inner join Item itm on csci.Item_ID =itm.ID
+								  inner join Consumption_ShopC_Item_Source cscis on cscis.Consumption_ShopC_Item_ID = csci.ID
                                   inner join Stock s on cscis.Stock_ID = s.ID
                                   inner join PurchasePrice_Item ppi on s.PurchasePrice_Item_ID = ppi.ID
                                   inner join StockTake st on ppi.StockTake_ID = st.ID
-                                  inner join Item i on ppi.Item_ID = i.ID
+                                  inner join Item i on ppi.Item_ID = i.ID and i.UniqueName = itm.UniqueName
                                   where csci.ID = " + consumption_ShopC_Item_ID.ToString();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
@@ -184,7 +185,7 @@ namespace TangentaDB
      
 
         public static bool Insert(ID cons_ID,
-                                  ID purchasePrice_Item_ID,
+                                  ID item_ID,
                                   ref ID Consumption_ShopC_Item_ID,
                                   Transaction transaction)
         {
@@ -195,9 +196,9 @@ namespace TangentaDB
             SQL_Parameter par_Consumption_ID = new SQL_Parameter(spar_Consumption_ID, false, cons_ID);
             lpar.Add(par_Consumption_ID);
 
-            string spar_PurchasePrice_Item_ID = "@par_PruchasePrice_Item_ID";
-            SQL_Parameter par_PurchasePrice_Item_ID = new SQL_Parameter(spar_PurchasePrice_Item_ID, false, purchasePrice_Item_ID);
-            lpar.Add(par_PurchasePrice_Item_ID);
+            string spar_Item_ID = "@par_Item_ID";
+            SQL_Parameter par_Item_ID = new SQL_Parameter(spar_Item_ID, false, item_ID);
+            lpar.Add(par_Item_ID);
 
           
             
@@ -205,11 +206,11 @@ namespace TangentaDB
             string sql = @"insert into Consumption_ShopC_Item
                            (
                             Consumption_ID,
-                            PurchasePrice_Item_ID)
+                            Item_ID)
                             values
                             (
                             " + spar_Consumption_ID + @",
-                            " + spar_PurchasePrice_Item_ID + ")";
+                            " + spar_Item_ID + ")";
             string Err = null;
             if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar, ref Consumption_ShopC_Item_ID, ref Err, "Consumption_ShopC_Item"))
             {

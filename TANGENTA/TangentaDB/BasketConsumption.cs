@@ -97,10 +97,11 @@ namespace TangentaDB
                 SELECT 
                 csci.ID as Consumption_ShopC_Item_ID,
                 csci.Consumption_ID,
-                csci.PurchasePrice_Item_ID,
+                csci.Item_ID,
                 i.ID as Item_ID,
-                pp.PurchasePricePerUnit,
-                pp.Discount,
+                s.PurchasePrice_Item_ID as PurchasePrice_Item_ID,
+                pp.PurchasePricePerUnit as PurchasePricePerUnit,
+                pp.Discount as PurchasePricePerUnit_Discount,
                 i.UniqueName AS Item_UniqueName,
                 i.Name AS Item_Name,
                 i.barcode AS Item_barcode,
@@ -131,8 +132,29 @@ namespace TangentaDB
                 itm_g2.Name as s2_name, 
                 itm_g3.Name as s3_name
                 FROM Consumption_ShopC_Item  csci
-				INNER JOIN  PurchasePrice_Item  ppi on csci.PurchasePrice_Item_ID = ppi.ID
-				INNER JOIN  Item  i on ppi.Item_ID = i.ID
+				inner join Item itm on csci.Item_ID = itm.id
+				inner join Consumption_ShopC_Item_Source cscis on  cscis.Consumption_ShopC_Item_ID = csci.ID
+				inner join Stock s on cscis.Stock_ID = s.ID
+				INNER JOIN  PurchasePrice_Item  ppi on s.PurchasePrice_Item_ID = ppi.ID
+                inner join StockTake st on ppi.StockTake_ID = st.ID
+                left  join Supplier sup on st.Supplier_ID = sup.ID
+                left  join Contact ct on sup.Contact_ID = ct.ID
+                left  join OrganisationData orgd on ct.OrganisationData_ID = orgd.ID
+                left  join Organisation org on orgd.Organisation_ID = org.ID
+				left  join cAddress_Org aorg on orgd.cAddress_Org_ID = aorg.ID
+				left  join cStreetName_Org csnorg on aorg.cStreetName_Org_ID = csnorg.ID
+				left  join cHouseNumber_Org chnorg  on aorg.cHouseNumber_Org_ID = chnorg.ID
+				left  join cCity_Org citorg  on aorg.cCity_Org_ID = citorg.ID
+		        left  join cZIP_Org cziporg  on aorg.cZIP_Org_ID = cziporg.ID
+				left  join cCountry_Org ccorg  on aorg.cCountry_Org_ID = ccorg.ID
+				left  join cState_Org cstorg  on aorg.cState_Org_ID = cstorg.ID
+				
+				left  join Person per on ct.Person_ID = per.ID
+				left  join cFirstName cfn on per.cFirstName_ID = cfn.ID
+				left  join cLastName cln on per.cLastName_ID = cln.ID
+				left  join PersonData perd on perd.Person_ID = per.ID
+				
+				INNER JOIN  Item i on ppi.Item_ID = i.ID and itm.UniqueName = i.UniqueName
                 INNER JOIN  PurchasePrice pp on ppi.PurchasePrice_ID = pp.ID
                 INNER JOIN  Taxation t on pp.Taxation_ID = t.ID
 				INNER JOIN  Currency c on pp.Currency_ID = c.ID
@@ -428,7 +450,7 @@ namespace TangentaDB
                 {
                     foreach (object o in this.Basket_Consumption_ShopC_Item_LIST)
                     {
-                        if (((Consumption_ShopC_Item)o).Atom_Item_UniqueName_v.v.Equals(item_UniqueName))
+                        if (((Consumption_ShopC_Item)o).Item_UniqueName_v.v.Equals(item_UniqueName))
                         {
                             return true;
                         }
@@ -447,7 +469,7 @@ namespace TangentaDB
                 {
                     foreach (object o in this.Basket_Consumption_ShopC_Item_LIST)
                     {
-                        if (((Consumption_ShopC_Item)o).Atom_Item_UniqueName_v.v.Equals(item_UniqueName))
+                        if (((Consumption_ShopC_Item)o).Item_UniqueName_v.v.Equals(item_UniqueName))
                         {
                             return (Consumption_ShopC_Item)o;
                         }
@@ -490,7 +512,7 @@ namespace TangentaDB
                 {
                    
                     ShopC_Item shopC_Item = new ShopC_Item();
-                    if (!f_Item.Get(dscix.Atom_Item_UniqueName_v.v,
+                    if (!f_Item.Get(dscix.Item_UniqueName_v.v,
                                    ref shopC_Item.UniqueName_v,
                                    ref shopC_Item.Name_v,
                                    ref shopC_Item.bToOffer_v,
@@ -872,7 +894,7 @@ namespace TangentaDB
         {
             foreach (object o in this.Basket_Consumption_ShopC_Item_LIST)
             {
-                if (((Consumption_ShopC_Item)o).Atom_Item_UniqueName_v.v.Equals(m_Item_Data.Item_UniqueName_v.v))
+                if (((Consumption_ShopC_Item)o).Item_UniqueName_v.v.Equals(m_Item_Data.Item_UniqueName_v.v))
                 {
                     return ((Consumption_ShopC_Item)o);
                 }
@@ -898,7 +920,7 @@ namespace TangentaDB
                                         ref net_price,
                                         dscix.Atom_Currency_DecimalPlaces_v.v);
 
-                TaxSum.Add(tax_price, net_price, dscix.Atom_Taxation_Name_v.v, dscix.Atom_Taxation_Rate_v.v);
+                TaxSum.Add(tax_price, net_price, dscix.Taxation_Name_v.v, dscix.Taxation_Rate_v.v);
 
                 dsum_GrossSum_Basket += PurchasePriceWithDisount;
                 dsum_TaxSum_Basket += tax_price;

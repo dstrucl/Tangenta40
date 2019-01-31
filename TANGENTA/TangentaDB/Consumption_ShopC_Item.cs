@@ -30,9 +30,9 @@ namespace TangentaDB
         {
             get
             {
-                if (Atom_Taxation_Rate_v!=null)
+                if (Taxation_Rate_v!=null)
                 {
-                    return Atom_Taxation_Rate_v.v;
+                    return Taxation_Rate_v.v;
                 }
                 else
                 {
@@ -43,32 +43,32 @@ namespace TangentaDB
         }
        
 
-        public string_v Atom_Item_Name_Name_v = null;
-        public string_v Atom_Item_UniqueName_v = null;
-        public string_v Atom_Item_barcode_barcode_v = null;
-        public string_v Atom_Taxation_Name_v = null;
-        public decimal_v Atom_Taxation_Rate_v = null;
-        public string_v Atom_Item_Description_Description = null;
-        public ID Atom_Warranty_ID = null;
-        public string_v Atom_Warranty_WarrantyConditions_v = null;
-        public short_v Atom_Warranty_WarrantyDurationType_v = null;
-        public int_v Atom_Warranty_WarrantyDuration_v = null;
-        public ID Atom_Expiry_ID = null;
-        public int_v Atom_Expiry_ExpectedShelfLifeInDays_v = null;
-        public int_v Atom_Expiry_SaleBeforeExpiryDateInDays_v = null;
-        public int_v Atom_Expiry_DiscardBeforeExpiryDateInDays_v = null;
-        public string_v Atom_Expiry_ExpiryDescription = null;
+        public string_v Item_Name_v = null;
+        public string_v Item_UniqueName_v = null;
+        public string_v Item_barcode_v = null;
+        public string_v Taxation_Name_v = null;
+        public decimal_v Taxation_Rate_v = null;
+        public string_v Item_Description = null;
+        public ID Warranty_ID = null;
+        public string_v WarrantyConditions_v = null;
+        public short_v WarrantyDurationType_v = null;
+        public int_v WarrantyDuration_v = null;
+        public ID Expiry_ID = null;
+        public int_v Expiry_ExpectedShelfLifeInDays_v = null;
+        public int_v Expiry_SaleBeforeExpiryDateInDays_v = null;
+        public int_v Expiry_DiscardBeforeExpiryDateInDays_v = null;
+        public string_v Expiry_ExpiryDescription = null;
 
-        public string_v Atom_Unit_Name_v = null;
-        public string_v Atom_Unit_Symbol_v = null;
-        public int_v Atom_Unit_DecimalPlaces_v = null;
-        public string_v Atom_Unit_Description_v = null;
-        public bool_v Atom_Unit_StorageOption_v = null;
+        public string_v Unit_Name_v = null;
+        public string_v Unit_Symbol_v = null;
+        public int_v Unit_DecimalPlaces_v = null;
+        public string_v Unit_Description_v = null;
+        public bool_v Unit_StorageOption_v = null;
 
         
-        public string_v Atom_Currency_Name_v = null;
-        public string_v Atom_Currency_Abbreviation_v = null;
-        public string_v Atom_Currency_Symbol_v = null;
+        public string_v Currency_Name_v = null;
+        public string_v Currency_Abbreviation_v = null;
+        public string_v Currency_Symbol_v = null;
 
         
         
@@ -90,9 +90,9 @@ namespace TangentaDB
         {
             get
             {
-                if (Atom_Item_UniqueName_v!=null)
+                if (Item_UniqueName_v!=null)
                 {
-                    return Atom_Item_UniqueName_v.v;
+                    return Item_UniqueName_v.v;
                 }
                 else
                 {
@@ -105,9 +105,9 @@ namespace TangentaDB
         {
             get
             {
-                if (Atom_Item_Name_Name_v != null)
+                if (Item_Name_v != null)
                 {
-                    return Atom_Item_Name_Name_v.v;
+                    return Item_Name_v.v;
                 }
                 else
                 {
@@ -146,7 +146,7 @@ namespace TangentaDB
             Consumption_ShopC_Item_Source dsciS = null;
             int i = 0;
             int iCount = Consumption_ShopC_Item_Data_list.Count;
-            Item_ID = new ID(dria["Atom_Item_ID"]);
+            Item_ID = new ID(dria["Item_ID"]);
 
             if (ID.Validate(Item_ID))
             {
@@ -161,37 +161,37 @@ namespace TangentaDB
                     }
                 }
 
-                Consumption_ShopC_Item_ID = tf.set_ID(dria[docTyp+"_ShopC_Item_ID"]);
-                Consumption_ID = tf.set_ID(dria[docTyp+"_ID"]);
-                PurchasePrice_Item_ID = new ID(dria["Atom_Price_Item_ID"]);
-                PurchasePricePerUnit = tf._set_decimal(dria["RetailPricePerUnit"]);
-                PurchasePricePerUnit_Discount = tf._set_decimal(dria["Discount"]);
-                Atom_Item_UniqueName_v = tf.set_string(dria["Atom_Item_UniqueName"]);
-                Atom_Item_Name_Name_v = tf.set_string(dria["Atom_Item_Name_Name"]);
-                Atom_Item_barcode_barcode_v = tf.set_string(dria["Atom_Item_barcode_barcode"]);
-                Atom_Taxation_Name_v = tf.set_string(dria["Atom_Taxation_Name"]);
-                Atom_Taxation_Rate_v = tf.set_decimal(dria["Atom_Taxation_Rate"]);
-                Atom_Item_Description_Description = tf.set_string(dria["Atom_Item_Description_Description"]);
-                Atom_Warranty_ID = tf.set_ID(dria["Atom_Warranty_ID"]);
-                Atom_Warranty_WarrantyDurationType_v = tf.set_short(dria["Atom_Warranty_WarrantyDurationType"]);
-                Atom_Warranty_WarrantyDuration_v = tf.set_int(dria["Atom_Warranty_WarrantyDuration"]);
-                Atom_Warranty_WarrantyConditions_v = tf.set_string(dria["Atom_Warranty_WarrantyConditions"]);
-                Atom_Expiry_ID = tf.set_ID(dria["Atom_Expiry_ID"]);
-                Atom_Expiry_ExpectedShelfLifeInDays_v = tf.set_int(dria["Atom_Expiry_ExpectedShelfLifeInDays"]);
-                Atom_Expiry_SaleBeforeExpiryDateInDays_v = tf.set_int(dria["Atom_Expiry_SaleBeforeExpiryDateInDays"]);
-                Atom_Expiry_DiscardBeforeExpiryDateInDays_v = tf.set_int(dria["Atom_Expiry_DiscardBeforeExpiryDateInDays"]);
-                Atom_Expiry_ExpiryDescription = tf.set_string(dria["Atom_Expiry_ExpiryDescription"]);
-                Atom_Unit_Name_v = tf.set_string(dria["Atom_Unit_Name"]);
-                Atom_Unit_Symbol_v = tf.set_string(dria["Atom_Unit_Symbol"]);
-                Atom_Unit_DecimalPlaces_v = tf.set_int(dria["Atom_Unit_DecimalPlaces"]);
-                Atom_Unit_Description_v = tf.set_string(dria["Atom_Unit_Description"]);
-                Atom_Unit_StorageOption_v = tf.set_bool(dria["Atom_Unit_StorageOption"]);
-                Atom_Currency_Name_v = tf.set_string(dria["Atom_Currency_Name"]);
-                Atom_Currency_Abbreviation_v = tf.set_string(dria["Atom_Currency_Abbreviation"]);
-                Atom_Currency_Symbol_v = tf.set_string(dria["Atom_Currency_Symbol"]);
-                Atom_Currency_DecimalPlaces_v = tf.set_int(dria["Atom_Currency_DecimalPlaces"]);
-                Atom_Item_Image_Hash_v = tf.set_string(dria["Atom_Item_Image_Hash"]);
-                Atom_Item_Image_Data_v = tf.set_byte_array(dria["Atom_Item_Image_Data"]);
+                Consumption_ShopC_Item_ID = tf.set_ID(dria[ "Consumption_ShopC_Item_ID"]);
+                Consumption_ID = tf.set_ID(dria["Consumption_ID"]);
+                PurchasePrice_Item_ID = new ID(dria["PurchasePrice_Item_ID"]);
+                PurchasePricePerUnit = tf._set_decimal(dria["PurchasePricePerUnit"]);
+                PurchasePricePerUnit_Discount = tf._set_decimal(dria["PurchasePricePerUnit_Discount"]);
+                Item_UniqueName_v = tf.set_string(dria["Item_UniqueName"]);
+                Item_Name_v = tf.set_string(dria["Item_Name"]);
+                Item_barcode_v = tf.set_string(dria["Item_barcode"]);
+                Taxation_Name_v = tf.set_string(dria["Taxation_Name"]);
+                Taxation_Rate_v = tf.set_decimal(dria["Taxation_Rate"]);
+                Item_Description = tf.set_string(dria["Item_Description"]);
+                Warranty_ID = tf.set_ID(dria["Warranty_ID"]);
+                WarrantyDurationType_v = tf.set_short(dria["WarrantyDurationType"]);
+                WarrantyDuration_v = tf.set_int(dria["WarrantyDuration"]);
+                WarrantyConditions_v = tf.set_string(dria["WarrantyConditions"]);
+                Expiry_ID = tf.set_ID(dria["Expiry_ID"]);
+                Expiry_ExpectedShelfLifeInDays_v = tf.set_int(dria["Expiry_ExpectedShelfLifeInDays"]);
+                Expiry_SaleBeforeExpiryDateInDays_v = tf.set_int(dria["Expiry_SaleBeforeExpiryDateInDays"]);
+                Expiry_DiscardBeforeExpiryDateInDays_v = tf.set_int(dria["Expiry_DiscardBeforeExpiryDateInDays"]);
+                Expiry_ExpiryDescription = tf.set_string(dria["Expiry_ExpiryDescription"]);
+                Unit_Name_v = tf.set_string(dria["Unit_Name"]);
+                Unit_Symbol_v = tf.set_string(dria["Unit_Symbol"]);
+                Unit_DecimalPlaces_v = tf.set_int(dria["Unit_DecimalPlaces"]);
+                Unit_Description_v = tf.set_string(dria["Unit_Description"]);
+                Unit_StorageOption_v = tf.set_bool(dria["Unit_StorageOption"]);
+                Currency_Name_v = tf.set_string(dria["Currency_Name"]);
+                Currency_Abbreviation_v = tf.set_string(dria["Currency_Abbreviation"]);
+                Currency_Symbol_v = tf.set_string(dria["Currency_Symbol"]);
+                Atom_Currency_DecimalPlaces_v = tf.set_int(dria["Currency_DecimalPlaces"]);
+                Atom_Item_Image_Hash_v = tf.set_string(dria["Image_Hash"]);
+                Atom_Item_Image_Data_v = tf.set_byte_array(dria["Image_Data"]);
                 if (dria["s1_name"] is string)
                 {
                     s1_name = (string)dria["s1_name"];
@@ -334,31 +334,31 @@ namespace TangentaDB
 
             //ExtraDiscount = tf.set_decimal(xItem_Data.ExtraDiscount);
 
-            Atom_Item_UniqueName_v = (string_v)tf.Copy(xItem_Data.Item_UniqueName_v);// tf.set_string(dr[cpis.icol_Item_UniqueName]);
+            Item_UniqueName_v = (string_v)tf.Copy(xItem_Data.Item_UniqueName_v);// tf.set_string(dr[cpis.icol_Item_UniqueName]);
 
-            Atom_Item_Name_Name_v = (string_v)tf.Copy(xItem_Data.Item_Name_v);//tf.set_string(dr[cpis.icol_Item_Name]);
-            Atom_Item_barcode_barcode_v = (string_v)tf.Copy(xItem_Data.Item_barcode_v);//tf.set_string(dr[cpis.icol_Item_barcode]);
-            Atom_Taxation_Name_v = (string_v)tf.Copy(xItem_Data.Taxation_Name_v);//tf.set_string(dr[cpis.icol_Taxation_Name]);
-            Atom_Taxation_Rate_v = (decimal_v)tf.Copy(xItem_Data.Taxation_Rate_v);//tf.set_decimal(dr[cpis.icol_Taxation_Rate]);
-            Atom_Item_Description_Description = (string_v)tf.Copy(xItem_Data.Item_Description_v);//tf.set_string(dr[cpis.icol_Item_Description]);
-            Atom_Warranty_ID = null; //tf.set_long(dria["Atom_Warranty_ID"]);
-            Atom_Warranty_WarrantyDurationType_v = (short_v)tf.Copy(xItem_Data.Warranty_WarrantyDurationType_v);//tf.set_short(dr[cpis.icol_Warranty_WarrantyDurationType]);
-            Atom_Warranty_WarrantyDuration_v = (int_v)tf.Copy(xItem_Data.Warranty_WarrantyDuration_v);//tf.set_int(dr[cpis.icol_Warranty_WarrantyDuration]);
-            Atom_Warranty_WarrantyConditions_v = (string_v)tf.Copy(xItem_Data.Warranty_WarrantyConditions_v);//tf.set_string(dr[cpis.icol_Warranty_WarrantyConditions]);
-            Atom_Expiry_ID = null; //tf.set_long(dr["Atom_Expiry_ID"]);
-            Atom_Expiry_ExpectedShelfLifeInDays_v = (int_v)tf.Copy(xItem_Data.Expiry_ExpectedShelfLifeInDays_v);//tf.set_int(dr[cpis.icol_Expiry_ExpectedShelfLifeInDays]);
-            Atom_Expiry_SaleBeforeExpiryDateInDays_v = (int_v)tf.Copy(xItem_Data.Expiry_SaleBeforeExpiryDateInDays_v);//tf.set_int(dr[cpis.icol_Expiry_SaleBeforeExpiryDateInDays]);
-            Atom_Expiry_DiscardBeforeExpiryDateInDays_v = (int_v)tf.Copy(xItem_Data.Expiry_DiscardBeforeExpiryDateInDays_v);//tf.set_int(dr[cpis.icol_Expiry_DiscardBeforeExpiryDateInDays]);
-            Atom_Expiry_ExpiryDescription = (string_v)tf.Copy(xItem_Data.Expiry_Description_v);//tf.set_string(dr[cpis.icol_Expiry_ExpiryDescription]);
+            Item_Name_v = (string_v)tf.Copy(xItem_Data.Item_Name_v);//tf.set_string(dr[cpis.icol_Item_Name]);
+            Item_barcode_v = (string_v)tf.Copy(xItem_Data.Item_barcode_v);//tf.set_string(dr[cpis.icol_Item_barcode]);
+            Taxation_Name_v = (string_v)tf.Copy(xItem_Data.Taxation_Name_v);//tf.set_string(dr[cpis.icol_Taxation_Name]);
+            Taxation_Rate_v = (decimal_v)tf.Copy(xItem_Data.Taxation_Rate_v);//tf.set_decimal(dr[cpis.icol_Taxation_Rate]);
+            Item_Description = (string_v)tf.Copy(xItem_Data.Item_Description_v);//tf.set_string(dr[cpis.icol_Item_Description]);
+            Warranty_ID = null; //tf.set_long(dria["Atom_Warranty_ID"]);
+            WarrantyDurationType_v = (short_v)tf.Copy(xItem_Data.Warranty_WarrantyDurationType_v);//tf.set_short(dr[cpis.icol_Warranty_WarrantyDurationType]);
+            WarrantyDuration_v = (int_v)tf.Copy(xItem_Data.Warranty_WarrantyDuration_v);//tf.set_int(dr[cpis.icol_Warranty_WarrantyDuration]);
+            WarrantyConditions_v = (string_v)tf.Copy(xItem_Data.Warranty_WarrantyConditions_v);//tf.set_string(dr[cpis.icol_Warranty_WarrantyConditions]);
+            Expiry_ID = null; //tf.set_long(dr["Atom_Expiry_ID"]);
+            Expiry_ExpectedShelfLifeInDays_v = (int_v)tf.Copy(xItem_Data.Expiry_ExpectedShelfLifeInDays_v);//tf.set_int(dr[cpis.icol_Expiry_ExpectedShelfLifeInDays]);
+            Expiry_SaleBeforeExpiryDateInDays_v = (int_v)tf.Copy(xItem_Data.Expiry_SaleBeforeExpiryDateInDays_v);//tf.set_int(dr[cpis.icol_Expiry_SaleBeforeExpiryDateInDays]);
+            Expiry_DiscardBeforeExpiryDateInDays_v = (int_v)tf.Copy(xItem_Data.Expiry_DiscardBeforeExpiryDateInDays_v);//tf.set_int(dr[cpis.icol_Expiry_DiscardBeforeExpiryDateInDays]);
+            Expiry_ExpiryDescription = (string_v)tf.Copy(xItem_Data.Expiry_Description_v);//tf.set_string(dr[cpis.icol_Expiry_ExpiryDescription]);
             //Item_ID= tf.set_ID(xItem_Data.Item_ID);//tf.set_long(dr["Item_ID"]);
-            Atom_Unit_Name_v = (string_v)tf.Copy(xItem_Data.Unit_Name_v);//tf.set_string(dr[cpis.icol_Unit_Name]);
-            Atom_Unit_Symbol_v = (string_v)tf.Copy(xItem_Data.Unit_Symbol_v);//tf.set_string(dr[cpis.icol_Unit_Symbol]);
-            Atom_Unit_DecimalPlaces_v = (int_v)tf.Copy(xItem_Data.Unit_DecimalPlaces_v);//tf.set_int(dr[cpis.icol_Unit_DecimalPlaces]);
-            Atom_Unit_Description_v = (string_v)tf.Copy(xItem_Data.Unit_Description_v);//tf.set_string(dr[cpis.icol_Unit_Description]);
-            Atom_Unit_StorageOption_v = (bool_v)tf.Copy(xItem_Data.Unit_StorageOption_v);//tf.set_bool(dr[cpis.icol_Unit_StorageOption]);
-            Atom_Currency_Name_v = (string_v)tf.Copy(xItem_Data.Currency_Name_v);// tf.set_string(dr[cpis.icol_Currency_Name]);
-            Atom_Currency_Abbreviation_v = (string_v)tf.Copy(xItem_Data.Currency_Abbreviation_v);//tf.set_string(dr[cpis.icol_Currency_Abbreviation]);
-            Atom_Currency_Symbol_v = (string_v)tf.Copy(xItem_Data.Currency_Symbol_v);//tf.set_string(dr[cpis.icol_Currency_Symbol]);
+            Unit_Name_v = (string_v)tf.Copy(xItem_Data.Unit_Name_v);//tf.set_string(dr[cpis.icol_Unit_Name]);
+            Unit_Symbol_v = (string_v)tf.Copy(xItem_Data.Unit_Symbol_v);//tf.set_string(dr[cpis.icol_Unit_Symbol]);
+            Unit_DecimalPlaces_v = (int_v)tf.Copy(xItem_Data.Unit_DecimalPlaces_v);//tf.set_int(dr[cpis.icol_Unit_DecimalPlaces]);
+            Unit_Description_v = (string_v)tf.Copy(xItem_Data.Unit_Description_v);//tf.set_string(dr[cpis.icol_Unit_Description]);
+            Unit_StorageOption_v = (bool_v)tf.Copy(xItem_Data.Unit_StorageOption_v);//tf.set_bool(dr[cpis.icol_Unit_StorageOption]);
+            Currency_Name_v = (string_v)tf.Copy(xItem_Data.Currency_Name_v);// tf.set_string(dr[cpis.icol_Currency_Name]);
+            Currency_Abbreviation_v = (string_v)tf.Copy(xItem_Data.Currency_Abbreviation_v);//tf.set_string(dr[cpis.icol_Currency_Abbreviation]);
+            Currency_Symbol_v = (string_v)tf.Copy(xItem_Data.Currency_Symbol_v);//tf.set_string(dr[cpis.icol_Currency_Symbol]);
             Atom_Currency_DecimalPlaces_v = (int_v)tf.Copy(xItem_Data.Currency_DecimalPlaces);//tf.set_int(dr[cpis.icol_Currency_DecimalPlaces]);
             Atom_Item_Image_Hash_v = (string_v)tf.Copy(xItem_Data.Item_Image_Image_Hash_v);//tf.set_string(dr[cpis.icol_Currency_Symbol]);
             Atom_Item_Image_Data_v = (byte_array_v)tf.Copy(xItem_Data.Item_Image_Image_Data_v);//Itemtf.set_byte_array(dr[cpis.icol_Item_Image_Image_Data]);
@@ -638,7 +638,7 @@ namespace TangentaDB
 
             if (doc_type.Equals(GlobalData.const_ConsumptionAll))
             {
-                if (f_Consumption_ShopC_Item.Insert(cons_ID, xData.PurchasePrice_Item_ID,ref this.Consumption_ShopC_Item_ID, transaction))
+                if (f_Consumption_ShopC_Item.Insert(cons_ID, xData.Item_ID,ref this.Consumption_ShopC_Item_ID, transaction))
                 {
                     if (std_taken_List != null)
                     {
@@ -754,32 +754,32 @@ namespace TangentaDB
 
         private void Set(CItem_Data xData)
         {
-            Atom_Item_UniqueName_v = (string_v)tf.Copy(xData.Item_UniqueName_v);// tf.set_string(dr[cpis.icol_Item_UniqueName]);
+            Item_UniqueName_v = (string_v)tf.Copy(xData.Item_UniqueName_v);// tf.set_string(dr[cpis.icol_Item_UniqueName]);
 
-            Atom_Item_Name_Name_v = (string_v)tf.Copy(xData.Item_Name_v);//tf.set_string(dr[cpis.icol_Item_Name]);
-            Atom_Item_barcode_barcode_v = (string_v)tf.Copy(xData.Item_barcode_v);//tf.set_string(dr[cpis.icol_Item_barcode]);
-            Atom_Taxation_Name_v = (string_v)tf.Copy(xData.Taxation_Name_v);//tf.set_string(dr[cpis.icol_Taxation_Name]);
-            Atom_Taxation_Rate_v = (decimal_v)tf.Copy(xData.Taxation_Rate_v);//tf.set_decimal(dr[cpis.icol_Taxation_Rate]);
-            Atom_Item_Description_Description = (string_v)tf.Copy(xData.Item_Description_v);//tf.set_string(dr[cpis.icol_Item_Description]);
-            Atom_Warranty_ID = null; //tf.set_long(dria["Atom_Warranty_ID"]);
-            Atom_Warranty_WarrantyDurationType_v = (short_v)tf.Copy(xData.Warranty_WarrantyDurationType_v);//tf.set_short(dr[cpis.icol_Warranty_WarrantyDurationType]);
-            Atom_Warranty_WarrantyDuration_v = (int_v)tf.Copy(xData.Warranty_WarrantyDuration_v);//tf.set_int(dr[cpis.icol_Warranty_WarrantyDuration]);
-            Atom_Warranty_WarrantyConditions_v = (string_v)tf.Copy(xData.Warranty_WarrantyConditions_v);//tf.set_string(dr[cpis.icol_Warranty_WarrantyConditions]);
-            Atom_Expiry_ID = null; //tf.set_long(dr["Atom_Expiry_ID"]);
-            Atom_Expiry_ExpectedShelfLifeInDays_v = (int_v)tf.Copy(xData.Expiry_ExpectedShelfLifeInDays_v);//tf.set_int(dr[cpis.icol_Expiry_ExpectedShelfLifeInDays]);
-            Atom_Expiry_SaleBeforeExpiryDateInDays_v = (int_v)tf.Copy(xData.Expiry_SaleBeforeExpiryDateInDays_v);//tf.set_int(dr[cpis.icol_Expiry_SaleBeforeExpiryDateInDays]);
-            Atom_Expiry_DiscardBeforeExpiryDateInDays_v = (int_v)tf.Copy(xData.Expiry_DiscardBeforeExpiryDateInDays_v);//tf.set_int(dr[cpis.icol_Expiry_DiscardBeforeExpiryDateInDays]);
-            Atom_Expiry_ExpiryDescription = (string_v)tf.Copy(xData.Expiry_Description_v);//tf.set_string(dr[cpis.icol_Expiry_ExpiryDescription]);
+            Item_Name_v = (string_v)tf.Copy(xData.Item_Name_v);//tf.set_string(dr[cpis.icol_Item_Name]);
+            Item_barcode_v = (string_v)tf.Copy(xData.Item_barcode_v);//tf.set_string(dr[cpis.icol_Item_barcode]);
+            Taxation_Name_v = (string_v)tf.Copy(xData.Taxation_Name_v);//tf.set_string(dr[cpis.icol_Taxation_Name]);
+            Taxation_Rate_v = (decimal_v)tf.Copy(xData.Taxation_Rate_v);//tf.set_decimal(dr[cpis.icol_Taxation_Rate]);
+            Item_Description = (string_v)tf.Copy(xData.Item_Description_v);//tf.set_string(dr[cpis.icol_Item_Description]);
+            Warranty_ID = null; //tf.set_long(dria["Atom_Warranty_ID"]);
+            WarrantyDurationType_v = (short_v)tf.Copy(xData.Warranty_WarrantyDurationType_v);//tf.set_short(dr[cpis.icol_Warranty_WarrantyDurationType]);
+            WarrantyDuration_v = (int_v)tf.Copy(xData.Warranty_WarrantyDuration_v);//tf.set_int(dr[cpis.icol_Warranty_WarrantyDuration]);
+            WarrantyConditions_v = (string_v)tf.Copy(xData.Warranty_WarrantyConditions_v);//tf.set_string(dr[cpis.icol_Warranty_WarrantyConditions]);
+            Expiry_ID = null; //tf.set_long(dr["Atom_Expiry_ID"]);
+            Expiry_ExpectedShelfLifeInDays_v = (int_v)tf.Copy(xData.Expiry_ExpectedShelfLifeInDays_v);//tf.set_int(dr[cpis.icol_Expiry_ExpectedShelfLifeInDays]);
+            Expiry_SaleBeforeExpiryDateInDays_v = (int_v)tf.Copy(xData.Expiry_SaleBeforeExpiryDateInDays_v);//tf.set_int(dr[cpis.icol_Expiry_SaleBeforeExpiryDateInDays]);
+            Expiry_DiscardBeforeExpiryDateInDays_v = (int_v)tf.Copy(xData.Expiry_DiscardBeforeExpiryDateInDays_v);//tf.set_int(dr[cpis.icol_Expiry_DiscardBeforeExpiryDateInDays]);
+            Expiry_ExpiryDescription = (string_v)tf.Copy(xData.Expiry_Description_v);//tf.set_string(dr[cpis.icol_Expiry_ExpiryDescription]);
                                                                                           //Item_ID = tf.set_ID(xData.Item_ID);//tf.set_long(dr["Item_ID"]);
-            Atom_Unit_Name_v = (string_v)tf.Copy(xData.Unit_Name_v);//tf.set_string(dr[cpis.icol_Unit_Name]);
-            Atom_Unit_Symbol_v = (string_v)tf.Copy(xData.Unit_Symbol_v);//tf.set_string(dr[cpis.icol_Unit_Symbol]);
-            Atom_Unit_DecimalPlaces_v = (int_v)tf.Copy(xData.Unit_DecimalPlaces_v);//tf.set_int(dr[cpis.icol_Unit_DecimalPlaces]);
-            Atom_Unit_Description_v = (string_v)tf.Copy(xData.Unit_Description_v);//tf.set_string(dr[cpis.icol_Unit_Description]);
-            Atom_Unit_StorageOption_v = (bool_v)tf.Copy(xData.Unit_StorageOption_v);//tf.set_bool(dr[cpis.icol_Unit_StorageOption]);
+            Unit_Name_v = (string_v)tf.Copy(xData.Unit_Name_v);//tf.set_string(dr[cpis.icol_Unit_Name]);
+            Unit_Symbol_v = (string_v)tf.Copy(xData.Unit_Symbol_v);//tf.set_string(dr[cpis.icol_Unit_Symbol]);
+            Unit_DecimalPlaces_v = (int_v)tf.Copy(xData.Unit_DecimalPlaces_v);//tf.set_int(dr[cpis.icol_Unit_DecimalPlaces]);
+            Unit_Description_v = (string_v)tf.Copy(xData.Unit_Description_v);//tf.set_string(dr[cpis.icol_Unit_Description]);
+            Unit_StorageOption_v = (bool_v)tf.Copy(xData.Unit_StorageOption_v);//tf.set_bool(dr[cpis.icol_Unit_StorageOption]);
             //Atom_PriceList_Name_v = (string_v)tf.Copy(xData.PriceList_Name_v);//tf.set_string(dr[cpis.icol_PriceList_Name]);
-            Atom_Currency_Name_v = (string_v)tf.Copy(xData.Currency_Name_v);// tf.set_string(dr[cpis.icol_Currency_Name]);
-            Atom_Currency_Abbreviation_v = (string_v)tf.Copy(xData.Currency_Abbreviation_v);//tf.set_string(dr[cpis.icol_Currency_Abbreviation]);
-            Atom_Currency_Symbol_v = (string_v)tf.Copy(xData.Currency_Symbol_v);//tf.set_string(dr[cpis.icol_Currency_Symbol]);
+            Currency_Name_v = (string_v)tf.Copy(xData.Currency_Name_v);// tf.set_string(dr[cpis.icol_Currency_Name]);
+            Currency_Abbreviation_v = (string_v)tf.Copy(xData.Currency_Abbreviation_v);//tf.set_string(dr[cpis.icol_Currency_Abbreviation]);
+            Currency_Symbol_v = (string_v)tf.Copy(xData.Currency_Symbol_v);//tf.set_string(dr[cpis.icol_Currency_Symbol]);
             Atom_Currency_DecimalPlaces_v = (int_v)tf.Copy(xData.Currency_DecimalPlaces);//tf.set_int(dr[cpis.icol_Currency_DecimalPlaces]);
             Atom_Item_Image_Hash_v = (string_v)tf.Copy(xData.Item_Image_Image_Hash_v);//tf.set_string(dr[cpis.icol_Currency_Symbol]);
             Atom_Item_Image_Data_v = (byte_array_v)tf.Copy(xData.Item_Image_Image_Data_v);//Itemtf.set_byte_array(dr[cpis.icol_Item_Image_Image_Data]);
@@ -889,7 +889,7 @@ namespace TangentaDB
                     if (f_Consumption_ShopC_Item_Source.Update(dsciSx.Consumption_ShopC_Item_Source_ID,dnewQuantity, transaction ))
                     {
                         dsciSx.dQuantity = dnewQuantity;
-                        dsciSx.RetailPriceWithDiscount = retailPriceWithDiscount;
+                        dsciSx.PurchasePricePerUnit = retailPriceWithDiscount;
                         dsciSx.TaxPrice = taxPrice;
                     }
                 }
@@ -937,31 +937,31 @@ namespace TangentaDB
 
             //ExtraDiscount = tf.set_decimal(xItem_Data.ExtraDiscount);
 
-            Atom_Item_UniqueName_v = (string_v)tf.Copy(xItem_Data.Item_UniqueName_v);// tf.set_string(dr[cpis.icol_Item_UniqueName]);
+            Item_UniqueName_v = (string_v)tf.Copy(xItem_Data.Item_UniqueName_v);// tf.set_string(dr[cpis.icol_Item_UniqueName]);
 
-            Atom_Item_Name_Name_v = (string_v)tf.Copy(xItem_Data.Item_Name_v);//tf.set_string(dr[cpis.icol_Item_Name]);
-            Atom_Item_barcode_barcode_v = (string_v)tf.Copy(xItem_Data.Item_barcode_v);//tf.set_string(dr[cpis.icol_Item_barcode]);
-            Atom_Taxation_Name_v = (string_v)tf.Copy(xItem_Data.Taxation_Name_v);//tf.set_string(dr[cpis.icol_Taxation_Name]);
-            Atom_Taxation_Rate_v = (decimal_v)tf.Copy(xItem_Data.Taxation_Rate_v);//tf.set_decimal(dr[cpis.icol_Taxation_Rate]);
-            Atom_Item_Description_Description = (string_v)tf.Copy(xItem_Data.Item_Description_v);//tf.set_string(dr[cpis.icol_Item_Description]);
-            Atom_Warranty_ID = null; //tf.set_long(dria["Atom_Warranty_ID"]);
-            Atom_Warranty_WarrantyDurationType_v = (short_v)tf.Copy(xItem_Data.Warranty_WarrantyDurationType_v);//tf.set_short(dr[cpis.icol_Warranty_WarrantyDurationType]);
-            Atom_Warranty_WarrantyDuration_v = (int_v)tf.Copy(xItem_Data.Warranty_WarrantyDuration_v);//tf.set_int(dr[cpis.icol_Warranty_WarrantyDuration]);
-            Atom_Warranty_WarrantyConditions_v = (string_v)tf.Copy(xItem_Data.Warranty_WarrantyConditions_v);//tf.set_string(dr[cpis.icol_Warranty_WarrantyConditions]);
-            Atom_Expiry_ID = null; //tf.set_long(dr["Atom_Expiry_ID"]);
-            Atom_Expiry_ExpectedShelfLifeInDays_v = (int_v)tf.Copy(xItem_Data.Expiry_ExpectedShelfLifeInDays_v);//tf.set_int(dr[cpis.icol_Expiry_ExpectedShelfLifeInDays]);
-            Atom_Expiry_SaleBeforeExpiryDateInDays_v = (int_v)tf.Copy(xItem_Data.Expiry_SaleBeforeExpiryDateInDays_v);//tf.set_int(dr[cpis.icol_Expiry_SaleBeforeExpiryDateInDays]);
-            Atom_Expiry_DiscardBeforeExpiryDateInDays_v = (int_v)tf.Copy(xItem_Data.Expiry_DiscardBeforeExpiryDateInDays_v);//tf.set_int(dr[cpis.icol_Expiry_DiscardBeforeExpiryDateInDays]);
-            Atom_Expiry_ExpiryDescription = (string_v)tf.Copy(xItem_Data.Expiry_Description_v);//tf.set_string(dr[cpis.icol_Expiry_ExpiryDescription]);
+            Item_Name_v = (string_v)tf.Copy(xItem_Data.Item_Name_v);//tf.set_string(dr[cpis.icol_Item_Name]);
+            Item_barcode_v = (string_v)tf.Copy(xItem_Data.Item_barcode_v);//tf.set_string(dr[cpis.icol_Item_barcode]);
+            Taxation_Name_v = (string_v)tf.Copy(xItem_Data.Taxation_Name_v);//tf.set_string(dr[cpis.icol_Taxation_Name]);
+            Taxation_Rate_v = (decimal_v)tf.Copy(xItem_Data.Taxation_Rate_v);//tf.set_decimal(dr[cpis.icol_Taxation_Rate]);
+            Item_Description = (string_v)tf.Copy(xItem_Data.Item_Description_v);//tf.set_string(dr[cpis.icol_Item_Description]);
+            Warranty_ID = null; //tf.set_long(dria["Atom_Warranty_ID"]);
+            WarrantyDurationType_v = (short_v)tf.Copy(xItem_Data.Warranty_WarrantyDurationType_v);//tf.set_short(dr[cpis.icol_Warranty_WarrantyDurationType]);
+            WarrantyDuration_v = (int_v)tf.Copy(xItem_Data.Warranty_WarrantyDuration_v);//tf.set_int(dr[cpis.icol_Warranty_WarrantyDuration]);
+            WarrantyConditions_v = (string_v)tf.Copy(xItem_Data.Warranty_WarrantyConditions_v);//tf.set_string(dr[cpis.icol_Warranty_WarrantyConditions]);
+            Expiry_ID = null; //tf.set_long(dr["Atom_Expiry_ID"]);
+            Expiry_ExpectedShelfLifeInDays_v = (int_v)tf.Copy(xItem_Data.Expiry_ExpectedShelfLifeInDays_v);//tf.set_int(dr[cpis.icol_Expiry_ExpectedShelfLifeInDays]);
+            Expiry_SaleBeforeExpiryDateInDays_v = (int_v)tf.Copy(xItem_Data.Expiry_SaleBeforeExpiryDateInDays_v);//tf.set_int(dr[cpis.icol_Expiry_SaleBeforeExpiryDateInDays]);
+            Expiry_DiscardBeforeExpiryDateInDays_v = (int_v)tf.Copy(xItem_Data.Expiry_DiscardBeforeExpiryDateInDays_v);//tf.set_int(dr[cpis.icol_Expiry_DiscardBeforeExpiryDateInDays]);
+            Expiry_ExpiryDescription = (string_v)tf.Copy(xItem_Data.Expiry_Description_v);//tf.set_string(dr[cpis.icol_Expiry_ExpiryDescription]);
             //Item_ID = tf.set_ID(xItem_Data.Item_ID);//tf.set_long(dr["Item_ID"]);
-            Atom_Unit_Name_v = (string_v)tf.Copy(xItem_Data.Unit_Name_v);//tf.set_string(dr[cpis.icol_Unit_Name]);
-            Atom_Unit_Symbol_v = (string_v)tf.Copy(xItem_Data.Unit_Symbol_v);//tf.set_string(dr[cpis.icol_Unit_Symbol]);
-            Atom_Unit_DecimalPlaces_v = (int_v)tf.Copy(xItem_Data.Unit_DecimalPlaces_v);//tf.set_int(dr[cpis.icol_Unit_DecimalPlaces]);
-            Atom_Unit_Description_v = (string_v)tf.Copy(xItem_Data.Unit_Description_v);//tf.set_string(dr[cpis.icol_Unit_Description]);
-            Atom_Unit_StorageOption_v = (bool_v)tf.Copy(xItem_Data.Unit_StorageOption_v);//tf.set_bool(dr[cpis.icol_Unit_StorageOption]);
-            Atom_Currency_Name_v = (string_v)tf.Copy(xItem_Data.Currency_Name_v);// tf.set_string(dr[cpis.icol_Currency_Name]);
-            Atom_Currency_Abbreviation_v = (string_v)tf.Copy(xItem_Data.Currency_Abbreviation_v);//tf.set_string(dr[cpis.icol_Currency_Abbreviation]);
-            Atom_Currency_Symbol_v = (string_v)tf.Copy(xItem_Data.Currency_Symbol_v);//tf.set_string(dr[cpis.icol_Currency_Symbol]);
+            Unit_Name_v = (string_v)tf.Copy(xItem_Data.Unit_Name_v);//tf.set_string(dr[cpis.icol_Unit_Name]);
+            Unit_Symbol_v = (string_v)tf.Copy(xItem_Data.Unit_Symbol_v);//tf.set_string(dr[cpis.icol_Unit_Symbol]);
+            Unit_DecimalPlaces_v = (int_v)tf.Copy(xItem_Data.Unit_DecimalPlaces_v);//tf.set_int(dr[cpis.icol_Unit_DecimalPlaces]);
+            Unit_Description_v = (string_v)tf.Copy(xItem_Data.Unit_Description_v);//tf.set_string(dr[cpis.icol_Unit_Description]);
+            Unit_StorageOption_v = (bool_v)tf.Copy(xItem_Data.Unit_StorageOption_v);//tf.set_bool(dr[cpis.icol_Unit_StorageOption]);
+            Currency_Name_v = (string_v)tf.Copy(xItem_Data.Currency_Name_v);// tf.set_string(dr[cpis.icol_Currency_Name]);
+            Currency_Abbreviation_v = (string_v)tf.Copy(xItem_Data.Currency_Abbreviation_v);//tf.set_string(dr[cpis.icol_Currency_Abbreviation]);
+            Currency_Symbol_v = (string_v)tf.Copy(xItem_Data.Currency_Symbol_v);//tf.set_string(dr[cpis.icol_Currency_Symbol]);
             Atom_Currency_DecimalPlaces_v = (int_v)tf.Copy(xItem_Data.Currency_DecimalPlaces);//tf.set_int(dr[cpis.icol_Currency_DecimalPlaces]);
             Atom_Item_Image_Hash_v = (string_v)tf.Copy(xItem_Data.Item_Image_Image_Hash_v);//tf.set_string(dr[cpis.icol_Currency_Symbol]);
             Atom_Item_Image_Data_v = (byte_array_v)tf.Copy(xItem_Data.Item_Image_Image_Data_v);//Itemtf.set_byte_array(dr[cpis.icol_Item_Image_Image_Data]);

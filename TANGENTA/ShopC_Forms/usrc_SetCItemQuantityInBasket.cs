@@ -288,32 +288,32 @@ namespace ShopC_Forms
             {
                 return;
             }
-            if (dsci.Atom_Item_UniqueName_v != null)
+            if (dsci.Item_UniqueName_v != null)
             {
-                this.lbl_Item_UniqueName.Text = dsci.Atom_Item_UniqueName_v.v;
+                this.lbl_Item_UniqueName.Text = dsci.Item_UniqueName_v.v;
             }
             else
             {
                 this.lbl_Item_UniqueName.Text = "";
             }
 
-            if (dsci.Atom_Item_Name_Name_v != null)
+            if (dsci.Item_Name_v != null)
             {
-                this.lbl_ItemDescription.Text = dsci.Atom_Item_Name_Name_v.v;
+                this.lbl_ItemDescription.Text = dsci.Item_Name_v.v;
             }
             else
             {
                 this.lbl_ItemDescription.Text = "";
             }
 
-            if (dsci.Atom_Unit_Symbol_v != null)
+            if (dsci.Unit_Symbol_v != null)
             {
-                unitsymbol = dsci.Atom_Unit_Symbol_v.v;
+                unitsymbol = dsci.Unit_Symbol_v.v;
             }
 
-            if (dsci.Atom_Taxation_Name_v != null)
+            if (dsci.Taxation_Name_v != null)
             {
-                taxation_name = dsci.Atom_Taxation_Name_v.v;
+                taxation_name = dsci.Taxation_Name_v.v;
             }
 
             
@@ -326,9 +326,9 @@ namespace ShopC_Forms
 
             btn_Discount.Text = Global.f.GetPercent(extradiscount, 4);
 
-            if (dsci.Atom_Taxation_Rate_v != null)
+            if (dsci.Taxation_Rate_v != null)
             {
-                taxrate = dsci.Atom_Taxation_Rate_v.v;
+                taxrate = dsci.Taxation_Rate_v.v;
             }
 
 
@@ -377,14 +377,14 @@ namespace ShopC_Forms
                 decimal dv = 0;
                 if (usrc_NumKeys1.IsDecimalPoint(ch))
                 {
-                    if (dsci.Atom_Unit_DecimalPlaces_v!=null)
+                    if (dsci.Unit_DecimalPlaces_v!=null)
                     {
-                       if (dsci.Atom_Unit_DecimalPlaces_v.v == 0)
+                       if (dsci.Unit_DecimalPlaces_v.v == 0)
                         {
                             string sUnitName = "";
-                            if (dsci.Atom_Unit_Name_v!=null)
+                            if (dsci.Unit_Name_v!=null)
                             {
-                                sUnitName = dsci.Atom_Unit_Name_v.v;
+                                sUnitName = dsci.Unit_Name_v.v;
                             }
 
                             string smsg = lng.s_Unit.s + " " + sUnitName + " " + lng.s_HasNoDecimalPlaces.s;

@@ -107,9 +107,9 @@ namespace ShopC_Forms
                 TangentaDB.Consumption_ShopC_Item dsci = (TangentaDB.Consumption_ShopC_Item)oData;
                 if (dsci!=null)
                 {
-                    if (dsci.Atom_Item_UniqueName_v != null)
+                    if (dsci.Item_UniqueName_v != null)
                     {
-                        return dsci.Atom_Item_UniqueName_v.v.Equals(s);
+                        return dsci.Item_UniqueName_v.v.Equals(s);
                     }
                 }
             }
@@ -140,7 +140,7 @@ namespace ShopC_Forms
                     TangentaDB.Consumption_ShopC_Item dsci = (TangentaDB.Consumption_ShopC_Item)oData;
                     if (this.Parent is usrc_ConsumptionShopC)
                     {
-                        ((usrc_ConsumptionShopC)this.Parent).m_usrc_ItemList.Select(dsci, dsci.Atom_Item_UniqueName_v.v, ref oidata,ref oxusrc_Item);
+                        ((usrc_ConsumptionShopC)this.Parent).m_usrc_ItemList.Select(dsci, dsci.Item_UniqueName_v.v, ref oidata,ref oxusrc_Item);
                         if (SelectionChanged!=null)
                         {
                             SelectionChanged(ctrl,index, oData,oidata, oxusrc_Item);

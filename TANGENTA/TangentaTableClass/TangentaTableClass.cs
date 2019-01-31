@@ -3146,7 +3146,7 @@ namespace TangentaTableClass
     {
         public ID ID = new ID();
         public Consumption m_Consumption = new Consumption();
-        public PurchasePrice_Item m_PurchasePrice_Item = new PurchasePrice_Item();
+        public Item m_Item = new Item();
 
     }
 

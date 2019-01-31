@@ -175,8 +175,9 @@ namespace TangentaDB
                     Consumption_ShopC_Item_Source xdsciS = new Consumption_ShopC_Item_Source();
                     xdsciS.Stock_ID = DBTypes.tf.set_ID(dr["Stock_ID"]);
                     xdsciS.dQuantity = DBTypes.tf._set_decimal(dr["dQuantity"]);
-                    xdsciS.RetailPriceWithDiscount = DBTypes.tf._set_decimal(dr["RetailPriceWithDiscount"]);
-                    xdsciS.TaxPrice = DBTypes.tf._set_decimal(dr["TaxPrice"]);
+                    xdsciS.PurchasePricePerUnit = DBTypes.tf._set_decimal(dr["PurchasePricePerUnit"]);
+                    xdsciS.PurchasePricePerUnit_Discount = DBTypes.tf._set_decimal(dr["PurchasePricePerUnit_Discount"]);
+                    xdsciS.Taxation_Rate = DBTypes.tf._set_decimal(dr["Taxation_Rate"]);
                     xdsciS.ExpiryDate_v = DBTypes.tf.set_DateTime(dr["ExpiryDate"]);
                     xdsciS.Item_UniqueName_v = DBTypes.tf.set_string(dr["Item_UniqueName"]);
                     xdsciS.StockTakeName_v = DBTypes.tf.set_string(dr["StockTakeName"]);

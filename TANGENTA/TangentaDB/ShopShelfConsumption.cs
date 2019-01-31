@@ -427,7 +427,7 @@ namespace TangentaDB
         {
             foreach (CItem_Data idata in ListOfCItems)
             {
-                if (idata.Item_UniqueName_v.v.Equals(xdsci.Atom_Item_UniqueName_v.v))
+                if (idata.Item_UniqueName_v.v.Equals(xdsci.Item_UniqueName_v.v))
                 {
                     int index = ListOfCItems.IndexOf(idata);
                     return index;
@@ -440,7 +440,7 @@ namespace TangentaDB
         {
             foreach (CItem_Data idata in ListOfCItems)
             {
-                if (idata.Item_UniqueName_v.v.Equals(xdsci.Atom_Item_UniqueName_v.v))
+                if (idata.Item_UniqueName_v.v.Equals(xdsci.Item_UniqueName_v.v))
                 {
                     return idata;
                 }
