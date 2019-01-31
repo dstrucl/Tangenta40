@@ -79,7 +79,6 @@ namespace ShopC_Forms
 
             lbl_from_Stock.Text = "";
             lbl_Item.Text = "";
-            lbl_bypass_Stock.Text = "";
             lbl_VAT.Text = "";
         }
 
@@ -158,8 +157,7 @@ namespace ShopC_Forms
 
                 this.lbl_Item.Text = dsci.Atom_Item_UniqueName_v.v;
                 this.lbl_from_Stock.Text = lng.s_FromStock.s + ":" + dsci.dQuantity_FromStock.ToString();
-                this.lbl_bypass_Stock.Text = lng.s_AvoidStock.s + ":" + dsci.dQuantity_FromFactory.ToString();
-                this.lbl_VAT.Text = lng.s_Taxation.s + ":" + dsci.Atom_Taxation_Name_v.v;
+                 this.lbl_VAT.Text = lng.s_Taxation.s + ":" + dsci.Atom_Taxation_Name_v.v;
             }
         }
         internal void FillControl(int index, object oxdsci,
@@ -184,8 +182,7 @@ namespace ShopC_Forms
                 this.Enabled = false;
                 this.lbl_Item.Text = "";
                 this.lbl_from_Stock.Text = "";
-                this.lbl_bypass_Stock.Text = "";
-                this.lbl_VAT.Text = "";
+                 this.lbl_VAT.Text = "";
                 this.Refresh();
             }
         }

@@ -24,6 +24,7 @@ namespace TangentaDataBaseDef
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+      
         public static ltext lngt_JOURNAL_Consumption_Type = new ltext(new string[] { "Journal event type consumption", "Vrsta dogodka porabe" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.TableDefinitions.cs
 
         public static ltext lngt_JOURNAL_Consumption = new ltext(new string[] { "Journal event consumption", "Dogodek porabe" });   // referenced in C:\Tangenta40\TANGENTA\TangentaDataBaseDef\MyDataBase.TableDefinitions.cs

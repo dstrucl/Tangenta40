@@ -671,9 +671,9 @@ namespace ShopC_Forms
             {
                 TangentaDB.Consumption_ShopC_Item xdsci = (TangentaDB.Consumption_ShopC_Item)xConsumption_ShopC_Item_Data_LIST[j];
 
-                decimal Discount = xdsci.Discount;
+                decimal Discount = xdsci.PurchasePricePerUnit_Discount;
 
-                decimal ExtraDiscount = xdsci.ExtraDiscount;
+                decimal ExtraDiscount = 0;
 
                 decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount, Currency.DecimalPlaces);
 
@@ -685,8 +685,8 @@ namespace ShopC_Forms
 
                 int decimal_places = xdsci.Atom_Currency_DecimalPlaces_v.v;
 
-                decimal RetailPricePerUnit = xdsci.RetailPricePerUnit;
-                decimal dQuantityAll = xdsci.dQuantity_FromStock + xdsci.dQuantity_FromFactory;
+                decimal RetailPricePerUnit = xdsci.PurchasePricePerUnit;
+                decimal dQuantityAll = xdsci.dQuantity_FromStock;
 
                 StaticLib.Func.CalculatePrice(RetailPricePerUnit, dQuantityAll, Discount, ExtraDiscount, Atom_Taxation_Rate, ref RetailItemsPriceWithDiscount, ref ItemsTaxPrice, ref ItemsNetPrice, decimal_places);
 
@@ -718,13 +718,13 @@ namespace ShopC_Forms
 
                 ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lng.s_Shop_C,
                                                              DBTypes.tf._set_string(xdsci.Atom_Item_UniqueName_v.v),
-                                                             DBTypes.tf._set_decimal(xdsci.RetailPricePerUnit),
+                                                             DBTypes.tf._set_decimal(xdsci.PurchasePricePerUnit),
                                                              DBTypes.tf._set_string(xdsci.Atom_Unit_Name_v.v),
-                                                             DBTypes.tf._set_decimal(xdsci.RetailPriceWithDiscount),
+                                                             DBTypes.tf._set_decimal(xdsci.PurchqsePriceWithDiscount),
                                                              DBTypes.tf._set_string(xdsci.Atom_Taxation_Name_v.v),
                                                              DBTypes.tf._set_decimal(dQuantityAll),
-                                                             DBTypes.tf._set_decimal(xdsci.Discount),
-                                                             DBTypes.tf._set_decimal(xdsci.ExtraDiscount),
+                                                             DBTypes.tf._set_decimal(xdsci.PurchasePricePerUnit_Discount),
+                                                             DBTypes.tf._set_decimal(0),
                                                              DBTypes.tf._set_string(xdsci.Atom_Currency_Symbol_v.v),
                                                              taxation_rate,
                                                              DBTypes.tf._set_decimal(TotalDiscount),

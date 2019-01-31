@@ -66,13 +66,13 @@ namespace TangentaDB
                     }
                     //Remove_and_put_back_to_ShopShelf(xAtom_WorkPeriod_ID,DocTyp, xdsci, xShopShelf);
                 }
-                if (xdsci.dQuantity_FromFactory > 0)
-                {
-                    if (!RemoveFactory(DocTyp, xdsci, transaction))
-                    {
-                        return false;
-                    }
-                }
+                //if (xdsci.dQuantity_FromFactory > 0)
+                //{
+                //    if (!RemoveFactory(DocTyp, xdsci, transaction))
+                //    {
+                //        return false;
+                //    }
+                //}
                 Basket_Consumption_ShopC_Item_LIST.Remove(xdsci);
             }
             return true;
@@ -90,293 +90,62 @@ namespace TangentaDB
         {
             string Err = null;
             string sql_select_Consumption_ShopC_Item = null;
-            if (xDocTyp.Equals(GlobalData.const_ConsumptionAll))
-            {
-                sql_select_Consumption_ShopC_Item =
-                //@"
-                //SELECT 
-                //disi.ID as Consumption_ShopC_Item_ID,
-                //disi.Consumption_ID,
-                //disi.Atom_Price_Item_ID,       
-                //disis.Stock_ID,
-                //Atom_Item.ID as Atom_Item_ID,
-                //itm.ID as Item_ID,
-                //Atom_Price_Item.RetailPricePerUnit,
-                //Atom_Price_Item.Discount,
-                //disis.RetailPriceWithDiscount,
-                //disis.TaxPrice,
-                //disis.ExtraDiscount,
-                //disis.dQuantity,
-                //disis.ExpiryDate,
-                //Atom_Item.UniqueName AS Atom_Item_UniqueName,
-                //Atom_Item_Name.Name AS Atom_Item_Name_Name,
-                //Atom_Item_barcode.barcode AS Atom_Item_barcode_barcode,
-                //Atom_Taxation.Name AS Atom_Taxation_Name,
-                //Atom_Taxation.Rate AS Atom_Taxation_Rate,
-                //Atom_Item_Description.Description AS Atom_Item_Description_Description,
-                //Atom_Item.Atom_Warranty_ID,
-                //Atom_Warranty.WarrantyDurationType AS Atom_Warranty_WarrantyDurationType,
-                //Atom_Warranty.WarrantyDuration AS Atom_Warranty_WarrantyDuration,
-                //Atom_Warranty.WarrantyConditions AS Atom_Warranty_WarrantyConditions,
-                //Atom_Item.Atom_Expiry_ID,
-                //Atom_Expiry.ExpectedShelfLifeInDays AS Atom_Expiry_ExpectedShelfLifeInDays,
-                //Atom_Expiry.SaleBeforeExpiryDateInDays AS Atom_Expiry_SaleBeforeExpiryDateInDays,
-                //Atom_Expiry.DiscardBeforeExpiryDateInDays AS Atom_Expiry_DiscardBeforeExpiryDateInDays,
-                //Atom_Expiry.ExpiryDescription AS Atom_Expiry_ExpiryDescription,
-                //puitms.Item_ID AS Stock_Item_ID,
-                //Stock.ImportTime AS Stock_ImportTime,
-                //Stock.dQuantity AS Stock_dQuantity,
-                //Stock.ExpiryDate AS Stock_ExpiryDate,
-                //Atom_Unit.Name AS Atom_Unit_Name,
-                //Atom_Unit.Symbol AS Atom_Unit_Symbol,
-                //Atom_Unit.DecimalPlaces AS Atom_Unit_DecimalPlaces,
-                //Atom_Unit.Description AS Atom_Unit_Description,
-                //Atom_Unit.StorageOption AS Atom_Unit_StorageOption,
-                //Atom_PriceList_Name.Name AS Atom_PriceList_Name,
-                //Atom_Currency.Name AS Atom_Currency_Name,
-                //Atom_Currency.Abbreviation AS Atom_Currency_Abbreviation,
-                //Atom_Currency.Symbol AS Atom_Currency_Symbol,
-                //Atom_Currency.DecimalPlaces AS Atom_Currency_DecimalPlaces,
-                //aiil.Image_Hash as Atom_Item_Image_Hash,
-                //aiil.Image_Data as Atom_Item_Image_Data,
-                //itm_g1.Name as s1_name,
-                //itm_g2.Name as s2_name, 
-                //itm_g3.Name as s3_name
-                //FROM Consumption_ShopC_Item  disi
-                //INNER JOIN Consumption_ShopC_Item_Source disis on disis.Consumption_ShopC_Item_ID = disi.ID
-                //INNER JOIN  Atom_Price_Item on disi.Atom_Price_Item_ID = Atom_Price_Item.ID
-                //INNER JOIN  Atom_PriceList on Atom_Price_Item.Atom_PriceList_ID = Atom_PriceList.ID
-                //inner join Atom_PriceList_Name on Atom_PriceList.Atom_PriceList_Name_ID = Atom_PriceList_Name.ID
-                //INNER JOIN  Atom_Currency on Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID
-                //INNER JOIN  Atom_Taxation on Atom_Price_Item.Atom_Taxation_ID = Atom_Taxation.ID
-                //INNER JOIN  Consumption ON disi.Consumption_ID = Consumption.ID 
-                //INNER JOIN  Atom_Item ON Atom_Price_Item.Atom_Item_ID = Atom_Item.ID 
-                //INNER JOIN  Atom_Item_Name ON Atom_Item.Atom_Item_Name_ID = Atom_Item_Name.ID 
-                //INNER JOIN  Atom_Unit ON Atom_Item.Atom_Unit_ID = Atom_Unit.ID 
-                //LEFT JOIN  Item itm ON Atom_Item.UniqueName = itm.UniqueName
-                //LEFT JOIN  Atom_Item_Image aii ON aii.Atom_Item_ID = Atom_Item.ID
-                //LEFT JOIN  Atom_Item_ImageLib aiil ON aiil.ID = aii.Atom_Item_ImageLib_ID
-                //LEFT JOIN  Stock ON disis.Stock_ID = Stock.ID 
-                //LEFT JOIN  PurchasePrice_Item puitms ON Stock.PurchasePrice_Item_ID = puitms.ID 
-                //LEFT JOIN  Item_ParentGroup1 itm_g1 ON itm.Item_ParentGroup1_ID = itm_g1.ID 
-                //LEFT JOIN  Item_ParentGroup2 itm_g2 ON itm_g1.Item_ParentGroup2_ID = itm_g2.ID 
-                //LEFT JOIN  Item_ParentGroup3 itm_g3 ON itm_g2.Item_ParentGroup3_ID = itm_g3.ID 
-                //LEFT JOIN  Atom_Item_barcode ON Atom_Item.Atom_Item_barcode_ID = Atom_Item_barcode.ID 
-                //LEFT JOIN  Atom_Item_Description ON Atom_Item.Atom_Item_Description_ID = Atom_Item_Description.ID 
-                //LEFT JOIN  Atom_Warranty ON Atom_Item.Atom_Warranty_ID = Atom_Warranty.ID 
-                //LEFT JOIN  Atom_Expiry ON Atom_Item.Atom_Expiry_ID = Atom_Expiry.ID 
-                //LEFT JOIN  Item_Image ON itm.Item_Image_ID = Item_Image.ID 
-                //where disi.Consumption_ID = " + xDoc_ID.ToString();
+            sql_select_Consumption_ShopC_Item =
+
 
               @"
                 SELECT 
-                disi.ID as Consumption_ShopC_Item_ID,
-                disi.Consumption_ID,
-                disi.Atom_Price_Item_ID,
-                disi.ExtraDiscount,
-                Atom_Item.ID as Atom_Item_ID,
-                itm.ID as Item_ID,
-                Atom_Price_Item.RetailPricePerUnit,
-                Atom_Price_Item.Discount,
-                Atom_Item.UniqueName AS Atom_Item_UniqueName,
-                Atom_Item_Name.Name AS Atom_Item_Name_Name,
-                Atom_Item_barcode.barcode AS Atom_Item_barcode_barcode,
-                Atom_Taxation.Name AS Atom_Taxation_Name,
-                Atom_Taxation.Rate AS Atom_Taxation_Rate,
-                Atom_Item_Description.Description AS Atom_Item_Description_Description,
-                Atom_Item.Atom_Warranty_ID,
-                Atom_Warranty.WarrantyDurationType AS Atom_Warranty_WarrantyDurationType,
-                Atom_Warranty.WarrantyDuration AS Atom_Warranty_WarrantyDuration,
-                Atom_Warranty.WarrantyConditions AS Atom_Warranty_WarrantyConditions,
-                Atom_Item.Atom_Expiry_ID,
-                Atom_Expiry.ExpectedShelfLifeInDays AS Atom_Expiry_ExpectedShelfLifeInDays,
-                Atom_Expiry.SaleBeforeExpiryDateInDays AS Atom_Expiry_SaleBeforeExpiryDateInDays,
-                Atom_Expiry.DiscardBeforeExpiryDateInDays AS Atom_Expiry_DiscardBeforeExpiryDateInDays,
-                Atom_Expiry.ExpiryDescription AS Atom_Expiry_ExpiryDescription,
-                Atom_Unit.Name AS Atom_Unit_Name,
-                Atom_Unit.Symbol AS Atom_Unit_Symbol,
-                Atom_Unit.DecimalPlaces AS Atom_Unit_DecimalPlaces,
-                Atom_Unit.Description AS Atom_Unit_Description,
-                Atom_Unit.StorageOption AS Atom_Unit_StorageOption,
-                Atom_PriceList_Name.Name AS Atom_PriceList_Name,
-                Atom_Currency.Name AS Atom_Currency_Name,
-                Atom_Currency.Abbreviation AS Atom_Currency_Abbreviation,
-                Atom_Currency.Symbol AS Atom_Currency_Symbol,
-                Atom_Currency.DecimalPlaces AS Atom_Currency_DecimalPlaces,
-                aiil.Image_Hash as Atom_Item_Image_Hash,
-                aiil.Image_Data as Atom_Item_Image_Data,
+                csci.ID as Consumption_ShopC_Item_ID,
+                csci.Consumption_ID,
+                csci.PurchasePrice_Item_ID,
+                i.ID as Item_ID,
+                pp.PurchasePricePerUnit,
+                pp.Discount,
+                i.UniqueName AS Item_UniqueName,
+                i.Name AS Item_Name,
+                i.barcode AS Item_barcode,
+                t.Name AS Taxation_Name,
+                t.Rate AS Taxation_Rate,
+                i.Description AS Item_Description,
+                i.Warranty_ID as Warranty_ID,
+                w.WarrantyDurationType AS WarrantyDurationType,
+                w.WarrantyDuration AS WarrantyDuration,
+                w.WarrantyConditions AS WarrantyConditions,
+                i.Expiry_ID as Expiry_ID,
+                e.ExpectedShelfLifeInDays AS Expiry_ExpectedShelfLifeInDays,
+                e.SaleBeforeExpiryDateInDays AS Expiry_SaleBeforeExpiryDateInDays,
+                e.DiscardBeforeExpiryDateInDays AS Expiry_DiscardBeforeExpiryDateInDays,
+                e.ExpiryDescription AS Expiry_ExpiryDescription,
+                u.Name AS Unit_Name,
+                u.Symbol AS Unit_Symbol,
+                u.DecimalPlaces AS Unit_DecimalPlaces,
+                u.Description AS Unit_Description,
+                u.StorageOption AS Unit_StorageOption,
+               c.Name AS Currency_Name,
+                c.Abbreviation AS Currency_Abbreviation,
+                c.Symbol AS Currency_Symbol,
+                c.DecimalPlaces AS Currency_DecimalPlaces,
+                ii.Image_Hash as Image_Hash,
+                ii.Image_Data as Image_Data,
                 itm_g1.Name as s1_name,
                 itm_g2.Name as s2_name, 
                 itm_g3.Name as s3_name
-                FROM Consumption_ShopC_Item  disi
-                INNER JOIN  Atom_Price_Item on disi.Atom_Price_Item_ID = Atom_Price_Item.ID
-                INNER JOIN  Atom_PriceList on Atom_Price_Item.Atom_PriceList_ID = Atom_PriceList.ID
-                inner join Atom_PriceList_Name on Atom_PriceList.Atom_PriceList_Name_ID = Atom_PriceList_Name.ID
-                INNER JOIN  Atom_Currency on Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID
-                INNER JOIN  Atom_Taxation on Atom_Price_Item.Atom_Taxation_ID = Atom_Taxation.ID
-                INNER JOIN  Consumption ON disi.Consumption_ID = Consumption.ID 
-                INNER JOIN  Atom_Item ON Atom_Price_Item.Atom_Item_ID = Atom_Item.ID 
-                INNER JOIN  Atom_Item_Name ON Atom_Item.Atom_Item_Name_ID = Atom_Item_Name.ID 
-                INNER JOIN  Atom_Unit ON Atom_Item.Atom_Unit_ID = Atom_Unit.ID 
-                LEFT JOIN  Item itm ON Atom_Item.UniqueName = itm.UniqueName
-				LEFT JOIN  Item_ParentGroup1 itm_g1 ON itm.Item_ParentGroup1_ID = itm_g1.ID 
+                FROM Consumption_ShopC_Item  csci
+				INNER JOIN  PurchasePrice_Item  ppi on csci.PurchasePrice_Item_ID = ppi.ID
+				INNER JOIN  Item  i on ppi.Item_ID = i.ID
+                INNER JOIN  PurchasePrice pp on ppi.PurchasePrice_ID = pp.ID
+                INNER JOIN  Taxation t on pp.Taxation_ID = t.ID
+				INNER JOIN  Currency c on pp.Currency_ID = c.ID
+                INNER JOIN  Consumption cons ON csci.Consumption_ID = cons.ID 
+                INNER JOIN  Unit u ON i.Unit_ID = u.ID 
+				LEFT JOIN  Item_ParentGroup1 itm_g1 ON i.Item_ParentGroup1_ID = itm_g1.ID 
                 LEFT JOIN  Item_ParentGroup2 itm_g2 ON itm_g1.Item_ParentGroup2_ID = itm_g2.ID 
                 LEFT JOIN  Item_ParentGroup3 itm_g3 ON itm_g2.Item_ParentGroup3_ID = itm_g3.ID 
-				LEFT JOIN  Atom_Item_barcode ON Atom_Item.Atom_Item_barcode_ID = Atom_Item_barcode.ID 
-                LEFT JOIN  Atom_Item_Description ON Atom_Item.Atom_Item_Description_ID = Atom_Item_Description.ID 
-                LEFT JOIN  Atom_Warranty ON Atom_Item.Atom_Warranty_ID = Atom_Warranty.ID 
-                LEFT JOIN  Atom_Expiry ON Atom_Item.Atom_Expiry_ID = Atom_Expiry.ID 
-                LEFT JOIN  Atom_Item_Image aii ON aii.Atom_Item_ID = Atom_Item.ID
-                LEFT JOIN  Atom_Item_ImageLib aiil ON aiil.ID = aii.Atom_Item_ImageLib_ID
-                LEFT JOIN  Item_Image ON itm.Item_Image_ID = Item_Image.ID 
-                where disi.Consumption_ID = " + xDoc_ID.ToString();
-            }
-            else if (xDocTyp.Equals("DocProformaInvoice"))
-            {
-                sql_select_Consumption_ShopC_Item =
-    //            @"
-    //           SELECT 
-    //            dpisi.ID as DocProformaInvoice_ShopC_Item_ID,
-    //            dpisi.DocProformaInvoice_ID,
-    //            dpisis.Stock_ID,
-    //            dpisi.Atom_Price_Item_ID,
-    //            Atom_Item.ID as Atom_Item_ID,
-    //            itm.ID as Item_ID,
-    //            Atom_Price_Item.RetailPricePerUnit,
-    //            Atom_Price_Item.Discount,
-    //            dpisis.RetailPriceWithDiscount,
-    //            dpisis.TaxPrice,
-    //            dpisis.ExtraDiscount,
-    //            dpisis.dQuantity,
-    //            dpisis.ExpiryDate,
-    //            Atom_Item.UniqueName AS Atom_Item_UniqueName,
-    //            Atom_Item_Name.Name AS Atom_Item_Name_Name,
-    //            Atom_Item_barcode.barcode AS Atom_Item_barcode_barcode,
-    //            Atom_Taxation.Name AS Atom_Taxation_Name,
-    //            Atom_Taxation.Rate AS Atom_Taxation_Rate,
-    //            Atom_Item_Description.Description AS Atom_Item_Description_Description,
-    //            Atom_Item.Atom_Warranty_ID,
-    //            Atom_Warranty.WarrantyDurationType AS Atom_Warranty_WarrantyDurationType,
-    //            Atom_Warranty.WarrantyDuration AS Atom_Warranty_WarrantyDuration,
-    //            Atom_Warranty.WarrantyConditions AS Atom_Warranty_WarrantyConditions,
-    //            Atom_Item.Atom_Expiry_ID,
-    //            Atom_Expiry.ExpectedShelfLifeInDays AS Atom_Expiry_ExpectedShelfLifeInDays,
-    //            Atom_Expiry.SaleBeforeExpiryDateInDays AS Atom_Expiry_SaleBeforeExpiryDateInDays,
-    //            Atom_Expiry.DiscardBeforeExpiryDateInDays AS Atom_Expiry_DiscardBeforeExpiryDateInDays,
-    //            Atom_Expiry.ExpiryDescription AS Atom_Expiry_ExpiryDescription,
-    //            puitms.Item_ID AS Stock_Item_ID,
-    //            Stock.ID AS Stock_ID,
-    //            Stock.ImportTime AS Stock_ImportTime,
-    //            Stock.dQuantity AS Stock_dQuantity,
-    //            Stock.ExpiryDate AS Stock_ExpiryDate,
-    //            Atom_Unit.Name AS Atom_Unit_Name,
-    //            Atom_Unit.Symbol AS Atom_Unit_Symbol,
-    //            Atom_Unit.DecimalPlaces AS Atom_Unit_DecimalPlaces,
-    //            Atom_Unit.Description AS Atom_Unit_Description,
-    //            Atom_Unit.StorageOption AS Atom_Unit_StorageOption,
-    //            Atom_PriceList_Name.Name AS Atom_PriceList_Name,
-    //            Atom_Currency.Name AS Atom_Currency_Name,
-    //            Atom_Currency.Abbreviation AS Atom_Currency_Abbreviation,
-    //            Atom_Currency.Symbol AS Atom_Currency_Symbol,
-    //            Atom_Currency.DecimalPlaces AS Atom_Currency_DecimalPlaces,
-    //            aiil.Image_Hash as Atom_Item_Image_Hash,
-    //            aiil.Image_Data as Atom_Item_Image_Data,
-    //            itm_g1.Name as s1_name,
-    //            itm_g2.Name as s2_name, 
-    //            itm_g3.Name as s3_name
-    //            FROM DocProformaInvoice_ShopC_Item dpisi
-    //INNER JOIN DocProformaInvoice_ShopC_Item_Source dpisis on dpisis.DocProformaInvoice_ShopC_Item_ID = dpisi.ID
-    //            INNER JOIN  Atom_Price_Item on dpisi.Atom_Price_Item_ID = Atom_Price_Item.ID
-    //            INNER JOIN  Atom_PriceList on Atom_Price_Item.Atom_PriceList_ID = Atom_PriceList.ID
-    //            inner join Atom_PriceList_Name on Atom_PriceList.Atom_PriceList_Name_ID = Atom_PriceList_Name.ID
-    //            INNER JOIN  Atom_Currency on Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID
-    //            INNER JOIN  Atom_Taxation on Atom_Price_Item.Atom_Taxation_ID = Atom_Taxation.ID
-    //            INNER JOIN  DocProformaInvoice ON dpisi.DocProformaInvoice_ID = DocProformaInvoice.ID 
-    //            INNER JOIN  Atom_Item ON Atom_Price_Item.Atom_Item_ID = Atom_Item.ID 
-    //            INNER JOIN  Atom_Item_Name ON Atom_Item.Atom_Item_Name_ID = Atom_Item_Name.ID 
-    //            INNER JOIN  Atom_Unit ON Atom_Item.Atom_Unit_ID = Atom_Unit.ID 
-    //            LEFT JOIN  Item itm ON Atom_Item.UniqueName = itm.UniqueName
-    //            LEFT JOIN  Atom_Item_Image aii ON aii.Atom_Item_ID = Atom_Item.ID
-    //            LEFT JOIN  Atom_Item_ImageLib aiil ON aiil.ID = aii.Atom_Item_ImageLib_ID
-    //            LEFT JOIN  Stock ON dpisis.Stock_ID = Stock.ID 
-    //            LEFT JOIN  PurchasePrice_Item puitms ON Stock.PurchasePrice_Item_ID = puitms.ID 
-    //            LEFT JOIN  Item_ParentGroup1 itm_g1 ON itm.Item_ParentGroup1_ID = itm_g1.ID 
-    //            LEFT JOIN  Item_ParentGroup2 itm_g2 ON itm_g1.Item_ParentGroup2_ID = itm_g2.ID 
-    //            LEFT JOIN  Item_ParentGroup3 itm_g3 ON itm_g2.Item_ParentGroup3_ID = itm_g3.ID 
-    //            LEFT JOIN  Atom_Item_barcode ON Atom_Item.Atom_Item_barcode_ID = Atom_Item_barcode.ID 
-    //            LEFT JOIN  Atom_Item_Description ON Atom_Item.Atom_Item_Description_ID = Atom_Item_Description.ID 
-    //            LEFT JOIN  Atom_Warranty ON Atom_Item.Atom_Warranty_ID = Atom_Warranty.ID 
-    //            LEFT JOIN  Atom_Expiry ON Atom_Item.Atom_Expiry_ID = Atom_Expiry.ID 
-    //            LEFT JOIN  Item_Image ON itm.Item_Image_ID = Item_Image.ID 
-    //            where dpisi.DocProformaInvoice_ID = " + xDoc_ID.ToString();
-    @"
-               SELECT 
-                dpisi.ID as DocProformaInvoice_ShopC_Item_ID,
-                dpisi.DocProformaInvoice_ID,
-                dpisi.Atom_Price_Item_ID,
-                dpisi.ExtraDiscount,
-                Atom_Item.ID as Atom_Item_ID,
-                itm.ID as Item_ID,
-                Atom_Price_Item.RetailPricePerUnit,
-                Atom_Price_Item.Discount,
-                Atom_Item.UniqueName AS Atom_Item_UniqueName,
-                Atom_Item_Name.Name AS Atom_Item_Name_Name,
-                Atom_Item_barcode.barcode AS Atom_Item_barcode_barcode,
-                Atom_Taxation.Name AS Atom_Taxation_Name,
-                Atom_Taxation.Rate AS Atom_Taxation_Rate,
-                Atom_Item_Description.Description AS Atom_Item_Description_Description,
-                Atom_Item.Atom_Warranty_ID,
-                Atom_Warranty.WarrantyDurationType AS Atom_Warranty_WarrantyDurationType,
-                Atom_Warranty.WarrantyDuration AS Atom_Warranty_WarrantyDuration,
-                Atom_Warranty.WarrantyConditions AS Atom_Warranty_WarrantyConditions,
-                Atom_Item.Atom_Expiry_ID,
-                Atom_Expiry.ExpectedShelfLifeInDays AS Atom_Expiry_ExpectedShelfLifeInDays,
-                Atom_Expiry.SaleBeforeExpiryDateInDays AS Atom_Expiry_SaleBeforeExpiryDateInDays,
-                Atom_Expiry.DiscardBeforeExpiryDateInDays AS Atom_Expiry_DiscardBeforeExpiryDateInDays,
-                Atom_Expiry.ExpiryDescription AS Atom_Expiry_ExpiryDescription,
-                Atom_Unit.Name AS Atom_Unit_Name,
-                Atom_Unit.Symbol AS Atom_Unit_Symbol,
-                Atom_Unit.DecimalPlaces AS Atom_Unit_DecimalPlaces,
-                Atom_Unit.Description AS Atom_Unit_Description,
-                Atom_Unit.StorageOption AS Atom_Unit_StorageOption,
-                Atom_PriceList_Name.Name AS Atom_PriceList_Name,
-                Atom_Currency.Name AS Atom_Currency_Name,
-                Atom_Currency.Abbreviation AS Atom_Currency_Abbreviation,
-                Atom_Currency.Symbol AS Atom_Currency_Symbol,
-                Atom_Currency.DecimalPlaces AS Atom_Currency_DecimalPlaces,
-                aiil.Image_Hash as Atom_Item_Image_Hash,
-                aiil.Image_Data as Atom_Item_Image_Data,
-                itm_g1.Name as s1_name,
-                itm_g2.Name as s2_name, 
-                itm_g3.Name as s3_name
-                FROM DocProformaInvoice_ShopC_Item dpisi
-                INNER JOIN  Atom_Price_Item on dpisi.Atom_Price_Item_ID = Atom_Price_Item.ID
-                INNER JOIN  Atom_PriceList on Atom_Price_Item.Atom_PriceList_ID = Atom_PriceList.ID
-                inner join Atom_PriceList_Name on Atom_PriceList.Atom_PriceList_Name_ID = Atom_PriceList_Name.ID
-                INNER JOIN  Atom_Currency on Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID
-                INNER JOIN  Atom_Taxation on Atom_Price_Item.Atom_Taxation_ID = Atom_Taxation.ID
-                INNER JOIN  DocProformaInvoice ON dpisi.DocProformaInvoice_ID = DocProformaInvoice.ID 
-                INNER JOIN  Atom_Item ON Atom_Price_Item.Atom_Item_ID = Atom_Item.ID 
-                INNER JOIN  Atom_Item_Name ON Atom_Item.Atom_Item_Name_ID = Atom_Item_Name.ID 
-                INNER JOIN  Atom_Unit ON Atom_Item.Atom_Unit_ID = Atom_Unit.ID 
-                LEFT JOIN  Item itm ON Atom_Item.UniqueName = itm.UniqueName
-                LEFT JOIN  Atom_Item_Image aii ON aii.Atom_Item_ID = Atom_Item.ID
-                LEFT JOIN  Atom_Item_ImageLib aiil ON aiil.ID = aii.Atom_Item_ImageLib_ID
-                LEFT JOIN  Item_ParentGroup1 itm_g1 ON itm.Item_ParentGroup1_ID = itm_g1.ID 
-                LEFT JOIN  Item_ParentGroup2 itm_g2 ON itm_g1.Item_ParentGroup2_ID = itm_g2.ID 
-                LEFT JOIN  Item_ParentGroup3 itm_g3 ON itm_g2.Item_ParentGroup3_ID = itm_g3.ID 
-                LEFT JOIN  Atom_Item_barcode ON Atom_Item.Atom_Item_barcode_ID = Atom_Item_barcode.ID 
-                LEFT JOIN  Atom_Item_Description ON Atom_Item.Atom_Item_Description_ID = Atom_Item_Description.ID 
-                LEFT JOIN  Atom_Warranty ON Atom_Item.Atom_Warranty_ID = Atom_Warranty.ID 
-                LEFT JOIN  Atom_Expiry ON Atom_Item.Atom_Expiry_ID = Atom_Expiry.ID 
-                LEFT JOIN  Item_Image ON itm.Item_Image_ID = Item_Image.ID 
-                where dpisi.DocProformaInvoice_ID = " + xDoc_ID.ToString();
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:TangentaDB:Basket:Read_Consumption_ShopC_Item_Table:xDocTyp=" + xDocTyp+" not implemented.");
-                return false;
-            }
+                LEFT JOIN  Warranty w ON i.Warranty_ID = w.ID 
+                LEFT JOIN  Expiry e ON i.Expiry_ID = e.ID 
+                LEFT JOIN  Item_Image ii ON i.Item_Image_ID = ii.ID
+                where csci.Consumption_ID =" + xDoc_ID.ToString();
+           
             Basket_Consumption_ShopC_Item_LIST.Clear();
             dtDraft_Doc_Consumption_ShopC_Item.Clear();
             dtDraft_Doc_Consumption_ShopC_Item.Columns.Clear();
@@ -896,162 +665,162 @@ namespace TangentaDB
             }
         }
 
-        public bool RemoveFactory(string xDocTyp,Consumption_ShopC_Item xdsci, Transaction transaction)
-        {
-            string sql = null;
+        //public bool RemoveFactory(string xDocTyp,Consumption_ShopC_Item xdsci, Transaction transaction)
+        //{
+        //    string sql = null;
 
-            ID item_ID = xdsci.Find_Item_ID();
-            if (xDocTyp==null)
-            {
-                LogFile.Error.Show("ERROR:Basket.cs:Basket:RemoveFactory:xDocTyp = null not implemented.");
-                return false;
-            }
-            else if (xDocTyp.Equals(GlobalData.const_ConsumptionAll))
-            {
-                sql = @"select dsci.ID from Consumption_ShopC_Item  dsci
-                                  inner join Consumption_ShopC_Item_Source dsciS on dsciS.Consumption_ShopC_Item_ID = dsci.ID
-                                  inner join Atom_price_item api on api.ID = dsci.Atom_price_item_ID
-                                  inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
-                                  inner join Item i on i.UniqueName = ai.UniqueName
-                                  where  (Consumption_ID = " + xdsci.Consumption_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ") and dsciS.Stock_ID is null";
-            }
-            else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
-            {
-                sql = @"select dsci.ID from DocProformaInvoice_ShopC_Item  dsci
-                                  inner join DocProformaInvoice_ShopC_Item_Source dsciS on dsciS.DocProformaInvoice_ShopC_Item_ID = dsci.ID
-                                  inner join Atom_price_item api on api.ID = dsci.Atom_price_item_ID
-                                  inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
-                                  inner join Item i on i.UniqueName = ai.UniqueName
-                                  where  (DocProformaInvoice_ID = " + xdsci.Consumption_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ") and dsciS.Stock_ID is null";
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:Basket.cs:Basket:RemoveFactory:xDocTyp=" + xDocTyp + " not implemented.");
-                return false;
-            }
+        //    ID item_ID = xdsci.Find_Item_ID();
+        //    if (xDocTyp==null)
+        //    {
+        //        LogFile.Error.Show("ERROR:Basket.cs:Basket:RemoveFactory:xDocTyp = null not implemented.");
+        //        return false;
+        //    }
+        //    else if (xDocTyp.Equals(GlobalData.const_ConsumptionAll))
+        //    {
+        //        sql = @"select dsci.ID from Consumption_ShopC_Item  dsci
+        //                          inner join Consumption_ShopC_Item_Source dsciS on dsciS.Consumption_ShopC_Item_ID = dsci.ID
+        //                          inner join Atom_price_item api on api.ID = dsci.Atom_price_item_ID
+        //                          inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
+        //                          inner join Item i on i.UniqueName = ai.UniqueName
+        //                          where  (Consumption_ID = " + xdsci.Consumption_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ") and dsciS.Stock_ID is null";
+        //    }
+        //    else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
+        //    {
+        //        sql = @"select dsci.ID from DocProformaInvoice_ShopC_Item  dsci
+        //                          inner join DocProformaInvoice_ShopC_Item_Source dsciS on dsciS.DocProformaInvoice_ShopC_Item_ID = dsci.ID
+        //                          inner join Atom_price_item api on api.ID = dsci.Atom_price_item_ID
+        //                          inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
+        //                          inner join Item i on i.UniqueName = ai.UniqueName
+        //                          where  (DocProformaInvoice_ID = " + xdsci.Consumption_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ") and dsciS.Stock_ID is null";
+        //    }
+        //    else
+        //    {
+        //        LogFile.Error.Show("ERROR:Basket.cs:Basket:RemoveFactory:xDocTyp=" + xDocTyp + " not implemented.");
+        //        return false;
+        //    }
 
-            DataTable dt1 = new DataTable();
-            string Err = null;
-            if (DBSync.DBSync.ReadDataTable(ref dt1, sql, ref Err))
-            {
-                string s_in_ID_list = null;
-                if (dt1.Rows.Count > 0)
-                {
-                    foreach (DataRow dr in dt1.Rows)
-                    {
-                        ID id = tf.set_ID(dr["ID"]);
-                        if (s_in_ID_list == null)
-                        {
-                            s_in_ID_list += "(" + id.ToString();
-                        }
-                        else
-                        {
-                            s_in_ID_list += "," + id.ToString();
-                        }
-                    }
-                    if (s_in_ID_list != null)
-                    {
-                        s_in_ID_list += ")"; // close ID_List!
-                    }
+        //    DataTable dt1 = new DataTable();
+        //    string Err = null;
+        //    if (DBSync.DBSync.ReadDataTable(ref dt1, sql, ref Err))
+        //    {
+        //        string s_in_ID_list = null;
+        //        if (dt1.Rows.Count > 0)
+        //        {
+        //            foreach (DataRow dr in dt1.Rows)
+        //            {
+        //                ID id = tf.set_ID(dr["ID"]);
+        //                if (s_in_ID_list == null)
+        //                {
+        //                    s_in_ID_list += "(" + id.ToString();
+        //                }
+        //                else
+        //                {
+        //                    s_in_ID_list += "," + id.ToString();
+        //                }
+        //            }
+        //            if (s_in_ID_list != null)
+        //            {
+        //                s_in_ID_list += ")"; // close ID_List!
+        //            }
 
-                    string sql_Delete_Consumption_Atom_Item_Stock = null;
-                    if (xDocTyp.Equals(GlobalData.const_ConsumptionAll))
-                    {
-                        sql_Delete_Consumption_Atom_Item_Stock = "delete from Consumption_ShopC_Item_Source where Stock_ID is null and  Consumption_ShopC_Item_ID in " + s_in_ID_list;
-                    }
-                    else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
-                    {
-                        sql_Delete_Consumption_Atom_Item_Stock = "delete from DocProformaInvoice_ShopC_Item_Source where Stock_ID is null and  DocProformaInvoice_ShopC_Item_ID in " + s_in_ID_list;
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:Basket.cs:Basket:RemoveFactory:xDocTyp=" + xDocTyp + " not implemented.");
-                        return false;
-                    }
+        //            string sql_Delete_Consumption_Atom_Item_Stock = null;
+        //            if (xDocTyp.Equals(GlobalData.const_ConsumptionAll))
+        //            {
+        //                sql_Delete_Consumption_Atom_Item_Stock = "delete from Consumption_ShopC_Item_Source where Stock_ID is null and  Consumption_ShopC_Item_ID in " + s_in_ID_list;
+        //            }
+        //            else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
+        //            {
+        //                sql_Delete_Consumption_Atom_Item_Stock = "delete from DocProformaInvoice_ShopC_Item_Source where Stock_ID is null and  DocProformaInvoice_ShopC_Item_ID in " + s_in_ID_list;
+        //            }
+        //            else
+        //            {
+        //                LogFile.Error.Show("ERROR:Basket.cs:Basket:RemoveFactory:xDocTyp=" + xDocTyp + " not implemented.");
+        //                return false;
+        //            }
 
-                    if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_Delete_Consumption_Atom_Item_Stock, null,  ref Err))
-                    {
-                        string sql_Delete_Atom_Price_Item = "delete from Atom_Price_Item where ID not in  (select Atom_Price_Item_ID from Consumption_ShopC_Item UNION select Atom_Price_Item_ID from DocProformaInvoice_ShopC_Item)";
-                        if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_Delete_Atom_Price_Item, null, ref Err))
-                        {
-                            string sql_Delete_Atom_Item_Image = "delete from Atom_Item_Image where Atom_Item_Image.Atom_Item_ID not in (select Atom_Item_ID from Atom_Price_Item)";
-                            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_Delete_Atom_Item_Image, null,  ref Err))
-                            {
-                                string sql_Delete_Atom_Item_ImageLib = "delete from Atom_Item_ImageLib where ID not in (select Atom_Item_ImageLib_ID from Atom_Item_Image)";
-                                if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_Delete_Atom_Item_ImageLib, null, ref Err))
-                                {
-                                    RemoveFactory_from_list(xdsci);
-                                    if (xdsci.dQuantity_all==0)
-                                    {
-                                        if (xDocTyp.Equals(GlobalData.const_ConsumptionAll))
-                                        {
-                                            if (f_Consumption_ShopC_Item.Delete(xdsci.Consumption_ShopC_Item_ID, transaction))
-                                            {
-                                                this.Basket_Consumption_ShopC_Item_LIST.Remove(xdsci);
-                                                return true; 
-                                            }
-                                            else
-                                            {
-                                                return false;
-                                            }
-                                        }
-                                        else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
-                                        {
-                                            if (f_DocProformaInvoice_ShopC_Item.Delete(xdsci.Consumption_ShopC_Item_ID, transaction))
-                                            {
-                                                this.Basket_Consumption_ShopC_Item_LIST.Remove(xdsci);
-                                                return true; 
-                                            }
-                                            else
-                                            {
-                                                return false;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            LogFile.Error.Show("ERROR:TangentaDB:Basket:RemoveFactory:unsuported xDocTyp =" + xDocTyp);
-                                            return false;
-                                        }
-                                    }
-                                    return true;
-                                }
-                                else
-                                {
-                                    LogFile.Error.Show("ERROR:Basket:sql=" + sql_Delete_Atom_Item_ImageLib + "\r\nErr=" + Err);
-                                    return false;
-                                }
-                            }
-                            else
-                            {
-                                LogFile.Error.Show("ERROR:Basket:delete from Atom_Item:Err=" + Err);
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            LogFile.Error.Show("ERROR:Basket:sql=" + sql_Delete_Atom_Price_Item + "\r\nErr=" + Err);
-                            return false;
-                        }
+        //            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_Delete_Consumption_Atom_Item_Stock, null,  ref Err))
+        //            {
+        //                string sql_Delete_Atom_Price_Item = "delete from Atom_Price_Item where ID not in  (select Atom_Price_Item_ID from Consumption_ShopC_Item UNION select Atom_Price_Item_ID from DocProformaInvoice_ShopC_Item)";
+        //                if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_Delete_Atom_Price_Item, null, ref Err))
+        //                {
+        //                    string sql_Delete_Atom_Item_Image = "delete from Atom_Item_Image where Atom_Item_Image.Atom_Item_ID not in (select Atom_Item_ID from Atom_Price_Item)";
+        //                    if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_Delete_Atom_Item_Image, null,  ref Err))
+        //                    {
+        //                        string sql_Delete_Atom_Item_ImageLib = "delete from Atom_Item_ImageLib where ID not in (select Atom_Item_ImageLib_ID from Atom_Item_Image)";
+        //                        if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_Delete_Atom_Item_ImageLib, null, ref Err))
+        //                        {
+        //                            RemoveFactory_from_list(xdsci);
+        //                            if (xdsci.dQuantity_all==0)
+        //                            {
+        //                                if (xDocTyp.Equals(GlobalData.const_ConsumptionAll))
+        //                                {
+        //                                    if (f_Consumption_ShopC_Item.Delete(xdsci.Consumption_ShopC_Item_ID, transaction))
+        //                                    {
+        //                                        this.Basket_Consumption_ShopC_Item_LIST.Remove(xdsci);
+        //                                        return true; 
+        //                                    }
+        //                                    else
+        //                                    {
+        //                                        return false;
+        //                                    }
+        //                                }
+        //                                else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
+        //                                {
+        //                                    if (f_DocProformaInvoice_ShopC_Item.Delete(xdsci.Consumption_ShopC_Item_ID, transaction))
+        //                                    {
+        //                                        this.Basket_Consumption_ShopC_Item_LIST.Remove(xdsci);
+        //                                        return true; 
+        //                                    }
+        //                                    else
+        //                                    {
+        //                                        return false;
+        //                                    }
+        //                                }
+        //                                else
+        //                                {
+        //                                    LogFile.Error.Show("ERROR:TangentaDB:Basket:RemoveFactory:unsuported xDocTyp =" + xDocTyp);
+        //                                    return false;
+        //                                }
+        //                            }
+        //                            return true;
+        //                        }
+        //                        else
+        //                        {
+        //                            LogFile.Error.Show("ERROR:Basket:sql=" + sql_Delete_Atom_Item_ImageLib + "\r\nErr=" + Err);
+        //                            return false;
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        LogFile.Error.Show("ERROR:Basket:delete from Atom_Item:Err=" + Err);
+        //                        return false;
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    LogFile.Error.Show("ERROR:Basket:sql=" + sql_Delete_Atom_Price_Item + "\r\nErr=" + Err);
+        //                    return false;
+        //                }
 
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:Basket:delete from Consumption_ShopC_Item:Err=" + Err);
-                        return false;
-                    }
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:Basket:dt1.Rows.Count == 0 !");
-                    return false;
-                }
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:Basket:sql=" + sql + "\r\nErr=" + Err);
-                return false;
-            }
-        }
+        //            }
+        //            else
+        //            {
+        //                LogFile.Error.Show("ERROR:Basket:delete from Consumption_ShopC_Item:Err=" + Err);
+        //                return false;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            LogFile.Error.Show("ERROR:Basket:dt1.Rows.Count == 0 !");
+        //            return false;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        LogFile.Error.Show("ERROR:Basket:sql=" + sql + "\r\nErr=" + Err);
+        //        return false;
+        //    }
+        //}
 
 
         private void Remove_from_list(Consumption_ShopC_Item xdsci)
@@ -1116,22 +885,22 @@ namespace TangentaDB
             foreach (Consumption_ShopC_Item dscix in this.Basket_Consumption_ShopC_Item_LIST)
             {
                
-                decimal RetailPriceWithDisount = 0;
+                decimal PurchasePriceWithDisount = 0;
                 decimal tax_price = 0;
                 decimal net_price = 0;
-                StaticLib.Func.CalculatePrice(dscix.RetailPricePerUnit,
+                StaticLib.Func.CalculatePrice(dscix.PurchasePricePerUnit,
                                         dscix.dQuantity_all,
-                                        dscix.Discount,
-                                        dscix.ExtraDiscount,
+                                        dscix.PurchasePricePerUnit_Discount,
+                                        0,
                                         dscix.TaxationRate,
-                                        ref RetailPriceWithDisount,
+                                        ref PurchasePriceWithDisount,
                                         ref tax_price,
                                         ref net_price,
                                         dscix.Atom_Currency_DecimalPlaces_v.v);
 
                 TaxSum.Add(tax_price, net_price, dscix.Atom_Taxation_Name_v.v, dscix.Atom_Taxation_Rate_v.v);
 
-                dsum_GrossSum_Basket += RetailPriceWithDisount;
+                dsum_GrossSum_Basket += PurchasePriceWithDisount;
                 dsum_TaxSum_Basket += tax_price;
                 dsum_NetSum += net_price;
             }

@@ -216,11 +216,11 @@
     <Compile Include="usrc_CItem_TextSearch.Designer.cs">
       <DependentUpon>usrc_CItem_TextSearch.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_SetItemQuantityInBasket.cs">
+    <Compile Include="usrc_SetCItemQuantityInBasket.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_SetItemQuantityInBasket.Designer.cs">
-      <DependentUpon>usrc_SetItemQuantityInBasket.cs</DependentUpon>
+    <Compile Include="usrc_SetCItemQuantityInBasket.Designer.cs">
+      <DependentUpon>usrc_SetCItemQuantityInBasket.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_ConsumptionShopC.cs">
       <SubType>UserControl</SubType>
@@ -521,8 +521,8 @@
     <EmbeddedResource Include="usrc_CItem_TextSearch.resx">
       <DependentUpon>usrc_CItem_TextSearch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_SetItemQuantityInBasket.resx">
-      <DependentUpon>usrc_SetItemQuantityInBasket.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_SetCItemQuantityInBasket.resx">
+      <DependentUpon>usrc_SetCItemQuantityInBasket.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_ConsumptionShopC.resx">
       <DependentUpon>usrc_ConsumptionShopC.cs</DependentUpon>

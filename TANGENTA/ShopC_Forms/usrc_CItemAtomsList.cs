@@ -195,7 +195,7 @@ namespace ShopC_Forms
             ctrl = xusrc_Atom_Item;
         }
 
-        public void RemoveItem(string sItemUniqueName, ref decimal dQuantityInBasket_FromStock,ref decimal dQuantityInBasket_FromFactory)
+        public void RemoveItem(string sItemUniqueName, ref decimal dQuantityInBasket_FromStock)
         {
             int index = usrc_Item_InsidePageHandler_ItemAtomList.FindItem(sItemUniqueName);
             if (index>=0)
@@ -205,7 +205,6 @@ namespace ShopC_Forms
                 {
                     TangentaDB.Consumption_ShopC_Item dsci = (TangentaDB.Consumption_ShopC_Item)oData;
                     dQuantityInBasket_FromStock = dsci.dQuantity_FromStock;
-                    dQuantityInBasket_FromFactory = dsci.dQuantity_FromFactory;
                     RemoveItem(dsci);
                 }
             }

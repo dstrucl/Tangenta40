@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.usrc_SetItemQuantityInBasket1 = new usrc_SetItemQuantityInBasket();
+            this.usrc_SetItemQuantityInBasket1 = new usrc_SetCItemQuantityInBasket();
             this.SuspendLayout();
             // 
             // usrc_SetItemQuantityInBasket1
@@ -38,7 +38,7 @@
             this.usrc_SetItemQuantityInBasket1.Name = "usrc_SetItemQuantityInBasket1";
             this.usrc_SetItemQuantityInBasket1.Size = new System.Drawing.Size(1038, 320);
             this.usrc_SetItemQuantityInBasket1.TabIndex = 0;
-            this.usrc_SetItemQuantityInBasket1.ExitClick += new usrc_SetItemQuantityInBasket.delegate_ExitClick(this.usrc_SetItemQuantityInBasket1_ExitClick);
+            this.usrc_SetItemQuantityInBasket1.ExitClick += new usrc_SetCItemQuantityInBasket.delegate_ExitClick(this.usrc_SetItemQuantityInBasket1_ExitClick);
             // 
             // Form_SetItemQuantityInBasket
             // 
@@ -55,6 +55,6 @@
 
         #endregion
 
-        private usrc_SetItemQuantityInBasket usrc_SetItemQuantityInBasket1;
+        private usrc_SetCItemQuantityInBasket usrc_SetItemQuantityInBasket1;
     }
 }

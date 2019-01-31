@@ -22,12 +22,7 @@ namespace TangentaDB
         public string[] m_s_name_Group = null;
         //public decimal nmUpDn_FactoryQuantity_Value = 0;
         public decimal nmUpDn_StockQuantity_Value = 0;
-        public decimal ExtraDiscount = 0;
-
-        //public ID Price_Item_ID = null;
-        //public decimal_v Price_Item_Discount_v = null;
-        //public ID PriceList_ID = null;
-        //public string_v PriceList_Name_v = null;
+       
         public string_v Currency_Name_v = null;
         public string_v Currency_Abbreviation_v = null;
         public string_v Currency_Symbol_v = null;
@@ -40,6 +35,7 @@ namespace TangentaDB
         public DateTime_v Stock_ImportTime_v = null;
         public bool_v StockTake_Draft_v = null;
         public ID Item_ID = null;
+        public ID PurchasePrice_Item_ID = null;
         public string_v Item_UniqueName_v = null;
         public string_v Item_Name_v = null;
         public string_v Item_barcode_v = null;
@@ -123,6 +119,7 @@ namespace TangentaDB
             Stock_ImportTime_v = tf.set_DateTime(xdr["Stock_ImportTime"]);
             StockTake_Draft_v = tf.set_bool(xdr["PurchasePrice_Item_$_st_$$Draft"]);
             Item_ID = tf.set_ID(xdr["PurchasePrice_Item_$_i_$$ID"]);
+            PurchasePrice_Item_ID = tf.set_ID(xdr["ID"]);
             Item_UniqueName_v = tf.set_string(xdr["PurchasePrice_Item_$_i_$$UniqueName"]);
             Item_Name_v = tf.set_string(xdr["PurchasePrice_Item_$_i_$$Name"]);
             Item_barcode_v = tf.set_string(xdr["PurchasePrice_Item_$_i_$$barcode"]);

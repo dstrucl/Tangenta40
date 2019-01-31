@@ -30,7 +30,7 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.usrc_Help1 = new HUDCMS.usrc_Help();
-            this.chk_V_NeverExpires = new usrc_checkmark();
+            this.chk_V_NeverExpires = new ShopC_Forms.usrc_checkmark();
             this.lbl_Expiry = new System.Windows.Forms.Label();
             this.lbl_V_Quantity = new System.Windows.Forms.Label();
             this.lbl_Quantity = new System.Windows.Forms.Label();
@@ -47,7 +47,7 @@
             this.lbl_V_ExpectedShelfLifeInDays = new System.Windows.Forms.Label();
             this.lbl_ExpectedShelfLifeInDays = new System.Windows.Forms.Label();
             this.grp_Waranty = new System.Windows.Forms.GroupBox();
-            this.chk_V_Warranty = new usrc_checkmark();
+            this.chk_V_Warranty = new ShopC_Forms.usrc_checkmark();
             this.lbl_Warranty = new System.Windows.Forms.Label();
             this.txt_V_WarrantyConditions = new System.Windows.Forms.TextBox();
             this.lbl_V_WarantyDuration = new System.Windows.Forms.Label();
@@ -59,7 +59,7 @@
             this.lbl_V_Taxation_Rate = new System.Windows.Forms.Label();
             this.lbl_V_Taxation_Name = new System.Windows.Forms.Label();
             this.lbl_Taxation_Name = new System.Windows.Forms.Label();
-            this.lbl_V_RetailPriceWithDiscount = new System.Windows.Forms.Label();
+            this.lbl_V_PurchasePriceWithDiscount = new System.Windows.Forms.Label();
             this.lbl_V_Discount = new System.Windows.Forms.Label();
             this.lbl_V_RetailPricePerUnit = new System.Windows.Forms.Label();
             this.lbl_Taxation_Rate = new System.Windows.Forms.Label();
@@ -69,8 +69,6 @@
             this.txt_Atom_Item_Name = new System.Windows.Forms.TextBox();
             this.lbl_Atom_Item_Name = new System.Windows.Forms.Label();
             this.pic_Atom_Item = new System.Windows.Forms.PictureBox();
-            this.txt_V_FromFactory = new System.Windows.Forms.TextBox();
-            this.lbl_FromFactory = new System.Windows.Forms.Label();
             this.txt_V_FromStock = new System.Windows.Forms.TextBox();
             this.lbl_FromStock = new System.Windows.Forms.Label();
             this.dgvx_DocInvoice_Atom_Item_Stock = new DataGridView_2xls.DataGridView2xls();
@@ -117,7 +115,7 @@
             this.splitContainer1.Panel1.Controls.Add(this.lbl_V_Taxation_Rate);
             this.splitContainer1.Panel1.Controls.Add(this.lbl_V_Taxation_Name);
             this.splitContainer1.Panel1.Controls.Add(this.lbl_Taxation_Name);
-            this.splitContainer1.Panel1.Controls.Add(this.lbl_V_RetailPriceWithDiscount);
+            this.splitContainer1.Panel1.Controls.Add(this.lbl_V_PurchasePriceWithDiscount);
             this.splitContainer1.Panel1.Controls.Add(this.lbl_V_Discount);
             this.splitContainer1.Panel1.Controls.Add(this.lbl_V_RetailPricePerUnit);
             this.splitContainer1.Panel1.Controls.Add(this.lbl_Taxation_Rate);
@@ -130,8 +128,6 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.txt_V_FromFactory);
-            this.splitContainer1.Panel2.Controls.Add(this.lbl_FromFactory);
             this.splitContainer1.Panel2.Controls.Add(this.txt_V_FromStock);
             this.splitContainer1.Panel2.Controls.Add(this.lbl_FromStock);
             this.splitContainer1.Panel2.Controls.Add(this.dgvx_DocInvoice_Atom_Item_Stock);
@@ -437,15 +433,15 @@
             this.lbl_Taxation_Name.Text = "Vrsta davka:";
             this.lbl_Taxation_Name.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // lbl_V_RetailPriceWithDiscount
+            // lbl_V_PurchasePriceWithDiscount
             // 
-            this.lbl_V_RetailPriceWithDiscount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_V_RetailPriceWithDiscount.Location = new System.Drawing.Point(329, 69);
-            this.lbl_V_RetailPriceWithDiscount.Name = "lbl_V_RetailPriceWithDiscount";
-            this.lbl_V_RetailPriceWithDiscount.Size = new System.Drawing.Size(54, 20);
-            this.lbl_V_RetailPriceWithDiscount.TabIndex = 42;
-            this.lbl_V_RetailPriceWithDiscount.Text = "?30";
-            this.lbl_V_RetailPriceWithDiscount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbl_V_PurchasePriceWithDiscount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_V_PurchasePriceWithDiscount.Location = new System.Drawing.Point(329, 69);
+            this.lbl_V_PurchasePriceWithDiscount.Name = "lbl_V_PurchasePriceWithDiscount";
+            this.lbl_V_PurchasePriceWithDiscount.Size = new System.Drawing.Size(54, 20);
+            this.lbl_V_PurchasePriceWithDiscount.TabIndex = 42;
+            this.lbl_V_PurchasePriceWithDiscount.Text = "?30";
+            this.lbl_V_PurchasePriceWithDiscount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbl_V_Discount
             // 
@@ -535,24 +531,6 @@
             this.pic_Atom_Item.TabIndex = 30;
             this.pic_Atom_Item.TabStop = false;
             // 
-            // txt_V_FromFactory
-            // 
-            this.txt_V_FromFactory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txt_V_FromFactory.Location = new System.Drawing.Point(717, 12);
-            this.txt_V_FromFactory.Name = "txt_V_FromFactory";
-            this.txt_V_FromFactory.Size = new System.Drawing.Size(121, 22);
-            this.txt_V_FromFactory.TabIndex = 38;
-            // 
-            // lbl_FromFactory
-            // 
-            this.lbl_FromFactory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_FromFactory.Location = new System.Drawing.Point(373, 13);
-            this.lbl_FromFactory.Name = "lbl_FromFactory";
-            this.lbl_FromFactory.Size = new System.Drawing.Size(338, 20);
-            this.lbl_FromFactory.TabIndex = 37;
-            this.lbl_FromFactory.Text = "Količina vzeta iz proizvodnje ali neposredne dobave:";
-            this.lbl_FromFactory.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // txt_V_FromStock
             // 
             this.txt_V_FromStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -591,11 +569,11 @@
             this.dgvx_DocInvoice_Atom_Item_Stock.Size = new System.Drawing.Size(841, 88);
             this.dgvx_DocInvoice_Atom_Item_Stock.TabIndex = 39;
             // 
-            // usrc_Atom_Item_View
+            // usrc_Atom_CItem_View
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.Controls.Add(this.splitContainer1);
-            this.Name = "usrc_Atom_Item_View";
+            this.Name = "usrc_Atom_CItem_View";
             this.Size = new System.Drawing.Size(857, 425);
             this.Load += new System.EventHandler(this.usrc_Atom_Item_View_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -638,7 +616,7 @@
         private System.Windows.Forms.Label lbl_V_Taxation_Rate;
         private System.Windows.Forms.Label lbl_V_Taxation_Name;
         private System.Windows.Forms.Label lbl_Taxation_Name;
-        private System.Windows.Forms.Label lbl_V_RetailPriceWithDiscount;
+        private System.Windows.Forms.Label lbl_V_PurchasePriceWithDiscount;
         private System.Windows.Forms.Label lbl_V_Discount;
         private System.Windows.Forms.Label lbl_V_RetailPricePerUnit;
         private System.Windows.Forms.Label lbl_Taxation_Rate;
@@ -648,8 +626,6 @@
         private System.Windows.Forms.TextBox txt_Atom_Item_Name;
         private System.Windows.Forms.Label lbl_Atom_Item_Name;
         private System.Windows.Forms.PictureBox pic_Atom_Item;
-        private System.Windows.Forms.TextBox txt_V_FromFactory;
-        private System.Windows.Forms.Label lbl_FromFactory;
         private System.Windows.Forms.TextBox txt_V_FromStock;
         private System.Windows.Forms.Label lbl_FromStock;
         private DataGridView_2xls.DataGridView2xls dgvx_DocInvoice_Atom_Item_Stock;

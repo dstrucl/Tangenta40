@@ -22,7 +22,7 @@ namespace ShopC_Forms
 {
     public partial class usrc_Atom_CItem : UserControl
     {
-        public TangentaDB.Consumption_ShopC_Item m_dsci = null;
+        public TangentaDB.Consumption_ShopC_Item m_csci = null;
 
         public long Item_ID = -1;
 
@@ -74,14 +74,14 @@ namespace ShopC_Forms
 
         internal void DoRefresh()
         {
-            if (m_dsci.Atom_Item_UniqueName_v != null)
+            if (m_csci.Atom_Item_UniqueName_v != null)
             {
-                this.Item_UniqueName = m_dsci.Atom_Item_UniqueName_v.v;
+                this.Item_UniqueName = m_csci.Atom_Item_UniqueName_v.v;
             }
             string sunit = "";
-            if (m_dsci.Atom_Unit_Symbol_v != null)
+            if (m_csci.Atom_Unit_Symbol_v != null)
             {
-                sunit = m_dsci.Atom_Unit_Symbol_v.v;
+                sunit = m_csci.Atom_Unit_Symbol_v.v;
             }
 
          
@@ -90,19 +90,19 @@ namespace ShopC_Forms
             decimal TaxPrice = 0;
             decimal NetPrice = 0;
 
-            m_dsci.dsciS_List.GetPrices(m_dsci.TaxationRate,
-                                        m_dsci.Discount,
-                                        m_dsci.ExtraDiscount,
-                                        m_dsci.RetailPricePerUnit,
+            m_csci.dsciS_List.GetPrices(m_csci.TaxationRate,
+                                        m_csci.dQuantity_FromStock,
+                                        0,
+                                        m_csci.PurchasePricePerUnit,
                                         ref RetailPrice,
                                         ref RetailPriceWithDiscount,
                                         ref TaxPrice,
                                         ref NetPrice
                                         );
             
-            if (m_dsci.dQuantity_all > 0)
+            if (m_csci.dQuantity_all > 0)
             {
-                lbl_Quantity_Value.Text = m_dsci.dQuantity_all.ToString() + " " + sunit;
+                lbl_Quantity_Value.Text = m_csci.dQuantity_all.ToString() + " " + sunit;
                 lbl_Quantity_Value.Visible = true;
             }
             else
@@ -114,14 +114,14 @@ namespace ShopC_Forms
             lbl_RetailPriceValue.Text = LanguageControl.DynSettings.SetLanguageCurrencyString(RetailPriceWithDiscount, GlobalData.BaseCurrency.DecimalPlaces, GlobalData.BaseCurrency.Symbol);
             lbl_RetailPriceValue.Visible = true;
 
-            decimal dTotalDiscount = m_dsci.Discount + m_dsci.ExtraDiscount - m_dsci.Discount * m_dsci.ExtraDiscount;
-            lbl_DiscountValue.Text = Global.f.GetPercent(m_dsci.TotalDiscount, GlobalData.BaseCurrency.DecimalPlaces) + "%";
+            decimal dTotalDiscount = m_csci.PurchasePricePerUnit_Discount;
+            lbl_DiscountValue.Text = Global.f.GetPercent(m_csci.TotalDiscount, GlobalData.BaseCurrency.DecimalPlaces) + "%";
 
         }
 
         internal void DoPaint(TangentaDB.Consumption_ShopC_Item xdsci, usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode emode)
         {
-            m_dsci = xdsci;
+            m_csci = xdsci;
             if (emode== usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode.EDIT)
             {
                 btn_RemoveFromBasket.Visible = true;
@@ -147,7 +147,7 @@ namespace ShopC_Forms
         {
             if (btn_RemoveClick != null)
             {
-                btn_RemoveClick(m_dsci);
+                btn_RemoveClick(m_csci);
             }
         }
 

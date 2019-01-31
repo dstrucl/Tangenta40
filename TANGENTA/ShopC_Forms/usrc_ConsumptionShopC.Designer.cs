@@ -77,7 +77,7 @@
             this.m_usrc_PriceList1.TabIndex = 25;
             this.m_usrc_PriceList1.PriceListChanged += new PriseLists.usrc_PriceList.delegate_PriceListChanged(this.usrc_PriceList1_PriceListChanged);
             // 
-            // usrc_ShopC
+            // usrc_ConsumptionShopC
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -86,7 +86,7 @@
             this.Controls.Add(this.m_usrc_Atom_ItemsList);
             this.Controls.Add(this.lbl_ShopC_Name);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "usrc_ShopC";
+            this.Name = "usrc_ConsumptionShopC";
             this.Size = new System.Drawing.Size(1006, 280);
             this.ResumeLayout(false);
 

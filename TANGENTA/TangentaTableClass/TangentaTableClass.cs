@@ -1775,6 +1775,26 @@ namespace TangentaTableClass
 
     }
 
+    public class Atom_PurchasePrice
+    {
+
+        public ID ID = new ID();
+
+        public PurchasePricePerUnit PurchasePricePerUnit = new PurchasePricePerUnit();
+
+        public Atom_Currency m_Atom_Currency = new Atom_Currency();
+
+        public Atom_Taxation m_Atom_Taxation = new Atom_Taxation();
+
+        public PurchasePriceDate PurchasePriceDate = new PurchasePriceDate();
+
+        public Discount Discount = new Discount();
+
+        public PriceWithoutVAT PriceWithoutVAT = new PriceWithoutVAT();
+
+        public VATCanNotBeDeducted VATCanNotBeDeducted = new VATCanNotBeDeducted();
+
+    }
 
 
     public class PurchasePrice_Item
@@ -1786,6 +1806,20 @@ namespace TangentaTableClass
         public PurchasePrice m_PurchasePrice = new PurchasePrice();
 
         public Item m_Item = new Item();
+
+        public StockTake m_StockTake = new StockTake();
+
+    }
+
+    public class Atom_PurchasePrice_Item
+
+    {
+
+        public ID ID = new ID();
+
+        public PurchasePrice m_PurchasePrice = new PurchasePrice();
+
+        public Atom_Item m_Atom_Item = new Atom_Item();
 
         public StockTake m_StockTake = new StockTake();
 
@@ -3112,7 +3146,8 @@ namespace TangentaTableClass
     {
         public ID ID = new ID();
         public Consumption m_Consumption = new Consumption();
-        public Item m_Item = new Item();
+        public PurchasePrice_Item m_PurchasePrice_Item = new PurchasePrice_Item();
+
     }
 
     public class Consumption_ShopC_Item_Source
@@ -3934,6 +3969,8 @@ namespace TangentaTableClass
 
         /* 269 */
         public JOURNAL_Consumption m_JOURNAL_Consumption = new JOURNAL_Consumption();
+
+       
 
     }
 }

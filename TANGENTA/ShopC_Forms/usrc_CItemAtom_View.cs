@@ -175,8 +175,7 @@ namespace ShopC_Forms
                    
                     
 
-                    this.txt_V_FromFactory.Text = xdsci.dQuantity_FromFactory.ToString();
-                    this.txt_V_FromStock.Text = xdsci.dQuantity_FromStock.ToString();
+                     this.txt_V_FromStock.Text = xdsci.dQuantity_FromStock.ToString();
                     this.lbl_V_Quantity.Text = xdsci.dQuantity_all.ToString();
 
                     if (xdsci.Atom_Expiry_ExpiryDescription != null)
@@ -295,9 +294,9 @@ namespace ShopC_Forms
                     }
 
                     //Price 
-                    if (xdsci.RetailPricePerUnit >0 )
+                    if (xdsci.PurchasePricePerUnit >0 )
                     {
-                        lbl_V_RetailPricePerUnit.Text = xdsci.RetailPricePerUnit.ToString();
+                        lbl_V_RetailPricePerUnit.Text = xdsci.PurchasePricePerUnit.ToString();
                     }
                     else
                     {
@@ -306,16 +305,16 @@ namespace ShopC_Forms
 
                     }
                     decimal RetailPrice = -1;
-                    if (xdsci.RetailPricePerUnit >= 0)
+                    if (xdsci.PurchasePricePerUnit >= 0)
                     {
-                        RetailPrice = xdsci.RetailPricePerUnit * xdsci.dQuantity_all;
+                        RetailPrice = xdsci.PurchasePricePerUnit * xdsci.dQuantity_all;
                     }
 
                     lbl_V_Discount.Text = Global.f.GetPercent(xdsci.TotalDiscount,GlobalData.BaseCurrency.DecimalPlaces);
                    
 
                    
-                    lbl_V_RetailPriceWithDiscount.Text = xdsci.RetailPriceWithDiscount.ToString();
+                    lbl_V_PurchasePriceWithDiscount.Text = xdsci.PurchqsePriceWithDiscount.ToString();
                  
 
                     decimal TaxPrice = -1;
@@ -334,7 +333,7 @@ namespace ShopC_Forms
                     lbl_V_NetPrice.Text = xdsci.NetPrice.ToString();
               
 
-                    string sql_get_image = "select Atom_Item_ImageLib.Image_Data from Atom_Item_ImageLib inner join Atom_Item_Image on Atom_Item_Image.Atom_Item_ImageLib_ID = Atom_Item_ImageLib.ID where Atom_Item_Image.Atom_Item_ID = " + xdsci.Atom_Item_ID.ToString();
+                    string sql_get_image = "select Atom_Item_ImageLib.Image_Data from Atom_Item_ImageLib inner join Atom_Item_Image on Atom_Item_Image.Atom_Item_ImageLib_ID = Atom_Item_ImageLib.ID where Atom_Item_Image.Atom_Item_ID = " + xdsci.Item_ID.ToString();
                     DataTable dt = new DataTable();
                     if (DBSync.DBSync.ReadDataTable(ref dt, sql_get_image, null, ref Err))
                     {

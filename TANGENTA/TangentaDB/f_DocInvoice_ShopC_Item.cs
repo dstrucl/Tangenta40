@@ -23,13 +23,14 @@ namespace TangentaDB
         {
             string Err = null;
             DataTable dt = new DataTable();
-            string sql = @"select disci.dQuantity as QuantityTakenFromStock,
+            string sql = @"select discis.dQuantity as QuantityTakenFromStock,
                                   s.ExpiryDate,
                                   i.UniqueName,
                                   st.Name as StockTakeName,
                                   st.StockTake_Date
                                   from DocInvoice_ShopC_Item disci
-                                  inner join Stock s on disci.Stock_ID = s.ID
+								  inner join DocInvoice_ShopC_Item_Source discis on discis.DocInvoice_ShopC_Item_ID = disci.ID
+                                  inner join Stock s on discis.Stock_ID = s.ID
                                   inner join PurchasePrice_Item ppi on s.PurchasePrice_Item_ID = ppi.ID
                                   inner join StockTake st on ppi.StockTake_ID = st.ID
                                   inner join Item i on ppi.Item_ID = i.ID

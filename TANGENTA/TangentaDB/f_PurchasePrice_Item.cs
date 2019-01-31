@@ -346,7 +346,7 @@ namespace TangentaDB
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
-            string sql = @"SELECT PurchasePrice_Item.ID,
+            string sql = @"SELECT PurchasePrice_Item.ID as ID,
              PurchasePrice_Item_$_i.UniqueName AS PurchasePrice_Item_$_i_$$UniqueName,
              PurchasePrice_Item_$_i_$_ipg1.Name AS s1_name,
              PurchasePrice_Item_$_i_$_ipg1_$_ipg2.Name AS s2_name,

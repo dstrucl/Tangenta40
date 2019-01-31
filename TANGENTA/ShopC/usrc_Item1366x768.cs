@@ -27,7 +27,7 @@ namespace ShopC
 {
     public partial class usrc_Item1366x768 : UserControl
     {
-
+        private Color backcolor_lbl_UniqueName;
         public new event EventHandler<EventArgs> Click;
 
         protected override void OnClick(EventArgs e)
@@ -75,6 +75,7 @@ namespace ShopC
             {
                 this.BackColor = ColorSettings.Sheme.Current().Colorpair[5].BackColor;
             }
+           
         }
 
         public NavigationButtons.Navigation nav = null;
@@ -82,6 +83,7 @@ namespace ShopC
         public usrc_Item1366x768()
         {
             InitializeComponent();
+            backcolor_lbl_UniqueName = this.lbl_Item_UniqueName.BackColor;
         }
 
         // Protected implementation of Dispose pattern. 
@@ -175,6 +177,14 @@ namespace ShopC
                 else
                 {
                     lbl_Price.Visible = false;
+                }
+                if (idata.PurchasePricePerUnit_v == null)
+                {
+                    this.lbl_Item_UniqueName.BackColor = Color.LightGray;
+                }
+                else
+                {
+                    this.lbl_Item_UniqueName.BackColor = backcolor_lbl_UniqueName;
                 }
             }
         }

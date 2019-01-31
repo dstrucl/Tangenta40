@@ -506,43 +506,43 @@ namespace ShopC_Forms
 
 
 
-            CurrentCons.dtCurrent_Invoice.Columns.Clear();
-            CurrentCons.dtCurrent_Invoice.Clear();
-            if (DBSync.DBSync.ReadDataTable(ref CurrentCons.dtCurrent_Invoice, sql_GetDraft, lpar, ref Err))
+            CurrentCons.dtCurrent_Consumption.Columns.Clear();
+            CurrentCons.dtCurrent_Consumption.Clear();
+            if (DBSync.DBSync.ReadDataTable(ref CurrentCons.dtCurrent_Consumption, sql_GetDraft, lpar, ref Err))
             {
-                if (CurrentCons.dtCurrent_Invoice.Rows.Count > 0)
+                if (CurrentCons.dtCurrent_Consumption.Rows.Count > 0)
                 {
                     CurrentCons.Exist = true;
-                    CurrentCons.bDraft = (bool)CurrentCons.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$Draft"];
-                    CurrentCons.Doc_ID = tf.set_ID(CurrentCons.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$ID"]);
-                    CurrentCons.EventTime = (DateTime)CurrentCons.dtCurrent_Invoice.Rows[0]["EventTime"];
+                    CurrentCons.bDraft = (bool)CurrentCons.dtCurrent_Consumption.Rows[0]["JOURNAL_Consumption_$_cs_$$Draft"];
+                    CurrentCons.Doc_ID = tf.set_ID(CurrentCons.dtCurrent_Consumption.Rows[0]["JOURNAL_Consumption_$_cs_$$ID"]);
+                    CurrentCons.EventTime = (DateTime)CurrentCons.dtCurrent_Consumption.Rows[0]["EventTime"];
 
                     if (CurrentCons.Atom_Currency_ID == null)
                     {
                         CurrentCons.Atom_Currency_ID = new ID();
                     }
-                    CurrentCons.Atom_Currency_ID = tf.set_ID(CurrentCons.dtCurrent_Invoice.Rows[0]["Atom_Currency_ID"]);
+                    CurrentCons.Atom_Currency_ID = tf.set_ID(CurrentCons.dtCurrent_Consumption.Rows[0]["Atom_Currency_ID"]);
                     if (CurrentCons.Currency == null)
                     {
                         CurrentCons.Currency = new xCurrency();
                     }
 
                     CurrentCons.Currency.ID = CurrentCons.Atom_Currency_ID;
-                    CurrentCons.Currency.Name = (string)CurrentCons.dtCurrent_Invoice.Rows[0]["CurrencyName"];
-                    CurrentCons.Currency.Abbreviation = (string)CurrentCons.dtCurrent_Invoice.Rows[0]["CurrencyAbbreviation"];
-                    CurrentCons.Currency.Symbol = (string)CurrentCons.dtCurrent_Invoice.Rows[0]["CurrencySymbol"];
-                    CurrentCons.Currency.CurrencyCode = (int)CurrentCons.dtCurrent_Invoice.Rows[0]["CurrencyCode"];
-                    CurrentCons.Currency.DecimalPlaces = (int)CurrentCons.dtCurrent_Invoice.Rows[0]["CurrencyDecimalPlaces"];
+                    CurrentCons.Currency.Name = (string)CurrentCons.dtCurrent_Consumption.Rows[0]["CurrencyName"];
+                    CurrentCons.Currency.Abbreviation = (string)CurrentCons.dtCurrent_Consumption.Rows[0]["CurrencyAbbreviation"];
+                    CurrentCons.Currency.Symbol = (string)CurrentCons.dtCurrent_Consumption.Rows[0]["CurrencySymbol"];
+                    CurrentCons.Currency.CurrencyCode = (int)CurrentCons.dtCurrent_Consumption.Rows[0]["CurrencyCode"];
+                    CurrentCons.Currency.DecimalPlaces = (int)CurrentCons.dtCurrent_Consumption.Rows[0]["CurrencyDecimalPlaces"];
 
-                    CurrentCons.TInvoice.StornoConsumption_ID = tf.set_ID(CurrentCons.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$Consumption_Reference_ID"]);
+                    CurrentCons.TInvoice.StornoConsumption_ID = tf.set_ID(CurrentCons.dtCurrent_Consumption.Rows[0]["JOURNAL_Consumption_$_cs_$$Consumption_Reference_ID"]);
 
-                    CurrentCons.TInvoice.Invoice_Reference_Type_v = tf.set_string(CurrentCons.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$Consumption_Reference_Type"]);
-                    CurrentCons.TInvoice.bStorno_v = tf.set_bool(CurrentCons.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$Storno"]);
+                    CurrentCons.TInvoice.Invoice_Reference_Type_v = tf.set_string(CurrentCons.dtCurrent_Consumption.Rows[0]["JOURNAL_Consumption_$_cs_$$Consumption_Reference_Type"]);
+                    CurrentCons.TInvoice.bStorno_v = tf.set_bool(CurrentCons.dtCurrent_Consumption.Rows[0]["JOURNAL_Consumption_$_cs_$$Storno"]);
 
-                    CurrentCons.FinancialYear = (int)CurrentCons.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$FinancialYear"];
+                    CurrentCons.FinancialYear = (int)CurrentCons.dtCurrent_Consumption.Rows[0]["JOURNAL_Consumption_$_cs_$$FinancialYear"];
 
              
-                    object oNumberInFinancialYear = CurrentCons.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$NumberInFinancialYear"];
+                    object oNumberInFinancialYear = CurrentCons.dtCurrent_Consumption.Rows[0]["JOURNAL_Consumption_$_cs_$$NumberInFinancialYear"];
                     if (oNumberInFinancialYear is int)
                     {
                         CurrentCons.NumberInFinancialYear = (int)oNumberInFinancialYear;
@@ -552,12 +552,12 @@ namespace ShopC_Forms
                         CurrentCons.NumberInFinancialYear = -1;
                     }
 
-                    CurrentCons.DraftNumber = (int)CurrentCons.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$DraftNumber"];
+                    CurrentCons.DraftNumber = (int)CurrentCons.dtCurrent_Consumption.Rows[0]["JOURNAL_Consumption_$_cs_$$DraftNumber"];
 
                     ID xConsumption_ID = CurrentCons.Doc_ID;
                     if (CurrentCons.TInvoice.StornoConsumption_ID != null)
                     {
-                        decimal_v dGrossSum_v = tf.set_decimal(CurrentCons.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_cs_$$GrossSum"]);
+                        decimal_v dGrossSum_v = tf.set_decimal(CurrentCons.dtCurrent_Consumption.Rows[0]["JOURNAL_Consumption_$_cs_$$GrossSum"]);
                         if (dGrossSum_v != null)
                         {
                             if (dGrossSum_v.v < 0)
@@ -566,8 +566,30 @@ namespace ShopC_Forms
                             }
                         }
                     }
+
+                    CurrentCons.m_Basket.Basket_Consumption_ShopC_Item_LIST.Clear();
+                    if (CurrentCons.m_Basket.Read_Consumption_ShopC_Item_Table(DocTyp, CurrentCons.Doc_ID, ref CurrentCons.m_Basket.Basket_Consumption_ShopC_Item_LIST, transaction))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                    
                 }
-                return true;
+                else
+                {
+                    if (bDraft)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                   
+                }
             }
             else
             {
@@ -741,7 +763,7 @@ namespace ShopC_Forms
             else
             {
                 sGrossSum = dsum_GrossSum.ToString();
-                decimal_v dGrossSum_v = tf.set_decimal(CurrentCons.dtCurrent_Invoice.Rows[0]["JOURNAL_Consumption_$_dinv_$$GrossSum"]);
+                decimal_v dGrossSum_v = tf.set_decimal(CurrentCons.dtCurrent_Consumption.Rows[0]["JOURNAL_Consumption_$_dinv_$$GrossSum"]);
                 if (dGrossSum_v != null)
                 {
                     if (dGrossSum_v.v < 0)

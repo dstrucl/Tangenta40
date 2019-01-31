@@ -15,7 +15,7 @@ using ShopC_Forms;
 
 namespace ShopC_Forms
 {
-    public partial class usrc_SetItemQuantityInBasket : UserControl
+    public partial class usrc_SetCItemQuantityInBasket : UserControl
     {
 
         private DynEditControls.usrc_NumericUpDown3 active_nm_UpDn = null;
@@ -45,12 +45,11 @@ namespace ShopC_Forms
         public delegate void delegate_ChangeClick();
         public event delegate_ExitClick ChangeClick;
 
-        public usrc_SetItemQuantityInBasket()
+        public usrc_SetCItemQuantityInBasket()
         {
             InitializeComponent();
             lng.s_Update.Text(btn_Change);
             lng.s_FromStock.Text(grp_From_Stock);
-            lng.s_AvoidStock.Text(grp_FromFactory);
             lng.s_RetailPrice.Text(usrc_nmUpDn_FromStock.label1);
             lng.s_Taxation.Text(usrc_nmUpDn_FromStock.label4);
 
@@ -94,11 +93,10 @@ namespace ShopC_Forms
             // first stock items !
             decimal dallstocks = dsci.dQuantity_FromStock + idata.dQuantity_OfCStockItems;
             decimal dToTakeFromStock = usrc_nmUpDn_FromStock.Value;
-            decimal dToTakeFromFactory = usrc_nmUpDn_FromFactory.Value;
             if (dToTakeFromStock <= dallstocks)
             {
                 // take from stock is possible
-                if (dToTakeFromStock + dToTakeFromFactory ==0)
+                if (dToTakeFromStock ==0)
                 {
                     //ask to remove item from basket
                     if (XMessage.Box.Show(this,lng.sYouSetAllQuantitiesToZeroDoYouwantToRemoveItem,"?",MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2)==DialogResult.Yes)
@@ -210,7 +208,6 @@ namespace ShopC_Forms
               
                 btn_Discount.Text = Global.f.GetPercent(extradiscount, 4);
                 set_NmUpDn(usrc_nmUpDn_FromStock, unitsymbol, taxation_name, lng.s_FromStock.s,dv_remains_in_stock, idata);
-                set_NmUpDn(usrc_nmUpDn_FromFactory, unitsymbol, taxation_name, lng.s_AvoidStock.s, dv_remains_in_stock, idata);
             }
         }
 
@@ -320,11 +317,11 @@ namespace ShopC_Forms
             }
 
             
-            dRetailPricePerUnit = dsci.RetailPricePerUnit;
+            dRetailPricePerUnit = dsci.PurchasePricePerUnit;
             
-            discount = dsci.Discount;
+            discount = dsci.PurchasePricePerUnit_Discount;
             
-            extradiscount = dsci.ExtraDiscount;
+            extradiscount = 0;
            
 
             btn_Discount.Text = Global.f.GetPercent(extradiscount, 4);
@@ -340,12 +337,9 @@ namespace ShopC_Forms
             dv_remains_in_stock = idata.dQuantity_OfCStockItems;
             set_NmUpDn(usrc_nmUpDn_FromStock, unitsymbol, taxation_name, lng.s_FromStock.s, dv_remains_in_stock,idata);
 
-            usrc_nmUpDn_FromFactory.Value = dsci.dQuantity_FromFactory;
-            set_NmUpDn(usrc_nmUpDn_FromFactory, unitsymbol, taxation_name, lng.s_AvoidStock.s, dv_remains_in_stock, idata);
-
+           
             this.usrc_nmUpDn_FromStock.ValueChanged += new System.EventHandler(this.usrc_nmUpDn_FromStock_ValueChanged);
-            this.usrc_nmUpDn_FromFactory.ValueChanged += new System.EventHandler(this.usrc_nmUpDn_FromFactory_ValueChanged);
-
+            
 
         }
 
@@ -366,20 +360,14 @@ namespace ShopC_Forms
             set_NmUpDn(usrc_nmUpDn_FromStock, unitsymbol, taxation_name, lng.s_FromStock.s, dv_remains_in_stock, idata);
         }
 
-        private void usrc_nmUpDn_FromFactory_ValueChanged(object sender, EventArgs e)
-        {
-            set_NmUpDn(usrc_nmUpDn_FromFactory, unitsymbol, taxation_name, lng.s_AvoidStock.s, dv_remains_in_stock, idata);
-        }
+        
 
         private void usrc_nmUpDn_FromStock_TextEnter(object sender, EventArgs e)
         {
             active_nm_UpDn = this.usrc_nmUpDn_FromStock;
         }
 
-        private void usrc_nmUpDn_FromFactory_TextEnter(object sender, EventArgs e)
-        {
-            active_nm_UpDn = this.usrc_nmUpDn_FromFactory;
-        }
+        
 
         private void usrc_NumKeys1_ButtonClicked(char ch)
         {

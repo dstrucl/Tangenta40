@@ -29,7 +29,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.lbl_Item = new System.Windows.Forms.Label();
-            this.lbl_bypass_Stock = new System.Windows.Forms.Label();
             this.lbl_from_Stock = new System.Windows.Forms.Label();
             this.lbl_VAT = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -46,18 +45,6 @@
             this.lbl_Item.TabIndex = 0;
             this.lbl_Item.Text = "label1";
             this.lbl_Item.Click += new System.EventHandler(this.Controls_Click);
-            // 
-            // lbl_bypass_Stock
-            // 
-            this.lbl_bypass_Stock.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.lbl_bypass_Stock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_bypass_Stock.Location = new System.Drawing.Point(4, 41);
-            this.lbl_bypass_Stock.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbl_bypass_Stock.Name = "lbl_bypass_Stock";
-            this.lbl_bypass_Stock.Size = new System.Drawing.Size(250, 19);
-            this.lbl_bypass_Stock.TabIndex = 14;
-            this.lbl_bypass_Stock.Text = "bypass Stock";
-            this.lbl_bypass_Stock.Click += new System.EventHandler(this.Controls_Click);
             // 
             // lbl_from_Stock
             // 
@@ -88,17 +75,16 @@
             this.timer1.Interval = 200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // usrc_Item_selected
+            // usrc_CItem_selected
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(249)))), ((int)(((byte)(166)))));
             this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.Controls.Add(this.lbl_VAT);
             this.Controls.Add(this.lbl_from_Stock);
-            this.Controls.Add(this.lbl_bypass_Stock);
             this.Controls.Add(this.lbl_Item);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "usrc_Item_selected";
+            this.Name = "usrc_CItem_selected";
             this.Size = new System.Drawing.Size(410, 84);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.usrc_Item_selected_Paint);
             this.ResumeLayout(false);
@@ -107,7 +93,6 @@
 
         #endregion
         internal System.Windows.Forms.Label lbl_Item;
-        internal System.Windows.Forms.Label lbl_bypass_Stock;
         internal System.Windows.Forms.Label lbl_from_Stock;
         internal System.Windows.Forms.Label lbl_VAT;
         private System.Windows.Forms.Timer timer1;

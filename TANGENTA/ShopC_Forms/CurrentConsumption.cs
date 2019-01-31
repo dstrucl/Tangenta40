@@ -44,8 +44,7 @@ namespace ShopC_Forms
         public string sql_Price_Item_Stock_template = null;
 
 
-        public DataTable dtCurrent_Invoice = null;
-        public DataTable dtCurrent_Atom_Price_ShopBItem = null;
+        public DataTable dtCurrent_Consumption = null;
 
         public DataTable dtCurrent_Consumption_ShopC_Item = null;
 
@@ -95,7 +94,6 @@ namespace ShopC_Forms
                     m_Exist = value;
                     if (!m_Exist)
                     {
-                        dtCurrent_Atom_Price_ShopBItem.Clear();
                         dtCurrent_Consumption_ShopC_Item.Clear();
                         if (m_Basket != null)
                         {
@@ -111,8 +109,7 @@ namespace ShopC_Forms
             m_CosnumptionEditor = xInvoiceDB;
             DBtcn = xDBtcn;
 
-            dtCurrent_Invoice = new DataTable();
-            dtCurrent_Atom_Price_ShopBItem = new DataTable();
+            dtCurrent_Consumption = new DataTable();
 
             dtCurrent_Consumption_ShopC_Item = new DataTable();
 
@@ -127,102 +124,7 @@ namespace ShopC_Forms
         }
 
 
-        public void Set_SelectedShopB_Items(string xDocTyp,DataGridView dgv_SelectedSimpleItems,
-                                           DataTable dt_SelectedSimpleItem,
-                                           DataGridView dgv_SimpleItem,
-                                           DataTable dt_SimpleItems)
-        {
-            ID Atom_SimpleItem_ID;
-            ID Consumption_ShopB_Item_Consumption_ID;
-            ID Consumption_ShopB_Item_SimpleItem_ID;
-            ID Consumption_ShopB_Item_Atom_SimpleItem_Name_ID;
-            ID Consumption_ShopB_Item_Atom_SimpleItem_Image_ID;
-            ID Consumption_ShopB_Item_Atom_Taxation_ID;
-            int Consumption_ShopB_Item_Quantity;
-            string Consumption_ShopB_Item_Atom_SimpleItem_Atom_SimpleItem_Name;
-            string Consumption_ShopB_Item_Atom_SimpleItem_Atom_SimpleItem_Abbreviation;
-            decimal Consumption_ShopB_Item_RetailSimpleItemPrice;
-            decimal Consumption_ShopB_Item_Discount;
-            string Consumption_ShopB_Item_Atom_Taxation_Name;
-            decimal Consumption_ShopB_Item_Atom_Taxation_Rate;
-            decimal Consumption_ShopB_Item_TaxPrice;
-            decimal Consumption_ShopB_Item_RetailSimpleItemPriceWithDiscount;
-            decimal Consumption_ShopB_Item_PriceWithoutTax;
-            decimal Consumption_ShopB_Item_ExtraDiscount;
-            dt_SelectedSimpleItem.Clear();
-            foreach (DataRow drsa in dtCurrent_Atom_Price_ShopBItem.Rows)
-            {
-                Atom_SimpleItem_ID = tf.set_ID(drsa["ID"]);
-                Consumption_ShopB_Item_Consumption_ID = tf.set_ID(drsa[xDocTyp+"_ID"]);
-                Consumption_ShopB_Item_SimpleItem_ID = tf.set_ID(drsa["SimpleItem_ID"]);
-                Consumption_ShopB_Item_Atom_SimpleItem_Name_ID = tf.set_ID(drsa["Atom_SimpleItem_Name_ID"]);
-                Consumption_ShopB_Item_Atom_SimpleItem_Image_ID = tf.set_ID(drsa["Atom_SimpleItem_Image_ID"]);
-
-                Consumption_ShopB_Item_Atom_Taxation_ID = tf.set_ID(drsa["Atom_Taxation_ID"]);
-                Consumption_ShopB_Item_Quantity = (int)drsa["iQuantity"];
-                Consumption_ShopB_Item_Atom_SimpleItem_Atom_SimpleItem_Name = (string)drsa["Name"];
-                Consumption_ShopB_Item_Atom_SimpleItem_Atom_SimpleItem_Abbreviation = (string)drsa["Abbreviation"];
-                Consumption_ShopB_Item_RetailSimpleItemPrice = (decimal)drsa["RetailSimpleItemPrice"];
-                Consumption_ShopB_Item_Discount = (decimal)drsa["Discount"];
-                Consumption_ShopB_Item_ExtraDiscount = (decimal)drsa["ExtraDiscount"];
-                Consumption_ShopB_Item_Atom_Taxation_Name = (string)drsa["Atom_Taxation_Name"];
-                Consumption_ShopB_Item_Atom_Taxation_Rate = (decimal)drsa["Atom_Taxation_Rate"];
-                Consumption_ShopB_Item_TaxPrice = (decimal)drsa["TaxPrice"];
-                Consumption_ShopB_Item_RetailSimpleItemPriceWithDiscount = (decimal)drsa["RetailSimpleItemPriceWithDiscount"];
-
-                Consumption_ShopB_Item_PriceWithoutTax = Consumption_ShopB_Item_RetailSimpleItemPriceWithDiscount - Consumption_ShopB_Item_TaxPrice;
-
-                DataRow dr = dt_SelectedSimpleItem.NewRow();
-                //dr[DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index] = Find_dt_SimpleItem_Index(dt_SimpleItems, Consumption_ShopB_Item_SimpleItem_ID);
-                dr[DBtcn.column_Selected_Atom_Price_ShopBItem_ID] = Atom_SimpleItem_ID.V;
-                dr[DBtcn.column_SelectedShopBItem_ShopBItem_ID] = Consumption_ShopB_Item_SimpleItem_ID.V;
-                dr[DBtcn.column_SelectedShopBItem_Count] = Consumption_ShopB_Item_Quantity;
-                dr[DBtcn.column_SelectedShopBItemName] = Consumption_ShopB_Item_Atom_SimpleItem_Atom_SimpleItem_Name;
-                dr[DBtcn.column_SelectedShopBItemPriceWithoutTax] = Consumption_ShopB_Item_PriceWithoutTax;
-                dr[DBtcn.column_SelectedShopBItemPriceTax] = Consumption_ShopB_Item_TaxPrice;
-                dr[DBtcn.column_SelectedShopBItem_TaxName] = Consumption_ShopB_Item_Atom_Taxation_Name;
-                dr[DBtcn.column_SelectedShopBItem_TaxRate] = Consumption_ShopB_Item_Atom_Taxation_Rate;
-                dr[DBtcn.column_SelectedShopBItem_ExtraDiscount] = Consumption_ShopB_Item_ExtraDiscount;
-                dr[DBtcn.column_SelectedShopBItemPrice] = Consumption_ShopB_Item_RetailSimpleItemPriceWithDiscount;
-                dr[DBtcn.column_SelectedShopBItemRetailPricePerUnit] = Consumption_ShopB_Item_RetailSimpleItemPrice;
-                dt_SelectedSimpleItem.Rows.Add(dr);
-                int index = dt_SelectedSimpleItem.Rows.IndexOf(dr);
-                if (Consumption_ShopB_Item_ExtraDiscount != 0)
-                {
-                    try
-                    {
-                        dgv_SelectedSimpleItems.Rows[index].Cells["btn_discount"].Value = Consumption_ShopB_Item_ExtraDiscount;
-                    }
-                    catch
-                    {
-                        dgv_SelectedSimpleItems.Rows[index].Cells["SelectedSimpleItem_ExtraDiscount"].Value = Consumption_ShopB_Item_ExtraDiscount;
-                    }
-                }
-            }
-            //m_CosnumptionEditor.Set_dgv_selected_ShopB_Items_Columns(dgv_SelectedSimpleItems);
-
-        }
-
-        private int Find_dt_SimpleItem_Index(DataTable dt_SimpleItems, ID Atom_SimpleItem_SimpleItem_ID)
-        {
-            DataRow[] dr = null;
-            if (dt_SimpleItems.Rows.Count > 0)
-            {
-                dr = dt_SimpleItems.Select("ID=" + Atom_SimpleItem_SimpleItem_ID.ToString());
-                if (dr.Count() > 0)
-                {
-                    return dt_SimpleItems.Rows.IndexOf(dr[0]);
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            else
-            {
-                return -1;
-            }
-        }
+      
 
      
 

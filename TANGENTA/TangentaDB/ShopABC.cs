@@ -783,6 +783,7 @@ namespace TangentaDB
             return true;
         }
 
+       
 
         public bool Read_Doc_Atom_Item_Stock_Table(ID xDoc_ID, ID Atom_Item_ID, ref DataTable dtDraft_DocInvoice_Atom_Item_Stock, string scond, ref string Err)
         {

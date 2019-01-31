@@ -20,12 +20,12 @@ namespace TangentaDB
     {
         public ID Consumption_ShopC_Item_ID = null;
         public ID Consumption_ID = null;
-        public ID Atom_Price_Item_ID = null;
-        public ID Atom_Item_ID = null;
+        public ID PurchasePrice_Item_ID = null;
+        public ID Item_ID = null;
 
-        public decimal RetailPricePerUnit = 0;
-        public decimal Discount = 0;
-        public decimal ExtraDiscount = 0;
+        public decimal PurchasePricePerUnit = 0;
+        public decimal PurchasePricePerUnit_Discount = 0;
+
         public decimal TaxationRate
         {
             get
@@ -119,7 +119,7 @@ namespace TangentaDB
         {
             get
             {
-                return Discount + ExtraDiscount - Discount * ExtraDiscount;
+                return PurchasePricePerUnit_Discount;
             }
         }
 
@@ -132,13 +132,13 @@ namespace TangentaDB
             }
         }
 
-        public decimal dQuantity_FromFactory
-        {
-            get
-            {
-                return dsciS_List.dQuantity_from_factory;
-            }
-        }
+        //public decimal dQuantity_FromFactory
+        //{
+        //    get
+        //    {
+        //        return dsciS_List.dQuantity_from_factory;
+        //    }
+        //}
 
         public void Set(string docTyp, DataRow dria,
                             ref List<Consumption_ShopC_Item> Consumption_ShopC_Item_Data_list)
@@ -146,13 +146,13 @@ namespace TangentaDB
             Consumption_ShopC_Item_Source dsciS = null;
             int i = 0;
             int iCount = Consumption_ShopC_Item_Data_list.Count;
-            Atom_Item_ID = new ID(dria["Atom_Item_ID"]);
+            Item_ID = new ID(dria["Atom_Item_ID"]);
 
-            if (ID.Validate(Atom_Item_ID))
+            if (ID.Validate(Item_ID))
             {
                 for (i = 0; i < iCount; i++)
                 {
-                    if (((Consumption_ShopC_Item)Consumption_ShopC_Item_Data_list[i]).Atom_Item_ID.Equals(Atom_Item_ID))
+                    if (((Consumption_ShopC_Item)Consumption_ShopC_Item_Data_list[i]).Item_ID.Equals(Item_ID))
                     {
                         dsciS = new Consumption_ShopC_Item_Source();
                         dsciS.Set(docTyp,dria);
@@ -163,10 +163,9 @@ namespace TangentaDB
 
                 Consumption_ShopC_Item_ID = tf.set_ID(dria[docTyp+"_ShopC_Item_ID"]);
                 Consumption_ID = tf.set_ID(dria[docTyp+"_ID"]);
-                Atom_Price_Item_ID = new ID(dria["Atom_Price_Item_ID"]);
-                RetailPricePerUnit = tf._set_decimal(dria["RetailPricePerUnit"]);
-                Discount = tf._set_decimal(dria["Discount"]);
-                ExtraDiscount = tf._set_decimal(dria["ExtraDiscount"]);
+                PurchasePrice_Item_ID = new ID(dria["Atom_Price_Item_ID"]);
+                PurchasePricePerUnit = tf._set_decimal(dria["RetailPricePerUnit"]);
+                PurchasePricePerUnit_Discount = tf._set_decimal(dria["Discount"]);
                 Atom_Item_UniqueName_v = tf.set_string(dria["Atom_Item_UniqueName"]);
                 Atom_Item_Name_Name_v = tf.set_string(dria["Atom_Item_Name_Name"]);
                 Atom_Item_barcode_barcode_v = tf.set_string(dria["Atom_Item_barcode_barcode"]);
@@ -224,12 +223,12 @@ namespace TangentaDB
             }
         }
 
-        public decimal RetailPriceWithDiscount
+        public decimal PurchqsePriceWithDiscount
         {
 
             get
             {
-                return dsciS_List.RetailPriceWithDiscount(RetailPricePerUnit, Discount, ExtraDiscount, TaxationRate);
+                return dsciS_List.RetailPriceWithDiscount(PurchasePricePerUnit,this.PurchasePricePerUnit_Discount, 0, TaxationRate);
             }
 
         }
@@ -239,7 +238,7 @@ namespace TangentaDB
 
             get
             {
-                return dsciS_List.TaxPrice(RetailPricePerUnit, Discount, ExtraDiscount, TaxationRate);
+                return dsciS_List.TaxPrice(PurchasePricePerUnit, PurchasePricePerUnit_Discount, 0, TaxationRate);
             }
 
         }
@@ -249,7 +248,7 @@ namespace TangentaDB
 
             get
             {
-                return dsciS_List.NetPrice(RetailPricePerUnit, Discount, ExtraDiscount, TaxationRate);
+                return dsciS_List.NetPrice(PurchasePricePerUnit, PurchasePricePerUnit_Discount, 0, TaxationRate);
             }
 
         }
@@ -327,7 +326,7 @@ namespace TangentaDB
             Consumption_ShopC_Item_ID = consumption_ShopC_Item_ID;
             Consumption_ID = new ID();
             Consumption_ID.Set(xConsumption_ID);
-            Atom_Price_Item_ID = null; // tf.set_long(dria["Atom_Price_Item_ID"]);
+            PurchasePrice_Item_ID = null; // tf.set_long(dria["Atom_Price_Item_ID"]);
 
             //RetailPricePerUnit = (decimal_v)tf.Copy(xItem_Data.RetailPricePerUnit); //tf.set_decimal(dr[cpis.icol_RetailPricePerUnit]);
 
@@ -639,17 +638,17 @@ namespace TangentaDB
 
             if (doc_type.Equals(GlobalData.const_ConsumptionAll))
             {
-                if (f_Consumption_ShopC_Item.Insert(cons_ID, xData.Item_ID,ref this.Consumption_ShopC_Item_ID, transaction))
+                if (f_Consumption_ShopC_Item.Insert(cons_ID, xData.PurchasePrice_Item_ID,ref this.Consumption_ShopC_Item_ID, transaction))
                 {
                     if (std_taken_List != null)
                     {
                         foreach (CStock_Data stdx in std_taken_List)
                         {
                             decimal discount = 0;
-                            //if (xData.Price_Item_Discount_v != null)
-                            //{
-                            //    discount = xData.Price_Item_Discount_v.v;
-                            //}
+                            if (xData.PurchasePrice_Item_Discount_v != null)
+                            {
+                                discount = xData.PurchasePrice_Item_Discount_v.v;
+                            }
 
                             if (xData.Taxation_Rate_v != null)
                             {
@@ -661,8 +660,8 @@ namespace TangentaDB
 
                                     StaticLib.Func.CalculatePrice(xData.PurchasePricePerUnit_v.v,
                                                                   stdx.dQuantity_Taken_v.v,
+                                                                  discount,
                                                                   0,
-                                                                  xData.ExtraDiscount,
                                                                   xData.Taxation_Rate_v.v,
                                                                   ref retailPriceWithDiscount,
                                                                   ref taxPrice,
@@ -790,14 +789,19 @@ namespace TangentaDB
 
             if (xData.PurchasePricePerUnit_v != null)
             {
-                this.RetailPricePerUnit = xData.PurchasePricePerUnit_v.v;
+                this.PurchasePricePerUnit = xData.PurchasePricePerUnit_v.v;
             }
             else
             {
                 LogFile.Error.Show("ERROR:TangentaDB:Consumption_ShopC_Item:Set(Item_Data xData):xData.RetailPricePerUnit_v == null!");
             }
-            //this.Discount = xData.Discount;
-            ExtraDiscount = xData.ExtraDiscount;
+            this.PurchasePricePerUnit_Discount = 0;
+            if (xData.PurchasePrice_Item_Discount_v!=null)
+            {
+                this.PurchasePricePerUnit_Discount = xData.PurchasePrice_Item_Discount_v.v;
+            }
+
+            //ExtraDiscount = 0;
         }
 
         internal bool Set(string doc_type, ID doc_ID, CItem_Data xData, List<CStock_Data> taken_from_Stock_List, Transaction transaction)
@@ -805,15 +809,15 @@ namespace TangentaDB
             foreach (CStock_Data stdx in taken_from_Stock_List)
             {
                 Consumption_ShopC_Item_Source dsciSx = this.dsciS_List.Find(stdx);
-
+                decimal discount = 0;
                 if (dsciSx==null)
                 {
                     dsciSx = new Consumption_ShopC_Item_Source();
-                    decimal discount = 0;
-                    //if (xData.Price_Item_Discount_v != null)
-                    //{
-                    //    discount = xData.Price_Item_Discount_v.v;
-                    //}
+                    
+                    if (xData.PurchasePrice_Item_Discount_v != null)
+                    {
+                        discount = xData.PurchasePrice_Item_Discount_v.v;
+                   }
 
                     if (xData.Taxation_Rate_v != null)
                     {
@@ -825,8 +829,8 @@ namespace TangentaDB
 
                             StaticLib.Func.CalculatePrice(xData.PurchasePricePerUnit_v.v,
                                                           stdx.dQuantity_Taken_v.v,
+                                                          discount,
                                                           0,
-                                                          xData.ExtraDiscount,
                                                           xData.Taxation_Rate_v.v,
                                                           ref retailPriceWithDiscount,
                                                           ref taxPrice,
@@ -860,6 +864,10 @@ namespace TangentaDB
                 }
                 else
                 {
+                    if (xData.PurchasePrice_Item_Discount_v != null)
+                    {
+                        discount = xData.PurchasePrice_Item_Discount_v.v;
+                    }
                     decimal retailPriceWithDiscount = 0;
                     decimal taxPrice = 0;
                     decimal retailPriceWithDiscount_WithoutTax = 0;
@@ -868,8 +876,8 @@ namespace TangentaDB
 
                     StaticLib.Func.CalculatePrice(xData.PurchasePricePerUnit_v.v,
                                                   dnewQuantity,
-                                                  0,//xData.Discount,
-                                                  xData.ExtraDiscount,
+                                                  discount,
+                                                  0,
                                                   xData.Taxation_Rate_v.v,
                                                   ref retailPriceWithDiscount,
                                                   ref taxPrice,
@@ -913,7 +921,7 @@ namespace TangentaDB
             Consumption_ShopC_Item_ID = doc_ShopC_Item_ID;
             Consumption_ID = new ID();
             Consumption_ID.Set(xConsumption_ID);
-            Atom_Price_Item_ID = null; // tf.set_long(dria["Atom_Price_Item_ID"]);
+            PurchasePrice_Item_ID = null; // tf.set_long(dria["Atom_Price_Item_ID"]);
 
 
             //RetailPricePerUnit = (decimal_v)tf.Copy(xItem_Data.RetailPricePerUnit); //tf.set_decimal(dr[cpis.icol_RetailPricePerUnit]);

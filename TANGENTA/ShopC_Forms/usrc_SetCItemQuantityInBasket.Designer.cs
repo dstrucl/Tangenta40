@@ -1,6 +1,6 @@
 ﻿namespace ShopC_Forms
 {
-    partial class usrc_SetItemQuantityInBasket
+    partial class usrc_SetCItemQuantityInBasket
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,14 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_SetCItemQuantityInBasket));
             this.lbl_Item_UniqueName = new System.Windows.Forms.Label();
             this.lbl_ItemDescription = new System.Windows.Forms.Label();
             this.lb_ItemInfo = new System.Windows.Forms.Label();
             this.btn_Change = new System.Windows.Forms.Button();
             this.grp_From_Stock = new System.Windows.Forms.GroupBox();
             this.usrc_nmUpDn_FromStock = new DynEditControls.usrc_NumericUpDown3();
-            this.grp_FromFactory = new System.Windows.Forms.GroupBox();
-            this.usrc_nmUpDn_FromFactory = new DynEditControls.usrc_NumericUpDown3();
             this.btn_Exit = new System.Windows.Forms.Button();
             this.btn_Discount = new System.Windows.Forms.Button();
             this.btn_EditItem = new System.Windows.Forms.Button();
@@ -44,7 +43,6 @@
             this.btn_DelBack = new System.Windows.Forms.Button();
             this.usrc_NumKeys1 = new usrc_NumKeypad.usrc_NumKeys();
             this.grp_From_Stock.SuspendLayout();
-            this.grp_FromFactory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Item)).BeginInit();
             this.SuspendLayout();
             // 
@@ -151,64 +149,10 @@
             0});
             this.usrc_nmUpDn_FromStock.TextEnter += new System.EventHandler(this.usrc_nmUpDn_FromStock_TextEnter);
             // 
-            // grp_FromFactory
-            // 
-            this.grp_FromFactory.Controls.Add(this.usrc_nmUpDn_FromFactory);
-            this.grp_FromFactory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.grp_FromFactory.Location = new System.Drawing.Point(394, 95);
-            this.grp_FromFactory.Name = "grp_FromFactory";
-            this.grp_FromFactory.Size = new System.Drawing.Size(402, 139);
-            this.grp_FromFactory.TabIndex = 29;
-            this.grp_FromFactory.TabStop = false;
-            this.grp_FromFactory.Text = "From Factory";
-            // 
-            // usrc_nmUpDn_FromFactory
-            // 
-            this.usrc_nmUpDn_FromFactory.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.usrc_nmUpDn_FromFactory.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.usrc_nmUpDn_FromFactory.DecimalPlaces = 2;
-            this.usrc_nmUpDn_FromFactory.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.usrc_nmUpDn_FromFactory.Label1 = "";
-            this.usrc_nmUpDn_FromFactory.Label2 = "";
-            this.usrc_nmUpDn_FromFactory.Label3 = "";
-            this.usrc_nmUpDn_FromFactory.Label4 = "";
-            this.usrc_nmUpDn_FromFactory.Location = new System.Drawing.Point(6, 21);
-            this.usrc_nmUpDn_FromFactory.Maximum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.usrc_nmUpDn_FromFactory.Minimum = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.usrc_nmUpDn_FromFactory.Name = "usrc_nmUpDn_FromFactory";
-            this.usrc_nmUpDn_FromFactory.ReadOnly = false;
-            this.usrc_nmUpDn_FromFactory.Size = new System.Drawing.Size(390, 109);
-            this.usrc_nmUpDn_FromFactory.TabIndex = 1;
-            this.usrc_nmUpDn_FromFactory.Type = DynEditControls.usrc_NumericUpDown3.eType.INTEGER;
-            this.usrc_nmUpDn_FromFactory.Unit = "";
-            this.usrc_nmUpDn_FromFactory.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.usrc_nmUpDn_FromFactory.ValueMultiplier = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.usrc_nmUpDn_FromFactory.TextEnter += new System.EventHandler(this.usrc_nmUpDn_FromFactory_TextEnter);
-            // 
             // btn_Exit
             // 
             this.btn_Exit.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Exit.Image = TangentaResources.Properties.Resources.Exit;
+            this.btn_Exit.Image = ((System.Drawing.Image)(resources.GetObject("btn_Exit.Image")));
             this.btn_Exit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_Exit.Location = new System.Drawing.Point(7, 241);
             this.btn_Exit.Margin = new System.Windows.Forms.Padding(4);
@@ -222,7 +166,7 @@
             // btn_Discount
             // 
             this.btn_Discount.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Discount.Image = TangentaResources.Properties.Resources.Discount;
+            this.btn_Discount.Image = ((System.Drawing.Image)(resources.GetObject("btn_Discount.Image")));
             this.btn_Discount.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_Discount.Location = new System.Drawing.Point(210, 241);
             this.btn_Discount.Margin = new System.Windows.Forms.Padding(4);
@@ -236,7 +180,7 @@
             // btn_EditItem
             // 
             this.btn_EditItem.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_EditItem.Image = TangentaResources.Properties.Resources.ItemStock_Edit;
+            this.btn_EditItem.Image = ((System.Drawing.Image)(resources.GetObject("btn_EditItem.Image")));
             this.btn_EditItem.Location = new System.Drawing.Point(681, 243);
             this.btn_EditItem.Margin = new System.Windows.Forms.Padding(4);
             this.btn_EditItem.Name = "btn_EditItem";
@@ -284,7 +228,7 @@
             this.usrc_NumKeys1.TabIndex = 30;
             this.usrc_NumKeys1.ButtonClicked += new usrc_NumKeypad.usrc_NumKeys.delegate_ButtonClicked(this.usrc_NumKeys1_ButtonClicked);
             // 
-            // usrc_SetItemQuantityInBasket
+            // usrc_SetCItemQuantityInBasket
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -292,7 +236,6 @@
             this.Controls.Add(this.btn_DelBack);
             this.Controls.Add(this.btn_Del);
             this.Controls.Add(this.usrc_NumKeys1);
-            this.Controls.Add(this.grp_FromFactory);
             this.Controls.Add(this.grp_From_Stock);
             this.Controls.Add(this.btn_Change);
             this.Controls.Add(this.lb_ItemInfo);
@@ -302,10 +245,9 @@
             this.Controls.Add(this.btn_EditItem);
             this.Controls.Add(this.pic_Item);
             this.Controls.Add(this.lbl_Item_UniqueName);
-            this.Name = "usrc_SetItemQuantityInBasket";
+            this.Name = "usrc_SetCItemQuantityInBasket";
             this.Size = new System.Drawing.Size(1030, 320);
             this.grp_From_Stock.ResumeLayout(false);
-            this.grp_FromFactory.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pic_Item)).EndInit();
             this.ResumeLayout(false);
 
@@ -321,9 +263,7 @@
         internal System.Windows.Forms.Label lb_ItemInfo;
         private System.Windows.Forms.Button btn_Change;
         private System.Windows.Forms.GroupBox grp_From_Stock;
-        private System.Windows.Forms.GroupBox grp_FromFactory;
         private DynEditControls.usrc_NumericUpDown3 usrc_nmUpDn_FromStock;
-        private DynEditControls.usrc_NumericUpDown3 usrc_nmUpDn_FromFactory;
         private usrc_NumKeypad.usrc_NumKeys usrc_NumKeys1;
         private System.Windows.Forms.Button btn_Del;
         private System.Windows.Forms.Button btn_DelBack;

@@ -2987,7 +2987,7 @@ namespace TangentaDataBaseDef
             t_Consumption_ShopC_Item = new SQLTable((Object)new Consumption_ShopC_Item(), "cssci", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_Consumption_ShopC_Item); 
             t_Consumption_ShopC_Item.AddColumn((Object)mt.m_Consumption_ShopC_Item.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_Consumption_ShopC_Item.AddColumn((Object)mt.m_Consumption_ShopC_Item.m_Consumption, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Consumption ID", "Poraba ID"));
-            t_Consumption_ShopC_Item.AddColumn((Object)mt.m_Consumption_ShopC_Item.m_Item, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Item arh ID", "Artikel arh ID"));
+            t_Consumption_ShopC_Item.AddColumn((Object)mt.m_Consumption_ShopC_Item.m_PurchasePrice_Item, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Purchase Price Item arh ID", "Nabavna cena Artikla arh ID"));
             m_DBTables.DBT.items.Add(t_Consumption_ShopC_Item);
 
             /* 260 */
@@ -3053,7 +3053,6 @@ namespace TangentaDataBaseDef
             m_DBTables.DBT.items.Add(t_OwnUseAddOn);
 
             /* 268 */
-            t_JOURNAL_Consumption_Type = null;
             t_JOURNAL_Consumption_Type = new SQLTable((Object)new JOURNAL_Consumption_Type(), "jct", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_JOURNAL_Consumption_Type);
             t_JOURNAL_Consumption_Type.AddColumn((Object)mt.m_JOURNAL_Consumption_Type.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_JOURNAL_Consumption_Type.AddColumn((Object)mt.m_JOURNAL_Consumption_Type.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Type Name", "Ime"));
@@ -3061,7 +3060,6 @@ namespace TangentaDataBaseDef
             m_DBTables.DBT.items.Add(t_JOURNAL_Consumption_Type);
 
             /* 269 */
-            t_JOURNAL_Consumption = null;
             t_JOURNAL_Consumption = new SQLTable((Object)new JOURNAL_Consumption(), "jc", Column.Flags.FILTER_AND_UNIQUE, lng.lngt_JOURNAL_Consumption);
             t_JOURNAL_Consumption.AddColumn((Object)mt.m_JOURNAL_Consumption.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_JOURNAL_Consumption.AddColumn((Object)mt.m_JOURNAL_Consumption.m_JOURNAL_Consumption_Type, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Journal event invoice ID", "Dogodek račun ID"));
@@ -3069,6 +3067,8 @@ namespace TangentaDataBaseDef
             t_JOURNAL_Consumption.AddColumn((Object)mt.m_JOURNAL_Consumption.EventTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Event time", "Čas dogodka"));
             t_JOURNAL_Consumption.AddColumn((Object)mt.m_JOURNAL_Consumption.m_Atom_WorkPeriod, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Work shift ID", "Šiht ID"));
             m_DBTables.DBT.items.Add(t_JOURNAL_Consumption);
+
+           
 
         }
     }
