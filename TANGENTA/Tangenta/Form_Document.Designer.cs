@@ -39,12 +39,17 @@
             this.loginControl1.AuthentificationType = LoginControl.LoginCtrl.eAuthentificationType.PASSWORD;
             this.loginControl1.DataTableCreationMode = LoginControl.LoginCtrl.eDataTableCreationMode.STD;
             this.loginControl1.IdleControlActive = false;
+            this.loginControl1.IdleControlFileImageUrl1 = null;
+            this.loginControl1.IdleControlFileImageUrl2 = null;
+            this.loginControl1.IdleControlImageUrl1 = null;
+            this.loginControl1.IdleControlImageUrl2 = null;
             this.loginControl1.IdleControlShowURL2 = false;
             this.loginControl1.IdleControlTimeInSecondsToActivate = -1;
             this.loginControl1.IdleControlURL1 = null;
             this.loginControl1.IdleControlURL2 = null;
             this.loginControl1.IdleControlUseExitButton = false;
             this.loginControl1.RecentItemsFolder = "";
+            this.loginControl1.RecordCashierActivity = false;
             this.loginControl1.ShowAdministrators = false;
             this.loginControl1.UserLoggedIn += new LoginControl.LoginCtrl.delegate_UserLoggedIn(this.loginControl1_UserLoggedIn);
             this.loginControl1.UserLoggedOut += new LoginControl.LoginCtrl.delegate_UserLoggedOut(this.loginControl1_UserLoggedOut);
@@ -75,6 +80,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Form_Load);
             this.Shown += new System.EventHandler(this.Form_Document_Shown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form_Document_KeyUp);
             this.ResumeLayout(false);
 
         }

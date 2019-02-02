@@ -334,6 +334,10 @@
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\LayoutManager\LayoutManager.csproj">
+      <Project>{c6cbdce4-ec3d-4d9c-8aea-2e6e801d5bfc}</Project>
+      <Name>LayoutManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\UTIL\LogFile\LogFile.csproj">
       <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
       <Name>LogFile</Name>

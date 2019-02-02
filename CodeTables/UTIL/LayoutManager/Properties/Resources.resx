@@ -1,0 +1,609 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="backward0_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\backward0_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bookmark__plus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bookmark--plus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="box" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\box.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="class_libraries" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\class_libraries.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_Button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_Button.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_CheckBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_CheckBox.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_CheckedListBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_CheckedListBox.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_ComboBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_ComboBox.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_DataGridView" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_DataGridView.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_DataGridViewColumn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_DataGridViewColumn.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_DateTimePicker" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_DateTimePicker.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_Form" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_Form.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_GroupBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_GroupBox.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_Label" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_Label.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_NumericUpDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_NumericUpDown.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_Panel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_Panel.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_PictureBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_PictureBox.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_RadioButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_RadioButton.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_RichTextBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_RichTextBox.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_SplitContainer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_SplitContainer.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_TabControl" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_TabControl.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_Text" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_Text.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_TreeView" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_TreeView.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_UserControl" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_UserControl.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ctrl_WebBrowser" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ctrl_WebBrowser.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DefaultStyle" xml:space="preserve">
+    <value>body {
+		font-family: Arial, Helvetica, sans-serif;
+        background-color: white;
+        display: block;
+        margin-top: 4px;
+        width: 860px;
+    }
+
+    h1.Title {
+        font-size: 0.6cm;
+        padding-top: 0.5cm;
+        padding-left: 0.5cm;
+        padding-right: 0.5cm;
+        padding-bottom: 0cm;
+    }
+
+    h2.Title {
+        font-size: 0.5cm;
+        line-height: 2.4em;
+        padding-top: 0.6cm;
+        padding-left: 0.5cm;
+        padding-right: 0.5cm;
+    }
+
+	
+    h3.Title {
+        font-size: 0.4cm;
+        padding-top: 0.6cm;
+        padding-left: 0.5cm;
+        padding-right: 10px;
+	}
+	
+    div.About{
+        font-size: 0.4cm;
+        padding-top: 0.2cm;
+        padding-left: 0.8cm;
+        padding-right: 0.5cm;
+        padding-bottom: 0.2cm;
+	}
+	
+	img {
+        padding-top: 0.5cm;
+        padding-left: 0.5cm;
+	}</value>
+  </data>
+  <data name="Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Edit.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_padding_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\edit-padding-top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="eng_Header" xml:space="preserve">
+    <value>&lt;div class="header"&gt; 
+		&lt;canvas id="TangentaLogo" width="60" height="50"&gt;&lt;/canvas&gt;
+		&lt;script type="text/javascript"&gt;
+		var canvas, context, canvaso, contexto;
+		canvaso = document.getElementById('TangentaLogo');
+		context = canvaso.getContext('2d');
+		context.lineWidth = 1;
+
+		// Draw vertical line
+		context.strokeStyle ='#936b20';
+		context.beginPath();
+		context.moveTo(30, 0);
+		context.lineTo(30, 50);
+		context.stroke();
+
+		// Draw large arc
+		context.beginPath();
+		context.arc(54, 26, 24,0.6*Math.PI,1.5*Math.PI, false);
+		context.stroke();
+
+		// Draw head circle
+		context.beginPath();
+		context.fillStyle = "#E2FFB0"/*"#CEF988";*/
+		context.arc(34, 6, 4,0,2*Math.PI, false);
+		context.fill();
+		context.stroke();
+
+		context.closePath();
+		context.restore();
+
+		&lt;/script&gt;
+ 		 
+		 &lt;div class="header_border_with_radius"&gt;
+			&lt;div class = "header_menu"&gt;
+			 &lt;span&gt;&lt;a href="../Tangenta.html"&gt;TANGENTA&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../Invoice.html"&gt;INVOICES&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../ProformaInvoice.html"&gt;PROFORMA INVOICES&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../Stock.html"&gt;STOCK&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../PriceList.html"&gt;PRICE LISTS&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../Printing.html"&gt;PRINTING&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../InvoicingOverview.html"&gt;OVERVIEW&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../Support.html"&gt;SUPPORT&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../News.html"&gt;NEWS&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../About.html"&gt;ABOUT&lt;/a&gt;&lt;/span&gt;
+			 &lt;/div&gt;
+		&lt;/div&gt;				
+	&lt;/div&gt;</value>
+  </data>
+  <data name="forward_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\forward_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GeneralHelpStyle" xml:space="preserve">
+    <value>@import url("reset.css");
+
+body {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 13px;
+	background-color:whitesmoke;
+    color:#333
+}
+
+  
+  .side {
+     display:inline-block;
+	 font-size: 200%;
+    }
+	
+	div {
+		font-family: Verdana;
+		color: brown;
+		font-size: 150%;
+	}
+
+	div.relative {
+		position: relative;
+		top: 10px;
+		width: 1200px;
+		height: 40px;
+	} 
+
+	div.title_position {
+		position: absolute;
+		top: 5px;
+		left: 280px;
+		width: 920px;
+		height: 40px;
+	}	
+
+	div.download_position {
+		position: absolute;
+		top: 0px;
+		left: 650px;
+		width: 360px;
+		height: 40px;
+	}	
+	
+	input.download_button
+	{
+		font-family: Verdana;
+		color: brown;
+		font-size: 100%;
+	}
+	
+	div.keyfeatures{
+		position: absolute;
+		top: 2px;
+		left: 430px;
+		font-size: 70%;
+		font-weight: bold;
+		text-align: center;
+	}	
+	
+	div.content1position {
+		position: absolute;
+		top: 30px;
+		left: 140px;
+		font-size: 70%;
+		text-align: center;
+	}	
+	
+	div.content2position {
+		position: absolute;
+		top: 100px;
+		left: 75px;
+		font-size: 70%;
+		text-align: center;
+	}	
+	
+	div.content3position {
+		position: absolute;
+		top: 150px;
+		left: 30px;
+		font-size: 70%;
+		text-align: center;
+	}	
+
+	div.content4position {
+		position: absolute;
+		top: 210px;
+		left: 30px;
+		font-size: 70%;
+		text-align: center;
+	}	
+	
+	div.content5position {
+		position: absolute;
+		top: 280px;
+		left: 55px;
+		font-size: 70%;
+		text-align: center;
+	}	
+	
+	div.content6position {
+		position: absolute;
+		top: 310px;
+		left: 125px;
+		font-size: 70%;
+		text-align: Left;
+	}	
+	
+	div.content7position {
+		position: absolute;
+		top: 370px;
+		left: 158px;
+		font-size: 70%;
+		text-align: Left;
+	}	
+	
+p {
+    padding: 10px;
+}
+
+#wrapper {
+    margin: 0 auto;
+    width: 1000px;
+}
+
+#contentwrap {
+    width: 1000;
+    float: left;
+    margin: 0 auto;
+}
+
+div.content {
+	position: absolute;
+	top: 38px;
+	left: 75px;
+	width: 1020px;
+	height: 430px;
+/*	border: 3px solid #000000;*/
+	/* IE10+ */ 
+background-image: -ms-linear-gradient(top, #f8ffe8 0%, #DBF5A7 100%, #E8FFD4 100%);
+
+/* Mozilla Firefox */ 
+background-image: -moz-linear-gradient(top, #f8ffe8 0%, #DBF5A7 100%, #E8FFD4 100%);
+
+/* Opera */ 
+background-image: -o-linear-gradient(top, #f8ffe8 0%, #DBF5A7 100%, #E8FFD4 100%);
+
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(linear, top top, left top, color-stop(0, #f8ffe8), color-stop(100, #DBF5A7), color-stop(100, #E8FFD4));
+
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-linear-gradient(top, #f8ffe8 0%, #DBF5A7 100%, #E8FFD4 100%);
+
+/* W3C Markup */ 
+background-image: linear-gradient(to top, #f8ffe8 0%, #DBF5A7 100%, #E8FFD4 100%);
+	
+/*    background: #E2FFB0;*/
+    border-radius: 215px;
+    border: 1px solid #ceeb9c;
+    margin: 5px;
+}</value>
+  </data>
+  <data name="GeneralHelpTemplate" xml:space="preserve">
+    <value>&lt;html&gt;
+ &lt;head&gt;
+	&lt;meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/&gt;
+	&lt;meta name="description" content="Tangenta invoicing"/&gt;
+	&lt;meta name="keywords" content="Invoice,Invoicing,Estimates,Customers,SQLite,MSSSQL"/&gt;
+	&lt;meta name="author" content="Damjan Štrucl Hrnčič"/&gt;
+	&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;	
+	&lt;link rel="stylesheet" 
+		 type="text/css" 
+		 href="GeneralHelp.css" /&gt;
+     &lt;title&gt;TANGENTA-INVOICING&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;div class="header"&gt; 
+		&lt;canvas id="TangentaLogo" width="60" height="50"&gt;&lt;/canvas&gt;
+		&lt;script type="text/javascript"&gt;
+		var canvas, context, canvaso, contexto;
+		canvaso = document.getElementById('TangentaLogo');
+		context = canvaso.getContext('2d');
+		context.lineWidth = 1;
+
+		// Draw vertical line
+		context.strokeStyle ='#936b20';
+		context.beginPath();
+		context.moveTo(30, 0);
+		context.lineTo(30, 50);
+		context.stroke();
+
+		// Draw large arc
+		context.beginPath();
+		context.arc(54, 26, 24,0.6*Math.PI,1.5*Math.PI, false);
+		context.stroke();
+
+		// Draw head circle
+		context.beginPath();
+		context.fillStyle = "#E2FFB0"/*"#CEF988";*/
+		context.arc(34, 6, 4,0,2*Math.PI, false);
+		context.fill();
+		context.stroke();
+
+		context.closePath();
+		context.restore();
+
+		&lt;/script&gt;
+ 		 
+		 &lt;div class="header_border_with_radius"&gt;
+			&lt;div class = "header_menu"&gt;
+			 &lt;span&gt;&lt;a href="../Tangenta.html"&gt;TANGENTA&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../Invoice.html"&gt;RAČUNI&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../ProformaInvoice.html"&gt;PREDRAČUNI&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../Stock.html"&gt;ZALOGE&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../PriceList.html"&gt;CENIKI&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../Printing.html"&gt;TISKANJE RAČUNOV&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../InvoicingOverview.html"&gt;PREGLED FAKTUR&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../Support.html"&gt;PODPORA&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../News.html"&gt;NOVICE&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../About.html"&gt;O PROGRAMU&lt;/a&gt;&lt;/span&gt;
+			 &lt;/div&gt;
+		&lt;/div&gt;		
+	&lt;/div&gt;
+	&lt;h1 class= "Title"&gt;
+	(@@Title@@)
+	&lt;/h1&gt;
+	&lt;div class= "About"&gt;
+	(@@About@@)
+	&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="Help.bmp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Help.bmp.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="layer__minus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\layer--minus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="layer__plus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\layer--plus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lightning" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lightning.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Link" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Link.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NoLink" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NoLink.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="property" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\property.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="redo_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\redo_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="slo_Header" xml:space="preserve">
+    <value>&lt;div class="header"&gt; 
+		&lt;canvas id="TangentaLogo" width="60" height="50"&gt;&lt;/canvas&gt;
+		&lt;script type="text/javascript"&gt;
+		var canvas, context, canvaso, contexto;
+		canvaso = document.getElementById('TangentaLogo');
+		context = canvaso.getContext('2d');
+		context.lineWidth = 1;
+
+		// Draw vertical line
+		context.strokeStyle ='#936b20';
+		context.beginPath();
+		context.moveTo(30, 0);
+		context.lineTo(30, 50);
+		context.stroke();
+
+		// Draw large arc
+		context.beginPath();
+		context.arc(54, 26, 24,0.6*Math.PI,1.5*Math.PI, false);
+		context.stroke();
+
+		// Draw head circle
+		context.beginPath();
+		context.fillStyle = "#E2FFB0"/*"#CEF988";*/
+		context.arc(34, 6, 4,0,2*Math.PI, false);
+		context.fill();
+		context.stroke();
+
+		context.closePath();
+		context.restore();
+
+		&lt;/script&gt;
+ 		 
+		 &lt;div class="header_border_with_radius"&gt;
+			&lt;div class = "header_menu"&gt;
+			 &lt;span&gt;&lt;a href="../Tangenta.html"&gt;TANGENTA&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../Invoice.html"&gt;RAČUNI&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../ProformaInvoice.html"&gt;PREDRAČUNI&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../Stock.html"&gt;ZALOGE&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../PriceList.html"&gt;CENIKI&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../Printing.html"&gt;TISKANJE RAČUNOV&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../InvoicingOverview.html"&gt;PREGLED FAKTUR&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../Support.html"&gt;PODPORA&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../News.html"&gt;NOVICE&lt;/a&gt;&lt;/span&gt;,
+			 &lt;span&gt;&lt;a href="../About.html"&gt;O PROGRAMU&lt;/a&gt;&lt;/span&gt;
+			 &lt;/div&gt;
+		&lt;/div&gt;				
+	&lt;/div&gt;</value>
+  </data>
+  <data name="undo_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\undo_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>

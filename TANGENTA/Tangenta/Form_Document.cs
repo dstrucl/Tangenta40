@@ -33,6 +33,7 @@ using System.Net.NetworkInformation;
 using TangentaBooting;
 using TangentaCore;
 using TangentaProperties;
+using LayoutManager;
 
 namespace Tangenta
 {
@@ -1551,7 +1552,7 @@ namespace Tangenta
             }
         }
 
-        public void HelpWizzardShow(Control ctrl, MyControl root_ctrl,string xheader, string xstyleFile)
+        public void HelpWizzardShow(Control ctrl, HUDCMS.MyControl root_ctrl,string xheader, string xstyleFile)
         {
             if (frm_Document_WizzardForHelp!=null)
             {
@@ -1955,6 +1956,24 @@ namespace Tangenta
                 }
             }
 
+        }
+
+    
+        private void Form_Document_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.Shift)
+            {
+                if (e.KeyCode == Keys.L)
+                {
+                    EditLayout(this);
+                }
+            }
+        }
+
+        private void EditLayout(Form pForm)
+        {
+            Form_Layout frm_layout = new Form_Layout(Screen.FromControl(pForm), pForm);
+            frm_layout.ShowDialog(pForm);
         }
     }
 }
