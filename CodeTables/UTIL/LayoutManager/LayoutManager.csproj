@@ -78,12 +78,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ShellUtilities.cs" />
-    <Compile Include="usrc_EditControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_EditControl.Designer.cs">
-      <DependentUpon>usrc_EditControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="usrc_EditLayout.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -101,9 +95,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_EditControl.resx">
-      <DependentUpon>usrc_EditControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_EditLayout.resx">
       <DependentUpon>usrc_EditLayout.cs</DependentUpon>

@@ -340,263 +340,263 @@ namespace LayoutManager
             }
         }
 
-        //internal void CreateNode(XDocument xh,ref XElement xn)
-        //{
+        internal void CreateNode(XDocument xh, ref XElement xn)
+        {
 
-        //    xel = new XElement("TControl");
-        //    XAttribute attribute_name = new XAttribute("name", GetControlUniqueName());
-        //    string simage_included = "0";
-        //    if (ImageIncluded)
-        //    {
-        //        simage_included = "1";
-        //    }
-        //    XAttribute attribute_imageincluded = new XAttribute("imageincluded", simage_included);
-        //    string sLink = "";
-        //    if (Link!=null)
-        //    {
-        //        if (Link.Count > 0)
-        //        {
-        //            if (Link.Count>2)
-        //            {
-        //                MessageBox.Show("Link count > 2!");
-        //            }
-        //            foreach (MyControl c in Link)
-        //            {
-        //                if (sLink.Length == 0)
-        //                {
-        //                    sLink = c.ControlUniqueName;
-        //                }
-        //                else
-        //                {
-        //                    sLink += "," + c.ControlUniqueName;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    XAttribute attribute_link = new XAttribute("link", sLink);
+            xel = new XElement("TControl");
+            XAttribute attribute_name = new XAttribute("name", GetControlUniqueName());
+            //string simage_included = "0";
+            //if (ImageIncluded)
+            //{
+            //    simage_included = "1";
+            //}
+            //XAttribute attribute_imageincluded = new XAttribute("imageincluded", simage_included);
+            //string sLink = "";
+            //if (Link != null)
+            //{
+            //    if (Link.Count > 0)
+            //    {
+            //        if (Link.Count > 2)
+            //        {
+            //            MessageBox.Show("Link count > 2!");
+            //        }
+            //        foreach (MyControl c in Link)
+            //        {
+            //            if (sLink.Length == 0)
+            //            {
+            //                sLink = c.ControlUniqueName;
+            //            }
+            //            else
+            //            {
+            //                sLink += "," + c.ControlUniqueName;
+            //            }
+            //        }
+            //    }
+            //}
+            //XAttribute attribute_link = new XAttribute("link", sLink);
 
-        //    string smargin = SnapShotMargin.ToString();
-        //    XAttribute attribute_margin = new XAttribute("margin", smargin);
+            //string smargin = SnapShotMargin.ToString();
+            //XAttribute attribute_margin = new XAttribute("margin", smargin);
 
-        //    XAttribute attribute_heading = new XAttribute("heading", HeadingTag);
+            //XAttribute attribute_heading = new XAttribute("heading", HeadingTag);
 
-        //    xel.Add(attribute_name);
-        //    xel.Add(attribute_imageincluded);
-        //    xel.Add(attribute_link);
-        //    xel.Add(attribute_margin);
-        //    xel.Add(attribute_heading);
-
-
-
-        //    if (HelpTitle.Length > 0)
-        //    {
-        //        xdiv_Title = new XElement("div");
-        //        XAttribute xdiv_Title_class = new XAttribute("class", "Title");
-        //        xdiv_Title.Add(xdiv_Title_class);
-        //        xTitle_Heading = new XElement(HeadingTag);
-        //        XAttribute xdiv_Title_Heading_class = new XAttribute("class", "Title");
-        //        if (ID.Length==0)
-        //        {
-        //            //Guid id = Guid.NewGuid();
-        //            ID = SetID();
-        //        }
-        //        XAttribute xdiv_Title_Heading_id = new XAttribute("id", ID);
-
-        //        xTitle_Heading.Add(xdiv_Title_Heading_class);
-        //        xTitle_Heading.Add(xdiv_Title_Heading_id);
+            xel.Add(attribute_name);
+            //xel.Add(attribute_imageincluded);
+            //xel.Add(attribute_link);
+            //xel.Add(attribute_margin);
+            //xel.Add(attribute_heading);
 
 
-        //        MyControl.ReplaceInnerXml(xTitle_Heading, "Title", HelpTitle);
+
+            //if (HelpTitle.Length > 0)
+            //{
+            //    xdiv_Title = new XElement("div");
+            //    XAttribute xdiv_Title_class = new XAttribute("class", "Title");
+            //    xdiv_Title.Add(xdiv_Title_class);
+            //    xTitle_Heading = new XElement(HeadingTag);
+            //    XAttribute xdiv_Title_Heading_class = new XAttribute("class", "Title");
+            //    if (ID.Length == 0)
+            //    {
+            //        //Guid id = Guid.NewGuid();
+            //        ID = SetID();
+            //    }
+            //    XAttribute xdiv_Title_Heading_id = new XAttribute("id", ID);
+
+            //    xTitle_Heading.Add(xdiv_Title_Heading_class);
+            //    xTitle_Heading.Add(xdiv_Title_Heading_id);
 
 
-                
-        //        xdiv_Title.Add(xTitle_Heading);
+            //    MyControl.ReplaceInnerXml(xTitle_Heading, "Title", HelpTitle);
 
-        //        xdiv_About = null;
-        //        xdiv_Description = null;
 
-        //        //if (this.HlpWizTag != null)
-        //        //{
-        //        //    if (this.HlpWizTag.HasAbout())
-        //        //    {
-        //        //        xdiv_About = new XElement("div");
-        //        //        XAttribute xdiv_About_class = new XAttribute("class", "About");
-        //        //        xdiv_About.Add(xdiv_About_class);
-        //        //        MyControl.ReplaceInnerXml(xdiv_About, this.HlpWizTag.About.tagDCs);
-        //        //        xdiv_Title.Add(xdiv_About);
-        //        //    }
-        //        //}
-        //        //else
-        //        //{
-        //        //    if (xdiv_About == null)
-        //        //    {
-        //        //        if (About.Length > 0)
-        //        //        {
-        //        //            xdiv_About = new XElement("div");
-        //        //            XAttribute xdiv_About_class = new XAttribute("class", "About");
-        //        //            xdiv_About.Add(xdiv_About_class);
-        //        //            MyControl.ReplaceInnerXml(xdiv_About, "About", About);
-        //        //            xdiv_Title.Add(xdiv_About);
-        //        //        }
-        //        //    }
-        //        //}
 
-        //        string Err = null;
+            //    xdiv_Title.Add(xTitle_Heading);
 
-        //        if ((this.hc.ctrlbmp != null) && m_ImageIncluded)
-        //        {
-        //            string imagesourcename = ImageSource;
-        //            if (ImageSource.Length > HUDCMS_static.MAX_FILENAME_LENGTH)
-        //            {
-        //                imagesourcename = "hashname_" + ImageSource.GetHashCode() + ".png";
-        //            }
+            //    xdiv_About = null;
+            //    xdiv_Description = null;
 
-        //            string imagehash = null;
-        //            if (this.ImageOfControl == null)
-        //            {
-        //                this.ImageOfControl = this.hc.ctrlbmp;
-        //                byte[] byteimage = Global.f.imageToByteArray(ImageOfControl);
-        //                imagehash = Global.f.GetHash_UrlTokenEncode(byteimage);
-        //            }
+            //    //if (this.HlpWizTag != null)
+            //    //{
+            //    //    if (this.HlpWizTag.HasAbout())
+            //    //    {
+            //    //        xdiv_About = new XElement("div");
+            //    //        XAttribute xdiv_About_class = new XAttribute("class", "About");
+            //    //        xdiv_About.Add(xdiv_About_class);
+            //    //        MyControl.ReplaceInnerXml(xdiv_About, this.HlpWizTag.About.tagDCs);
+            //    //        xdiv_Title.Add(xdiv_About);
+            //    //    }
+            //    //}
+            //    //else
+            //    //{
+            //    //    if (xdiv_About == null)
+            //    //    {
+            //    //        if (About.Length > 0)
+            //    //        {
+            //    //            xdiv_About = new XElement("div");
+            //    //            XAttribute xdiv_About_class = new XAttribute("class", "About");
+            //    //            xdiv_About.Add(xdiv_About_class);
+            //    //            MyControl.ReplaceInnerXml(xdiv_About, "About", About);
+            //    //            xdiv_Title.Add(xdiv_About);
+            //    //        }
+            //    //    }
+                //}
 
-        //            string ximage_file = null;
-        //            if (imagehash != null)
-        //            {
-        //                int ipospng = imagesourcename.IndexOf(".png");
-        //                if (ipospng >= 0)
-        //                {
-        //                    imagesourcename = imagesourcename.Substring(0, ipospng) + "_" + imagehash + ".png";
-        //                }
-        //            }
+                string Err = null;
 
-        //            ximg = new XElement("img");
-        //            XAttribute img_src = new XAttribute("src", imagesourcename);
-        //            //                    XAttribute img_width = new XAttribute("width", ImageWidth.ToString());
-        //            //                    XAttribute img_height = new XAttribute("height", ImageHeight.ToString());
-        //            ximg.Add(img_src);
-        //            //                    ximg.Add(img_width);
-        //            //                    ximg.Add(img_height);
-        //            xdiv_Title.Add(ximg);
+                if ((this.hc.ctrlbmp != null) && m_ImageIncluded)
+                {
+                    string imagesourcename = ImageSource;
+                    if (ImageSource.Length > HUDCMS_static.MAX_FILENAME_LENGTH)
+                    {
+                        imagesourcename = "hashname_" + ImageSource.GetHashCode() + ".png";
+                    }
 
-        //            try
-        //            {
-        //                string ximage_path = null;
-        //                //if (uH != null)
-        //                //{
-        //                //    ximage_path = Path.GetDirectoryName(uH.LocalHtmlFile);
-        //                //}
-        //                //else
-        //                //{
-        //                    Form pfrm = null;
-        //                    if (this.hc.pForm!=null)
-        //                    {
-        //                        pfrm = this.hc.pForm;
-        //                    }
-        //                    else
-        //                    {
-        //                        if (this.hc.ctrl!=null)
-        //                        {
-        //                            pfrm = Global.f.GetParentForm(this.hc.ctrl);
-        //                        }
-        //                    }
-        //                    if (pfrm != null)
-        //                    {
-        //                        string modulename = null;
-        //                        string htmlfile = null;
-        //                        string remoteurl = null;
-        //                        string slocalhtmlfile = null;
-        //                        //if (HUDCMS_static.GetLocalHtmlFile(pfrm, "", ref modulename, ref htmlfile, ref remoteurl, ref slocalhtmlfile))
-        //                        //{
-        //                        //    ximage_path = Path.GetDirectoryName(slocalhtmlfile);
-        //                        //}
-        //                    }
-        //                //}
+                    string imagehash = null;
+                    if (this.ImageOfControl == null)
+                    {
+                        this.ImageOfControl = this.hc.ctrlbmp;
+                        byte[] byteimage = Global.f.imageToByteArray(ImageOfControl);
+                        imagehash = Global.f.GetHash_UrlTokenEncode(byteimage);
+                    }
 
-        //                if (ximage_path != null)
-        //                {
-        //                    if (ximage_path.Length > 0)
-        //                    {
-        //                        if (ximage_path[ximage_path.Length - 1] != '\\')
-        //                        {
-        //                            ximage_path += '\\';
-        //                        }
-        //                    }
-        //                }
+                    string ximage_file = null;
+                    if (imagehash != null)
+                    {
+                        int ipospng = imagesourcename.IndexOf(".png");
+                        if (ipospng >= 0)
+                        {
+                            imagesourcename = imagesourcename.Substring(0, ipospng) + "_" + imagehash + ".png";
+                        }
+                    }
 
-        //                ximage_file = ximage_path + imagesourcename; ;
+                    ximg = new XElement("img");
+                    XAttribute img_src = new XAttribute("src", imagesourcename);
+                    //                    XAttribute img_width = new XAttribute("width", ImageWidth.ToString());
+                    //                    XAttribute img_height = new XAttribute("height", ImageHeight.ToString());
+                    ximg.Add(img_src);
+                    //                    ximg.Add(img_width);
+                    //                    ximg.Add(img_height);
+                    xdiv_Title.Add(ximg);
 
-        //                //if (ximage_file != null)
-        //                //{
-        //                //    //if (HlpWizTag != null)
-        //                //    //{
-        //                //    //    string xControlUniqueName = GetControlUniqueName();
-        //                //    //    if (!File.Exists(ximage_file))
-        //                //    //    {
-        //                //    //        if (SaveImage(ximage_file))
-        //                //    //        {
-        //                //    //            ImageFileResults.Add(xControlUniqueName, ximage_file, ImageFileResults.eResult.SAVED);
-        //                //    //        }
-        //                //    //    }
-        //                //    //    else
-        //                //    //    {
-        //                //    //        ImageFileResults.Add(xControlUniqueName,ximage_file, ImageFileResults.eResult.EXIST);
-        //                //    //    }
-        //                //    //}
-        //                //    //else
-        //                //    //{
-        //                //        SaveImage(ximage_file);
-        //                //    }
-        //                //}
-        //                //else
-        //                //{
-        //                //        MessageBox.Show("ERROR:HUDCMS:MyControl:CreateNode:imagehash==null!");
-        //                //}
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                Err = ex.Message;
-        //                MessageBox.Show("ERROR:Can not save:\"" + ImageSource + "\"" + Err);
-        //            }
-        //        }
+                    try
+                    {
+                        string ximage_path = null;
+                        //if (uH != null)
+                        //{
+                        //    ximage_path = Path.GetDirectoryName(uH.LocalHtmlFile);
+                        //}
+                        //else
+                        //{
+                        Form pfrm = null;
+                        if (this.hc.pForm != null)
+                        {
+                            pfrm = this.hc.pForm;
+                        }
+                        else
+                        {
+                            if (this.hc.ctrl != null)
+                            {
+                                pfrm = Global.f.GetParentForm(this.hc.ctrl);
+                            }
+                        }
+                        if (pfrm != null)
+                        {
+                            string modulename = null;
+                            string htmlfile = null;
+                            string remoteurl = null;
+                            string slocalhtmlfile = null;
+                            //if (HUDCMS_static.GetLocalHtmlFile(pfrm, "", ref modulename, ref htmlfile, ref remoteurl, ref slocalhtmlfile))
+                            //{
+                            //    ximage_path = Path.GetDirectoryName(slocalhtmlfile);
+                            //}
+                        }
+                        //}
 
-        //        if (this.HlpWizTag != null)
-        //        {
-        //            if (this.HlpWizTag.HasDescription())
-        //            {
-        //                xdiv_Description = new XElement("div");
-        //                XAttribute xdiv_Description_class = new XAttribute("class", "Description");
-        //                xdiv_Description.Add(xdiv_Description_class);
-        //                MyControl.ReplaceInnerXml(xdiv_Description, this.HlpWizTag.Description.tagDCs);
-        //                xdiv_Title.Add(xdiv_Description);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            if (Description.Length > 0)
-        //            {
-        //                xdiv_Description = new XElement("div");
-        //                XAttribute xdiv_Description_class = new XAttribute("class", "Description");
-        //                xdiv_Description.Add(xdiv_Description_class);
-        //                MyControl.ReplaceInnerXml(xdiv_Description, "Description", Description);
-        //                //xdiv_Description.Value = Description;
-        //                xdiv_Title.Add(xdiv_Description);
-        //            }
-        //        }
+                        if (ximage_path != null)
+                        {
+                            if (ximage_path.Length > 0)
+                            {
+                                if (ximage_path[ximage_path.Length - 1] != '\\')
+                                {
+                                    ximage_path += '\\';
+                                }
+                            }
+                        }
 
-        //        xel.Add(xdiv_Title);
+                        ximage_file = ximage_path + imagesourcename; ;
 
-        //        if ((this.hc.ctrlbmp != null)&& (m_ImageIncluded))
-        //        {
-                  
-        //        }
-        //    }
-        //    foreach (MyControl c in this.children)
-        //    {
-        //            c.CreateNode(xh,ref xel);
-        //    }
-        //    xn.Add(xel);
+                        //if (ximage_file != null)
+                        //{
+                        //    //if (HlpWizTag != null)
+                        //    //{
+                        //    //    string xControlUniqueName = GetControlUniqueName();
+                        //    //    if (!File.Exists(ximage_file))
+                        //    //    {
+                        //    //        if (SaveImage(ximage_file))
+                        //    //        {
+                        //    //            ImageFileResults.Add(xControlUniqueName, ximage_file, ImageFileResults.eResult.SAVED);
+                        //    //        }
+                        //    //    }
+                        //    //    else
+                        //    //    {
+                        //    //        ImageFileResults.Add(xControlUniqueName,ximage_file, ImageFileResults.eResult.EXIST);
+                        //    //    }
+                        //    //}
+                        //    //else
+                        //    //{
+                        //        SaveImage(ximage_file);
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //        MessageBox.Show("ERROR:HUDCMS:MyControl:CreateNode:imagehash==null!");
+                        //}
+                    }
+                    catch (Exception ex)
+                    {
+                        Err = ex.Message;
+                        MessageBox.Show("ERROR:Can not save:\"" + ImageSource + "\"" + Err);
+                    }
+                }
 
-        //}
+                //if (this.HlpWizTag != null)
+                //{
+                //    if (this.HlpWizTag.HasDescription())
+                //    {
+                //        xdiv_Description = new XElement("div");
+                //        XAttribute xdiv_Description_class = new XAttribute("class", "Description");
+                //        xdiv_Description.Add(xdiv_Description_class);
+                //        MyControl.ReplaceInnerXml(xdiv_Description, this.HlpWizTag.Description.tagDCs);
+                //        xdiv_Title.Add(xdiv_Description);
+                //    }
+                //}
+                //else
+                //{
+                //    if (Description.Length > 0)
+                //    {
+                //        xdiv_Description = new XElement("div");
+                //        XAttribute xdiv_Description_class = new XAttribute("class", "Description");
+                //        xdiv_Description.Add(xdiv_Description_class);
+                //        MyControl.ReplaceInnerXml(xdiv_Description, "Description", Description);
+                //        //xdiv_Description.Value = Description;
+                //        xdiv_Title.Add(xdiv_Description);
+                //    }
+                //}
+
+                xel.Add(xdiv_Title);
+
+                if ((this.hc.ctrlbmp != null) && (m_ImageIncluded))
+                {
+
+                }
+            //}
+            foreach (MyControl c in this.children)
+            {
+                c.CreateNode(xh, ref xel);
+            }
+            xn.Add(xel);
+
+        }
 
         private bool SaveImage(string ximage_file)
         {

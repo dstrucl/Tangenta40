@@ -47,8 +47,10 @@ namespace LayoutManager
             this.cmb_ScreenResolution = new System.Windows.Forms.ComboBox();
             this.cmb_Form = new System.Windows.Forms.ComboBox();
             this.lbl_Form = new System.Windows.Forms.Label();
+            this.usrc_EditLayout1 = new LayoutManager.usrc_EditLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MyTreeListView)).BeginInit();
             this.SuspendLayout();
@@ -67,6 +69,10 @@ namespace LayoutManager
             // 
             this.splitContainer1.Panel1.AutoScroll = true;
             this.splitContainer1.Panel1.Controls.Add(this.MyTreeListView);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.usrc_EditLayout1);
             this.splitContainer1.Size = new System.Drawing.Size(1103, 716);
             this.splitContainer1.SplitterDistance = 414;
             this.splitContainer1.SplitterWidth = 5;
@@ -163,7 +169,7 @@ namespace LayoutManager
             this.usrc_SelectXMLFile.Size = new System.Drawing.Size(956, 26);
             this.usrc_SelectXMLFile.TabIndex = 9;
             this.usrc_SelectXMLFile.Title = "Save File";
-            this.usrc_SelectXMLFile.Type = SelectFile.usrc_SelectFile.eType.SAVE;        
+            this.usrc_SelectXMLFile.Type = SelectFile.usrc_SelectFile.eType.SAVE;
             this.usrc_SelectXMLFile.Load += new System.EventHandler(this.usrc_SelectHtmlFile_Load);
             // 
             // btn_ViewBookmardDic
@@ -226,6 +232,15 @@ namespace LayoutManager
             this.lbl_Form.TabIndex = 24;
             this.lbl_Form.Text = "Form";
             // 
+            // usrc_EditLayout1
+            // 
+            this.usrc_EditLayout1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_EditLayout1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.usrc_EditLayout1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_EditLayout1.Name = "usrc_EditLayout1";
+            this.usrc_EditLayout1.Size = new System.Drawing.Size(680, 712);
+            this.usrc_EditLayout1.TabIndex = 0;
+            // 
             // Form_Layout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -245,6 +260,7 @@ namespace LayoutManager
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Wizzard_FormClosing);
             this.Load += new System.EventHandler(this.Form_Layout_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MyTreeListView)).EndInit();
@@ -269,5 +285,6 @@ namespace LayoutManager
         private System.Windows.Forms.ComboBox cmb_ScreenResolution;
         private System.Windows.Forms.ComboBox cmb_Form;
         private System.Windows.Forms.Label lbl_Form;
+        private usrc_EditLayout usrc_EditLayout1;
     }
 }

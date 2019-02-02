@@ -66,16 +66,17 @@ namespace LayoutManager
         //XElement html_html = null;
         //XElement html_head = null;
         //XElement html_title = null;
-        //XElement html_body = null;
+        XElement html_body = null;
         //XElement THeader = null;
 
 
         //public Form_Layout(usrc_Help xH)
         public Form_Layout(Screen screen, Form pForm)
         {
-            UniqueControlName uctrln = new UniqueControlName();
             InitializeComponent();
-            //mH = xH;
+            this.cmb_ScreenResolution.Text = screen.Bounds.Width.ToString() + " x " + screen.Bounds.Height.ToString();
+            UniqueControlName uctrln = new UniqueControlName();
+
             hc = new hctrl(pForm, uctrln);
 
             //hlpwiztag = null;
@@ -148,17 +149,22 @@ namespace LayoutManager
 
             SetHeader();
 
-           
 
-            //string sXmlFileName = usrc_SelectXMLFile.FileName;
-            //try
-            //{
-            //    xhtml_Loaded = XDocument.Load(sXmlFileName);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("ERROR: XDocument.Load file=\"" + sXmlFileName + "\" failed :Exception = " + ex.Message);
-            //}
+
+            string appdatafolder = Global.f.GetApplicationDataFolder();
+            if (appdatafolder[appdatafolder.Length-1]!='\\')
+            {
+                appdatafolder += '\\';
+            }
+            string sXmlFileName = appdatafolder+"Layout.xml";
+            try
+            {
+                xhtml_Loaded = XDocument.Load(sXmlFileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR: XDocument.Load file=\"" + sXmlFileName + "\" failed :Exception = " + ex.Message);
+            }
 
             int iAllCount = 0;
 
@@ -341,145 +347,128 @@ namespace LayoutManager
             }
         }
 
-        //internal bool SaveXHTML(string html_file,ref XDocument xh, ref string Err)
-        //{
+        internal bool SaveXHTML(string html_file, ref XDocument xh, ref string Err)
+        {
 
-        //    if (this.MyControl_Selected != null)
-        //    {
-        //        this.usrc_EditControlWizzard1.my_Control.ImageIncluded = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Image1.chk_ImageIncluded.Checked;
-        //        if (this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Image1.pic_Control.Image != null)
-        //        {
-        //            this.usrc_EditControlWizzard1.my_Control.ImageOfControl = (Image)this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Image1.pic_Control.Image.Clone();
-        //        }
-        //        else
-        //        {
-        //            this.usrc_EditControlWizzard1.my_Control.ImageOfControl = null;
-        //        }
-        //        this.usrc_EditControlWizzard1.my_Control.HelpTitle = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Title1.fctb_CtrlTitle.Text;
-        //        this.usrc_EditControlWizzard1.my_Control.HeadingTag = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Title1.cmb_HtmlTag.Text;
+            //if (this.MyControl_Selected != null)
+            //{
+            //    this.usrc_EditControlWizzard1.my_Control.ImageIncluded = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Image1.chk_ImageIncluded.Checked;
+            //    if (this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Image1.pic_Control.Image != null)
+            //    {
+            //        this.usrc_EditControlWizzard1.my_Control.ImageOfControl = (Image)this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Image1.pic_Control.Image.Clone();
+            //    }
+            //    else
+            //    {
+            //        this.usrc_EditControlWizzard1.my_Control.ImageOfControl = null;
+            //    }
+            //    this.usrc_EditControlWizzard1.my_Control.HelpTitle = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Title1.fctb_CtrlTitle.Text;
+            //    this.usrc_EditControlWizzard1.my_Control.HeadingTag = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Title1.cmb_HtmlTag.Text;
 
-        //        this.usrc_EditControlWizzard1.usrc_EditControlWizzard_About1.GetData();
-        //        this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Description1.GetData();
-        //        //this.usrc_EditControlWizzard1.my_Control.About = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_About1.fctb_CtrlAbout.Text;
-
-
-        //        //this.usrc_EditControlWizzard1.my_Control.Description = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Description1.fctb_CtrlDescription.Text;
-        //        this.usrc_EditControlWizzard1.my_Control.ImageCaption = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Image1.fctb_CtrlImageCaption.Text;
-        //    }
-
-        //    if (xh != null)
-        //    {
-        //        xh = null;
-        //    }
-
-        //    xh = new XDocument();
-
-        //    html_html = new XElement("html");
+            //    this.usrc_EditControlWizzard1.usrc_EditControlWizzard_About1.GetData();
+            //    this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Description1.GetData();
+            //    //this.usrc_EditControlWizzard1.my_Control.About = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_About1.fctb_CtrlAbout.Text;
 
 
-        //    xh.AddFirst(html_html);
+            //    //this.usrc_EditControlWizzard1.my_Control.Description = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Description1.fctb_CtrlDescription.Text;
+            //    this.usrc_EditControlWizzard1.my_Control.ImageCaption = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Image1.fctb_CtrlImageCaption.Text;
+            //}
 
-        //        if (myroot != null)
-        //        {
-        //            if (myroot.hc.pForm != null)
-        //            {
-        //                html_head = new XElement("head");
+            if (xh != null)
+            {
+                xh = null;
+            }
 
-                        
+            xh = new XDocument();
 
-        //                html_title = new XElement("title");
+            //html_html = new XElement("html");
 
-        //                string sTitle = myroot.hc.pForm.Text;
-        //                if (sTitle.Length == 0)
-        //                {
-        //                    sTitle = myroot.hc.pForm.GetType().ToString();
-        //                }
-        //                html_title.Value = sTitle;
-        //                html_body = new XElement("body");
-        //                //< iframe src = "../Header.html" style = "border:none; width="714" height="150"></iframe>
 
-        //                THeader = new XElement("THeader");
-        //                html_body.Add(THeader);
-        //                html_head.Add(html_title);
-        //                html_html.Add(html_head);
-        //                html_html.Add(html_body);
+            //xh.AddFirst(html_html);
 
-        //            }
-        //            else if (myroot.hc.ctrl != null)
-        //            {
-        //                html_head = new XElement("head");
+            if (myroot != null)
+            {
+                if (myroot.hc.pForm != null)
+                {
+                    //html_head = new XElement("head");
 
-                  
 
-        //                html_title = new XElement("title");
 
-        //                string sTitle = myroot.hc.ctrl.Text;
-        //                if (sTitle.Length == 0)
-        //                {
-        //                    sTitle = myroot.hc.ctrl.GetType().ToString();
-        //                }
-        //                html_title.Value = sTitle;
+                    //html_title = new XElement("title");
 
-        //                html_body = new XElement("body");
+                    //string sTitle = myroot.hc.pForm.Text;
+                    //if (sTitle.Length == 0)
+                    //{
+                    //    sTitle = myroot.hc.pForm.GetType().ToString();
+                    //}
+                    //html_title.Value = sTitle;
+                    //html_body = new XElement("body");
+                    ////< iframe src = "../Header.html" style = "border:none; width="714" height="150"></iframe>
 
-        //                THeader = new XElement("THeader");
-                       
-        //                html_body.Add(THeader);
+                    //THeader = new XElement("THeader");
+                    //html_body.Add(THeader);
+                    //html_head.Add(html_title);
+                    //html_html.Add(html_head);
+                    //html_html.Add(html_body);
 
-        //                html_head.Add(html_title);
-        //                html_html.Add(html_head);
-        //                html_html.Add(html_body);
+                }
+                else if (myroot.hc.ctrl != null)
+                {
+                    //html_head = new XElement("head");
 
-        //            }
-        //            myroot.CreateNode(xh, ref html_body);
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("ERROR:myroot == null in Form_HUDCMS!");
-        //            return false;
-        //        }
 
-        //    //save xhtml
-        //    if (SelectFile.usrc_SelectFile.CreateFolderIfNotExist(this, html_file,ref Err))
-        //    {
-        //        try
-        //        {
-        //            xh.Save(html_file);
-        //            //if (Properties.Settings.Default.UseGit)
-        //            //{
-        //            //    string std_err = "";
-        //            //    string std_out = "";
-        //            //    switch (Git.CheckIfFileInRepository(html_file, ref std_out, ref std_err))
-        //            //    {
-        //            //        case Git.eCheckIfFileInRepository.FileIsNotInRepository:
-        //            //            if (!Git.Add(html_file, ref std_out, ref std_err))
-        //            //            {
-        //            //                MessageBox.Show(std_err);
-        //            //            }
-        //            //            break;
-        //            //        case Git.eCheckIfFileInRepository.ERROR:
-        //            //            MessageBox.Show(std_err);
-        //            //            break;
-        //            //    }
-        //            //}
-        //            return true;
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            MessageBox.Show("ERROR:xh.Save(html_file) in Form_HUDCMS!\r\nException=" + ex.Message);
-        //            return false;
 
-        //        }
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("ERROR:SelectFile.usrc_SelectFile.CreateFolderIfNotExist(..) in Form_HUDCMS!");
-        //        return false;
+                    //html_title = new XElement("title");
 
-        //    }
-        //}
+                    string sTitle = myroot.hc.ctrl.Text;
+                    if (sTitle.Length == 0)
+                    {
+                        sTitle = myroot.hc.ctrl.GetType().ToString();
+                    }
+                    //html_title.Value = sTitle;
 
-        
+                    html_body = new XElement("body");
+
+                    //THeader = new XElement("THeader");
+
+                    //html_body.Add(THeader);
+
+                    //html_head.Add(html_title);
+                    //html_html.Add(html_head);
+                    //html_html.Add(html_body);
+
+                }
+                myroot.CreateNode(xh, ref html_body);
+            }
+            else
+            {
+                MessageBox.Show("ERROR:myroot == null in Form_HUDCMS!");
+                return false;
+            }
+
+            //save xhtml
+            if (SelectFile.usrc_SelectFile.CreateFolderIfNotExist(this, html_file, ref Err))
+            {
+                try
+                {
+                    xh.Save(html_file);                  
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("ERROR:xh.Save(html_file) in Form_HUDCMS!\r\nException=" + ex.Message);
+                    return false;
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("ERROR:SelectFile.usrc_SelectFile.CreateFolderIfNotExist(..) in Form_HUDCMS!");
+                return false;
+
+            }
+        }
+
+
 
 
         internal static MyControl  CreateMyControls(/*HelpWizzardTag xHlpWizTag,*/ int level, int iCount, ref int iAllCount, hctrl xhc, MyControl xctrl, ref SysImageListHelper helperControlType/*,  usrc_Help mH*/)
@@ -644,49 +633,49 @@ namespace LayoutManager
         }
 
 
-        //private bool usrc_SelectHtmlFile_SaveFile(string FileName, ref string Err)
-        //{
-        //    if (SaveXHTML(FileName,ref this.xhtml, ref Err))
-        //    {
-        //        if (mH!=null)
-        //        {
-        //            if (mH.hlp_dlg != null)
-        //            {
-        //                if (mH.hlp_dlg.usrc_web_Help1 != null)
-        //                {
-        //                    mH.hlp_dlg.usrc_web_Help1.ShowSaved(null);
-        //                    mH.hlp_dlg.usrc_web_Help1.ReloadHtml();
-        //                }
-        //            }
-        //            else if (mH.uwebHelp!=null)
-        //            {
-        //                mH.uwebHelp.ShowSaved(null);
-        //                mH.uwebHelp.ReloadHtml();
-        //            }
+        private bool usrc_SelectHtmlFile_SaveFile(string FileName, ref string Err)
+        {
+            if (SaveXHTML(FileName, ref this.xhtml, ref Err))
+            {
+                //if (mH != null)
+                //{
+                //    if (mH.hlp_dlg != null)
+                //    {
+                //        if (mH.hlp_dlg.usrc_web_Help1 != null)
+                //        {
+                //            mH.hlp_dlg.usrc_web_Help1.ShowSaved(null);
+                //            mH.hlp_dlg.usrc_web_Help1.ReloadHtml();
+                //        }
+                //    }
+                //    else if (mH.uwebHelp != null)
+                //    {
+                //        mH.uwebHelp.ShowSaved(null);
+                //        mH.uwebHelp.ReloadHtml();
+                //    }
 
-        //        }
-        //        return true;
+                //}
+                return true;
 
-        //    }
-        //    else
-        //    {
-        //        if (mH != null)
-        //        {
-        //            if (mH.hlp_dlg != null)
-        //            {
-        //                if (mH.hlp_dlg.usrc_web_Help1 != null)
-        //                {
-        //                    mH.hlp_dlg.usrc_web_Help1.ShowSaved(Err);
-        //                }
-        //            }
-        //            else if (mH.uwebHelp != null)
-        //            {
-        //                mH.uwebHelp.ShowSaved(Err);
-        //            }
-        //        }
-        //        return false;
-        //    }
-        //}
+            }
+            else
+            {
+                //if (mH != null)
+                //{
+                //    if (mH.hlp_dlg != null)
+                //    {
+                //        if (mH.hlp_dlg.usrc_web_Help1 != null)
+                //        {
+                //            mH.hlp_dlg.usrc_web_Help1.ShowSaved(Err);
+                //        }
+                //    }
+                //    else if (mH.uwebHelp != null)
+                //    {
+                //        mH.uwebHelp.ShowSaved(Err);
+                //    }
+                //}
+                return false;
+            }
+        }
 
         //private void EditFile(string xFileName)
         //{
@@ -717,9 +706,9 @@ namespace LayoutManager
         //}
 
 
-      
 
-       
+
+
 
         private void MyTreeListView_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -735,8 +724,8 @@ namespace LayoutManager
                         MyControl myctrl = (MyControl)olvi.RowObject;
                         myctrl.xfrm_Layout = this;
                         myctrl.xfrm_Layout.MyControl_Selected = myctrl;
-                        //myctrl.xfrm_Layout.usrc_EditControlWizzard1.Enabled = true;
-                        //myctrl.xfrm_Layout.usrc_EditControlWizzard1.Init(myctrl);
+                        myctrl.xfrm_Layout.usrc_EditLayout1.Enabled = true;
+                        myctrl.xfrm_Layout.usrc_EditLayout1.Init(myctrl);
                         if (hc.dgvc == null)
                         {
                             //xfrm_HUDCMS.HideLinks();
@@ -820,6 +809,8 @@ namespace LayoutManager
         {
             ImageFileResults.ShowImageFileResults(this);
         }
+
+      
     }
 }
 
