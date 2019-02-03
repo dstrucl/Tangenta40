@@ -832,11 +832,12 @@ namespace Tangenta
                         xusrc_DocumentMan1366x768.Initialise(this, TSettings.LMO1User);
                         xusrc_DocumentMan1366x768.Init();
 
+                        
 
                         TSettings.LMO1User.m_usrc_DocumentMan = xusrc_DocumentMan1366x768;
                         xusrc_DocumentMan1366x768.Exit_Click += m_usrc_Main_Exit_Click;
                         xusrc_DocumentMan1366x768.Activate_dgvx_XInvoice_SelectionChanged();
-
+                        LayoutManager.Form_Layout.SetLayout(this);
                     }
                     else
                     {
@@ -1849,6 +1850,7 @@ namespace Tangenta
 
                         xLMOUser.m_usrc_DocumentMan = xusrc_DocumentMan1366x768;
                         xusrc_DocumentMan1366x768.Exit_Click += m_usrc_Main_Exit_Click;
+                        LayoutManager.Form_Layout.SetLayout(this);
 
                     }
                     else

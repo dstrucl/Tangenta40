@@ -76,6 +76,7 @@
             this.nmUpDnY.Name = "nmUpDnY";
             this.nmUpDnY.Size = new System.Drawing.Size(91, 26);
             this.nmUpDnY.TabIndex = 1;
+            this.nmUpDnY.ValueChanged += new System.EventHandler(this.nmUpDnY_ValueChanged);
             // 
             // lbl_X
             // 
@@ -105,6 +106,7 @@
             this.btn_Up.TabIndex = 4;
             this.btn_Up.Text = "Up";
             this.btn_Up.UseVisualStyleBackColor = true;
+            this.btn_Up.Click += new System.EventHandler(this.btn_Up_Click);
             // 
             // btn_Down
             // 
@@ -114,6 +116,7 @@
             this.btn_Down.TabIndex = 5;
             this.btn_Down.Text = "Down";
             this.btn_Down.UseVisualStyleBackColor = true;
+            this.btn_Down.Click += new System.EventHandler(this.btn_Down_Click);
             // 
             // btn_Left
             // 
@@ -123,6 +126,7 @@
             this.btn_Left.TabIndex = 6;
             this.btn_Left.Text = "Left";
             this.btn_Left.UseVisualStyleBackColor = true;
+            this.btn_Left.Click += new System.EventHandler(this.btn_Left_Click);
             // 
             // btn_Right
             // 
@@ -132,6 +136,7 @@
             this.btn_Right.TabIndex = 7;
             this.btn_Right.Text = "Right";
             this.btn_Right.UseVisualStyleBackColor = true;
+            this.btn_Right.Click += new System.EventHandler(this.btn_Right_Click);
             // 
             // lbl_Width
             // 
@@ -150,6 +155,7 @@
             this.nmUpDnWidth.Name = "nmUpDnWidth";
             this.nmUpDnWidth.Size = new System.Drawing.Size(112, 26);
             this.nmUpDnWidth.TabIndex = 8;
+            this.nmUpDnWidth.ValueChanged += new System.EventHandler(this.nmUpDnWidth_ValueChanged);
             // 
             // lbl_Height
             // 
@@ -168,6 +174,7 @@
             this.nmUpDnHeight.Name = "nmUpDnHeight";
             this.nmUpDnHeight.Size = new System.Drawing.Size(91, 26);
             this.nmUpDnHeight.TabIndex = 10;
+            this.nmUpDnHeight.ValueChanged += new System.EventHandler(this.nmUpDnHeight_ValueChanged);
             // 
             // btn_WidthMinus
             // 
@@ -178,6 +185,7 @@
             this.btn_WidthMinus.TabIndex = 12;
             this.btn_WidthMinus.Text = "-";
             this.btn_WidthMinus.UseVisualStyleBackColor = true;
+            this.btn_WidthMinus.Click += new System.EventHandler(this.btn_WidthMinus_Click);
             // 
             // btn_WidthPlus
             // 
@@ -188,6 +196,7 @@
             this.btn_WidthPlus.TabIndex = 13;
             this.btn_WidthPlus.Text = "+";
             this.btn_WidthPlus.UseVisualStyleBackColor = true;
+            this.btn_WidthPlus.Click += new System.EventHandler(this.btn_WidthPlus_Click);
             // 
             // btn_HeightMinus
             // 
@@ -198,6 +207,7 @@
             this.btn_HeightMinus.TabIndex = 14;
             this.btn_HeightMinus.Text = "-";
             this.btn_HeightMinus.UseVisualStyleBackColor = true;
+            this.btn_HeightMinus.Click += new System.EventHandler(this.btn_HeightMinus_Click);
             // 
             // btn_HeightPlus
             // 
@@ -208,6 +218,7 @@
             this.btn_HeightPlus.TabIndex = 15;
             this.btn_HeightPlus.Text = "+";
             this.btn_HeightPlus.UseVisualStyleBackColor = true;
+            this.btn_HeightPlus.Click += new System.EventHandler(this.btn_HeightPlus_Click);
             // 
             // txtControl
             // 

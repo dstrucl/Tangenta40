@@ -12,6 +12,8 @@ namespace LayoutManager
 {
     public partial class usrc_EditLayout : UserControl
     {
+        internal MyControl my_Control = null;
+
         private Control ctrlx = null;
         public usrc_EditLayout()
         {
@@ -20,6 +22,20 @@ namespace LayoutManager
 
         internal void Init(MyControl myctrl)
         {
+            if (my_Control != null)
+            {
+                // save previous user_Control edited data!
+                if (my_Control.hc!=null)
+                {
+                    if (my_Control.hc.ctrl != null)
+                    {
+                        my_Control.SetControlProperties(my_Control.hc.ctrl);
+                    }
+                }
+            }
+
+            my_Control = myctrl;
+
             ctrlx = myctrl.hc.ctrl;
             setNumUpDn(this.nmUpDnX, ctrlx.Left);
             setNumUpDn(this.nmUpDnY,ctrlx.Top);
@@ -84,6 +100,69 @@ namespace LayoutManager
         {
             ctrlx.Left = Convert.ToInt32(nmUpDnX.Value);
             ctrlx.Refresh();
+            my_Control.Left = ctrlx.Left;
+        }
+
+        private void nmUpDnY_ValueChanged(object sender, EventArgs e)
+        {
+            ctrlx.Top = Convert.ToInt32(nmUpDnY.Value);
+            ctrlx.Refresh();
+            my_Control.Top = ctrlx.Top;
+        }
+
+        private void nmUpDnWidth_ValueChanged(object sender, EventArgs e)
+        {
+            ctrlx.Width = Convert.ToInt32(nmUpDnWidth.Value);
+            ctrlx.Refresh();
+            my_Control.Width = ctrlx.Width;
+        }
+
+        private void nmUpDnHeight_ValueChanged(object sender, EventArgs e)
+        {
+            ctrlx.Height = Convert.ToInt32(nmUpDnHeight.Value);
+            ctrlx.Refresh();
+            my_Control.Height = ctrlx.Height;
+
+        }
+
+        private void btn_Up_Click(object sender, EventArgs e)
+        {
+            nmUpDnY.Value = nmUpDnY.Value+1;
+        }
+
+        private void btn_Down_Click(object sender, EventArgs e)
+        {
+            nmUpDnY.Value = nmUpDnY.Value-1;
+        }
+
+        private void btn_Left_Click(object sender, EventArgs e)
+        {
+            nmUpDnX.Value = nmUpDnX.Value - 1;
+        }
+
+        private void btn_Right_Click(object sender, EventArgs e)
+        {
+            nmUpDnX.Value = nmUpDnX.Value + 1;
+        }
+
+        private void btn_WidthMinus_Click(object sender, EventArgs e)
+        {
+            nmUpDnWidth.Value = nmUpDnWidth.Value - 1;
+        }
+
+        private void btn_WidthPlus_Click(object sender, EventArgs e)
+        {
+            nmUpDnWidth.Value = nmUpDnWidth.Value + 1;
+        }
+
+        private void btn_HeightMinus_Click(object sender, EventArgs e)
+        {
+            nmUpDnHeight.Value = nmUpDnHeight.Value - 1;
+        }
+
+        private void btn_HeightPlus_Click(object sender, EventArgs e)
+        {
+            nmUpDnHeight.Value = nmUpDnHeight.Value + 1;
         }
     }
 }

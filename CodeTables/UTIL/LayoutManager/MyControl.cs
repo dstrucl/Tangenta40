@@ -118,11 +118,84 @@ namespace LayoutManager
             set { m_HelpTitle = value; }
         }
 
-        private int m_Right = 0;
+        private int left = 0;
+        public int Left
+        {
+            get { return left; }
+            set { left = value; }
+        }
+
+        private int right = 0;
         public int Right
         {
-            get { return m_Right; }
+            get { return right; }
+            set { right = value; }
         }
+
+        private int top = 0;
+        public int Top
+        {
+            get { return top; }
+            set { top = value; }
+        }
+
+        private int width = 0;
+        public int Width
+        {
+            get { return width; }
+            set { width = value; }
+        }
+
+        private int height = 0;
+        public int Height
+        {
+            get { return height; }
+            set { height = value; }
+        }
+
+        private bool anchorleft = false;
+        public bool AnchorLeft
+        {
+            get { return anchorleft; }
+            set { anchorleft = value; }
+        }
+
+        private bool anchorright = false;
+        public bool AnchorRight
+        {
+            get { return anchorright; }
+            set { anchorright = value; }
+        }
+
+        private bool anchortop = false;
+        public bool AnchorTop
+        {
+            get { return anchortop; }
+            set { anchortop = value; }
+        }
+
+        private bool anchorbottom = false;
+        public bool AnchorBottom
+        {
+            get { return anchorbottom; }
+            set { anchorbottom = value; }
+        }
+
+        private Color forecolor = Color.White;
+        public Color ForeColor
+        {
+            get { return forecolor; }
+            set { forecolor = value; }
+        }
+
+        private Color backcolor = Color.Gray;
+        public Color BackColor
+        {
+            get { return backcolor; }
+            set { backcolor = value; }
+        }
+
+
         private string m_ID = "";
 
         internal string ID
@@ -337,6 +410,27 @@ namespace LayoutManager
                 {
                     return false;
                 }
+            }
+        }
+
+        internal void CreateTable(DataTable dt)
+        {
+            DataRow dr = dt.NewRow();
+            dr[Form_Layout.dcol_ControlName] = this.ControlUniqueName;
+            dr[Form_Layout.dcol_Left] = this.Left;
+            dr[Form_Layout.dcol_Top] = this.Top;
+            dr[Form_Layout.dcol_Width] = this.Width;
+            dr[Form_Layout.dcol_Height] = this.Height;
+            dr[Form_Layout.dcol_AnchorLeft] = this.AnchorLeft;
+            dr[Form_Layout.dcol_AnchorRight] = this.AnchorRight;
+            dr[Form_Layout.dcol_AnchorTop] = this.AnchorTop;
+            dr[Form_Layout.dcol_AnchorBottom] = this.AnchorBottom;
+            dr[Form_Layout.dcol_ForeColor] = this.ForeColor;
+            dr[Form_Layout.dcol_BackColor] = this.BackColor;
+            dt.Rows.Add(dr);
+            foreach (MyControl c in this.children)
+            {
+                c.CreateTable(dt);
             }
         }
 
@@ -674,7 +768,10 @@ namespace LayoutManager
             }
             string sText = "";
             string sControl = HUDCMS_static.slng_UserControlName;
-            helperControlType.AddImageToCollection(GetControlType(), helperControlType.SmallImageList, GetControlTypeImage());
+            if (helperControlType != null)
+            {
+                helperControlType.AddImageToCollection(GetControlType(), helperControlType.SmallImageList, GetControlTypeImage());
+            }
 
             if (hc.pForm !=null)
             {
@@ -883,8 +980,12 @@ namespace LayoutManager
                     HeadingTag = "h4";
                 }
 
+                
                 if (hc.ctrl != null)
                 {
+
+                    SetControlProperties(hc.ctrl);
+
                     if (GetControlInfo(ref xControlInfo_title,ref xControlInfo_about,ref xControlInfo_description))
                     {
                         HelpTitle = xControlInfo_title;
@@ -912,6 +1013,81 @@ namespace LayoutManager
             //    ID = SetID();
             //}
 
+        }
+
+        internal void SetLayout(DataTable dtCtrlLayout)
+        {
+            if (!(this.ControlUniqueName.ToUpper().Contains("UNKNOWN")) || (this.ControlUniqueName.ToUpper().Contains("NONAME")))
+            {
+                DataRow dr = findrow(dtCtrlLayout, this.ControlUniqueName);
+                if (this.ControlUniqueName.Equals("Form_Document.usrc_DocumentMan1366x768.m_usrc_DocumentEditor1366x768.usrc_DocIssue1"))
+                {
+
+                }
+                if (dr != null)
+                {
+                    if (this.hc.ctrl != null)
+                    {
+                        this.hc.ctrl.Left = (int)dr["Left"];
+                        this.hc.ctrl.Top = (int)dr["Top"];
+                        this.hc.ctrl.Width = (int)dr["Width"];
+                        this.hc.ctrl.Height = (int)dr["Height"];
+                        this.hc.ctrl.Refresh();
+                    }
+                }
+            }
+
+            foreach (MyControl c in this.children)
+            {
+                c.SetLayout(dtCtrlLayout);
+            }
+        }
+
+        private DataRow findrow(DataTable dtCtrlLayout, string controlUniqueName)
+        {
+            foreach (DataRow dr in dtCtrlLayout.Rows)
+            {
+                if (((string)dr["ControlName"]).Equals(controlUniqueName))
+                {
+                    return dr;
+                }
+            }
+            return null;
+        }
+
+        public void SetControlProperties(Control ctrlx)
+        {
+            left = ctrlx.Left;
+            top = ctrlx.Top;
+            width = ctrlx.Width;
+            height = ctrlx.Height;
+
+            anchorleft = false;
+            if ((ctrlx.Anchor & AnchorStyles.Left) != 0)
+            {
+                anchorleft = true;
+            }
+
+            anchorright = false;
+            if ((ctrlx.Anchor & AnchorStyles.Right) != 0)
+            {
+                anchorright = true;
+            }
+
+            anchortop = false;
+            if ((ctrlx.Anchor & AnchorStyles.Top) != 0)
+            {
+                anchortop = true;
+            }
+
+            anchorbottom = false;
+            if ((ctrlx.Anchor & AnchorStyles.Bottom) != 0)
+            {
+                anchorbottom = true;
+            }
+
+            forecolor = ctrlx.ForeColor;
+            backcolor = ctrlx.BackColor;
         }
 
         //internal void InitFromWizzardSource(MyControl source_root_control, string sNewTag, string[] sTagConditions, hctrl xhc, int iLevel, MyControl parent, ref int xLocalBookmarkID)
@@ -997,7 +1173,7 @@ namespace LayoutManager
         //    }
 
 
-         
+
 
         //    //xfrm_HUDCMS = null;
         //    xfrm_Layout = null;
@@ -1056,7 +1232,7 @@ namespace LayoutManager
         //    }
         //    About = sAbout;
         //    Description = sDescription;
-            
+
         //    if (ID.Length == 0)
         //    {
         //        //Guid id = Guid.NewGuid();

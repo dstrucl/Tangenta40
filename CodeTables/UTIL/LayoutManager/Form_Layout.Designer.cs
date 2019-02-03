@@ -40,6 +40,7 @@ namespace LayoutManager
             this.olvc_ControlLinks = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvc_HelpTitle = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvc_ControlUniqueName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.usrc_EditLayout1 = new LayoutManager.usrc_EditLayout();
             this.usrc_SelectXMLFile = new SelectFile.usrc_SelectFile();
             this.btn_ViewBookmardDic = new System.Windows.Forms.Button();
             this.btn_Images = new System.Windows.Forms.Button();
@@ -47,7 +48,6 @@ namespace LayoutManager
             this.cmb_ScreenResolution = new System.Windows.Forms.ComboBox();
             this.cmb_Form = new System.Windows.Forms.ComboBox();
             this.lbl_Form = new System.Windows.Forms.Label();
-            this.usrc_EditLayout1 = new LayoutManager.usrc_EditLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -153,6 +153,15 @@ namespace LayoutManager
             this.olvc_ControlUniqueName.Width = 360;
             this.olvc_ControlUniqueName.WordWrap = true;
             // 
+            // usrc_EditLayout1
+            // 
+            this.usrc_EditLayout1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_EditLayout1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.usrc_EditLayout1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_EditLayout1.Name = "usrc_EditLayout1";
+            this.usrc_EditLayout1.Size = new System.Drawing.Size(680, 712);
+            this.usrc_EditLayout1.TabIndex = 0;
+            // 
             // usrc_SelectXMLFile
             // 
             this.usrc_SelectXMLFile.BackColor = System.Drawing.Color.Lime;
@@ -170,6 +179,7 @@ namespace LayoutManager
             this.usrc_SelectXMLFile.TabIndex = 9;
             this.usrc_SelectXMLFile.Title = "Save File";
             this.usrc_SelectXMLFile.Type = SelectFile.usrc_SelectFile.eType.SAVE;
+            this.usrc_SelectXMLFile.SaveFile += new SelectFile.usrc_SelectFile.delegate_SaveFile(this.usrc_SelectXMLFile_SaveFile);
             this.usrc_SelectXMLFile.Load += new System.EventHandler(this.usrc_SelectHtmlFile_Load);
             // 
             // btn_ViewBookmardDic
@@ -232,15 +242,6 @@ namespace LayoutManager
             this.lbl_Form.TabIndex = 24;
             this.lbl_Form.Text = "Form";
             // 
-            // usrc_EditLayout1
-            // 
-            this.usrc_EditLayout1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_EditLayout1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.usrc_EditLayout1.Location = new System.Drawing.Point(0, 0);
-            this.usrc_EditLayout1.Name = "usrc_EditLayout1";
-            this.usrc_EditLayout1.Size = new System.Drawing.Size(680, 712);
-            this.usrc_EditLayout1.TabIndex = 0;
-            // 
             // Form_Layout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -256,8 +257,8 @@ namespace LayoutManager
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_Layout";
-            this.Text = "Form_HUDCMS";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Wizzard_FormClosing);
+            this.Text = "Edit Layout";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Layout_FormClosing);
             this.Load += new System.EventHandler(this.Form_Layout_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);

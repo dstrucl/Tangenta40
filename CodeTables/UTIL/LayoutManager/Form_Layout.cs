@@ -20,6 +20,32 @@ namespace LayoutManager
     public partial class Form_Layout : Form
     {
 
+        public static DataColumn dcol_ControlName = null;
+        public static DataColumn dcol_Left = null;
+        public static DataColumn dcol_Top = null;
+        public static DataColumn dcol_Width = null;
+        public static DataColumn dcol_Height = null;
+        public static DataColumn dcol_AnchorLeft = null;
+        public static DataColumn dcol_AnchorRight = null;
+        public static DataColumn dcol_AnchorTop = null;
+        public static DataColumn dcol_AnchorBottom = null;
+        public static DataColumn dcol_ForeColor = null;
+        public static DataColumn dcol_BackColor = null;
+
+        DataTable dtControlLayout = null;
+
+        private string layoutname = null;
+        public string LayoutName
+        {
+            get
+            {
+                return layoutname;
+            }
+            set
+            {
+                layoutname = value;
+            }
+        }
         private string localBookmarkDicFile = null;
 
         //internal HelpWizzardTag hlpwiztag = null;
@@ -71,10 +97,13 @@ namespace LayoutManager
 
 
         //public Form_Layout(usrc_Help xH)
+
+        
         public Form_Layout(Screen screen, Form pForm)
         {
             InitializeComponent();
-            this.cmb_ScreenResolution.Text = screen.Bounds.Width.ToString() + " x " + screen.Bounds.Height.ToString();
+            LayoutName = getLayoutName(screen, pForm);
+            this.cmb_ScreenResolution.Text = LayoutName;
             UniqueControlName uctrln = new UniqueControlName();
 
             hc = new hctrl(pForm, uctrln);
@@ -117,13 +146,46 @@ namespace LayoutManager
             //    index_of_last_map = sStylePath.LastIndexOf('\\');
             //    if (index_of_last_map > 0)
             //    {
-                   
+
             //    }
             //}
+            dtControlLayout = new DataTable();
+            dtControlLayout.TableName = LayoutName;
+            dcol_ControlName = new DataColumn("ControlName", typeof(string));
+            dcol_Left = new DataColumn("Left", typeof(int));
+            dcol_Top = new DataColumn("Top", typeof(int));
+            dcol_Width = new DataColumn("Width", typeof(int));
+            dcol_Height = new DataColumn("Height", typeof(int));
+            dcol_AnchorLeft = new DataColumn("AnchorLeft", typeof(bool));
+            dcol_AnchorRight = new DataColumn("AnchorRight", typeof(bool));
+            dcol_AnchorTop = new DataColumn("AnchoTop", typeof(bool));
+            dcol_AnchorBottom = new DataColumn("AnchorBottom", typeof(bool));
+            dcol_ForeColor = new DataColumn("ForeColor", typeof(Color));
+            dcol_BackColor = new DataColumn("BackColor", typeof(Color));
 
-       
+
+            dtControlLayout.Columns.Add(dcol_ControlName);
+            dtControlLayout.Columns.Add(dcol_Left);
+            dtControlLayout.Columns.Add(dcol_Top);
+            dtControlLayout.Columns.Add(dcol_Width);
+            dtControlLayout.Columns.Add(dcol_Height);
+            dtControlLayout.Columns.Add(dcol_AnchorLeft);
+            dtControlLayout.Columns.Add(dcol_AnchorRight);
+            dtControlLayout.Columns.Add(dcol_AnchorTop);
+            dtControlLayout.Columns.Add(dcol_AnchorBottom);
+            dtControlLayout.Columns.Add(dcol_ForeColor);
+            dtControlLayout.Columns.Add(dcol_BackColor);
+
+
+
+
+
         }
 
+        public static string getLayoutName(Screen screen,Form pForm)
+        {
+            return 's' + screen.Bounds.Width.ToString() + "x" + screen.Bounds.Height.ToString() + "_" + pForm.Name;
+        }
         private void Form_Layout_Load(object sender, EventArgs e)
         {
             //if (LocalXmlFileName == null)
@@ -156,15 +218,20 @@ namespace LayoutManager
             {
                 appdatafolder += '\\';
             }
-            string sXmlFileName = appdatafolder+"Layout.xml";
-            try
+            string sXmlFileName = appdatafolder+ LayoutName+".xml";
+            usrc_SelectXMLFile.FileName = sXmlFileName;
+            if (File.Exists(sXmlFileName))
             {
-                xhtml_Loaded = XDocument.Load(sXmlFileName);
+                try
+                {
+                    dtControlLayout.ReadXml(sXmlFileName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("ERROR: XDocument.Load file=\"" + sXmlFileName + "\" failed :Exception = " + ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR: XDocument.Load file=\"" + sXmlFileName + "\" failed :Exception = " + ex.Message);
-            }
+           
 
             int iAllCount = 0;
 
@@ -347,7 +414,7 @@ namespace LayoutManager
             }
         }
 
-        internal bool SaveXHTML(string html_file, ref XDocument xh, ref string Err)
+        internal bool SaveTableInXml(string xml_file, ref XDocument xh, ref string Err)
         {
 
             //if (this.MyControl_Selected != null)
@@ -373,12 +440,12 @@ namespace LayoutManager
             //    this.usrc_EditControlWizzard1.my_Control.ImageCaption = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Image1.fctb_CtrlImageCaption.Text;
             //}
 
-            if (xh != null)
-            {
-                xh = null;
-            }
+            //if (xh != null)
+            //{
+            //    xh = null;
+            //}
 
-            xh = new XDocument();
+            //xh = new XDocument();
 
             //html_html = new XElement("html");
 
@@ -387,85 +454,47 @@ namespace LayoutManager
 
             if (myroot != null)
             {
-                if (myroot.hc.pForm != null)
-                {
-                    //html_head = new XElement("head");
-
-
-
-                    //html_title = new XElement("title");
-
-                    //string sTitle = myroot.hc.pForm.Text;
-                    //if (sTitle.Length == 0)
-                    //{
-                    //    sTitle = myroot.hc.pForm.GetType().ToString();
-                    //}
-                    //html_title.Value = sTitle;
-                    //html_body = new XElement("body");
-                    ////< iframe src = "../Header.html" style = "border:none; width="714" height="150"></iframe>
-
-                    //THeader = new XElement("THeader");
-                    //html_body.Add(THeader);
-                    //html_head.Add(html_title);
-                    //html_html.Add(html_head);
-                    //html_html.Add(html_body);
-
-                }
-                else if (myroot.hc.ctrl != null)
-                {
-                    //html_head = new XElement("head");
-
-
-
-                    //html_title = new XElement("title");
-
-                    string sTitle = myroot.hc.ctrl.Text;
-                    if (sTitle.Length == 0)
-                    {
-                        sTitle = myroot.hc.ctrl.GetType().ToString();
-                    }
-                    //html_title.Value = sTitle;
-
-                    html_body = new XElement("body");
-
-                    //THeader = new XElement("THeader");
-
-                    //html_body.Add(THeader);
-
-                    //html_head.Add(html_title);
-                    //html_html.Add(html_head);
-                    //html_html.Add(html_body);
-
-                }
-                myroot.CreateNode(xh, ref html_body);
-            }
-            else
-            {
-                MessageBox.Show("ERROR:myroot == null in Form_HUDCMS!");
-                return false;
-            }
-
-            //save xhtml
-            if (SelectFile.usrc_SelectFile.CreateFolderIfNotExist(this, html_file, ref Err))
-            {
+                dtControlLayout.Rows.Clear();
+                myroot.CreateTable(dtControlLayout);
                 try
                 {
-                    xh.Save(html_file);                  
+                    dtControlLayout.WriteXml(xml_file, XmlWriteMode.WriteSchema);
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("ERROR:xh.Save(html_file) in Form_HUDCMS!\r\nException=" + ex.Message);
+                    MessageBox.Show("ERROR:dtControlLayout.WriteXml in Form_Layout!\r\nException=" + ex.Message);
                     return false;
 
                 }
             }
             else
             {
-                MessageBox.Show("ERROR:SelectFile.usrc_SelectFile.CreateFolderIfNotExist(..) in Form_HUDCMS!");
+                MessageBox.Show("ERROR:myroot == null in Form_Layout!");
                 return false;
-
             }
+
+            ////save xhtml
+            //if (SelectFile.usrc_SelectFile.CreateFolderIfNotExist(this, xml_file, ref Err))
+            //{
+            //    try
+            //    {
+            //        xh.Save(xml_file);                  
+            //        return true;
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show("ERROR:xh.Save(html_file) in Form_Layout!\r\nException=" + ex.Message);
+            //        return false;
+
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("ERROR:SelectFile.usrc_SelectFile.CreateFolderIfNotExist(..) in Form_Layout!");
+            //    return false;
+
+            //}
         }
 
 
@@ -576,7 +605,7 @@ namespace LayoutManager
             }
             else
             {
-                MessageBox.Show("ERROR:HUDCMS:Form_HUDCMS:GetY:(xhc.ctrl==null)&&(xhc.pForm == null)");
+                MessageBox.Show("ERROR:HUDCMS:Form_Layout:GetY:(xhc.ctrl==null)&&(xhc.pForm == null)");
                 return -1;
             }
         }
@@ -593,7 +622,7 @@ namespace LayoutManager
             }
             else
             {
-                MessageBox.Show("ERROR:HUDCMS:Form_HUDCMS:GetX:(xhc.ctrl==null)&&(xhc.pForm == null)");
+                MessageBox.Show("ERROR:HUDCMS:Form_Layout:GetX:(xhc.ctrl==null)&&(xhc.pForm == null)");
                 return -1;
             }
         }
@@ -610,7 +639,7 @@ namespace LayoutManager
             }
             else
             {
-                MessageBox.Show("ERROR:HUDCMS:Form_HUDCMS:GetHeight:(xhc.ctrl==null)&&(xhc.pForm == null)");
+                MessageBox.Show("ERROR:HUDCMS:Form_Layout:GetHeight:(xhc.ctrl==null)&&(xhc.pForm == null)");
                 return -1;
             }
         }
@@ -627,56 +656,13 @@ namespace LayoutManager
             }
             else
             {
-                MessageBox.Show("ERROR:HUDCMS:Form_HUDCMS:GetWidth:(xhc.ctrl==null)&&(xhc.pForm == null)");
+                MessageBox.Show("ERROR:HUDCMS:Form_Layout:GetWidth:(xhc.ctrl==null)&&(xhc.pForm == null)");
                 return -1;
             }
         }
 
 
-        private bool usrc_SelectHtmlFile_SaveFile(string FileName, ref string Err)
-        {
-            if (SaveXHTML(FileName, ref this.xhtml, ref Err))
-            {
-                //if (mH != null)
-                //{
-                //    if (mH.hlp_dlg != null)
-                //    {
-                //        if (mH.hlp_dlg.usrc_web_Help1 != null)
-                //        {
-                //            mH.hlp_dlg.usrc_web_Help1.ShowSaved(null);
-                //            mH.hlp_dlg.usrc_web_Help1.ReloadHtml();
-                //        }
-                //    }
-                //    else if (mH.uwebHelp != null)
-                //    {
-                //        mH.uwebHelp.ShowSaved(null);
-                //        mH.uwebHelp.ReloadHtml();
-                //    }
-
-                //}
-                return true;
-
-            }
-            else
-            {
-                //if (mH != null)
-                //{
-                //    if (mH.hlp_dlg != null)
-                //    {
-                //        if (mH.hlp_dlg.usrc_web_Help1 != null)
-                //        {
-                //            mH.hlp_dlg.usrc_web_Help1.ShowSaved(Err);
-                //        }
-                //    }
-                //    else if (mH.uwebHelp != null)
-                //    {
-                //        mH.uwebHelp.ShowSaved(Err);
-                //    }
-                //}
-                return false;
-            }
-        }
-
+      
         //private void EditFile(string xFileName)
         //{
         //    if (frm_FCTB_Editor == null)
@@ -798,7 +784,7 @@ namespace LayoutManager
            // HUDCMS.BookmarkDic.ShowBookmarkDic(this);
         }
 
-        private void Form_Wizzard_FormClosing(object sender, FormClosingEventArgs e)
+        private void Form_Layout_FormClosing(object sender, FormClosingEventArgs e)
         {
             BookmarkDic.CloseBookmarkDic();
             ImageFileResults.CloseImageFileResults();
@@ -810,7 +796,79 @@ namespace LayoutManager
             ImageFileResults.ShowImageFileResults(this);
         }
 
-      
+        private bool usrc_SelectXMLFile_SaveFile(string FileName, ref string Err)
+        {
+            if (SaveTableInXml(FileName, ref this.xhtml, ref Err))
+            {
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool SetLayout(Form pForm)
+        {
+            int iAllCount = 0;
+            Screen screen = Screen.FromControl(pForm);
+            DataTable dtCtrlLayout = new DataTable();
+            //dtCtrlLayout.TableName = Form_Layout.getLayoutName(screen, pForm);
+            dcol_ControlName = new DataColumn("ControlName", typeof(string));
+            dcol_Left = new DataColumn("Left", typeof(int));
+            dcol_Top = new DataColumn("Top", typeof(int));
+            dcol_Width = new DataColumn("Width", typeof(int));
+            dcol_Height = new DataColumn("Height", typeof(int));
+            dcol_AnchorLeft = new DataColumn("AnchorLeft", typeof(bool));
+            dcol_AnchorRight = new DataColumn("AnchorRight", typeof(bool));
+            dcol_AnchorTop = new DataColumn("AnchoTop", typeof(bool));
+            dcol_AnchorBottom = new DataColumn("AnchorBottom", typeof(bool));
+            dcol_ForeColor = new DataColumn("ForeColor", typeof(Color));
+            dcol_BackColor = new DataColumn("BackColor", typeof(Color));
+
+
+            //dtCtrlLayout.Columns.Add(dcol_ControlName);
+            //dtCtrlLayout.Columns.Add(dcol_Left);
+            //dtCtrlLayout.Columns.Add(dcol_Top);
+            //dtCtrlLayout.Columns.Add(dcol_Width);
+            //dtCtrlLayout.Columns.Add(dcol_Height);
+            //dtCtrlLayout.Columns.Add(dcol_AnchorLeft);
+            //dtCtrlLayout.Columns.Add(dcol_AnchorRight);
+            //dtCtrlLayout.Columns.Add(dcol_AnchorTop);
+            //dtCtrlLayout.Columns.Add(dcol_AnchorBottom);
+            //dtCtrlLayout.Columns.Add(dcol_ForeColor);
+            //dtCtrlLayout.Columns.Add(dcol_BackColor);
+
+            string appdatafolder = Global.f.GetApplicationDataFolder();
+            if (appdatafolder[appdatafolder.Length - 1] != '\\')
+            {
+                appdatafolder += '\\';
+            }
+            string sXmlFileName = appdatafolder + getLayoutName(screen, pForm) + ".xml";
+            if (File.Exists(sXmlFileName))
+            {
+                try
+                {
+                    dtCtrlLayout.ReadXml(sXmlFileName);
+                    UniqueControlName uctrln = new UniqueControlName();
+                    hctrl hc = new hctrl(pForm, uctrln);
+                    SysImageListHelper helperControlType = null;
+                    MyControl myroot = CreateMyControls( 0, 0, ref iAllCount, hc, null, ref helperControlType);
+                    myroot.SetLayout(dtCtrlLayout);
+                    return true;
+
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
 
