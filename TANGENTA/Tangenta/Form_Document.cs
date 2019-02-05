@@ -204,6 +204,7 @@ namespace Tangenta
                 xusrc_DocumentMan1366x768.Active = true;
                 xusrc_DocumentMan1366x768.Dock = DockStyle.Fill;
                 this.Controls.Add(xusrc_DocumentMan1366x768);
+                this.SuspendLayout();
                 LayoutManager.Form_Layout.eSetLayoutResult xeSetLayoutResult = LayoutManager.Form_Layout.SetLayout(this,
                                                                                                                     ref this.screen_width,
                                                                                                                     ref this.screen_height,
@@ -215,6 +216,7 @@ namespace Tangenta
                     this.Refresh();
                     xusrc_DocumentMan1366x768.Refresh();
                 }
+                this.ResumeLayout(true);
             }
         }
 
@@ -875,6 +877,7 @@ namespace Tangenta
                         xusrc_DocumentMan1366x768.Active = true;
                         xusrc_DocumentMan1366x768.Dock = DockStyle.Fill;
                         this.Controls.Add(xusrc_DocumentMan1366x768);
+                        this.SuspendLayout();
                         eset_layout_design eset_layout_design_Result = set_layout_design();
                         switch (eset_layout_design_Result)
                         {
@@ -885,6 +888,8 @@ namespace Tangenta
                                 xusrc_DocumentMan1366x768 = null;
                                 goto FORM_LAYOUT_CHANGED_for_LMO1User;
                         }
+                        this.ResumeLayout(true);
+                        xusrc_DocumentMan1366x768.SetDefPos();
                         //xusrc_DocumentMan1366x768.LayoutChanged += M_usrc_Main_LayoutChanged;
                         xusrc_DocumentMan1366x768.Show();
                         xusrc_DocumentMan1366x768.Initialise(this, TSettings.LMO1User);
@@ -1904,7 +1909,7 @@ namespace Tangenta
                         xusrc_DocumentMan1366x768.Visible = false;
                         xusrc_DocumentMan1366x768.Dock = DockStyle.Fill;
                         this.Controls.Add(xusrc_DocumentMan1366x768);
-
+                        this.SuspendLayout();
                         eset_layout_design eset_layout_design_Result = set_layout_design();
                         switch (eset_layout_design_Result)
                         {
@@ -1915,7 +1920,8 @@ namespace Tangenta
                                 xusrc_DocumentMan1366x768 = null;
                                 goto FORM_LAYOUT_CHANGED_for_MultiUser;
                         }
-
+                        this.ResumeLayout(true);
+                        xusrc_DocumentMan1366x768.SetDefPos();
                         xusrc_DocumentMan1366x768.Show();
                         xusrc_DocumentMan1366x768.Initialise(this, xLMOUser);
                         xusrc_DocumentMan1366x768.Init();
@@ -1923,8 +1929,10 @@ namespace Tangenta
 
                         xLMOUser.m_usrc_DocumentMan = xusrc_DocumentMan1366x768;
                         xusrc_DocumentMan1366x768.Exit_Click += m_usrc_Main_Exit_Click;
+                        xusrc_DocumentMan1366x768.Resize += Xusrc_DocumentMan1366x768_Resize;
 
-                        
+
+
                     }
                     else
                     {
@@ -1946,6 +1954,11 @@ namespace Tangenta
             {
                 transaction_Form_Document_loginControl1_UserLoggedIn_user_settings_Load.Rollback();
             }
+        }
+
+        private void Xusrc_DocumentMan1366x768_Resize(object sender, EventArgs e)
+        {
+            
         }
 
         private eset_layout_design set_layout_design()
@@ -2053,7 +2066,7 @@ namespace Tangenta
                 LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged()!");
 
                 SetNewFormTag();
-                DocumentMan1366x768.LayoutChanged += M_usrc_Main_LayoutChanged;
+                //DocumentMan1366x768.LayoutChanged += M_usrc_Main_LayoutChanged;
             }
 
         }

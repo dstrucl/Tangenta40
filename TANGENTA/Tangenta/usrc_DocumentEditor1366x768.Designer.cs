@@ -145,6 +145,7 @@ namespace Tangenta
             this.m_usrc_ShopC1366x768.Name = "m_usrc_ShopC1366x768";
             this.m_usrc_ShopC1366x768.Size = new System.Drawing.Size(1006, 320);
             this.m_usrc_ShopC1366x768.TabIndex = 46;
+            this.m_usrc_ShopC1366x768.Resize += new System.EventHandler(this.m_usrc_ShopC1366x768_Resize);
             // 
             // btn_New
             // 

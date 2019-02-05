@@ -191,9 +191,8 @@ namespace Tangenta
             }
         }
 
-        public usrc_DocumentMan1366x768()
+        public void SetDefPos()
         {
-            InitializeComponent();
             defpos = new Defpos();
             defpos.usrc_DocumentEditor1366x768_Left = m_usrc_DocumentEditor1366x768.Left;
             defpos.usrc_DocumentEditor1366x768_Width = m_usrc_DocumentEditor1366x768.Width;
@@ -209,6 +208,12 @@ namespace Tangenta
             defpos.usrc_TransactionControl1_Left = this.usrc_TransactionControl1.Left;
             defpos.usrc_TransactionControl1_Top = this.usrc_TransactionControl1.Top;
             defpos.usrc_TableOfDocuments_Width = this.m_usrc_TableOfDocuments.Width;
+            this.m_usrc_DocumentEditor1366x768.SetDefPos();
+        }
+
+        public usrc_DocumentMan1366x768()
+        {
+            InitializeComponent();
 
             if (Startup.CommandLineParam.bTransactionMonitor)
             {
@@ -222,8 +227,14 @@ namespace Tangenta
             }
    
             lng.s_Year.Text(lbl_FinancialYear);
-            m_usrc_DocumentEditor1366x768.LayoutChanged += M_usrc_Invoice_LayoutChanged;
+            //m_usrc_DocumentEditor1366x768.LayoutChanged += M_usrc_Invoice_LayoutChanged;
             DocM = new DocumentMan(SetMode, TableOfDocuments_Init, Control_DocumentEditor_Init,SetInitialMode);
+            m_usrc_DocumentEditor1366x768.Resize += M_usrc_DocumentEditor1366x768_Resize;
+        }
+
+        private void M_usrc_DocumentEditor1366x768_Resize(object sender, EventArgs e)
+        {
+           
         }
 
         internal bool Control_DocumentEditor_Init(ID xdoc_ID)

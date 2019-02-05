@@ -515,6 +515,23 @@ namespace Tangenta
         //        }
         //}
 
+        public void SetDefPos()
+        {
+            ShopA_default_X = this.m_usrc_ShopA1366x768.Left;
+            ShopA_default_Y = this.m_usrc_ShopA1366x768.Top;
+            ShopB_default_X = this.m_usrc_ShopB1366x768.Left;
+            ShopB_default_Y = this.m_usrc_ShopB1366x768.Top;
+            ShopC_default_X = this.m_usrc_ShopC1366x768.Left;
+            ShopC_default_Y = this.m_usrc_ShopC1366x768.Top;
+
+            ShopA_default_W = this.m_usrc_ShopA1366x768.Width;
+            ShopA_default_H = this.m_usrc_ShopA1366x768.Height;
+            ShopB_default_W = this.m_usrc_ShopB1366x768.Width;
+            ShopB_default_H = this.m_usrc_ShopB1366x768.Height;
+            ShopC_default_W = this.m_usrc_ShopC1366x768.Width;
+            ShopC_default_H = this.m_usrc_ShopC1366x768.Height;
+        }
+
         public usrc_DocumentEditor1366x768()
         {
             InitializeComponent();
@@ -564,19 +581,7 @@ namespace Tangenta
                                    this.m_usrc_ShopB1366x768.Set_dgv_SelectedShopB_Items,
                                    this.m_usrc_ShopC1366x768.m_usrc_ItemList1366x768.Get_Price_Item_Stock_Data);
 
-            ShopA_default_X = this.m_usrc_ShopA1366x768.Left;
-            ShopA_default_Y = this.m_usrc_ShopA1366x768.Top;
-            ShopB_default_X = this.m_usrc_ShopB1366x768.Left;
-            ShopB_default_Y = this.m_usrc_ShopB1366x768.Top;
-            ShopC_default_X = this.m_usrc_ShopC1366x768.Left;
-            ShopC_default_Y = this.m_usrc_ShopC1366x768.Top;
-
-            ShopA_default_W = this.m_usrc_ShopA1366x768.Width;
-            ShopA_default_H = this.m_usrc_ShopA1366x768.Height;
-            ShopB_default_W = this.m_usrc_ShopB1366x768.Width;
-            ShopB_default_H = this.m_usrc_ShopB1366x768.Height;
-            ShopC_default_W = this.m_usrc_ShopC1366x768.Width;
-            ShopC_default_H = this.m_usrc_ShopC1366x768.Height;
+           
 
             lng.s_Show_Shops.Text(btn_Show_Shops);
             lng.s_Number.Text(lbl_Number);
@@ -1315,6 +1320,11 @@ namespace Tangenta
         public void DoRefresh()
         {
             this.m_usrc_ShopC1366x768.DoRefresh();
+        }
+
+        private void m_usrc_ShopC1366x768_Resize(object sender, EventArgs e)
+        {
+
         }
     }
 }
