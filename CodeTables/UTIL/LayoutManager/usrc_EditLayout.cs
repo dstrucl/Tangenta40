@@ -7,12 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ColorSettings;
 
 namespace LayoutManager
 {
     public partial class usrc_EditLayout : UserControl
     {
         internal MyControl my_Control = null;
+        private Color default_backColor = Color.LightGray;
+        private Color default_foreColor = Color.Black;
+
+        private int timer_highlicht_counter = 0;
 
         private Control ctrlx = null;
         public usrc_EditLayout()
@@ -37,16 +42,37 @@ namespace LayoutManager
             my_Control = myctrl;
 
             ctrlx = myctrl.hc.ctrl;
+
+            default_backColor = ctrlx.BackColor;
+            default_foreColor = ctrlx.ForeColor;
+            doHighlight(ctrlx);
+
             setNumUpDn(this.nmUpDnX, ctrlx.Left);
             setNumUpDn(this.nmUpDnY,ctrlx.Top);
             setNumUpDn(this.nmUpDnWidth, ctrlx.Width);
             setNumUpDn(this.nmUpDnHeight, ctrlx.Height);
+
+            this.btn_ForeColorDefault.ForeColor = ctrlx.ForeColor;
+            this.btn_BackColorDefault.BackColor = ctrlx.BackColor;
+
+            this.btn_ForeColor.ForeColor = ctrlx.ForeColor;
+            this.btn_BackColor.BackColor = ctrlx.BackColor;
+
+
             this.txtControl.Text = myctrl.ControlUniqueName;
             setAnchor(ctrlx);
             if (myctrl.hc.ctrlbmp!=null)
             {
                 this.pictureBox1.Image = myctrl.hc.ctrlbmp;
             }
+        }
+
+        private void doHighlight(Control ctrlx)
+        {
+            ctrlx.BackColor = SystemColors.Highlight;
+            timer_highlicht_counter = 5;
+            timer_ControlHighlight.Enabled = true;
+
         }
 
         private void setAnchor(Control ctrlx)
@@ -127,12 +153,12 @@ namespace LayoutManager
 
         private void btn_Up_Click(object sender, EventArgs e)
         {
-            nmUpDnY.Value = nmUpDnY.Value+1;
+            nmUpDnY.Value = nmUpDnY.Value - 1;
         }
 
         private void btn_Down_Click(object sender, EventArgs e)
         {
-            nmUpDnY.Value = nmUpDnY.Value-1;
+            nmUpDnY.Value = nmUpDnY.Value + 1;
         }
 
         private void btn_Left_Click(object sender, EventArgs e)
@@ -163,6 +189,131 @@ namespace LayoutManager
         private void btn_HeightPlus_Click(object sender, EventArgs e)
         {
             nmUpDnHeight.Value = nmUpDnHeight.Value + 1;
+        }
+
+
+        private void btn_BackColorDefault_Click(object sender, EventArgs e)
+        {
+
+                                                             
+        }
+
+        private void btn_ForeColorDefault_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_BackColor_Click(object sender, EventArgs e)
+        {
+            if (my_Control != null)
+            {
+                Form_ColorPicker frm_cpick = new Form_ColorPicker(my_Control.ControlUniqueName,
+                                          this.btn_BackColor,
+                                          my_Control.ForeColor,
+                                          my_Control.BackColor,
+                                          Form_ColorPicker.eColor.BackColor);
+                frm_cpick.ColorChanged += Frm_cpick_ColorChanged;
+                if (frm_cpick.ShowDialog(this) == DialogResult.OK)
+                {
+                   // my_Control.BackColor = frm_cpick.BackColor;
+                }
+            }
+        }
+
+        private void Frm_cpick_ColorChanged(Form_ColorPicker.eColor xecolor, Color color)
+        {
+            Control xctrl = null;
+            if (my_Control != null)
+            {
+                if (my_Control.hc != null)
+                {
+                    if (my_Control.hc.ctrl != null)
+                    {
+                        xctrl = my_Control.hc.ctrl;
+                    }
+                }
+            }
+            if (xctrl != null)
+            {
+                switch (xecolor)
+                {
+                    case Form_ColorPicker.eColor.ForeColor:
+                        xctrl.ForeColor = color;
+                        my_Control.ForeColor = color;
+                        default_foreColor = color;
+                        break;
+                    case Form_ColorPicker.eColor.BackColor:
+                        xctrl.BackColor = color;
+                        my_Control.BackColor = color;
+                        default_backColor = color;
+                        break;
+                }
+            }
+        }
+
+        private void btn_ForeColor_Click(object sender, EventArgs e)
+        {
+            if (my_Control != null)
+            {
+                Form_ColorPicker frm_cpick = new Form_ColorPicker(my_Control.ControlUniqueName,
+                                       this.btn_ForeColor,
+                                       my_Control.ForeColor,
+                                       my_Control.BackColor,
+                                       Form_ColorPicker.eColor.ForeColor);
+
+                if (frm_cpick.ShowDialog(this) == DialogResult.OK)
+                {
+                    my_Control.ForeColor = frm_cpick.ForeColor;
+                }
+            }
+        }
+
+        private void timer_ControlHighlight_Tick(object sender, EventArgs e)
+        {
+            Control xctrl = null;
+            if (my_Control != null)
+            {
+                if (my_Control.hc != null)
+                {
+                    if (my_Control.hc.ctrl != null)
+                    {
+                        xctrl = my_Control.hc.ctrl;
+                        if (timer_highlicht_counter > 0)
+                        {
+                            if (timer_highlicht_counter % 2 == 0)
+                            {
+                                xctrl.BackColor = default_backColor;
+                            }
+                            else
+                            {
+                                xctrl.BackColor = SystemColors.Highlight;
+                            }
+                            timer_highlicht_counter--;
+                        }
+                        else
+                        {
+                            timer_ControlHighlight.Enabled = false;
+                            xctrl.BackColor = default_backColor;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void btn_Highlight_Click(object sender, EventArgs e)
+        {
+            Control xctrl = null;
+            if (my_Control != null)
+            {
+                if (my_Control.hc != null)
+                {
+                    if (my_Control.hc.ctrl != null)
+                    {
+                        xctrl = my_Control.hc.ctrl;
+                        doHighlight(ctrlx);
+                    }
+                }
+            }
         }
     }
 }

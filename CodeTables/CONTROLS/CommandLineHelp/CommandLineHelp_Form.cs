@@ -111,7 +111,7 @@ namespace CommandLineHelp
         private void CommandLineHelp_Form_Load(object sender, EventArgs e)
         {
             
-            int y = 10;
+            int y = 6;
             int iName = 0;
             foreach (CommandLineHelp cmdlnhlp in m_CommandLineHelpList)
             {
@@ -122,7 +122,7 @@ namespace CommandLineHelp
                 helpctrl_last.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
                 this.panel_Help.Controls.Add(helpctrl_last);
                 helpctrl_last.Left = 10;
-                y = helpctrl_last.Bottom + 10;
+                y = helpctrl_last.Bottom + 6;
                 iName++;
             }
         }

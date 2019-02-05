@@ -22,6 +22,8 @@ namespace Startup
         public const string const_command_TRANSACTION_MONITOR = "TRANSACTION-MONITOR";
         public const string const_command_TRANSACTION_BREAK_DIALOG = "TRANSACTION-BREAK-DIALOG";
         public const string const_command_STARTUP_CHECK_COLUMNS = "STARTUP-CHECK-COLUMNS";
+        public const string const_command_SHOW_LAYOUT_DESIGNER = "SHOW-LAYOUT-DESIGNER";
+
         #endregion
 
         public static List<CommandLineHelp.CommandLineHelp> command_line_help = new List<CommandLineHelp.CommandLineHelp>();
@@ -32,6 +34,7 @@ namespace Startup
         public static bool bRS232Monitor = false;
         public static bool bTransactionMonitor = false;
         public static bool bBreakOnTransactionDialog = false;
+        public static bool bShowControlLayoutDesigner = false;
         public static bool bStartupCheckColumns = false;
 
         public static bool bShowCommandLineHelp = false;

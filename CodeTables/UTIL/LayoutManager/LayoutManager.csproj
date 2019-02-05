@@ -101,6 +101,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CONTROLS\ColorSetings\ColorSettings.csproj">
+      <Project>{7246e94a-782c-4f4d-b3a4-09b34c9975b6}</Project>
+      <Name>ColorSettings</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CONTROLS\ComboBox_Recent\ComboBox_Recent.csproj">
       <Project>{0f0afe83-5e47-49cf-888a-79a03fa71321}</Project>
       <Name>ComboBox_Recent</Name>

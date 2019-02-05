@@ -122,7 +122,6 @@
             this.usrc_ColorPicker_ForeColor.AutoScroll = true;
             this.usrc_ColorPicker_ForeColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.usrc_ColorPicker_ForeColor.ColorPickerType = "";
-            this.usrc_ColorPicker_ForeColor.ColorSelected = System.Drawing.Color.White;
             this.usrc_ColorPicker_ForeColor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_ColorPicker_ForeColor.Location = new System.Drawing.Point(0, 0);
             this.usrc_ColorPicker_ForeColor.Name = "usrc_ColorPicker_ForeColor";
@@ -135,7 +134,6 @@
             this.usrc_ColorPicker_BackColor.AutoScroll = true;
             this.usrc_ColorPicker_BackColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.usrc_ColorPicker_BackColor.ColorPickerType = "";
-            this.usrc_ColorPicker_BackColor.ColorSelected = System.Drawing.Color.White;
             this.usrc_ColorPicker_BackColor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_ColorPicker_BackColor.Location = new System.Drawing.Point(0, 0);
             this.usrc_ColorPicker_BackColor.Name = "usrc_ColorPicker_BackColor";

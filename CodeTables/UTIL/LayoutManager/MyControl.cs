@@ -425,8 +425,8 @@ namespace LayoutManager
             dr[Form_Layout.dcol_AnchorRight] = this.AnchorRight;
             dr[Form_Layout.dcol_AnchorTop] = this.AnchorTop;
             dr[Form_Layout.dcol_AnchorBottom] = this.AnchorBottom;
-            dr[Form_Layout.dcol_ForeColor] = this.ForeColor;
-            dr[Form_Layout.dcol_BackColor] = this.BackColor;
+            dr[Form_Layout.dcol_ForeColor] = this.ForeColor.ToArgb();
+            dr[Form_Layout.dcol_BackColor] = this.BackColor.ToArgb();
             dt.Rows.Add(dr);
             foreach (MyControl c in this.children)
             {
@@ -1020,7 +1020,7 @@ namespace LayoutManager
             if (!(this.ControlUniqueName.ToUpper().Contains("UNKNOWN")) || (this.ControlUniqueName.ToUpper().Contains("NONAME")))
             {
                 DataRow dr = findrow(dtCtrlLayout, this.ControlUniqueName);
-                if (this.ControlUniqueName.Equals("Form_Document.usrc_DocumentMan1366x768.m_usrc_DocumentEditor1366x768.usrc_DocIssue1"))
+                if (this.ControlUniqueName.Equals("Form_Document.usrc_DocumentMan1366x768.btn_Exit")) 
                 {
 
                 }
@@ -1032,6 +1032,8 @@ namespace LayoutManager
                         this.hc.ctrl.Top = (int)dr["Top"];
                         this.hc.ctrl.Width = (int)dr["Width"];
                         this.hc.ctrl.Height = (int)dr["Height"];
+                        this.hc.ctrl.ForeColor = Color.FromArgb((int)dr["ForeColor"]);
+                        this.hc.ctrl.BackColor = Color.FromArgb((int)dr["BackColor"]);
                         this.hc.ctrl.Refresh();
                     }
                 }

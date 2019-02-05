@@ -42,6 +42,7 @@
             this.lbl_StartUp.Size = new System.Drawing.Size(70, 26);
             this.lbl_StartUp.TabIndex = 0;
             this.lbl_StartUp.Text = "label1";
+            this.lbl_StartUp.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lbl_StartUp_MouseUp);
             // 
             // usrc_web_Help1
             // 

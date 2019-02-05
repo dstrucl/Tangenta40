@@ -39,7 +39,7 @@ namespace ColorSettings
             {
                 return m_ColorSelected;
             }
-            set
+            private set
             {
                 m_ColorSelected = value;
                 lbl_SelectedColor.Text = "";
@@ -65,6 +65,14 @@ namespace ColorSettings
                     ColorChanged(m_ColorSelected);
                 }
             }
+        }
+
+        internal void SetColorSelected(Color colorSelected)
+        {
+            m_ColorSelected = colorSelected;
+            lbl_SelectedColor.Text = "";
+            lbl_SelectedColor.BackColor = m_ColorSelected;
+            this.colorEditorManager1.Color = m_ColorSelected;
         }
     }
 }

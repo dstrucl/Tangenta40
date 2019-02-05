@@ -44,7 +44,7 @@
             this.panel_Help.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_Help.Location = new System.Drawing.Point(3, 18);
             this.panel_Help.Name = "panel_Help";
-            this.panel_Help.Size = new System.Drawing.Size(692, 427);
+            this.panel_Help.Size = new System.Drawing.Size(692, 520);
             this.panel_Help.TabIndex = 2;
             // 
             // usrc_NavigationButtons1
@@ -88,7 +88,7 @@
             this.grp_CommandLineParameters.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.grp_CommandLineParameters.Location = new System.Drawing.Point(0, 120);
             this.grp_CommandLineParameters.Name = "grp_CommandLineParameters";
-            this.grp_CommandLineParameters.Size = new System.Drawing.Size(698, 448);
+            this.grp_CommandLineParameters.Size = new System.Drawing.Size(698, 541);
             this.grp_CommandLineParameters.TabIndex = 4;
             this.grp_CommandLineParameters.TabStop = false;
             this.grp_CommandLineParameters.Text = "Command Line Parameters";
@@ -107,7 +107,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(698, 568);
+            this.ClientSize = new System.Drawing.Size(698, 661);
             this.Controls.Add(this.usrc_HelpSettings1);
             this.Controls.Add(this.grp_CommandLineParameters);
             this.Controls.Add(this.usrc_NavigationButtons1);

@@ -10,8 +10,22 @@ using System.Windows.Forms;
 
 namespace ColorSettings
 {
-    public partial class Form_ColorpairPicker : Form
+    public partial class Form_ColorPicker : Form
     {
+        public delegate void delegate_ColorChanged(eColor xecolor,Color color);
+        public event delegate_ColorChanged ColorChanged = null;
+
+        private Control previewControl = null;
+        public enum eColor { BackColor,ForeColor};
+
+        private eColor ecolor = Form_ColorPicker.eColor.BackColor;
+        private eColor Ecolor
+        {
+            get
+            {
+                return ecolor;
+            }
+        }
         private Color m_ForeColorSelected = Color.Black;
         public Color ForeColorSelected
         {
@@ -37,55 +51,34 @@ namespace ColorSettings
             }
         }
 
-       
-
-        public Form_ColorpairPicker(string slblIndex,Color xforecolor, Color xbackcolor)
+        public Form_ColorPicker(string sControlName,Control xpreviewControl, Color xforecolor, Color xbackcolor, eColor xecolor)
         {
             InitializeComponent();
+            previewControl = xpreviewControl;
+            ecolor = xecolor;
             m_ForeColorSelected = xforecolor;
             m_BackColorSelected = xbackcolor;
-            lbl_Index.Text = ControlColorDic.sColorIndex + slblIndex + " : ";
-            if (ControlColorDic.ImageCancel!=null)
-            {
-                btn_Cancel.Text = "";
-                btn_Cancel.Image = ControlColorDic.ImageCancel;
-                btn_Cancel.ImageAlign = ContentAlignment.MiddleCenter;
-            }
-            int icol = -1;
-            try
-            {
-                icol = Convert.ToInt32(slblIndex);
-            }
-            catch 
-            {
-                icol = -1;
-            }
-            if (icol>=0)
-            {
-                if (ControlColorDic.dic[icol]!=null)
-                {
-                    foreach(string s in ControlColorDic.dic[icol])
-                    {
-                        cmb_ControlsOfColorIndex.Items.Add(s);
-                    }
-                    if (cmb_ControlsOfColorIndex.Items.Count>0)
-                    {
-                        cmb_ControlsOfColorIndex.SelectedIndex = 0;
-                    }
+            txt_ControlName.Text = sControlName + " : ";
 
-                }
+            switch (ecolor)
+            {
+                case eColor.ForeColor:
+                    this.usrc_ColorPicker.ColorPickerType = "Fore color";
+                    this.Text = "Fore color";
+                    this.usrc_ColorPicker.SetColorSelected(m_ForeColorSelected);
+                    break;
+                case eColor.BackColor:
+                    this.usrc_ColorPicker.ColorPickerType = "Back color";
+                    this.Text = "Back color";
+                    this.usrc_ColorPicker.SetColorSelected(m_BackColorSelected);
+                    break;
             }
-            this.usrc_ColorPicker_ForeColor.ColorPickerType = Sheme.slng_ForeColor;
-            this.usrc_ColorPicker_BackColor.ColorPickerType = Sheme.slng_BackColor;
-            this.usrc_ColorPicker_ForeColor.SetColorSelected(m_ForeColorSelected);
-            this.usrc_ColorPicker_BackColor.SetColorSelected(m_BackColorSelected);
-            this.Text = Sheme.slng_Form_ColorPicker_Caption;
+            
         }
 
         private void btn_OK_Click(object sender, EventArgs e)
         {
-            m_ForeColorSelected = this.usrc_ColorPicker_ForeColor.ColorSelected;
-            m_BackColorSelected = this.usrc_ColorPicker_BackColor.ColorSelected;
+            m_ForeColorSelected = this.usrc_ColorPicker.ColorSelected;
             this.Close();
             DialogResult = DialogResult.OK;
         }
@@ -136,7 +129,7 @@ namespace ColorSettings
             this.ResumeLayout(false);
         }
 
-        private void usrc_ColorPicker_ForeColor_ColorChanged(Color color)
+        private void usrc_ColorPicker_ColorChanged(Color color)
         {
             foreach (Control ctrl in this.Controls)
             {
@@ -145,22 +138,35 @@ namespace ColorSettings
                     TextBox txt = (TextBox)ctrl;
                     if (txt.Name.Contains("txt_Demo_"))
                     {
-                        txt.ForeColor = color;
-                    }
-                }
-            }
-        }
-
-        private void usrc_ColorPicker_BackColor_ColorChanged(Color color)
-        {
-            foreach (Control ctrl in this.Controls)
-            {
-                if (ctrl is TextBox)
-                {
-                    TextBox txt = (TextBox)ctrl;
-                    if (txt.Name.Contains("txt_Demo_"))
-                    {
-                        txt.BackColor = color;
+                        switch (ecolor)
+                        {
+                            case eColor.ForeColor:
+                                m_ForeColorSelected = color;
+                                txt.ForeColor = color;
+                                txt.BackColor = m_BackColorSelected;
+                                if (previewControl!=null)
+                                {
+                                    previewControl.ForeColor = color;
+                                }
+                                if (ColorChanged != null)
+                                {
+                                    ColorChanged(ecolor, color);
+                                }
+                                break;
+                            case eColor.BackColor:
+                                txt.ForeColor = m_ForeColorSelected;
+                                txt.BackColor = color;
+                                m_BackColorSelected = color;
+                                if (previewControl != null)
+                                {
+                                    previewControl.BackColor = color;
+                                }
+                                if (ColorChanged!=null)
+                                {
+                                    ColorChanged(ecolor, color);
+                                }
+                                break;
+                        }
                     }
                 }
             }

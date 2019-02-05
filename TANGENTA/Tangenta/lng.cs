@@ -25,6 +25,9 @@ namespace Tangenta
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_ScreenLayoutFile = new ltext(new string[] { "Screen layout file:", "Razporeditvena datoteka za ekran" });
+        public static ltext s_DoesNotExists = new ltext(new string[] { "does not exists", "ne obstaja" });
+        public static ltext s_DesignScreenLayoutFileForScreenResolution = new ltext(new string[] { "Design screen layout file for screen resolution", "Oblikuj razporeditveno datoteko za ekran resolucije " });
         public static ltext s_Form_TableInspection = new ltext(new string[] { "Table Inspection", "Pregled tabel" });
         public static ltext s_SaveAsTextFile = new ltext(new string[] { "Save as text file", "Shrani v tekstovno datoteko" });
         public static ltext s_YouCanNotWriteInvoices_CasshierIsClosed = new ltext(new string[] { "You can not write invoices. Cashier is closed!", "Kadar je blagajna zaprta ni možno pisati in izdajati računov!" });

@@ -109,7 +109,12 @@ namespace Global
         public static bool SetApplicationDataSubFolder(ref string folder, string subFolder, ref string Err)
         {
             Err = null;
-            string xFolder = GetApplicationDataFolder() + subFolder;
+            string appdatafolder = GetApplicationDataFolder();
+            if (appdatafolder[appdatafolder.Length-1]!='\\')
+            {
+                appdatafolder +='\\';
+            }
+            string xFolder = appdatafolder + subFolder;
             try
             {
                 if (!Directory.Exists(xFolder))

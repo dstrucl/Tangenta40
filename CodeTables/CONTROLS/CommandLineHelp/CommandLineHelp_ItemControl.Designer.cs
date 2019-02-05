@@ -41,14 +41,14 @@
             this.txt_Help.Multiline = true;
             this.txt_Help.Name = "txt_Help";
             this.txt_Help.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txt_Help.Size = new System.Drawing.Size(574, 87);
+            this.txt_Help.Size = new System.Drawing.Size(574, 55);
             this.txt_Help.TabIndex = 0;
             // 
             // chk_select
             // 
             this.chk_select.AutoSize = true;
-            this.chk_select.Location = new System.Drawing.Point(4, 33);
-            this.chk_select.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chk_select.Location = new System.Drawing.Point(2, 17);
+            this.chk_select.Margin = new System.Windows.Forms.Padding(2);
             this.chk_select.Name = "chk_select";
             this.chk_select.Size = new System.Drawing.Size(15, 14);
             this.chk_select.TabIndex = 1;
@@ -63,7 +63,7 @@
             this.Controls.Add(this.txt_Help);
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "CommandLineHelp_ItemControl";
-            this.Size = new System.Drawing.Size(597, 91);
+            this.Size = new System.Drawing.Size(597, 59);
             this.ResumeLayout(false);
             this.PerformLayout();
 

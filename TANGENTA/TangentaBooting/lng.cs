@@ -766,6 +766,7 @@ namespace TangentaBooting
 
         public static ltext s_commandline__STARTUP_CHECK_COLUMNS = new ltext(new string[] { "Check each column of each table in database at program startup.\r\nStartup of program will take longer.", "Preverjanje stolpcev tabel ob zagonu programa.\r\nV kolikor odkljukate to opcijo, bo zagon programa trajal dlje časa." });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
 
+        public static ltext s_commandline_SHOW_LAYOUT_DESIGNER = new ltext(new string[] { "Show control layout designer depended on screen resolution.", "Prikaži dialog za razporejanje kontrol gledena resolucijo ekrana " });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
 
         public static ltext s_commandline_RESETNEW = new ltext(new string[] { "Starts program without saved settings!", "Zažene program kot novo instalacijo brez vseh nastavitev!" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs
 

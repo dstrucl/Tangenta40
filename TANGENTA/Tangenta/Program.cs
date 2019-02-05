@@ -41,7 +41,7 @@ namespace Tangenta
 
 
         #region Variables
-      
+
 
 
 
@@ -62,13 +62,13 @@ namespace Tangenta
         internal static ID ProgramModule_ID = null;
 
 
-      
 
 
-        
 
 
-     
+
+
+
 
 
 
@@ -79,7 +79,7 @@ namespace Tangenta
         #region External WIN_API
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        extern private static  bool SetForegroundWindow(IntPtr hWnd);
+        extern private static bool SetForegroundWindow(IntPtr hWnd);
 
         [DllImport("User32")]
         extern public static int GetGuiResources(IntPtr hProcess, int uiFlags);
@@ -87,23 +87,7 @@ namespace Tangenta
 
         #region Properties
 
-     
-        //public static eCashierState CashierState
-        //{
-        //    get
-        //    {
-        //        if (MainForm != null)
-        //        {
-        //            return MainForm.CashierState;
-        //        }
-        //        else
-        //        {
-        //            return eCashierState.CLOSED;
-        //        }
-        //    }
-        //}
 
-        
         public static CashierActivity CashierActivity
         {
             get
@@ -118,6 +102,20 @@ namespace Tangenta
                 }
             }
         }
+
+        private static bool layout_designer_dialog = false;
+        internal static bool Layout_Designer_Dialog
+        {
+            get 
+            {
+                return layout_designer_dialog;
+            }
+            set
+            {
+                layout_designer_dialog = value;
+            }
+        }
+
 
         public static bool ProgramDiagnostic
         {
@@ -335,9 +333,14 @@ namespace Tangenta
                         }
                     }
 
-                        if (CommandLineParam.bResetNew)
+                    if (CommandLineParam.bResetNew)
                     {
                         goto DoResetNew;
+                    }
+
+                    if (CommandLineParam.bShowControlLayoutDesigner)
+                    {
+                        Layout_Designer_Dialog = true;
                     }
 
                     Colors.Init();

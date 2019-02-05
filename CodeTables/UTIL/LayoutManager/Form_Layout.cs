@@ -19,7 +19,21 @@ namespace LayoutManager
 {
     public partial class Form_Layout : Form
     {
+        private Screen screen = null;
+        Form pForm = null;
+        private string screen_layout_folder = null;
+        private string screen_layout_file = null;
 
+        private bool designchanged = false;
+        public bool DesignChanged
+        {
+            get
+            {
+                return designchanged;
+            }
+        }
+
+        public enum eSetLayoutResult { OK, SCRREN_LAYOUT_FILE_DOES_NOT_EXIST,CANNOT_SET_SCRREN_LAYOUT_FOLDER,EXCEPTION_ERROR };
         public static DataColumn dcol_ControlName = null;
         public static DataColumn dcol_Left = null;
         public static DataColumn dcol_Top = null;
@@ -82,7 +96,7 @@ namespace LayoutManager
         internal hctrl hc = null;
         //internal usrc_Help mH = null;
         internal MyControl MyControl_Selected = null;
-        XDocument xhtml = null;
+        //XDocument xhtml = null;
         internal XDocument xhtml_Loaded = null;
 
         //private string m_Header = "";
@@ -92,16 +106,18 @@ namespace LayoutManager
         //XElement html_html = null;
         //XElement html_head = null;
         //XElement html_title = null;
-        XElement html_body = null;
+        //XElement html_body = null;
         //XElement THeader = null;
 
 
         //public Form_Layout(usrc_Help xH)
 
         
-        public Form_Layout(Screen screen, Form pForm)
+        public Form_Layout(Screen xscreen, Form xpForm)
         {
             InitializeComponent();
+            screen = xscreen;
+            pForm = xpForm;
             LayoutName = getLayoutName(screen, pForm);
             this.cmb_ScreenResolution.Text = LayoutName;
             UniqueControlName uctrln = new UniqueControlName();
@@ -132,12 +148,7 @@ namespace LayoutManager
             //    return;
             //}
             
-            usrc_SelectXMLFile.FileName = LocalXmlFileName;
-            usrc_SelectXMLFile.Title = "Save XML file";
-            usrc_SelectXMLFile.Text = "XML file:";
-            this.usrc_SelectXMLFile.DefaultExtension = "xml";
-            this.usrc_SelectXMLFile.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
-
+         
             //string sStylePath = Path.GetDirectoryName(mH.LocalHtmlFile);
             //int index_of_last_map = sStylePath.LastIndexOf('\\');
             //if (index_of_last_map > 0)
@@ -160,8 +171,8 @@ namespace LayoutManager
             dcol_AnchorRight = new DataColumn("AnchorRight", typeof(bool));
             dcol_AnchorTop = new DataColumn("AnchoTop", typeof(bool));
             dcol_AnchorBottom = new DataColumn("AnchorBottom", typeof(bool));
-            dcol_ForeColor = new DataColumn("ForeColor", typeof(Color));
-            dcol_BackColor = new DataColumn("BackColor", typeof(Color));
+            dcol_ForeColor = new DataColumn("ForeColor", typeof(int));
+            dcol_BackColor = new DataColumn("BackColor", typeof(int));
 
 
             dtControlLayout.Columns.Add(dcol_ControlName);
@@ -212,33 +223,49 @@ namespace LayoutManager
             SetHeader();
 
 
-
-            string appdatafolder = Global.f.GetApplicationDataFolder();
-            if (appdatafolder[appdatafolder.Length-1]!='\\')
+            string err = null;
+            if (Global.f.SetApplicationDataSubFolder(ref screen_layout_folder, "ScreenLayout", ref err))
             {
-                appdatafolder += '\\';
+                if (screen_layout_folder[screen_layout_folder.Length - 1] != '\\')
+                {
+                    screen_layout_folder += '\\';
+                }
+                screen_layout_file = screen_layout_folder + getLayoutName(screen, pForm) + ".xml";
+
+
+                usrc_SelectXMLFile.FileName = screen_layout_file;
+                usrc_SelectXMLFile.Title = "Save XML file";
+                usrc_SelectXMLFile.Text = "XML file:";
+                this.usrc_SelectXMLFile.DefaultExtension = "xml";
+                this.usrc_SelectXMLFile.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
+
+                if (File.Exists(screen_layout_file))
+                {
+                    try
+                    {
+                        dtControlLayout.ReadXml(screen_layout_file);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("ERROR: XDocument.Load file=\"" + screen_layout_file + "\" failed :Exception = " + ex.Message);
+                    }
+                }
+
+
+                int iAllCount = 0;
+
+                InitializeMyTreeListView(ref iAllCount);
+                if (iAllCount > 0)
+                {
+                    this.MyTreeListView.ExpandAll();
+                }
+
+                this.Text = /*sXmlFileName +*/ "  Number of controls=" + iAllCount.ToString();
             }
-            string sXmlFileName = appdatafolder+ LayoutName+".xml";
-            usrc_SelectXMLFile.FileName = sXmlFileName;
-            if (File.Exists(sXmlFileName))
+            else
             {
-                try
-                {
-                    dtControlLayout.ReadXml(sXmlFileName);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("ERROR: XDocument.Load file=\"" + sXmlFileName + "\" failed :Exception = " + ex.Message);
-                }
+                MessageBox.Show("ERROR:LayoutManager:Form_Layout:" + err);
             }
-           
-
-            int iAllCount = 0;
-
-            InitializeMyTreeListView(ref iAllCount);
-
-            this.Text = /*sXmlFileName +*/ "  Number of controls=" + iAllCount.ToString();
-
             //if (Properties.Settings.Default.GitExeFile.Length==0)
             //{
             //    Properties.Settings.Default.UseGit = false;
@@ -414,7 +441,7 @@ namespace LayoutManager
             }
         }
 
-        internal bool SaveTableInXml(string xml_file, ref XDocument xh, ref string Err)
+        internal bool SaveTableInXml(string xml_file, /*ref XDocument xh, */ref string Err)
         {
 
             //if (this.MyControl_Selected != null)
@@ -459,6 +486,7 @@ namespace LayoutManager
                 try
                 {
                     dtControlLayout.WriteXml(xml_file, XmlWriteMode.WriteSchema);
+                    designchanged = true;
                     return true;
                 }
                 catch (Exception ex)
@@ -512,19 +540,19 @@ namespace LayoutManager
             if (xhc.subctrl != null)
             {
                 MyControl child = null;
-                foreach (hctrl hc in xhc.subctrl)
+                foreach (hctrl hcx in xhc.subctrl)
                 {
-                    if (hc.ctrl != null)
+                    if (hcx.ctrl != null)
                     {
-                        if (hc.ctrl.Visible)
-                        {
-                            child = CreateMyControls(/*xHlpWizTag,*/ level + 1, iCount++, ref iAllCount, hc, myctrl, ref helperControlType/*,  mH*/);
+                        //if (hcx.ctrl.Visible)
+                        //{
+                            child = CreateMyControls(/*xHlpWizTag,*/ level + 1, iCount++, ref iAllCount, hcx, myctrl, ref helperControlType/*,  mH*/);
                             myctrl.children.Add(child);
-                        }
+                        //}
                     }
-                    else if (hc.dgvc != null)
+                    else if (hcx.dgvc != null)
                     {
-                        child = CreateMyControls(/*xHlpWizTag,*/ level + 1, iCount++, ref iAllCount, hc, myctrl,ref helperControlType/*,  mH*/);
+                        child = CreateMyControls(/*xHlpWizTag,*/ level + 1, iCount++, ref iAllCount, hcx, myctrl,ref helperControlType/*,  mH*/);
                         myctrl.children.Add(child);
                     }
                 }
@@ -798,7 +826,7 @@ namespace LayoutManager
 
         private bool usrc_SelectXMLFile_SaveFile(string FileName, ref string Err)
         {
-            if (SaveTableInXml(FileName, ref this.xhtml, ref Err))
+            if (SaveTableInXml(FileName, ref Err))
             {
                 return true;
 
@@ -809,10 +837,16 @@ namespace LayoutManager
             }
         }
 
-        public static bool SetLayout(Form pForm)
+        public static eSetLayoutResult SetLayout(Form xpForm, 
+                                                 ref int screen_width,
+                                                 ref int screen_height,
+                                                 ref string screen_layout_folder,
+                                                 ref string sXmlFileName,ref string err)
         {
             int iAllCount = 0;
-            Screen screen = Screen.FromControl(pForm);
+            Screen xscreen = Screen.FromControl(xpForm);
+            screen_width = xscreen.Bounds.Width;
+            screen_height = xscreen.Bounds.Height;
             DataTable dtCtrlLayout = new DataTable();
             //dtCtrlLayout.TableName = Form_Layout.getLayoutName(screen, pForm);
             dcol_ControlName = new DataColumn("ControlName", typeof(string));
@@ -824,49 +858,46 @@ namespace LayoutManager
             dcol_AnchorRight = new DataColumn("AnchorRight", typeof(bool));
             dcol_AnchorTop = new DataColumn("AnchoTop", typeof(bool));
             dcol_AnchorBottom = new DataColumn("AnchorBottom", typeof(bool));
-            dcol_ForeColor = new DataColumn("ForeColor", typeof(Color));
-            dcol_BackColor = new DataColumn("BackColor", typeof(Color));
+            dcol_ForeColor = new DataColumn("ForeColor", typeof(int));
+            dcol_BackColor = new DataColumn("BackColor", typeof(int));
 
 
-            //dtCtrlLayout.Columns.Add(dcol_ControlName);
-            //dtCtrlLayout.Columns.Add(dcol_Left);
-            //dtCtrlLayout.Columns.Add(dcol_Top);
-            //dtCtrlLayout.Columns.Add(dcol_Width);
-            //dtCtrlLayout.Columns.Add(dcol_Height);
-            //dtCtrlLayout.Columns.Add(dcol_AnchorLeft);
-            //dtCtrlLayout.Columns.Add(dcol_AnchorRight);
-            //dtCtrlLayout.Columns.Add(dcol_AnchorTop);
-            //dtCtrlLayout.Columns.Add(dcol_AnchorBottom);
-            //dtCtrlLayout.Columns.Add(dcol_ForeColor);
-            //dtCtrlLayout.Columns.Add(dcol_BackColor);
-
-            string appdatafolder = Global.f.GetApplicationDataFolder();
-            if (appdatafolder[appdatafolder.Length - 1] != '\\')
+            if (Global.f.SetApplicationDataSubFolder(ref screen_layout_folder, "ScreenLayout", ref err))
             {
-                appdatafolder += '\\';
-            }
-            string sXmlFileName = appdatafolder + getLayoutName(screen, pForm) + ".xml";
-            if (File.Exists(sXmlFileName))
-            {
-                try
+                if (screen_layout_folder[screen_layout_folder.Length - 1] != '\\')
                 {
-                    dtCtrlLayout.ReadXml(sXmlFileName);
-                    UniqueControlName uctrln = new UniqueControlName();
-                    hctrl hc = new hctrl(pForm, uctrln);
-                    SysImageListHelper helperControlType = null;
-                    MyControl myroot = CreateMyControls( 0, 0, ref iAllCount, hc, null, ref helperControlType);
-                    myroot.SetLayout(dtCtrlLayout);
-                    return true;
-
+                    screen_layout_folder += '\\';
                 }
-                catch (Exception ex)
+                sXmlFileName = screen_layout_folder + getLayoutName(xscreen, xpForm) + ".xml";
+                if (File.Exists(sXmlFileName))
                 {
-                    return false;
+                    try
+                    {
+                        dtCtrlLayout.ReadXml(sXmlFileName);
+                        UniqueControlName xuctrln = new UniqueControlName();
+                        hctrl xhc = new hctrl(xpForm, xuctrln);
+                        SysImageListHelper xhelperControlType = null;
+                        MyControl xmyroot = CreateMyControls(0, 0, ref iAllCount, xhc, null, ref xhelperControlType);
+                        xmyroot.SetLayout(dtCtrlLayout);
+                        return eSetLayoutResult.OK;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        err = "ERROR:LayoutManager:Form_Layout:SetLayout: Exception=" + ex.Message;
+                        return eSetLayoutResult.EXCEPTION_ERROR;
+                    }
+                }
+                else
+                {
+                    err = "ERROR:LayoutManager:Form_Layout:SetLayout: File:\"" + sXmlFileName+"\" does not exists!";
+                    return eSetLayoutResult.SCRREN_LAYOUT_FILE_DOES_NOT_EXIST;
                 }
             }
             else
             {
-                return false;
+                err = "ERROR:LayoutManager:Form_Layout:SetLayout: canot set \"ScreenLayout\" folder !";
+                return eSetLayoutResult.CANNOT_SET_SCRREN_LAYOUT_FOLDER;
             }
         }
     }

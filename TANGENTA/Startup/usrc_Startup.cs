@@ -20,6 +20,9 @@ namespace Startup
         public delegate void delegate_ExitProgram();
         public event delegate_ExitProgram ExitProgram = null;
 
+        public delegate void delegate_DoLayoutDesign();
+        public event delegate_DoLayoutDesign DoLayoutDesign = null;
+
         public delegate void delegate_ExitPrev();
         public event delegate_ExitProgram ExitPrev = null;
 
@@ -120,6 +123,17 @@ namespace Startup
             if (WebBrowserControl_DocumentCompleted!=null)
             {
                 WebBrowserControl_DocumentCompleted(url);
+            }
+        }
+
+        private void lbl_StartUp_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Middle)
+            {
+                if (DoLayoutDesign!=null)
+                {
+                    DoLayoutDesign();
+                }
             }
         }
     }

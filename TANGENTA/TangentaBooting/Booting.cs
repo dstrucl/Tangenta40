@@ -85,6 +85,11 @@ namespace TangentaBooting
                             Transaction.BreakOnTransactionDialog = CommandLineParam.bBreakOnTransactionDialog;
                         }
 
+                        if (s.Contains(CommandLineParam.const_command_SHOW_LAYOUT_DESIGNER))
+                        {
+                            CommandLineParam.bShowControlLayoutDesigner = true;
+                        }
+
                         if (s.Contains(CommandLineParam.const_command_STARTUP_CHECK_COLUMNS))
                         {
                             CommandLineParam.bStartupCheckColumns = true;
@@ -238,6 +243,7 @@ namespace TangentaBooting
             command_line_help.Add(new CommandLineHelp.CommandLineHelp("/" + const_command_TRANSACTION_MONITOR, lng.s_commandline_TRANSACTION_MONITOR.s));
             command_line_help.Add(new CommandLineHelp.CommandLineHelp("/" + const_command_TRANSACTION_BREAK_DIALOG, lng.s_commandline_TRANSACTION_BREAK_DIALOG.s));
             command_line_help.Add(new CommandLineHelp.CommandLineHelp("/" + const_command_STARTUP_CHECK_COLUMNS, lng.s_commandline__STARTUP_CHECK_COLUMNS.s));
+            command_line_help.Add(new CommandLineHelp.CommandLineHelp("/" + const_command_SHOW_LAYOUT_DESIGNER, lng.s_commandline_SHOW_LAYOUT_DESIGNER.s));
 
             //            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DIAGNOSTIC, lng.s_const_command_DIAGNOSTIC.s));, lng.s_commandline_TRANSACTION_BREAK_DIALOG.s));
 
