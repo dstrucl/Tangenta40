@@ -41,6 +41,7 @@
             this.usrc_Help1 = new HUDCMS.usrc_Help();
             this.chk_CodeTables_DLL = new System.Windows.Forms.CheckBox();
             this.chk_ColorSettings_DLL = new System.Windows.Forms.CheckBox();
+            this.chk_LayoutSettings = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btn_Yes
@@ -73,12 +74,12 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "label1";
             // 
-            // chk_Tangenta_EXE
+            // chk_TangentaProperties
             // 
             this.chk_TangentaProperties.AutoSize = true;
             this.chk_TangentaProperties.Location = new System.Drawing.Point(10, 130);
             this.chk_TangentaProperties.Name = "chk_TangentaProperties";
-            this.chk_TangentaProperties.Size = new System.Drawing.Size(96, 17);
+            this.chk_TangentaProperties.Size = new System.Drawing.Size(142, 17);
             this.chk_TangentaProperties.TabIndex = 3;
             this.chk_TangentaProperties.Text = "TangentaProperties.DLL";
             this.chk_TangentaProperties.UseVisualStyleBackColor = true;
@@ -135,7 +136,7 @@
             // 
             // usrc_Help1
             // 
-            this.usrc_Help1.Location = new System.Drawing.Point(549, 8);
+            this.usrc_Help1.Location = new System.Drawing.Point(606, 8);
             this.usrc_Help1.Name = "usrc_Help1";
             this.usrc_Help1.Size = new System.Drawing.Size(44, 27);
             this.usrc_Help1.TabIndex = 9;
@@ -160,11 +161,22 @@
             this.chk_ColorSettings_DLL.Text = "ColorSettings.DLL";
             this.chk_ColorSettings_DLL.UseVisualStyleBackColor = true;
             // 
+            // chk_LayoutSettings
+            // 
+            this.chk_LayoutSettings.AutoSize = true;
+            this.chk_LayoutSettings.Location = new System.Drawing.Point(519, 168);
+            this.chk_LayoutSettings.Name = "chk_LayoutSettings";
+            this.chk_LayoutSettings.Size = new System.Drawing.Size(131, 17);
+            this.chk_LayoutSettings.TabIndex = 12;
+            this.chk_LayoutSettings.Text = "Scrren Control Layout ";
+            this.chk_LayoutSettings.UseVisualStyleBackColor = true;
+            // 
             // Form_Reset_Properties_Settings_Default
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(605, 251);
+            this.ClientSize = new System.Drawing.Size(662, 251);
+            this.Controls.Add(this.chk_LayoutSettings);
             this.Controls.Add(this.chk_ColorSettings_DLL);
             this.Controls.Add(this.chk_CodeTables_DLL);
             this.Controls.Add(this.usrc_Help1);
@@ -203,5 +215,6 @@
         private HUDCMS.usrc_Help usrc_Help1;
         private System.Windows.Forms.CheckBox chk_CodeTables_DLL;
         private System.Windows.Forms.CheckBox chk_ColorSettings_DLL;
+        private System.Windows.Forms.CheckBox chk_LayoutSettings;
     }
 }

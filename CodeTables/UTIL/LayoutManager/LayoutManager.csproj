@@ -125,6 +125,10 @@
       <Project>{b95b4df8-a651-4193-9393-0fb33cc566d3}</Project>
       <Name>Global</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LogFile\LogFile.csproj">
+      <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
+      <Name>LogFile</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniqueControlNames\UniqueControlNames.csproj">
       <Project>{82dc8548-1981-4f2c-b0ba-abd37282085a}</Project>
       <Name>UniqueControlNames</Name>

@@ -16,5 +16,6 @@ namespace Startup
         public static bool FiscalVerification_DLL = false;
         public static bool LogFile_DLL = false;
         public static bool ColorSettings_DLL = false;
+        public static bool LayoutSettings = false;
     }
 }

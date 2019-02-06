@@ -22,8 +22,8 @@ namespace TangentaCore
 {
     public partial class Form_CodeTables : Form
     {
-        
 
+        public object usrc_DocumentManX = null;
         public Form_CodeTables()
         {
             InitializeComponent();
@@ -32,6 +32,7 @@ namespace TangentaCore
         public Form_CodeTables(object x_usrc_DocumentManX)
         {
             InitializeComponent();
+            usrc_DocumentManX= x_usrc_DocumentManX;
             lng.s_CodeTables.Text(this);
             lng.s_Issuer.Text(lbl_MyOrganisation);
             lng.s_MyOrganisation.Text(lbl_MyOrganisation);

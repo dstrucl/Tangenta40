@@ -568,6 +568,7 @@ namespace Tangenta
                 Reset2FactorySettings.TangentaPrint_DLL = frm_set.bTangentaPrint_DLL;
                 Reset2FactorySettings.FiscalVerification_DLL = frm_set.bFiscalVerification_DLL;
                 Reset2FactorySettings.ColorSettings_DLL = frm_set.bColorSettings_DLL;
+                Reset2FactorySettings.LayoutSettings = frm_set.bLayoutSettings;
             }
             else
             {
@@ -578,6 +579,7 @@ namespace Tangenta
                 Reset2FactorySettings.TangentaPrint_DLL = false;
                 Reset2FactorySettings.FiscalVerification_DLL = false;
                 Reset2FactorySettings.ColorSettings_DLL = false;
+                Reset2FactorySettings.LayoutSettings = false;
             }
 
             if (Reset2FactorySettings.CodeTables_DLL)

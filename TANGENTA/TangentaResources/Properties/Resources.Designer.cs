@@ -599,6 +599,40 @@ namespace TangentaResources.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; standalone=&quot;yes&quot;?&gt;
+        ///&lt;NewDataSet&gt;
+        ///  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;
+        ///    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;s1680x1050_Form_Document&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;
+        ///      &lt;xs:complexType&gt;
+        ///        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;
+        ///          &lt;xs:element name=&quot;s1680x1050_Form_Document&quot;&gt;
+        ///            &lt;xs:complexType&gt;
+        ///              &lt;x [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string s1680x1050_Form_Document {
+            get {
+                return ResourceManager.GetString("s1680x1050_Form_Document", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; standalone=&quot;yes&quot;?&gt;
+        ///&lt;NewDataSet&gt;
+        ///  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;
+        ///    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;s1920x1080_Form_Document&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;
+        ///      &lt;xs:complexType&gt;
+        ///        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;
+        ///          &lt;xs:element name=&quot;s1920x1080_Form_Document&quot;&gt;
+        ///            &lt;xs:complexType&gt;
+        ///              &lt;x [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string s1920x1080_Form_Document {
+            get {
+                return ResourceManager.GetString("s1920x1080_Form_Document", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap SelectRow {

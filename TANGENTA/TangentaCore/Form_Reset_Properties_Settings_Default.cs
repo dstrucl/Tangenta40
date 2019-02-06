@@ -20,6 +20,7 @@ namespace TangentaCore
         public bool bTangentaPrint_DLL = false;
         public bool bLogFile_DLL = false;
         public bool bColorSettings_DLL = false;
+        public bool bLayoutSettings = false;
 
         public Form_Reset_Properties_Settings_Default()
         {
@@ -33,6 +34,7 @@ namespace TangentaCore
             this.chk_FiscalVerifiaction.Checked = false;
             this.chk_LogFile_DLL.Checked = true;
             this.chk_ColorSettings_DLL.Checked = true;
+            this.chk_LayoutSettings.Checked = true;
             lng.s_Yes.Text(btn_Yes);
             lng.s_No.Text(btn_No);
             lng.s_Form_Reset_Properties_Settings_Default.Text(this);
@@ -48,6 +50,7 @@ namespace TangentaCore
             bFiscalVerification_DLL = this.chk_FiscalVerifiaction.Checked;
             bLogFile_DLL = this.chk_LogFile_DLL.Checked;
             bColorSettings_DLL = this.chk_ColorSettings_DLL.Checked;
+            bLayoutSettings = this.chk_LayoutSettings.Checked;
             Close();
             this.DialogResult = DialogResult.Yes;
         }

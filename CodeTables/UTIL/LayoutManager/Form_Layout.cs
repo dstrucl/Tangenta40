@@ -43,7 +43,16 @@ namespace LayoutManager
         }
         private Screen screen = null;
         Form pForm = null;
-        private string screen_layout_folder = null;
+
+        private static string screen_layout_folder = null;
+        public static string ScreenLayooutFolder
+        {
+            get
+            {
+                return screen_layout_folder;
+            }
+        }
+
         private string screen_layout_file = null;
 
         private bool designchanged = false;
@@ -147,12 +156,9 @@ namespace LayoutManager
         {
             return 's' + screen.Bounds.Width.ToString() + "x" + screen.Bounds.Height.ToString() + "_" + pForm.Name;
         }
-        private void Form_Layout_Load(object sender, EventArgs e)
+
+        public static string GetScreenLayoutFolder(Form frmowner)
         {
-
-            ImageFileResults.Init();
-
-
             string err = null;
             if (Global.f.SetApplicationDataSubFolder(ref screen_layout_folder, "ScreenLayout", ref err))
             {
@@ -160,6 +166,25 @@ namespace LayoutManager
                 {
                     screen_layout_folder += '\\';
                 }
+                return screen_layout_folder;
+            }
+            else
+            {
+                LogFile.Error.Show(frmowner,"ERROR:LayoutManager:Form_Layout:GetScreenLayoutFolder:" + err,"ERROR");
+                return null;
+            }
+            
+        }
+        private void Form_Layout_Load(object sender, EventArgs e)
+        {
+
+            ImageFileResults.Init();
+
+
+            string err = null;
+            screen_layout_folder = GetScreenLayoutFolder(this);
+            if (screen_layout_folder!=null)
+            {
                 screen_layout_file = screen_layout_folder + getLayoutName(screen, pForm) + ".xml";
 
 
@@ -177,7 +202,7 @@ namespace LayoutManager
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("ERROR: XDocument.Load file=\"" + screen_layout_file + "\" failed :Exception = " + ex.Message);
+                        LogFile.Error.Show(this,"ERROR: XDocument.Load file=\"" + screen_layout_file + "\" failed :Exception = " + ex.Message,"Error");
                     }
                 }
 
@@ -193,12 +218,7 @@ namespace LayoutManager
                 this.Text = /*sXmlFileName +*/ "  Number of controls=" + iAllCount.ToString();
                 LayoutChanged = false;
                 this.usrc_EditLayout1.LayoutChanged += Usrc_EditLayout1_LayoutChanged;
-            }
-            else
-            {
-                MessageBox.Show("ERROR:LayoutManager:Form_Layout:" + err);
-            }
-
+            }           
         }
 
         private void Usrc_EditLayout1_LayoutChanged()

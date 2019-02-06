@@ -54,7 +54,7 @@ namespace TangentaBooting
             else
             {
                 Transaction transaction_Startup_13_Login = DBSync.DBSync.NewTransaction("Startup_13_Login");
-                if (DocumentMan.GetWorkPeriod(DocumentMan.MainForm,m_startup, null, m_startup.nav, transaction_Startup_13_Login, ref Err))
+                if (DocumentMan.GetWorkPeriod(DocumentMan.Form_Document,m_startup, null, m_startup.nav, transaction_Startup_13_Login, ref Err))
                 {
                     if (transaction_Startup_13_Login.Commit())
                     {

@@ -24,7 +24,7 @@ namespace TangentaBooting
         {
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
-
+        public static ltext s_OverwriteExistingScreenControlLayoutForScreenResolution = new ltext(new string[] { "Overwrite existing screen layout control for screen resolution ", "Al naj se prepišejo obstoječe razporeditve kontrol za ekran resolucije " });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
         public static ltext s_Previous = new ltext(new string[] { "Previous", "Nazaj" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
         public static ltext s_Next = new ltext(new string[] { "Next", "Naprej" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_Document.cs
         public static ltext s_AUTONEXT_missing_parameter = new ltext(new string[] { "/AUTONEXT missing or parsing error for Auto_NEXT_in_miliseconds!/r/n(Example:\"/AUTONEXT==10\")\r\nAuto_NEXT_in_miliseconds = 10ms : is default value", "/AUTONEXT manjka parameter - število milisikund za skok na naslednji korak!\r\n\"/AUTONEXT=10\")\r\nAuto_NEXT_in_miliseconds = 10ms : je privzeta vrednost s katero bo program nadaljeval." });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\Program.cs

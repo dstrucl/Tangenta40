@@ -22,7 +22,7 @@ namespace TangentaCore
     public class DocumentMan
     {
 
-        public static Form MainForm = null;
+        public static Form Form_Document = null;
 
         public static Door doorFor1 = null;
 

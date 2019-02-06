@@ -15,13 +15,13 @@ namespace TangentaCore
     public partial class Form_SettingsSelect : Form
     {
         private SettingsUserValues m_SettingsUserValues = null;
-        private Form Main_Form = null;
+        private Form main_form = null;
         private object m_usrc_DocumentManX = null;
 
-        public Form_SettingsSelect(Form xMain_Form, object xusrc_DocumentManX, SettingsUserValues xSettingsUserValues)
+        public Form_SettingsSelect(Form xmain_form, object xusrc_DocumentManX, SettingsUserValues xSettingsUserValues)
         {
             InitializeComponent();
-            Main_Form = xMain_Form;
+            main_form = xmain_form;
             m_usrc_DocumentManX = xusrc_DocumentManX;
             m_SettingsUserValues = xSettingsUserValues;
             lng.s_Settings.Text(this);
@@ -46,7 +46,7 @@ namespace TangentaCore
                     {
                     }
                 }
-                DBSync.DBSync.DBMan(Main_Form, Reset2FactorySettings.DBConnectionControlXX_EXE, TSettings.m_XmlFileName, xCodeTables_IniFileFolder, ref sDBType, ref xSQLitebackupFolder, nav);
+                DBSync.DBSync.DBMan(main_form, Reset2FactorySettings.DBConnectionControlXX_EXE, TSettings.m_XmlFileName, xCodeTables_IniFileFolder, ref sDBType, ref xSQLitebackupFolder, nav);
                 TangentaProperties.Properties.Settings.Default.SQLiteBackupFolder = xSQLitebackupFolder;
                 TangentaProperties.Properties.Settings.Default.DBType = sDBType;
                 TangentaProperties.Properties.Settings.Default.Save();
@@ -60,7 +60,7 @@ namespace TangentaCore
             nav_Form_ProgramSettings.bDoModal = true;
             nav_Form_ProgramSettings.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
             Form_ProgramSettings edt_Form = null;
-            edt_Form = new Form_ProgramSettings(m_usrc_DocumentManX, nav_Form_ProgramSettings, m_SettingsUserValues);
+            edt_Form = new Form_ProgramSettings(main_form, nav_Form_ProgramSettings, m_SettingsUserValues);
             edt_Form.ShowDialog(this);
             edt_Form.Dispose();
         }

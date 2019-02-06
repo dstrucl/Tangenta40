@@ -50,7 +50,18 @@ namespace Tangenta
         }
         private Defpos defpos = null;
         internal Form_Document m_Form_Document = null;
-        
+        internal Form_Document M_Form_Document
+        {
+            get
+            {
+                return m_Form_Document;
+            }
+            set
+            {
+                m_Form_Document = value;
+            }
+        }
+
         public new bool Visible
         {
             get
@@ -1116,6 +1127,7 @@ namespace Tangenta
         {
             DocM.mSettingsUserValues = ((SettingsUser)xLMOUser.oSettings).mSettingsUserValues;
             m_Form_Document = main_Form;
+            DocumentMan.Form_Document = m_Form_Document;
             DocM.m_LMOUser = xLMOUser;
             DocM.door = new Door(DocM.m_LMOUser);
             this.usrc_loginControl1.Bind(main_Form.loginControl1, xLMOUser);

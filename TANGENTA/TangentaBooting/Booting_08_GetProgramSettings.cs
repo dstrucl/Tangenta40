@@ -1,8 +1,11 @@
 ﻿using DBConnectionControl40;
+using LanguageControl;
+using LayoutManager;
 using NavigationButtons;
 using Startup;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -61,6 +64,11 @@ namespace TangentaBooting
 
         private bool Startup_08_CheckPogramSettings(bool bResetShopsInUse)
         {
+            if (!Set_ScreenLayoutDesign())
+            {
+                return false;
+            }
+            
             if (Startup.Startup.bFirstTimeInstallation || (PropertiesUser.ShopsInUse_Get(null).Length == 0))
             {
                 return false;
@@ -75,9 +83,66 @@ namespace TangentaBooting
             return false;
         }
 
+        private struct fdata
+        {
+            public string filename;
+            public string data;
+            public fdata(string xfilename, string xdata)
+            {
+                filename = xfilename;
+                data = xdata;
+            }
+        }
+        private bool Set_ScreenLayoutDesign()
+        {
+            string screen_layout_folder = Form_Layout.GetScreenLayoutFolder(frm);
+            fdata[] filesAndData = new fdata[]{new fdata("s1920x1080_Form_Document.xml",TangentaResources.Properties.Resources.s1920x1080_Form_Document ),
+                                               new fdata("s1680x1050_Form_Document.xml",TangentaResources.Properties.Resources.s1680x1050_Form_Document )
+                                               };
+
+            foreach (fdata fd in filesAndData)
+            {
+                string sfile = screen_layout_folder + fd.filename;
+                if (File.Exists(sfile))
+                {
+                    if (Reset2FactorySettings.LayoutSettings)
+                    {
+
+                        List<object> lobj = new List<object>();
+                        lobj.Add(lng.s_OverwriteExistingScreenControlLayoutForScreenResolution);
+                        lobj.Add(fd.filename + " ?");
+                        ltext ltMsg = new ltext(lobj);
+                        if (XMessage.Box.Show(frm, ltMsg,"?",MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2)==DialogResult.Yes)
+                        {
+                            try
+                            {
+                                File.WriteAllText(sfile, fd.data);
+                            }
+                            catch (Exception ex)
+                            {
+                                LogFile.Error.Show("ERROR:TangentaBooting:Booting_08_GetProgramSettings:Set_ScreenLayoutDesign:Can not over-write file:\"" + sfile + "\", Exception=" + ex.Message);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        File.WriteAllText(sfile, fd.data);
+                    }
+                    catch (Exception ex)
+                    {
+                        LogFile.Error.Show("ERROR:TangentaBooting:Booting_08_GetProgramSettings:Set_ScreenLayoutDesign:Can not over-write file:\"" + sfile + "\", Exception=" + ex.Message);
+                    }
+                }
+            }
+            return true;
+        }
+
         private bool Startup_08_Show_Form_ProgramSettings(NavigationButtons.Navigation xnav)
         {
-            xnav.ShowForm(new Form_ProgramSettings(xnav), typeof(Form_ProgramSettings).ToString());
+            xnav.ShowForm(new Form_ProgramSettings(frm,xnav), typeof(Form_ProgramSettings).ToString());
             return true;
         }
 

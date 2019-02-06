@@ -805,7 +805,7 @@ namespace TangentaCore
             {
                 PrintDocInvoice prndocinvoice = new PrintDocInvoice(printer.PrinterName, InvoiceData);
        
-                if (prndocinvoice.Print(DocumentMan.MainForm))
+                if (prndocinvoice.Print(DocumentMan.Form_Document))
                 {
                     if (transaction == null)
                     {

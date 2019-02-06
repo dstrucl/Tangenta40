@@ -28,25 +28,28 @@ namespace TangentaCore
         private int default_language_ID = -1;
         private int newLanguage = -1;
 
-        private object m_usrc_DocumentManX = null;
+        private Form main_form = null;
 
         private bool bChanged = false;
         private NavigationButtons.Navigation nav = null;
         private Form LogManager_dlg = null;
         private bool bDBSettingsChanged = false;
 
-        public Form_ProgramSettings(NavigationButtons.Navigation xnav)
+        public Form_ProgramSettings(Form xmain_form,NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            main_form = xmain_form;
+            DocumentMan.Form_Document = main_form;
             nav = xnav;
             Init();
         }
 
 
-        public Form_ProgramSettings(object xusrc_DocumentManX,NavigationButtons.Navigation xnav, SettingsUserValues xSettingsUserValues)
+        public Form_ProgramSettings(Form xmain_form, NavigationButtons.Navigation xnav, SettingsUserValues xSettingsUserValues)
         {
             InitializeComponent();
-            m_usrc_DocumentManX = xusrc_DocumentManX;
+            main_form = xmain_form;
+            DocumentMan.Form_Document = main_form;
             nav = xnav;
             usrc_ShopsInuse1.SettingsUserValues = xSettingsUserValues;
             usrc_ShopsInuse1.Init();
@@ -160,12 +163,12 @@ namespace TangentaCore
             TangentaProperties.Properties.Settings.Default.FullScreen = chk_FullScreen.Checked;
             if (TangentaProperties.Properties.Settings.Default.FullScreen)
             {
-                DocumentMan.MainForm.WindowState= FormWindowState.Maximized;
-                DocumentMan.MainForm.FormBorderStyle = FormBorderStyle.None;
+                DocumentMan.Form_Document.WindowState = FormWindowState.Maximized;
+                DocumentMan.Form_Document.FormBorderStyle = FormBorderStyle.None;
             }
             else
             {
-                DocumentMan.MainForm.FormBorderStyle = FormBorderStyle.Sizable;
+                DocumentMan.Form_Document.FormBorderStyle = FormBorderStyle.Sizable;
             }
 
         }
