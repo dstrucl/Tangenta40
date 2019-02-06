@@ -19,6 +19,28 @@ namespace LayoutManager
 {
     public partial class Form_Layout : Form
     {
+        private bool layoutchanged = false;
+        public bool LayoutChanged
+        {
+            get
+            {
+                return layoutchanged;
+            }
+            set
+            {
+                layoutchanged = value;
+                if (layoutchanged)
+                {
+                    lbl_LayoutChanged.Text = "LAYOUT CHANGED!";
+                    lbl_LayoutChanged.ForeColor = Color.Red;
+                }
+                else
+                {
+                    lbl_LayoutChanged.Text = "";
+
+                }
+            }
+        }
         private Screen screen = null;
         Form pForm = null;
         private string screen_layout_folder = null;
@@ -45,6 +67,7 @@ namespace LayoutManager
         public static DataColumn dcol_AnchorBottom = null;
         public static DataColumn dcol_ForeColor = null;
         public static DataColumn dcol_BackColor = null;
+        public static DataColumn dcol_Font = null;
 
         DataTable dtControlLayout = null;
 
@@ -60,57 +83,19 @@ namespace LayoutManager
                 layoutname = value;
             }
         }
-        private string localBookmarkDicFile = null;
+        
 
-        //internal HelpWizzardTag hlpwiztag = null;
 
         internal string LocalXmlFileName = null;
 
-        //internal Form_AddLinks frm_AddLinks = null;
         internal MyControl myroot = null;
         ArrayList roots = new ArrayList();
         internal SysImageListHelper helperControlType = null;
         internal ImageRenderer helperImageRenderer = null;
 
-        //public const string HTML_index = "index";
-        //public const string HTML_download = "download";
-        //public const string HTML_Tangenta = "Tangenta";
-        //public const string HTML_News = "News";
-        //public const string HTML_About = "About";
-        //public const string HTML_Invoice= "Invoice";
-        //public const string HTML_ProformaInvoice = "ProformaInvoice";
-        //public const string HTML_InstallationFinished = "InstallationFinished";
-        //public const string HTML_Stock = "Stock";
-        //public const string HTML_PriceList = "PriceList";
-        //public const string HTML_InvoicingOverview = "InvoicingOverview";
-        //public const string HTML_Support = "Support";
-
-        //public const string CSS_GeneralHelp = "GeneralHelp";
-        //public const string CSS_TIndex = "TIndex";
-        //public const string CSS_style = "style";
-        //public const string CSS_reset = "reset";
-
-        //private List<GeneralHelpFile> generalHelpFile_List = null;
-        //private List<GeneralHelpFile> generalStyleFile_List = null;
-        //private Form_FCTB_Editor frm_FCTB_Editor = null;
         internal hctrl hc = null;
-        //internal usrc_Help mH = null;
         internal MyControl MyControl_Selected = null;
-        //XDocument xhtml = null;
         internal XDocument xhtml_Loaded = null;
-
-        //private string m_Header = "";
-
-
-
-        //XElement html_html = null;
-        //XElement html_head = null;
-        //XElement html_title = null;
-        //XElement html_body = null;
-        //XElement THeader = null;
-
-
-        //public Form_Layout(usrc_Help xH)
 
         
         public Form_Layout(Screen xscreen, Form xpForm)
@@ -124,42 +109,7 @@ namespace LayoutManager
 
             hc = new hctrl(pForm, uctrln);
 
-            //hlpwiztag = null;
-            //if (hc.pForm != null)
-            //{
-            //    if (hc.pForm.Tag != null)
-            //    {
-            //        if (hc.pForm.Tag is HelpWizzardTag)
-            //        {
-            //            hlpwiztag = (HelpWizzardTag)hc.pForm.Tag;
-            //        }
-            //    }
-            //}
-
-            //usrc_SelectXMLFile.InitialDirectory = Path.GetDirectoryName(mH.LocalHtmlFile);
-            //int indexof_filesufix_plus_html_extension = mH.LocalHtmlFile.IndexOf(hlpwiztag.FileSuffix + ".html");
-            //if (indexof_filesufix_plus_html_extension>0)
-            //{
-            //    LocalXmlFileName = mH.LocalHtmlFile.Substring(0, indexof_filesufix_plus_html_extension) + hlpwiztag.XmlFileSuffix+ ".xml";
-            //}
-            //else
-            //{
-            //    LocalXmlFileName = null;
-            //    return;
-            //}
-            
          
-            //string sStylePath = Path.GetDirectoryName(mH.LocalHtmlFile);
-            //int index_of_last_map = sStylePath.LastIndexOf('\\');
-            //if (index_of_last_map > 0)
-            //{
-            //    sStylePath = sStylePath.Substring(0, index_of_last_map);
-            //    index_of_last_map = sStylePath.LastIndexOf('\\');
-            //    if (index_of_last_map > 0)
-            //    {
-
-            //    }
-            //}
             dtControlLayout = new DataTable();
             dtControlLayout.TableName = LayoutName;
             dcol_ControlName = new DataColumn("ControlName", typeof(string));
@@ -199,28 +149,8 @@ namespace LayoutManager
         }
         private void Form_Layout_Load(object sender, EventArgs e)
         {
-            //if (LocalXmlFileName == null)
-            //{
-            //    MessageBox.Show(this, "ERROR:LocalXmlFileName == null");
-            //    this.Close();
-            //    DialogResult = DialogResult.Abort;
-            //    return;
-            //}
-
-            //string localfiledirectory = Path.GetDirectoryName(LocalXmlFileName);
-            //localBookmarkDicFile = localfiledirectory + "\\BookmarkDic.xml";
-
-            //if (!HUDCMS_static.GetBookmarkFile(LocalXmlFileName, ref localBookmarkDicFile))
-            //{
-            //    MessageBox.Show("ERROR:HUDCMS:Form_Wizzard:Form_Wizzard_Load: Cannot get BookmarkFile!");
-            //    this.Close();
-            //    DialogResult = DialogResult.Abort;
-            //}
-            //BookmarkDic.Init(localBookmarkDicFile);
 
             ImageFileResults.Init();
-
-            SetHeader();
 
 
             string err = null;
@@ -261,45 +191,19 @@ namespace LayoutManager
                 }
 
                 this.Text = /*sXmlFileName +*/ "  Number of controls=" + iAllCount.ToString();
+                LayoutChanged = false;
+                this.usrc_EditLayout1.LayoutChanged += Usrc_EditLayout1_LayoutChanged;
             }
             else
             {
                 MessageBox.Show("ERROR:LayoutManager:Form_Layout:" + err);
             }
-            //if (Properties.Settings.Default.GitExeFile.Length==0)
-            //{
-            //    Properties.Settings.Default.UseGit = false;
-            //    Properties.Settings.Default.Save();
-            //}
-            //chk_UseGit.Checked = Properties.Settings.Default.UseGit;
-
-            //this.chk_UseGit.CheckedChanged += new System.EventHandler(this.chk_UseGit_CheckedChanged);
-            //btn_SetGitExeFile.Enabled = Properties.Settings.Default.UseGit; 
 
         }
 
-        private void SetHeader()
+        private void Usrc_EditLayout1_LayoutChanged()
         {
-//            Header = Properties.Settings.Default.eng_Header;
-            //switch (HUDCMS_static.LanguageID)
-            //{
-            //    case 0:
-            //        if (Properties.Settings.Default.eng_Header.Length == 0)
-            //        {
-            //            Properties.Settings.Default.eng_Header = Properties.Resources.eng_Header;
-            //            Properties.Settings.Default.Save();
-            //        }
-            //        Header = Properties.Settings.Default.eng_Header;
-            //        break;
-            //    case 1:
-            //        if (Properties.Settings.Default.slo_Header.Length == 0)
-            //        {
-            //            Properties.Settings.Default.slo_Header = Properties.Resources.slo_Header;
-            //            Properties.Settings.Default.Save();
-            //        }
-            //        Header = Properties.Settings.Default.slo_Header;
-            //        break;
-            //}
+            LayoutChanged = true;
         }
 
         void InitializeMyTreeListView(ref int iAllCount)
@@ -418,10 +322,6 @@ namespace LayoutManager
                             myparent = myparent.Parent;
                         }
                     }
-                    if (ctrl.Link.Count > 0)
-                    {
-                        ctrl.CreateImageOfLinkedControls();
-                    }
                 }
                 foreach (MyControl c in ctrl.children)
                 {
@@ -435,7 +335,6 @@ namespace LayoutManager
                         helperImageRenderer.ImageList.ImageSize = new Size(48, 48);
                     }
                     helperImageRenderer.ImageList.Images.Add(ctrl.GetControlUniqueName(), ctrl.hc.ctrlbmp);
-                    //helperControlName.AddImageToCollection(GetControlName(), helperControlName.LargeImageList, hc.ctrlbmp);
                     ctrl.helperImageRenderer = helperImageRenderer;
                 }
             }
@@ -444,40 +343,7 @@ namespace LayoutManager
         internal bool SaveTableInXml(string xml_file, /*ref XDocument xh, */ref string Err)
         {
 
-            //if (this.MyControl_Selected != null)
-            //{
-            //    this.usrc_EditControlWizzard1.my_Control.ImageIncluded = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Image1.chk_ImageIncluded.Checked;
-            //    if (this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Image1.pic_Control.Image != null)
-            //    {
-            //        this.usrc_EditControlWizzard1.my_Control.ImageOfControl = (Image)this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Image1.pic_Control.Image.Clone();
-            //    }
-            //    else
-            //    {
-            //        this.usrc_EditControlWizzard1.my_Control.ImageOfControl = null;
-            //    }
-            //    this.usrc_EditControlWizzard1.my_Control.HelpTitle = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Title1.fctb_CtrlTitle.Text;
-            //    this.usrc_EditControlWizzard1.my_Control.HeadingTag = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Title1.cmb_HtmlTag.Text;
-
-            //    this.usrc_EditControlWizzard1.usrc_EditControlWizzard_About1.GetData();
-            //    this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Description1.GetData();
-            //    //this.usrc_EditControlWizzard1.my_Control.About = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_About1.fctb_CtrlAbout.Text;
-
-
-            //    //this.usrc_EditControlWizzard1.my_Control.Description = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Description1.fctb_CtrlDescription.Text;
-            //    this.usrc_EditControlWizzard1.my_Control.ImageCaption = this.usrc_EditControlWizzard1.usrc_EditControlWizzard_Image1.fctb_CtrlImageCaption.Text;
-            //}
-
-            //if (xh != null)
-            //{
-            //    xh = null;
-            //}
-
-            //xh = new XDocument();
-
-            //html_html = new XElement("html");
-
-
-            //xh.AddFirst(html_html);
+           
 
             if (myroot != null)
             {
@@ -487,6 +353,7 @@ namespace LayoutManager
                 {
                     dtControlLayout.WriteXml(xml_file, XmlWriteMode.WriteSchema);
                     designchanged = true;
+                    LayoutChanged = false;
                     return true;
                 }
                 catch (Exception ex)
@@ -502,27 +369,7 @@ namespace LayoutManager
                 return false;
             }
 
-            ////save xhtml
-            //if (SelectFile.usrc_SelectFile.CreateFolderIfNotExist(this, xml_file, ref Err))
-            //{
-            //    try
-            //    {
-            //        xh.Save(xml_file);                  
-            //        return true;
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show("ERROR:xh.Save(html_file) in Form_Layout!\r\nException=" + ex.Message);
-            //        return false;
-
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show("ERROR:SelectFile.usrc_SelectFile.CreateFolderIfNotExist(..) in Form_Layout!");
-            //    return false;
-
-            //}
+            
         }
 
 
@@ -544,11 +391,8 @@ namespace LayoutManager
                 {
                     if (hcx.ctrl != null)
                     {
-                        //if (hcx.ctrl.Visible)
-                        //{
-                            child = CreateMyControls(/*xHlpWizTag,*/ level + 1, iCount++, ref iAllCount, hcx, myctrl, ref helperControlType/*,  mH*/);
-                            myctrl.children.Add(child);
-                        //}
+                        child = CreateMyControls(/*xHlpWizTag,*/ level + 1, iCount++, ref iAllCount, hcx, myctrl, ref helperControlType/*,  mH*/);
+                        myctrl.children.Add(child);
                     }
                     else if (hcx.dgvc != null)
                     {
@@ -691,33 +535,6 @@ namespace LayoutManager
 
 
       
-        //private void EditFile(string xFileName)
-        //{
-        //    if (frm_FCTB_Editor == null)
-        //    {
-        //        frm_FCTB_Editor = new Form_FCTB_Editor();
-        //        frm_FCTB_Editor.Owner = this;
-        //    }
-        //    if (frm_FCTB_Editor.IsDisposed)
-        //    {
-        //        frm_FCTB_Editor = new Form_FCTB_Editor();
-        //        frm_FCTB_Editor.Owner = this;
-        //    }
-        //    frm_FCTB_Editor.CreateTab(xFileName);
-        //    frm_FCTB_Editor.Show();
-        //}
-
-        //private bool usrc_SelectHtmlFile_EditFile(string xFileName)
-        //{
-        //    EditFile(xFileName);
-        //    return true;
-        //}
-
-        //private bool usrc_SelectStyleFile_EditFile(string xFileName)
-        //{
-        //    EditFile(xFileName);
-        //    return true;
-        //}
 
 
 
@@ -766,57 +583,27 @@ namespace LayoutManager
             }
         }
 
-        private void usrc_SelectHtmlFile_Load(object sender, EventArgs e)
-        {
-
-        }
-
-    
-
-        private bool GetGitSettings()
-        {
-            //Form_SetGitExeFile frm_SetGitExeFile = new Form_SetGitExeFile();
-            //frm_SetGitExeFile.ShowDialog();
-            //return Properties.Settings.Default.GitExeFile.Length > 0;
-            return false;
-        }
-
-        private void chk_UseGit_CheckedChanged(object sender, EventArgs e)
-        {
-            //if (chk_UseGit.Checked)
-            //{
-            //    //string sGitExeFile = Properties.Settings.Default.GitExeFile;
-            //    if (sGitExeFile.Length == 0)
-            //    {
-            //        if (!GetGitSettings())
-            //        {
-            //            chk_UseGit.Checked = false;
-            //        }
-            //    }
-            //}
-            //Properties.Settings.Default.UseGit = chk_UseGit.Checked;
-            //Properties.Settings.Default.Save();
-            //btn_SetGitExeFile.Enabled = Properties.Settings.Default.UseGit;
-        }
-
-        private void btn_ZIP_Click(object sender, EventArgs e)
-        {
-            //Form_ZIP frm_zip = new Form_ZIP();
-            //frm_zip.ShowDialog(this);
-        }
-
-       
-
-        private void btn_ViewBookmardDic_Click(object sender, EventArgs e)
-        {
-           // HUDCMS.BookmarkDic.ShowBookmarkDic(this);
-        }
-
         private void Form_Layout_FormClosing(object sender, FormClosingEventArgs e)
         {
-            BookmarkDic.CloseBookmarkDic();
-            ImageFileResults.CloseImageFileResults();
-
+            if (MessageBox.Show(this, "Do you realy want to finish edit layout?", "Exit layout design!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                if (LayoutChanged)
+                {
+                    if (MessageBox.Show(this, "You have changed properties! Do you realy want to finish edit layout?", "Exit layout design!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    {
+                        BookmarkDic.CloseBookmarkDic();
+                        ImageFileResults.CloseImageFileResults();
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                    }
+                }
+            }
+            else
+            {
+                e.Cancel = true;
+            }
         }
 
         private void btn_Images_Click(object sender, EventArgs e)
@@ -848,7 +635,6 @@ namespace LayoutManager
             screen_width = xscreen.Bounds.Width;
             screen_height = xscreen.Bounds.Height;
             DataTable dtCtrlLayout = new DataTable();
-            //dtCtrlLayout.TableName = Form_Layout.getLayoutName(screen, pForm);
             dcol_ControlName = new DataColumn("ControlName", typeof(string));
             dcol_Left = new DataColumn("Left", typeof(int));
             dcol_Top = new DataColumn("Top", typeof(int));

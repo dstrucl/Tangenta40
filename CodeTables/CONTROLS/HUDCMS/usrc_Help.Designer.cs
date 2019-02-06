@@ -34,7 +34,7 @@
             // btn_Help
             // 
             this.btn_Help.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_Help.Image = Properties.Resources.Help_bmp;
+            this.btn_Help.Image = global::HUDCMS.Properties.Resources.Help_bmp;
             this.btn_Help.Location = new System.Drawing.Point(0, 0);
             this.btn_Help.Name = "btn_Help";
             this.btn_Help.Size = new System.Drawing.Size(56, 61);
@@ -44,8 +44,8 @@
             // 
             // usrc_Help
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.btn_Help);
             this.Name = "usrc_Help";
             this.Size = new System.Drawing.Size(56, 61);

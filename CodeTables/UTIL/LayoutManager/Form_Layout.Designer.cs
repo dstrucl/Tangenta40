@@ -42,12 +42,12 @@ namespace LayoutManager
             this.olvc_ControlUniqueName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.usrc_EditLayout1 = new LayoutManager.usrc_EditLayout();
             this.usrc_SelectXMLFile = new SelectFile.usrc_SelectFile();
-            this.btn_ViewBookmardDic = new System.Windows.Forms.Button();
             this.btn_Images = new System.Windows.Forms.Button();
             this.lbl_ScreenResolution = new System.Windows.Forms.Label();
             this.cmb_ScreenResolution = new System.Windows.Forms.ComboBox();
             this.cmb_Form = new System.Windows.Forms.ComboBox();
             this.lbl_Form = new System.Windows.Forms.Label();
+            this.lbl_LayoutChanged = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -156,6 +156,7 @@ namespace LayoutManager
             // usrc_EditLayout1
             // 
             this.usrc_EditLayout1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_EditLayout1.Enabled = false;
             this.usrc_EditLayout1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.usrc_EditLayout1.Location = new System.Drawing.Point(0, 0);
             this.usrc_EditLayout1.Name = "usrc_EditLayout1";
@@ -180,18 +181,6 @@ namespace LayoutManager
             this.usrc_SelectXMLFile.Title = "Save File";
             this.usrc_SelectXMLFile.Type = SelectFile.usrc_SelectFile.eType.SAVE;
             this.usrc_SelectXMLFile.SaveFile += new SelectFile.usrc_SelectFile.delegate_SaveFile(this.usrc_SelectXMLFile_SaveFile);
-            this.usrc_SelectXMLFile.Load += new System.EventHandler(this.usrc_SelectHtmlFile_Load);
-            // 
-            // btn_ViewBookmardDic
-            // 
-            this.btn_ViewBookmardDic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_ViewBookmardDic.Location = new System.Drawing.Point(1023, 72);
-            this.btn_ViewBookmardDic.Name = "btn_ViewBookmardDic";
-            this.btn_ViewBookmardDic.Size = new System.Drawing.Size(77, 24);
-            this.btn_ViewBookmardDic.TabIndex = 20;
-            this.btn_ViewBookmardDic.Text = "Bookmarks";
-            this.btn_ViewBookmardDic.UseVisualStyleBackColor = true;
-            this.btn_ViewBookmardDic.Click += new System.EventHandler(this.btn_ViewBookmardDic_Click);
             // 
             // btn_Images
             // 
@@ -242,17 +231,26 @@ namespace LayoutManager
             this.lbl_Form.TabIndex = 24;
             this.lbl_Form.Text = "Form";
             // 
+            // lbl_LayoutChanged
+            // 
+            this.lbl_LayoutChanged.AutoSize = true;
+            this.lbl_LayoutChanged.Location = new System.Drawing.Point(625, 41);
+            this.lbl_LayoutChanged.Name = "lbl_LayoutChanged";
+            this.lbl_LayoutChanged.Size = new System.Drawing.Size(35, 13);
+            this.lbl_LayoutChanged.TabIndex = 26;
+            this.lbl_LayoutChanged.Text = "label1";
+            // 
             // Form_Layout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1107, 822);
+            this.Controls.Add(this.lbl_LayoutChanged);
             this.Controls.Add(this.cmb_Form);
             this.Controls.Add(this.lbl_Form);
             this.Controls.Add(this.cmb_ScreenResolution);
             this.Controls.Add(this.lbl_ScreenResolution);
             this.Controls.Add(this.btn_Images);
-            this.Controls.Add(this.btn_ViewBookmardDic);
             this.Controls.Add(this.usrc_SelectXMLFile);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -280,12 +278,12 @@ namespace LayoutManager
         private BrightIdeasSoftware.OLVColumn olvc_ControlName;
         private BrightIdeasSoftware.OLVColumn olvc_HelpTitle;
         private BrightIdeasSoftware.OLVColumn olvc_ControlLinks;
-        private System.Windows.Forms.Button btn_ViewBookmardDic;
         private System.Windows.Forms.Button btn_Images;
         private System.Windows.Forms.Label lbl_ScreenResolution;
         private System.Windows.Forms.ComboBox cmb_ScreenResolution;
         private System.Windows.Forms.ComboBox cmb_Form;
         private System.Windows.Forms.Label lbl_Form;
         private usrc_EditLayout usrc_EditLayout1;
+        private System.Windows.Forms.Label lbl_LayoutChanged;
     }
 }

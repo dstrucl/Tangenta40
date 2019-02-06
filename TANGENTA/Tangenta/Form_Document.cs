@@ -40,6 +40,7 @@ namespace Tangenta
     public partial class Form_Document : Form
     {
         private enum eset_layout_design { NOCHANGE, LAYOUT_CHANGED};
+        private Timer timer_Show_LayoutForm = null;
 
         private bool layout_designer = false;
         private bool layout_designer_changed = false;
@@ -437,13 +438,24 @@ namespace Tangenta
             TSettings.m_XmlFileName = XML_ROOT_NAME;
             if (layout_designer)
             {
-                EditLayout(this);
+                timer_Show_LayoutForm = new Timer();
+                this.components.Add(timer_Show_LayoutForm);
+                timer_Show_LayoutForm.Enabled = true;
+                timer_Show_LayoutForm.Tick += Timer_Show_LayoutForm_Tick;
             }
         }
 
+        private void Timer_Show_LayoutForm_Tick(object sender, EventArgs e)
+        {
+            timer_Show_LayoutForm.Enabled = false;
+            this.components.Remove(timer_Show_LayoutForm);
+            timer_Show_LayoutForm.Dispose();
+            timer_Show_LayoutForm = null;
+            EditLayout(this);
+            this.Close();
+            DialogResult = DialogResult.OK;
+        }
 
-
-        
         public bool HasFolderReadWriteDeleteAccess(string folder)
         {
             if (folder.Length == 0)
@@ -869,26 +881,9 @@ namespace Tangenta
 
                     if (TangentaProperties.Properties.Settings.Default.ControlLayout_TouchScreen)
                     {
+                        bool bfirsttime = true;
 
-                    FORM_LAYOUT_CHANGED_for_LMO1User:
-
-                        usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768 = new usrc_DocumentMan1366x768();
-                        xusrc_DocumentMan1366x768.DocM.DocTyp = PropertiesUser.LastDocType_Get(user_settings.mSettingsUserValues);
-                        xusrc_DocumentMan1366x768.Active = true;
-                        xusrc_DocumentMan1366x768.Dock = DockStyle.Fill;
-                        this.Controls.Add(xusrc_DocumentMan1366x768);
-                        this.SuspendLayout();
-                        eset_layout_design eset_layout_design_Result = set_layout_design();
-                        switch (eset_layout_design_Result)
-                        {
-                            case eset_layout_design.NOCHANGE:
-                                break;
-                            case eset_layout_design.LAYOUT_CHANGED:
-                                this.Controls.Remove(xusrc_DocumentMan1366x768);
-                                xusrc_DocumentMan1366x768 = null;
-                                goto FORM_LAYOUT_CHANGED_for_LMO1User;
-                        }
-                        this.ResumeLayout(true);
+                        usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768 = SetScreenLayout(ref bfirsttime);
                         xusrc_DocumentMan1366x768.SetDefPos();
                         //xusrc_DocumentMan1366x768.LayoutChanged += M_usrc_Main_LayoutChanged;
                         xusrc_DocumentMan1366x768.Show();
@@ -1902,30 +1897,14 @@ namespace Tangenta
 
                     if (TangentaProperties.Properties.Settings.Default.ControlLayout_TouchScreen)
                     {
+                        bool bFirstTime = true;
+                        usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768 = null;
+                        xusrc_DocumentMan1366x768 = SetScreenLayout(ref bFirstTime);
 
-                        FORM_LAYOUT_CHANGED_for_MultiUser:
-
-                        usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768 = new usrc_DocumentMan1366x768();
-                        xusrc_DocumentMan1366x768.Visible = false;
-                        xusrc_DocumentMan1366x768.Dock = DockStyle.Fill;
-                        this.Controls.Add(xusrc_DocumentMan1366x768);
-                        this.SuspendLayout();
-                        eset_layout_design eset_layout_design_Result = set_layout_design();
-                        switch (eset_layout_design_Result)
-                        {
-                            case eset_layout_design.NOCHANGE:
-                                break;
-                            case eset_layout_design.LAYOUT_CHANGED:
-                                this.Controls.Remove(xusrc_DocumentMan1366x768);
-                                xusrc_DocumentMan1366x768 = null;
-                                goto FORM_LAYOUT_CHANGED_for_MultiUser;
-                        }
-                        this.ResumeLayout(true);
                         xusrc_DocumentMan1366x768.SetDefPos();
                         xusrc_DocumentMan1366x768.Show();
                         xusrc_DocumentMan1366x768.Initialise(this, xLMOUser);
                         xusrc_DocumentMan1366x768.Init();
-
 
                         xLMOUser.m_usrc_DocumentMan = xusrc_DocumentMan1366x768;
                         xusrc_DocumentMan1366x768.Exit_Click += m_usrc_Main_Exit_Click;
@@ -1956,22 +1935,57 @@ namespace Tangenta
             }
         }
 
+        private usrc_DocumentMan1366x768 SetScreenLayout(ref bool bFiirstTime)
+        {
+                usrc_DocumentMan1366x768 xusrc_DocumentMan1366x768 = null;
+                do
+                {
+
+                SET_LAYOUT_AGAIN:
+                    this.SuspendLayout();
+                    xusrc_DocumentMan1366x768 = new usrc_DocumentMan1366x768();
+                    xusrc_DocumentMan1366x768.Visible = false;
+                    xusrc_DocumentMan1366x768.Dock = DockStyle.Fill;
+                    this.Controls.Add(xusrc_DocumentMan1366x768);
+                    eset_layout_design eset_layout_design_Result = set_layout_design(ref bFiirstTime);
+                    switch (eset_layout_design_Result)
+                    {
+                        case eset_layout_design.NOCHANGE:
+                            if (!bFiirstTime)
+                            {
+                                this.ResumeLayout(true);
+                                return xusrc_DocumentMan1366x768;
+                            }
+                            break;
+                        case eset_layout_design.LAYOUT_CHANGED:
+                            this.Controls.Remove(xusrc_DocumentMan1366x768);
+                            xusrc_DocumentMan1366x768.Dispose();
+                            xusrc_DocumentMan1366x768 = null;
+                            goto SET_LAYOUT_AGAIN;
+
+                    }
+                    this.ResumeLayout(true);
+                }
+                while (bFiirstTime);
+                return xusrc_DocumentMan1366x768;
+        }
+
         private void Xusrc_DocumentMan1366x768_Resize(object sender, EventArgs e)
         {
             
         }
 
-        private eset_layout_design set_layout_design()
+        private eset_layout_design set_layout_design(ref bool bFiirstTime)
         {
-            LayoutManager.Form_Layout.eSetLayoutResult xeSetLayoutResult = LayoutManager.Form_Layout.SetLayout(this,
-                                                                                                                           ref this.screen_width,
-                                                                                                                           ref this.screen_height,
-                                                                                                                           ref screen_layout_folder,
-                                                                                                                           ref screen_layout_file,
-                                                                                                                           ref set_screen_layout_error);
+            string err = null;
+            LayoutManager.Form_Layout.eSetLayoutResult xeSetLayoutResult = LayoutManager.Form_Layout.SetLayout(this, ref this.screen_width, ref this.screen_height, ref screen_layout_folder, ref screen_layout_file, ref err);
             switch (xeSetLayoutResult)
             {
                 case Form_Layout.eSetLayoutResult.OK:
+                    if (!bFiirstTime)
+                    {
+                        return eset_layout_design.NOCHANGE;
+                    }
                     break;
                 case Form_Layout.eSetLayoutResult.SCRREN_LAYOUT_FILE_DOES_NOT_EXIST:
                     List<object> complextextlist = new List<object>();
@@ -1989,7 +2003,7 @@ namespace Tangenta
                     break;
 
             }
-
+            bFiirstTime = false;
             if (Program.Layout_Designer_Dialog)
             {
                 Form_Document frm_document_design = new Form_Document(true);
