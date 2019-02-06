@@ -50,7 +50,29 @@ namespace LayoutManager
         internal Image ImageOfControl = null;
         internal MyControl Parent = null;
 
+        internal int GetOfsX()
+        {
+            int ofsx = 0;
+            MyControl prev = this.Parent;
+            while (prev !=null)
+            {
+                ofsx += prev.Left;
+                prev = prev.Parent;
+            }
+            return ofsx;
+        }
 
+        internal int GetOfsY()
+        {
+            int ofsy = 0;
+            MyControl prev = this.Parent;
+            while (prev != null)
+            {
+                ofsy += prev.Top;
+                prev = prev.Parent;
+            }
+            return ofsy;
+        }
 
         private string m_HelpTitle = "";
 
@@ -81,6 +103,8 @@ namespace LayoutManager
         {
             get { return GetControlType(); }
         }
+
+      
 
         public int ControlImage
         {

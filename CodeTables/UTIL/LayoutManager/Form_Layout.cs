@@ -739,7 +739,7 @@ namespace LayoutManager
                         myctrl.xfrm_Layout = this;
                         myctrl.xfrm_Layout.MyControl_Selected = myctrl;
                         myctrl.xfrm_Layout.usrc_EditLayout1.Enabled = true;
-                        myctrl.xfrm_Layout.usrc_EditLayout1.Init(myctrl);
+                        myctrl.xfrm_Layout.usrc_EditLayout1.Init(myctrl, screen);
                         if (hc.dgvc == null)
                         {
                             //xfrm_HUDCMS.HideLinks();

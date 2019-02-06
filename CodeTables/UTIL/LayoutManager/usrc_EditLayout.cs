@@ -13,6 +13,7 @@ namespace LayoutManager
 {
     public partial class usrc_EditLayout : UserControl
     {
+        private Screen screen = null;
         internal MyControl my_Control = null;
         private Color default_backColor = Color.LightGray;
         private Color default_foreColor = Color.Black;
@@ -25,8 +26,9 @@ namespace LayoutManager
             InitializeComponent();
         }
 
-        internal void Init(MyControl myctrl)
+        internal void Init(MyControl myctrl,Screen xscreen)
         {
+            screen = xscreen;
             if (my_Control != null)
             {
                 // save previous user_Control edited data!
@@ -49,6 +51,9 @@ namespace LayoutManager
 
             setNumUpDn(this.nmUpDnX, ctrlx.Left);
             setNumUpDn(this.nmUpDnY,ctrlx.Top);
+
+            CheckBounds();
+
             setNumUpDn(this.nmUpDnWidth, ctrlx.Width);
             setNumUpDn(this.nmUpDnHeight, ctrlx.Height);
 
@@ -67,6 +72,58 @@ namespace LayoutManager
             }
         }
 
+        private void CheckBounds()
+        {
+            int ofsx = my_Control.GetOfsX();
+            btn_OfsX.Text = ofsx.ToString();
+
+            btn_MaxX.Text = ((int)(screen.Bounds.Width - ofsx)).ToString();
+            btn_MaxWidth.Text = ((int)(screen.Bounds.Width - ofsx - ctrlx.Left)).ToString();
+            int rightbound = ofsx + ctrlx.Left + ctrlx.Width;
+
+            if (rightbound > screen.Bounds.Width)
+            {
+                if (ofsx + ctrlx.Left > screen.Bounds.Width)
+                {
+                    this.nmUpDnX.ForeColor = Color.Red;
+                }
+                else
+                {
+                    this.nmUpDnX.ForeColor = Color.Green;
+                }
+                this.nmUpDnWidth.ForeColor = Color.Red;
+            }
+            else
+            {
+                this.nmUpDnWidth.ForeColor = Color.Green;
+                this.nmUpDnX.ForeColor = Color.Green;
+            }
+
+            int ofsy = my_Control.GetOfsY();
+            btn_OfsY.Text = ofsy.ToString();
+
+            btn_MaxY.Text = ((int)(screen.Bounds.Height - ofsy)).ToString();
+            btn_MaxHeight.Text = ((int)(screen.Bounds.Height - ofsy - ctrlx.Top)).ToString();
+            int bottombound = ofsy + ctrlx.Top + ctrlx.Height;
+
+            if (bottombound > screen.Bounds.Height)
+            {
+                if (ofsy + ctrlx.Top > screen.Bounds.Height)
+                {
+                    this.nmUpDnY.ForeColor = Color.Red;
+                }
+                else
+                {
+                    this.nmUpDnY.ForeColor = Color.Green;
+                }
+                this.nmUpDnHeight.ForeColor = Color.Red;
+            }
+            else
+            {
+                this.nmUpDnHeight.ForeColor = Color.Green;
+                this.nmUpDnY.ForeColor = Color.Green;
+            }
+        }
         private void doHighlight(Control ctrlx)
         {
             ctrlx.BackColor = SystemColors.Highlight;
@@ -127,6 +184,7 @@ namespace LayoutManager
             ctrlx.Left = Convert.ToInt32(nmUpDnX.Value);
             ctrlx.Refresh();
             my_Control.Left = ctrlx.Left;
+            CheckBounds();
         }
 
         private void nmUpDnY_ValueChanged(object sender, EventArgs e)
@@ -134,6 +192,7 @@ namespace LayoutManager
             ctrlx.Top = Convert.ToInt32(nmUpDnY.Value);
             ctrlx.Refresh();
             my_Control.Top = ctrlx.Top;
+            CheckBounds();
         }
 
         private void nmUpDnWidth_ValueChanged(object sender, EventArgs e)
@@ -141,6 +200,7 @@ namespace LayoutManager
             ctrlx.Width = Convert.ToInt32(nmUpDnWidth.Value);
             ctrlx.Refresh();
             my_Control.Width = ctrlx.Width;
+            CheckBounds();
         }
 
         private void nmUpDnHeight_ValueChanged(object sender, EventArgs e)
@@ -148,7 +208,7 @@ namespace LayoutManager
             ctrlx.Height = Convert.ToInt32(nmUpDnHeight.Value);
             ctrlx.Refresh();
             my_Control.Height = ctrlx.Height;
-
+            CheckBounds();
         }
 
         private void btn_Up_Click(object sender, EventArgs e)
