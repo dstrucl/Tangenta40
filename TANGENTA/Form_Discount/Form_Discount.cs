@@ -26,9 +26,12 @@ namespace Form_Discount
         decimal_v PurchasePrice_v = null;
         string sItemName = null;
 
+
+
         public Form_Discount(decimal xRetailPrice, decimal_v xPurchasePrice_v, decimal xDiscount, string xsItemName)
         {
             InitializeComponent();
+            RetailPrice = xRetailPrice;
             PurchasePrice_v = xPurchasePrice_v;
             sItemName = xsItemName;
             if (sItemName == null)
@@ -43,28 +46,32 @@ namespace Form_Discount
             lng.s_rdb_EndPrice.Text(rdb_EndPrice);
             lng.s_btn_PurchasePriceInfo.Text(btn_PurchasePriceInfo);
             ExtraDiscount = xDiscount;
-            SetCurrentDiscount(xDiscount);
-            RetailPrice = xRetailPrice;
-            nm_UpDown_Discount.Value = 0;
-            nm_UpDown_EndPrice.Value = xRetailPrice;
+            nm_UpDown_EndPrice.Maximum = 100000000000M;
+            nm_UpDown_EndPrice.Minimum = 0M;
             nm_UpDown_Discount.Minimum = -10000000000;
             nm_UpDown_Discount.Increment = 1;
             nm_UpDown_Discount.Maximum = +10000000000;
             int_v iDecimalPlaces_v = new int_v();
             iDecimalPlaces_v.v = TangentaDB.GlobalData.BaseCurrency.DecimalPlaces;
-            nm_UpDown_EndPrice.Maximum = 100000000000M;
-            nm_UpDown_EndPrice.Minimum = 0M;
             decimal dincrement = fs.GetIncrement(iDecimalPlaces_v, null);
             nm_UpDown_EndPrice.Increment = dincrement;
             nm_UpDown_EndPrice.DecimalPlaces = iDecimalPlaces_v.v;
             nm_UpDown_Discount.DecimalPlaces = 2;
             nm_UpDown_EndPrice.Enabled = false;
+            Set_nm_UpDown_Discount(0);
+            nm_UpDown_EndPrice.Value = xRetailPrice;
+            SetCurrentDiscount(xDiscount);
             AddHandlers();
             DialogResult = DialogResult.Cancel;
 
             string s_RetailPrice = fs.Decimal2String(RetailPrice, GlobalData.BaseCurrency.DecimalPlaces) + " " + GlobalData.BaseCurrency.Abbreviation;
             lng.s_Price.Text(sItemName+", ", this, " = " +s_RetailPrice);
 
+        }
+
+        private void Set_nm_UpDown_Discount(decimal dvalue)
+        {
+            nm_UpDown_Discount.Value = dvalue;
         }
 
         private void SetCurrentDiscount(decimal xDiscount)
@@ -107,7 +114,8 @@ namespace Form_Discount
             {
                 this.rdb_Custom.Checked = true;
                 nm_UpDown_Discount.Enabled = true;
-                nm_UpDown_Discount.Value = xDiscount;
+                SetDiscount(this.rdb_Custom, xDiscount);
+                //nm_UpDown_Discount.Value = decimal.Round(xDiscount*100,4);
             }
 
         }
@@ -175,7 +183,8 @@ namespace Form_Discount
                 ExtraDiscount = discount;
                 try
                 {
-                    nm_UpDown_Discount.Value = ExtraDiscount * 100;
+                    Set_nm_UpDown_Discount(ExtraDiscount * 100);
+                    nm_UpDown_EndPrice.Value = RetailPrice * (1 - ExtraDiscount);
                 }
                 catch
                 {
@@ -217,7 +226,7 @@ namespace Form_Discount
         private void nm_UpDown_EndPrice_ValueChanged(object sender, EventArgs e)
         {
             ExtraDiscount = (RetailPrice - nm_UpDown_EndPrice.Value) / RetailPrice;
-            nm_UpDown_Discount.Value = ExtraDiscount * 100;
+            Set_nm_UpDown_Discount(ExtraDiscount * 100);
         }
 
         private void btn_OK_Click(object sender, EventArgs e)
@@ -250,10 +259,14 @@ namespace Form_Discount
         private void btn_PurchasePriceInfo_Click(object sender, EventArgs e)
         {
             string sMsg = lng.s_PurchasePriceInfoText.s;
+            
             string sPurchasePrice = fs.Decimal2String(PurchasePrice_v.v, 2) + " " + GlobalData.BaseCurrency.Abbreviation;
-            sMsg = sMsg.Replace("%s1", sItemName);
-            sMsg = sMsg.Replace("%s2", sPurchasePrice);
-            XMessage.Box.Show(this, lng.s_PurchasePriceInfoText, sMsg, "!", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            List<object> lobj = new List<object>();
+            string s = sMsg.Replace("%s1", sItemName);
+            s = s.Replace("%s2", sPurchasePrice);
+            lobj.Add(s);
+            ltext lmsg = new ltext(lobj);
+            XMessage.Box.Show(this, lmsg, "", lng.s_PurchasePriceInfo.s, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
         }
 
         private void nm_UpDown_Discount_ValueChanged_1(object sender, EventArgs e)

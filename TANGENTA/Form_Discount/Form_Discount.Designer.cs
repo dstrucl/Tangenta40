@@ -131,10 +131,10 @@
             // 
             // rdb_EndPrice
             // 
-            this.rdb_EndPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.rdb_EndPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.rdb_EndPrice.Location = new System.Drawing.Point(12, 360);
             this.rdb_EndPrice.Name = "rdb_EndPrice";
-            this.rdb_EndPrice.Size = new System.Drawing.Size(182, 54);
+            this.rdb_EndPrice.Size = new System.Drawing.Size(514, 54);
             this.rdb_EndPrice.TabIndex = 10;
             this.rdb_EndPrice.TabStop = true;
             this.rdb_EndPrice.Text = "20%";
@@ -143,7 +143,7 @@
             // nm_UpDown_EndPrice
             // 
             this.nm_UpDown_EndPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.nm_UpDown_EndPrice.Location = new System.Drawing.Point(223, 358);
+            this.nm_UpDown_EndPrice.Location = new System.Drawing.Point(219, 414);
             this.nm_UpDown_EndPrice.Maximum = new decimal(new int[] {
             276447232,
             23283,
@@ -191,7 +191,7 @@
             // 
             this.btn_OK.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_OK.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_OK.Location = new System.Drawing.Point(219, 424);
+            this.btn_OK.Location = new System.Drawing.Point(223, 482);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(171, 57);
             this.btn_OK.TabIndex = 12;
@@ -222,7 +222,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(620, 493);
+            this.ClientSize = new System.Drawing.Size(620, 551);
             this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.btn_PurchasePriceInfo);
             this.Controls.Add(this.btn_OK);

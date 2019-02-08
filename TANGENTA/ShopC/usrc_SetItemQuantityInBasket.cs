@@ -159,10 +159,13 @@ namespace ShopC
                 bool bresFromFactory = true;
 
                 Transaction transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory = DBSync.DBSync.NewTransaction("usrc_SetItemQuantityInBasket.ChangeQuantitiesInDB.SetFactory");
+
+                //Doc_ShopC_Item dsci = null;
                 bresFromFactory = m_ShopBC.CurrentDocument.m_Basket.SetFactory(m_ShopBC.DocTyp,
                                                                             m_ShopBC.CurrentDocument.m_Doc_ID,
                                                                             dToTakeFromFactory,
                                                                             idata,
+                                                                            ref dsci,
                                                                             transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory);
 
                 if (bresFromFactory)
@@ -176,6 +179,7 @@ namespace ShopC
                 }
                 if (bresFromStock && bresFromFactory)
                 {
+                    m_usrc_Atom_Item1366x768.m_dsci = dsci;
                     m_usrc_Atom_Item1366x768.DoRefresh();
                     m_usrc_Item1366x768.DoPaint(idata, m_ShopBC.CurrentDocument.m_Basket);
                     m_usrc_Item1366x768_selected.DoPaint(dsci, m_usrc_Atom_Item1366x768, idata, m_usrc_Item1366x768);
@@ -201,7 +205,7 @@ namespace ShopC
         {
             Form_Discount.Form_Discount frm_Discount = new Form_Discount.Form_Discount(dRetailPricePerUnit,
                 idata.PurchasePricePerUnit_v,
-                discount,
+                extradiscount,
                 this.lbl_Item_UniqueName.Text);
             if (frm_Discount.ShowDialog(this)== DialogResult.OK)
             {

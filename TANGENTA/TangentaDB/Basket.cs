@@ -394,16 +394,32 @@ namespace TangentaDB
             }
         }
 
-        public bool SetFactory(string docTyp, ID doc_ID, decimal dToTakeFromFactory, Item_Data xData, Transaction transaction)
+        public bool SetFactory(string docTyp, ID doc_ID, decimal dToTakeFromFactory, Item_Data xData,ref Doc_ShopC_Item dsci,Transaction transaction)
         {
-            Doc_ShopC_Item dsci = Find(xData.Item_UniqueName_v.v);
+            dsci = Find(xData.Item_UniqueName_v.v);
             if (dsci != null)
             {
                 return dsci.SetFactory(docTyp, doc_ID, xData, dToTakeFromFactory, transaction);
             }
             else
             {
-                LogFile.Error.Show("ERROR:TangentaDB:Basket:SetFactory: Doc_ShopC_Item dsci == null!");
+                if (this.Basket_Doc_ShopC_Item_LIST.Count == 0)
+                {
+                    dsci = new Doc_ShopC_Item();
+                    if (dsci.SetNew(docTyp, doc_ID, xData, null, dToTakeFromFactory, transaction))
+                    {
+                        this.Basket_Doc_ShopC_Item_LIST.Add(dsci);
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:TangentaDB:Basket:SetFactory: Doc_ShopC_Item dsci == null!");
+                }
                 return false;
             }
         }

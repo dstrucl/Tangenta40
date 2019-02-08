@@ -24,14 +24,15 @@ namespace ShopC_Forms
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
-        
+
+
         public static ltext s_Form_WriteOff_AddOn = new ltext(new string[] { "Write off data", "Podatki o odpisu" });
 
         public static ltext s_btn_New_Empty_OwnUse = new ltext(new string[] { "New own useconsumption", "Nova lastna poraba" });
 
         public static ltext s_btn_New_Empty_WriteOff = new ltext(new string[] { "New write off ", "Nov odpis zalog" });
 
-        public static ltext s_New_Consumption = new ltext(new string[] { "New consumption", "New consumption" });
+        public static ltext s_New_Consumption = new ltext(new string[] { "Take out from stock", "Ostali odvzem iz zaloge" });
         
         public static ltext s_Total = new ltext(new string[] { "TOTAL", "SKUPAJ" });
 

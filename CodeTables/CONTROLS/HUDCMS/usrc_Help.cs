@@ -49,21 +49,14 @@ namespace HUDCMS
         }
 
 
-        private bool m_RemoteURL_accessible = false;
+      
 
         private bool m_LocalHtmlFile_exist = false;
 
         internal string Err_Local = "";
         internal string Err_Remote = "";
 
-        internal bool RemoteURL_accessible
-        {
-            get { return m_RemoteURL_accessible; }
-            set
-            {
-                m_RemoteURL_accessible = value;
-            }
-        }
+      
 
         internal bool LocalHtmlFile_exist
         {
@@ -182,7 +175,7 @@ namespace HUDCMS
             }
             pForm = Global.f.GetParentForm(this);
 
-            RemoteURL_accessible = GetRemoteURL(Prefix);
+            usrc_web_Help.RemoteURL_accessible = GetRemoteURL(Prefix);
             LocalHtmlFile_exist = GetLocalURL(Prefix);
 
             if (hlp_dlg == null)
@@ -213,7 +206,7 @@ namespace HUDCMS
             {
                 pForm = Global.f.GetParentForm(this);
 
-                RemoteURL_accessible = GetRemoteURL(Prefix);
+                usrc_web_Help.RemoteURL_accessible = GetRemoteURL(Prefix);
                 LocalHtmlFile_exist = GetLocalURL(Prefix);
                 hlp_dlg.Reload();
             }

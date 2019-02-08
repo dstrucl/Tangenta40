@@ -68,14 +68,14 @@ namespace TangentaBooting
             {
                 return false;
             }
-            
-            if (Startup.Startup.bFirstTimeInstallation || (PropertiesUser.ShopsInUse_Get(null).Length == 0))
+            string spropertiesUser = PropertiesUser.ShopsInUse_Get(null);
+            if ((Startup.Startup.bFirstTimeInstallation && Reset2FactorySettings.TangentaProperties) || spropertiesUser.Length == 0)
             {
                 return false;
             }
             else
             {
-                if (PropertiesUser.ShopsInUse_Get(null).Length > 0)
+                if (spropertiesUser.Length > 0)
                 {
                     return true;
                 }

@@ -122,7 +122,7 @@ namespace ShopC_Forms
 
             if (ItemsCount == 0)
             {
-                this.btn_Cancel.Top = this.btn_New_Empty_OwnUse.Bottom + 20;
+                this.btn_Cancel.Top = this.btn_New_Empty_WriteOff.Bottom + 20;
                 this.Height = this.btn_Cancel.Bottom + 50;
             }
             else

@@ -19,6 +19,18 @@ namespace HUDCMS
 {
     public partial class usrc_web_Help : UserControl
     {
+        private static bool m_RemoteURL_accessible = false;
+        public static bool RemoteURL_accessible
+        {
+            get
+            {
+                return m_RemoteURL_accessible;
+            }
+            set
+            {
+                m_RemoteURL_accessible = value;
+            }
+        }
 
         Font font_allreadysaved = null;
         Font font_saved = null;
@@ -116,7 +128,7 @@ namespace HUDCMS
             mH.pForm = xpForm;
             mH.Prefix = "st_";
             mH.LocalHtmlFile_exist = mH.GetLocalURL(xpForm, mH.Prefix, sNameSpaceAndTypePath);
-            mH.RemoteURL_accessible = mH.GetRemoteURL(xpForm, mH.Prefix, sNameSpaceAndTypePath);
+            usrc_web_Help.RemoteURL_accessible = mH.GetRemoteURL(xpForm, mH.Prefix, sNameSpaceAndTypePath);
             Init(mH);
         }
 
@@ -132,7 +144,7 @@ namespace HUDCMS
             mH.Prefix = "";
             string sLicenseAgreement = "Startup.LicenseAgreement";
             mH.LocalHtmlFile_exist = mH.GetLocalURL(null, mH.Prefix, sLicenseAgreement);
-            mH.RemoteURL_accessible = mH.GetRemoteURL(null, mH.Prefix, sLicenseAgreement);
+            usrc_web_Help.RemoteURL_accessible = mH.GetRemoteURL(null, mH.Prefix, sLicenseAgreement);
             btn_HUDCMS.Visible = false;
             Init(mH);
         }
@@ -148,7 +160,8 @@ namespace HUDCMS
             mH.Prefix = "";
             string sNews = "News";
             mH.LocalHtmlFile_exist = mH.GetLocalURL(null, mH.Prefix, sNews);
-            mH.RemoteURL_accessible = mH.GetRemoteURL(null, mH.Prefix, sNews);
+            usrc_web_Help.RemoteURL_accessible = mH.GetRemoteURL(null, mH.Prefix, sNews);
+            
             bHideEditButton = false;
             btn_HUDCMS.Visible = false;
             Init(mH);
@@ -166,7 +179,7 @@ namespace HUDCMS
             mH.Prefix = "";
             string sNews = "InstallationFinished";
             mH.LocalHtmlFile_exist = mH.GetLocalURL(null, mH.Prefix, sNews);
-            mH.RemoteURL_accessible = mH.GetRemoteURL(null, mH.Prefix, sNews);
+            usrc_web_Help.RemoteURL_accessible = mH.GetRemoteURL(null, mH.Prefix, sNews);
             btn_HUDCMS.Visible = false;
             Init(mH);
         }
@@ -182,7 +195,7 @@ namespace HUDCMS
             }
             else
             {
-                if (mH.RemoteURL_accessible)
+                if (usrc_web_Help.RemoteURL_accessible)
                 {
                     chk_local.Checked = false;
                     btn_HUDCMS.Visible = false;
@@ -425,7 +438,7 @@ namespace HUDCMS
                         this.cmb_Language.SelectedIndexChanged -= new System.EventHandler(this.cmb_Language_SelectedIndexChanged);
                         HUDCMS_static.LanguageID = selectedindex;
                         mH.LocalHtmlFile_exist = mH.GetLocalURL(mH.Prefix);
-                        mH.RemoteURL_accessible = mH.GetRemoteURL(mH.Prefix);
+                        usrc_web_Help.RemoteURL_accessible = mH.GetRemoteURL(mH.Prefix);
                         Init(mH);
                         ReloadHtml();
                         this.cmb_Language.SelectedIndexChanged += new System.EventHandler(this.cmb_Language_SelectedIndexChanged);

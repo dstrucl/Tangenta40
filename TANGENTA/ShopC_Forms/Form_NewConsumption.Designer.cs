@@ -54,7 +54,7 @@
             // 
             this.btn_Cancel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Cancel.Image = ((System.Drawing.Image)(resources.GetObject("btn_Cancel.Image")));
-            this.btn_Cancel.Location = new System.Drawing.Point(144, 258);
+            this.btn_Cancel.Location = new System.Drawing.Point(165, 259);
             this.btn_Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(73, 29);

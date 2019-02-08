@@ -405,13 +405,13 @@ namespace Tangenta
             else
             {
                 // no document not completed there is error to locql or remote connection
-                if (!NetworkInterface.GetIsNetworkAvailable())
-                {
+                //if (!NetworkInterface.GetIsNetworkAvailable())
+                //{
                     if (!Booting.m_startup.Started)
                     {
                         Booting.m_startup.StartExecution();
                     }
-                }
+                //}
             }
         }
 

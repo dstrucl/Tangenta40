@@ -24,13 +24,15 @@ namespace Form_Discount
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        public static ltext s_PurchasePriceInfo = new ltext(new string[] { "Pruchase price  info", "Podatki o nabavni ceni" });   // referenced in C:\Tangenta40\TANGENTA\Form_Discount\Form_Discount.cs
+
         public static ltext s_PurchasePriceInfoText = new ltext( new string[]{"Item:%s1  Purchase Price  = %s2", "Artikel/Storitev:%s1 Nabavna cena = %s2"});   // referenced in C:\Tangenta40\TANGENTA\Form_Discount\Form_Discount.cs
 
         public static ltext s_btn_PurchasePriceInfo = new ltext(new string[] { "Purchase Price Info", "Informacija o nabavni ceni" });   // referenced in C:\Tangenta40\TANGENTA\Form_Discount\Form_Discount.cs
 
         public static ltext s_ExtraDiscountMakesLowerPriceThan_PurchasePrice = new ltext(new string[] { "Retail price %s1 with discount %s2 is %s3 and is smaller or equal to purchase price %s4. Do you agree ?", "Cena %s1 s popustom %s2 znaša %s3 in je manjša ali enaka nabavni ceni %s4. Soglašate ?" });   // referenced in C:\Tangenta40\TANGENTA\Form_Discount\Form_Discount.cs
 
-        public static ltext s_rdb_EndPrice = new ltext(new string[] { "End price:", "Končna cena:" });   // referenced in C:\Tangenta40\TANGENTA\Form_Discount\Form_Discount.cs
+        public static ltext s_rdb_EndPrice = new ltext(new string[] { "End price per unit:", "Končna cena na enoto:" });   // referenced in C:\Tangenta40\TANGENTA\Form_Discount\Form_Discount.cs
 
         public static ltext s_rdb_CustomDiscount = new ltext(new string[] { "Discount:", "Popust:" });   // referenced in C:\Tangenta40\TANGENTA\Form_Discount\Form_Discount.cs
 
