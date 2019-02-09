@@ -371,14 +371,14 @@ namespace ShopC_Forms
             ////    ConsM.List_ConsumptionType.Add(ConsM.DocType_DocProformaInvoice);
             //}
 
-            ConsM.Consumption_All = new ConsumptionType(lng.s_AllConsumption.s, GlobalData.const_ConsumptionAll);
-            ConsM.List_ConsumptionType.Add(ConsM.Consumption_All);
+            //ConsM.Consumption_All = new ConsumptionType(lng.s_AllConsumption.s, GlobalData.const_ConsumptionAll);
+            //ConsM.List_ConsumptionType.Add(ConsM.Consumption_All);
 
-            ConsM.Consumption_WriteOff = new ConsumptionType(lng.s_WriteOff.s, GlobalData.const_ConsumptionWriteOff);
-            ConsM.List_ConsumptionType.Add(ConsM.Consumption_WriteOff);
+            //ConsM.Consumption_WriteOff = new ConsumptionType(lng.s_WriteOff.s, GlobalData.const_ConsumptionWriteOff);
+            //ConsM.List_ConsumptionType.Add(ConsM.Consumption_WriteOff);
 
-            ConsM.Consumption_OwnUse = new ConsumptionType(lng.s_OwnUse.s, GlobalData.const_ConsumptionOwnUse);
-            ConsM.List_ConsumptionType.Add(ConsM.Consumption_OwnUse);
+            //ConsM.Consumption_OwnUse = new ConsumptionType(lng.s_OwnUse.s, GlobalData.const_ConsumptionOwnUse);
+            //ConsM.List_ConsumptionType.Add(ConsM.Consumption_OwnUse);
 
 
             if (ConsM.List_ConsumptionType.Count>0)
@@ -1068,10 +1068,10 @@ namespace ShopC_Forms
             //}
         }
 
-        internal bool Initialise(Form main_Form, LoginControl.LMOUser xLMOUser,int financialYear,string consumptiontype)
+        internal bool Initialise(Form main_Form, LoginControl.LMOUser xLMOUser,int financialYear)
         {
             m_Form_Document = main_Form;
-            ConsM = new ConsumptionMan(SetMode, TableOfDocuments_Init, Control_ConsumptionEditor_Init, SetInitialMode, xLMOUser, financialYear, consumptiontype);
+            ConsM = new ConsumptionMan(SetMode, TableOfDocuments_Init, Control_ConsumptionEditor_Init, SetInitialMode, xLMOUser, financialYear);
 
             this.m_usrc_TableOfConsumption.Bind(ConsM.m_LMOUser);
             if (m_usrc_ConsumptionEditor.Initialise(ConsM, ConsM.m_LMOUser))
@@ -1083,7 +1083,7 @@ namespace ShopC_Forms
 
         }
 
-        private bool M_usrc_ConsumptionEditor_Issue(OwnUseAddOn ownuse_add_on, Transaction transaction)
+        private bool M_usrc_ConsumptionEditor_Issue(ConsumptionAddOn ownuse_add_on, Transaction transaction)
         {
             ID x_atom_currency_ID = null;
             if (!f_Atom_Currency.Get(GlobalData.BaseCurrency.ID,ref x_atom_currency_ID,transaction))

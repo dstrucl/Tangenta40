@@ -27,7 +27,7 @@ namespace ShopC_Forms
 {
     public partial class usrc_ConsumptionEditor : UserControl
     {
-        public delegate bool delegate_Issue(ShopC_Forms.OwnUseAddOn ownuse_add_on, Transaction transaction);
+        public delegate bool delegate_Issue(ShopC_Forms.ConsumptionAddOn ownuse_add_on, Transaction transaction);
         public event delegate_Issue Issue = null;
 
         internal class Defpos
@@ -86,13 +86,13 @@ namespace ShopC_Forms
         public bool IsWriteOff
         {
             get
-            { return ConsE.DocTyp.Equals(GlobalData.const_ConsumptionWriteOff); }
+            { return ConsE.DocTyp.Equals(f_ConsumptionType.const_ConsumptionWriteOff); }
         }
 
         public bool IsOwnUse
         {
             get
-            { return ConsE.DocTyp.Equals(GlobalData.const_ConsumptionOwnUse); }
+            { return ConsE.DocTyp.Equals(f_ConsumptionType.const_ConsumptionOwnUse); }
         }
 
 
@@ -607,7 +607,8 @@ namespace ShopC_Forms
 
         public void SetNewDraft(LMOUser xLMOUser,
                                 string consumptionTyp,
-                                f_Consumption.eConsumptionType xeConsumptionType,
+                                string consumption_name,
+                                string consumption_description,
                                 int xFinancialYear,
                                 xCurrency xcurrency,
                                 ID Atom_Currency_ID)
@@ -616,7 +617,8 @@ namespace ShopC_Forms
             ConsE.SetNewDraft(pform,
                             xLMOUser,
                             consumptionTyp,
-                            xeConsumptionType,
+                            consumption_name,
+                            consumption_description,
                             xFinancialYear,
                             xcurrency,
                             Atom_Currency_ID,
@@ -626,7 +628,8 @@ namespace ShopC_Forms
         }
 
         private bool SetNewConsumptionDraft(LMOUser xLMOUser,
-                                            f_Consumption.eConsumptionType xeConsumptionType,
+                                            string consumption_name,
+                                            string consumption_description,
                                             int FinancialYear,
                                             xCurrency xcurrency,
                                             ID xAtom_Currency_ID)
@@ -635,7 +638,8 @@ namespace ShopC_Forms
             return ConsE.SetNewConsumptionDraft(
                             pform,
                             xLMOUser,
-                            xeConsumptionType,
+                            consumption_name,
+                            consumption_description,
                             FinancialYear,
                             xcurrency,
                             xAtom_Currency_ID,
@@ -671,7 +675,7 @@ namespace ShopC_Forms
 
         internal bool GetOwnUseData(usrc_ConsumptionMan usrc_ConsumptionMan)
         {
-            Form_OwnUse_AddOn frm_OwnUse_AddOn = new Form_OwnUse_AddOn(ConsE.MyConsumptionData.AddOnOwnUse, false, this.usrc_Consumption_AddOn1);
+            Form_Consumption_AddOn frm_OwnUse_AddOn = new Form_Consumption_AddOn(ConsE.MyConsumptionData.AddOnConsumption, false, this.usrc_Consumption_AddOn1);
             frm_OwnUse_AddOn.Issue += Frm_OwnUse_AddOn_Issue;
             if (frm_OwnUse_AddOn.ShowDialog() == DialogResult.OK)
             {
@@ -683,7 +687,7 @@ namespace ShopC_Forms
             }
         }
 
-        private bool Frm_OwnUse_AddOn_Issue(OwnUseAddOn ownuse_add_on, Transaction transaction)
+        private bool Frm_OwnUse_AddOn_Issue(ConsumptionAddOn ownuse_add_on, Transaction transaction)
         {
             if (Issue!=null)
             {

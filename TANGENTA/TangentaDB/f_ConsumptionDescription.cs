@@ -9,13 +9,12 @@ using DBTypes;
 
 namespace TangentaDB
 {
-    public static class f_OwnUseReason
+    public static class f_ConsumptionDescription
     {
-
-        public static bool Get(string name,string description, ref ID ownUseReason_ID, Transaction transaction)
+        public static bool Get(string name, string description, ref ID consumptionDescription_ID, Transaction transaction)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-        
+
             string Err = null;
             DataTable dt = new DataTable();
 
@@ -52,35 +51,35 @@ namespace TangentaDB
                 sval_Description = "null";
             }
 
-            string sql = @"select ID, Description from OwnUseReason
-                                                where " + scond_Name;
+            string sql = @"select ID, Description from ConsumptionDescription
+                                                where " + scond_Name + " and " + scond_Description;
 
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
-                    ownUseReason_ID = tf.set_ID(dt.Rows[0]["ID"]);
-                    string ownUseReasonDescription = tf._set_string(dt.Rows[0]["Description"]);
-                    if ((ownUseReasonDescription == null) && (description == null))
+                    consumptionDescription_ID = tf.set_ID(dt.Rows[0]["ID"]);
+                    string consumptionDescriptionDescription = tf._set_string(dt.Rows[0]["Description"]);
+                    if ((consumptionDescriptionDescription == null) && (description == null))
                     {
                         return true;
                     }
                     else
                     {
-                        if ((ownUseReasonDescription != null) && (description != null))
+                        if ((consumptionDescriptionDescription != null) && (description != null))
                         {
-                            if (ownUseReasonDescription.Equals(description))
+                            if (consumptionDescriptionDescription.Equals(description))
                             {
                                 return true;
                             }
                             else
                             {
-                                sql = @"update OwnUseReason set Description = " + sval_Description+  " where ID = "+ ownUseReason_ID.ToString();
+                                sql = @"update ConsumptionDescription set Description = " + sval_Description + " where ID = " + consumptionDescription_ID.ToString();
                             }
                         }
                         else
                         {
-                            sql = @"update OwnUseReason set Description = " + sval_Description + " where ID = " + ownUseReason_ID.ToString();
+                            sql = @"update ConsumptionDescription set Description = " + sval_Description + " where ID = " + consumptionDescription_ID.ToString();
                         }
                         if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con, sql, lpar, ref Err))
                         {
@@ -88,55 +87,57 @@ namespace TangentaDB
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:f_OwnUseReason:Get:" + sql + "\r\nErr=" + Err);
+                            LogFile.Error.Show("ERROR:f_ConsumptionReason:Get:" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
                 }
                 else
                 {
-                    sql = @"insert into OwnUseReason (Name,Description) values (" + sval_Name + ","+ sval_Description + ")";
-                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con, sql, lpar, ref ownUseReason_ID, ref Err, "OwnUseReason"))
+                    sql = @"insert into ConsumptionDescription (Name,Description) values (" + sval_Name + "," + sval_Description + ")";
+                    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con, sql, lpar, ref consumptionDescription_ID, ref Err, "ConsumptionDescription"))
                     {
                         return true;
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:f_OwnUseReason:Get:" + sql + "\r\nErr=" + Err);
+                        LogFile.Error.Show("ERROR:f_ConsumptionReason:Get:" + sql + "\r\nErr=" + Err);
                         return false;
                     }
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:f_OwnUseReason:Get:" + sql + "\r\nErr=" + Err);
+                LogFile.Error.Show("ERROR:f_ConsumptionReason:Get:" + sql + "\r\nErr=" + Err);
                 return false;
             }
         }
 
-        public static bool GetTable(ref DataTable dtOwnUseReason)
+
+        public static bool GetTable(ref DataTable dtConsumptionDescription)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
             string Err = null;
 
-            string sql = @"select ID,Name, Description from OwnUseReason";
-            if (dtOwnUseReason!=null)
+            string sql = @"select ID,Name, Description from ConsumptionReason";
+            if (dtConsumptionDescription != null)
             {
-                dtOwnUseReason.Dispose();
-                dtOwnUseReason = null;
-            }
-            
-            dtOwnUseReason = new DataTable();
-            
-
-            if (DBSync.DBSync.ReadDataTable(ref dtOwnUseReason, sql,  ref Err))
-            {
-               return true;
+                dtConsumptionDescription.Dispose();
+                dtConsumptionDescription = null;
             }
             else
             {
-                LogFile.Error.Show("ERROR:f_OwnUseReason:GetTable:" + sql + "\r\nErr=" + Err);
+                dtConsumptionDescription = new DataTable();
+            }
+
+            if (DBSync.DBSync.ReadDataTable(ref dtConsumptionDescription, sql, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_ConsumptionDescription:GetTable:" + sql + "\r\nErr=" + Err);
                 return false;
             }
         }

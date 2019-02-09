@@ -19,12 +19,9 @@ namespace TangentaDB
 {
     public class JOURNAL_Consumption_Type_definitions
     {
-        public journaltype ConsumptionOwnUseDraftTime = null;
-        public journaltype ConsumptionOwnUseTime = null;
-        public journaltype ConsumptionOwnUseStornoTime = null;
-        public journaltype ConsumptionWriteOffDraftTime = null;
-        public journaltype ConsumptionWriteOffTime = null;
-        public journaltype ConsumptionWriteOffStornoTime = null;
+        public journaltype ConsumptionDraftTime = null;
+        public journaltype ConsumptionTime = null;
+        public journaltype ConsumptionStornoTime = null;
 
 
         List<journaltype> journaltype_list = new List<journaltype>();
@@ -33,19 +30,12 @@ namespace TangentaDB
         public JOURNAL_Consumption_Type_definitions()
         {
             //Tax Invoice
-            ConsumptionOwnUseDraftTime = new journaltype("ConsumptionOwnUseDraftTime", lng.s_ConsumptionOwnUseDraftTime_description.s); ;
-            journaltype_list.Add(ConsumptionOwnUseDraftTime);
-            ConsumptionOwnUseTime = new journaltype("ConsumptionOwnUseTime", lng.s_ConsumptionOwnUseTime_description.s);
-            journaltype_list.Add(ConsumptionOwnUseTime);
-            ConsumptionOwnUseStornoTime = new journaltype("ConsumptionOwnUseStornoTime", lng.s_ConsumptionOwnUseStornoTime_description.s); ;
-            journaltype_list.Add(ConsumptionOwnUseStornoTime);
-
-            ConsumptionWriteOffDraftTime = new journaltype("ConsumptionWriteOffDraftTime", lng.s_ConsumptionWriteOffDraftTime_description.s); ;
-            journaltype_list.Add(ConsumptionWriteOffDraftTime);
-            ConsumptionWriteOffTime = new journaltype("ConsumptionWriteOffTime", lng.s_ConsumptionWriteOffTime_description.s);
-            journaltype_list.Add(ConsumptionWriteOffTime);
-            ConsumptionWriteOffStornoTime = new journaltype("ConsumptionWriteOffStornoTime", lng.s_ConsumptionWriteOffStornoTime_description.s); ;
-            journaltype_list.Add(ConsumptionWriteOffStornoTime);
+            ConsumptionDraftTime = new journaltype("ConsumptionDraftTime", lng.s_ConsumptionOwnUseDraftTime_description.s); ;
+            journaltype_list.Add(ConsumptionDraftTime);
+            ConsumptionTime = new journaltype("ConsumptionTime", lng.s_ConsumptionOwnUseTime_description.s);
+            journaltype_list.Add(ConsumptionTime);
+            ConsumptionStornoTime = new journaltype("ConsumptionStornoTime", lng.s_ConsumptionOwnUseStornoTime_description.s); ;
+            journaltype_list.Add(ConsumptionStornoTime);
 
         }
 

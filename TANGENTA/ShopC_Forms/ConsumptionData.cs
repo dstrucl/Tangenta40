@@ -27,34 +27,22 @@ namespace ShopC_Forms
     {
         public delegate string delegate_ConsumptionType();
 
-        private WriteOffAddOn m_WriteOffAddOn = null;
-        public WriteOffAddOn AddOnWriteOff
+     
+        private ConsumptionAddOn m_ConsumptionAddOn = null;
+        public ConsumptionAddOn AddOnConsumption
         {
             get
             {
-                return m_WriteOffAddOn;
+                return m_ConsumptionAddOn;
             }
             set
             {
-                m_WriteOffAddOn = value;
-            }
-        }
-
-        private OwnUseAddOn m_OwnUseAddOn = null;
-        public OwnUseAddOn AddOnOwnUse
-        {
-            get
-            {
-                return m_OwnUseAddOn;
-            }
-            set
-            {
-                m_OwnUseAddOn = value;
+                m_ConsumptionAddOn = value;
             }
         }
 
 
-        public enum eType { DRAFT_INVOICE, INVOICE, PROFORMA_INVOICE, STORNO, UNKNOWN };
+        public enum eType { DRAFT_CONSUMPTION, CONSUMPTION,  STORNO, UNKNOWN };
 
         public eType m_eType = eType.UNKNOWN;
 
@@ -175,7 +163,7 @@ namespace ShopC_Forms
             get { 
                     if (m_delegate_ConsumptionType != null)
                     {
-                        return m_delegate_ConsumptionType().Equals(GlobalData.const_ConsumptionWriteOff);
+                        return m_delegate_ConsumptionType().Equals(f_ConsumptionType.const_ConsumptionWriteOff);
                     }
                     else
                     {
@@ -190,7 +178,7 @@ namespace ShopC_Forms
             {
                 if (m_delegate_ConsumptionType != null)
                 {
-                    return m_delegate_ConsumptionType().Equals(GlobalData.const_ConsumptionOwnUse);
+                    return m_delegate_ConsumptionType().Equals(f_ConsumptionType.const_ConsumptionOwnUse);
                 }
                 else
                 {
@@ -226,8 +214,7 @@ namespace ShopC_Forms
             m_delegate_ConsumptionType = xdelegate_ConsumptionType;
             Consumption_ID = xConsumption_ID;
             Electronic_Device_Name_v = new string_v(xElectronic_Device_Name);
-            AddOnWriteOff = new WriteOffAddOn();
-            AddOnOwnUse = new OwnUseAddOn();
+            AddOnConsumption = new ConsumptionAddOn();
         }
 
         public void Set_NumberInFinancialYear(int xNumberInFinancialYear)
@@ -556,29 +543,18 @@ namespace ShopC_Forms
 
         public void AddOn_Get()
         {
-            if (IsWriteOff)
-            {
-                AddOnWriteOff.Get(Consumption_ID);
-            }
-            else if (IsOwnUse)
-            {
-                AddOnOwnUse.Get(Consumption_ID);
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:TangentaDB:ConsumptionData:AddOn_Get():Document type not implemented!");
-            }
+             AddOnConsumption.Get(Consumption_ID);
         }
 
-        public bool SaveConsumptionOwnUse(ref ID Consumption_ID,string ElectronicDevice_Name,ID xAtom_WorkPeriod_ID, Transaction transaction)
+        public bool SaveConsumption(ref ID consumption_ID,string ElectronicDevice_Name,ID xAtom_WorkPeriod_ID, Transaction transaction)
         {
             int xNumberInFinancialYear = -1;
             DateTime_v ConsumptionTime_v = new DateTime_v();
             ConsumptionTime_v.v = DateTime.Now;
-            bool bRet= m_CurrentConsumption.SaveConsumptionOwnUse(Consumption,ref Consumption_ID, AddOnOwnUse, ElectronicDevice_Name, ref xNumberInFinancialYear, transaction);
+            bool bRet= m_CurrentConsumption.SaveConsumptionOwnUse(Consumption,ref Consumption_ID, AddOnConsumption, ElectronicDevice_Name, ref xNumberInFinancialYear, transaction);
             if (bRet)
             {
-                Consumption_ID = Consumption_ID;
+                consumption_ID = Consumption_ID;
                 this.Set_NumberInFinancialYear(xNumberInFinancialYear);
                 this.SetConsumptionTime(ConsumptionTime_v, xAtom_WorkPeriod_ID, transaction);
             }
@@ -586,20 +562,6 @@ namespace ShopC_Forms
         }
 
 
-
-        public bool SaveConsumption(ref ID Consumption_ID,CashierActivity ca, string ElectronicDevice_Name, ID xAtom_WorkPeriod_ID, Transaction transaction)// GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
-        {
-            int xNumberInFinancialYear = -1;
-            bool bRet = m_CurrentConsumption.SaveConsumptionWriteOff(Consumption,ref Consumption_ID, this.AddOnWriteOff,ca, ElectronicDevice_Name, ref xNumberInFinancialYear, transaction);
-            if (bRet)
-            {
-                Consumption_ID = Consumption_ID;
-                this.Set_NumberInFinancialYear(xNumberInFinancialYear);
-                DateTime_v ConsumptionTime_v = new DateTime_v(AddOnWriteOff.MyIssueDate.Date);
-                this.SetConsumptionTime(ConsumptionTime_v, xAtom_WorkPeriod_ID, transaction);
-            }
-            return bRet;
-        }
 
         public bool SetConsumptionTime(DateTime_v issue_time,ID xAtom_WorkPeriod_ID, Transaction transaction)
         {
@@ -805,7 +767,7 @@ namespace ShopC_Forms
                             awa.Name as Atom_WorkArea_Name,
                             pi.Consumption_Reference_ID
                             from JOURNAL_Consumption jpi
-                            inner join JOURNAL_Consumption_Type jpit on jpi.JOURNAL_Consumption_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseStornoTime.ID.ToString() + @"))
+                            inner join JOURNAL_Consumption_Type jpit on jpi.JOURNAL_Consumption_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionStornoTime.ID.ToString() + @"))
                             inner join Consumption pi on jpi.Consumption_ID = pi.ID
                             inner join Atom_Currency acur on pi.Atom_Currency_ID = acur.ID
                             inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
@@ -896,7 +858,7 @@ namespace ShopC_Forms
                                 jpi.EventTime,
                                 jpit.Name as JOURNAL_DocProformaConsumption_Type_Name
                                 from JOURNAL_DocProformaConsumption jpi
-                                inner join JOURNAL_DocProformaConsumption_Type jpit on jpi.JOURNAL_DocProformaConsumption_Type_ID = jpit.ID and (jpit.ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseDraftTime.ID.ToString() + @")
+                                inner join JOURNAL_DocProformaConsumption_Type jpit on jpi.JOURNAL_DocProformaConsumption_Type_ID = jpit.ID and (jpit.ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionDraftTime.ID.ToString() + @")
                                 inner join DocProformaConsumption pi on jpi.DocProformaConsumption_ID = pi.ID
                                 inner join Atom_Currency acur on pi.Atom_Currency_ID = acur.ID
                                 inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
@@ -962,31 +924,18 @@ namespace ShopC_Forms
                         My_Organisation_Person_FirstName_v = DBTypes.tf.set_string(dt_Consumption.Rows[0]["My_Organisation_Person_FirstName"]);
                         My_Organisation_Person_LastName_v = DBTypes.tf.set_string(dt_Consumption.Rows[0]["My_Organisation_Person_LastName"]);
 
-                        if (IsWriteOff)
+                        if (!AddOnConsumption.Get(Consumption_ID))
                         {
-                            if (!AddOnWriteOff.Get(Consumption_ID))
-                            {
-                                return false;
-                            }
-                            Atom_WorkArea_Name_v = DBTypes.tf.set_string(dt_Consumption.Rows[0]["Atom_WorkArea_Name"]);
-                            Consumption_Storno_v = DBTypes.tf.set_bool(dt_Consumption.Rows[0]["Storno"]);
-                            Consumption_Reference_Type_v = DBTypes.tf.set_string(dt_Consumption.Rows[0]["Consumption_Reference_Type"]);
-                            Consumption_Reference_ID = DBTypes.tf.set_ID(dt_Consumption.Rows[0]["Consumption_Reference_ID"]);
+                            return false;
                         }
-                        else
-                        {
-                            if (!AddOnOwnUse.Get(Consumption_ID))
-                            {
-                                return false;
-                            }
-                        }
+
                         Consumption_ID = DBTypes.tf.set_ID(dt_Consumption.Rows[0][Consumption+"_ID"]);
                         DateTime_v EventTime_v = DBTypes.tf.set_DateTime(dt_Consumption.Rows[0]["EventTime"]);
                         string_v EventName_v = DBTypes.tf.set_string(dt_Consumption.Rows[0]["JOURNAL_"+Consumption+"_Type_Name"]);
 
                         if (Draft)
                         {
-                            this.m_eType = eType.DRAFT_INVOICE;
+                            this.m_eType = eType.DRAFT_CONSUMPTION;
                         }
                         else
                         {
@@ -998,7 +947,7 @@ namespace ShopC_Forms
                                         {
                                             if (EventName_v.v.Equals("ConsumptionTime"))
                                             {
-                                                this.m_eType = eType.INVOICE;
+                                                this.m_eType = eType.CONSUMPTION;
                                             }
                                             else if (EventName_v.v.Equals("ConsumptionStornoTime"))
                                             {
@@ -1008,7 +957,7 @@ namespace ShopC_Forms
                                                 {
                                                     if (IssueDate_v == null)
                                                     {
-                                                        sql = "select EventTime from JOURNAL_Consumption where Consumption_ID = " + Consumption_Reference_ID.ToString() + " and JOURNAL_Consumption_Type_ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseTime.ID.ToString();
+                                                        sql = "select EventTime from JOURNAL_Consumption where Consumption_ID = " + Consumption_Reference_ID.ToString() + " and JOURNAL_Consumption_Type_ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionTime.ID.ToString();
                                                         DataTable dt = new DataTable();
                                                         if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                                         {
@@ -1038,7 +987,7 @@ namespace ShopC_Forms
                                                 if (IssueDate_v == null)
                                                 {
 
-                                                    sql = "select EventTime from JOURNAL_Consumption where Consumption_ID = " + Consumption_ID.ToString() + " and JOURNAL_Consumption_Type_ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseTime.ID.ToString();
+                                                    sql = "select EventTime from JOURNAL_Consumption where Consumption_ID = " + Consumption_ID.ToString() + " and JOURNAL_Consumption_Type_ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionTime.ID.ToString();
                                                     DataTable dt = new DataTable();
                                                     if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                                     {
@@ -1071,7 +1020,7 @@ namespace ShopC_Forms
                                         {
                                             if (EventName_v.v.Equals("ProformaConsumptionTime"))
                                             {
-                                                this.m_eType = eType.INVOICE;
+                                                this.m_eType = eType.CONSUMPTION;
                                                 this.IssueDate_v = EventTime_v.Clone();
                                             }
                                             else
@@ -1079,7 +1028,7 @@ namespace ShopC_Forms
                                                 if (IssueDate_v == null)
                                                 {
 
-                                                    sql = "select EventTime from JOURNAL_Consumption where Consumption_ID = " + Consumption_ID.ToString() + " and JOURNAL_DocProformaConsumption_Type_ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseTime.ID.ToString();
+                                                    sql = "select EventTime from JOURNAL_Consumption where Consumption_ID = " + Consumption_ID.ToString() + " and JOURNAL_DocProformaConsumption_Type_ID = " + GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionTime.ID.ToString();
                                                     DataTable dt = new DataTable();
                                                     if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                                     {
@@ -1297,14 +1246,15 @@ namespace ShopC_Forms
         internal bool Issue(ID xAtom_WorkPeriod_ID,
                             int financialYear,
                             ID xAtom_Currency_ID,
-                            OwnUseAddOn ownuse_add_on,
+                            ConsumptionAddOn ownuse_add_on,
                             ref ID consumption_ID,
                             ref int draftNumber,
                             Transaction transaction)
         {
 
             if (f_Consumption.SetNewDraft_Consumption(xAtom_WorkPeriod_ID,
-                                                      f_Consumption.eConsumptionType.OwnUse,
+                                                      f_ConsumptionType.const_ConsumptionOwnUse,
+                                                      lng.s_OwnUse.s,
                                                       financialYear,
                                                       GlobalData.BaseCurrency,
                                                       xAtom_Currency_ID,
@@ -1489,40 +1439,40 @@ namespace ShopC_Forms
             string stime = LanguageControl.DynSettings.SetLanguageDateTimeString(IssueDate_v.v); 
             ConsumptionToken.tDateOfIssue.Set(stime);
 
-            if (IsWriteOff)
-            {
-                //if (AddOnWriteOff.MyPaymentDeadline != null)
-                //{
-                //    stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnWriteOff.MyPaymentDeadline.Date);
-                //    ConsumptionToken.tDateOfMaturity.Set(stime);
-                //}
-                //else
-                //{
-                //    ConsumptionToken.tDateOfMaturity.Set("");
-                //}
-                if (AddOnWriteOff.m_NoticeText!=null)
-                {
-                    ConsumptionToken.tNotice.Set(AddOnWriteOff.m_NoticeText);
-                }
-                else
-                {
-                    ConsumptionToken.tNotice.Set("");
-                }
-            }
-            else
-            {
-                //stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnOwnUse.m_Duration.ValidUntil(IssueDate_v.v));
-                //ConsumptionToken.tOfferValidUntil.Set(stime);
-                //if (AddOnDPI.m_NoticeText != null)
-                //{
-                //    ConsumptionToken.tNotice.Set(AddOnDPI.m_NoticeText);
-                //}
-                //else
-                //{
-                //    ConsumptionToken.tNotice.Set("");
-                //}
+            //if (IsWriteOff)
+            //{
+            //    //if (AddOnWriteOff.MyPaymentDeadline != null)
+            //    //{
+            //    //    stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnWriteOff.MyPaymentDeadline.Date);
+            //    //    ConsumptionToken.tDateOfMaturity.Set(stime);
+            //    //}
+            //    //else
+            //    //{
+            //    //    ConsumptionToken.tDateOfMaturity.Set("");
+            //    //}
+            //    if (AddOnWriteOff.m_NoticeText!=null)
+            //    {
+            //        ConsumptionToken.tNotice.Set(AddOnWriteOff.m_NoticeText);
+            //    }
+            //    else
+            //    {
+            //        ConsumptionToken.tNotice.Set("");
+            //    }
+            //}
+            //else
+            //{
+            //    //stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnOwnUse.m_Duration.ValidUntil(IssueDate_v.v));
+            //    //ConsumptionToken.tOfferValidUntil.Set(stime);
+            //    //if (AddOnDPI.m_NoticeText != null)
+            //    //{
+            //    //    ConsumptionToken.tNotice.Set(AddOnDPI.m_NoticeText);
+            //    //}
+            //    //else
+            //    //{
+            //    //    ConsumptionToken.tNotice.Set("");
+            //    //}
 
-            }
+            //}
 
 
             sMethodOfPayment = "";

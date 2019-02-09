@@ -40,11 +40,10 @@ namespace ShopC_Forms
         public delegate void delegate_control_lbl_Sum_ForeColor(Color color);
         public delegate void delegate_control_lbl_Sum_Text(string s);
 
-        public delegate bool delegate_control_Check_WriteOffAddOn(WriteOffAddOn addOnWriteOff);
-        public delegate bool delegate_control_Check_OwnUseAddOn(OwnUseAddOn addOnOwnUse);
+        public delegate bool delegate_control_Check_ConsumptionAddOn(ConsumptionAddOn addOnConsumption);
 
         public delegate bool delegate_control_Get_WriteOff_AddOn(bool xbPrint);
-        public delegate bool delegate_control_Get_OwnUse_AddOn(bool xbPrint);
+        public delegate bool delegate_control_Get_Consumption_AddOn(bool xbPrint);
 
         public delegate bool delegate_control_DoCurrent(ID xID, Transaction transaction);
         public delegate bool delegate_control_Printing_Consumption(Control parnetcontrol);
@@ -462,9 +461,9 @@ namespace ShopC_Forms
 					woao.IssueDate as IssueDate_WriteOff,
 					wor.Name as WriteOff_ReasonName,
 					wor.Description as WriteOff_ReasonDescription,
-					ouao.IssueDate as IssueDate_OwnUse,
-					our.Name as OwnUse_ReasonName,
-					our.Description as OwnUse_ReasonDescription,
+					ouao.IssueDate as IssueDate_Consumption,
+					our.Name as Consumption_ReasonName,
+					our.Description as Consumption_ReasonDescription,
                     acur.ID as Atom_Currency_ID,
                     acur.Name as CurrencyName,
                     acur.Abbreviation as CurrencyAbbreviation,
@@ -478,11 +477,11 @@ namespace ShopC_Forms
                     FROM JOURNAL_Consumption 
                     INNER JOIN JOURNAL_Consumption_Type JOURNAL_Consumption_$_cst ON JOURNAL_Consumption.JOURNAL_Consumption_Type_ID = JOURNAL_Consumption_$_cst.ID
                     LEFT JOIN Consumption JOURNAL_Consumption_$_cs ON JOURNAL_Consumption.Consumption_ID = JOURNAL_Consumption_$_cs.ID 
-                                                                        and ((((JOURNAL_Consumption_$_cst.Name='ConsumptionOwnUseDraftTime')or(JOURNAL_Consumption_$_cst.Name='ConsumptionWriteOffDraftTime')) and (JOURNAL_Consumption_$_cs.Draft=1))
+                                                                        and ((((JOURNAL_Consumption_$_cst.Name='ConsumptionConsumptionDraftTime')or(JOURNAL_Consumption_$_cst.Name='ConsumptionWriteOffDraftTime')) and (JOURNAL_Consumption_$_cs.Draft=1))
 																		
-                                                                            or(((JOURNAL_Consumption_$_cst.Name='ConsumptionOwnUseTime') 
+                                                                            or(((JOURNAL_Consumption_$_cst.Name='ConsumptionConsumptionTime') 
 																			or (JOURNAL_Consumption_$_cst.Name='ConsumptionWriteOffTime') 
-																			or (JOURNAL_Consumption_$_cst.Name='ConsumptionOwnUseStornoTime')
+																			or (JOURNAL_Consumption_$_cst.Name='ConsumptionConsumptionStornoTime')
 																			or (JOURNAL_Consumption_$_cst.Name='ConsumptionWriteOffDraftTimeStornoTime')
 																			or  (JOURNAL_Consumption_$_cst.Name='Storno*'))
                                                                                 and (JOURNAL_Consumption_$_cs.Draft=0)))
@@ -497,8 +496,8 @@ namespace ShopC_Forms
                     LEFT JOIN Atom_cLastName JOURNAL_Consumption_$_awperiod_$_amcper_$_aper_$_acln ON JOURNAL_Consumption_$_awperiod_$_amcper_$_aper.Atom_cLastName_ID = JOURNAL_Consumption_$_awperiod_$_amcper_$_aper_$_acln.ID
                     left join WriteOffAddOn woao on woao.Consumption_ID = JOURNAL_Consumption_$_cs.ID
 					left join WriteOffReason wor on wor.ID = woao.WriteOffReason_ID
-					left join OwnUseAddOn ouao on ouao.Consumption_ID = JOURNAL_Consumption_$_cs.ID
-					left join OwnUseReason our on our.ID = ouao.OwnUseReason_ID
+					left join ConsumptionAddOn ouao on ouao.Consumption_ID = JOURNAL_Consumption_$_cs.ID
+					left join ConsumptionReason our on our.ID = ouao.ConsumptionReason_ID
                     " + cond;
 
 
@@ -779,9 +778,8 @@ namespace ShopC_Forms
 
         public void btn_Issue_Click(
                                     Form pform,
-                                    delegate_control_Get_WriteOff_AddOn xdelegate_control_Get_WriteOff_AddOn,
-                                    delegate_control_Check_WriteOffAddOn xdelegate_control_Check_WriteOff_AddOn,
-                                    delegate_control_Get_OwnUse_AddOn xdelegate_control_Get_OwnUse_AddOn,
+                                    delegate_control_Check_ConsumptionAddOn xdelegate_control_Check_ConsumptionAddOn,
+                                    delegate_control_Get_Consumption_AddOn xdelegate_control_Get_Consumption_AddOn,
                                     delegate_control_DoCurrent xdelegate_control_DoCurrent,
                                     delegate_ConsumptionSaved xdelegate_ConsumptionSaved,
                                     delegate_DocProformaInvoiceSaved xdelegate_DocProformaInvoiceSaved
@@ -800,13 +798,10 @@ namespace ShopC_Forms
                             return;
                         }
 
-                        if (!xdelegate_control_Check_WriteOff_AddOn(m_ConsumptionData.AddOnWriteOff))// if (!usrc_AddOn1.Check_Consumption_AddOn(DocE.m_InvoiceData.AddOnDI))
+                        if (!xdelegate_control_Check_ConsumptionAddOn(m_ConsumptionData.AddOnConsumption))// if (!usrc_AddOn1.Check_Consumption_AddOn(DocE.m_InvoiceData.AddOnDI))
                         {
-                            if (!xdelegate_control_Get_WriteOff_AddOn(true)) //if(!usrc_AddOn1.Get_Doc_AddOn(true))
-                            {
-                                return;
-                            }
-                            if (!xdelegate_control_Check_WriteOff_AddOn(MyConsumptionData.AddOnWriteOff))//if (!usrc_AddOn1.Check_Consumption_AddOn(DocE.m_InvoiceData.AddOnDI))
+                           
+                            if (!xdelegate_control_Check_ConsumptionAddOn(MyConsumptionData.AddOnConsumption))//if (!usrc_AddOn1.Check_Consumption_AddOn(DocE.m_InvoiceData.AddOnDI))
                             {
                                 return;
                             }
@@ -1070,39 +1065,10 @@ namespace ShopC_Forms
 
             if (fs.UpdatePriceInDraft(DocTyp, CurrentCons.Doc_ID, GrossSum, TaxSum.Value, NetSum, transaction))
             {
-                if (ConsM.IsWriteOff)
-                {
-
-
+                
                     ID Consumption_ID = null;
                     // save doc Invoice 
-                    if (MyConsumptionData.SaveConsumption(ref Consumption_ID, TSettings.CashierActivity, GlobalData.ElectronicDevice_Name, m_LMOUser.Atom_WorkPeriod_ID, transaction))
-                    {
-
-                        CurrentCons.Doc_ID = Consumption_ID;
-
-                        // read saved doc Invoice again !
-                        if (MyConsumptionData.Read_Consumption(transaction))
-                        {
-                            xdelegate_ConsumptionSaved(CurrentCons.Doc_ID);
-                            Printing_Consumption(pform, transaction);// Printing_Consumption();
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else if (ConsM.IsOwnUse)
-                {
-                    ID Consumption_ID = null;
-                    // save doc Invoice 
-                    if (MyConsumptionData.SaveConsumptionOwnUse(ref Consumption_ID, GlobalData.ElectronicDevice_Name, m_LMOUser.Atom_WorkPeriod_ID, transaction))
+                    if (MyConsumptionData.SaveConsumption(ref Consumption_ID, GlobalData.ElectronicDevice_Name, m_LMOUser.Atom_WorkPeriod_ID, transaction))
                     {
                         CurrentCons.Doc_ID = Consumption_ID;
                         // read saved doc Invoice again !
@@ -1121,12 +1087,7 @@ namespace ShopC_Forms
                     {
                         return false;
                     }
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:Tangenta:usrc_Invoice:IssueDocument:Unknown doc type!");
-                    return false;
-                }
+               
             }
             else
             {
@@ -1138,35 +1099,33 @@ namespace ShopC_Forms
         public void SetNewDraft(Form pform,
                                 LMOUser xLMOUser,
                                 string DocTyp,
-                                f_Consumption.eConsumptionType xeConsumptionType,
+                                string consumption_name,
+                                string consumption_description,
                                 int xFinancialYear,
                                 xCurrency xcurrency,
                                 ID Atom_Currency_ID,
                                 delegate_control_SetMode xdelegate_control_SetMode,
                                 delegate_control_InvoiceNumber_Text xdelegate_control_InvoiceNumber_Text)
         {
-            if (DocTyp.Equals(GlobalData.const_ConsumptionAll) || DocTyp.Equals(GlobalData.const_ConsumptionWriteOff) || DocTyp.Equals(GlobalData.const_ConsumptionOwnUse))
+            if (SetNewConsumptionDraft(pform,
+                                    xLMOUser,
+                                    consumption_name,
+                                    consumption_description,
+                                    xFinancialYear,
+                                    xcurrency,
+                                    Atom_Currency_ID,
+                                    xdelegate_control_SetMode,
+                                    xdelegate_control_InvoiceNumber_Text))
             {
-                if (SetNewConsumptionDraft(pform,
-                                        xLMOUser,
-                                        xeConsumptionType,
-                                        xFinancialYear,
-                                        xcurrency,
-                                        Atom_Currency_ID,
-                                        xdelegate_control_SetMode,
-                                        xdelegate_control_InvoiceNumber_Text))
-                {
-                    xdelegate_control_SetMode(ConsumptionEditor.emode.edit_eDocumentType);// SetMode(ConsumptionEditor.emode.edit_eDocumentType);
-                }
-                return;
+                xdelegate_control_SetMode(ConsumptionEditor.emode.edit_eDocumentType);// SetMode(ConsumptionEditor.emode.edit_eDocumentType);
             }
             return;
-
         }
 
         public bool SetNewConsumptionDraft(Form pform,
                                         LMOUser xLMOUser,
-                                        f_Consumption.eConsumptionType xeConsumptionType,
+                                        string consumption_name,
+                                        string consumption_description,
                                         int FinancialYear,
                                         xCurrency xcurrency,
                                         ID xAtom_Currency_ID,
@@ -1190,7 +1149,8 @@ namespace ShopC_Forms
             int draftNumber = 0;
             Transaction transaction_SetNewConsumptionDraft = DBSync.DBSync.NewTransaction("SetNewConsumptionDraft");
             if (f_Consumption.SetNewDraft_Consumption(m_LMOUser.Atom_WorkPeriod_ID,
-                                        xeConsumptionType,
+                                        consumption_name,
+                                        consumption_description,
                                         FinancialYear,
                                         xcurrency,
                                         xAtom_Currency_ID,

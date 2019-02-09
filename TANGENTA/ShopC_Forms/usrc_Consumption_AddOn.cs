@@ -74,40 +74,18 @@ namespace ShopC_Forms
         private void btn_Notice_Click(object sender, EventArgs e)
         {
 
-            Get_Doc_AddOn(false);
+            Get_Consumption_AddOn(false);
         }
 
-        public bool Get_Doc_AddOn(bool xbPrint)
+        public bool Get_Consumption_AddOn(bool xbPrint)
         {
-            if (IsWriteOff)
-            {
-                return Get_WriteOff_AddOn(ConsM.ConsE.MyConsumptionData.AddOnWriteOff, xbPrint);
-            }
-            else if (IsDocOwnUse)
-            {
-                return Get_OwnUse_AddOn(ConsM.ConsE.MyConsumptionData.AddOnOwnUse, xbPrint);
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:Tangenta:usrc_AddOn:Get_Doc_AddOn: Unknown document type!");
-                return false;
-            }
+             return Get_Consumption_AddOn(ConsM.ConsE.MyConsumptionData.AddOnConsumption, xbPrint);
         }
         
-        private bool Get_WriteOff_AddOn(WriteOffAddOn x_WriteOffAddOn, bool xbPrint)
+    
+        private bool Get_Consumption_AddOn(ConsumptionAddOn x_OwnUse_AddOn, bool xbPrint)
         {
-            Form_WriteOff_AddOn payment_frm = new Form_WriteOff_AddOn(x_WriteOffAddOn, xbPrint, this);
-            if (payment_frm.ShowDialog() == DialogResult.OK)
-            {
-                Show(ConsM.ConsE.CurrentCons.Doc_ID);
-                return true;
-            }
-            return false;
-        }
-
-        private bool Get_OwnUse_AddOn(OwnUseAddOn x_OwnUse_AddOn, bool xbPrint)
-        {
-            Form_OwnUse_AddOn OwnUseAddOn_frm = new Form_OwnUse_AddOn(x_OwnUse_AddOn, xbPrint, this);
+            Form_Consumption_AddOn OwnUseAddOn_frm = new Form_Consumption_AddOn(x_OwnUse_AddOn, xbPrint, this);
             if (OwnUseAddOn_frm.ShowDialog() == DialogResult.OK)
             {
                 Show(ConsM.ConsE.CurrentCons.Doc_ID);
@@ -118,66 +96,19 @@ namespace ShopC_Forms
 
         public void Show(ID ID)
         {
-            if (IsWriteOff)
+            if (ConsM.ConsE.MyConsumptionData.AddOnConsumption.Get(ID))
             {
-                if (ConsM.ConsE.MyConsumptionData.AddOnWriteOff.Get(ID))
-                {
-                    DisplayAddOn();
-                }
-            }
-            else if (IsDocOwnUse)
-            {
-                if (ConsM.ConsE.MyConsumptionData.AddOnOwnUse.Get(ID))
-                {
-                    DisplayAddOn();
-                }
+                DisplayAddOn();
             }
         }
 
         private void DisplayAddOn()
         {
             string txt = "";
-            if (IsWriteOff)
-            {
-                if (ConsM.ConsE.MyConsumptionData.AddOnWriteOff.MyIssueDate != null)
+           
+                if (ConsM.ConsE.MyConsumptionData.AddOnConsumption.MyIssueDate != null)
                 {
-                    txt += lng.s_IssueDate.s + ":" + ConsM.ConsE.MyConsumptionData.AddOnWriteOff.MyIssueDate.Date.ToShortDateString() + "\r\n";
-                }
-                //if (ConsM.ConsE.InvoiceData.AddOnDI.MyMethodOfPayment_DI != null)
-                //{
-                //    string txtMethodOfPayment = lng.s_MethodOfPayment.s + ":" + GlobalData.Get_sPaymentType_ltext(ConsM.DocE.InvoiceData.AddOnDI.MyMethodOfPayment_DI.eType).s;
-                //    switch (ConsM.DocE.InvoiceData.AddOnDI.MyMethodOfPayment_DI.eType)
-                //    {
-                //        case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
-                //            txtMethodOfPayment += " [" + ConsM.DocE.InvoiceData.AddOnDI.MyMethodOfPayment_DI.m_MyOrgBankAccountPayment.BankAccount + "] " + ConsM.DocE.InvoiceData.AddOnDI.MyMethodOfPayment_DI.m_MyOrgBankAccountPayment.BankName;
-                //            break;
-
-                //    }
-                //    txt += txtMethodOfPayment + "\r\n";
-                //}
-                //if (ConsM.DocE.InvoiceData.AddOnDI.MyTermsOfPayment != null)
-                //{
-                //    string txtTermsOfPayment = lng.s_TermsOfPayment.s + ":" + ConsM.DocE.InvoiceData.AddOnDI.MyTermsOfPayment.Description;
-                //    txt += txtTermsOfPayment + "\r\n";
-                //}
-                //if (ConsM.DocE.InvoiceData.AddOnDI.MyPaymentDeadline != null)
-                //{
-                //    string txtTermsOfPayment = lng.s_Payment_Deadline.s + ":" + ConsM.DocE.InvoiceData.AddOnDI.MyPaymentDeadline.Date.ToShortDateString();
-                //    txt += txtTermsOfPayment + "\r\n";
-                //}
-
-                //if (ConsM.DocE.InvoiceData.AddOnDI.m_NoticeText != null)
-                //{
-                //    txt += ConsM.DocE.InvoiceData.AddOnDI.m_NoticeText + "\r\n";
-                //}
-
-                this.txt_Notice.Text = txt;
-            }
-            else if (IsDocOwnUse)
-            {
-                if (ConsM.ConsE.MyConsumptionData.AddOnOwnUse.MyIssueDate != null)
-                {
-                    txt += lng.s_IssueDate.s + ":" + ConsM.ConsE.MyConsumptionData.AddOnOwnUse.MyIssueDate.Date.Date.ToShortDateString() + "\r\n";
+                    txt += lng.s_IssueDate.s + ":" + ConsM.ConsE.MyConsumptionData.AddOnConsumption.MyIssueDate.Date.Date.ToShortDateString() + "\r\n";
                 }
                 //if (ConsM.DocE.InvoiceData.AddOnDPI.m_Duration != null)
                 //{
@@ -224,13 +155,12 @@ namespace ShopC_Forms
                 //    txt += ConsM.DocE.InvoiceData.AddOnDPI.m_NoticeText + "\r\n";
                 //}
                 //this.txt_Notice.Text = txt;
-            }
         }
 
-        public bool Check_Consumption_AddOn(WriteOffAddOn addOnWriteOff)
+        public bool Check_Consumption_AddOn(ConsumptionAddOn addOnConsumption)
         {
             ltext ltMsg = null;
-            if (addOnWriteOff.Completed(ref ltMsg))
+            if (addOnConsumption.Completed(ref ltMsg))
             {
                 return true;
                 //if (addOnDI.IsCashPayment)

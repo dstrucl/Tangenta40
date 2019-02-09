@@ -60,11 +60,11 @@
     <Compile Include="Form_NewConsumption.Designer.cs">
       <DependentUpon>Form_NewConsumption.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_OwnUse_AddOn.cs">
+    <Compile Include="Form_Consumption_AddOn.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_OwnUse_AddOn.Designer.cs">
-      <DependentUpon>Form_OwnUse_AddOn.cs</DependentUpon>
+    <Compile Include="Form_Consumption_AddOn.Designer.cs">
+      <DependentUpon>Form_Consumption_AddOn.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_PrintReport.cs">
       <SubType>Form</SubType>
@@ -102,12 +102,6 @@
     <Compile Include="Form_VODxml_OPAL_output.Designer.cs">
       <DependentUpon>Form_VODxml_OPAL_output.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_WriteOff_AddOn.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_WriteOff_AddOn.Designer.cs">
-      <DependentUpon>Form_WriteOff_AddOn.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form_SetItemQunatityInBasket.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,17 +138,11 @@
     <Compile Include="usrc_ConsumptionMan.Designer.cs">
       <DependentUpon>usrc_ConsumptionMan.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_OwnUse_AddOn.cs">
+    <Compile Include="usrc_AddOn_Consumption.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_OwnUse_AddOn.Designer.cs">
-      <DependentUpon>usrc_OwnUse_AddOn.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_WriteOff_AddOn.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_WriteOff_AddOn.Designer.cs">
-      <DependentUpon>usrc_WriteOff_AddOn.cs</DependentUpon>
+    <Compile Include="usrc_AddOn_Consumption.Designer.cs">
+      <DependentUpon>usrc_AddOn_Consumption.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_DocIssue.cs">
       <SubType>UserControl</SubType>
@@ -234,8 +222,7 @@
     <Compile Include="usrc_TableOfConsumption.Designer.cs">
       <DependentUpon>usrc_TableOfConsumption.cs</DependentUpon>
     </Compile>
-    <Compile Include="OwnUseAddOn.cs" />
-    <Compile Include="WriteOffAddOn.cs" />
+    <Compile Include="ConsumptionAddOn.cs" />
     <Compile Include="Form_ViewStock.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -378,8 +365,8 @@
     <EmbeddedResource Include="Form_NewConsumption.resx">
       <DependentUpon>Form_NewConsumption.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_OwnUse_AddOn.resx">
-      <DependentUpon>Form_OwnUse_AddOn.cs</DependentUpon>
+    <EmbeddedResource Include="Form_Consumption_AddOn.resx">
+      <DependentUpon>Form_Consumption_AddOn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_PrintReport.resx">
       <DependentUpon>Form_PrintReport.cs</DependentUpon>
@@ -398,9 +385,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_VODxml_OPAL_output.resx">
       <DependentUpon>Form_VODxml_OPAL_output.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_WriteOff_AddOn.resx">
-      <DependentUpon>Form_WriteOff_AddOn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ViewStock.resx">
       <DependentUpon>Form_ViewStock.cs</DependentUpon>
@@ -482,11 +466,8 @@
     <EmbeddedResource Include="usrc_ConsumptionMan.resx">
       <DependentUpon>usrc_ConsumptionMan.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_OwnUse_AddOn.resx">
-      <DependentUpon>usrc_OwnUse_AddOn.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_WriteOff_AddOn.resx">
-      <DependentUpon>usrc_WriteOff_AddOn.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_AddOn_Consumption.resx">
+      <DependentUpon>usrc_AddOn_Consumption.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_DocIssue.resx">
       <DependentUpon>usrc_DocIssue.cs</DependentUpon>

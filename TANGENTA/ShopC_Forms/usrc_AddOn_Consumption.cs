@@ -24,17 +24,17 @@ using HUDCMS;
 
 namespace ShopC_Forms
 {
-    public partial class usrc_OwnUse_AddOn : UserControl
+    public partial class usrc_AddOn_Consumption : UserControl
     {
 
         public delegate void delegate_Cancel();
         public event delegate_Cancel Cancel;
 
-        public delegate bool delegate_Issue(ShopC_Forms.OwnUseAddOn ownuse_add_on, Transaction transaction);
+        public delegate bool delegate_Issue(ShopC_Forms.ConsumptionAddOn ownuse_add_on, Transaction transaction);
         public event delegate_Issue Issue = null;
 
-        private OwnUseAddOn m_AddOwnUse = null;
-        private OwnUseAddOn AddOnOwnUse
+        private ConsumptionAddOn m_AddOwnUse = null;
+        private ConsumptionAddOn AddOnOwnUse
         {
             get
             {
@@ -50,7 +50,7 @@ namespace ShopC_Forms
 
         private bool m_bPrint;
 
-        public usrc_OwnUse_AddOn()
+        public usrc_AddOn_Consumption()
         {
             InitializeComponent();
 
@@ -85,7 +85,7 @@ namespace ShopC_Forms
             //dtP_PaymentDeadline.Enabled = bEnable;
         }
 
-        public bool Init(OwnUseAddOn x_OwnUseAddOn, bool bxPrint, usrc_Consumption_AddOn x_usrc_AddOn) //, int xCurrency_DecimalPlaces, decimal xGrossSum)
+        public bool Init(ConsumptionAddOn x_OwnUseAddOn, bool bxPrint, usrc_Consumption_AddOn x_usrc_AddOn) //, int xCurrency_DecimalPlaces, decimal xGrossSum)
         {
             Enable_BankAccountTransfer(false);
             AddOnOwnUse = x_OwnUseAddOn;
@@ -102,11 +102,11 @@ namespace ShopC_Forms
 
             AddOnOwnUse.GetReasonTable();
             AddOnOwnUse.GetDescriptionTable();
-            cmb_Reason.DataSource = AddOnOwnUse.dtOwnUseReason;
+            cmb_Reason.DataSource = AddOnOwnUse.dtConsumptionReason;
             cmb_Reason.DisplayMember = "Name";
             cmb_Reason.ValueMember = "ID";
 
-            cmb_Description.DataSource = AddOnOwnUse.dtOwnUseDescription;
+            cmb_Description.DataSource = AddOnOwnUse.dtConsumptionDescription;
             cmb_Reason.DisplayMember = "Name";
             cmb_Reason.ValueMember = "ID";
 
@@ -294,7 +294,7 @@ namespace ShopC_Forms
            
             if (m_AddOwnUse.MyIssueDate == null)
             {
-                m_AddOwnUse.MyIssueDate = new OwnUseAddOn.IssueDate();
+                m_AddOwnUse.MyIssueDate = new ConsumptionAddOn.IssueDate();
             }
             m_AddOwnUse.MyIssueDate.Date = dtP_DateOfIssue.Value;
 

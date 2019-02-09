@@ -23,7 +23,8 @@ namespace TangentaDB
         }
 
         public static bool SetNewDraft_Consumption(ID xAtom_WorkPeriod_ID,
-                                eConsumptionType eConsumptionType,
+                                string sConsumption_Name,
+                                string sConsumption_Description,
                                 int iFinancialYear,
                                 xCurrency xcurrency,
                                 ID xAtom_Currency_ID,
@@ -121,25 +122,9 @@ namespace TangentaDB
 
                 DraftNumber = xDraftNumber;
                 ID consumptionType_ID = null;
-                switch (eConsumptionType)
+                if (!f_ConsumptionType.Get(sConsumption_Name, sConsumption_Description, ref consumptionType_ID, transaction))
                 {
-                    case eConsumptionType.OwnUse:
-                        if (!f_ConsumptionType.Get(GlobalData.const_ConsumptionOwnUse, lng.s_OwnUse.s, ref consumptionType_ID, transaction))
-                        {
-                            return false;
-                        }
-                        break;
-                    case eConsumptionType.WriteOff:
-                        if (!f_ConsumptionType.Get(GlobalData.const_ConsumptionWriteOff, lng.s_WriteOff.s, ref consumptionType_ID, transaction))
-                        {
-                            return false;
-                        }
-                        break;
-
-
-                    default:
-                        LogFile.Error.Show("ERROR:ShopC_Forms:SetNewDraft_Consumption:" + eConsumptionType.ToString() + " is not implemented! ");
-                        return false;
+                    return false;
                 }
 
                 string sql_SetDraftDocInvoice = null;
@@ -158,18 +143,8 @@ namespace TangentaDB
 
                     ID Journal_Consumption_ID = null;
 
-                    switch (eConsumptionType)
-                    {
-                        case eConsumptionType.OwnUse:
-                            return f_Journal_Consumption.Write(Consumption_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseDraftTime.ID, null, ref Journal_Consumption_ID, transaction);
+                    return f_Journal_Consumption.Write(Consumption_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionDraftTime.ID, null, ref Journal_Consumption_ID, transaction);
 
-                        case eConsumptionType.WriteOff:
-                            return f_Journal_Consumption.Write(Consumption_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionWriteOffDraftTime.ID, null, ref Journal_Consumption_ID, transaction);
-
-                        default:
-                            LogFile.Error.Show("ERROR:ShopC_Forms:SetNewDraft_Consumption:" + eConsumptionType.ToString() + " is not implemented! ");
-                            return false;
-                    }
                 }
                 else
                 {

@@ -14,18 +14,18 @@ using TangentaDB;
 
 namespace ShopC_Forms
 {
-    public class OwnUseAddOn
+    public class ConsumptionAddOn
     {
-        public ID OwnUseReason_ID = null;
-        public ID OwnUseDescription_ID = null;
-        public ID OwnUseAddOn_ID = null;
+        public ID ConsumptionReason_ID = null;
+        public ID ConsumptionDescription_ID = null;
+        public ID ConsumptionAddOn_ID = null;
 
-        private DataTable m_dtOwnUseReason = null;
-        public DataTable dtOwnUseReason
+        private DataTable m_dtConsumptionReason = null;
+        public DataTable dtConsumptionReason
         {
             get
             {
-                return m_dtOwnUseReason;
+                return m_dtConsumptionReason;
             }
         }
 
@@ -81,12 +81,12 @@ namespace ShopC_Forms
             }
         }
 
-        private DataTable m_dtOwnUseDescription = null;
-        public DataTable dtOwnUseDescription
+        private DataTable m_dtConsumptionDescription = null;
+        public DataTable dtConsumptionDescription
         {
             get
             {
-                return m_dtOwnUseDescription;
+                return m_dtConsumptionDescription;
             }
         }
 
@@ -116,12 +116,12 @@ namespace ShopC_Forms
 
         public bool GetReasonTable()
         {
-            return f_OwnUseReason.GetTable(ref m_dtOwnUseReason);
+            return f_ConsumptionReason.GetTable(ref m_dtConsumptionReason);
         }
 
         public bool GetDescriptionTable()
         {
-            return f_OwnUseReason.GetTable(ref m_dtOwnUseDescription);
+            return f_ConsumptionReason.GetTable(ref m_dtConsumptionDescription);
         }
 
 
@@ -165,53 +165,53 @@ namespace ShopC_Forms
         {
             string Err = null;
             Clear();
-            string sql = @"SELECT OwnUseAddOn.ID,
-                                  OwnUseAddOn.IssueDate AS OwnUseAddOn_$$IssueDate,
-                                  OwnUseAddOn_$_cs.ID AS OwnUseAddOn_$_cs_$$ID,
-                                  OwnUseAddOn_$_cs.Draft AS OwnUseAddOn_$_cs_$$Draft,
-                                  OwnUseAddOn_$_cs.DraftNumber AS OwnUseAddOn_$_cs_$$DraftNumber,
-                                  OwnUseAddOn_$_cs.FinancialYear AS OwnUseAddOn_$_cs_$$FinancialYear,
-                                  OwnUseAddOn_$_cs.NumberInFinancialYear AS OwnUseAddOn_$_cs_$$NumberInFinancialYear,
-                                  OwnUseAddOn_$_cs.NetSum AS OwnUseAddOn_$_cs_$$NetSum,
-                                  OwnUseAddOn_$_cs.EndSum AS OwnUseAddOn_$_cs_$$EndSum,
-                                  OwnUseAddOn_$_cs.TaxSum AS OwnUseAddOn_$_cs_$$TaxSum,
-                                  OwnUseAddOn_$_cs.GrossSum AS OwnUseAddOn_$_cs_$$GrossSum,
-                                  OwnUseAddOn_$_cs_$_acur.ID AS OwnUseAddOn_$_cs_$_acur_$$ID,
-                                  OwnUseAddOn_$_cs_$_acur.Name AS OwnUseAddOn_$_cs_$_acur_$$Name,
-                                  OwnUseAddOn_$_cs_$_acur.Abbreviation AS OwnUseAddOn_$_cs_$_acur_$$Abbreviation,
-                                  OwnUseAddOn_$_cs_$_acur.Symbol AS OwnUseAddOn_$_cs_$_acur_$$Symbol,
-                                  OwnUseAddOn_$_cs_$_acur.CurrencyCode AS OwnUseAddOn_$_cs_$_acur_$$CurrencyCode,
-                                  OwnUseAddOn_$_cs_$_acur.DecimalPlaces AS OwnUseAddOn_$_cs_$_acur_$$DecimalPlaces,
-                                  OwnUseAddOn_$_cs.Storno AS OwnUseAddOn_$_cs_$$Storno,
-                                  OwnUseAddOn_$_cs.Consumption_Reference_ID AS OwnUseAddOn_$_cs_$$Consumption_Reference_ID,
-                                  OwnUseAddOn_$_cs.Consumption_Reference_Type AS OwnUseAddOn_$_cs_$$Consumption_Reference_Type,
-                                  OwnUseAddOn_$_cs_$_cst.ID AS OwnUseAddOn_$_cs_$_cst_$$ID,
-                                  OwnUseAddOn_$_cs_$_cst.Name AS OwnUseAddOn_$_cs_$_cst_$$Name,
-                                  OwnUseAddOn_$_cs_$_cst.Description AS
-                                  OwnUseAddOn_$_cs_$_cst_$$Description,
-                                  OwnUseAddOn_$_our.ID AS OwnUseAddOn_$_our_$$ID,
-                                  OwnUseAddOn_$_our.Name AS OwnUseAddOn_$_our_$$Name,
-                                  OwnUseAddOn_$_our.Description AS OwnUseAddOn_$_our_$$Description,
-                                  OwnUseAddOn_$_oud.ID AS OwnUseAddOn_$_oud_$$ID,
-                                  OwnUseAddOn_$_oud.Name AS OwnUseAddOn_$_oud_$$Name,
-                                  OwnUseAddOn_$_oud.Description AS OwnUseAddOn_$_oud_$$Description,
-                                  OwnUseAddOn_$_dimgl.ID AS OwnUseAddOn_$_dimgl_$$ID,
-                                  OwnUseAddOn_$_dimgl.Image_Hash AS OwnUseAddOn_$_dimgl_$$Image_Hash,
-                                  OwnUseAddOn_$_dimgl.Image_Data AS OwnUseAddOn_$_dimgl_$$Image_Data,
-                                  OwnUseAddOn_$_dimgl.Description AS OwnUseAddOn_$_dimgl_$$Description
-                                  FROM OwnUseAddOn INNER JOIN Consumption OwnUseAddOn_$_cs ON OwnUseAddOn.Consumption_ID = OwnUseAddOn_$_cs.ID 
-                                  INNER JOIN Atom_Currency OwnUseAddOn_$_cs_$_acur ON OwnUseAddOn_$_cs.Atom_Currency_ID = OwnUseAddOn_$_cs_$_acur.ID 
-                                  INNER JOIN ConsumptionType OwnUseAddOn_$_cs_$_cst ON OwnUseAddOn_$_cs.ConsumptionType_ID = OwnUseAddOn_$_cs_$_cst.ID 
-                                  INNER JOIN OwnUseReason OwnUseAddOn_$_our ON OwnUseAddOn.OwnUseReason_ID = OwnUseAddOn_$_our.ID 
-                                  INNER JOIN OwnUseDescription OwnUseAddOn_$_oud ON OwnUseAddOn.OwnUseDescription_ID = OwnUseAddOn_$_oud.ID 
-                                  INNER JOIN Doc_ImageLib OwnUseAddOn_$_dimgl ON OwnUseAddOn.Doc_ImageLib_ID = OwnUseAddOn_$_dimgl.ID
-                                  where  OwnUseAddOn_$_cs.ID = " + Consumption_ID.ToString();
+            string sql = @"SELECT ConsumptionAddOn.ID,
+                                  ConsumptionAddOn.IssueDate AS ConsumptionAddOn_$$IssueDate,
+                                  ConsumptionAddOn_$_cs.ID AS ConsumptionAddOn_$_cs_$$ID,
+                                  ConsumptionAddOn_$_cs.Draft AS ConsumptionAddOn_$_cs_$$Draft,
+                                  ConsumptionAddOn_$_cs.DraftNumber AS ConsumptionAddOn_$_cs_$$DraftNumber,
+                                  ConsumptionAddOn_$_cs.FinancialYear AS ConsumptionAddOn_$_cs_$$FinancialYear,
+                                  ConsumptionAddOn_$_cs.NumberInFinancialYear AS ConsumptionAddOn_$_cs_$$NumberInFinancialYear,
+                                  ConsumptionAddOn_$_cs.NetSum AS ConsumptionAddOn_$_cs_$$NetSum,
+                                  ConsumptionAddOn_$_cs.EndSum AS ConsumptionAddOn_$_cs_$$EndSum,
+                                  ConsumptionAddOn_$_cs.TaxSum AS ConsumptionAddOn_$_cs_$$TaxSum,
+                                  ConsumptionAddOn_$_cs.GrossSum AS ConsumptionAddOn_$_cs_$$GrossSum,
+                                  ConsumptionAddOn_$_cs_$_acur.ID AS ConsumptionAddOn_$_cs_$_acur_$$ID,
+                                  ConsumptionAddOn_$_cs_$_acur.Name AS ConsumptionAddOn_$_cs_$_acur_$$Name,
+                                  ConsumptionAddOn_$_cs_$_acur.Abbreviation AS ConsumptionAddOn_$_cs_$_acur_$$Abbreviation,
+                                  ConsumptionAddOn_$_cs_$_acur.Symbol AS ConsumptionAddOn_$_cs_$_acur_$$Symbol,
+                                  ConsumptionAddOn_$_cs_$_acur.CurrencyCode AS ConsumptionAddOn_$_cs_$_acur_$$CurrencyCode,
+                                  ConsumptionAddOn_$_cs_$_acur.DecimalPlaces AS ConsumptionAddOn_$_cs_$_acur_$$DecimalPlaces,
+                                  ConsumptionAddOn_$_cs.Storno AS ConsumptionAddOn_$_cs_$$Storno,
+                                  ConsumptionAddOn_$_cs.Consumption_Reference_ID AS ConsumptionAddOn_$_cs_$$Consumption_Reference_ID,
+                                  ConsumptionAddOn_$_cs.Consumption_Reference_Type AS ConsumptionAddOn_$_cs_$$Consumption_Reference_Type,
+                                  ConsumptionAddOn_$_cs_$_cst.ID AS ConsumptionAddOn_$_cs_$_cst_$$ID,
+                                  ConsumptionAddOn_$_cs_$_cst.Name AS ConsumptionAddOn_$_cs_$_cst_$$Name,
+                                  ConsumptionAddOn_$_cs_$_cst.Description AS
+                                  ConsumptionAddOn_$_cs_$_cst_$$Description,
+                                  ConsumptionAddOn_$_our.ID AS ConsumptionAddOn_$_our_$$ID,
+                                  ConsumptionAddOn_$_our.Name AS ConsumptionAddOn_$_our_$$Name,
+                                  ConsumptionAddOn_$_our.Description AS ConsumptionAddOn_$_our_$$Description,
+                                  ConsumptionAddOn_$_oud.ID AS ConsumptionAddOn_$_oud_$$ID,
+                                  ConsumptionAddOn_$_oud.Name AS ConsumptionAddOn_$_oud_$$Name,
+                                  ConsumptionAddOn_$_oud.Description AS ConsumptionAddOn_$_oud_$$Description,
+                                  ConsumptionAddOn_$_dimgl.ID AS ConsumptionAddOn_$_dimgl_$$ID,
+                                  ConsumptionAddOn_$_dimgl.Image_Hash AS ConsumptionAddOn_$_dimgl_$$Image_Hash,
+                                  ConsumptionAddOn_$_dimgl.Image_Data AS ConsumptionAddOn_$_dimgl_$$Image_Data,
+                                  ConsumptionAddOn_$_dimgl.Description AS ConsumptionAddOn_$_dimgl_$$Description
+                                  FROM ConsumptionAddOn INNER JOIN Consumption ConsumptionAddOn_$_cs ON ConsumptionAddOn.Consumption_ID = ConsumptionAddOn_$_cs.ID 
+                                  INNER JOIN Atom_Currency ConsumptionAddOn_$_cs_$_acur ON ConsumptionAddOn_$_cs.Atom_Currency_ID = ConsumptionAddOn_$_cs_$_acur.ID 
+                                  INNER JOIN ConsumptionType ConsumptionAddOn_$_cs_$_cst ON ConsumptionAddOn_$_cs.ConsumptionType_ID = ConsumptionAddOn_$_cs_$_cst.ID 
+                                  INNER JOIN ConsumptionReason ConsumptionAddOn_$_our ON ConsumptionAddOn.ConsumptionReason_ID = ConsumptionAddOn_$_our.ID 
+                                  INNER JOIN ConsumptionDescription ConsumptionAddOn_$_oud ON ConsumptionAddOn.ConsumptionDescription_ID = ConsumptionAddOn_$_oud.ID 
+                                  INNER JOIN Doc_ImageLib ConsumptionAddOn_$_dimgl ON ConsumptionAddOn.Doc_ImageLib_ID = ConsumptionAddOn_$_dimgl.ID
+                                  where  ConsumptionAddOn_$_cs.ID = " + Consumption_ID.ToString();
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
-                    MyIssueDate = OwnUseAddOn.IssueDate.Set(dt.Rows[0]["OwnUseAddOn_$$IssueDate"]);
+                    MyIssueDate = ConsumptionAddOn.IssueDate.Set(dt.Rows[0]["ConsumptionAddOn_$$IssueDate"]);
                 }
                 return true;
             }
@@ -225,15 +225,15 @@ namespace ShopC_Forms
         public bool Set(ID consumption_ID,Transaction transaction)
 
         {
-            if (f_OwnUseAddOn.Get(MyIssueDate.Date,
+            if (f_ConsumptionAddOn.Get(MyIssueDate.Date,
                                 ReasonName,
                                 reasonDescription,
                                 descriptionName,
                                 descriptionDescription,
                                 consumption_ID,
-                                ref OwnUseDescription_ID,
-                                ref OwnUseReason_ID,
-                                ref OwnUseAddOn_ID,
+                                ref ConsumptionDescription_ID,
+                                ref ConsumptionReason_ID,
+                                ref ConsumptionAddOn_ID,
                                 transaction))
             {
                 return true;
@@ -247,7 +247,7 @@ namespace ShopC_Forms
 
         //private bool Insert(Transaction transaction)
         //{
-        //    if (OwnUse_ID== null)
+        //    if (Consumption_ID== null)
         //    {
         //        LogFile.Error.Show("ERROR:TangentaDB:Insert:WriteOff_ID_v== null");
         //        return false;
@@ -261,7 +261,7 @@ namespace ShopC_Forms
 
 
         //    string spar_WriteOff_ID = "@par_WriteOff_ID";
-        //    SQL_Parameter par_WriteOff_ID = new SQL_Parameter(spar_WriteOff_ID, false, OwnUse_ID);
+        //    SQL_Parameter par_WriteOff_ID = new SQL_Parameter(spar_WriteOff_ID, false, Consumption_ID);
         //    lpar.Add(par_WriteOff_ID);
 
 
@@ -280,7 +280,7 @@ namespace ShopC_Forms
         //                                                +")";
                                                               
         //    string Err = null;
-        //    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar,ref OwnUseAddOn_ID, ref Err, "WriteOffAddOn"))
+        //    if (transaction.ExecuteNonQuerySQLReturnID(DBSync.DBSync.Con,sql, lpar,ref ConsumptionAddOn_ID, ref Err, "WriteOffAddOn"))
         //    {
         //        return true;
         //    }
@@ -348,7 +348,7 @@ namespace ShopC_Forms
         //                                            + ",TermsOfPayment_ID = " + spar_TermsOfPayment_ID
         //                                            + "," + sval_PaymentDeadline
         //                                            + "," + sval_Atom_Notice_ID */
-        //                                            + " where ID = " + OwnUseAddOn_ID.ToString();
+        //                                            + " where ID = " + ConsumptionAddOn_ID.ToString();
         //    string Err = null;
 
         //    if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, lpar,  ref Err))

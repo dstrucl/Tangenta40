@@ -2,7 +2,7 @@
 
 namespace ShopC_Forms
 {
-    partial class usrc_OwnUse_AddOn
+    partial class usrc_AddOn_Consumption
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,7 +30,7 @@ namespace ShopC_Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_OwnUse_AddOn));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_AddOn_Consumption));
             this.btn_Invoice_Issue = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.dtP_DateOfIssue = new System.Windows.Forms.DateTimePicker();

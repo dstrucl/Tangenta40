@@ -128,7 +128,7 @@ namespace ShopC_Forms
 
      
 
-        internal bool SaveConsumptionOwnUse(string xDocTyp,ref ID xConsumption_ID, OwnUseAddOn xOwnUseAddOn, string ElectronicDevice_Name, ref int xNumberInFinancialYear, Transaction transaction)
+        internal bool SaveConsumptionOwnUse(string xDocTyp,ref ID xConsumption_ID, ConsumptionAddOn xOwnUseAddOn, string ElectronicDevice_Name, ref int xNumberInFinancialYear, Transaction transaction)
         {
             string sql = null;
             string Err = null;
@@ -265,41 +265,6 @@ namespace ShopC_Forms
             }
         }
 
-        public bool SaveConsumptionWriteOff(string xDocTyp,ref ID xConsumption_ID, WriteOffAddOn xWriteOffAddOn,CashierActivity ca, string ElectronicDevice_Name,ref int xNumberInFinancialYear, Transaction transaction)
-        {
-            string sql = null;
-            string Err = null;
-            if (GetNewNumberInFinancialYear(xDocTyp,  ElectronicDevice_Name))
-            {
-                xNumberInFinancialYear = NumberInFinancialYear;
-                sql = "update Consumption set Draft =0,NumberInFinancialYear = " + NumberInFinancialYear.ToString() + "  where ID = " + Doc_ID.ToString(); // Close Proforma Invoice
-                if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql, null,  ref Err))
-                {
-                    xConsumption_ID = Doc_ID;
-                    if (ca != null)
-                    {
-                       //if (ca.Add(xConsumption_ID, transaction))
-                       // {
-                       //     return true;
-                       // }
-                       //else
-                       // {
-                       //     return false;
-                       // }
-
-                    }
-                    else
-                    {
-                        return true;
-                    }
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Save:Err=" + Err);
-                }
-            }
-            return false;
-        }
 
         private bool GetNewNumberInFinancialYear(string xDocTyp,string ElectronicDevice_Name,ref int xNumberInFinancialYear)
         {
@@ -394,7 +359,7 @@ namespace ShopC_Forms
             {
                 ID Journal_Consumption_ID = null;
               
-                return f_Journal_Consumption.Write(this.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseTime.ID, issue_time, ref Journal_Consumption_ID, transaction);
+                return f_Journal_Consumption.Write(this.Doc_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionTime.ID, issue_time, ref Journal_Consumption_ID, transaction);
               
             }
             else
@@ -581,7 +546,7 @@ namespace ShopC_Forms
                                 DateTime_v issue_time = new DateTime_v(DateTime.Now);
                                 retissue_time = issue_time.v;
 
-                                if (f_Journal_Consumption.Write(Storno_Consumption_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseStornoTime.ID, issue_time, ref Journal_Consumption_ID, transaction))
+                                if (f_Journal_Consumption.Write(Storno_Consumption_ID, xAtom_WorkPeriod_ID, GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionStornoTime.ID, issue_time, ref Journal_Consumption_ID, transaction))
                                 {
                                     return true;
                                 }

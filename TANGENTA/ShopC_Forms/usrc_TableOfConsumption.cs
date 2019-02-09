@@ -107,13 +107,13 @@ namespace ShopC_Forms
         public bool IsConsumptionWriteOff
         {
             get
-            { return ConsumptionTyp.Equals(GlobalData.const_ConsumptionWriteOff); }
+            { return ConsumptionTyp.Equals(f_ConsumptionType.const_ConsumptionWriteOff); }
         }
 
         public bool IsConsumptionOwnUse
         {
             get
-            { return ConsumptionTyp.Equals(GlobalData.const_ConsumptionOwnUse); }
+            { return ConsumptionTyp.Equals(f_ConsumptionType.const_ConsumptionOwnUse); }
         }
 
         public bool IsConsumptionAll
@@ -275,9 +275,9 @@ namespace ShopC_Forms
             m_bInvoice = bInvoice;
             int iRowsCount = -1;
             iCurrentSelectedRow = -1;
-            string s_JOURNAL_Consumption_Type_ID_ConsumptionOwnUseDraftTime = GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseDraftTime.ID.ToString();
-            string s_JOURNAL_Consumption_Type_ID_ConsumptionOwnUseStornoTime = GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseStornoTime.ID.ToString();
-            string s_JOURNAL_Consumption_Type_ID_ConsumptionOwnUseTime = GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseTime.ID.ToString();
+            string s_JOURNAL_Consumption_Type_ID_ConsumptionOwnUseDraftTime = GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionDraftTime.ID.ToString();
+            string s_JOURNAL_Consumption_Type_ID_ConsumptionOwnUseStornoTime = GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionStornoTime.ID.ToString();
+            string s_JOURNAL_Consumption_Type_ID_ConsumptionOwnUseTime = GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionTime.ID.ToString();
 
 
             if (IsConsumptionWriteOff)
@@ -302,8 +302,8 @@ namespace ShopC_Forms
 
             if (ExtraCondition!=null)
             {
-                s_JOURNAL_Consumption_Type_ID_ConsumptionOwnUseDraftTime = GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseTime.ID.ToString();
-                s_JOURNAL_Consumption_Type_ID_ConsumptionOwnUseStornoTime = GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionOwnUseStornoTime.ID.ToString();
+                s_JOURNAL_Consumption_Type_ID_ConsumptionOwnUseDraftTime = GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionTime.ID.ToString();
+                s_JOURNAL_Consumption_Type_ID_ConsumptionOwnUseStornoTime = GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionStornoTime.ID.ToString();
                 cond += " and " + ExtraCondition;
             }
             else

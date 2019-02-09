@@ -15,6 +15,7 @@ namespace ShopC_Forms
 {
     public partial class Form_NewConsumption : Form
     {
+        DataTable dtConsumptionType = null;
         private HUDCMS.HelpWizzardTagDC tagDCTop = null;
         private HUDCMS.HelpWizzardTagDC tagDC_DocType_Invoice = null;
         private HUDCMS.HelpWizzardTagDC tagDC_DocType_ProformaInvoice = null;
@@ -88,8 +89,8 @@ namespace ShopC_Forms
             consM = xconsM;
             Init(xsumtext);
             lng.s_New_Consumption.Text(this);
-            lng.s_btn_New_Empty_OwnUse.Text(this.btn_New_Empty_OwnUse);
-            lng.s_btn_New_Empty_WriteOff.Text(this.btn_New_Empty_WriteOff);
+            //lng.s_btn_New_Empty_OwnUse.Text(this.btn_New_Empty_OwnUse);
+            //lng.s_btn_New_Empty_WriteOff.Text(this.btn_New_Empty_WriteOff);
         }
 
         private void Init(string xsumText)
@@ -117,12 +118,12 @@ namespace ShopC_Forms
             }
 
             
-            lng.s_New_Consumption.Text(this.btn_New_Empty_OwnUse);
+           //lng.s_New_Consumption.Text(this.btn_New_Empty_OwnUse);
             
 
             if (ItemsCount == 0)
             {
-                this.btn_Cancel.Top = this.btn_New_Empty_WriteOff.Bottom + 20;
+//                this.btn_Cancel.Top = this.btn_New_Empty_WriteOff.Bottom + 20;
                 this.Height = this.btn_Cancel.Bottom + 50;
             }
             else
@@ -257,6 +258,17 @@ namespace ShopC_Forms
             //frm_NewConsumption_WizzardForHelp.Show();
         }
 
-       
+        private void Form_NewConsumption_Load(object sender, EventArgs e)
+        {
+            if (f_ConsumptionType.GetTable(ref dtConsumptionType))
+            {
+                this.dgvx_ConsumptionType.DataSource = dtConsumptionType;
+            }
+            else
+            {
+                this.Close();
+                DialogResult = DialogResult.Abort;
+            }
+        }
     }
 }

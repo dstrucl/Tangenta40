@@ -66,9 +66,7 @@ namespace ShopC_Forms
         }
 
         public List<ConsumptionType> List_ConsumptionType = new List<ConsumptionType>();
-        public ConsumptionType Consumption_WriteOff = null;
-        public ConsumptionType Consumption_OwnUse = null;
-        public ConsumptionType Consumption_All = null;
+      
 
 
         //public SettingsUserValues mSettingsUserValues = null;
@@ -109,37 +107,37 @@ namespace ShopC_Forms
             set
             {
                 string s = value;
-                if (s.Equals(GlobalData.const_ConsumptionAll) || s.Equals(GlobalData.const_ConsumptionWriteOff) || s.Equals(GlobalData.const_ConsumptionOwnUse))
-                {
-                    m_ConsumptionTyp = s;
-                }
-                else
-                {
-                    if (s != null)
-                    {
-                        if (s.Length > 0)
-                        {
-                            LogFile.Error.Show("ERROR:Tangenta:usrc_ConsumptionMan:property string DocTyp: DocTyp = " + s + " is not implemented!");
-                        }
-                    }
-                    else
-                    {
-                       LogFile.Error.Show("ERROR:Tangenta:usrc_ConsumptionMan:property string DocTyp: DocTyp  value ==  null");
-                    }
-                }
+                //if (s.Equals(GlobalData.const_ConsumptionAll) || s.Equals(GlobalData.const_ConsumptionWriteOff) || s.Equals(GlobalData.const_ConsumptionOwnUse))
+                //{
+                //    m_ConsumptionTyp = s;
+                //}
+                //else
+                //{
+                //    if (s != null)
+                //    {
+                //        if (s.Length > 0)
+                //        {
+                //            LogFile.Error.Show("ERROR:Tangenta:usrc_ConsumptionMan:property string DocTyp: DocTyp = " + s + " is not implemented!");
+                //        }
+                //    }
+                //    else
+                //    {
+                //       LogFile.Error.Show("ERROR:Tangenta:usrc_ConsumptionMan:property string DocTyp: DocTyp  value ==  null");
+                //    }
+                //}
             }
         }
 
         public bool IsWriteOff
         {
             get
-            { return ConsumptionTyp.Equals(GlobalData.const_ConsumptionWriteOff); }
+            { return ConsumptionTyp.Equals(f_ConsumptionType.const_ConsumptionWriteOff); }
         }
 
         public bool IsOwnUse
         {
             get
-            { return ConsumptionTyp.Equals(GlobalData.const_ConsumptionOwnUse); }
+            { return ConsumptionTyp.Equals(f_ConsumptionType.const_ConsumptionOwnUse); }
         }
 
         public bool IsAll
@@ -153,13 +151,11 @@ namespace ShopC_Forms
                           delegate_Control_DocumentEditor_Init xdelegate_Control_DocumentEditor_Init,
                           delegate_Control_SetInitialMode xdelegate_Control_SetInitialMode,
                           LoginControl.LMOUser xlmoUser,
-                          int iFinancialYear,
-                          string consumptiontype)
+                          int iFinancialYear)
         {
             this.m_LMOUser = xlmoUser;
             this.m_FinancialYear = iFinancialYear;
-            this.m_ConsumptionTyp = consumptiontype;
-
+           
             delegate_control_SetMode = xdelegate_control_SetMode;
             Delegate_control_TableOfDocuments_Init = xdelegate_control_TableOfDocuments_Init;
             Delegate_Control_DocumentEditor_Init = xdelegate_Control_DocumentEditor_Init;

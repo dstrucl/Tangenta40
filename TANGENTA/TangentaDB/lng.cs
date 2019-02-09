@@ -23,6 +23,7 @@ namespace TangentaDB
         {
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name); 
         }
+        public static ltext s_SoldByGiftCertificate = new ltext(new string[] { "Sold by gift certificate", "Prodano z darilnim bonom" });
         public static ltext s_OwnUse = new ltext(new string[] { "Own use", "Lastna poraba" });
         public static ltext s_WriteOff = new ltext(new string[] { "Write off", "Odpis" });
 

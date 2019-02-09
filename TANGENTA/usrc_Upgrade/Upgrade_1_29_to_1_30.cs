@@ -25,11 +25,9 @@ namespace UpgradeDB
                                         "Consumption_ShopC_Item_Source",
                                         "ItemComponent",
                                         "ItemAssembled",
-                                        "WriteOffReason",
-                                        "OwnUseReason",
-                                        "OwnUseDescription",
-                                        "WriteOffAddOn",
-                                        "OwnUseAddOn",
+                                        "ConsumptionReason",
+                                        "ConsumptionDescription",
+                                        "ConsumptionAddOn",
                                         "JOURNAL_Consumption_Type",
                                         "JOURNAL_Consumption"
                                     };

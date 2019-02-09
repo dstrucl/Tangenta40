@@ -394,7 +394,7 @@ namespace ShopC
             }
             if (frm_Consumption == null)
             {
-                frm_Consumption = new Form_Consumption(lmoUser, financialYear, GlobalData.const_ConsumptionOwnUse);
+                frm_Consumption = new Form_Consumption(lmoUser, financialYear);
             }
 
             frm_Consumption.Show(this);

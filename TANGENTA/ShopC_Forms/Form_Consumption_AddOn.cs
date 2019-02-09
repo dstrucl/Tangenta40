@@ -21,34 +21,37 @@ using TangentaDB;
 
 namespace ShopC_Forms
 {
-    public partial class Form_WriteOff_AddOn : Form
+    public partial class Form_Consumption_AddOn : Form
     {
+        public delegate bool delegate_Issue(ShopC_Forms.ConsumptionAddOn ownuse_add_on, Transaction transaction);
+        public event delegate_Issue Issue = null;
+
         public string m_sPaymentMethod = null;
         public string m_sAmountReceived = null;
         public string m_sToReturn = null;
-        private WriteOffAddOn m_AddOnWriteOffAdd = null;
-        internal WriteOffAddOn AddOnWriteOff
+        private ConsumptionAddOn m_AddOnOwnUse = null;
+        internal ConsumptionAddOn AddOnOwnUse
         {
             get
             {
-                return m_AddOnWriteOffAdd;
+                return m_AddOnOwnUse;
             }
             set
             {
-                m_AddOnWriteOffAdd = value;
+                m_AddOnOwnUse = value;
             }
         }
 
         private usrc_Consumption_AddOn m_usrc_AddOn = null;
         private bool m_bPrint = false;
 
-        public Form_WriteOff_AddOn(WriteOffAddOn x_WriteOffAddOn,bool x_bPrint, usrc_Consumption_AddOn x_usrc_AddOn)
+        public Form_Consumption_AddOn(ConsumptionAddOn x_OwnUse_AddOn,bool x_bPrint, usrc_Consumption_AddOn x_usrc_AddOn)
         {
             InitializeComponent();
-            this.AddOnWriteOff = x_WriteOffAddOn;
+            this.AddOnOwnUse = x_OwnUse_AddOn;
             m_usrc_AddOn = x_usrc_AddOn;
             m_bPrint = x_bPrint;
-           lng.s_Form_WriteOff_AddOn.Text(this);
+            this.Text = lng.s_OwnUse_Data.s;
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)
@@ -58,9 +61,9 @@ namespace ShopC_Forms
         }
 
 
-        private void Form_Payment_Load(object sender, EventArgs e)
+        private void Form_OwnUse_AddOn_Load(object sender, EventArgs e)
         {
-            if (this.m_usrc_WriteOff_AddOn.Init(AddOnWriteOff, m_bPrint, m_usrc_AddOn))
+            if (this.m_usrc_Consumption_AddOn.Init(AddOnOwnUse, m_bPrint, m_usrc_AddOn))
             {
                 return;
             }
@@ -77,10 +80,24 @@ namespace ShopC_Forms
             DialogResult = DialogResult.Cancel;
         }
 
-        private void m_usrc_Payment_Issue()
+        private bool m_usrc_OwnUseAddOn_Issue(ShopC_Forms.ConsumptionAddOn ownUseAddOn, Transaction transaction)
         {
-            this.Close();
-            DialogResult = DialogResult.OK;
+            bool bres = false;
+            if (Issue!=null)
+            {
+                bres = Issue(ownUseAddOn, transaction);
+            }
+            if (bres)
+            {
+                this.Close();
+                DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                this.Close();
+                DialogResult = DialogResult.Abort;
+            }
+            return bres;
         }
     }
 }

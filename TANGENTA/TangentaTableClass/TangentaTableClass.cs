@@ -3102,44 +3102,30 @@ namespace TangentaTableClass
         public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
     }
 
-    public class WriteOffReason
+
+    public class ConsumptionReason
     {
         public ID ID = new ID();
         public Name Name = new Name();
         public Description Description = new Description();
     }
 
-    public class OwnUseReason
+    public class ConsumptionDescription
     {
         public ID ID = new ID();
         public Name Name = new Name();
         public Description Description = new Description();
     }
 
-    public class OwnUseDescription
-    {
-        public ID ID = new ID();
-        public Name Name = new Name();
-        public Description Description = new Description();
-    }
-
-    public class WriteOffAddOn
+    public class ConsumptionAddOn
     {
         public ID ID = new ID();
         public Consumption m_Consumption = new Consumption();
         public IssueDate IssueDate = new IssueDate();
-        public WriteOffReason m_WriteOffReason = new WriteOffReason();
+        public ConsumptionReason m_ConsumptionReason = new ConsumptionReason();
+        public ConsumptionDescription m_ConsumptionDescription = new ConsumptionDescription();
         public Doc_ImageLib m_Doc_ImageLib = new Doc_ImageLib();
-    }
-
-    public class OwnUseAddOn
-    {
-        public ID ID = new ID();
-        public Consumption m_Consumption = new Consumption();
-        public IssueDate IssueDate = new IssueDate();
-        public OwnUseReason m_OwnUseReason = new OwnUseReason();
-        public OwnUseDescription m_OwnUseDescription = new OwnUseDescription();
-        public Doc_ImageLib m_Doc_ImageLib = new Doc_ImageLib();
+        public DocInvoice m_DocInvoice = new DocInvoice();
     }
 
     public class Consumption_ShopC_Item
@@ -3950,24 +3936,18 @@ namespace TangentaTableClass
         public ItemAssembled m_ItemAssembled = new ItemAssembled();
 
         /* 263 */
-        public WriteOffReason m_WriteOffReason = new WriteOffReason();
+        public ConsumptionReason m_ConsumptionReason = new ConsumptionReason();
 
         /* 264 */
-        public OwnUseReason m_OwnUseReason = new OwnUseReason();
+        public ConsumptionDescription m_ConsumptionDescription = new ConsumptionDescription();
 
         /* 265 */
-        public OwnUseDescription m_OwnUseDescription = new OwnUseDescription();
-
-        /* 266 */
-        public WriteOffAddOn m_WriteOffAddOn = new WriteOffAddOn();
+        public ConsumptionAddOn m_ConsumptionAddOn = new ConsumptionAddOn();
 
         /* 267 */
-        public OwnUseAddOn m_OwnUseAddOn = new OwnUseAddOn();
-
-        /* 268 */
         public JOURNAL_Consumption_Type m_JOURNAL_Consumption_Type = new JOURNAL_Consumption_Type();
 
-        /* 269 */
+        /* 268 */
         public JOURNAL_Consumption m_JOURNAL_Consumption = new JOURNAL_Consumption();
 
        
