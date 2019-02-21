@@ -1,4 +1,6 @@
-﻿using HUDCMS;
+﻿using DBConnectionControl40;
+using DBTypes;
+using HUDCMS;
 using LanguageControl;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,33 @@ namespace ShopC_Forms
 {
     public partial class Form_NewConsumption : Form
     {
+        private ID consumptionType_ID = null;
+        public ID ConsumptionType_ID
+        {
+            get
+            {
+                return consumptionType_ID;
+            }
+        }
+
+        private string consumption_Type_Name = null;
+        public string ConsumptionType_Name
+        {
+            get
+            {
+                return consumption_Type_Name;
+            }
+        }
+
+        private string consumption_Type_Description = null;
+        public string ConsumptionType_Description
+        {
+            get
+            {
+                return consumption_Type_Description;
+            }
+        }
+
         DataTable dtConsumptionType = null;
         private HUDCMS.HelpWizzardTagDC tagDCTop = null;
         private HUDCMS.HelpWizzardTagDC tagDC_DocType_Invoice = null;
@@ -31,56 +60,12 @@ namespace ShopC_Forms
 
         private ConsumptionMan consM = null;
 
-        public f_Consumption.eConsumptionType eNewConsumptionResult = f_Consumption.eConsumptionType.UNKNOWN;
 
         public int FinancialYear = -1;
 
         //private Form_NewConsumption_WizzardForHelp frm_NewConsumption_WizzardForHelp = null;
 
-        private bool IsWriteOff
-        {
-            get
-            {
-                if (consM != null)
-                {
-                    return consM.IsWriteOff;
-                }
-                else
-                {
-                    return false;
-                }              
-            }
-        }
-
-        private bool IsOwnUse
-        {
-            get
-            {
-                if (consM != null)
-                {
-                    return consM.IsOwnUse;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        private bool IsAll
-        {
-            get
-            {
-                if (consM != null)
-                {
-                    return consM.IsAll;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
+       
 
         public Form_NewConsumption(Control xparent,ConsumptionMan xconsM, string xsumtext)
         {
@@ -104,7 +89,7 @@ namespace ShopC_Forms
             string sInvoiceNumber = null;
             int ItemsCount = 0;
             string sumText = xsumText;
-            ItemsCount = consM.ConsE.CurrentCons.ItemsCount(consM.ConsumptionTyp);
+            ItemsCount = consM.ConsE.CurrentCons.ItemsCount(consM.ConsumptionType_Name);
             if (consM.ConsE.CurrentCons.bDraft)
             {
                 sdraft = lng.s_Draft.s;
@@ -124,29 +109,17 @@ namespace ShopC_Forms
             if (ItemsCount == 0)
             {
 //                this.btn_Cancel.Top = this.btn_New_Empty_WriteOff.Bottom + 20;
-                this.Height = this.btn_Cancel.Bottom + 50;
+                this.Height = this.btn_NewConsumption.Bottom + 50;
             }
             else
             {
             }
             SetNewFormTag();
         }
-        private void btn_New_Empty_OwnUse_Click(object sender, EventArgs e)
-        {
-            eNewConsumptionResult = f_Consumption.eConsumptionType.OwnUse;
-            this.Close();
-            DialogResult = DialogResult.OK;
-        }
-
-        private void btn_New_Empty_WriteOff_Click(object sender, EventArgs e)
-        {
-            eNewConsumptionResult = f_Consumption.eConsumptionType.WriteOff;
-            this.Close();
-            DialogResult = DialogResult.OK;
-        }
 
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
+            consumptionType_ID = null;
             this.Close();
             DialogResult = DialogResult.Cancel;
         }
@@ -262,13 +235,43 @@ namespace ShopC_Forms
         {
             if (f_ConsumptionType.GetTable(ref dtConsumptionType))
             {
-                this.dgvx_ConsumptionType.DataSource = dtConsumptionType;
+                //DataGridViewButtonColumn dgvbc = new DataGridViewButtonColumn();
+                //dgvbc.Name = "Description";
+                //this.dgvx_ConsumptionType.Columns.Add(dgvbc);
+                this.dgv_ConsumptionType.DataSource = dtConsumptionType;
+                this.dgv_ConsumptionType.Columns["ID"].Visible = false;
+                this.dgv_ConsumptionType.Columns["Name"].Visible = false;
+                this.dgv_ConsumptionType.Columns["Description"].Visible = true;
+                this.dgv_ConsumptionType.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                this.dgv_ConsumptionType.MultiSelect = false;
+                this.dgv_ConsumptionType.SelectionChanged += Dgv_ConsumptionType_SelectionChanged;
+                this.dgv_ConsumptionType.Rows[0].Selected = true;
+
             }
             else
             {
+                consumptionType_ID = null;
                 this.Close();
                 DialogResult = DialogResult.Abort;
             }
+        }
+
+        private void Dgv_ConsumptionType_SelectionChanged(object sender, EventArgs e)
+        {
+            DataGridViewSelectedCellCollection dgvscc = this.dgv_ConsumptionType.SelectedCells;
+            int iCount = dgvscc.Count;
+            if (iCount >0)
+            {
+                consumptionType_ID = tf.set_ID(dgvscc[0].Value);
+                consumption_Type_Name =  tf._set_string((dgvscc[1].Value));
+                this.btn_NewConsumption.Text = consumption_Type_Description = tf._set_string((dgvscc[2].Value));
+            }
+        }
+
+        private void btn_NewConsumption_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            DialogResult = DialogResult.OK;
         }
     }
 }

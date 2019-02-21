@@ -48,7 +48,7 @@ namespace ShopC_Forms
 
         public string DocTyp
         {
-            get { return m_consE.DocTyp; }
+            get { return m_consE.ConsumptionType_Name; }
         }
 
 
@@ -181,7 +181,7 @@ namespace ShopC_Forms
                 if (this.SelectItemsFromStockDialog)
                 {
                     bRes = m_consE.CurrentCons.m_Basket.Add2Basket(ref dsci,
-                                                                     m_consE.DocTyp,
+                                                                     m_consE.ConsumptionType_Name,
                                                                      m_consE.CurrentCons.Doc_ID,
                                                                      dQuantity2Add,
                                                                      xData,
@@ -190,7 +190,7 @@ namespace ShopC_Forms
                 else
                 {
                     bRes = m_consE.CurrentCons.m_Basket.Add2Basket(ref dsci,
-                                                                     m_consE.DocTyp,
+                                                                     m_consE.ConsumptionType_Name,
                                                                      m_consE.CurrentCons.Doc_ID,
                                                                      dQuantity2Add,
                                                                      xData,

@@ -32,13 +32,13 @@ namespace ShopC_Forms
         private LMOUser m_LMOUser = null;
 
         public enum eMode { All, Today, ThisWeek, LastWeek, ThisMonth, LastMonth, ThisYear, LastYear,ForDay, TimeSpan };
-        public delegate void delegate_SelectedInvoiceChanged(ID Invoice_ID, bool bInitialise);
-        public event delegate_SelectedInvoiceChanged SelectedInvoiceChanged;
+        public delegate void delegate_SelectedConsumptionChanged(ID Consumption_ID, bool bInitialise);
+        public event delegate_SelectedConsumptionChanged SelectedConsumptionChanged;
         public Color ColorDraft;
         public Color ColorStorno;
-        public Color ColorFurs_InvoiceConfirmed;
-        public Color ColorFurs_SalesBookInvoiceConfirmed;
-        public Color ColorFurs_SalesBookInvoiceNotConfirmed;
+        //public Color ColorFurs_InvoiceConfirmed;
+        //public Color ColorFurs_SalesBookInvoiceConfirmed;
+        //public Color ColorFurs_SalesBookInvoiceNotConfirmed;
 
         public bool m_bInvoice = false;
         public string cond = null;
@@ -95,7 +95,7 @@ namespace ShopC_Forms
             {
                 if (consM != null)
                 {
-                    return consM.ConsumptionTyp;
+                    return consM.ConsumptionType_Name;
                 }
                 else
                 {
@@ -104,23 +104,7 @@ namespace ShopC_Forms
             }
         }
 
-        public bool IsConsumptionWriteOff
-        {
-            get
-            { return ConsumptionTyp.Equals(f_ConsumptionType.const_ConsumptionWriteOff); }
-        }
-
-        public bool IsConsumptionOwnUse
-        {
-            get
-            { return ConsumptionTyp.Equals(f_ConsumptionType.const_ConsumptionOwnUse); }
-        }
-
-        public bool IsConsumptionAll
-        {
-            get
-            { return ConsumptionTyp.Equals(GlobalData.const_ConsumptionAll); }
-        }
+   
 
         public ID Current_Consumption_ID
         {
@@ -232,9 +216,9 @@ namespace ShopC_Forms
 
             ColorDraft = TangentaProperties.Properties.Settings.Default.ColorDraft;
             ColorStorno = TangentaProperties.Properties.Settings.Default.ColorStorno;
-            ColorFurs_InvoiceConfirmed = TangentaProperties.Properties.Settings.Default.ColorFurs_InvoiceConfirmed;
-            ColorFurs_SalesBookInvoiceConfirmed = TangentaProperties.Properties.Settings.Default.ColorFurs_SalesBookInvoiceConfirmed;
-            ColorFurs_SalesBookInvoiceNotConfirmed = TangentaProperties.Properties.Settings.Default.ColorFurs_SalesBookInvoiceNotConfirmed;
+            //ColorFurs_InvoiceConfirmed = TangentaProperties.Properties.Settings.Default.ColorFurs_InvoiceConfirmed;
+            //ColorFurs_SalesBookInvoiceConfirmed = TangentaProperties.Properties.Settings.Default.ColorFurs_SalesBookInvoiceConfirmed;
+            //ColorFurs_SalesBookInvoiceNotConfirmed = TangentaProperties.Properties.Settings.Default.ColorFurs_SalesBookInvoiceNotConfirmed;
 
 
             int iRowsCount = -1;
@@ -279,24 +263,7 @@ namespace ShopC_Forms
             string s_JOURNAL_Consumption_Type_ID_ConsumptionOwnUseStornoTime = GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionStornoTime.ID.ToString();
             string s_JOURNAL_Consumption_Type_ID_ConsumptionOwnUseTime = GlobalData.JOURNAL_Consumption_Type_definitions.ConsumptionTime.ID.ToString();
 
-
-            if (IsConsumptionWriteOff)
-            {
-                    cond = " where woao.IssueDate is not null ";
-            }
-            else if (IsConsumptionOwnUse)
-            {
-                    cond = " where ouao.IssueDate is not null  ";
-            }
-            else if (IsConsumptionAll)
-            {
-                cond = "";
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:usrc_InvoiceTable:Init_Invoice:DocTyp=" + ConsumptionTyp + " not implemented");
-                return -1;
-            }
+            cond = " where coao.IssueDate is not null ";
 
 
 
@@ -332,14 +299,7 @@ namespace ShopC_Forms
 
             if ((m_LMOUser.IsAdministrator)||(m_LMOUser.IsUserManager))
             {
-                if (IsConsumptionWriteOff)
-                {
-                    lng.s_lbl_SelectionDescription_AllInvoices.Text(lbl_SelectionDescription);
-                }
-                else if (IsConsumptionOwnUse)
-                {
-                    lng.s_lbl_SelectionDescription_AllProformaInvoices.Text(lbl_SelectionDescription);
-                }
+                lng.s_lbl_SelectionDescription_AllConsumption.Text(lbl_SelectionDescription);
             }
             else
             {
@@ -413,14 +373,11 @@ namespace ShopC_Forms
                     }
                 }
 
-                if (IsConsumptionWriteOff)
-                {
-                    lng.s_lbl_SelectionDescription_AllInvoicesOfUser.Text(lbl_SelectionDescription, s_myorg_person);
-                }
-                else if (IsConsumptionOwnUse)
-                {
-                    lng.s_lbl_SelectionDescription_AllProformaInvoices.Text(lbl_SelectionDescription, s_myorg_person);
-                }
+                List<object> list_lt_lbl_SelectionDescription = new List<object>();
+                list_lt_lbl_SelectionDescription.Add(lng.s_lbl_SelectionDescription_ConsumptionType);
+                list_lt_lbl_SelectionDescription.Add(ConsM.ConsumptionType_Name);
+                ltext lt_lbl_SelectionDescription = new ltext(list_lt_lbl_SelectionDescription);
+               lng.s_lbl_SelectionDescription_ConsumptionType.Text(lbl_SelectionDescription, s_myorg_person);
             }
 
             sql = @"SELECT 
@@ -445,12 +402,9 @@ namespace ShopC_Forms
             JOURNAL_Consumption_$_awperiod_$_awperiodt.Name AS JOURNAL_Consumption_$_awperiod_$_awperiodt_$$Name,
             JOURNAL_Consumption_$_awperiod_$_awperiodt.Description AS JOURNAL_Consumption_$_awperiod_$_awperiodt_$$Description,
 
-            woao.IssueDate as IssueDate_WriteOff,
-            wor.Name as WriteOff_ReasonName,
-            wor.Description as WriteOff_ReasonDescription,
-            ouao.IssueDate as IssueDate_OwnUse,
-            our.Name as OwnUse_ReasonName,
-            our.Description as OwnUse_ReasonDescription,
+            coao.IssueDate as IssueDate,
+            cour.Name as ReasonName,
+            cour.Description as ReasonDescription,
 
             JOURNAL_Consumption_$_cs_$_cst.Name AS JOURNAL_Consumption_$_cs_$_cst_$$Name,
             JOURNAL_Consumption_$_cs_$_cst.Description AS JOURNAL_Consumption_$_cs_$_cst_$$Description,
@@ -474,15 +428,14 @@ namespace ShopC_Forms
             JOURNAL_Consumption_$_awperiod_$_aed.ID AS JOURNAL_Consumption_$_awperiod_$_aed_$$ID,
             JOURNAL_Consumption_$_cs_$_acur.ID AS JOURNAL_Consumption_$_cs_$_acur_$$ID,
             JOURNAL_Consumption_$_jct.ID AS JOURNAL_Consumption_$_jct_$$ID,
+            JOURNAL_Consumption_$_cs_$_cst.ID AS JOURNAL_Consumption_$_cs_$_cst_$$ID,
             JOURNAL_Consumption.ID
 
             FROM JOURNAL_Consumption
             INNER JOIN JOURNAL_Consumption_Type JOURNAL_Consumption_$_jct ON JOURNAL_Consumption.JOURNAL_Consumption_Type_ID = JOURNAL_Consumption_$_jct.ID
             INNER JOIN Consumption JOURNAL_Consumption_$_cs ON JOURNAL_Consumption.Consumption_ID = JOURNAL_Consumption_$_cs.ID
-            left join WriteOffAddOn woao on woao.Consumption_ID = JOURNAL_Consumption_$_cs.ID
-            left join WriteOffReason wor on wor.ID = woao.WriteOffReason_ID
-            left join OwnUseAddOn ouao on ouao.Consumption_ID = JOURNAL_Consumption_$_cs.ID
-            left join OwnUseReason our on our.ID = ouao.OwnUseReason_ID
+            left join ConsumptionAddOn coao on coao.Consumption_ID = JOURNAL_Consumption_$_cs.ID
+            left join ConsumptionReason cour on cour.ID = coao.Consumption_ID
             LEFT JOIN Atom_Currency JOURNAL_Consumption_$_cs_$_acur ON JOURNAL_Consumption_$_cs.Atom_Currency_ID = JOURNAL_Consumption_$_cs_$_acur.ID
             LEFT JOIN ConsumptionType JOURNAL_Consumption_$_cs_$_cst ON JOURNAL_Consumption_$_cs.ConsumptionType_ID = JOURNAL_Consumption_$_cs_$_cst.ID
             LEFT JOIN Atom_WorkPeriod JOURNAL_Consumption_$_awperiod ON JOURNAL_Consumption.Atom_WorkPeriod_ID = JOURNAL_Consumption_$_awperiod.ID
@@ -595,19 +548,11 @@ namespace ShopC_Forms
                 for (int i=0;i< iRowsCount;i++)
                 {
                     DataRow dr = dt_XConsumption.Rows[i];
-                    DateTime_v IssueDate_WriteOff_v = tf.set_DateTime(dr["IssueDate_WriteOff"]);
-                    if (IssueDate_WriteOff_v != null)
+                    DateTime_v IssueDate_v = tf.set_DateTime(dr["IssueDate"]);
+                    if (IssueDate_v != null)
                     {
-                        dgvx_XConsumption.Rows[i].Cells[idgvxColIndex_IssueDate].Value = IssueDate_WriteOff_v.v;
-                    }
-                    else
-                    {
-                        DateTime_v IssueDate_OwnUse_v = tf.set_DateTime(dr["IssueDate_OwnUse"]);
-                        if (IssueDate_OwnUse_v != null)
-                        {
-                            dgvx_XConsumption.Rows[i].Cells[idgvxColIndex_IssueDate].Value = IssueDate_OwnUse_v.v;
-                        }
-                    }
+                        dgvx_XConsumption.Rows[i].Cells[idgvxColIndex_IssueDate].Value = IssueDate_v.v;
+                    } 
                 }
 
                 if (!bNew)
@@ -768,7 +713,7 @@ namespace ShopC_Forms
         {
             if (!(dgSortingSelectedItem_ID >= 0))
             {
-                if (SelectedInvoiceChanged != null)
+                if (SelectedConsumptionChanged != null)
                 {
                     DataGridViewSelectedCellCollection dgvCellCollection = this.dgvx_XConsumption.SelectedCells;
                     if (dgvCellCollection.Count >= 1)
@@ -778,28 +723,31 @@ namespace ShopC_Forms
                         {
                             ID Identity = tf.set_ID(dgvCellCollection[0].OwningRow.Cells["JOURNAL_Consumption_$_cs_$$ID"].Value);
                             this.iCurrentSelectedRow = dgvCellCollection[0].RowIndex;
-                            SelectedInvoiceChanged(Identity, bInitialise);
+                            SelectedConsumptionChanged(Identity, bInitialise);
                             return;
                         }
 
                     }
-                    SelectedInvoiceChanged(null, bInitialise);
+                    SelectedConsumptionChanged(null, bInitialise);
                 }
             }
         }
 
 
-        private void ShowOrEditSelectedRow(ID Consumption_ID_to_show)
+        private void ShowOrEditSelectedRow(ID consumption_ID_to_show)
         {
-            if (ID.Validate(Consumption_ID_to_show))
+            if (ID.Validate(consumption_ID_to_show))
             {
-                DataRow[] drs = dt_XConsumption.Select("JOURNAL_Consumption_$_cs_$$ID = " + Consumption_ID_to_show.ToString());
+                DataRow[] drs = dt_XConsumption.Select("JOURNAL_Consumption_$_cs_$$ID = " + consumption_ID_to_show.ToString());
                 if (drs.Count() > 0)
                 {
                     dgvx_XConsumption.ClearSelection();
                     int iRow = dt_XConsumption.Rows.IndexOf(drs[0]);
                     dgvx_XConsumption.Rows[iRow].Selected = true;
                     dgvx_XConsumption.CurrentCell = dgvx_XConsumption.Rows[iRow].Cells["JOURNAL_Consumption_$_cs_$_cst_$$Description"];
+                    string consumptionType_Name = tf._set_string(dgvx_XConsumption.Rows[iRow].Cells["JOURNAL_Consumption_$_cs_$_cst_$$Description"].Value);
+                    ID consumptionType_ID = tf.set_ID(dgvx_XConsumption.Rows[iRow].Cells["JOURNAL_Consumption_$_cs_$_cst_$$ID"].Value);
+                    ConsM.ConsumptionTypeSelected = new ConsumptionType(tf._set_string(dgvx_XConsumption.CurrentCell.Value), consumptionType_Name, consumptionType_ID);
                 }
             }
         }
@@ -875,15 +823,9 @@ namespace ShopC_Forms
             DateTime dtNextDay = NextDay(dtEndTime);
             SQL_Parameter par2 = new SQL_Parameter(sparam2, SQL_Parameter.eSQL_Parameter.Datetime, false, dtNextDay);
             lpar_ExtraCondition.Add(par2);
-            if (IsConsumptionWriteOff)
-            {
-                ExtraCondition = " (JOURNAL_Consumption_$$EventTime >= " + sparam1 + ") and ( JOURNAL_Consumption_$$EventTime < " + sparam2 + ") ";
-            }
-            else if (IsConsumptionOwnUse)
-            {
-                ExtraCondition = " (JOURNAL_DocProformaInvoice_$$EventTime >= " + sparam1 + ") and ( JOURNAL_DocProformaInvoice_$$EventTime < " + sparam2 + ") ";
-            }
-
+         
+            ExtraCondition = " (JOURNAL_Consumption_$$EventTime >= " + sparam1 + ") and ( JOURNAL_Consumption_$$EventTime < " + sparam2 + ") ";
+           
         }
         public void SetTimeSpanParam(eMode eMode, DateTime xdtStartTime, DateTime xdtEndTime)
         {
@@ -947,8 +889,22 @@ namespace ShopC_Forms
             DataGridView dgv = (DataGridView)sender;
             if (e.RowIndex>=0)
             {
-                if (IsConsumptionWriteOff)
+                Color cellstylebackcolor = Color.White;
+                if (ConsM.ConsumptionTypeSelected != null)
                 {
+                    if (ConsM.ConsumptionTypeSelected.ConsumptionType_ID.Equals(f_ConsumptionType.ConsumptionType_WriteOff_ID))
+                    {
+                        cellstylebackcolor = Colors.Row_WriteOff.BackColor;
+                    }
+                    if (ConsM.ConsumptionTypeSelected.ConsumptionType_ID.Equals(f_ConsumptionType.ConsumptionType_OwnUse_ID))
+                    {
+                        cellstylebackcolor = Colors.Row_OwnUse.BackColor;
+                    }
+                    if (ConsM.ConsumptionTypeSelected.ConsumptionType_ID.Equals(f_ConsumptionType.ConsumptionType_SoldByGiftCertificate_ID))
+                    {
+                        cellstylebackcolor = Colors.Row_SoldByGiftCertificate.BackColor;
+                    }
+                }
                     if ((iColIndex_Consumption_Draft >= 0) && (iColIndex_Consumption_Storno >= 0))
                     {
                         if ((bool)dt_XConsumption.Rows[e.RowIndex][iColIndex_Consumption_Draft])
@@ -970,10 +926,7 @@ namespace ShopC_Forms
                             }
                         }
                     }
-                }
-                else if (IsConsumptionOwnUse)
-                {
-                    if (iColIndex_Consumption_Draft >= 0)
+                     if (iColIndex_Consumption_Draft >= 0)
                     {
                         if ((bool)dt_XConsumption.Rows[e.RowIndex][iColIndex_Consumption_Draft])
                         {
@@ -981,11 +934,11 @@ namespace ShopC_Forms
                         } 
                         else
                         {
-                            e.CellStyle.BackColor = Color.White;
+                            e.CellStyle.BackColor = cellstylebackcolor;
                         }
                     }
                 }
-            }
+            
         }
 
         private bool IsStorno(object v)
@@ -1032,14 +985,9 @@ namespace ShopC_Forms
                 {
                     //Locate the row after the sort
                     string cellid = null;
-                    if (IsConsumptionWriteOff)
-                    {
-                        cellid = "JOURNAL_Consumption_$_cs_$$ID";
-                    }
-                    else
-                    {
-                        cellid = "JOURNAL_DocProformaInvoice_$_dpinv_$$ID";
-                    }
+                 
+                    cellid = "JOURNAL_Consumption_$_cs_$$ID";
+                   
 
                     if ((long)dgRow.Cells[cellid].Value == dgSortingSelectedItem_ID)
                     {

@@ -29,29 +29,29 @@ namespace ShopC_Forms
         public string m_sPaymentMethod = null;
         public string m_sAmountReceived = null;
         public string m_sToReturn = null;
-        private ConsumptionAddOn m_AddOnOwnUse = null;
-        internal ConsumptionAddOn AddOnOwnUse
+        private ConsumptionAddOn m_AddOnConsumption = null;
+        internal ConsumptionAddOn AddOnConsumption
         {
             get
             {
-                return m_AddOnOwnUse;
+                return m_AddOnConsumption;
             }
             set
             {
-                m_AddOnOwnUse = value;
+                m_AddOnConsumption = value;
             }
         }
 
         private usrc_Consumption_AddOn m_usrc_AddOn = null;
         private bool m_bPrint = false;
 
-        public Form_Consumption_AddOn(ConsumptionAddOn x_OwnUse_AddOn,bool x_bPrint, usrc_Consumption_AddOn x_usrc_AddOn)
+        public Form_Consumption_AddOn(ConsumptionAddOn x_Consumption_AddOn,bool x_bPrint, usrc_Consumption_AddOn x_usrc_AddOn)
         {
             InitializeComponent();
-            this.AddOnOwnUse = x_OwnUse_AddOn;
+            this.AddOnConsumption = x_Consumption_AddOn;
             m_usrc_AddOn = x_usrc_AddOn;
             m_bPrint = x_bPrint;
-            this.Text = lng.s_OwnUse_Data.s;
+            this.Text = lng.s_Consumption_Data.s;
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)
@@ -61,9 +61,9 @@ namespace ShopC_Forms
         }
 
 
-        private void Form_OwnUse_AddOn_Load(object sender, EventArgs e)
+        private void Form_Consumption_AddOn_Load(object sender, EventArgs e)
         {
-            if (this.m_usrc_Consumption_AddOn.Init(AddOnOwnUse, m_bPrint, m_usrc_AddOn))
+            if (this.m_usrc_Consumption_AddOn.Init(AddOnConsumption, m_bPrint, m_usrc_AddOn))
             {
                 return;
             }
@@ -80,12 +80,12 @@ namespace ShopC_Forms
             DialogResult = DialogResult.Cancel;
         }
 
-        private bool m_usrc_OwnUseAddOn_Issue(ShopC_Forms.ConsumptionAddOn ownUseAddOn, Transaction transaction)
+        private bool m_usrc_ConsumptionAddOn_Issue(ShopC_Forms.ConsumptionAddOn consumptionAddOn, Transaction transaction)
         {
             bool bres = false;
             if (Issue!=null)
             {
-                bres = Issue(ownUseAddOn, transaction);
+                bres = Issue(consumptionAddOn, transaction);
             }
             if (bres)
             {

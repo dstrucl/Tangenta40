@@ -31,34 +31,34 @@ namespace ShopC_Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_AddOn_Consumption));
-            this.btn_Invoice_Issue = new System.Windows.Forms.Button();
+            this.btn_Comsumption_Issue = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.dtP_DateOfIssue = new System.Windows.Forms.DateTimePicker();
             this.lbl_DateOfIssue = new System.Windows.Forms.Label();
             this.usrc_Help1 = new HUDCMS.usrc_Help();
-            this.lbl_WriteOffDescription = new System.Windows.Forms.Label();
+            this.lbl_Description2 = new System.Windows.Forms.Label();
             this.txt_DescriptionDescription = new System.Windows.Forms.TextBox();
-            this.lbl_OwnUse_Reason_Name = new System.Windows.Forms.Label();
+            this.lbl_Comsumption_Reason_Name = new System.Windows.Forms.Label();
             this.cmb_Reason = new System.Windows.Forms.ComboBox();
             this.txt_ReasonDescription = new System.Windows.Forms.TextBox();
-            this.lbl_OwnUse_Reason_Description = new System.Windows.Forms.Label();
+            this.lbl_Consumption_Reason_Description = new System.Windows.Forms.Label();
             this.cmb_Description = new System.Windows.Forms.ComboBox();
             this.lbl_Description_Name = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // btn_Invoice_Issue
+            // btn_Comsumption_Issue
             // 
-            this.btn_Invoice_Issue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_Invoice_Issue.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Invoice_Issue.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Invoice_Issue.ForeColor = System.Drawing.Color.Black;
-            this.btn_Invoice_Issue.Location = new System.Drawing.Point(8, 549);
-            this.btn_Invoice_Issue.Name = "btn_Invoice_Issue";
-            this.btn_Invoice_Issue.Size = new System.Drawing.Size(398, 65);
-            this.btn_Invoice_Issue.TabIndex = 7;
-            this.btn_Invoice_Issue.Text = "Issue";
-            this.btn_Invoice_Issue.UseVisualStyleBackColor = false;
-            this.btn_Invoice_Issue.Click += new System.EventHandler(this.btn_Issue_Click);
+            this.btn_Comsumption_Issue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_Comsumption_Issue.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_Comsumption_Issue.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_Comsumption_Issue.ForeColor = System.Drawing.Color.Black;
+            this.btn_Comsumption_Issue.Location = new System.Drawing.Point(8, 549);
+            this.btn_Comsumption_Issue.Name = "btn_Comsumption_Issue";
+            this.btn_Comsumption_Issue.Size = new System.Drawing.Size(398, 65);
+            this.btn_Comsumption_Issue.TabIndex = 7;
+            this.btn_Comsumption_Issue.Text = "Issue";
+            this.btn_Comsumption_Issue.UseVisualStyleBackColor = false;
+            this.btn_Comsumption_Issue.Click += new System.EventHandler(this.btn_Issue_Click);
             // 
             // btn_Cancel
             // 
@@ -100,16 +100,16 @@ namespace ShopC_Forms
             this.usrc_Help1.Size = new System.Drawing.Size(69, 29);
             this.usrc_Help1.TabIndex = 24;
             // 
-            // lbl_WriteOffDescription
+            // lbl_Description2
             // 
-            this.lbl_WriteOffDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lbl_WriteOffDescription.AutoSize = true;
-            this.lbl_WriteOffDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_WriteOffDescription.Location = new System.Drawing.Point(5, 362);
-            this.lbl_WriteOffDescription.Name = "lbl_WriteOffDescription";
-            this.lbl_WriteOffDescription.Size = new System.Drawing.Size(152, 16);
-            this.lbl_WriteOffDescription.TabIndex = 25;
-            this.lbl_WriteOffDescription.Text = "Own Use Description";
+            this.lbl_Description2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lbl_Description2.AutoSize = true;
+            this.lbl_Description2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Description2.Location = new System.Drawing.Point(5, 362);
+            this.lbl_Description2.Name = "lbl_Description2";
+            this.lbl_Description2.Size = new System.Drawing.Size(192, 16);
+            this.lbl_Description2.TabIndex = 25;
+            this.lbl_Description2.Text = "Consumption Description 2";
             // 
             // txt_DescriptionDescription
             // 
@@ -121,15 +121,15 @@ namespace ShopC_Forms
             this.txt_DescriptionDescription.Size = new System.Drawing.Size(704, 129);
             this.txt_DescriptionDescription.TabIndex = 26;
             // 
-            // lbl_OwnUse_Reason_Name
+            // lbl_Comsumption_Reason_Name
             // 
-            this.lbl_OwnUse_Reason_Name.AutoSize = true;
-            this.lbl_OwnUse_Reason_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_OwnUse_Reason_Name.Location = new System.Drawing.Point(5, 61);
-            this.lbl_OwnUse_Reason_Name.Name = "lbl_OwnUse_Reason_Name";
-            this.lbl_OwnUse_Reason_Name.Size = new System.Drawing.Size(172, 16);
-            this.lbl_OwnUse_Reason_Name.TabIndex = 27;
-            this.lbl_OwnUse_Reason_Name.Text = "Own Use Reason Name";
+            this.lbl_Comsumption_Reason_Name.AutoSize = true;
+            this.lbl_Comsumption_Reason_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Comsumption_Reason_Name.Location = new System.Drawing.Point(5, 61);
+            this.lbl_Comsumption_Reason_Name.Name = "lbl_Comsumption_Reason_Name";
+            this.lbl_Comsumption_Reason_Name.Size = new System.Drawing.Size(204, 16);
+            this.lbl_Comsumption_Reason_Name.TabIndex = 27;
+            this.lbl_Comsumption_Reason_Name.Text = "Comsumption Reason Name";
             // 
             // cmb_Reason
             // 
@@ -152,15 +152,15 @@ namespace ShopC_Forms
             this.txt_ReasonDescription.Size = new System.Drawing.Size(707, 135);
             this.txt_ReasonDescription.TabIndex = 29;
             // 
-            // lbl_OwnUse_Reason_Description
+            // lbl_Consumption_Reason_Description
             // 
-            this.lbl_OwnUse_Reason_Description.AutoSize = true;
-            this.lbl_OwnUse_Reason_Description.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_OwnUse_Reason_Description.Location = new System.Drawing.Point(0, 126);
-            this.lbl_OwnUse_Reason_Description.Name = "lbl_OwnUse_Reason_Description";
-            this.lbl_OwnUse_Reason_Description.Size = new System.Drawing.Size(210, 16);
-            this.lbl_OwnUse_Reason_Description.TabIndex = 30;
-            this.lbl_OwnUse_Reason_Description.Text = "Own Use Reason Description";
+            this.lbl_Consumption_Reason_Description.AutoSize = true;
+            this.lbl_Consumption_Reason_Description.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Consumption_Reason_Description.Location = new System.Drawing.Point(0, 126);
+            this.lbl_Consumption_Reason_Description.Name = "lbl_Consumption_Reason_Description";
+            this.lbl_Consumption_Reason_Description.Size = new System.Drawing.Size(238, 16);
+            this.lbl_Consumption_Reason_Description.TabIndex = 30;
+            this.lbl_Consumption_Reason_Description.Text = "Consumption Reason Description";
             // 
             // cmb_Description
             // 
@@ -179,30 +179,30 @@ namespace ShopC_Forms
             this.lbl_Description_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Description_Name.Location = new System.Drawing.Point(3, 299);
             this.lbl_Description_Name.Name = "lbl_Description_Name";
-            this.lbl_Description_Name.Size = new System.Drawing.Size(197, 16);
+            this.lbl_Description_Name.Size = new System.Drawing.Size(192, 16);
             this.lbl_Description_Name.TabIndex = 31;
-            this.lbl_Description_Name.Text = "Own Use Description Name";
+            this.lbl_Description_Name.Text = "Consumption Description 1";
             // 
-            // usrc_OwnUse_AddOn
+            // usrc_AddOn_Consumption
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.cmb_Description);
             this.Controls.Add(this.lbl_Description_Name);
-            this.Controls.Add(this.lbl_OwnUse_Reason_Description);
+            this.Controls.Add(this.lbl_Consumption_Reason_Description);
             this.Controls.Add(this.txt_ReasonDescription);
             this.Controls.Add(this.cmb_Reason);
-            this.Controls.Add(this.lbl_OwnUse_Reason_Name);
+            this.Controls.Add(this.lbl_Comsumption_Reason_Name);
             this.Controls.Add(this.txt_DescriptionDescription);
-            this.Controls.Add(this.lbl_WriteOffDescription);
+            this.Controls.Add(this.lbl_Description2);
             this.Controls.Add(this.usrc_Help1);
             this.Controls.Add(this.lbl_DateOfIssue);
             this.Controls.Add(this.dtP_DateOfIssue);
             this.Controls.Add(this.btn_Cancel);
-            this.Controls.Add(this.btn_Invoice_Issue);
+            this.Controls.Add(this.btn_Comsumption_Issue);
             this.ForeColor = System.Drawing.Color.Black;
-            this.Name = "usrc_OwnUse_AddOn";
+            this.Name = "usrc_AddOn_Consumption";
             this.Size = new System.Drawing.Size(717, 627);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -210,17 +210,17 @@ namespace ShopC_Forms
         }
 
         #endregion
-        private System.Windows.Forms.Button btn_Invoice_Issue;
+        private System.Windows.Forms.Button btn_Comsumption_Issue;
         private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.DateTimePicker dtP_DateOfIssue;
         private System.Windows.Forms.Label lbl_DateOfIssue;
         private usrc_Help usrc_Help1;
-        private System.Windows.Forms.Label lbl_WriteOffDescription;
+        private System.Windows.Forms.Label lbl_Description2;
         private System.Windows.Forms.TextBox txt_DescriptionDescription;
-        private System.Windows.Forms.Label lbl_OwnUse_Reason_Name;
+        private System.Windows.Forms.Label lbl_Comsumption_Reason_Name;
         private System.Windows.Forms.ComboBox cmb_Reason;
         private System.Windows.Forms.TextBox txt_ReasonDescription;
-        private System.Windows.Forms.Label lbl_OwnUse_Reason_Description;
+        private System.Windows.Forms.Label lbl_Consumption_Reason_Description;
         private System.Windows.Forms.ComboBox cmb_Description;
         private System.Windows.Forms.Label lbl_Description_Name;
     }

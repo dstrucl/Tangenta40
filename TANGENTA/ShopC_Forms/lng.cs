@@ -24,13 +24,33 @@ namespace ShopC_Forms
             LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
         }
 
+        
+        public static ltext s_Form_Consumption = new ltext(new string[] { "Removing from stock", "Odvzem iz zaloge" });
 
 
+        public static ltext s_Removing_from_stock_Reason_Name = new ltext(new string[] { "Removing from stock reason", "Razlog odvzema iz zaloge" });
+
+        public static ltext s_Removing_from_stock_Reason_Description = new ltext(new string[] { "Removing from stock reason description", "Opis razloga odvzema iz zaloge" });
+
+        public static ltext s_Removing_from_stock_description1 = new ltext(new string[] { "Removing from stock description 1", "Opis 1 odvzema iz zaloge" });
+
+        public static ltext s_Removing_from_stock_description2 = new ltext(new string[] { "Removing from stock description 2", "Opis 2 odvzema iz zaloge" });
+
+        public static ltext s_CtrlColors_Row_SoldByGiftCertificate = new ltext(new string[] { "Row color for Gift of certificate", "Barva vrstice za odvzem iz zaloge na osnovi darilnega bona" });
+
+        public static ltext s_CtrlColors_Row_OwnUse = new ltext(new string[] { "Row color for own usee", "Barva vrstice za lastno porabo" });
+
+        public static ltext s_CtrlColors_Row_WriteOff = new ltext(new string[] { "Row of WriteOff", "Barvi vrstice za odpis" });
+
+        public static ltext s_CtrlColors_TableOfConsumption = new ltext(new string[] { "Table of consumption", "Barvi preglednice odvzemov iz zaloge" });
+
+        public static ltext s_AllConsumptionTypes = new ltext(new string[] { "All consumption", "Vsi odvzemi" });
+
+        
         public static ltext s_Form_WriteOff_AddOn = new ltext(new string[] { "Write off data", "Podatki o odpisu" });
 
-        public static ltext s_btn_New_Empty_OwnUse = new ltext(new string[] { "New own useconsumption", "Nova lastna poraba" });
+        public static ltext s_btn_New_Empty_Consumption = new ltext(new string[] { "New consumption", "Nov odvzem iz zaloge" });
 
-        public static ltext s_btn_New_Empty_WriteOff = new ltext(new string[] { "New write off ", "Nov odpis zalog" });
 
         public static ltext s_New_Consumption = new ltext(new string[] { "Take out from stock", "Ostali odvzem iz zaloge" });
         
@@ -167,6 +187,9 @@ namespace ShopC_Forms
 
         public static ltext s_lbl_SelectionDescription_AllInvoices = new ltext(new string[] { "Invoices from all", "Računi od vseh" });
 
+        public static ltext s_lbl_SelectionDescription_AllConsumption = new ltext(new string[] { "Consumption all", "Vsi ostali odvezmi" });
+
+        public static ltext s_lbl_SelectionDescription_ConsumptionType = new ltext(new string[] { "Consumption:", "Odvzem iz zaloge:" });
 
         public static ltext s_lbl_SelectionDescription_AllInvoicesOfUser = new ltext(new string[] { "User:", "Uporabnik:" });
 
@@ -183,7 +206,7 @@ namespace ShopC_Forms
         public static ltext s_Consumption_Issue = new ltext(new string[] { "Issue an consumption", "Izdaj porabo" });   // referenced in C:\Tangenta40\TANGENTA\Tangenta\usrc_DocProformaInvoice_AddOn .cs
 
 
-        public static ltext s_OwnUse_Data = new ltext(new string[] { "Own Use Data", "Podatki o lastni porabi" });   // referenced in C:\Tangenta40\TANGENTA\ShopC_Forms\Form_Consumption__AddOn.cs
+        public static ltext s_Consumption_Data = new ltext(new string[] { "Consumption data", "Podatki o odvzemu iz zaloge" });   // referenced in C:\Tangenta40\TANGENTA\ShopC_Forms\Form_Consumption__AddOn.cs
 
         public static ltext s_AvoidStock = new ltext(new string[] { "Not from stock", "Mimo zaloge" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_Select_Item_From_Stock.cs
 
@@ -225,11 +248,6 @@ namespace ShopC_Forms
 
         public static ltext s_CannotConvertToDecimal = new ltext(new string[] { "Can not convert to decimal", "Pretvorba v decimalno število ni uspela" });
 
-        //public static ltext sYouSetAllQuantitiesToZeroDoYouwantToRemoveItem = new ltext(new string[] { "You set all quantitites to zero.Do you want to remove item?", "Vse količine ste postavili na nič.Želite umakniti artikel iz košare?" });
-
-        //public static ltext s_ThereAreNotsoManyArticlesInStock = new ltext(new string[] { "There is not such quantity in stock", "Na zalogi ni tolikšne količine artikla" });
-
-        //public static ltext s_StornoInvoice = new ltext(new string[] { "STORNO", "Stornacija računa" });
 
         public static ltext s_PriceTotalWithDiscountWithoutVAT = new ltext(new string[] { "Net total with discunt", "Skupaj s popustom brez DDV" });
 
@@ -281,9 +299,6 @@ namespace ShopC_Forms
 
         public static ltext s_QuantityTakenFromStock = new ltext(new string[] { "Quantity taken from stock", "Količina vzeta iz zaloge" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_Select_Item_From_Stock.cs
 
-        //public static ltext s_FromStock = new ltext(new string[] { "From stock", "Iz zaloge" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_Select_Item_From_Stock.cs
-        //public static ltext s_AvoidStock = new ltext(new string[] { "Not from stock", "Mimo zaloge" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_Select_Item_From_Stock.cs
-
         public static ltext s_Supplier = new ltext(new string[] { "Supplier", "Dobavitelj" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_Select_Item_From_Stock.cs
 
         public static ltext s_ImportTime = new ltext(new string[]{"Item Stock Import time",
@@ -304,9 +319,7 @@ namespace ShopC_Forms
         public static ltext s_Warning = new ltext(new string[]{"Warning",
                                            "Opozorilo"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_Select_Item_From_Stock.cs
 
-        //public static ltext s_Cancel = new ltext(new string[]{"Cancel",
-        //                                  "Prekini"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_Select_Item_From_Stock.cs
-
+ 
         public static ltext s_ShopC_Name = new ltext(new string[] { "Shop C", "Prodajalna C" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_ShopC_Item_Edit.cs
 
         public static ltext s_OnlyInOffer = new ltext(new string[] { "Only in offer", "Samo tiste v ponudbi" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\Form_ShopC_Item_Edit.cs
@@ -390,21 +403,7 @@ namespace ShopC_Forms
 
         public static ltext s_YouCanNotEditStockUntilAllBasketsAreEmpty = new ltext(new string[] { "You can not edit stock as long you have items in baskets!", "Najprej spraznite vse košare, da bi lahko urejali zaloge !" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_Item.cs
 
-        //public static ltext s_RetailPriceWithDiscount = new ltext(new string[] { "Price with discount:", "Cena s popustom:" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom.cs
-
-        //public static ltext s_RetailPrice = new ltext(new string[] { "Price:", "Cena:" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom.cs
-
-        //public static ltext s_TaxPrice = new ltext(new string[]{"Tax:",
-        //                                           "Davek:"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom.cs
-
-        //public static ltext s_WithoutTaxPrice = new ltext(new string[]{"Without tax:",
-        //                                                  "Cena brez davka:"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom.cs
-
-        //public static ltext s_Discount = new ltext(new string[]{"Discount:",
-        //                                           "Popust:"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom.cs
-
-        //public static ltext s_Are_Sure_To_Remove_All_From_Basket = new ltext(new string[] { "Are you sure to remove all items from basket ?", "Ste prepričani, da želite prestaviti vse artikle nazaj iz košare?" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtomsList.cs
-
+ 
         public static ltext s_Stock_ID = new ltext(new string[]{"Stock ID",
                                                    "ID v Zalogah"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
 
@@ -434,16 +433,6 @@ namespace ShopC_Forms
 
         public static ltext s_PurchasePriceDate = new ltext(new string[]{"Purchase price date",
                                                                          "Datum nabavne cene"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
-
-        //public static ltext s_Item_Not_In_Offer = new ltext(new string[] { "Item is not in offer any more!", "Artikel ni več v ponudbi!" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ShopC.cs
-
-        //public static ltext s_NotEnoughItemsInStock_DoIgnoreStockQuestion = new ltext(new string[] { "There is not enough items in stock!\r\nInsert items ignoring stock (Yes/No)?", "Ni dovolj artikla (artiklov) v zalogah!\r\nVnesi artikel mimo skladišča (Da/Ne)?" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ShopC.cs
-
-        //public static ltext s_AutomaticSelectionOfItemFromStock = new ltext(new string[] { "Automatic selection of item from stock", "Samodejno izberi artikel iz zaloge" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ShopC.cs
-
-        //public static ltext s_lbl_Items = new ltext(new string[] { "Items", "Artikli" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ShopC.cs
-
-        //public static ltext s_lbl_Stock = new ltext(new string[] { "Stock", "Zaloge" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ShopC.cs
 
 
         public static ltext s_YouCanNotLock_StockTakeIfSumNotMatch = new ltext(new string[]{"You can not close stock take unless the sum of all item's prices plus additional costs plus trucking costs plus customs is equal the StockTakeTotalPrice!",
@@ -486,8 +475,6 @@ namespace ShopC_Forms
         public static ltext s_UniqueName = new ltext(new string[] { "Unique name", "Unikatno ime" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_StockEditForSelectedStockTake.cs
 
         public static ltext s_Taxation = new ltext(new string[] { "Taxation", "Davki" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_StockEditForSelectedStockTake.cs
-
-        //public static ltext s_Tax = new ltext(new string[] { "Taxation", "Davek" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_StockEditForSelectedStockTake.cs
 
         public static ltext s_Item = new ltext(new string[] { "Item", "Artikel" });   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_StockEditForSelectedStockTake.cs
 

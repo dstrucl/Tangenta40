@@ -12,7 +12,6 @@ namespace TangentaDB
 {
     public static class f_Consumption
     {
-        public enum eConsumptionType { WriteOff, OwnUse, UNKNOWN }
         public class fData
         {
             public bool bDraft = false;

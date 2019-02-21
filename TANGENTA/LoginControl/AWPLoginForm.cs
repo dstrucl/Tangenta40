@@ -211,12 +211,13 @@ namespace LoginControl
                 {
                 }
             }
-            ID Atom_WorkPeriod_ID = null;
-            if (LoginCtrl.GetWorkPeriodEx(m_LMOUser,ref Atom_WorkPeriod_ID, transaction))
+            ID xAtom_WorkPeriod_ID = null;
+            if (LoginCtrl.GetWorkPeriodEx(m_LMOUser,ref xAtom_WorkPeriod_ID, transaction))
             {
                     ID LoginSession_id = null;
-                    if (AWP_func.GetLoginSession(m_LMOUser.awpld.ID,Atom_WorkPeriod_ID, ref LoginSession_id, transaction))
+                    if (AWP_func.GetLoginSession(m_LMOUser.awpld.ID,xAtom_WorkPeriod_ID, ref LoginSession_id, transaction))
                     {
+                            m_LMOUser.Atom_WorkPeriod_ID = xAtom_WorkPeriod_ID;
                             return true;
                     }
                     else

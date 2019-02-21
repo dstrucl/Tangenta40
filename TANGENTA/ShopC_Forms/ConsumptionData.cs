@@ -163,7 +163,7 @@ namespace ShopC_Forms
             get { 
                     if (m_delegate_ConsumptionType != null)
                     {
-                        return m_delegate_ConsumptionType().Equals(f_ConsumptionType.const_ConsumptionWriteOff);
+                        return m_delegate_ConsumptionType().Equals(f_ConsumptionType.ltconst_ConsumptionWriteOff.s);
                     }
                     else
                     {
@@ -178,7 +178,7 @@ namespace ShopC_Forms
             {
                 if (m_delegate_ConsumptionType != null)
                 {
-                    return m_delegate_ConsumptionType().Equals(f_ConsumptionType.const_ConsumptionOwnUse);
+                    return m_delegate_ConsumptionType().Equals(f_ConsumptionType.ltconst_ConsumptionOwnUse.s);
                 }
                 else
                 {
@@ -1253,7 +1253,7 @@ namespace ShopC_Forms
         {
 
             if (f_Consumption.SetNewDraft_Consumption(xAtom_WorkPeriod_ID,
-                                                      f_ConsumptionType.const_ConsumptionOwnUse,
+                                                      f_ConsumptionType.ltconst_ConsumptionOwnUse.s,
                                                       lng.s_OwnUse.s,
                                                       financialYear,
                                                       GlobalData.BaseCurrency,

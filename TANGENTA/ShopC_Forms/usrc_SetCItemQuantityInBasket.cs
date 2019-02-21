@@ -67,24 +67,6 @@ namespace ShopC_Forms
 
         private void btn_Change_Click(object sender, EventArgs e)
         {
-            if (dsci != null)
-            {
-                //if (dsci.ExtraDiscount != extradiscount)
-                //{
-                //    Transaction transaction_usrc_SetItemQuantityInBasket_btn_Change_Click_UpdateExtraDiscount = DBSync.DBSync.NewTransaction("usrc_SetItemQuantityInBasket.btn_Change_Click.UpdateExtraDiscount");
-                //    if (dsci.UpdateExtraDiscount(m_ConsE.DocTyp, extradiscount, transaction_usrc_SetItemQuantityInBasket_btn_Change_Click_UpdateExtraDiscount))
-                //    {
-                //        if (transaction_usrc_SetItemQuantityInBasket_btn_Change_Click_UpdateExtraDiscount.Commit())
-                //        {
-                //            dsci.ExtraDiscount = extradiscount;
-                //        }
-                //    }
-                //    else
-                //    {
-                //        transaction_usrc_SetItemQuantityInBasket_btn_Change_Click_UpdateExtraDiscount.Rollback();
-                //    }
-                //}
-            }
             ChangeQuantitiesInDB();
         }
 
@@ -123,11 +105,11 @@ namespace ShopC_Forms
 
                     if (m_usrc_ItemList.SelectItemsFromStockDialog)
                     {
-                        bresFromStock = m_ConsE.CurrentCons.m_Basket.Add2Basket(ref dsci,m_ConsE.DocTyp, m_ConsE.CurrentCons.m_Doc_ID, dadd_QuantityFromStock, idata, this.m_usrc_ItemList.Select_Items_From_Stock_Dialog);
+                        bresFromStock = m_ConsE.CurrentCons.m_Basket.Add2Basket(ref dsci,m_ConsE.ConsumptionType_Name, m_ConsE.CurrentCons.m_Doc_ID, dadd_QuantityFromStock, idata, this.m_usrc_ItemList.Select_Items_From_Stock_Dialog);
                     }
                     else
                     {
-                        bresFromStock = m_ConsE.CurrentCons.m_Basket.Add2Basket(ref dsci, m_ConsE.DocTyp, m_ConsE.CurrentCons.m_Doc_ID, dadd_QuantityFromStock, idata, null);
+                        bresFromStock = m_ConsE.CurrentCons.m_Basket.Add2Basket(ref dsci, m_ConsE.ConsumptionType_Name, m_ConsE.CurrentCons.m_Doc_ID, dadd_QuantityFromStock, idata, null);
                     }
                 }
                 else
@@ -136,7 +118,7 @@ namespace ShopC_Forms
                     if (dToTakeFromStock <= dsci.dQuantity_FromStock)
                     {
                         Transaction transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_RemoveFromBasket_And_put_back_to_Stock = DBSync.DBSync.NewTransaction("usrc_SetItemQuantityInBasket.ChangeQuantitiesInDB.RemoveFromBasket_And_put_back_to_Stock");
-                        bresFromStock = m_ConsE.CurrentCons.m_Basket.RemoveFromBasket_And_put_back_to_Stock(m_ConsE.DocTyp,
+                        bresFromStock = m_ConsE.CurrentCons.m_Basket.RemoveFromBasket_And_put_back_to_Stock(m_ConsE.ConsumptionType_Name,
                                                                                                               m_ConsE.CurrentCons.m_Doc_ID,
                                                                                                               dRemoveAndPutBack2Stock,
                                                                                                               idata,
@@ -155,24 +137,6 @@ namespace ShopC_Forms
                 }
 
 
-                //bool bresFromFactory = true;
-
-                //Transaction transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory = DBSync.DBSync.NewTransaction("usrc_SetItemQuantityInBasket.ChangeQuantitiesInDB.SetFactory");
-                //bresFromFactory = m_ConsE.CurrentCons.m_Basket.SetFactory(m_ConsE.DocTyp,
-                //                                                            m_ConsE.CurrentCons.m_Doc_ID,
-                //                                                            dToTakeFromFactory,
-                //                                                            idata,
-                //                                                            transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory);
-
-                //if (bresFromFactory)
-                //{
-                //    transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory.Commit();
-                //}
-                //else
-                //{
-                //    transaction_usrc_SetItemQuantityInBasket_ChangeQuantitiesInDB_SetFactory.Rollback();
-                //    return;
-                //}
                 if (bresFromStock/* && bresFromFactory*/)
                 {
                     m_usrc_Atom_Item.DoRefresh();

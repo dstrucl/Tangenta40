@@ -16,6 +16,7 @@ namespace ShopC_Forms
         public Form_Consumption(LoginControl.LMOUser lmoUser,int financialYear)
         {
             InitializeComponent();
+            lng.s_Form_Consumption.Text(this);
             this.usrc_ConsumptionMan1.Initialise(this, lmoUser, financialYear);
         }
 

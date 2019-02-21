@@ -56,7 +56,7 @@ namespace ShopC_Forms
 
         public string DocTyp
         {
-            get { return ConsE.DocTyp; }
+            get { return ConsE.ConsumptionType_Name; }
         }
 
         public bool IsDocInvoice

@@ -27,35 +27,7 @@ namespace ShopC_Forms
         internal Control parent_Control = null;
 
 
-        private bool IsWriteOff
-        {
-            get
-            {
-                if (ConsM != null)
-                {
-                    return ConsM.IsWriteOff;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        private bool IsDocOwnUse
-        {
-            get
-            {
-                if (ConsM != null)
-                {
-                    return ConsM.IsOwnUse;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
+        
 
         public usrc_Consumption_AddOn()
         {

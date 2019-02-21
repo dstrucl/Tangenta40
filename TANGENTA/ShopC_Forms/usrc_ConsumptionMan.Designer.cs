@@ -109,7 +109,7 @@ namespace ShopC_Forms
             this.m_usrc_TableOfConsumption.Name = "m_usrc_TableOfConsumption";
             this.m_usrc_TableOfConsumption.Size = new System.Drawing.Size(357, 630);
             this.m_usrc_TableOfConsumption.TabIndex = 39;
-            this.m_usrc_TableOfConsumption.SelectedInvoiceChanged += new ShopC_Forms.usrc_TableOfConsumption.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
+            this.m_usrc_TableOfConsumption.SelectedConsumptionChanged += new ShopC_Forms.usrc_TableOfConsumption.delegate_SelectedConsumptionChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
             // 
             // m_usrc_ConsumptionEditor
             // 

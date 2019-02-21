@@ -86,13 +86,13 @@ namespace ShopC_Forms
         public bool IsWriteOff
         {
             get
-            { return ConsE.DocTyp.Equals(f_ConsumptionType.const_ConsumptionWriteOff); }
+            { return ConsE.ConsumptionType_Name.Equals(f_ConsumptionType.ltconst_ConsumptionWriteOff.s); }
         }
 
-        public bool IsOwnUse
+        public bool IsOwnUsw
         {
             get
-            { return ConsE.DocTyp.Equals(f_ConsumptionType.const_ConsumptionOwnUse); }
+            { return ConsE.ConsumptionType_Name.Equals(f_ConsumptionType.ltconst_ConsumptionOwnUse.s); }
         }
 
 
@@ -148,14 +148,7 @@ namespace ShopC_Forms
 
         private void Init_ShopC()
         {
-            //if (m_usrc_ShopC == null)
-            //{
-            //    m_usrc_ShopC = new usrc_ShopC();
-            //    m_usrc_ShopC.DocTyp = this.DocTyp;
-            //    m_usrc_ShopC.CheckAccessPriceList += M_usrcCheckPriceListAccess;
-            //    m_usrc_ShopC.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
-            //    m_usrc_ShopC.CheckIfAdministrator += M_usrc_ShopC_CheckIfAdministrator;
-            //}
+            
             m_usrc_ConsumptionShopC.Init(ConsE.m_LMOUser,
                                       ConsE,
                                       ConsE.DBtcn,
@@ -368,22 +361,8 @@ namespace ShopC_Forms
         }
 
       
-        //private bool EditMyOrganisation_Data(bool bAllowNew,NavigationButtons.Navigation xnav)
-        //{
-        //    this.Cursor = Cursors.WaitCursor;
-        //    Form_myOrg_Edit edt_my_company_dlg = new Form_myOrg_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation))), bAllowNew,xnav,null);
-        //    this.Cursor = Cursors.Arrow;
-        //    xnav.ChildDialog = edt_my_company_dlg;
-        //    xnav.ShowDialog();
-        //    if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK)|| (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
+       
+       
 
 
         public bool Initialise(ConsumptionMan xDocM, LoginControl.LMOUser xLMOUser)
@@ -391,14 +370,9 @@ namespace ShopC_Forms
             ConsM = xDocM;
             ConsE = ConsM.ConsE;
             ConsE.m_mode = ConsumptionEditor.emode.view_eDocumentType;
-            //ConsE.mSettingsUserValues = ((SettingsUser)xLMOUser.oSettings).mSettingsUserValues;
             ConsM = xDocM;
             ConsE.m_LMOUser = xLMOUser;
-            //ConsE.door = new Door(ConsE.m_LMOUser);
-            //lng.s_Head.Text(chk_Head);
-            //chk_Head.Checked = DocE.mSettingsUserValues.InvoiceHeaderChecked;
-            //chk_Head.CheckedChanged += chk_Head_CheckedChanged;
-            //splitContainer2.Panel1Collapsed = !chk_Head.Checked;
+           
             usrc_Consumption_AddOn1.Init(this, this.ConsM);
 
             SetOperationMode();
@@ -407,37 +381,11 @@ namespace ShopC_Forms
 
         private void SetOperationMode()
         {
-            //if (OperationMode.MultiUser)
-            //{
-            //    txt_Issuer.Visible = false;
-            //    lbl_Issuer.Visible = false;
-            //}
-            //else 
-            //{
-            //    txt_Issuer.Visible = true;
-            //    lbl_Issuer.Visible = true;
-            //}
+         
 
         }
 
-        //private void usrc_PriceList_Ask_To_Update(char chShop, DataTable dt_ShopB_Item_NotIn_PriceList)
-        //{
-        //    if (PriseLists.usrc_PriceList.Ask_To_Update(chShop, dt_ShopB_Item_NotIn_PriceList, this))
-        //    {
-
-        //        Transaction transaction_usrc_ConsumptionEditor_usrc_PriceList_Ask_To_Update = DBSync.DBSync.NewTransaction("usrc_ConsumptionEditor.usrc_PriceList_Ask_To_Update");
-        //        if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, this, transaction_usrc_ConsumptionEditor_usrc_PriceList_Ask_To_Update))
-        //        {
-        //            transaction_usrc_ConsumptionEditor_usrc_PriceList_Ask_To_Update.Commit();
-        //            bool bPriceListChanged = false;
-        //            this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true, ref bPriceListChanged);
-        //        }
-        //        else
-        //        {
-        //            transaction_usrc_ConsumptionEditor_usrc_PriceList_Ask_To_Update.Rollback();
-        //        }
-        //    }
-        //}
+        
 
         public bool Init(ID Document_ID)
         {
@@ -454,20 +402,7 @@ namespace ShopC_Forms
             {
                 if (transaction_ConsE_Init.Commit())
                 {
-                    //this.usrc_Customer.aa_Customer_Person_Changed += new usrc_Customer.delegate_Customer_Person_Changed(this.usrc_Customer_Customer_Person_Changed);
-                    //this.usrc_Customer.aa_Customer_Org_Changed += new usrc_Customer.delegate_Customer_Org_Changed(this.usrc_Customer_Customer_Org_Changed);
-                    //this.usrc_Customer.aa_Customer_Removed += new usrc_Customer.delegate_Customer_Removed(this.usrc_Customer_aa_Customer_Removed);
-
-                    //m_usrc_ShopA.aa_ItemAdded += M_usrc_ShopA_aa_ItemAdded;
-                    //m_usrc_ShopA.aa_ItemRemoved += M_usrc_ShopA_aa_ItemRemoved;
-                    //m_usrc_ShopA.EditUnits += M_usrc_ShopA_EditUnits;
-
-                    //m_usrc_ShopB.DocTyp = ConsE.DocTyp;
-                    //m_usrc_ShopB.aa_ExtraDiscount += usrc_ShopB_ExtraDiscount;
-                    //m_usrc_ShopB.aa_ItemAdded += usrc_ShopB_ItemAdded;
-                    //m_usrc_ShopB.aa_ItemRemoved += usrc_ShopB_ItemRemoved;
-                    //m_usrc_ShopB.aa_ItemUpdated += usrc_ShopB_ItemUpdated;
-
+                    
                    
                     m_usrc_ConsumptionShopC.CheckAccessPriceList += M_usrcCheckPriceListAccess;
                     m_usrc_ConsumptionShopC.CheckAccessStock += M_usrc_ShopC_CheckAccessStock;
@@ -491,23 +426,9 @@ namespace ShopC_Forms
 
         internal void SetColor()
         {
-            //this.BackColor = Colors.m_usrc_ConsumptionEditor.BackColor;
-            //this.ForeColor = Colors.m_usrc_ConsumptionEditor.ForeColor;
-            ////this.splitContainer2.Panel1.BackColor = Colors.HeadColor.BackColor;
-            ////this.splitContainer2.Panel1.ForeColor = Colors.HeadColor.ForeColor;
-
-            //if (m_usrc_ShopA != null)
-            //{
-            //    m_usrc_ShopA.SetColor();
-            //}
-            //if (m_usrc_ShopB != null)
-            //{
-            //    m_usrc_ShopB.SetColor();
-            //}
-            //if (m_usrc_ShopC != null)
-            //{
-            //    m_usrc_ShopC.SetColor();
-            //}
+            this.BackColor = Colors.m_usrc_ConsumptionEditor.BackColor;
+            this.ForeColor = Colors.m_usrc_ConsumptionEditor.ForeColor;
+            
         }
 
       
@@ -563,21 +484,7 @@ namespace ShopC_Forms
                         );
         }
 
-        //private void chk_Head_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    if (chk_Head.Checked)
-        //    {
-        //        //splitContainer2.Panel1Collapsed = false;
-        //    }
-        //    else
-        //    {
-        //        //splitContainer2.Panel1Collapsed = true;
-        //    }
-
-        //    ((SettingsUser)DocE.m_LMOUser.oSettings).mSettingsUserValues.InvoiceHeaderChecked = chk_Head.Checked;
-        //    TangentaProperties.Properties.Settings.Default.Save();
-        //}
-
+      
         private void AddHandler()
         {
             if (!EventsActive)
@@ -673,11 +580,11 @@ namespace ShopC_Forms
             get_price_sum();
         }
 
-        internal bool GetOwnUseData(usrc_ConsumptionMan usrc_ConsumptionMan)
+        internal bool GetConsumptionData(usrc_ConsumptionMan usrc_ConsumptionMan)
         {
-            Form_Consumption_AddOn frm_OwnUse_AddOn = new Form_Consumption_AddOn(ConsE.MyConsumptionData.AddOnConsumption, false, this.usrc_Consumption_AddOn1);
-            frm_OwnUse_AddOn.Issue += Frm_OwnUse_AddOn_Issue;
-            if (frm_OwnUse_AddOn.ShowDialog() == DialogResult.OK)
+            Form_Consumption_AddOn frm_Consumption_AddOn = new Form_Consumption_AddOn(ConsE.MyConsumptionData.AddOnConsumption, false, this.usrc_Consumption_AddOn1);
+            frm_Consumption_AddOn.Issue += Frm_Consumption_AddOn_Issue;
+            if (frm_Consumption_AddOn.ShowDialog() == DialogResult.OK)
             {
                 return true;
             }
@@ -687,7 +594,7 @@ namespace ShopC_Forms
             }
         }
 
-        private bool Frm_OwnUse_AddOn_Issue(ConsumptionAddOn ownuse_add_on, Transaction transaction)
+        private bool Frm_Consumption_AddOn_Issue(ConsumptionAddOn ownuse_add_on, Transaction transaction)
         {
             if (Issue!=null)
             {
@@ -716,168 +623,6 @@ namespace ShopC_Forms
 
 
 
-        //private bool IssueDocument(Transaction transaction)
-        //{
-        //    //ProgramDiagnostic.Diagnostic.Enabled = true;
-        //    //ProgramDiagnostic.Diagnostic.Init();
-        //    //ProgramDiagnostic.Diagnostic.Clear();
-        //    //ProgramDiagnostic.Diagnostic.Meassure("Before fs.UpdatePriceInDraft", "?");
-
-        //    if (fs.UpdatePriceInDraft(DocE.DocTyp, DocE.m_ShopABC.m_CurrentDoc.Doc_ID, DocE.GrossSum, DocE.TaxSum.Value, DocE.NetSum, transaction))
-        //    {
-        //        if (IsDocInvoice)
-        //        {
-        //            DocE.InvoiceData.AddOnDI.b_FVI_SLO = ConsumptionMan.b_FVI_SLO;
-                  
-        //            ID DocInvoice_ID = null;
-        //            // save doc Invoice 
-        //            if (DocE.InvoiceData.SaveDocInvoice(ref DocInvoice_ID,Program.CashierActivity,GlobalData.ElectronicDevice_Name, DocE.m_LMOUser.Atom_WorkPeriod_ID, transaction))
-        //            {
-
-        //                DocE.m_ShopABC.m_CurrentDoc.Doc_ID = DocInvoice_ID;
-
-        //                if (ConsumptionMan.b_FVI_SLO)
-        //                {
-
-        //                    if ((DocE.InvoiceData.AddOnDI.IsCashPayment && Program.FVI_SLO1.FVI_for_cash_payment)
-        //                        || (DocE.InvoiceData.AddOnDI.IsCardPayment && Program.FVI_SLO1.FVI_for_card_payment)
-        //                        || (DocE.InvoiceData.AddOnDI.IsPaymentOnBankAccount && Program.FVI_SLO1.FVI_for_payment_on_bank_account)
-        //                        )
-        //                    {
-        //                        UniversalInvoice.Person xInvoiceAuthor = fs.GetInvoiceAuthor(DocE.m_LMOUser.Atom_myOrganisation_Person_ID);
-        //                        this.SendInvoice(DocE.GrossSum, DocE.TaxSum, xInvoiceAuthor, transaction);
-        //                    }
-        //                }
-
-        //                // read saved doc Invoice again !
-        //                if (DocE.InvoiceData.Read_DocInvoice(transaction))
-        //                {
-
-        //                    if (aa_DocInvoiceSaved != null)
-        //                    {
-        //                        aa_DocInvoiceSaved(DocE.m_ShopABC.m_CurrentDoc.Doc_ID);
-        //                    }
-        //                    Printing_DocInvoice();
-        //                    return true;
-        //                }
-        //                else
-        //                {
-        //                    return false;
-        //                }
-        //            }
-        //            else
-        //            {
-        //                return false;
-        //            }
-        //        }
-        //        else if (IsDocProformaInvoice)
-        //        {
-        //            ID DocInvoice_ID = null;
-        //            // save doc Invoice 
-        //            if (DocE.InvoiceData.SaveDocProformaInvoice(ref DocInvoice_ID,GlobalData.ElectronicDevice_Name, DocE.m_LMOUser.Atom_WorkPeriod_ID, transaction))
-        //            {
-        //                DocE.m_ShopABC.m_CurrentDoc.Doc_ID = DocInvoice_ID;
-        //                // read saved doc Invoice again !
-        //                if (DocE.InvoiceData.Read_DocInvoice(transaction))
-        //                {
-
-        //                    if (aa_DocProformaInvoiceSaved != null)
-        //                    {
-        //                        aa_DocProformaInvoiceSaved(DocE.m_ShopABC.m_CurrentDoc.Doc_ID);
-        //                    }
-
-        //                    DocE.Printing_DocInvoice(this);
-        //                    return true;
-        //                }
-        //                else
-        //                {
-        //                    return false;
-        //                }
-        //            }
-        //            else
-        //            {
-        //                return false;
-        //            }                 
-        //        }
-        //        else
-        //        {
-        //            LogFile.Error.Show("ERROR:Tangenta:usrc_Invoice:IssueDocument:Unknown doc type!");
-        //            return false;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-
-        //private void SendInvoice(decimal dGrossSum,StaticLib.TaxSum xTaxSum,UniversalInvoice.Person xInvoiceAuthor, Transaction transaction)
-        //{
-        //    //if (m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v != null)
-        //    //{
-        //    //m_InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v.v);
-        //    //    m_InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
-        //    //}
-        //    //else
-        //    //{
-        //        string furs_XML = DocInvoice_AddOn.FURS.Create_furs_InvoiceXML(false,
-        //                               Properties.Resources.FVI_SLO_Invoice,
-        //                               Program.FVI_SLO1.FursD_MyOrgTaxID,
-        //                               Program.FVI_SLO1.FursD_BussinesPremiseID,
-        //                               GlobalData.ElectronicDevice_Name,
-        //                               Program.FVI_SLO1.FursD_InvoiceAuthorTaxID,
-        //                               "", "",
-        //                               DocE.InvoiceData.IssueDate_v,
-        //                               DocE.InvoiceData.NumberInFinancialYear,
-        //                               dGrossSum,
-        //                               xTaxSum,
-        //                               xInvoiceAuthor //ToDo : Get real Invoice Autor here!
-        //                               );
-        //        Image img_QR = null;
-        //        string furs_UniqeMsgID = null;
-        //        string furs_UniqeInvID = null;
-        //        string furs_BarCodeValue = null;
-
-        //        FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post eres = Program.FVI_SLO1.Send_SingleInvoice(false, furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR);
-        //        switch (eres)
-        //        { 
-
-        //        case FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK:
-        //        case FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.TIMEOUT:
-        //            DocE.InvoiceData.AddOnDI.m_FURS.FURS_ZOI_v = new string_v(furs_UniqeMsgID);
-        //            DocE.InvoiceData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(furs_UniqeInvID);
-        //            DocE.InvoiceData.AddOnDI.m_FURS.FURS_QR_v = new string_v(furs_BarCodeValue);
-        //            DocE.InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = img_QR;
-        //            DocE.InvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(DocE.InvoiceData.DocInvoice_ID,Program.FVI_SLO1.FursTESTEnvironment, transaction);
-        //            break;
-
-        //        case FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.ERROR:
-
-        //            string xSerialNumber = null;
-        //            string xSetNumber = null;
-        //            string xInvoiceNumber = null;
-        //            Program.FVI_SLO1.Write_SalesBookInvoice(DocE.InvoiceData.DocInvoice_ID, DocE.InvoiceData.FinancialYear, DocE.InvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
-        //            ID FVI_SLO_SalesBookInvoice_ID = null;
-        //            if (TangentaDB.f_FVI_SLO_SalesBookInvoice.Get(DocE.InvoiceData.DocInvoice_ID, xSerialNumber, xSetNumber, xInvoiceNumber, ref FVI_SLO_SalesBookInvoice_ID, transaction))
-        //            {
-        //                MessageBox.Show("Račun je zabeležen v tabeli za pošiljanje računov iz vezane knjige računov! ");
-
-        //                //LK SalesBookInvoice  prestavi na gumb
-        //                //string furs_XML_SB = m_InvoiceData.Create_furs_SalesBookInvoiceXML(Program.usrc_FVI_SLO1.XML_Template_FVI_SLO_SalesBook, Program.usrc_FVI_SLO1.FursD_MyOrgTaxID, Program.usrc_FVI_SLO1.FursD_BussinesPremiseID, xSetNumber, xSerialNumber);
-        //                //if (Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_XML_SB, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
-        //                //{
-        //                //    m_InvoiceData.FURS_Response_Data = new FURS_Response_data(furs_UniqeMsgID, furs_UniqeInvID, furs_BarCodeValue, img_QR);
-        //                //    m_InvoiceData.FURS_Response_Data.Image_QRcode = img_QR;
-        //                //    m_InvoiceData.Write_FURS_Response_Data();
-        //                //}
-        //            }
-        //            break;
-
-
-        //    }
-        //    DocE.InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
-        //    //}
-        //}
 
         private void docInvoice_saved(ID doc_ID)
         {
@@ -910,30 +655,7 @@ namespace ShopC_Forms
         }
 
    
-        //private InvoiceData Set_AddOn(InvoiceData invoiceData)
-        //{
-        //    if (IsDocInvoice)
-        //    {
-        //        invoiceData.AddOnDI = DocE.m_InvoiceData.AddOnDI;
-        //        invoiceData.AddOnDI.b_FVI_SLO = ConsumptionMan.b_FVI_SLO;
-        //        invoiceData.AddOnDPI = null;
-        //        invoiceData.AddOnDI.Get(invoiceData.DocInvoice_ID);
-        //    }
-        //    else if (IsDocProformaInvoice)
-        //    {
-        //        invoiceData.AddOnDPI = DocE.m_InvoiceData.AddOnDPI;
-        //        invoiceData.AddOnDI = null;
-        //        invoiceData.AddOnDPI.Get(invoiceData.DocInvoice_ID);
-        //    }
-        //    else
-        //    {
-        //        LogFile.Error.Show("ERROR:Tangenta:usrc_Invoice:SetAddOn:Unknown doc type!");
-        //        invoiceData.AddOnDI = null;
-        //        invoiceData.AddOnDPI = null;
-        //    }
-        //    return invoiceData;
-        //}
-
+      
 
         private void customer_Person_Changed(ID customer_Person_ID)
         {
@@ -953,14 +675,7 @@ namespace ShopC_Forms
 
         }
 
-        //private void usrc_Customer_Customer_Person_Changed(ID Customer_Person_ID)
-        //{
-        //    this.Cursor = Cursors.WaitCursor;
-        //    ConsE.Customer_Person_Changed(Customer_Person_ID,
-        //                                 usrc_Customer.Show_Customer_Person,
-        //                                 customer_Person_Changed);
-        //    this.Cursor = Cursors.Arrow;
-        //}
+
 
         private void storno_event(bool b)
         {
@@ -992,55 +707,7 @@ namespace ShopC_Forms
 
 
 
-        //private void usrc_Customer_Customer_Org_Changed(ID Customer_Org_ID)
-        //{
-        //    this.Cursor = Cursors.WaitCursor;
-        //    ConsE.Customer_Org_Changed(Customer_Org_ID,
-        //                              usrc_Customer.Show_Customer_Org,
-        //                              this.customer_Organisation_Changed
-        //                              );
-        //    this.Cursor = Cursors.Arrow;
-        //}
-
-        //private bool usrc_Customer_aa_Customer_Removed(string xDoxTyp, Transaction transaction)
-        //{
-        //    this.Cursor = Cursors.WaitCursor;
-        //    Transaction transaction_Update_Customer_Remove = DBSync.DBSync.NewTransaction("Update_Customer_Remove");
-        //    if (ConsE.m_ShopABC.m_CurrentDoc.Update_Customer_Remove(xDoxTyp, transaction_Update_Customer_Remove))
-        //    {
-        //        transaction_Update_Customer_Remove.Commit();
-        //        this.Cursor = Cursors.Arrow;
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        transaction_Update_Customer_Remove.Rollback();
-        //        this.Cursor = Cursors.Arrow;
-        //        return false;
-        //    }
-        //}
-
-        //private void btn_Select_Shops_Click(object sender, EventArgs e)
-        //{
-        //    Form_ShowShops frm_sel_shops = new Form_ShowShops(ConsE, ConsE.mSettingsUserValues);
-        //    if (frm_sel_shops.ShowDialog(this)==DialogResult.OK)
-        //    {
-        //        Set_ShowShops(PropertiesUser.ShowShops_Get(ConsE.mSettingsUserValues));
-        //        if (LayoutChanged!=null)
-        //        {
-        //            LayoutChanged();
-        //        }
-        //    }
-            
-        //}
-
-        //private void btn_MyOrganisation_Click(object sender, EventArgs e)
-        //{
-        //    NavigationButtons.Navigation nav_EditMyOrganisation_Data = new NavigationButtons.Navigation(null);
-        //    nav_EditMyOrganisation_Data.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-        //    nav_EditMyOrganisation_Data.bDoModal = true;
-        //    EditMyOrganisation_Data(false, nav_EditMyOrganisation_Data);
-        //}
+     
 
         private void usrc_Currency1_CurrencyChanged(xCurrency currency, ID xAtom_Currency_ID)
         {

@@ -30,6 +30,21 @@ namespace ShopC_Forms
             }
         }
 
+        private ConsumptionType consumptionTypeSelected = null;
+        public ConsumptionType ConsumptionTypeSelected 
+        {
+            get
+            {
+                return consumptionTypeSelected;
+            }
+            set
+            {
+                consumptionTypeSelected = value;
+            }
+        }
+
+        public List<ConsumptionType> List_ConsumptionType = null;
+
         private UserControl usrc_ConsumptionMan = null;
 
         public delegate void delegate_Control_SetMode(ConsumptionMan.eMode mode);
@@ -65,7 +80,6 @@ namespace ShopC_Forms
             }
         }
 
-        public List<ConsumptionType> List_ConsumptionType = new List<ConsumptionType>();
       
 
 
@@ -92,58 +106,44 @@ namespace ShopC_Forms
         public DataTable dt_FinancialYears = new DataTable();
 
 
-        private string m_ConsumptionTyp = null;
-
-        public string ConsumptionTyp
+    
+        public string ConsumptionType_Name
         {
             get
             {
-                //if (m_DocTyp == null)
-                //{
-                //    if (!this.DesignMode) LogFile.Error.Show("ERROR:Tangenta:usrc_ConsumptionMan:property DocTyp: DocTyp is not defined (m_DocInvoice = null)!");
-                //}
-                return m_ConsumptionTyp;
+                if (ConsumptionTypeSelected!=null)
+                {
+                    return ConsumptionTypeSelected.ConsumptionType_Name;
+                }
+                else
+                {
+                    return null;
+                }
             }
-            set
+        }
+
+        public string ConsumptionType_Description
+        {
+            get
             {
-                string s = value;
-                //if (s.Equals(GlobalData.const_ConsumptionAll) || s.Equals(GlobalData.const_ConsumptionWriteOff) || s.Equals(GlobalData.const_ConsumptionOwnUse))
-                //{
-                //    m_ConsumptionTyp = s;
-                //}
-                //else
-                //{
-                //    if (s != null)
-                //    {
-                //        if (s.Length > 0)
-                //        {
-                //            LogFile.Error.Show("ERROR:Tangenta:usrc_ConsumptionMan:property string DocTyp: DocTyp = " + s + " is not implemented!");
-                //        }
-                //    }
-                //    else
-                //    {
-                //       LogFile.Error.Show("ERROR:Tangenta:usrc_ConsumptionMan:property string DocTyp: DocTyp  value ==  null");
-                //    }
-                //}
+                if (ConsumptionTypeSelected != null)
+                {
+                    return ConsumptionTypeSelected.ConsumptionType_Description;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
+       
 
-        public bool IsWriteOff
-        {
-            get
-            { return ConsumptionTyp.Equals(f_ConsumptionType.const_ConsumptionWriteOff); }
-        }
-
-        public bool IsOwnUse
-        {
-            get
-            { return ConsumptionTyp.Equals(f_ConsumptionType.const_ConsumptionOwnUse); }
-        }
+       
 
         public bool IsAll
         {
             get
-            { return ConsumptionTyp.Equals(GlobalData.const_ConsumptionAll); }
+            { return ConsumptionType_Name.Equals(GlobalData.const_ConsumptionAll); }
         }
 
         public ConsumptionMan(delegate_Control_SetMode xdelegate_control_SetMode,

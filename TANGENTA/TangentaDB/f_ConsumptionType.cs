@@ -6,14 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using DBConnectionControl40;
 using DBTypes;
+using LanguageControl;
 
 namespace TangentaDB
 {
     public static class f_ConsumptionType
     {
-        public const string const_ConsumptionWriteOff = "WriteOff";
-        public const string const_ConsumptionOwnUse = "OwnUse";
-        public const string const_ConsumptionSoldByGiftCertificate = "SoldByGiftCertificate";
+        public static ltext ltconst_ConsumptionWriteOff = new ltext(new string[] { "WriteOff", "Odpis" });
+        public static ltext ltconst_ConsumptionOwnUse = new ltext(new string[] { "OwnUse", "Lastna poraba" });
+        public static ltext ltconst_ConsumptionSoldByGiftCertificate = new ltext(new string[] { "Sold By Gift Certificate", "Izdano na darilni bon" }); 
 
         public static ID ConsumptionType_WriteOff_ID = null;
         public static ID ConsumptionType_OwnUse_ID = null;
@@ -147,11 +148,11 @@ namespace TangentaDB
 
         internal static bool GetDefaultConsumptionTypes(Transaction transaction_Type_definitions_Read)
         {
-            if (f_ConsumptionType.Get(const_ConsumptionWriteOff, lng.s_WriteOff.s, ref ConsumptionType_WriteOff_ID, transaction_Type_definitions_Read))
+            if (f_ConsumptionType.Get(ltconst_ConsumptionWriteOff.s, lng.s_WriteOff.s, ref ConsumptionType_WriteOff_ID, transaction_Type_definitions_Read))
             {
-                if (f_ConsumptionType.Get(const_ConsumptionOwnUse, lng.s_OwnUse.s, ref ConsumptionType_OwnUse_ID, transaction_Type_definitions_Read)) 
+                if (f_ConsumptionType.Get(ltconst_ConsumptionOwnUse.s, lng.s_OwnUse.s, ref ConsumptionType_OwnUse_ID, transaction_Type_definitions_Read)) 
                 {
-                    if (f_ConsumptionType.Get(const_ConsumptionSoldByGiftCertificate, lng.s_SoldByGiftCertificate.s, ref ConsumptionType_SoldByGiftCertificate_ID, transaction_Type_definitions_Read))
+                    if (f_ConsumptionType.Get(ltconst_ConsumptionSoldByGiftCertificate.s, lng.s_SoldByGiftCertificate.s, ref ConsumptionType_SoldByGiftCertificate_ID, transaction_Type_definitions_Read))
                     {
                         return true;
                     }

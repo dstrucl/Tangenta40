@@ -117,7 +117,7 @@ namespace Tangenta
         public static ltext s_CtrlColors_DocProformaInvoice = new ltext(new string[] { "Proformainvoice manager colors", "Barvi pri urejanju predračunov" });
         public static ltext s_CtrlColors_DocumentEditor = new ltext(new string[] { "Document editor colors", "Barvi urejevalnika dokumentov" });
         public static ltext s_CtrlColors_TableOfDocuments = new ltext(new string[] { "Table of documents", "Barvi preglednice dokumentov" });
-
+       
         public static ltext s_ColorSettings_ControlColorDic_ColorIndex = new ltext(new string[] { "Controls that use color index ", "Kontrole s številko barve " });
         public static ltext s_ColorSettings_ControlColorDic_ColorOfIndex = new ltext(new string[] { "Color of index", "Številko barve " });
         public static ltext s_ColorSettings_ControlColorDic_sOfColorPallete = new ltext(new string[] { " of color pallete ", " barvne palete " });

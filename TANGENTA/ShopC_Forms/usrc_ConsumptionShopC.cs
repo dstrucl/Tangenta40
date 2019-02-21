@@ -80,7 +80,7 @@ namespace ShopC_Forms
 
         public string DocTyp
         {
-            get { return m_ConsumptionEditor.DocTyp; }
+            get { return m_ConsumptionEditor.ConsumptionType_Name; }
         }
         public bool IsDocInvoice
         {

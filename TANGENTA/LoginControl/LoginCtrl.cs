@@ -663,7 +663,7 @@ namespace LoginControl
             string xAtom_myOrgPerson_Atom_Office_ShortName = null;
             string xAtom_ElectronicDevice_Atom_Office_ShortName = null;
             string xAtom_ElectronicDevice_Name = null;
-            if (getWorkPeriod(lmouUser.awpld.myOrganisation_Person__per_ID,
+            if (getWorkPeriod(lmouUser.awpld.myOrganisation_Person_ID,
                                                             ref lmouUser.Atom_myOrganisation_Person_ID,
                                                             ref xAtom_WorkPeriod_ID,
                                                             ref xAtom_myOrganisation_Person_Tax_ID,

@@ -259,11 +259,11 @@ namespace ShopC_Forms
         internal bool chk_Storno_CanBe_ManualyChanged = true;
 
 
-        public string DocTyp
+        public string ConsumptionType_Name
         {
             get
             {
-                return ConsM.ConsumptionTyp;
+                return ConsM.ConsumptionType_Name;
             }
         }
 
@@ -458,12 +458,9 @@ namespace ShopC_Forms
                     JOURNAL_Consumption_$_cs.EndSum AS JOURNAL_Consumption_$_cs_$$EndSum,
                     JOURNAL_Consumption_$_cs.TaxSum AS JOURNAL_Consumption_$_cs_$$TaxSum,
                     JOURNAL_Consumption_$_cs.GrossSum AS JOURNAL_Consumption_$_cs_$$GrossSum,
-					woao.IssueDate as IssueDate_WriteOff,
-					wor.Name as WriteOff_ReasonName,
-					wor.Description as WriteOff_ReasonDescription,
-					ouao.IssueDate as IssueDate_Consumption,
-					our.Name as Consumption_ReasonName,
-					our.Description as Consumption_ReasonDescription,
+					coao.IssueDate as IssueDate,
+					cor.Name as ReasonName,
+					cor.Description as ReasonDescription,
                     acur.ID as Atom_Currency_ID,
                     acur.Name as CurrencyName,
                     acur.Abbreviation as CurrencyAbbreviation,
@@ -477,12 +474,9 @@ namespace ShopC_Forms
                     FROM JOURNAL_Consumption 
                     INNER JOIN JOURNAL_Consumption_Type JOURNAL_Consumption_$_cst ON JOURNAL_Consumption.JOURNAL_Consumption_Type_ID = JOURNAL_Consumption_$_cst.ID
                     LEFT JOIN Consumption JOURNAL_Consumption_$_cs ON JOURNAL_Consumption.Consumption_ID = JOURNAL_Consumption_$_cs.ID 
-                                                                        and ((((JOURNAL_Consumption_$_cst.Name='ConsumptionConsumptionDraftTime')or(JOURNAL_Consumption_$_cst.Name='ConsumptionWriteOffDraftTime')) and (JOURNAL_Consumption_$_cs.Draft=1))
-																		
-                                                                            or(((JOURNAL_Consumption_$_cst.Name='ConsumptionConsumptionTime') 
-																			or (JOURNAL_Consumption_$_cst.Name='ConsumptionWriteOffTime') 
-																			or (JOURNAL_Consumption_$_cst.Name='ConsumptionConsumptionStornoTime')
-																			or (JOURNAL_Consumption_$_cst.Name='ConsumptionWriteOffDraftTimeStornoTime')
+                                                                        and (((JOURNAL_Consumption_$_cst.Name='ConsumptionDraftTime') and (JOURNAL_Consumption_$_cs.Draft=1))
+                                                                            or(((JOURNAL_Consumption_$_cst.Name='ConsumptionTime') 
+																			or (JOURNAL_Consumption_$_cst.Name='ConsumptionStornoTime')
 																			or  (JOURNAL_Consumption_$_cst.Name='Storno*'))
                                                                                 and (JOURNAL_Consumption_$_cs.Draft=0)))
                     INNER JOIN Atom_Currency acur ON acur.ID = JOURNAL_Consumption_$_cs.Atom_Currency_ID
@@ -494,10 +488,8 @@ namespace ShopC_Forms
                     LEFT JOIN Atom_Person JOURNAL_Consumption_$_awperiod_$_amcper_$_aper ON JOURNAL_Consumption_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_Consumption_$_awperiod_$_amcper_$_aper.ID
                     LEFT JOIN Atom_cFirstName JOURNAL_Consumption_$_awperiod_$_amcper_$_aper_$_acfn ON JOURNAL_Consumption_$_awperiod_$_amcper_$_aper.Atom_cFirstName_ID = JOURNAL_Consumption_$_awperiod_$_amcper_$_aper_$_acfn.ID
                     LEFT JOIN Atom_cLastName JOURNAL_Consumption_$_awperiod_$_amcper_$_aper_$_acln ON JOURNAL_Consumption_$_awperiod_$_amcper_$_aper.Atom_cLastName_ID = JOURNAL_Consumption_$_awperiod_$_amcper_$_aper_$_acln.ID
-                    left join WriteOffAddOn woao on woao.Consumption_ID = JOURNAL_Consumption_$_cs.ID
-					left join WriteOffReason wor on wor.ID = woao.WriteOffReason_ID
-					left join ConsumptionAddOn ouao on ouao.Consumption_ID = JOURNAL_Consumption_$_cs.ID
-					left join ConsumptionReason our on our.ID = ouao.ConsumptionReason_ID
+					left join ConsumptionAddOn coao on coao.Consumption_ID = JOURNAL_Consumption_$_cs.ID
+					left join ConsumptionReason cor on cor.ID = coao.ConsumptionReason_ID
                     " + cond;
 
 
@@ -567,7 +559,7 @@ namespace ShopC_Forms
                     }
 
                     CurrentCons.m_Basket.Basket_Consumption_ShopC_Item_LIST.Clear();
-                    if (CurrentCons.m_Basket.Read_Consumption_ShopC_Item_Table(DocTyp, CurrentCons.Doc_ID, ref CurrentCons.m_Basket.Basket_Consumption_ShopC_Item_LIST, transaction))
+                    if (CurrentCons.m_Basket.Read_Consumption_ShopC_Item_Table(ConsumptionType_Name, CurrentCons.Doc_ID, ref CurrentCons.m_Basket.Basket_Consumption_ShopC_Item_LIST, transaction))
                     {
                         return true;
                     }
@@ -836,38 +828,21 @@ namespace ShopC_Forms
                         //Print existing invoice
                         MyConsumptionData.Consumption_ID = CurrentCons.Doc_ID;
                         Transaction transaction_m_InvoiceData_Read_Consumption = DBSync.DBSync.NewTransaction("m_InvoiceData.Read_Consumption");
-                        if (ConsM.IsWriteOff)
+                        
+                        if (MyConsumptionData.Read_Consumption(transaction_m_InvoiceData_Read_Consumption)) // read Proforma Invoice again from DataBase
                         {
-                            if (MyConsumptionData.Read_Consumption(transaction_m_InvoiceData_Read_Consumption)) // read Proforma Invoice again from DataBase
-                            { // print invoice if you wish
-                                if (transaction_m_InvoiceData_Read_Consumption.Commit())
-                                {
-                                    Printing_Consumption(pform, null);//Printing_Consumption();
-                                                                      //TangentaPrint.Form_PrintJournal frm_Print_Existing_invoice = new TangentaPrint.Form_PrintJournal(m_InvoiceData,"UNKNOWN PRINETR NAME??",Program.usrc_TangentaPrint1);
-                                                                      //frm_Print_Existing_invoice.ShowDialog(this);
-                                }
-                            }
-                            else
+                            if (transaction_m_InvoiceData_Read_Consumption.Commit())
                             {
-                                transaction_m_InvoiceData_Read_Consumption.Rollback();
+                                Printing_Consumption(pform, null);//Printing_Consumption();
+                                                                    //TangentaPrint.Form_PrintJournal frm_Print_Existing_invoice = new TangentaPrint.Form_PrintJournal(m_InvoiceData,"UNKNOWN PRINETR NAME??",Program.usrc_TangentaPrint1);
+                                                                    //frm_Print_Existing_invoice.ShowDialog(this);
                             }
                         }
                         else
                         {
-                            if (MyConsumptionData.Read_Consumption(transaction_m_InvoiceData_Read_Consumption)) // read Proforma Invoice again from DataBase
-                            {
-                                if (transaction_m_InvoiceData_Read_Consumption.Commit())
-                                {
-                                    Printing_Consumption(pform, null);//Printing_Consumption();
-                                                                      //TangentaPrint.Form_PrintJournal frm_Print_Existing_invoice = new TangentaPrint.Form_PrintJournal(m_InvoiceData,"UNKNOWN PRINETR NAME??",Program.usrc_TangentaPrint1);
-                                                                      //frm_Print_Existing_invoice.ShowDialog(this);
-                                }
-                            }
-                            else
-                            {
-                                transaction_m_InvoiceData_Read_Consumption.Rollback();
-                            }
+                            transaction_m_InvoiceData_Read_Consumption.Rollback();
                         }
+                        
                     }
                 }
             }
@@ -876,7 +851,7 @@ namespace ShopC_Forms
         internal bool Printing_Consumption(Control parentControl, Transaction transaction)
         {
             Printer printer = null;
-            if (PrintersList.PrintingWithHtmlTemplate(DocTyp, ref printer))
+            if (PrintersList.PrintingWithHtmlTemplate(ConsumptionType_Name, ref printer))
             {
                 if (transaction != null)
                 {
@@ -942,7 +917,7 @@ namespace ShopC_Forms
 
         internal string GetDocType()
         {
-            return ConsM.ConsumptionTyp;
+            return ConsM.ConsumptionType_Name;
         }
 
         private void usrc_PriceList_Ask_To_Update(Form pForm, usrc_PriceList usrc_PriceList1, char chShop, DataTable dt_ShopB_Item_NotIn_PriceList)
@@ -1063,7 +1038,7 @@ namespace ShopC_Forms
             //ProgramDiagnostic.Diagnostic.Clear();
             //ProgramDiagnostic.Diagnostic.Meassure("Before fs.UpdatePriceInDraft", "?");
 
-            if (fs.UpdatePriceInDraft(DocTyp, CurrentCons.Doc_ID, GrossSum, TaxSum.Value, NetSum, transaction))
+            if (fs.UpdatePriceInDraft(ConsumptionType_Name, CurrentCons.Doc_ID, GrossSum, TaxSum.Value, NetSum, transaction))
             {
                 
                     ID Consumption_ID = null;
@@ -1202,13 +1177,12 @@ namespace ShopC_Forms
             if (chk_Storno_CanBe_ManualyChanged)
             {
                 bool bstorno = false;
-                if (ConsM.IsWriteOff)
+            
+                if (CurrentCons.TInvoice.bStorno_v != null)
                 {
-                    if (CurrentCons.TInvoice.bStorno_v != null)
-                    {
-                        bstorno = CurrentCons.TInvoice.bStorno_v.v;
-                    }
+                    bstorno = CurrentCons.TInvoice.bStorno_v.v;
                 }
+                
 
                 if (chk_Storno_Checked != bstorno)
                 {

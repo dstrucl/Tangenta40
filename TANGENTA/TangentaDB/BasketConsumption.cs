@@ -66,13 +66,7 @@ namespace TangentaDB
                     }
                     //Remove_and_put_back_to_ShopShelf(xAtom_WorkPeriod_ID,DocTyp, xdsci, xShopShelf);
                 }
-                //if (xdsci.dQuantity_FromFactory > 0)
-                //{
-                //    if (!RemoveFactory(DocTyp, xdsci, transaction))
-                //    {
-                //        return false;
-                //    }
-                //}
+                
                 Basket_Consumption_ShopC_Item_LIST.Remove(xdsci);
             }
             return true;
@@ -185,53 +179,7 @@ namespace TangentaDB
             }
         }
 
-        //public bool SetFactory(string docTyp, ID doc_ID, decimal dToTakeFromFactory, CItem_Data xData, Transaction transaction)
-        //{
-        //    Consumption_ShopC_Item dsci = Find(xData.Item_UniqueName_v.v);
-        //    if (dsci != null)
-        //    {
-        //        return dsci.SetFactory(docTyp, doc_ID, xData, dToTakeFromFactory, transaction);
-        //    }
-        //    else
-        //    {
-        //        LogFile.Error.Show("ERROR:TangentaDB:Basket:SetFactory: Consumption_ShopC_Item dsci == null!");
-        //        return false;
-        //    }
-        //}
-
-
-
-
-        //public bool Add2BasketFromFactory(ref Consumption_ShopC_Item dsci,string docTyp, ID doc_ID, decimal xquantity2add, CItem_Data xData, Transaction transaction)
-        //{
-        //    dsci = Find(xData.Item_UniqueName_v.v);
-        //    if (dsci == null)
-        //    {
-        //        dsci = new Consumption_ShopC_Item();
-        //        if (dsci.SetNew(docTyp, doc_ID, xData, null, xquantity2add, transaction))
-        //        {
-        //            this.Basket_Consumption_ShopC_Item_LIST.Add(dsci);
-        //            return true;
-        //        }
-        //        else
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (dsci.AddFactory(docTyp, doc_ID, xData, xquantity2add, transaction))
-        //        {
-        //            return true;
-        //        }
-        //        else
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //}
-
-
+       
         public bool Add2Basket(ref Consumption_ShopC_Item dsci,string docTyp,ID doc_ID,decimal xquantity2add, CItem_Data xData, deleagate_Select_Items_From_Stock_Dialog delegate_Select_Items_From_Stock_Dialog)
         {
 
@@ -687,161 +635,7 @@ namespace TangentaDB
             }
         }
 
-        //public bool RemoveFactory(string xDocTyp,Consumption_ShopC_Item xdsci, Transaction transaction)
-        //{
-        //    string sql = null;
-
-        //    ID item_ID = xdsci.Find_Item_ID();
-        //    if (xDocTyp==null)
-        //    {
-        //        LogFile.Error.Show("ERROR:Basket.cs:Basket:RemoveFactory:xDocTyp = null not implemented.");
-        //        return false;
-        //    }
-        //    else if (xDocTyp.Equals(GlobalData.const_ConsumptionAll))
-        //    {
-        //        sql = @"select dsci.ID from Consumption_ShopC_Item  dsci
-        //                          inner join Consumption_ShopC_Item_Source dsciS on dsciS.Consumption_ShopC_Item_ID = dsci.ID
-        //                          inner join Atom_price_item api on api.ID = dsci.Atom_price_item_ID
-        //                          inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
-        //                          inner join Item i on i.UniqueName = ai.UniqueName
-        //                          where  (Consumption_ID = " + xdsci.Consumption_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ") and dsciS.Stock_ID is null";
-        //    }
-        //    else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
-        //    {
-        //        sql = @"select dsci.ID from DocProformaInvoice_ShopC_Item  dsci
-        //                          inner join DocProformaInvoice_ShopC_Item_Source dsciS on dsciS.DocProformaInvoice_ShopC_Item_ID = dsci.ID
-        //                          inner join Atom_price_item api on api.ID = dsci.Atom_price_item_ID
-        //                          inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
-        //                          inner join Item i on i.UniqueName = ai.UniqueName
-        //                          where  (DocProformaInvoice_ID = " + xdsci.Consumption_ID.ToString() + ") and (i.ID=" + item_ID.ToString() + ") and dsciS.Stock_ID is null";
-        //    }
-        //    else
-        //    {
-        //        LogFile.Error.Show("ERROR:Basket.cs:Basket:RemoveFactory:xDocTyp=" + xDocTyp + " not implemented.");
-        //        return false;
-        //    }
-
-        //    DataTable dt1 = new DataTable();
-        //    string Err = null;
-        //    if (DBSync.DBSync.ReadDataTable(ref dt1, sql, ref Err))
-        //    {
-        //        string s_in_ID_list = null;
-        //        if (dt1.Rows.Count > 0)
-        //        {
-        //            foreach (DataRow dr in dt1.Rows)
-        //            {
-        //                ID id = tf.set_ID(dr["ID"]);
-        //                if (s_in_ID_list == null)
-        //                {
-        //                    s_in_ID_list += "(" + id.ToString();
-        //                }
-        //                else
-        //                {
-        //                    s_in_ID_list += "," + id.ToString();
-        //                }
-        //            }
-        //            if (s_in_ID_list != null)
-        //            {
-        //                s_in_ID_list += ")"; // close ID_List!
-        //            }
-
-        //            string sql_Delete_Consumption_Atom_Item_Stock = null;
-        //            if (xDocTyp.Equals(GlobalData.const_ConsumptionAll))
-        //            {
-        //                sql_Delete_Consumption_Atom_Item_Stock = "delete from Consumption_ShopC_Item_Source where Stock_ID is null and  Consumption_ShopC_Item_ID in " + s_in_ID_list;
-        //            }
-        //            else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
-        //            {
-        //                sql_Delete_Consumption_Atom_Item_Stock = "delete from DocProformaInvoice_ShopC_Item_Source where Stock_ID is null and  DocProformaInvoice_ShopC_Item_ID in " + s_in_ID_list;
-        //            }
-        //            else
-        //            {
-        //                LogFile.Error.Show("ERROR:Basket.cs:Basket:RemoveFactory:xDocTyp=" + xDocTyp + " not implemented.");
-        //                return false;
-        //            }
-
-        //            if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_Delete_Consumption_Atom_Item_Stock, null,  ref Err))
-        //            {
-        //                string sql_Delete_Atom_Price_Item = "delete from Atom_Price_Item where ID not in  (select Atom_Price_Item_ID from Consumption_ShopC_Item UNION select Atom_Price_Item_ID from DocProformaInvoice_ShopC_Item)";
-        //                if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_Delete_Atom_Price_Item, null, ref Err))
-        //                {
-        //                    string sql_Delete_Atom_Item_Image = "delete from Atom_Item_Image where Atom_Item_Image.Atom_Item_ID not in (select Atom_Item_ID from Atom_Price_Item)";
-        //                    if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_Delete_Atom_Item_Image, null,  ref Err))
-        //                    {
-        //                        string sql_Delete_Atom_Item_ImageLib = "delete from Atom_Item_ImageLib where ID not in (select Atom_Item_ImageLib_ID from Atom_Item_Image)";
-        //                        if (transaction.ExecuteNonQuerySQL(DBSync.DBSync.Con,sql_Delete_Atom_Item_ImageLib, null, ref Err))
-        //                        {
-        //                            RemoveFactory_from_list(xdsci);
-        //                            if (xdsci.dQuantity_all==0)
-        //                            {
-        //                                if (xDocTyp.Equals(GlobalData.const_ConsumptionAll))
-        //                                {
-        //                                    if (f_Consumption_ShopC_Item.Delete(xdsci.Consumption_ShopC_Item_ID, transaction))
-        //                                    {
-        //                                        this.Basket_Consumption_ShopC_Item_LIST.Remove(xdsci);
-        //                                        return true; 
-        //                                    }
-        //                                    else
-        //                                    {
-        //                                        return false;
-        //                                    }
-        //                                }
-        //                                else if (xDocTyp.Equals(GlobalData.const_DocProformaInvoice))
-        //                                {
-        //                                    if (f_DocProformaInvoice_ShopC_Item.Delete(xdsci.Consumption_ShopC_Item_ID, transaction))
-        //                                    {
-        //                                        this.Basket_Consumption_ShopC_Item_LIST.Remove(xdsci);
-        //                                        return true; 
-        //                                    }
-        //                                    else
-        //                                    {
-        //                                        return false;
-        //                                    }
-        //                                }
-        //                                else
-        //                                {
-        //                                    LogFile.Error.Show("ERROR:TangentaDB:Basket:RemoveFactory:unsuported xDocTyp =" + xDocTyp);
-        //                                    return false;
-        //                                }
-        //                            }
-        //                            return true;
-        //                        }
-        //                        else
-        //                        {
-        //                            LogFile.Error.Show("ERROR:Basket:sql=" + sql_Delete_Atom_Item_ImageLib + "\r\nErr=" + Err);
-        //                            return false;
-        //                        }
-        //                    }
-        //                    else
-        //                    {
-        //                        LogFile.Error.Show("ERROR:Basket:delete from Atom_Item:Err=" + Err);
-        //                        return false;
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    LogFile.Error.Show("ERROR:Basket:sql=" + sql_Delete_Atom_Price_Item + "\r\nErr=" + Err);
-        //                    return false;
-        //                }
-
-        //            }
-        //            else
-        //            {
-        //                LogFile.Error.Show("ERROR:Basket:delete from Consumption_ShopC_Item:Err=" + Err);
-        //                return false;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            LogFile.Error.Show("ERROR:Basket:dt1.Rows.Count == 0 !");
-        //            return false;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        LogFile.Error.Show("ERROR:Basket:sql=" + sql + "\r\nErr=" + Err);
-        //        return false;
-        //    }
+       
         //}
 
 
@@ -850,11 +644,6 @@ namespace TangentaDB
              this.Basket_Consumption_ShopC_Item_LIST.Remove(xdsci);
         }
 
-        private void RemoveFactory_from_list(Consumption_ShopC_Item xdsci)
-        {
-            xdsci.dsciS_List.RemoveFactory_from_list();
-
-        }
         private void RemoveStock_from_list(Consumption_ShopC_Item xdsci)
         {
             xdsci.dsciS_List.RemoveStock_from_list();

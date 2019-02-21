@@ -14,6 +14,7 @@ namespace Tangenta
         public static CtrlColors DocProformaInvoice = new CtrlColors(lng.s_CtrlColors_DocProformaInvoice.s, 15, TangentaProperties.Properties.Settings.Default.Color_DocProformaInvoiceBackGround, TangentaProperties.Properties.Settings.Default.Color_DocProformaInvoiceForeGround);
         public static CtrlColors m_usrc_DocumentEditor = new CtrlColors(lng.s_CtrlColors_DocumentEditor.s, 11, TangentaProperties.Properties.Settings.Default.Color_DocProformaInvoiceBackGround, TangentaProperties.Properties.Settings.Default.Color_DocProformaInvoiceForeGround);
         public static CtrlColors m_usrc_TableOfDocuments = new CtrlColors(lng.s_CtrlColors_TableOfDocuments.s, 12, TangentaProperties.Properties.Settings.Default.Color_DocProformaInvoiceBackGround, TangentaProperties.Properties.Settings.Default.Color_DocProformaInvoiceForeGround);
+        public static CtrlColors m_usrc_TableOfComsumption = new CtrlColors(lng.s_CtrlColors_TableOfDocuments.s, 12, TangentaProperties.Properties.Settings.Default.Color_DocProformaInvoiceBackGround, TangentaProperties.Properties.Settings.Default.Color_DocProformaInvoiceForeGround);
         public static void Init()
         {
         }

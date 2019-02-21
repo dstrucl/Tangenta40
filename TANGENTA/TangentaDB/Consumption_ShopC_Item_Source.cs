@@ -80,26 +80,24 @@ namespace TangentaDB
         {
             if (xdQuantity == this.dQuantity)
             {
-                if (docType.Equals(GlobalData.const_ConsumptionAll))
-                {
+                
                     if (f_Consumption_ShopC_Item_Source.Delete(this.Consumption_ShopC_Item_Source_ID, transaction))
                     {
                         this.dQuantity = 0;
                         return true;
                     }
-                }
+                
             }
             else if (xdQuantity < this.dQuantity)
             {
                 decimal dnew_quantity_in_stock = this.dQuantity - xdQuantity;
-                if (docType.Equals(GlobalData.const_ConsumptionAll))
-                {
+               
                     if (f_DocInvoice_ShopC_Item_Source.UpdateQuantity(this.Consumption_ShopC_Item_Source_ID, dnew_quantity_in_stock,transaction))
                     {
                         this.dQuantity = dnew_quantity_in_stock;
                         return true;
                     }
-                }
+                
 
             }
             else

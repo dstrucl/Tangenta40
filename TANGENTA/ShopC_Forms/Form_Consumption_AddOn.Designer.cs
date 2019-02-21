@@ -42,7 +42,7 @@
             this.m_usrc_Consumption_AddOn.Name = "m_usrc_Consumption_AddOn";
             this.m_usrc_Consumption_AddOn.Size = new System.Drawing.Size(712, 657);
             this.m_usrc_Consumption_AddOn.TabIndex = 1;
-            this.m_usrc_Consumption_AddOn.Issue += new usrc_AddOn_Consumption.delegate_Issue(this.m_usrc_OwnUseAddOn_Issue);
+            this.m_usrc_Consumption_AddOn.Issue += new usrc_AddOn_Consumption.delegate_Issue(this.m_usrc_ConsumptionAddOn_Issue);
             // 
             // Form_Consumption_AddOn
             // 
@@ -54,7 +54,7 @@
             this.Name = "Form_Consumption_AddOn";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Receipt_Preview_Form";
-            this.Load += new System.EventHandler(this.Form_OwnUse_AddOn_Load);
+            this.Load += new System.EventHandler(this.Form_Consumption_AddOn_Load);
             this.ResumeLayout(false);
 
         }

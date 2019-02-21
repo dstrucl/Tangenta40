@@ -33,16 +33,16 @@ namespace ShopC_Forms
         public delegate bool delegate_Issue(ShopC_Forms.ConsumptionAddOn ownuse_add_on, Transaction transaction);
         public event delegate_Issue Issue = null;
 
-        private ConsumptionAddOn m_AddOwnUse = null;
-        private ConsumptionAddOn AddOnOwnUse
+        private ConsumptionAddOn m_AddOnConsumption= null;
+        private ConsumptionAddOn AddOnConsumption
         {
             get
             {
-                return m_AddOwnUse;
+                return m_AddOnConsumption;
             }
             set
             {
-                m_AddOwnUse = value;
+                m_AddOnConsumption= value;
             }
         }
 
@@ -53,111 +53,50 @@ namespace ShopC_Forms
         public usrc_AddOn_Consumption()
         {
             InitializeComponent();
+            lng.s_Removing_from_stock_Reason_Name.Text(lbl_Comsumption_Reason_Name);
+            lng.s_Removing_from_stock_Reason_Description.Text(lbl_Consumption_Reason_Description);
+            lng.s_Removing_from_stock_description1.Text(lbl_Description_Name);
+            lng.s_IssueDate.Text(lbl_DateOfIssue);
+                       
+            lng.s_Issue.Text(btn_Comsumption_Issue);
 
-            //lng.s_Cash.Text(rdb_Cash);
-            //lng.s_PaymentCard.Text(this.rdb_CARD);
-            //lng.s_AlreadyPaid.Text(rdb_AllreadyPayed);
-            //lng.s_PaymentOnBankAccount.Text(rdb_BankAccountTransfer);
-            //lng.s_lbl_DateOfInvoiceIssue.Text(lbl_DateOfIssue);
-            //lng.s_Payment_Deadline.Text(lbl_PaymentDeadline);
-            //lng.s_MethodOfPayment.Text(grp_MtehodOfPaymentType);
-            //lng.s_TermsOfPayment.Text(grp_TermsOfPayment);
-            //lng.s_Invoice_Issue.Text(btn_Invoice_Issue);
-
-            //this.rdb_Cash.CheckedChanged += new System.EventHandler(this.rdb_Cash_CheckedChanged);
-            //this.rdb_BankAccountTransfer.CheckedChanged += Rdb_BankAccountTransfer_CheckedChanged;
-            //this.rdb_CARD.CheckedChanged += Rdb_CARD_CheckedChanged;
-            //this.rdb_AllreadyPayed.CheckedChanged += rdb_AllreadyPayed_CheckedChanged;
-            //this.lbl_PaymentDeadline.Enabled = false;
-            //this.dtP_PaymentDeadline.Enabled = false;
-            //this.dtP_DateOfIssue.Value = DateTime.Now;
-            //this.dtP_PaymentDeadline.Value = DateTime.Now.AddDays(8);
-            //this.txt_BankAccount.Enabled = false;
-            //btn_Select_BankAccount.Enabled = false;
+            this.dtP_DateOfIssue.Value = DateTime.Now;
+         
 
         }
 
-        private void Enable_BankAccountTransfer(bool bEnable)
-        {
-            //txt_BankAccount.Enabled = bEnable;
-            //btn_Select_BankAccount.Enabled = bEnable;
-            //lbl_PaymentDeadline.Enabled = bEnable;
-            //dtP_PaymentDeadline.Enabled = bEnable;
-        }
+       
 
-        public bool Init(ConsumptionAddOn x_OwnUseAddOn, bool bxPrint, usrc_Consumption_AddOn x_usrc_AddOn) //, int xCurrency_DecimalPlaces, decimal xGrossSum)
+        public bool Init(ConsumptionAddOn x_ConsumptionAddOn, bool bxPrint, usrc_Consumption_AddOn x_usrc_AddOn) //, int xCurrency_DecimalPlaces, decimal xGrossSum)
         {
-            Enable_BankAccountTransfer(false);
-            AddOnOwnUse = x_OwnUseAddOn;
+          
+            AddOnConsumption= x_ConsumptionAddOn;
             m_bPrint = bxPrint;
             m_usrc_Consumption_AddOn = x_usrc_AddOn;
             if (m_bPrint)
             {
-                lng.s_Consumption_Issue.Text(this.btn_Invoice_Issue);
+                lng.s_Consumption_Issue.Text(this.btn_Comsumption_Issue);
             }
             else
             {
-                this.btn_Invoice_Issue.Text = lng.s_OK.s;
+                this.btn_Comsumption_Issue.Text = lng.s_OK.s;
             }
 
-            AddOnOwnUse.GetReasonTable();
-            AddOnOwnUse.GetDescriptionTable();
-            cmb_Reason.DataSource = AddOnOwnUse.dtConsumptionReason;
+            AddOnConsumption.GetReasonTable();
+            AddOnConsumption.GetDescriptionTable();
+            cmb_Reason.DataSource = AddOnConsumption.dtConsumptionReason;
             cmb_Reason.DisplayMember = "Name";
             cmb_Reason.ValueMember = "ID";
 
-            cmb_Description.DataSource = AddOnOwnUse.dtConsumptionDescription;
+            cmb_Description.DataSource = AddOnConsumption.dtConsumptionDescription;
             cmb_Reason.DisplayMember = "Name";
             cmb_Reason.ValueMember = "ID";
 
             if (ID.Validate(m_usrc_Consumption_AddOn.ConsM.ConsE.CurrentCons.Doc_ID))
             {
-                if (AddOnOwnUse.Get(m_usrc_Consumption_AddOn.ConsM.ConsE.CurrentCons.Doc_ID))
+                if (AddOnConsumption.Get(m_usrc_Consumption_AddOn.ConsM.ConsE.CurrentCons.Doc_ID))
                 {
-                    //if (AddOnDI.MyIssueDate != null)
-                    //{
-                    //    dtP_DateOfIssue.Value = AddOnDI.MyIssueDate.Date;
-                    //}
-
-                    //if (AddOnDI.MyPaymentDeadline != null)
-                    //{
-                    //    dtP_PaymentDeadline.Value = AddOnDI.MyPaymentDeadline.Date;
-                    //}
-
-                    //if (AddOnDI.MyMethodOfPayment_DI != null)
-                    //{
-                    //    switch (AddOnDI.MyMethodOfPayment_DI.eType)
-                    //    {
-                    //        case GlobalData.ePaymentType.CASH:
-                    //            rdb_Cash.Checked = true;
-                    //            break;
-                    //        case GlobalData.ePaymentType.CARD:
-                    //            rdb_CARD.Checked = true;
-                    //            break;
-                    //        case GlobalData.ePaymentType.CASH_OR_CARD:
-                    //            rdb_Cash.Checked = true;
-                    //            break;
-                    //        case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
-                    //            rdb_BankAccountTransfer.Checked = true;
-                    //            txt_BankAccount.Text = SetBankAccountText();
-                    //            Enable_BankAccountTransfer(true);
-                    //            break;
-                    //    }
-                    //}
-                    //if (AddOnDI.MyTermsOfPayment == null)
-                    //{
-                    //    // set default value !
-                    //    AddOnDI.MyTermsOfPayment = new DocInvoice_AddOn.TermsOfPayment();
-                    //    AddOnDI.MyTermsOfPayment.GetDefault();
-                    //    if (AddOnDI.MyTermsOfPayment.Description.Length > 0)
-                    //    {
-                    //        txt_PaymantConditionsDescription.Text = AddOnDI.MyTermsOfPayment.Description;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    txt_PaymantConditionsDescription.Text = AddOnDI.MyTermsOfPayment.Description;
-                    //}
+                    
 
                     return true;
                 }
@@ -173,144 +112,30 @@ namespace ShopC_Forms
         }
 
 
-        //private void Rdb_CARD_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    if (rdb_CARD.Checked)
-        //    {
-        //        Enable_BankAccountTransfer(false);
-        //        if (AddOnDI.MyMethodOfPayment_DI==null)
-        //        {
-        //            AddOnDI.MyMethodOfPayment_DI = new DocInvoice_AddOn.MethodOfPayment_DI();
-        //        }
-        //        AddOnDI.MyMethodOfPayment_DI.eType = GlobalData.ePaymentType.CARD;
-        //    }
-        //}
-
-        //private void Rdb_BankAccountTransfer_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    if (rdb_BankAccountTransfer.Checked)
-        //    {
-        //        if (AddOnDI.MyMethodOfPayment_DI == null)
-        //        {
-        //            AddOnDI.MyMethodOfPayment_DI = new DocInvoice_AddOn.MethodOfPayment_DI();
-        //        }
-        //        AddOnDI.MyMethodOfPayment_DI.eType = GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER;
-        //        Enable_BankAccountTransfer(true);
-        //    }
-        //}
-
-        //private void rdb_AllreadyPayed_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    if (rdb_AllreadyPayed.Checked)
-        //    {
-        //        if (AddOnDI.MyMethodOfPayment_DI == null)
-        //        {
-        //            AddOnDI.MyMethodOfPayment_DI = new DocInvoice_AddOn.MethodOfPayment_DI();
-        //        }
-        //        AddOnDI.MyMethodOfPayment_DI.eType = GlobalData.ePaymentType.ALLREADY_PAID;
-        //        Enable_BankAccountTransfer(false);
-
-        //    }
-        //}
-
-
-        //private void rdb_Cash_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    if (rdb_Cash.Checked)
-        //    {
-        //        if (AddOnDI.MyMethodOfPayment_DI == null)
-        //        {
-        //            AddOnDI.MyMethodOfPayment_DI = new DocInvoice_AddOn.MethodOfPayment_DI();
-        //        }
-        //        AddOnDI.MyMethodOfPayment_DI.eType = GlobalData.ePaymentType.CASH;
-        //        Enable_BankAccountTransfer(false);
-        //    }
-        //    else
-        //    {
-        //    }
-        //}
-
-
-        //private void btn_Select_BankAccount_Click(object sender, EventArgs e)
-        //{
-        //    Select_MyOrgBankAccount();
-        //}
-
-        //private void Select_MyOrgBankAccount()
-        //{
-        //    NavigationButtons.Navigation xnav = new NavigationButtons.Navigation(null);
-        //    xnav.bDoModal = true;
-        //    xnav.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-        //    SQLTable tbl_OrganisationAccount = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationAccount)));
-        //    Form_OrganisationAccount_Edit edt_Item_dlg = new Form_OrganisationAccount_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
-        //                                                                tbl_OrganisationAccount,
-        //                                                                " OrganisationAccount_$_org_$$Name desc", xnav);
-        //    if (edt_Item_dlg.ShowDialog(this) == DialogResult.Yes)
-        //    {
-        //        if (this.AddOnDI.MyMethodOfPayment_DI == null)
-        //        {
-        //            this.AddOnDI.MyMethodOfPayment_DI = new DocInvoice_AddOn.MethodOfPayment_DI();
-
-        //        }
-        //        this.AddOnDI.MyMethodOfPayment_DI.eType = GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER;
-        //        if (this.AddOnDI.MyMethodOfPayment_DI.m_MyOrgBankAccountPayment==null)
-        //        {
-        //            this.AddOnDI.MyMethodOfPayment_DI.m_MyOrgBankAccountPayment = new MyOrgBankAccountPayment();
-        //        }
-        //        this.AddOnDI.MyMethodOfPayment_DI.m_MyOrgBankAccountPayment.BankAccount_ID = edt_Item_dlg.BankAccount_ID;
-        //        this.AddOnDI.MyMethodOfPayment_DI.m_MyOrgBankAccountPayment.BankName = edt_Item_dlg.BankName;
-        //        this.AddOnDI.MyMethodOfPayment_DI.m_MyOrgBankAccountPayment.Bank_Tax_ID = edt_Item_dlg.Bank_Tax_ID;
-        //        this.AddOnDI.MyMethodOfPayment_DI.m_MyOrgBankAccountPayment.Bank_Registration_ID = edt_Item_dlg.Bank_Registration_ID;
-        //        this.AddOnDI.MyMethodOfPayment_DI.m_MyOrgBankAccountPayment.BankAccount = edt_Item_dlg.TRR;
-        //        this.txt_BankAccount.Text = SetBankAccountText();
-        //    }
-        //}
-
-        //private void btn_Select_Terms_of_Payment_Click(object sender, EventArgs e)
-        //{
-        //    Select_Terms_of_Payment();
-        //}
-
-        //private void Select_Terms_of_Payment()
-        //{
-        //    NavigationButtons.Navigation xnav = new NavigationButtons.Navigation(null);
-        //    xnav.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-        //    SQLTable tbl_TermsOfPayment = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TermsOfPayment)));
-        //    Form_TermsOfPayment_Edit TermsOfPayment_dlg = new Form_TermsOfPayment_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_TermsOfPayment, "ID asc", xnav);
-        //    if (TermsOfPayment_dlg.ShowDialog() == DialogResult.OK)
-        //    {
-        //        this.txt_PaymantConditionsDescription.Text = TermsOfPayment_dlg.Description;
-        //        if (this.AddOnDI.MyTermsOfPayment == null)
-        //        {
-        //            this.AddOnDI.MyTermsOfPayment = new DocInvoice_AddOn.TermsOfPayment();
-        //        }
-        //        this.AddOnDI.MyTermsOfPayment.ID = TermsOfPayment_dlg.TermsOfPayment_ID;
-        //        this.AddOnDI.MyTermsOfPayment.Description = TermsOfPayment_dlg.Description;
-        //    }
-        //}
+        
 
         private void btn_Issue_Click(object sender, EventArgs e)
         {
            
-            if (m_AddOwnUse.MyIssueDate == null)
+            if (m_AddOnConsumption.MyIssueDate == null)
             {
-                m_AddOwnUse.MyIssueDate = new ConsumptionAddOn.IssueDate();
+                m_AddOnConsumption.MyIssueDate = new ConsumptionAddOn.IssueDate();
             }
-            m_AddOwnUse.MyIssueDate.Date = dtP_DateOfIssue.Value;
+            m_AddOnConsumption.MyIssueDate.Date = dtP_DateOfIssue.Value;
 
 
             ltext ltMsg = null;
             //AddOnDI.m_NoticeText = this.usrc_Notice1.NoticeText;
-            if (AddOnOwnUse.Completed(ref ltMsg))
+            if (AddOnConsumption.Completed(ref ltMsg))
             {
-                Transaction transaction_usrc_DocInvoice_AddOn_Set = DBSync.DBSync.NewTransaction("usrc_OwnUse_AddOn.btn_Issue_Click");
-                AddOnOwnUse.ReasonName = this.cmb_Reason.Text;
-                AddOnOwnUse.ReasonDescription = this.txt_ReasonDescription.Text;
-                AddOnOwnUse.DescriptionName = this.cmb_Description.Text;
-                AddOnOwnUse.DescriptionDescription = this.txt_DescriptionDescription.Text;
+                Transaction transaction_usrc_DocInvoice_AddOn_Set = DBSync.DBSync.NewTransaction("usrc_Consumption_AddOn.btn_Issue_Click");
+                AddOnConsumption.ReasonName = this.cmb_Reason.Text;
+                AddOnConsumption.ReasonDescription = this.txt_ReasonDescription.Text;
+                AddOnConsumption.DescriptionName = this.cmb_Description.Text;
+                AddOnConsumption.DescriptionDescription = this.txt_DescriptionDescription.Text;
                 if (Issue != null)
                 {
-                    if (Issue(AddOnOwnUse, transaction_usrc_DocInvoice_AddOn_Set))
+                    if (Issue(AddOnConsumption, transaction_usrc_DocInvoice_AddOn_Set))
                     {
                         transaction_usrc_DocInvoice_AddOn_Set.Commit();
                     }
