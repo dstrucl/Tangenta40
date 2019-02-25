@@ -180,7 +180,7 @@ namespace ShopC_Forms
                 TangentaDB.Consumption_ShopC_Item dsci = null;
                 if (this.SelectItemsFromStockDialog)
                 {
-                    bRes = m_consE.CurrentCons.m_Basket.Add2Basket(ref dsci,
+                    bRes = m_consE.CurrentCons.m_Basket.Add2Basket(this,ref dsci,
                                                                      m_consE.ConsumptionType_Name,
                                                                      m_consE.CurrentCons.Doc_ID,
                                                                      dQuantity2Add,
@@ -189,7 +189,7 @@ namespace ShopC_Forms
                 }
                 else
                 {
-                    bRes = m_consE.CurrentCons.m_Basket.Add2Basket(ref dsci,
+                    bRes = m_consE.CurrentCons.m_Basket.Add2Basket(this,ref dsci,
                                                                      m_consE.ConsumptionType_Name,
                                                                      m_consE.CurrentCons.Doc_ID,
                                                                      dQuantity2Add,

@@ -7,6 +7,7 @@
 #endregion
 using DBConnectionControl40;
 using DBTypes;
+using LanguageControl;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -180,7 +181,7 @@ namespace TangentaDB
         }
 
        
-        public bool Add2Basket(ref Consumption_ShopC_Item dsci,string docTyp,ID doc_ID,decimal xquantity2add, CItem_Data xData, deleagate_Select_Items_From_Stock_Dialog delegate_Select_Items_From_Stock_Dialog)
+        public bool Add2Basket(Control parentControl,ref Consumption_ShopC_Item dsci,string docTyp,ID doc_ID,decimal xquantity2add, CItem_Data xData, deleagate_Select_Items_From_Stock_Dialog delegate_Select_Items_From_Stock_Dialog)
         {
 
             dsci = Find(xData.Item_UniqueName_v.v);
@@ -190,34 +191,48 @@ namespace TangentaDB
             DataTable xdt_ShopC_Item_In_Stock = null;
             if (f_Stock.GetItemInStock(xData.Item_ID, ref xdt_ShopC_Item_In_Stock))
             {
-                List<CStock_Data> taken_from_Stock_List = new List<CStock_Data>();
+                if (xdt_ShopC_Item_In_Stock.Rows.Count > 0)
+                {
+                    List<CStock_Data> taken_from_Stock_List = new List<CStock_Data>();
 
-                if (delegate_Select_Items_From_Stock_Dialog!=null)
-                {
-                    delegate_Select_Items_From_Stock_Dialog(xdt_ShopC_Item_In_Stock, xquantity2add, ref taken_from_Stock_List, ref dQuantitySelectedFromStock);
-                }
-                else
-                {
-                    AutoSelect_Items_From_Stock(xdt_ShopC_Item_In_Stock, xquantity2add, ref taken_from_Stock_List, ref dQuantitySelectedFromStock);
-                }
-                Transaction transaction_Basket_Add2Basket_WriteItemStockTransferInDataBase = DBSync.DBSync.NewTransaction("Basket.Add2Basket.WriteItemStockTransferInDataBase");
-
-                if (WriteItemStockTransferInDataBase(docTyp,
-                                                    doc_ID,
-                                                    xData,
-                                                    ref dsci,
-                                                    taken_from_Stock_List,
-                                                    transaction_Basket_Add2Basket_WriteItemStockTransferInDataBase))
-                {
-                    if (transaction_Basket_Add2Basket_WriteItemStockTransferInDataBase.Commit())
+                    if (delegate_Select_Items_From_Stock_Dialog != null)
                     {
-                        return true;
+                        delegate_Select_Items_From_Stock_Dialog(xdt_ShopC_Item_In_Stock, xquantity2add, ref taken_from_Stock_List, ref dQuantitySelectedFromStock);
                     }
+                    else
+                    {
+                        AutoSelect_Items_From_Stock(xdt_ShopC_Item_In_Stock, xquantity2add, ref taken_from_Stock_List, ref dQuantitySelectedFromStock);
+                    }
+                    Transaction transaction_Basket_Add2Basket_WriteItemStockTransferInDataBase = DBSync.DBSync.NewTransaction("Basket.Add2Basket.WriteItemStockTransferInDataBase");
+
+                    if (WriteItemStockTransferInDataBase(docTyp,
+                                                        doc_ID,
+                                                        xData,
+                                                        ref dsci,
+                                                        taken_from_Stock_List,
+                                                        transaction_Basket_Add2Basket_WriteItemStockTransferInDataBase))
+                    {
+                        if (transaction_Basket_Add2Basket_WriteItemStockTransferInDataBase.Commit())
+                        {
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        transaction_Basket_Add2Basket_WriteItemStockTransferInDataBase.Rollback();
+                    }
+
                 }
                 else
                 {
-                    transaction_Basket_Add2Basket_WriteItemStockTransferInDataBase.Rollback();
+                    List<object> lmsg = new List<object>();
+                    lmsg.Add(lng.s_ThereIsNoItemInStockWithUniqueName);
+                    lmsg.Add(xData.Item_UniqueName);
+                    ltext ltmsg = new ltext(lmsg);
+                    Form parentform = Global.f.GetParentForm(parentControl);
+                    XMessage.Box.Show(parentform, ltmsg,SystemIcons.Information);
                 }
+
             }
             return false;
         }

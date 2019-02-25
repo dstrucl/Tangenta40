@@ -562,8 +562,11 @@ namespace usrc_Item_InsidePage_Handler
                     {
                         Control xctrl = null;
                         CreateControl(ref xctrl);
+                        
                         if (xctrl != null)
                         {
+                            m_ctrlWidth = xctrl.Width;
+                            m_ctrlHeight = xctrl.Height;
                             xctrl.Paint += Xctrl_Paint;
                             xctrl.Click += Xctrl_Click;
                             xctrl.Left = icol * CtrlWidth;

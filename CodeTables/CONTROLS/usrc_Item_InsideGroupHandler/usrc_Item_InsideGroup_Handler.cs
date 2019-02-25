@@ -589,35 +589,35 @@ namespace usrc_Item_InsideGroup_Handler
 
         private void Usrc_Item_InsidePageHandler1_CreateControl(ref Control ctrl)
         {
-            Button btn = new Button();
-            ctrl = btn;
+            usrc_GroupButton gbtn = new usrc_GroupButton();
+            ctrl = gbtn;
         }
 
         private void Usrc_Item_InsidePageHandler2_CreateControl(ref Control ctrl)
         {
-            Button btn = new Button();
-            ctrl = btn;
+            usrc_GroupButton gbtn = new usrc_GroupButton();
+            ctrl = gbtn;
         }
 
         private void Usrc_Item_InsidePageHandler3_CreateControl(ref Control ctrl)
         {
-            Button btn = new Button();
-            ctrl = btn;
+            usrc_GroupButton gbtn = new usrc_GroupButton();
+            ctrl = gbtn;
         }
 
         private void fillControl(Control ctrl, object oData, usrc_Item_InsidePageHandler<GroupInsideControl>.eMode emode)
         {
             if (oData is GroupInsideControl)
             {
-                Button btn = (Button)ctrl;
+                usrc_GroupButton gbtn = (usrc_GroupButton)ctrl;
                 GroupInsideControl gic = (GroupInsideControl)oData;
                 if (gic.Name != null)
                 {
-                    btn.Text = gic.Name;
+                    gbtn.Title = gic.Name;
                 }
                 else
                 {
-                    btn.Text = lng.s_Other.s;
+                    gbtn.Title = lng.s_Other.s;
                 }
             }
         }

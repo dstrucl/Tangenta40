@@ -58,6 +58,11 @@ namespace ShopC_Forms
         public usrc_Atom_CItem()
         {
             InitializeComponent();
+            lng.s_PurchasePricePerUnit.Text(lbl_PurchasePricePerUnitWithoutDiscount);
+            lng.s_PurchaseDiscount.Text(lbl_PurchasePriceDiscount);
+            lng.s_PurchasePriceWithDiscount.Text(lbl_PurchasePrice);
+            lng.s_Quantity.Text(lbl_Quantity);
+
         }
 
         internal void SelectControl(object oData, bool selected)
@@ -84,39 +89,47 @@ namespace ShopC_Forms
                 sunit = m_csci.Unit_Symbol_v.v;
             }
 
-         
-            decimal RetailPrice = 0;
-            decimal RetailPriceWithDiscount = 0;
-            decimal TaxPrice = 0;
-            decimal NetPrice = 0;
 
-            m_csci.dsciS_List.GetPrices(m_csci.TaxationRate,
-                                        m_csci.dQuantity_FromStock,
+            if (m_csci.dQuantity_all > 0)
+            {
+                decimal PurchasePrice = 0;
+                decimal PurchasePriceWithDiscount = 0;
+                decimal TaxPrice = 0;
+                decimal NetPrice = 0;
+                decimal m_csci_PurchasePricePerUnit_all = m_csci.PurchasePricePerUnit * m_csci.dQuantity_all;
+                txt_PurchasePricePerUnitWithoutDiscount.Text = LanguageControl.DynSettings.SetLanguageCurrencyString(m_csci.PurchasePricePerUnit, GlobalData.BaseCurrency.DecimalPlaces, GlobalData.BaseCurrency.Symbol);
+                decimal purchasePricePerUnit_Discount = 0;
+                if (m_csci.PurchasePricePerUnit_Discount !=-1)
+                {
+                    purchasePricePerUnit_Discount = 0;
+                }
+
+
+                m_csci.dsciS_List.GetPrices(0,
+                                        purchasePricePerUnit_Discount,
                                         0,
-                                        m_csci.PurchasePricePerUnit,
-                                        ref RetailPrice,
-                                        ref RetailPriceWithDiscount,
+                                        m_csci_PurchasePricePerUnit_all,
+                                        ref PurchasePrice,
+                                        ref PurchasePriceWithDiscount,
                                         ref TaxPrice,
                                         ref NetPrice
                                         );
-            
-            if (m_csci.dQuantity_all > 0)
-            {
-                lbl_Quantity_Value.Text = m_csci.dQuantity_all.ToString() + " " + sunit;
-                lbl_Quantity_Value.Visible = true;
+           
+                this.txt_Quantity.Text = m_csci.dQuantity_all.ToString() + " " + sunit;
+                lbl_PurchasePriceDiscount.Visible = true;
+          
+
+
+                this.txt_PurchasePriceWithDiscount.Text = LanguageControl.DynSettings.SetLanguageCurrencyString(PurchasePriceWithDiscount, GlobalData.BaseCurrency.DecimalPlaces, GlobalData.BaseCurrency.Symbol);
+                this.lbl_PurchasePrice.Visible = true;
+
+                decimal dTotalDiscount = m_csci.PurchasePricePerUnit_Discount;
+                txt_PurchasePriceDiscount.Text = Global.f.GetPercent(purchasePricePerUnit_Discount, GlobalData.BaseCurrency.DecimalPlaces) + "%";
             }
             else
             {
-                lbl_Quantity_Value.Visible = false;
+                lbl_PurchasePriceDiscount.Visible = false;
             }
-
-
-            lbl_RetailPriceValue.Text = LanguageControl.DynSettings.SetLanguageCurrencyString(RetailPriceWithDiscount, GlobalData.BaseCurrency.DecimalPlaces, GlobalData.BaseCurrency.Symbol);
-            lbl_RetailPriceValue.Visible = true;
-
-            decimal dTotalDiscount = m_csci.PurchasePricePerUnit_Discount;
-            lbl_DiscountValue.Text = Global.f.GetPercent(m_csci.TotalDiscount, GlobalData.BaseCurrency.DecimalPlaces) + "%";
-
         }
 
         internal void DoPaint(TangentaDB.Consumption_ShopC_Item xdsci, usrc_CItem_InsidePageHandler_Consumption_ShopC_Item.eMode emode)

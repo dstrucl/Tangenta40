@@ -105,11 +105,11 @@ namespace ShopC_Forms
 
                     if (m_usrc_ItemList.SelectItemsFromStockDialog)
                     {
-                        bresFromStock = m_ConsE.CurrentCons.m_Basket.Add2Basket(ref dsci,m_ConsE.ConsumptionType_Name, m_ConsE.CurrentCons.m_Doc_ID, dadd_QuantityFromStock, idata, this.m_usrc_ItemList.Select_Items_From_Stock_Dialog);
+                        bresFromStock = m_ConsE.CurrentCons.m_Basket.Add2Basket(this,ref dsci,m_ConsE.ConsumptionType_Name, m_ConsE.CurrentCons.m_Doc_ID, dadd_QuantityFromStock, idata, this.m_usrc_ItemList.Select_Items_From_Stock_Dialog);
                     }
                     else
                     {
-                        bresFromStock = m_ConsE.CurrentCons.m_Basket.Add2Basket(ref dsci, m_ConsE.ConsumptionType_Name, m_ConsE.CurrentCons.m_Doc_ID, dadd_QuantityFromStock, idata, null);
+                        bresFromStock = m_ConsE.CurrentCons.m_Basket.Add2Basket(this,ref dsci, m_ConsE.ConsumptionType_Name, m_ConsE.CurrentCons.m_Doc_ID, dadd_QuantityFromStock, idata, null);
                     }
                 }
                 else

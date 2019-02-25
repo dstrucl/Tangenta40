@@ -85,5 +85,15 @@
   <ItemGroup>
     <None Include="Resources\Prev.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\UTIL\LanguageControl\LanguageControl.csproj">
+      <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
+      <Name>LanguageControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\usrc_Item_PageHandler\usrc_Item_PageHandler.csproj">
+      <Project>{309c0f02-a471-4de2-844f-eee0b58a05bf}</Project>
+      <Name>usrc_Item_PageHandler</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

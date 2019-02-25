@@ -430,6 +430,9 @@ namespace ShopC_Forms
         public static ltext s_PurchaseDiscount = new ltext(new string[]{"Purchase icount",
                                                                 "Pubust pri nabavna ceni"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
 
+        public static ltext s_PurchasePriceWithDiscount = new ltext(new string[]{"Purchase price with discount",
+                                                                "Nabavna cena s popustom"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
+
 
         public static ltext s_PurchasePriceDate = new ltext(new string[]{"Purchase price date",
                                                                          "Datum nabavne cene"});   // referenced in C:\Tangenta40\TANGENTA\ShopC\usrc_ItemAtom_View.cs
