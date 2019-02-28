@@ -42,7 +42,7 @@
             this.lbl_Item_UniqueName.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.lbl_Item_UniqueName.Location = new System.Drawing.Point(3, 4);
             this.lbl_Item_UniqueName.Name = "lbl_Item_UniqueName";
-            this.lbl_Item_UniqueName.Size = new System.Drawing.Size(99, 25);
+            this.lbl_Item_UniqueName.Size = new System.Drawing.Size(114, 42);
             this.lbl_Item_UniqueName.TabIndex = 0;
             this.lbl_Item_UniqueName.Text = "label1";
             this.lbl_Item_UniqueName.Click += new System.EventHandler(this.lbl_Item_UniqueName_Click);
@@ -50,16 +50,16 @@
             // lbl_InStock
             // 
             this.lbl_InStock.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.lbl_InStock.Location = new System.Drawing.Point(2, 44);
+            this.lbl_InStock.Location = new System.Drawing.Point(1, 67);
             this.lbl_InStock.Name = "lbl_InStock";
-            this.lbl_InStock.Size = new System.Drawing.Size(99, 13);
+            this.lbl_InStock.Size = new System.Drawing.Size(116, 13);
             this.lbl_InStock.TabIndex = 1;
             this.lbl_InStock.Text = "Stock:";
             this.lbl_InStock.Click += new System.EventHandler(this.lbl_InStock_Click);
             // 
             // lbl_Price
             // 
-            this.lbl_Price.Location = new System.Drawing.Point(1, 31);
+            this.lbl_Price.Location = new System.Drawing.Point(1, 55);
             this.lbl_Price.Name = "lbl_Price";
             this.lbl_Price.Size = new System.Drawing.Size(74, 12);
             this.lbl_Price.TabIndex = 2;
@@ -69,7 +69,7 @@
             // picInBasket
             // 
             this.picInBasket.Image = ((System.Drawing.Image)(resources.GetObject("picInBasket.Image")));
-            this.picInBasket.Location = new System.Drawing.Point(77, 28);
+            this.picInBasket.Location = new System.Drawing.Point(91, 49);
             this.picInBasket.Name = "picInBasket";
             this.picInBasket.Size = new System.Drawing.Size(26, 18);
             this.picInBasket.TabIndex = 3;
@@ -88,7 +88,7 @@
             this.Controls.Add(this.lbl_Item_UniqueName);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "usrc_Item1366x768";
-            this.Size = new System.Drawing.Size(106, 60);
+            this.Size = new System.Drawing.Size(120, 80);
             ((System.ComponentModel.ISupportInitialize)(this.picInBasket)).EndInit();
             this.ResumeLayout(false);
 

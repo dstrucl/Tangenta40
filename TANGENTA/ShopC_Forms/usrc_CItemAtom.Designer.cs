@@ -114,6 +114,7 @@
             this.lbl_PurchasePricePerUnitWithoutDiscount.TabIndex = 28;
             this.lbl_PurchasePricePerUnitWithoutDiscount.Text = "PurchasePrice Per Unit ";
             this.lbl_PurchasePricePerUnitWithoutDiscount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lbl_PurchasePricePerUnitWithoutDiscount.Click += new System.EventHandler(this.lbl_PurchasePricePerUnitWithoutDiscount_Click);
             // 
             // txt_PurchasePricePerUnitWithoutDiscount
             // 
@@ -122,6 +123,7 @@
             this.txt_PurchasePricePerUnitWithoutDiscount.ReadOnly = true;
             this.txt_PurchasePricePerUnitWithoutDiscount.Size = new System.Drawing.Size(94, 20);
             this.txt_PurchasePricePerUnitWithoutDiscount.TabIndex = 29;
+            this.txt_PurchasePricePerUnitWithoutDiscount.TextChanged += new System.EventHandler(this.txt_PurchasePricePerUnitWithoutDiscount_TextChanged);
             // 
             // txt_PurchasePriceDiscount
             // 
@@ -130,6 +132,7 @@
             this.txt_PurchasePriceDiscount.ReadOnly = true;
             this.txt_PurchasePriceDiscount.Size = new System.Drawing.Size(94, 20);
             this.txt_PurchasePriceDiscount.TabIndex = 30;
+            this.txt_PurchasePriceDiscount.TextChanged += new System.EventHandler(this.txt_PurchasePriceDiscount_TextChanged);
             // 
             // txt_Quantity
             // 
@@ -138,6 +141,7 @@
             this.txt_Quantity.ReadOnly = true;
             this.txt_Quantity.Size = new System.Drawing.Size(72, 20);
             this.txt_Quantity.TabIndex = 31;
+            this.txt_Quantity.TextChanged += new System.EventHandler(this.txt_Quantity_TextChanged);
             // 
             // txt_PurchasePriceWithDiscount
             // 
@@ -146,6 +150,7 @@
             this.txt_PurchasePriceWithDiscount.ReadOnly = true;
             this.txt_PurchasePriceWithDiscount.Size = new System.Drawing.Size(94, 20);
             this.txt_PurchasePriceWithDiscount.TabIndex = 32;
+            this.txt_PurchasePriceWithDiscount.TextChanged += new System.EventHandler(this.txt_PurchasePriceWithDiscount_TextChanged);
             // 
             // usrc_Atom_CItem
             // 
@@ -165,6 +170,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "usrc_Atom_CItem";
             this.Size = new System.Drawing.Size(364, 80);
+            this.Load += new System.EventHandler(this.usrc_Atom_CItem_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

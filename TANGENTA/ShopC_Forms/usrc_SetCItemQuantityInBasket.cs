@@ -22,10 +22,9 @@ namespace ShopC_Forms
         private string unitsymbol = "";
         private string taxation_name = "";
 
-        private decimal dRetailPricePerUnit = 0;
-        private decimal extradiscount = 0;
-        private decimal discount = 0;
-        private decimal taxrate = 0;
+        private decimal dPurchasePricePerUnit = 0;
+        private decimal dpurchaseDiscount = 0;
+        private decimal purchasetaxrate = 0;
 
         private decimal dv_remains_in_stock = 0;
         private decimal last_usrc_nmUpDn_FromStock_Value = 0;
@@ -52,6 +51,7 @@ namespace ShopC_Forms
             lng.s_FromStock.Text(grp_From_Stock);
             lng.s_RetailPrice.Text(usrc_nmUpDn_FromStock.label1);
             lng.s_Taxation.Text(usrc_nmUpDn_FromStock.label4);
+         
 
         }
 
@@ -160,21 +160,7 @@ namespace ShopC_Forms
 
   
 
-        private void btn_Discount_Click(object sender, EventArgs e)
-        {
-            Form_Discount.Form_Discount frm_Discount = new Form_Discount.Form_Discount(dRetailPricePerUnit,
-                idata.PurchasePricePerUnit_v,
-                discount,
-                this.lbl_Item_UniqueName.Text);
-            if (frm_Discount.ShowDialog(this)== DialogResult.OK)
-            {
-                extradiscount = frm_Discount.ExtraDiscount;
-              
-                btn_Discount.Text = Global.f.GetPercent(extradiscount, 4);
-                set_NmUpDn(usrc_nmUpDn_FromStock, unitsymbol, taxation_name, lng.s_FromStock.s,dv_remains_in_stock, idata);
-            }
-        }
-
+   
         private void set_NmUpDn(DynEditControls.usrc_NumericUpDown3 unmupdn3,
                                 string sunit_symbol,
                                 string stax_name,
@@ -185,20 +171,34 @@ namespace ShopC_Forms
                                 
         {
 
-            decimal xRetailPriceWithDiscount = 0;
+            decimal dPurchasePricePerUnit = 0;
+            if (xdata.PurchasePricePerUnit_v != null)
+            {
+                dPurchasePricePerUnit = xdata.PurchasePricePerUnit_v.v;
+            }
+
+            decimal dPurchasePriceDiscount = 0;
+            if (xdata.PurchasePrice_Item_Discount_v != null)
+            {
+                dPurchasePriceDiscount = xdata.PurchasePrice_Item_Discount_v.v;
+            }
+            decimal xTotalPruchasePriceWithDiscount = 0;
             decimal xTaxPrice = 0;
             decimal xNetPrice = 0;
-            StaticLib.Func.CalculatePrice(dRetailPricePerUnit,
-                                          unmupdn3.Value,
-                                          discount,
-                                          extradiscount,
-                                          taxrate,
-                                          ref xRetailPriceWithDiscount, ref xTaxPrice, ref xNetPrice, GlobalData.BaseCurrency.DecimalPlaces);
 
-            string sRetailPriceWithDiscount = LanguageControl.DynSettings.SetLanguageCurrencyString(xRetailPriceWithDiscount, GlobalData.BaseCurrency.DecimalPlaces, GlobalData.BaseCurrency.Symbol);
+            purchasetaxrate = xdata.Taxation_Rate;
+
+            StaticLib.Func.CalculatePrice(dPurchasePricePerUnit,
+                                          unmupdn3.Value,
+                                          0,
+                                          dPurchasePriceDiscount,
+                                          purchasetaxrate,
+                                          ref xTotalPruchasePriceWithDiscount, ref xTaxPrice, ref xNetPrice, GlobalData.BaseCurrency.DecimalPlaces);
+
+            string sPurchasePriceWithDiscount = LanguageControl.DynSettings.SetLanguageCurrencyString(xTotalPruchasePriceWithDiscount, GlobalData.BaseCurrency.DecimalPlaces, GlobalData.BaseCurrency.Symbol);
             string sTaxPrice = LanguageControl.DynSettings.SetLanguageCurrencyString(xTaxPrice, GlobalData.BaseCurrency.DecimalPlaces, GlobalData.BaseCurrency.Symbol);
             string sNetPrice = LanguageControl.DynSettings.SetLanguageCurrencyString(xNetPrice, GlobalData.BaseCurrency.DecimalPlaces, GlobalData.BaseCurrency.Symbol);
-            unmupdn3.Label1 = lng.s_lbl_PriceWithVAT.s + ":" + sRetailPriceWithDiscount;
+            unmupdn3.Label1 = lng.s_lbl_PriceWithVAT.s + ":" + sPurchasePriceWithDiscount;
             unmupdn3.Label2 = squantity_taken_from + " " + lng.s_Unit.s + ":" + sunit_symbol;
 
            
@@ -281,18 +281,17 @@ namespace ShopC_Forms
             }
 
             
-            dRetailPricePerUnit = dsci.PurchasePricePerUnit;
-            
-            discount = dsci.PurchasePricePerUnit_Discount;
-            
-            extradiscount = 0;
-           
+            dPurchasePricePerUnit = dsci.PurchasePricePerUnit;
 
-            btn_Discount.Text = Global.f.GetPercent(extradiscount, 4);
+
+
+            this.lb_ItemInfo.Text = lng.s_PurchasePricePerUnit.s + ":" + LanguageControl.DynSettings.SetLanguageCurrencyString(dPurchasePricePerUnit, GlobalData.BaseCurrency.DecimalPlaces, GlobalData.BaseCurrency.Symbol)
+            + "  " + lng.s_PurchasePricePerUnitDiscount.s + "=" + dsci.PurchasePricePerUnit_Discount + Global.f.GetPercent(dsci.PurchasePricePerUnit_Discount, 4);
+            //+ "  \r\n"+lng.s_Supplier.s+":"+ xidata..
 
             if (dsci.Taxation_Rate_v != null)
             {
-                taxrate = dsci.Taxation_Rate_v.v;
+                purchasetaxrate = dsci.Taxation_Rate_v.v;
             }
 
 

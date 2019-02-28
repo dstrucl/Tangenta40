@@ -22,6 +22,8 @@ namespace ShopC_Forms
 {
     public partial class usrc_Atom_CItem : UserControl
     {
+     
+
         public TangentaDB.Consumption_ShopC_Item m_csci = null;
 
         public long Item_ID = -1;
@@ -180,6 +182,36 @@ namespace ShopC_Forms
         }
 
         private void lbl_DiscountValue_Click(object sender, EventArgs e)
+        {
+            OnClick(e);
+        }
+
+        private void lbl_PurchasePricePerUnitWithoutDiscount_Click(object sender, EventArgs e)
+        {
+            OnClick(e);
+        }
+
+        private void txt_PurchasePricePerUnitWithoutDiscount_TextChanged(object sender, EventArgs e)
+        {
+            OnClick(e);
+        }
+
+        private void txt_PurchasePriceDiscount_TextChanged(object sender, EventArgs e)
+        {
+            OnClick(e);
+        }
+
+        private void txt_PurchasePriceWithDiscount_TextChanged(object sender, EventArgs e)
+        {
+            OnClick(e);
+        }
+
+        private void txt_Quantity_TextChanged(object sender, EventArgs e)
+        {
+            OnClick(e);
+        }
+
+        private void usrc_Atom_CItem_Load(object sender, EventArgs e)
         {
             OnClick(e);
         }

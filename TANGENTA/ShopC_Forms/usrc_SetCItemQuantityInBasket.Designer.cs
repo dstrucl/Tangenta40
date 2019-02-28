@@ -36,7 +36,6 @@
             this.grp_From_Stock = new System.Windows.Forms.GroupBox();
             this.usrc_nmUpDn_FromStock = new DynEditControls.usrc_NumericUpDown3();
             this.btn_Exit = new System.Windows.Forms.Button();
-            this.btn_Discount = new System.Windows.Forms.Button();
             this.btn_EditItem = new System.Windows.Forms.Button();
             this.pic_Item = new System.Windows.Forms.PictureBox();
             this.btn_Del = new System.Windows.Forms.Button();
@@ -85,7 +84,7 @@
             this.btn_Change.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Change.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Change.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_Change.Location = new System.Drawing.Point(409, 241);
+            this.btn_Change.Location = new System.Drawing.Point(192, 239);
             this.btn_Change.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Change.Name = "btn_Change";
             this.btn_Change.Size = new System.Drawing.Size(196, 68);
@@ -163,25 +162,11 @@
             this.btn_Exit.UseVisualStyleBackColor = false;
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
-            // btn_Discount
-            // 
-            this.btn_Discount.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Discount.Image = ((System.Drawing.Image)(resources.GetObject("btn_Discount.Image")));
-            this.btn_Discount.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_Discount.Location = new System.Drawing.Point(210, 241);
-            this.btn_Discount.Margin = new System.Windows.Forms.Padding(4);
-            this.btn_Discount.Name = "btn_Discount";
-            this.btn_Discount.Size = new System.Drawing.Size(178, 68);
-            this.btn_Discount.TabIndex = 19;
-            this.btn_Discount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btn_Discount.UseVisualStyleBackColor = false;
-            this.btn_Discount.Click += new System.EventHandler(this.btn_Discount_Click);
-            // 
             // btn_EditItem
             // 
             this.btn_EditItem.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_EditItem.Image = ((System.Drawing.Image)(resources.GetObject("btn_EditItem.Image")));
-            this.btn_EditItem.Location = new System.Drawing.Point(681, 243);
+            this.btn_EditItem.Location = new System.Drawing.Point(411, 239);
             this.btn_EditItem.Margin = new System.Windows.Forms.Padding(4);
             this.btn_EditItem.Name = "btn_EditItem";
             this.btn_EditItem.Size = new System.Drawing.Size(115, 68);
@@ -241,7 +226,6 @@
             this.Controls.Add(this.lb_ItemInfo);
             this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.lbl_ItemDescription);
-            this.Controls.Add(this.btn_Discount);
             this.Controls.Add(this.btn_EditItem);
             this.Controls.Add(this.pic_Item);
             this.Controls.Add(this.lbl_Item_UniqueName);
@@ -254,7 +238,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btn_Discount;
         private System.Windows.Forms.Button btn_EditItem;
         internal System.Windows.Forms.PictureBox pic_Item;
         internal System.Windows.Forms.Label lbl_Item_UniqueName;
