@@ -74,10 +74,9 @@
             this.lb_ItemInfo.Location = new System.Drawing.Point(4, 61);
             this.lb_ItemInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lb_ItemInfo.Name = "lb_ItemInfo";
-            this.lb_ItemInfo.Size = new System.Drawing.Size(638, 25);
+            this.lb_ItemInfo.Size = new System.Drawing.Size(638, 59);
             this.lb_ItemInfo.TabIndex = 24;
             this.lb_ItemInfo.Text = "label2";
-            this.lb_ItemInfo.Visible = false;
             // 
             // btn_Change
             // 
@@ -97,9 +96,9 @@
             // 
             this.grp_From_Stock.Controls.Add(this.usrc_nmUpDn_FromStock);
             this.grp_From_Stock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.grp_From_Stock.Location = new System.Drawing.Point(3, 95);
+            this.grp_From_Stock.Location = new System.Drawing.Point(3, 123);
             this.grp_From_Stock.Name = "grp_From_Stock";
-            this.grp_From_Stock.Size = new System.Drawing.Size(385, 139);
+            this.grp_From_Stock.Size = new System.Drawing.Size(385, 111);
             this.grp_From_Stock.TabIndex = 28;
             this.grp_From_Stock.TabStop = false;
             this.grp_From_Stock.Text = "From Stock";
@@ -119,7 +118,7 @@
             this.usrc_nmUpDn_FromStock.Label2 = "";
             this.usrc_nmUpDn_FromStock.Label3 = "";
             this.usrc_nmUpDn_FromStock.Label4 = "";
-            this.usrc_nmUpDn_FromStock.Location = new System.Drawing.Point(6, 21);
+            this.usrc_nmUpDn_FromStock.Location = new System.Drawing.Point(6, 15);
             this.usrc_nmUpDn_FromStock.Maximum = new decimal(new int[] {
             100,
             0,
@@ -132,7 +131,7 @@
             0});
             this.usrc_nmUpDn_FromStock.Name = "usrc_nmUpDn_FromStock";
             this.usrc_nmUpDn_FromStock.ReadOnly = false;
-            this.usrc_nmUpDn_FromStock.Size = new System.Drawing.Size(370, 109);
+            this.usrc_nmUpDn_FromStock.Size = new System.Drawing.Size(370, 90);
             this.usrc_nmUpDn_FromStock.TabIndex = 0;
             this.usrc_nmUpDn_FromStock.Type = DynEditControls.usrc_NumericUpDown3.eType.INTEGER;
             this.usrc_nmUpDn_FromStock.Unit = "";

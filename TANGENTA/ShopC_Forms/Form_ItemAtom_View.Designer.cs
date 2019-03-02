@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Atom_Item_View));
             this.btn_OK = new System.Windows.Forms.Button();
-            this.usrc_Atom_Item_View = new usrc_Atom_CItem_View();
+            this.usrc_Atom_Item_View = new usrc_Atom_Item_View();
             this.SuspendLayout();
             // 
             // btn_OK
@@ -73,6 +73,6 @@
         #endregion
 
         private System.Windows.Forms.Button btn_OK;
-        private usrc_Atom_CItem_View usrc_Atom_Item_View;
+        private usrc_Atom_Item_View usrc_Atom_Item_View;
     }
 }

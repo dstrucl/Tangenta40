@@ -11,6 +11,7 @@ using TangentaDB;
 using DynEditControls;
 using DBConnectionControl40;
 using DBTypes;
+using ShopC_Forms;
 
 namespace ShopC
 {
@@ -502,6 +503,12 @@ namespace ShopC
             {
                 active_nm_UpDn.Value = 0;
             }
+        }
+
+        private void lbl_Item_UniqueName_Click(object sender, EventArgs e)
+        {
+            Form_Atom_Item_View itma_frm = new Form_Atom_Item_View(m_ShopBC, this.dsci.Atom_Item_ID);
+            itma_frm.ShowDialog();
         }
     }
 }

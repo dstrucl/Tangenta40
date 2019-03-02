@@ -127,6 +127,12 @@
     <Compile Include="usrc_btn_Item.Designer.cs">
       <DependentUpon>usrc_btn_Item.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_ItemAtom_View.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_ItemAtom_View.Designer.cs">
+      <DependentUpon>usrc_ItemAtom_View.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_Consumption_AddOn.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -453,6 +459,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_btn_Item.resx">
       <DependentUpon>usrc_btn_Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_ItemAtom_View.resx">
+      <DependentUpon>usrc_ItemAtom_View.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Consumption_AddOn.resx">
       <DependentUpon>usrc_Consumption_AddOn.cs</DependentUpon>

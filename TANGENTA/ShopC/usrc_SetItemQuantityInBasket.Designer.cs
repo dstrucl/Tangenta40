@@ -58,6 +58,7 @@
             this.lbl_Item_UniqueName.Size = new System.Drawing.Size(638, 25);
             this.lbl_Item_UniqueName.TabIndex = 15;
             this.lbl_Item_UniqueName.Text = "label1";
+            this.lbl_Item_UniqueName.Click += new System.EventHandler(this.lbl_Item_UniqueName_Click);
             // 
             // lbl_ItemDescription
             // 

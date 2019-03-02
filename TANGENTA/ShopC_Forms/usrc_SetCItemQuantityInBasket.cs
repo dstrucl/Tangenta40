@@ -283,10 +283,13 @@ namespace ShopC_Forms
             
             dPurchasePricePerUnit = dsci.PurchasePricePerUnit;
 
-
+           if (dsci.PurchasePricePerUnit_Discount!=-1)
+            {
+                dpurchaseDiscount = dsci.PurchasePricePerUnit_Discount;
+            }
 
             this.lb_ItemInfo.Text = lng.s_PurchasePricePerUnit.s + ":" + LanguageControl.DynSettings.SetLanguageCurrencyString(dPurchasePricePerUnit, GlobalData.BaseCurrency.DecimalPlaces, GlobalData.BaseCurrency.Symbol)
-            + "  " + lng.s_PurchasePricePerUnitDiscount.s + "=" + dsci.PurchasePricePerUnit_Discount + Global.f.GetPercent(dsci.PurchasePricePerUnit_Discount, 4);
+            + "  " + lng.s_PurchasePricePerUnitDiscount.s + " = " +Global.f.GetPercent(dpurchaseDiscount, 4)+" %";
             //+ "  \r\n"+lng.s_Supplier.s+":"+ xidata..
 
             if (dsci.Taxation_Rate_v != null)
@@ -299,8 +302,9 @@ namespace ShopC_Forms
             last_usrc_nmUpDn_FromStock_Value = usrc_nmUpDn_FromStock.Value;
             dv_remains_in_stock = idata.dQuantity_OfCStockItems;
             set_NmUpDn(usrc_nmUpDn_FromStock, unitsymbol, taxation_name, lng.s_FromStock.s, dv_remains_in_stock,idata);
+            
 
-           
+
             this.usrc_nmUpDn_FromStock.ValueChanged += new System.EventHandler(this.usrc_nmUpDn_FromStock_ValueChanged);
             
 
