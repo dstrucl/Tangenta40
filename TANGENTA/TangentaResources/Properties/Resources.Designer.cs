@@ -852,6 +852,16 @@ namespace TangentaResources.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Tangenta_Picture_not_defined_small {
+            get {
+                object obj = ResourceManager.GetObject("Tangenta_Picture_not_defined_small", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon Tangenta_Question {

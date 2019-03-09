@@ -322,8 +322,16 @@ namespace ShopC
             {
                 taxation_name = dsci.Atom_Taxation_Name_v.v;
             }
+            if (dsci.Atom_Item_Image_Data_v != null)
+            {
+                ImageConverter ic = new ImageConverter();
+                pic_Item.Image = (Image)ic.ConvertFrom(xdsci.Atom_Item_Image_Data_v.v);
+            }
+            else
+            {
+                pic_Item.Image = TangentaResources.Properties.Resources.Tangenta_Picture_not_defined_small;
+            }
 
-            
             dRetailPricePerUnit = dsci.RetailPricePerUnit;
             
             discount = dsci.Discount;
@@ -338,6 +346,15 @@ namespace ShopC
                 taxrate = dsci.Atom_Taxation_Rate_v.v;
             }
 
+            decimal dPurchasePricePerUnit = dsci.St;
+
+            if (dsci.PurchasePricePerUnit_Discount != -1)
+            {
+                dpurchaseDiscount = dsci.PurchasePricePerUnit_Discount;
+            }
+
+            this.lb_ItemInfo.Text = lng.s_PurchasePricePerUnit.s + ":" + LanguageControl.DynSettings.SetLanguageCurrencyString(dPurchasePricePerUnit, GlobalData.BaseCurrency.DecimalPlaces, GlobalData.BaseCurrency.Symbol)
+            + "  " + lng.s_PurchasePricePerUnitDiscount.s + " = " + Global.f.GetPercent(dpurchaseDiscount, 4) + " %";
 
             usrc_nmUpDn_FromStock.Value = dsci.dQuantity_FromStock;
             last_usrc_nmUpDn_FromStock_Value = usrc_nmUpDn_FromStock.Value;
@@ -504,11 +521,20 @@ namespace ShopC
                 active_nm_UpDn.Value = 0;
             }
         }
-
-        private void lbl_Item_UniqueName_Click(object sender, EventArgs e)
+        private void Show_Form_Atom_Item_View()
         {
             Form_Atom_Item_View itma_frm = new Form_Atom_Item_View(m_ShopBC, this.dsci.Atom_Item_ID);
             itma_frm.ShowDialog();
+        }
+
+        private void lbl_Item_UniqueName_Click(object sender, EventArgs e)
+        {
+            Show_Form_Atom_Item_View();
+        }
+
+        private void pic_Item_Click(object sender, EventArgs e)
+        {
+            Show_Form_Atom_Item_View();
         }
     }
 }

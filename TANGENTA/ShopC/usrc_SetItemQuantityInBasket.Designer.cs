@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_SetItemQuantityInBasket));
             this.lbl_Item_UniqueName = new System.Windows.Forms.Label();
             this.lbl_ItemDescription = new System.Windows.Forms.Label();
             this.lb_ItemInfo = new System.Windows.Forms.Label();
@@ -81,7 +82,6 @@
             this.lb_ItemInfo.Size = new System.Drawing.Size(638, 25);
             this.lb_ItemInfo.TabIndex = 24;
             this.lb_ItemInfo.Text = "label2";
-            this.lb_ItemInfo.Visible = false;
             // 
             // btn_Change
             // 
@@ -248,6 +248,7 @@
             // 
             // pic_Item
             // 
+            this.pic_Item.InitialImage = ((System.Drawing.Image)(resources.GetObject("pic_Item.InitialImage")));
             this.pic_Item.Location = new System.Drawing.Point(646, 4);
             this.pic_Item.Margin = new System.Windows.Forms.Padding(4);
             this.pic_Item.Name = "pic_Item";
@@ -255,6 +256,7 @@
             this.pic_Item.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pic_Item.TabIndex = 16;
             this.pic_Item.TabStop = false;
+            this.pic_Item.Click += new System.EventHandler(this.pic_Item_Click);
             // 
             // btn_Del
             // 

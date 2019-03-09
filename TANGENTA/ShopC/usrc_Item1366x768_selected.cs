@@ -156,6 +156,16 @@ namespace ShopC
                     m_usrc_Item1366x768 = (usrc_Item1366x768)ctrl_itemdata;
                 }
 
+                if (dsci.Atom_Item_Image_Data_v != null)
+                {
+                    ImageConverter ic = new ImageConverter();
+                    pic_Item.Image = (Image)ic.ConvertFrom(dsci.Atom_Item_Image_Data_v.v);
+                }
+                else
+                {
+                    pic_Item.Image = TangentaResources.Properties.Resources.Tangenta_Picture_not_defined_small;
+                }
+
                 this.lbl_Item.Text = dsci.Atom_Item_UniqueName_v.v;
                 this.lbl_from_Stock.Text = lng.s_FromStock.s + ":" + dsci.dQuantity_FromStock.ToString();
                 this.lbl_bypass_Stock.Text = lng.s_AvoidStock.s + ":" + dsci.dQuantity_FromFactory.ToString();

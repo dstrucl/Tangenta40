@@ -311,5 +311,8 @@
   <ItemGroup>
     <None Include="Resources\IssuePressed.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tangenta Picture not defined small.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
