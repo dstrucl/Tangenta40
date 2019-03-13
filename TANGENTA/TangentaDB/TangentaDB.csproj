@@ -275,6 +275,7 @@
     <Compile Include="f_Atom_WorkArea.cs" />
     <Compile Include="f_WorkArea.cs" />
     <Compile Include="GlobalData.cs" />
+    <Compile Include="HtmlTemplate.cs" />
     <Compile Include="HTML_PrintingElement.cs" />
     <Compile Include="HTML_PrintingOutput.cs" />
     <Compile Include="InvoiceData.cs" />
@@ -293,6 +294,7 @@
     <Compile Include="ShopC_Item_Source_List.cs" />
     <Compile Include="ShopShelfConsumption.cs" />
     <Compile Include="SumPayment.cs" />
+    <Compile Include="TemplatesLoader.cs" />
     <Compile Include="TermsOfPayment_definitions.cs" />
     <Compile Include="MyOrg.cs" />
     <Compile Include="myOrg_Office.cs" />
@@ -400,6 +402,12 @@
     <None Include="app.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="InvoiceDB.licenseheader" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\00_ENG_myOrganisation_Person.htm" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\01_SLO_myOrganisation_Person.htm" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -165,7 +165,6 @@
     <Compile Include="Form_OpenCashier.Designer.cs">
       <DependentUpon>Form_OpenCashier.cs</DependentUpon>
     </Compile>
-    <Compile Include="HtmlTemplate.cs" />
     <Compile Include="IdleControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -294,7 +293,6 @@
     <Compile Include="STD_UserManager.designer.cs">
       <DependentUpon>STD_UserManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="TemplatesLoader.cs" />
     <Compile Include="usrc_LMOUser.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using TangentaDB;
@@ -83,7 +84,7 @@ namespace LoginControl
                 transaction_AWP_AWP_func_UpdateRoles.Rollback();
                 return;
             }
-            TemplatesLoader.Init();
+            TemplatesLoader.Init(Assembly.GetExecutingAssembly().GetManifestResourceNames());
             if (bSingleUser)
             {
                 LMO1User.awpld = new AWPLoginData();

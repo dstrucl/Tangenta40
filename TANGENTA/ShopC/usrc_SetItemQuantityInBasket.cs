@@ -346,15 +346,15 @@ namespace ShopC
                 taxrate = dsci.Atom_Taxation_Rate_v.v;
             }
 
-            decimal dPurchasePricePerUnit = dsci.St;
+            //decimal dPurchasePricePerUnit = dsci.;
 
-            if (dsci.PurchasePricePerUnit_Discount != -1)
-            {
-                dpurchaseDiscount = dsci.PurchasePricePerUnit_Discount;
-            }
+            //if (dsci.PurchasePricePerUnit_Discount != -1)
+            //{
+            //    dpurchaseDiscount = dsci.PurchasePricePerUnit_Discount;
+            //}
 
-            this.lb_ItemInfo.Text = lng.s_PurchasePricePerUnit.s + ":" + LanguageControl.DynSettings.SetLanguageCurrencyString(dPurchasePricePerUnit, GlobalData.BaseCurrency.DecimalPlaces, GlobalData.BaseCurrency.Symbol)
-            + "  " + lng.s_PurchasePricePerUnitDiscount.s + " = " + Global.f.GetPercent(dpurchaseDiscount, 4) + " %";
+            //this.lb_ItemInfo.Text = lng.s_PurchasePricePerUnit.s + ":" + LanguageControl.DynSettings.SetLanguageCurrencyString(dPurchasePricePerUnit, GlobalData.BaseCurrency.DecimalPlaces, GlobalData.BaseCurrency.Symbol)
+            //+ "  " + lng.s_PurchasePricePerUnitDiscount.s + " = " + Global.f.GetPercent(dpurchaseDiscount, 4) + " %";
 
             usrc_nmUpDn_FromStock.Value = dsci.dQuantity_FromStock;
             last_usrc_nmUpDn_FromStock_Value = usrc_nmUpDn_FromStock.Value;

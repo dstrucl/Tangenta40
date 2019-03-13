@@ -23,6 +23,7 @@ namespace TangentaDB
         public ID Atom_Price_Item_ID = null;
         public ID Atom_Item_ID = null;
 
+
         public decimal RetailPricePerUnit = 0;
         public decimal Discount = 0;
         public decimal ExtraDiscount = 0;

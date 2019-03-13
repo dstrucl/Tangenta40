@@ -45,7 +45,7 @@ namespace TangentaDB
         {
 
             Tangenta_DefaultPrintTemplates.TemplatesLoader.Init();
-            foreach (HtmlTemplate ht in Tangenta_DefaultPrintTemplates.TemplatesLoader.Templates)
+            foreach (HtmlTemplate ht in TangentaDB.TemplatesLoader.Templates)
             {
                 byte[] xDoc = null;
                 int i = 0;

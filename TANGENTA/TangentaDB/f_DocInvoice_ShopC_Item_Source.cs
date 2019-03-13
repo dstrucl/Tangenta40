@@ -54,21 +54,71 @@ namespace TangentaDB
             string Err = null;
             DataTable dt = new DataTable();
             string sql = @" select
-                                   discis.DocInvoice_ShopC_Item_ID as Doc_ShopC_Item_ID,
-                                   discis.ID as Doc_ShopC_Item_Source_ID,
-                                   discis.Stock_ID as Stock_ID,
-                                   discis.dQuantity as dQuantity,
-                                   discis.RetailPriceWithDiscount as RetailPriceWithDiscount,
-                                   discis.TaxPrice as TaxPrice,
-                                  s.ExpiryDate as ExpiryDate,
-                                  i.UniqueName as Item_UniqueName,
-                                  st.Name as StockTakeName,
-                                  st.StockTake_Date as StockTake_Date
-                                  from DocInvoice_ShopC_Item_Source discis
+									i.UniqueName as Item_UniqueName,
+									discis.dQuantity as dQuantity,
+									discis.SourceDiscount as SourceDiscount,
+									discis.RetailPriceWithDiscount as RetailPriceWithDiscount,
+									discis.TaxPrice as TaxPrice,
+									s.ImportTime as Stock_ImportTime,
+									s.dQuantity as StockQuantity,
+									s.ExpiryDate as ExpiryDate,
+									s.Description as StockDescription,
+									pp.PurchasePricePerUnit as PurchasePricePerUnit,
+									pp.PurchasePriceDate as PurchasePriceDate,
+									pp.Discount as PurchasePrice_Discount,
+									pp.PriceWithoutVAT as PurchasePriceWithoutVAT,
+									pp.VATCanNotBeDeducted as PurchasePriceVATCanNotBeDeducted,
+
+									cur.Name as Currency_Name,
+									cur.Symbol as Currency_Symbold,
+									cur.Abbreviation as Currency_Abbreviation,
+									cur.CurrencyCode as Currency_Code,
+									cur.DecimalPlaces as Currency_DecimalPlaces,
+									tax.Name as Taxation_Name,
+									tax.Rate as Taxation_Rate,
+									st.Name as StockTakeName,
+									st.StockTake_Date as StockTake_Date,
+                                    st.StockTakePriceTotal as StockTakePriceTotal,
+									st.StockTakePriceTotalWithVAT as StockTakePriceTotalWithVAT,
+									st.Description as StockTakeDescription,
+									st.Draft as StockTakeDraft,
+								    r.ReferenceNote as ReferenceNote,
+									r.ReferenceDate as ReferenceDate,
+									ri.Image_Data as ReferenceImage_Data,
+									ri.Image_Hash as ReferenceImage_Hash,
+									st.ID as StockTake_ID,
+									discis.Stock_ID as Stock_ID,
+									discis.DocInvoice_ShopC_Item_ID as Doc_ShopC_Item_ID,
+									discis.ID as Doc_ShopC_Item_Source_ID,
+									pp.ID as PurchasePrice_ID,
+									r.ID as Reference_ID
+								   from DocInvoice_ShopC_Item_Source discis
                                   inner join Stock s on discis.Stock_ID = s.ID
+								  left join Stock_AddressLevel1 sa1 on s.Stock_AddressLevel1_ID = sa1.ID
+								  left join Stock_AddressLevel2 sa2 on sa1.Stock_AddressLevel2_ID = sa2.ID
+								  left join Stock_AddressLevel3 sa3 on sa2.Stock_AddressLevel3_ID = sa3.ID
                                   inner join PurchasePrice_Item ppi on s.PurchasePrice_Item_ID = ppi.ID
-                                  inner join StockTake st on ppi.StockTake_ID = st.ID
                                   inner join Item i on ppi.Item_ID = i.ID
+								  inner join PurchasePrice pp on ppi.PurchasePrice_ID = pp.ID
+								  inner join Currency cur on pp.Currency_ID = cur.ID
+								  inner join Taxation tax on pp.Taxation_ID = tax.ID
+                                  inner join StockTake st on ppi.StockTake_ID = st.ID
+								  left join Reference r on st.Reference_ID = r.ID
+								  left join Reference_Image ri on r.Reference_Image_ID = ri.ID
+								  inner join Supplier su on st.Supplier_ID = su.ID
+								  inner join Contact c on su.Contact_ID = c.ID
+								  left join OrganisationData orgd on c.OrganisationData_ID = orgd.ID
+								  left join Organisation org on orgd.Organisation_ID = org.ID
+								  left join cOrgTYPE corgt on orgd.cOrgTYPE_ID = corgt.ID
+								  left join cAddress_Org caorg on orgd.cAddress_Org_ID = caorg.ID
+								  left join cPhoneNumber_Org cpnorg on orgd.cPhoneNumber_Org_ID = cpnorg.ID
+								  left join cFaxNumber_Org cfnorg on  orgd.cFaxNumber_Org_ID = cfnorg.ID
+								  left join cEmail_Org ceorg on orgd.cEmail_Org_ID  = ceorg.ID
+								  left join cHomePage_Org chporg on orgd.cHomePage_Org_ID = chporg.ID
+								  left join Logo logorg on orgd.Logo_ID = logorg.ID
+								  left join Person per on c.Person_ID = per.ID
+								  left join cFirstName cfnper  on per.cFirstName_ID = cfnper.ID
+
                                   where discis.ID = " + docInvoice_ShopC_Item_Source_ID.ToString();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {

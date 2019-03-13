@@ -33,8 +33,8 @@
             this.lbl_from_Stock = new System.Windows.Forms.Label();
             this.lbl_VAT = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.pic_Item = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pic_Item)).BeginInit();
+            this.btnpic_Item = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.btnpic_Item)).BeginInit();
             this.SuspendLayout();
             // 
             // lbl_Item
@@ -90,22 +90,23 @@
             this.timer1.Interval = 200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // pic_Item
+            // btnpic_Item
             // 
-            this.pic_Item.Location = new System.Drawing.Point(255, 23);
-            this.pic_Item.Name = "pic_Item";
-            this.pic_Item.Size = new System.Drawing.Size(150, 59);
-            this.pic_Item.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pic_Item.TabIndex = 17;
-            this.pic_Item.TabStop = false;
-            this.pic_Item.Click += new System.EventHandler(this.Controls_Click);
+            this.btnpic_Item.Location = new System.Drawing.Point(255, 23);
+            this.btnpic_Item.Name = "btnpic_Item";
+            this.btnpic_Item.Text = "";
+            this.btnpic_Item.Size = new System.Drawing.Size(150, 59);
+            this.btnpic_Item.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnpic_Item.TabIndex = 17;
+            this.btnpic_Item.TabStop = false;
+            this.btnpic_Item.Click += new System.EventHandler(this.Controls_Click);
             // 
             // usrc_Item1366x768_selected
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(249)))), ((int)(((byte)(166)))));
             this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.Controls.Add(this.pic_Item);
+            this.Controls.Add(this.btnpic_Item);
             this.Controls.Add(this.lbl_VAT);
             this.Controls.Add(this.lbl_from_Stock);
             this.Controls.Add(this.lbl_bypass_Stock);
@@ -114,7 +115,7 @@
             this.Name = "usrc_Item1366x768_selected";
             this.Size = new System.Drawing.Size(410, 84);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.usrc_Item1366x768_selected_Paint);
-            ((System.ComponentModel.ISupportInitialize)(this.pic_Item)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnpic_Item)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -126,6 +127,6 @@
         internal System.Windows.Forms.Label lbl_VAT;
         private System.Windows.Forms.Timer timer1;
         private System.ComponentModel.IContainer components;
-        private System.Windows.Forms.PictureBox pic_Item;
+        private System.Windows.Forms.Button btnpic_Item;
     }
 }

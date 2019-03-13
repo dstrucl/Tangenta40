@@ -159,11 +159,11 @@ namespace ShopC
                 if (dsci.Atom_Item_Image_Data_v != null)
                 {
                     ImageConverter ic = new ImageConverter();
-                    pic_Item.Image = (Image)ic.ConvertFrom(dsci.Atom_Item_Image_Data_v.v);
+                    btnpic_Item.Image = (Image)ic.ConvertFrom(dsci.Atom_Item_Image_Data_v.v);
                 }
                 else
                 {
-                    pic_Item.Image = TangentaResources.Properties.Resources.Tangenta_Picture_not_defined_small;
+                    btnpic_Item.Image = TangentaResources.Properties.Resources.Tangenta_Picture_not_defined_small;
                 }
 
                 this.lbl_Item.Text = dsci.Atom_Item_UniqueName_v.v;
