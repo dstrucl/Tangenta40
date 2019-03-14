@@ -172,18 +172,8 @@ namespace TangentaDB
                 foreach (DataRow dr in dt.Rows)
                 {
                  
-                    Doc_ShopC_Item_Source xdsciS = new Doc_ShopC_Item_Source();
-                    xdsciS.Stock_ID = DBTypes.tf.set_ID(dr["Stock_ID"]);
-                    xdsciS.dQuantity = DBTypes.tf._set_decimal(dr["dQuantity"]);
-                    xdsciS.RetailPriceWithDiscount = DBTypes.tf._set_decimal(dr["RetailPriceWithDiscount"]);
-                    xdsciS.TaxPrice = DBTypes.tf._set_decimal(dr["TaxPrice"]);
-                    xdsciS.ExpiryDate_v = DBTypes.tf.set_DateTime(dr["ExpiryDate"]);
-                    xdsciS.Item_UniqueName_v = DBTypes.tf.set_string(dr["Item_UniqueName"]);
-                    xdsciS.StockTakeName_v = DBTypes.tf.set_string(dr["StockTakeName"]);
-                    xdsciS.StockTakeDate_v = DBTypes.tf.set_DateTime(dr["StockTake_Date"]);
-
-                    xdsciS.Doc_ShopC_Item_ID = DBTypes.tf.set_ID(dr["Doc_ShopC_Item_ID"]);
-                    xdsciS.Doc_ShopC_Item_Source_ID = DBTypes.tf.set_ID(dr["Doc_ShopC_Item_Source_ID"]);
+                    Doc_ShopC_Item_Source xdsciS = new Doc_ShopC_Item_Source(dr);
+                   
                
                     dsciS_list.Add(xdsciS);
                 }

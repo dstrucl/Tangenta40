@@ -119,6 +119,13 @@
     <Compile Include="f_ConsumptionType.cs" />
     <Compile Include="f_ConsumptionReason.cs" />
     <Compile Include="f_ConsumptionAddOn.cs" />
+    <Compile Include="f_Currency_Data.cs" />
+    <Compile Include="f_PurchasePrice_Data.cs" />
+    <Compile Include="f_StockTake_Data.cs" />
+    <Compile Include="f_Stock_Data.cs" />
+    <Compile Include="f_SupplierOrg_Data.cs" />
+    <Compile Include="f_SupplierPerson_Data.cs" />
+    <Compile Include="f_Taxation_Data.cs" />
     <Compile Include="f_WriteOffReason.cs" />
     <Compile Include="f_Atom_ComputerName.cs" />
     <Compile Include="f_Atom_ComputerUsername.cs" />
