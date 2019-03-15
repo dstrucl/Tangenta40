@@ -257,6 +257,8 @@ namespace TangentaDB
         }
 
         private string_v logo_image_description_v = null;
+
+
         public string LogoImageDesrcription
         {
             get
@@ -272,29 +274,31 @@ namespace TangentaDB
             }
         }
 
-        public void Set(DataRow dr)
+        public void Set(DataRow dr, f_DocInvoice_ShopC_Item_Source.Col c)
         {
-            organisationTYPE_v = tf.set_string(dr["Supplier_OrganisationTYPE"]);
-            streetName_v = tf.set_string(dr["SupplierOrg_StreetName"]);
-            houseNumber_v = tf.set_string(dr["SupplierOrg_HouseNumber"]);
-            city_v = tf.set_string(dr["SupplierOrg_City"]);
-            m_ZIP_v = tf.set_string(dr["SupplierOrg_ZIP"]);
-            state_v = tf.set_string(dr["SupplierOrg_State"]);
-            country_v = tf.set_string(dr["SupplierOrg_Country"]);
-            country_ISO_3166_a2_v = tf.set_string(dr["SupplierOrg_Country_ISO_3166_a2"]);
-            country_ISO_3166_a3_v = tf.set_string(dr["SupplierOrg_Country_ISO_3166_a3"]);
-            country_ISO_3166_num_v = tf.set_short(dr["SupplierOrg_Country_ISO_3166_num"]);
-            phoneNumber_v = tf.set_string(dr["SupplierOrg_PhoneNumber"]);
-            faxNumber_v = tf.set_string(dr["SupplierOrg_FaxNumber"]);
-            email_v = tf.set_string(dr["SupplierOrg_Email"]);
-            homepage_v = tf.set_string(dr["SupplierOrg_HomePage"]);
-            logo_image_data_v = tf.set_byte_array(dr["SupplierOrgLogo_Image_Data"]);
-            logo_image_description_v = tf.set_string(dr["SupplierOrgLogo_Image_Descrition"]);
+            organisationTYPE_v = tf.set_string(dr[c.Supplier_OrganisationTYPE]);
+            streetName_v = tf.set_string(dr[c.SupplierOrg_StreetName]);
+            houseNumber_v = tf.set_string(dr[c.SupplierOrg_HouseNumber]);
+            city_v = tf.set_string(dr[c.SupplierOrg_City]);
+            m_ZIP_v = tf.set_string(dr[c.SupplierOrg_ZIP]);
+            state_v = tf.set_string(dr[c.SupplierOrg_State]);
+            country_v = tf.set_string(dr[c.SupplierOrg_Country]);
+            country_ISO_3166_a2_v = tf.set_string(dr[c.SupplierOrg_Country_ISO_3166_a2]);
+            country_ISO_3166_a3_v = tf.set_string(dr[c.SupplierOrg_Country_ISO_3166_a3]);
+            country_ISO_3166_num_v = tf.set_short(dr[c.SupplierOrg_Country_ISO_3166_num]);
+            phoneNumber_v = tf.set_string(dr[c.SupplierOrg_PhoneNumber]);
+            faxNumber_v = tf.set_string(dr[c.SupplierOrg_FaxNumber]);
+            email_v = tf.set_string(dr[c.SupplierOrg_Email]);
+            homepage_v = tf.set_string(dr[c.SupplierOrg_HomePage]);
+            logo_image_data_v = tf.set_byte_array(dr[c.SupplierOrgLogo_Image_Data]);
+            logo_image_description_v = tf.set_string(dr[c.SupplierOrgLogo_Image_Descrition]);
         }
 
-        public f_SupplierOrg_Data(DataRow dr)
+        public f_SupplierOrg_Data(DataRow dr, f_DocInvoice_ShopC_Item_Source.Col c)
         {
-            Set(dr);
+            Set(dr,c);
         }
+
+       
     }
 }

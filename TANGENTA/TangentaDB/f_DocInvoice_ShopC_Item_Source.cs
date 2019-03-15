@@ -27,7 +27,7 @@ namespace TangentaDB
             public string PurchasePriceWithoutVAT = "PurchasePriceWithoutVAT";
             public string PurchasePriceVATCanNotBeDeducted = "PurchasePriceVATCanNotBeDeducted";
             public string Currency_Name = "Currency_Name";
-            public string Currency_Symbold = "Currency_Symbold";
+            public string Currency_Symbol = "Currency_Symbold";
             public string Currency_Abbreviation = "Currency_Abbreviation";
             public string Currency_Code = "Currency_Code";
             public string Currency_DecimalPlaces = "Currency_DecimalPlaces";
@@ -90,6 +90,8 @@ namespace TangentaDB
             public string Stock_ID = "Stock_ID";
             public string Doc_ShopC_Item_ID = "Doc_ShopC_Item_ID";
             public string Doc_ShopC_Item_Source_ID = "Doc_ShopC_Item_Source_ID";
+            public string PurchasePrice_Item_ID = "PurchasePrice_Item_ID";
+            public string Item_ID = "Item_ID";
             public string PurchasePrice_ID = "PurchasePrice_ID";
             public string Reference_I = "Reference_ID";
 
@@ -182,13 +184,22 @@ namespace TangentaDB
 								  countryper.Country_ISO_3166_a2 as SupplierPer_Country_ISO_3166_a2,
 								  countryper.Country_ISO_3166_a3 as SupplierPer_Country_ISO_3166_a3,
 								  countryper.Country_ISO_3166_num as SupplierPer_Country_ISO_3166_num,
-									orgd.Organisation_ID as Supplier_Organisation_ID,
-									per.ID as Supplier_Person_ID,
-									st.ID as StockTake_ID,
-									discis.Stock_ID as Stock_ID,
-									discis.DocInvoice_ShopC_Item_ID as Doc_ShopC_Item_ID,
+
+									
+	                                discis.DocInvoice_ShopC_Item_ID as Doc_ShopC_Item_ID,
 									discis.ID as Doc_ShopC_Item_Source_ID,
-									pp.ID as PurchasePrice_ID,
+                                    discis.Stock_ID as Stock_ID,
+                                    s.PurchasePrice_Item_ID as PurchasePrice_Item_ID,
+                                    ppi.Item_ID as Item_ID,
+                                    ppi.PurchasePrice_ID as PurchasePrice_ID,
+                                    ppi.StockTake_ID as StockTake_ID,
+                                    orgd.Organisation_ID as Supplier_Organisation_ID,
+									per.ID as Supplier_Person_ID,
+                                    
+									
+									
+								
+
 									r.ID as Reference_ID 
 									
 								   from DocInvoice_ShopC_Item_Source discis
@@ -330,13 +341,22 @@ namespace TangentaDB
 								  countryper.Country_ISO_3166_a2 as SupplierPer_Country_ISO_3166_a2,
 								  countryper.Country_ISO_3166_a3 as SupplierPer_Country_ISO_3166_a3,
 								  countryper.Country_ISO_3166_num as SupplierPer_Country_ISO_3166_num,
-									orgd.Organisation_ID as Supplier_Organisation_ID,
-									per.ID as Supplier_Person_ID,
-									st.ID as StockTake_ID,
-									discis.Stock_ID as Stock_ID,
-									discis.DocInvoice_ShopC_Item_ID as Doc_ShopC_Item_ID,
+
+									
+	                                discis.DocInvoice_ShopC_Item_ID as Doc_ShopC_Item_ID,
 									discis.ID as Doc_ShopC_Item_Source_ID,
-									pp.ID as PurchasePrice_ID,
+                                    discis.Stock_ID as Stock_ID,
+                                    s.PurchasePrice_Item_ID as PurchasePrice_Item_ID,
+                                    ppi.Item_ID as Item_ID,
+                                    ppi.PurchasePrice_ID as PurchasePrice_ID,
+                                    ppi.StockTake_ID as StockTake_ID,
+                                    orgd.Organisation_ID as Supplier_Organisation_ID,
+									per.ID as Supplier_Person_ID,
+                                    
+									
+									
+								
+
 									r.ID as Reference_ID 
 									
 								   from DocInvoice_ShopC_Item_Source discis
@@ -394,19 +414,8 @@ namespace TangentaDB
                     {
                         xdsciS = new Doc_ShopC_Item_Source();
                     }
-                    xdsciS.Stock_ID = DBTypes.tf.set_ID(dt.Rows[0]["Stock_ID"]);
-                    xdsciS.dQuantity = DBTypes.tf._set_decimal(dt.Rows[0]["dQuantity"]);
-                    xdsciS.RetailPriceWithDiscount = DBTypes.tf._set_decimal(dt.Rows[0]["RetailPriceWithDiscount"]);
-                    xdsciS.TaxPrice = DBTypes.tf._set_decimal(dt.Rows[0]["TaxPrice"]);
-                    xdsciS.ExpiryDate_v = DBTypes.tf.set_DateTime(dt.Rows[0]["ExpiryDate"]);
-                    xdsciS.Item_UniqueName_v = DBTypes.tf.set_string(dt.Rows[0]["Item_UniqueName"]);
-                    xdsciS.StockTakeName_v = DBTypes.tf.set_string(dt.Rows[0]["StockTakeName"]);
-                    xdsciS.StockTakeDate_v = DBTypes.tf.set_DateTime(dt.Rows[0]["StockTake_Date"]);
-
-                    xdsciS.StockQuantity = DBTypes.tf._set_decimal(dt.Rows[0]["StockQuantity"]); ;
-
-                    xdsciS.Doc_ShopC_Item_ID = DBTypes.tf.set_ID(dt.Rows[0]["Doc_ShopC_Item_ID"]);
-                    xdsciS.Doc_ShopC_Item_Source_ID = DBTypes.tf.set_ID(dt.Rows[0]["Doc_ShopC_Item_Source_ID"]);
+                    f_DocInvoice_ShopC_Item_Source.Col c = new f_DocInvoice_ShopC_Item_Source.Col();
+                    xdsciS.Set(dt.Rows[0], c);
                     return true;
                 }
                 else

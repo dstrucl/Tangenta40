@@ -11,6 +11,7 @@ namespace TangentaDB
 {
     public class f_Stock_Data
     {
+        public f_PurchasePrice_Item_Data PurchasePrice_Item_Data = null;
         private ID stock_id = null;
         private ID purchaseprice_item_id = null;
 
@@ -136,6 +137,21 @@ namespace TangentaDB
             dquantity_v = DBTypes.tf.set_decimal(dr["StockQuantity"]);
             desctiption_v = DBTypes.tf.set_string(dr["StockDescription"]);
 
+        }
+
+        public void Set(DataRow dr, f_DocInvoice_ShopC_Item_Source.Col c)
+        {
+            PurchasePrice_Item_Data = new f_PurchasePrice_Item_Data(dr, c);
+            stock_id = DBTypes.tf.set_ID(dr[c.Stock_ID]);
+            purchaseprice_item_id = DBTypes.tf.set_ID(dr[c.PurchasePrice_Item_ID]);
+            expiryDate_v = DBTypes.tf.set_DateTime(dr[c.ExpiryDate]);
+            importTime_v = DBTypes.tf.set_DateTime(dr[c.Stock_ImportTime]);
+            dquantity_v = DBTypes.tf.set_decimal(dr[c.StockQuantity]);
+            desctiption_v = DBTypes.tf.set_string(dr[c.StockDescription]);
+        }
+        public f_Stock_Data(DataRow dr, f_DocInvoice_ShopC_Item_Source.Col c)
+        {
+            Set(dr, c);
         }
     }
 }

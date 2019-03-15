@@ -40,6 +40,126 @@ namespace TangentaDB
             public ID DocInvoice_ID = null;
             public ID DocInvoice_ShopC_Item_ID = null;
 	        public ID Atom_Price_Item_ID = null;
+            public List<Doc_ShopC_Item_Source> disciS_list = null;
+
+            public decimal dQuantityTakenFromStock
+            {
+                get
+                {
+                    decimal xdQuantityTakenFromStock = 0;
+                    if (disciS_list != null)
+                    {
+
+                        foreach (Doc_ShopC_Item_Source xdiscis in disciS_list)
+                        {
+                            if (xdiscis.Stock_Data != null)
+                            {
+                                if (ID.Validate(xdiscis.Stock_Data.Stock_ID))
+                                {
+                                    xdQuantityTakenFromStock += xdiscis.Stock_Data.dQuantity;
+                                }
+                            }
+                        }
+                    }
+                    return xdQuantityTakenFromStock;
+                }
+            }
+
+            public DateTime ExpiryDate
+            {
+                get
+                {
+                    DateTime expirydate = DateTime.MaxValue;
+                    if (disciS_list != null)
+                    {
+
+                        foreach (Doc_ShopC_Item_Source xdiscis in disciS_list)
+                        {
+                            if (xdiscis.Stock_Data != null)
+                            {
+                                if (xdiscis.Stock_Data.ExpiryDate< expirydate)
+                                {
+                                    expirydate = xdiscis.Stock_Data.ExpiryDate;
+                                }
+                            }
+                        }
+                    }
+                    return expirydate;
+                }
+            }
+
+            public DateTime StockTakeDate
+            {
+                get
+                {
+                    DateTime stockdate = DateTime.MaxValue;
+                    if (disciS_list != null)
+                    {
+
+                        if (disciS_list != null)
+                        {
+
+                            foreach (Doc_ShopC_Item_Source xdiscis in disciS_list)
+                            {
+                                if (xdiscis.Stock_Data != null)
+                                {
+                                    if (xdiscis.Stock_Data.PurchasePrice_Item_Data != null)
+                                    {
+                                        if (xdiscis.Stock_Data.PurchasePrice_Item_Data.StockTake_Data != null)
+                                        {
+                                            if (xdiscis.Stock_Data.PurchasePrice_Item_Data.StockTake_Data.StockTakeDate_v != null)
+                                            {
+                                                if (stockdate > xdiscis.Stock_Data.PurchasePrice_Item_Data.StockTake_Data.StockTakeDate_v.v)
+                                                {
+                                                    stockdate = xdiscis.Stock_Data.PurchasePrice_Item_Data.StockTake_Data.StockTakeDate_v.v;
+                                                }
+                                             
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    return stockdate;
+                }
+            }
+
+            public string StockTakeName
+            {
+                get
+                {
+                    string stocktakename = "";
+                    if (disciS_list != null)
+                    {
+
+                        foreach (Doc_ShopC_Item_Source xdiscis in disciS_list)
+                        {
+                            if (xdiscis.Stock_Data != null)
+                            {
+                                if (xdiscis.Stock_Data.PurchasePrice_Item_Data != null)
+                                {
+                                    if (xdiscis.Stock_Data.PurchasePrice_Item_Data.StockTake_Data != null)
+                                    {
+                                        if (xdiscis.Stock_Data.PurchasePrice_Item_Data.StockTake_Data.Name != null)
+                                        {
+                                            if (stocktakename.Length == 0)
+                                            {
+                                                stocktakename = '"' + xdiscis.Stock_Data.PurchasePrice_Item_Data.StockTake_Data.Name + '"';
+                                            }
+                                            else
+                                            {
+                                                stocktakename += ",\"" + xdiscis.Stock_Data.PurchasePrice_Item_Data.StockTake_Data.Name + '"';
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    return stocktakename;
+                }
+            }
         }
 
         public static bool Get(ID docInvoice_ShopC_Item_ID, ref fData data)
@@ -120,7 +240,32 @@ namespace TangentaDB
                     data.DocInvoice_ID = tf.set_ID(dt.Rows[0]["DocInvoice_ID"]);
                     data.DocInvoice_ShopC_Item_ID = tf.set_ID(dt.Rows[0]["DocInvoice_ShopC_Item_ID"]);
                     data.Atom_Price_Item_ID = tf.set_ID(dt.Rows[0]["Atom_Price_Item_ID"]);
-                    return true;
+                    DataTable dt_DocInvoice_ShopC_Item_Source = null;
+                    if (f_DocInvoice_ShopC_Item_Source.Get(data.DocInvoice_ShopC_Item_ID, ref dt_DocInvoice_ShopC_Item_Source))
+                    {
+                        if (dt_DocInvoice_ShopC_Item_Source.Rows.Count>0)
+                        {
+                            f_DocInvoice_ShopC_Item_Source.Col c = new f_DocInvoice_ShopC_Item_Source.Col();
+                            data.disciS_list = new List<Doc_ShopC_Item_Source>();
+                            foreach (DataRow dr in dt_DocInvoice_ShopC_Item_Source.Rows)
+                            {
+                                Doc_ShopC_Item_Source xdiscis = new Doc_ShopC_Item_Source(dr, c);
+                                data.disciS_list.Add(xdiscis);
+                            }
+                            return true;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:TangentaDB:f_DocInvoice_ShopC_Item:Get:sql=" + sql + "\r\nNo DocInvoice_ShopC_Item_Source data for ID = " + data.DocInvoice_ShopC_Item_ID.ToString());
+                            return false;
+                        }
+                        
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                   
                 }
                 else
                 {

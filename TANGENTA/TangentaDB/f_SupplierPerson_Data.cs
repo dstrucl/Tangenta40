@@ -385,60 +385,60 @@ namespace TangentaDB
         }
 
 
-        public void Set(DataRow dr)
+        public void Set(DataRow dr, f_DocInvoice_ShopC_Item_Source.Col c)
         {
-            firstName_v = tf.set_string(dr["SupplierPer_FirstName"]);
+            firstName_v = tf.set_string(dr[c.SupplierPer_FirstName]);
 
-            lastName_v = tf.set_string(dr["SupplierPer_LastName"]);
+            lastName_v = tf.set_string(dr[c.SupplierPer_LastName]);
 
-            gender_v = tf.set_bool(dr["SupplierPer_Gender"]);
+            gender_v = tf.set_bool(dr[c.SupplierPer_Gender]);
 
-            dateOfBirth_v = tf.set_DateTime(dr["SupplierPer_DateOfBirth"]);
+            dateOfBirth_v = tf.set_DateTime(dr[c.SupplierPer_DateOfBirth]);
 
-            tax_id_v = tf.set_string(dr["SupplierPer_Tax_ID"]);
+            tax_id_v = tf.set_string(dr[c.SupplierPer_Tax_ID]);
 
-            registration_id_v = tf.set_string(dr["SupplierPer_Registration_ID"]);
+            registration_id_v = tf.set_string(dr[c.SupplierPer_Registration_ID]);
 
-            cardNumber_v = tf.set_string(dr["SupplierPer_CardNumber"]);
+            cardNumber_v = tf.set_string(dr[c.SupplierPer_CardNumber]);
 
-            pin_v = tf.set_int(dr["SupplierPer_PIN"]);
+            pin_v = tf.set_int(dr[c.SupplierPer_PIN]);
 
-            description_v = tf.set_string(dr["SupplierPer_Description"]);
+            description_v = tf.set_string(dr[c.SupplierPer_Description]);
 
-            streetName_v = tf.set_string(dr["SupplierPer_StreetName"]);
+            streetName_v = tf.set_string(dr[c.SupplierPer_StreetName]);
 
-            houseNumber_v = tf.set_string(dr["SupplierPer_HouseNumber"]);
+            houseNumber_v = tf.set_string(dr[c.SupplierPer_HouseNumber]);
 
-            city_v = tf.set_string(dr["SupplierPer_City"]);
+            city_v = tf.set_string(dr[c.SupplierPer_City]);
 
-            m_ZIP_v = tf.set_string(dr["SupplierPer_ZIP"]);
-
-
-            state_v = tf.set_string(dr["SupplierPer_State"]);
-
-            country_v = tf.set_string(dr["SupplierPer_Country"]);
+            m_ZIP_v = tf.set_string(dr[c.SupplierPer_ZIP]);
 
 
-            country_ISO_3166_a2_v = tf.set_string(dr["SupplierPer_Country_ISO_3166_a2"]);
+            state_v = tf.set_string(dr[c.SupplierPer_State]);
 
-            country_ISO_3166_a3_v = tf.set_string(dr["SupplierPer_Country_ISO_3166_a3"]);
+            country_v = tf.set_string(dr[c.SupplierPer_Country]);
 
-            country_ISO_3166_num_v = tf.set_short(dr["Country_ISO_3166_num"]);
 
-            gsmNumber_v = tf.set_string(dr["SupplierPer_GsmNumber"]);
+            country_ISO_3166_a2_v = tf.set_string(dr[c.SupplierPer_Country_ISO_3166_a2]);
 
-            phoneNumber_v = tf.set_string(dr["SupplierPer_PhoneNumber"]);
+            country_ISO_3166_a3_v = tf.set_string(dr[c.SupplierPer_Country_ISO_3166_a3]);
 
-            email_v = tf.set_string(dr["SupplierPer_Email"]);
+            country_ISO_3166_num_v = tf.set_short(dr[c.SupplierPer_Country_ISO_3166_num]);
 
-            person_image_data_v = tf.set_byte_array(dr["SupplierPer_Image_Data"]);
+            gsmNumber_v = tf.set_string(dr[c.SupplierPer_GsmNumber]);
 
-            person_image_hash_v = tf.set_string(dr["SupplierPer_Image_Hash"]);
+            phoneNumber_v = tf.set_string(dr[c.SupplierPer_PhoneNumber]);
+
+            email_v = tf.set_string(dr[c.SupplierPer_Email]);
+
+            person_image_data_v = tf.set_byte_array(dr[c.SupplierPer_Image_Data]);
+
+            person_image_hash_v = tf.set_string(dr[c.SupplierPer_Image_Hash]);
         }
 
-        public f_SupplierPerson_Data(DataRow dr)
+        public f_SupplierPerson_Data(DataRow dr, f_DocInvoice_ShopC_Item_Source.Col c)
         {
-            Set(dr);
+            Set(dr,c);
         }
 
     }

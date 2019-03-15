@@ -42,15 +42,15 @@ namespace TangentaDB
                 }
             }
         }
-        public void Set(DataRow dr)
+        public void Set(DataRow dr, f_DocInvoice_ShopC_Item_Source.Col c)
         {
-            name_v = tf.set_string(dr["Taxation_Name"]);
-            rate_v = tf.set_decimal(dr["Taxation_Rate"]);
+            name_v = tf.set_string(dr[c.Taxation_Name]);
+            rate_v = tf.set_decimal(dr[c.Taxation_Rate]);
         }
 
-        public f_Taxation_Data(DataRow dr)
+        public f_Taxation_Data(DataRow dr, f_DocInvoice_ShopC_Item_Source.Col c)
         {
-            this.Set(dr);
+            this.Set(dr,c);
         }
     }
 }

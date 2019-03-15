@@ -47,7 +47,7 @@ namespace TangentaDB
         }
 
         private DateTime_v stocktake_date_v = null;
-        public DateTime_v StockTake_v
+        public DateTime_v StockTakeDate_v
         {
             get
             {
@@ -97,6 +97,8 @@ namespace TangentaDB
 
 
         private bool_v stockTakeDraft_v = null;
+
+
         public bool StockTakeDraft
         {
             get
@@ -113,21 +115,23 @@ namespace TangentaDB
         }
 
 
-        public void Set(DataRow dr)
+        public void Set(DataRow dr, f_DocInvoice_ShopC_Item_Source.Col c)
         {
-            SupplierOrg_Data = new f_SupplierOrg_Data(dr);
-            SupplierPerson_Data = new f_SupplierPerson_Data(dr);
-            name_v = tf.set_string(dr["StockTakeName"]);
-            stocktake_date_v = tf.set_DateTime(dr["StockTake_Date"]);
-            stockTakePriceTotal_v = tf.set_decimal(dr["StockTakePriceTotal"]);
-            stockTakePriceTotalWithVAT_v = tf.set_bool(dr["StockTakePriceTotalWithVAT"]);
-            description_v = tf.set_string(dr["StockTakeDescription"]);
-            stockTakeDraft_v = tf.set_bool(dr["StockTakeDraft"]);
+            SupplierOrg_Data = new f_SupplierOrg_Data(dr,c);
+            SupplierPerson_Data = new f_SupplierPerson_Data(dr,c);
+            name_v = tf.set_string(dr[c.StockTakeName]);
+            stocktake_date_v = tf.set_DateTime(dr[c.StockTake_Date]);
+            stockTakePriceTotal_v = tf.set_decimal(dr[c.StockTakePriceTotal]);
+            stockTakePriceTotalWithVAT_v = tf.set_bool(dr[c.StockTakePriceTotalWithVAT]);
+            description_v = tf.set_string(dr[c.StockTakeDescription]);
+            stockTakeDraft_v = tf.set_bool(dr[c.StockTakeDraft]);
         }
 
-        public f_StockTake_Data(DataRow dr)
+     
+
+        public f_StockTake_Data(DataRow dr, f_DocInvoice_ShopC_Item_Source.Col c) 
         {
-            Set(dr);
+            Set(dr, c);
         }
     }
 

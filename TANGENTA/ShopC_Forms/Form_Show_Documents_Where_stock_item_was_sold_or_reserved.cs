@@ -98,9 +98,9 @@ namespace ShopC_Forms
                         dr[dcol_DraftNumber.ColumnName] = DocInvoice_data.DraftNumber;
                         dr[dcol_FinancialYear.ColumnName] = DocInvoice_data.FinancialYear;
                         dr[dcol_NumberInFinancialYear.ColumnName] = DocInvoice_data.NumberInFinancialYear;
-                        dr[dcol_QuantityTakenFromStock.ColumnName] = DocInvoice_data.ShopC_Item_Data.QuantityTakenFromStock;
+                        dr[dcol_QuantityTakenFromStock.ColumnName] = DocInvoice_data.ShopC_Item_Data.dQuantityTakenFromStock;
                         dr[dcol_ExpiryDate.ColumnName] = DocInvoice_data.ShopC_Item_Data.ExpiryDate;
-                        dr[dcol_Item_UniqueName.ColumnName] = DocInvoice_data.ShopC_Item_Data.Item_UniqueName;
+                        dr[dcol_Item_UniqueName.ColumnName] = DocInvoice_data.ShopC_Item_Data.AtomItem_UniqueName;
                         dr[dcol_StockTakeName.ColumnName] = DocInvoice_data.ShopC_Item_Data.StockTakeName;
                         dr[dcol_StockTakeDate.ColumnName] = DocInvoice_data.ShopC_Item_Data.StockTakeDate;
                         dr[dcol_Addressee] = DocInvoice_data.Addressee;

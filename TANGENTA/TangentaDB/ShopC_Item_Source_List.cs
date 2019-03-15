@@ -21,7 +21,7 @@ namespace TangentaDB
                 {
 
                     //not draft
-                    if (xdsciS.Stock_ID != null)
+                    if (xdsciS.Stock_Data.Stock_ID != null)
                     {
                         d += xdsciS.dQuantity;
                     }
@@ -38,7 +38,7 @@ namespace TangentaDB
                 decimal d = 0;
                 foreach (Doc_ShopC_Item_Source xdsciS in dsciS_list)
                 {
-                    if (xdsciS.Stock_ID == null)
+                    if (xdsciS.Stock_Data.Stock_ID == null)
                     {
                         d += xdsciS.dQuantity;
                     }
@@ -168,11 +168,12 @@ namespace TangentaDB
             DataTable dt = null;
             if (f_DocInvoice_ShopC_Item_Source.Get(doc_ShopC_Item_ID,ref dt))
             {
+                f_DocInvoice_ShopC_Item_Source.Col c = new f_DocInvoice_ShopC_Item_Source.Col();
                 dsciS_list.Clear();
                 foreach (DataRow dr in dt.Rows)
                 {
                  
-                    Doc_ShopC_Item_Source xdsciS = new Doc_ShopC_Item_Source(dr);
+                    Doc_ShopC_Item_Source xdsciS = new Doc_ShopC_Item_Source(dr, c);
                    
                
                     dsciS_list.Add(xdsciS);
@@ -186,7 +187,7 @@ namespace TangentaDB
         {
            foreach (Doc_ShopC_Item_Source xdsciS in dsciS_list)
            {
-                if (ID.Validate(xdsciS.Stock_ID))
+                if (ID.Validate(xdsciS.Stock_Data.Stock_ID))
                 {
                     if (xdsciS.SendBackToStock(docTyp, xdsciS.dQuantity,xdata, transaction))
                     {
@@ -217,7 +218,7 @@ namespace TangentaDB
             {
                 if (dQuantity_To_Put_back_inStock > 0)
                 {
-                    if (ID.Validate(xdsciS.Stock_ID))
+                    if (ID.Validate(xdsciS.Stock_Data.Stock_ID))
                     {
                         if (dQuantity_To_Put_back_inStock > xdsciS.dQuantity)
                         {
@@ -226,7 +227,7 @@ namespace TangentaDB
                             {
                                 
                                 dQuantity_To_Put_back_inStock = dQuantity_To_Put_back_inStock - dQuantityToPutBack2Stock;
-                               Stock_Data xstd = xdata.Find_Stock_Data(xdsciS.Stock_ID);
+                               Stock_Data xstd = xdata.Find_Stock_Data(xdsciS.Stock_Data.Stock_ID);
                                 if (xstd!=null)
                                 {
                                     if (xstd.dQuantity_v==null)
@@ -251,7 +252,7 @@ namespace TangentaDB
                         {
                             if (xdsciS.SendBackToStock(docTyp, dQuantity_To_Put_back_inStock, null, transaction))
                             {
-                                Stock_Data xstd = xdata.Find_Stock_Data(xdsciS.Stock_ID);
+                                Stock_Data xstd = xdata.Find_Stock_Data(xdsciS.Stock_Data.Stock_ID);
                                 if (xstd != null)
                                 {
                                     if (xstd.dQuantity_v == null)
@@ -309,9 +310,9 @@ namespace TangentaDB
         {
             foreach (Doc_ShopC_Item_Source dsciSx in this.dsciS_list)
             {
-                if (ID.Validate(dsciSx.Stock_ID))
+                if (ID.Validate(dsciSx.Stock_Data.Stock_ID))
                 {
-                    if (dsciSx.Stock_ID.Equals(stdx.Stock_ID))
+                    if (dsciSx.Stock_Data.Stock_ID.Equals(stdx.Stock_ID))
                     {
                         return dsciSx;
                     }
@@ -324,7 +325,7 @@ namespace TangentaDB
         {
             foreach (Doc_ShopC_Item_Source dsciSx in this.dsciS_list)
             {
-                if (!ID.Validate(dsciSx.Stock_ID))
+                if (!ID.Validate(dsciSx.Stock_Data.Stock_ID))
                 {
                     return dsciSx;
                 }
@@ -337,7 +338,7 @@ namespace TangentaDB
             List< Doc_ShopC_Item_Source > dsciSxL = new List<Doc_ShopC_Item_Source>();
             foreach (Doc_ShopC_Item_Source dsciSx in this.dsciS_list)
             {
-                if (!ID.Validate(dsciSx.Stock_ID))
+                if (!ID.Validate(dsciSx.Stock_Data.Stock_ID))
                 {
                     dsciSxL.Add(dsciSx);
                 }
@@ -353,7 +354,7 @@ namespace TangentaDB
             List<Doc_ShopC_Item_Source> dsciSxL = new List<Doc_ShopC_Item_Source>();
             foreach (Doc_ShopC_Item_Source dsciSx in this.dsciS_list)
             {
-                if (ID.Validate(dsciSx.Stock_ID))
+                if (ID.Validate(dsciSx.Stock_Data.Stock_ID))
                 {
                     dsciSxL.Add(dsciSx);
                 }

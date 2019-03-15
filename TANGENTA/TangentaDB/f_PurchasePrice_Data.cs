@@ -110,20 +110,22 @@ namespace TangentaDB
         public f_Currency_Data Currency_Data = null;
         public f_Taxation_Data Taxation_Data = null;
 
-        public void Set(DataRow dr)
+
+        public void Set(DataRow dr, f_DocInvoice_ShopC_Item_Source.Col c)
         {
-            purchasePrice_ID = tf.set_ID(dr["PurchasePrice_ID"]);
-            Currency_Data = new f_Currency_Data(dr);
-            Taxation_Data = new f_Taxation_Data(dr);
-            purchasePricePerUnit_v = tf.set_decimal(dr["PurchasePricePerUnit"]);
-            discount_v = tf.set_decimal(dr["PurchasePrice_Discount"]);
-            priceWithoutVAT_v = tf.set_bool(dr["PurchasePriceWithoutVAT"]);
-            m_VATCanNotBeDeducted_v = tf.set_bool(dr["PurchasePriceVATCanNotBeDeducted"]);
+            purchasePrice_ID = tf.set_ID(dr[c.PurchasePrice_ID]);
+            Currency_Data = new f_Currency_Data(dr,c);
+            Taxation_Data = new f_Taxation_Data(dr,c);
+            purchasePricePerUnit_v = tf.set_decimal(dr[c.PurchasePricePerUnit]);
+            discount_v = tf.set_decimal(dr[c.PurchasePrice_Discount]);
+            priceWithoutVAT_v = tf.set_bool(dr[c.PurchasePriceWithoutVAT]);
+            m_VATCanNotBeDeducted_v = tf.set_bool(dr[c.PurchasePriceVATCanNotBeDeducted]);
         }
 
-        public f_PurchasePrice_Data(DataRow dr)
+       
+        public f_PurchasePrice_Data(DataRow dr, f_DocInvoice_ShopC_Item_Source.Col c) 
         {
-            Set(dr);
+            Set(dr,c);
         }
     }
 }

@@ -16,18 +16,20 @@ namespace TangentaDB
         private int_v currencyCode_v = null;
         private int_v decimalPlaces_v = null;
 
-        public void Set(DataRow dr)
+
+        public void Set(DataRow dr, f_DocInvoice_ShopC_Item_Source.Col c)
         {
-            abbreviation_v = tf.set_string(dr["Currency_Abbreviation"]);
-            name_v = tf.set_string(dr["Currency_Name"]);
-            symbol_v = tf.set_string(dr["Currency_Symbol"]);
-            currencyCode_v = tf.set_int(dr["Currency_CurrencyCode"]);
-            decimalPlaces_v = tf.set_int(dr["Currency_DecimalPlaces"]);
+            abbreviation_v = tf.set_string(dr[c.Currency_Abbreviation]);
+            name_v = tf.set_string(dr[c.Currency_Name]);
+            symbol_v = tf.set_string(dr[c.Currency_Symbol]);
+            currencyCode_v = tf.set_int(dr[c.Currency_Code]);
+            decimalPlaces_v = tf.set_int(dr[c.Currency_DecimalPlaces]);
         }
 
-        public f_Currency_Data(DataRow dr)
+       
+        public f_Currency_Data(DataRow dr, f_DocInvoice_ShopC_Item_Source.Col c)
         {
-            this.Set(dr);
+            this.Set(dr,c);
         }
     }
 
